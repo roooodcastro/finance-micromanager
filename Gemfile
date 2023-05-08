@@ -16,6 +16,11 @@ gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 
+gem 'money-rails'
+gem 'pry'
+gem 'roo'
+gem 'roo-xls'
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -30,6 +35,9 @@ end
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'dotenv-rails'
+  gem 'factory_bot_rails'
+  gem 'pry-rails'
   gem 'rspec'
   gem 'rspec-rails'
 end

@@ -14,7 +14,6 @@ require 'action_mailer/railtie'
 # require "action_text/engine"
 require 'action_view/railtie'
 require 'action_cable/engine'
-# require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -29,9 +28,13 @@ module FinanceMicromanager
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+
+    config.time_zone                      = 'UTC'
+    config.active_record.default_timezone = :utc
+
+    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    config.i18n.default_locale    = :en
+    config.i18n.available_locales = %i[en pt-BR]
 
     # Don't generate system test files.
     config.generators.system_tests = nil

@@ -91,3 +91,9 @@ Style/HashSyntax:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'bin/*'
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleExpectations:
+  Enabled: false

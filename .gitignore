@@ -22,6 +22,7 @@
 
 /public/assets
 node_modules
+spec/examples.txt
 
 # Devops
 .env.*.local
