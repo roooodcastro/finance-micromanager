@@ -10,6 +10,7 @@ AllCops:
     - 'docs/**/*'
     - 'config/puma.rb'
     - 'tmp/**/*'
+    - 'vendor/**/*'
   NewCops: enable
   TargetRubyVersion: 3.2
 
