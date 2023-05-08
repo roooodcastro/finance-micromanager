@@ -1,0 +1,93 @@
+require:
+  - 'rubocop-rails'
+  - 'rubocop-rspec'
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'docs/**/*'
+    - 'config/puma.rb'
+    - 'tmp/**/*'
+  NewCops: enable
+  TargetRubyVersion: 3.2
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/ExtraSpacing:
+  AllowForAlignment: true
+  ForceEqualSignAlignment: true
+
+Layout/LineLength:
+  Max: 120
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - 'config/**/*'
+    - '**/*.rake'
+    - '**/routes.rb'
+    - 'spec/**/*.rb'
+    - 'integrations/**/Rakefile'
+    - 'integrations/**/*.rake'
+    - 'integrations/**/spec/**/*.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'config/**/*'
+    - 'app/queries/**/*.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'bin/bundle'
+  AllowedMethods:
+    - as_json
+
+Rails:
+  Enabled: true
+
+Rails/HttpPositionalArguments:
+  Include:
+    - 'spec/**/*'
+
+Rails/Output:
+  Exclude:
+    - 'config/**/*'
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - '**/*_spec.rb'
+
+RSpec/ExpectChange:
+  EnforcedStyle: block
+
+Style/Documentation:
+  Enabled: false
+
+Style/RedundantConstantBase:
+  Enabled: false
+
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: consistent
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'bin/*'
