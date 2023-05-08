@@ -38,10 +38,10 @@ jobs:
           bundler-cache: true
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: rails db:schema:load
+        run: bundle exec rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
-        run: rspec
+        run: bundle exec rspec
 
   lint:
     runs-on: ubuntu-latest
@@ -54,6 +54,6 @@ jobs:
           bundler-cache: true
       # Add or replace any other lints here
       - name: Security audit application code
-        run: brakeman -q -w2
+        run: bundle exec brakeman -q -w2
       - name: Lint Ruby files
-        run: rubocop --parallel
+        run: bundle exec rubocop --parallel
