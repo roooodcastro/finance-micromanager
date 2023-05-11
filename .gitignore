@@ -20,7 +20,9 @@
 # Ignore uploaded files in development.
 /storage/*
 
-/public/assets
+public/assets
+public/vite
+public/vite-dev
 app/assets/builds
 node_modules
 spec/examples.txt

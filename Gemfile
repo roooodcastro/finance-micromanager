@@ -12,12 +12,10 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 gem 'redis', '~> 4.0'
 
 # Frontend
-gem 'cssbundling-rails'
 gem 'importmap-rails'
 gem 'inertia_rails'
 gem 'jbuilder'
 gem 'sprockets-rails'
-gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'vite_rails'
 
