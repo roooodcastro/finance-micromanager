@@ -1,0 +1,24 @@
+en:
+  accounts:
+    create:
+      success: 'Account was successfully created.'
+    update:
+      success: 'Account was successfully updated.'
+    destroy:
+      success: 'Account was successfully destroyed.'
+
+  categories:
+    create:
+      success: 'Category was successfully created.'
+    update:
+      success: 'Category was successfully updated.'
+    destroy:
+      success: 'Category was successfully destroyed.'
+
+  transactions:
+    create:
+      success: 'Transaction was successfully created.'
+    update:
+      success: 'Transaction was successfully updated.'
+    destroy:
+      success: 'Transaction was successfully destroyed.'

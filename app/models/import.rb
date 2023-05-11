@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Import < ApplicationRecord
-  validates :source, presence: true
+  belongs_to :account
 
   has_many :transactions, dependent: :restrict_with_exception
 
   enum source: { ptsb: 'ptsb', n26: 'n26' }
+
+  validates :source, presence: true
 end

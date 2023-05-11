@@ -29,6 +29,11 @@ module Importer
       Roo::Excel.new(Rails.root.join(file_name)).entries
     end
 
+    # The date in a PTSB transaction sometimes refers to the date it was processed, not the original transaction date.
+    # Because of this, we try to extract the true date from the transaction description, which is not always possible
+    # if the description is too long. If we can extract it from the description, we must also infer the year. We try to
+    # infer from the current or last year to solve the edge case when the transaction is processed around the beginning
+    # of the year, but the transaction is for a date from last year, for example Dec 29th / Jan 2nd.
     def extract_date(row)
       return Date.parse(row[0]) unless row[2].match(TRANSACTION_DATE_REGEX)
 

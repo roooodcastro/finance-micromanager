@@ -13,7 +13,7 @@ module Importer
       return if parsed_transactions.empty?
 
       ActiveRecord::Base.transaction do
-        import = Import.create!(source:)
+        import = Import.create!(source: source, account: Current.account)
         parsed_transactions.each { |transaction| transaction.update!(import:) }
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback
@@ -27,10 +27,15 @@ module Importer
     private
 
     def build_transaction(raw_import_name, name, transaction_date, amount)
-      return if Transaction.exists?(raw_import_name: raw_import_name, transaction_date: transaction_date,
-                                    amount_cents: amount.to_f * 100)
+      return if Transaction.exists?(
+        raw_import_name: raw_import_name,
+        transaction_date: transaction_date,
+        amount_cents: amount.to_f * 100,
+        account: Current.account
+      )
 
-      Transaction.new(name:, amount:, transaction_date:, raw_import_name:)
+      Transaction.new(name: name, amount: amount, transaction_date: transaction_date, raw_import_name: raw_import_name,
+                      account: Current.account)
     end
 
     def source

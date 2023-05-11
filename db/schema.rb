@@ -10,14 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_08_132657) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_11_091658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "status", limit: 15, default: "active", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.string "color", limit: 6
+    t.uuid "account_id", null: false
+    t.datetime "disabled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_categories_on_account_id"
+  end
 
   create_table "imports", force: :cascade do |t|
     t.string "source", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "account_id", null: false
+    t.index ["account_id"], name: "index_imports_on_account_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -29,11 +47,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_132657) do
     t.bigint "import_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "account_id", null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["import_id"], name: "index_transactions_on_import_id"
     t.index ["name"], name: "index_transactions_on_name"
     t.index ["transaction_date"], name: "index_transactions_on_transaction_date"
   end
 
+  add_foreign_key "categories", "accounts"
+  add_foreign_key "imports", "accounts"
+  add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "imports"
 end
