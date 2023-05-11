@@ -82,6 +82,8 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
+    cssbundling-rails (1.1.2)
+      railties (>= 6.0.0)
     date (3.3.3)
     debug (1.7.2)
       irb (>= 1.5.0)
@@ -93,6 +95,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    dry-cli (1.0.0)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -107,6 +110,8 @@ GEM
     importmap-rails (1.1.6)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
+    inertia_rails (3.0.0)
+      rails (>= 5)
     iniparse (1.5.0)
     io-console (0.6.0)
     irb (1.6.4)
@@ -168,6 +173,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.7)
+    rack-proxy (0.7.6)
+      rack
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.4.3)
@@ -295,6 +302,13 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
+    vite_rails (3.0.14)
+      railties (>= 5.1, < 8)
+      vite_ruby (~> 3.0, >= 3.2.2)
+    vite_ruby (3.3.2)
+      dry-cli (>= 0.7, < 2)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -314,10 +328,12 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   brakeman
+  cssbundling-rails
   debug
   dotenv-rails
   factory_bot_rails
   importmap-rails
+  inertia_rails
   jbuilder
   money-rails
   overcommit
@@ -341,6 +357,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  vite_rails
   web-console
 
 RUBY VERSION

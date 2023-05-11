@@ -21,6 +21,7 @@
 /storage/*
 
 /public/assets
+app/assets/builds
 node_modules
 spec/examples.txt
 

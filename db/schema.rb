@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_091658) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_11_100049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,8 +48,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_091658) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "account_id", null: false
+    t.uuid "category_id", null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
+    t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["import_id"], name: "index_transactions_on_import_id"
     t.index ["name"], name: "index_transactions_on_name"
     t.index ["transaction_date"], name: "index_transactions_on_transaction_date"
@@ -58,5 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_091658) do
   add_foreign_key "categories", "accounts"
   add_foreign_key "imports", "accounts"
   add_foreign_key "transactions", "accounts"
+  add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "imports"
 end
