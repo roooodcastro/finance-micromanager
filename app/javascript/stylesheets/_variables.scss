@@ -49,7 +49,7 @@ $indigo-700: #35348d;
 $indigo-800: #23235e;
 $indigo-900: #12112f;
 
-$primary:       $mintgreen;
+$primary:       $mintgreen-600;
 $secondary:     $indigo;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -117,6 +117,12 @@ $navbar-dark-hover-color:           $white !default;
 $navbar-light-color:                rgba($black, .3) !default;
 $navbar-light-hover-color:          $gray-900 !default;
 $navbar-light-active-color:         $gray-900 !default;
+
+$navbar-dark-color:                 rgba($white, .9) !default;
+$navbar-dark-hover-color:           rgba($white, 1) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .6) !default;
+$navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 
 // Pagination
 

@@ -1,19 +1,27 @@
 # frozen_string_literal: true
 
-class TransactionsController < ApplicationController
+class TransactionsController < AbstractVueController
   before_action :set_transaction, only: %i[show edit update destroy]
 
   def index
     @transactions = Transaction.all
+
+    render inertia: 'transactions/Index'
   end
 
-  def show; end
+  def show
+    render inertia: 'transactions/Show'
+  end
 
   def new
     @transaction = Transaction.new
+
+    render inertia: 'transactions/New'
   end
 
-  def edit; end
+  def edit
+    render inertia: 'transactions/Edit'
+  end
 
   def create
     @transaction = Transaction.new(transaction_params)

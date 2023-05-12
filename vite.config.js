@@ -10,7 +10,7 @@ export default defineConfig({
     resolve: {
       alias: [
         { find: '~bootstrap', replacement: fileURLToPath(new URL('./node_modules/bootstrap', import.meta.url)) },
-        { find: '@', replacement: fileURLToPath(new URL('./app/javascript', import.meta.url)) },
+        { find: '~', replacement: fileURLToPath(new URL('./app/javascript', import.meta.url)) },
       ]
     },
     rollupOptions: {

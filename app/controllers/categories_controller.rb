@@ -1,20 +1,27 @@
 # frozen_string_literal: true
 
-class CategoriesController < ApplicationController
+class CategoriesController < AbstractVueController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
     @categories = Category.all
+
     render inertia: 'categories/Index'
   end
 
-  def show; end
+  def show
+    render inertia: 'categories/Show'
+  end
 
   def new
     @category = Category.new
+
+    render inertia: 'categories/New'
   end
 
-  def edit; end
+  def edit
+    render inertia: 'categories/Edit'
+  end
 
   def create
     @category = Category.new(category_params)

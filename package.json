@@ -1,8 +1,9 @@
 {
   "name": "finance_micromanager",
-  "type": "module",
   "private": "true",
   "dependencies": {
+    "@js-from-routes/client": "^1.0.4",
+    "@js-from-routes/inertia": "^1.10.2",
     "@popperjs/core": "^2.11.7",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",

@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid px-0">
-    <Navbar />
+    <Navigation />
+    <VerticalMenu />
 
     <div class="container-xxl px-3">
 
@@ -10,11 +11,13 @@
 </template>
 
 <script>
-import Navbar from '@/components/layout/Navbar.vue';
+import Navigation from '~/components/layout/Navigation.vue';
+import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 
 export default {
   components: {
-    Navbar,
+    Navigation,
+    VerticalMenu,
   },
 };
 </script>

@@ -34,8 +34,22 @@ module Importer
         account: Current.account
       )
 
-      Transaction.new(name: name, amount: amount, transaction_date: transaction_date, raw_import_name: raw_import_name,
-                      account: Current.account)
+      Transaction.new(
+        name: name,
+        amount: amount,
+        transaction_date: transaction_date,
+        raw_import_name: raw_import_name,
+        account: Current.account,
+        category: transaction_category(raw_import_name)
+      )
+    end
+
+    def transaction_category(_raw_import_name)
+      temporary_category
+    end
+
+    def temporary_category
+      @temporary_category ||= Category.temporary_category_for(Current.account)
     end
 
     def source

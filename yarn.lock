@@ -157,6 +157,23 @@
   resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.15.tgz#d7c6e6755c78567a951e04ab52ef0fd26de59f32"
   integrity sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==
 
+"@js-from-routes/client@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@js-from-routes/client/-/client-1.0.4.tgz#521d7b62b3954e4819258f9d9b5ce16557ccd951"
+  integrity sha512-XZks4jIEdVYfcaau1AxIXcSw8j196+JsWeX6h1ip+v7Hn2pYJ8wHr+wLG1hq8S4cSiIN6rS+n/pzTbw2J6y08g==
+  dependencies:
+    "@js-from-routes/core" "^1.0.0"
+
+"@js-from-routes/core@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@js-from-routes/core/-/core-1.0.2.tgz#682c6b18c479b6a80cdc94a0d7e9863d8bbb26a3"
+  integrity sha512-7VEYGz4VfkgFb7MDtGEIaGYvn/9oleBaRqtSREFuV9hPooeyrI+ghsP8U4WJlCHFndtTbatUTzXRljt1zJH4Gw==
+
+"@js-from-routes/inertia@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@js-from-routes/inertia/-/inertia-1.10.2.tgz#d1098717272c3a7bff0d20d402c0ce0b6cb2f16e"
+  integrity sha512-4Lv016v6ir7Ayp8ZsWzlMZfOEHaajd53ZwiueUzrtzkkZ5+HmUW9AmtEK29jom4qmBLVksVyreQL6BjxdEx6/w==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -310,16 +327,7 @@ axios@^0.21.1:
   dependencies:
     follow-redirects "^1.14.0"
 
-axios@^1.2.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/axios/-/axios-1.4.0.tgz"
-  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
-  dependencies:
-    follow-redirects "^1.15.0"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
-axios@^1.4.0:
+axios@^1.2.0, axios@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
   integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==

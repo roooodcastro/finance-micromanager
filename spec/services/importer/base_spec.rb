@@ -3,6 +3,9 @@
 RSpec.describe Importer::Base, type: :service do
   let(:importer) { described_class.new(file_name) }
   let(:file_name) { 'statement.csv' }
+  let(:account) { create(:account) }
+
+  before { Current.account = account }
 
   describe '#import!' do
     subject(:import) { importer.import! }
@@ -72,7 +75,8 @@ RSpec.describe Importer::Base, type: :service do
       end
 
       before do
-        create(:transaction, name: 'Test 1', raw_import_name: 'Test 1 raw', transaction_date: 1.day.ago, amount: -4.99)
+        create(:transaction, name: 'Test 1', raw_import_name: 'Test 1 raw', transaction_date: 1.day.ago, amount: -4.99,
+                             account: account)
       end
 
       it 'does not insert the same transaction again' do

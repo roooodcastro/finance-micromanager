@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :categories
-  resources :transactions
-  resources :accounts
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :categories, export: true
+  resources :transactions, export: true
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :accounts
 end

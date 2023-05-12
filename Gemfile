@@ -40,6 +40,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
+  gem 'js_from_routes'
   gem 'pry-rails'
   gem 'rspec'
   gem 'rspec-rails'
