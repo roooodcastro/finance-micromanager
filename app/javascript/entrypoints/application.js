@@ -3,18 +3,25 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
 import ApplicationLayout from '../components/layout/ApplicationLayout.vue';
+import LoginLayout from '../components/layout/LoginLayout.vue';
+import Csrf from '~/utils/Csrf.js';
 
 const pages = import.meta.glob('../views/**/*.vue', { eager: true });
 
+const layouts = {
+  LoginLayout,
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  const csrfToken = document.querySelector('meta[name=csrf-token]').content;
-  axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
+  Csrf.refreshToken();
+  axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
+
 
   createInertiaApp({
     id: 'app',
     resolve: async name => {
       const page = pages[`../views/${name}.vue`].default;
-      page.layout = page.layout || ApplicationLayout;
+      page.layout = layouts[page.layout] || page.layout || ApplicationLayout;
 
       return page;
     },

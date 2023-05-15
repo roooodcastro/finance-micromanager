@@ -19,6 +19,7 @@ gem 'sprockets-rails'
 gem 'turbo-rails'
 gem 'vite_rails'
 
+gem 'devise'
 gem 'money-rails'
 gem 'pry'
 gem 'roo'

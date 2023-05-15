@@ -1,11 +1,15 @@
 <template>
   <div>
-    Categories
+    <Header title="Categories" />
   </div>
 </template>
 
 <script>
-export default {
+import Header from '~/components/layout/Header.vue';
 
+export default {
+  components: {
+    Header,
+  },
 };
 </script>

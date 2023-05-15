@@ -67,6 +67,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     ast (2.4.2)
+    bcrypt (3.1.18)
     better_errors (2.10.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -87,6 +88,12 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     debug_inspector (1.1.0)
+    devise (4.9.2)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.5.0)
     docile (1.4.0)
     dotenv (2.8.1)
@@ -156,6 +163,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
     overcommit (0.60.0)
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
@@ -209,6 +217,9 @@ GEM
     regexp_parser (2.8.0)
     reline (0.3.3)
       io-console (~> 0.5)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     roo (2.10.0)
       nokogiri (~> 1)
@@ -307,6 +318,8 @@ GEM
       dry-cli (>= 0.7, < 2)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -327,6 +340,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  devise
   dotenv-rails
   factory_bot_rails
   importmap-rails

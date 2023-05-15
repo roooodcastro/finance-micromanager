@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CategoriesController < AbstractVueController
+class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index

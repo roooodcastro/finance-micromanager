@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountsController < ApplicationController
+class AccountsController < AbstractAuthenticatedController
   before_action :set_account, only: %i[show edit update destroy]
 
   def index

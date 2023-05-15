@@ -3,8 +3,7 @@
     <Navigation />
     <VerticalMenu />
 
-    <div class="container-xxl px-3">
-
+    <div class="container-xxl px-3 pt-4">
       <slot />
     </div>
   </div>
