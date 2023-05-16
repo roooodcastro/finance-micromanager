@@ -2,6 +2,6 @@
 
 class DashboardsController < AbstractAuthenticatedController
   def show
-    render inertia: 'dashboard/Show'
+    render inertia: 'dashboards/Show'
   end
 end

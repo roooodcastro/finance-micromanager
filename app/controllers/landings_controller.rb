@@ -2,6 +2,6 @@
 
 class LandingsController < ApplicationController
   def show
-    render inertia: 'landing/Show'
+    render inertia: 'landings/Show'
   end
 end

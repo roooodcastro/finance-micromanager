@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Header page-title="Sign Up" />
+    <Header page-title="Resend confirmation instructions" />
 
     <div class="card shadow">
       <div class="card-body py-4">
         <h4 class="card-title">
-          Sign Up
+          Resend confirmation instructions
         </h4>
 
         <RailsForm
-          :action="signUpPath"
+          :action="confirmationsPath"
           method="POST"
           resource="user"
         >
@@ -20,14 +20,7 @@
               label="Email Address"
               type="email"
               autocomplete="email"
-            />
-
-            <FormInputFloatingLabel
-              :form-helper="formHelper"
-              field-name="password"
-              label="Choose a Password"
-              type="password"
-              autocomplete="new-password"
+              :value="prePopulatedEmail"
             />
 
             <div class="d-grid">
@@ -35,7 +28,7 @@
                 type="submit"
                 class="btn btn-primary"
               >
-                Submit
+                Resend confirmation instructions
               </button>
             </div>
           </template>
@@ -43,14 +36,14 @@
       </div>
 
       <div class="card-footer py-4">
-        <DeviseLinks page="registrations" />
+        <DeviseLinks page="confirmations" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { usersRegistrations } from '~/api';
+import { usersConfirmations } from '~/api';
 
 import Header from '~/components/layout/Header.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -66,11 +59,18 @@ export default {
     RailsForm,
   },
 
+  props: {
+    prePopulatedEmail: {
+      type: String,
+      default: null,
+    },
+  },
+
   setup() {
-    const registrationsPath = usersRegistrations.create.path();
+    const confirmationsPath = usersConfirmations.create.path();
 
     return {
-      registrationsPath,
+      confirmationsPath,
     };
   },
 };

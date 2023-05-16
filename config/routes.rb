@@ -9,6 +9,7 @@ Rails.application.routes.draw do
                path: 'auth',
                controllers: {
                  confirmations: 'users/confirmations',
+                 passwords: 'users/passwords',
                  registrations: 'users/registrations',
                  sessions: 'users/sessions',
                  unlocks: 'users/unlocks'
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
                }
 
     devise_scope :user do
+      root 'dashboards#show', as: :user_root
+
       get 'sign_up', to: 'users/registrations#new'
       get 'login', to: 'users/sessions#new'
     end
@@ -31,9 +34,8 @@ Rails.application.routes.draw do
     resource :dashboard, only: :show
     resource :landing, only: :show
 
+    resources :accounts
     resources :categories
     resources :transactions
   end
-
-  resources :accounts
 end

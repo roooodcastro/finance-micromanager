@@ -43,36 +43,24 @@
       </div>
 
       <div class="card-footer py-4">
-        <div class="d-grid gap-3">
-          <a
-            :href="newRegistrationPath"
-            class="btn btn-light btn-sm"
-          >
-            Sign Up
-          </a>
-
-          <a
-            href="#"
-            class="btn btn-light btn-sm"
-          >
-            Forgot your password?
-          </a>
-        </div>
+        <DeviseLinks page="sessions" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { usersSessions, usersRegistrations } from '~/api';
+import { usersSessions } from '~/api';
 
 import Header from '~/components/layout/Header.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
+import DeviseLinks from '~/components/devise/DeviseLinks.vue';
 
 export default {
   layout: 'LoginLayout',
   components: {
+    DeviseLinks,
     FormInputFloatingLabel,
     Header,
     RailsForm,
@@ -80,11 +68,9 @@ export default {
 
   setup() {
     const sessionsPath = usersSessions.create.path();
-    const newRegistrationPath = usersRegistrations.new.path();
 
     return {
       sessionsPath,
-      newRegistrationPath,
     };
   },
 };

@@ -5,6 +5,7 @@ import axios from 'axios';
 import ApplicationLayout from '../components/layout/ApplicationLayout.vue';
 import LoginLayout from '../components/layout/LoginLayout.vue';
 import Csrf from '~/utils/Csrf.js';
+import Rails from '@rails/ujs';
 
 const pages = import.meta.glob('../views/**/*.vue', { eager: true });
 
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Csrf.refreshToken();
   axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
 
+  Rails.start();
 
   createInertiaApp({
     id: 'app',

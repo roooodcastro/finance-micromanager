@@ -4,16 +4,11 @@ module Users
   class ConfirmationsController < Devise::ConfirmationsController
     def respond_with(*); end
 
-    def show
-      super
-
-      render inertia: 'users/confirmations/Show'
-    end
-
     def new
       super
 
-      render inertia: 'users/confirmations/New'
+      pre_populated_email = resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
+      render inertia: 'users/confirmations/New', props: { pre_populated_email: }
     end
   end
 end

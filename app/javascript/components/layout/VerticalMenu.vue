@@ -26,6 +26,7 @@
           :href="menuItem.path"
           class="list-group-item list-group-item-action"
           :class="{ active: menuItem.active }"
+          :data-method="menuItem.method || 'GET'"
         >
           {{ menuItem.label }}
         </a>
@@ -35,13 +36,16 @@
 </template>
 
 <script>
-import { transactions, categories } from '~/api';
+import { accounts, categories, transactions, usersSessions } from '~/api';
 
 export default {
   setup() {
     const menuItems = [
       { label: 'Dashboard', path: transactions.list.path() },
       { label: 'Categories', path: categories.list.path() },
+      { label: 'Accounts', path: accounts.list.path() },
+      { label: 'Sign In', path: usersSessions.new.path() },
+      { label: 'Sign Out', path: usersSessions.destroy.path(), method: 'DELETE' },
     ];
 
     menuItems.forEach((menuItem) => {

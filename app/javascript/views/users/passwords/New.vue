@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Header page-title="Sign Up" />
+    <Header page-title="Forgot your password?" />
 
     <div class="card shadow">
       <div class="card-body py-4">
         <h4 class="card-title">
-          Sign Up
+          Forgot your password?
         </h4>
 
         <RailsForm
-          :action="signUpPath"
+          :action="passwordsPath"
           method="POST"
           resource="user"
         >
@@ -22,20 +22,12 @@
               autocomplete="email"
             />
 
-            <FormInputFloatingLabel
-              :form-helper="formHelper"
-              field-name="password"
-              label="Choose a Password"
-              type="password"
-              autocomplete="new-password"
-            />
-
             <div class="d-grid">
               <button
                 type="submit"
                 class="btn btn-primary"
               >
-                Submit
+                Send me reset password instructions
               </button>
             </div>
           </template>
@@ -43,14 +35,14 @@
       </div>
 
       <div class="card-footer py-4">
-        <DeviseLinks page="registrations" />
+        <DeviseLinks page="passwords" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { usersRegistrations } from '~/api';
+import { usersPasswords } from '~/api';
 
 import Header from '~/components/layout/Header.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -67,10 +59,10 @@ export default {
   },
 
   setup() {
-    const registrationsPath = usersRegistrations.create.path();
+    const passwordsPath = usersPasswords.create.path();
 
     return {
-      registrationsPath,
+      passwordsPath,
     };
   },
 };
