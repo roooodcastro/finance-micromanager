@@ -5,12 +5,19 @@
       :id="formHelper.fieldId(fieldName)"
       :type="type"
       class="form-control"
+      :class="{ 'is-invalid': formHelper.hasError(fieldName) }"
       :name="formHelper.fieldName(fieldName)"
       :placeholder="label"
     >
     <label :for="formHelper.fieldId(fieldName)">
       {{ label }}
     </label>
+    <div
+      v-if="formHelper.hasError(fieldName)"
+      class="invalid-feedback"
+    >
+      {{ formHelper.errorFor(fieldName) }}
+    </div>
   </div>
 </template>
 

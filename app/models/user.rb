@@ -7,4 +7,7 @@ class User < ApplicationRecord
   devise :lockable, maximum_attempts: 3, lock_strategy: :failed_attempts, unlock_strategy: :email
   devise :recoverable, reset_password_within: 1.hour
   devise :rememberable, extend_remember_period: true
+
+  validates :email, :password, presence: true
+  validates :email, uniqueness: true
 end

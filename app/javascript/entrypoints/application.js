@@ -7,6 +7,9 @@ import LoginLayout from '../components/layout/LoginLayout.vue';
 import Csrf from '~/utils/Csrf.js';
 import Rails from '@rails/ujs';
 
+/* eslint-disable-next-line no-unused-vars */
+import * as bootstrap from 'bootstrap';
+
 const pages = import.meta.glob('../views/**/*.vue', { eager: true });
 
 const layouts = {

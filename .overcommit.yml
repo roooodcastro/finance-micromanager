@@ -30,6 +30,14 @@ PreCommit:
     on_warn: fail
     command: ['rubocop']
 
+  EsLint:
+    enabled: true
+    required_executable: 'yarn'
+    command: ['yarn', 'eslint']
+    include:
+      - '**/*.js'
+      - '**/*.vue'
+
   TrailingWhitespace:
     enabled: true
     exclude:

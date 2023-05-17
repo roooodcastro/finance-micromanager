@@ -39,6 +39,10 @@ export default {
       type: String,
       default: null,
     },
+    errors: {
+      type: Object,
+      default: () => {},
+    },
   },
   setup(props) {
     const csrfToken = Csrf.getToken();
@@ -56,6 +60,8 @@ export default {
           ? columnWithArray
           : `${props.resource}[${columnWithArray}]`;
       }),
+      hasError: ((column) => !!props.errors?.[column]),
+      errorFor: ((column) => props.errors?.[column]),
     }
 
     return {

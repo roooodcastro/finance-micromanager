@@ -9,13 +9,15 @@
         </h4>
 
         <RailsForm
-          :action="signUpPath"
+          :action="registrationsPath"
+          :errors="errors"
           method="POST"
           resource="user"
         >
           <template v-slot:default="{ formHelper }">
             <FormInputFloatingLabel
               :form-helper="formHelper"
+              :value="user.email"
               field-name="email"
               label="Email Address"
               type="email"
@@ -66,6 +68,17 @@ export default {
   },
 
   layout: 'LoginLayout',
+
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+    errors: {
+      type: Object,
+      default: () => {},
+    },
+  },
 
   setup() {
     const registrationsPath = usersRegistrations.create.path();

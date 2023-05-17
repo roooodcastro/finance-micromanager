@@ -8,7 +8,7 @@
       <a
         v-if="showSessionLink"
         :href="newSessionPath"
-        class="btn btn-light btn-sm"
+        class="btn btn-outline-secondary btn-sm"
       >
         Sign In
       </a>
@@ -16,7 +16,7 @@
       <a
         v-if="showRegistrationLink"
         :href="newRegistrationPath"
-        class="btn btn-light btn-sm"
+        class="btn btn-outline-secondary btn-sm"
       >
         Sign Up
       </a>
@@ -24,7 +24,7 @@
       <a
         v-if="showPasswordLink"
         :href="newPasswordPath"
-        class="btn btn-light btn-sm"
+        class="btn btn-outline-secondary btn-sm"
       >
         Forgot your password?
       </a>
@@ -32,7 +32,7 @@
       <a
         v-if="showUnlockLink"
         :href="newUnlockPath"
-        class="btn btn-light btn-sm"
+        class="btn btn-outline-secondary btn-sm"
       >
         Didn't receive unlock instructions?
       </a>
@@ -40,7 +40,7 @@
       <a
         v-if="showConfirmationLink"
         :href="newConfirmationPath"
-        class="btn btn-light btn-sm"
+        class="btn btn-outline-secondary btn-sm"
       >
         Didn't receive confirmation instructions?
       </a>

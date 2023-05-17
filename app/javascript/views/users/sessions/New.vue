@@ -16,6 +16,7 @@
           <template v-slot:default="{ formHelper }">
             <FormInputFloatingLabel
               :form-helper="formHelper"
+              :value="email"
               field-name="email"
               label="Email Address"
               type="email"
@@ -24,6 +25,7 @@
 
             <FormInputFloatingLabel
               :form-helper="formHelper"
+              :value="password"
               field-name="password"
               label="Password"
               type="password"
@@ -64,7 +66,19 @@ export default {
     PageHeader,
     RailsForm,
   },
+
   layout: 'LoginLayout',
+
+  props: {
+    email: {
+      type: String,
+      default: '',
+    },
+    password: {
+      type: String,
+      default: '',
+    },
+  },
 
   setup() {
     const sessionsPath = usersSessions.create.path();

@@ -13,6 +13,12 @@
       class="form-control"
       :name="formHelper.fieldName(fieldName)"
     >
+    <div
+      v-if="formHelper.hasError(fieldName)"
+      class="invalid-feedback"
+    >
+      {{ formHelper.errorFor(fieldName) }}
+    </div>
   </div>
 </template>
 

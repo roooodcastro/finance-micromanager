@@ -5,6 +5,9 @@
         <h1 class="mb-5">
           Finance MicroManager
         </h1>
+
+        <FlashMessages :flash-messages="flashMessages" />
+
         <slot />
       </div>
     </div>
@@ -12,7 +15,18 @@
 </template>
 
 <script>
+import FlashMessages from '~/components/layout/FlashMessages.vue';
+
 export default {
+  components: {
+    FlashMessages,
+  },
+  props: {
+    flashMessages: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
