@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header page-title="Login" />
+    <PageHeader page-title="Login" />
 
     <div class="card shadow">
       <div class="card-body py-4">
@@ -52,19 +52,19 @@
 <script>
 import { usersSessions } from '~/api';
 
-import Header from '~/components/layout/Header.vue';
+import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
 import DeviseLinks from '~/components/devise/DeviseLinks.vue';
 
 export default {
-  layout: 'LoginLayout',
   components: {
     DeviseLinks,
     FormInputFloatingLabel,
-    Header,
+    PageHeader,
     RailsForm,
   },
+  layout: 'LoginLayout',
 
   setup() {
     const sessionsPath = usersSessions.create.path();

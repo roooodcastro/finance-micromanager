@@ -1,13 +1,13 @@
 <template>
   <div
-    class="offcanvas offcanvas-start"
     id="verticalMenu"
+    class="offcanvas offcanvas-start"
     aria-labelledby="mainMenuLabel"
   >
     <div class="offcanvas-header">
       <h5
-        class="offcanvas-title"
         id="mainMenuLabel"
+        class="offcanvas-title"
       >
         Main Menu
       </h5>

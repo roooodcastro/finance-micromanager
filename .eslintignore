@@ -1,0 +1,13 @@
+vendor
+node_modules
+public
+tmp
+/app/assets/builds
+/app/assets/config/manifest.js
+/spec/support/javascript/core.js
+*.html.erb
+
+.idea
+
+babel.config.js
+postcss.config.js

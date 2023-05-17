@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Header title="Categories" />
+    <PageHeader title="Categories" />
   </div>
 </template>
 
 <script>
-import Header from '~/components/layout/Header.vue';
+import PageHeader from '~/components/layout/PageHeader.vue';
 
 export default {
   components: {
-    Header,
+    PageHeader,
   },
 };
 </script>

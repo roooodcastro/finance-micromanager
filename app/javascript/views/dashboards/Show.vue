@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Header title="Dashboard" />
+    <PageHeader title="Dashboard" />
   </div>
 </template>
 
 <script>
-import Header from '~/components/layout/Header.vue';
+import PageHeader from '~/components/layout/PageHeader.vue';
 
 export default {
   components: {
-    Header,
+    PageHeader,
   },
 };
 </script>

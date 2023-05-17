@@ -30,6 +30,7 @@ export default {
     if (props.user) {
       const userStore = useUserStore();
 
+      /* eslint-disable-next-line vue/no-setup-props-destructure */
       userStore.user = props.user;
     }
   },

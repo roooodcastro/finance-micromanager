@@ -1,7 +1,6 @@
 import { createApp, h } from 'vue'
 import { createPinia } from 'pinia';
 import { createInertiaApp } from '@inertiajs/vue3';
-import * as bootstrap from 'bootstrap';
 import axios from 'axios';
 import ApplicationLayout from '../components/layout/ApplicationLayout.vue';
 import LoginLayout from '../components/layout/LoginLayout.vue';

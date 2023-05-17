@@ -8,9 +8,9 @@
     </label>
     <input
       v-bind="$attrs"
+      :id="formHelper.fieldId(fieldName)"
       :type="type"
       class="form-control"
-      :id="formHelper.fieldId(fieldName)"
       :name="formHelper.fieldName(fieldName)"
     >
   </div>

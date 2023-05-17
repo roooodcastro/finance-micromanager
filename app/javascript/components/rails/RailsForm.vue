@@ -31,18 +31,6 @@ import Csrf from '~/utils/Csrf.js';
 
 export default {
   props: {
-    inline: {
-      type: Boolean,
-      default: false,
-    },
-    novalidate: {
-      type: Boolean,
-      default: false,
-    },
-    validated: {
-      type: Boolean,
-      default: false,
-    },
     method: {
       type: String,
       default: 'post',
@@ -51,11 +39,6 @@ export default {
       type: String,
       default: null,
     },
-  },
-  data() {
-    return {
-      submitting: false,
-    };
   },
   setup(props) {
     const csrfToken = Csrf.getToken();
@@ -79,6 +62,10 @@ export default {
       csrfToken,
       formHelper,
       isGetRequest,
+    };
+  },
+  data() {
+    return {
     };
   },
 };

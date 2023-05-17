@@ -20,10 +20,17 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/eslint-parser": "^7.21.8",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@babel/preset-env": "^7.21.5",
     "@inertiajs/inertia": "^0.11.1",
     "@inertiajs/progress": "^0.2.7",
     "@inertiajs/vue3": "^1.0.6",
     "@vitejs/plugin-vue": "^4.2.2",
+    "eslint": "^8.40.0",
+    "eslint-plugin-vue": "^9.13.0",
+    "eslint-plugin-vue-scoped-css": "^2.4.0",
     "sass": "^1.62.1",
     "vite": "^4.3.0",
     "vite-plugin-ruby": "^3.2.0"

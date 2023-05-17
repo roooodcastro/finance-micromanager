@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header page-title="Resend unlock instructions" />
+    <PageHeader page-title="Resend unlock instructions" />
 
     <div class="card shadow">
       <div class="card-body py-4">
@@ -45,19 +45,20 @@
 <script>
 import { usersUnlocks } from '~/api';
 
-import Header from '~/components/layout/Header.vue';
+import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
 import DeviseLinks from '~/components/devise/DeviseLinks.vue';
 
 export default {
-  layout: 'LoginLayout',
   components: {
     DeviseLinks,
     FormInputFloatingLabel,
-    Header,
+    PageHeader,
     RailsForm,
   },
+
+  layout: 'LoginLayout',
 
   props: {
     prePopulatedEmail: {

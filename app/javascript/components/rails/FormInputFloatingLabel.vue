@@ -2,9 +2,9 @@
   <div class="form-floating mb-3">
     <input
       v-bind="$attrs"
+      :id="formHelper.fieldId(fieldName)"
       :type="type"
       class="form-control"
-      :id="formHelper.fieldId(fieldName)"
       :name="formHelper.fieldName(fieldName)"
       :placeholder="label"
     >
