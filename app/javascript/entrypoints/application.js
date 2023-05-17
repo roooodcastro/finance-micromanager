@@ -1,4 +1,5 @@
 import { createApp, h } from 'vue'
+import { createPinia } from 'pinia';
 import { createInertiaApp } from '@inertiajs/vue3';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setup({ el, App, props, plugin }) {
       createApp({ render: () => h(App, props) })
         .use(plugin)
+        .use(createPinia())
         .mount(el);
     },
   });

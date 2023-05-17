@@ -13,10 +13,25 @@
 import Navigation from '~/components/layout/Navigation.vue';
 import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 
+import useUserStore from '~/stores/UserStore.js';
+
 export default {
   components: {
     Navigation,
     VerticalMenu,
+  },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    if (props.user) {
+      const userStore = useUserStore();
+
+      userStore.user = props.user;
+    }
   },
 };
 </script>

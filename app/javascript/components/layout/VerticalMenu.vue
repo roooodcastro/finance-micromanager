@@ -38,15 +38,23 @@
 <script>
 import { accounts, categories, transactions, usersSessions } from '~/api';
 
+import useUserStore from '~/stores/UserStore.js';
+
 export default {
   setup() {
-    const menuItems = [
-      { label: 'Dashboard', path: transactions.list.path() },
-      { label: 'Categories', path: categories.list.path() },
-      { label: 'Accounts', path: accounts.list.path() },
-      { label: 'Sign In', path: usersSessions.new.path() },
-      { label: 'Sign Out', path: usersSessions.destroy.path(), method: 'DELETE' },
-    ];
+    const userStore = useUserStore();
+    let menuItems;
+
+    if (userStore.isUserLoggedIn) {
+      menuItems = [
+        { label: 'Dashboard', path: transactions.list.path() },
+        { label: 'Categories', path: categories.list.path() },
+        { label: 'Accounts', path: accounts.list.path() },
+        { label: 'Sign Out', path: usersSessions.destroy.path(), method: 'DELETE' },
+      ];
+    } else {
+      menuItems = [{ label: 'Sign In', path: usersSessions.new.path() }];
+    }
 
     menuItems.forEach((menuItem) => {
       if (window.location.pathname.includes(menuItem.path)) {
