@@ -8,7 +8,7 @@ module Users
       super
 
       render inertia: 'users/sessions/New', props: {
-        email: sign_in_params[:email],
+        email:    sign_in_params[:email],
         password: sign_in_params[:password]
       }
     end

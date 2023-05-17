@@ -5,23 +5,23 @@ Rails.application.routes.draw do
     root to: 'landings#show'
 
     devise_for :users,
-               export: true,
-               path: 'auth',
+               export:      true,
+               path:        'auth',
                controllers: {
                  confirmations: 'users/confirmations',
-                 passwords: 'users/passwords',
+                 passwords:     'users/passwords',
                  registrations: 'users/registrations',
-                 sessions: 'users/sessions',
-                 unlocks: 'users/unlocks'
+                 sessions:      'users/sessions',
+                 unlocks:       'users/unlocks'
                },
-               path_names: {
-                 sign_in: 'login',
-                 sign_out: 'logout',
-                 password: 'secret',
+               path_names:  {
+                 sign_in:      'login',
+                 sign_out:     'logout',
+                 password:     'secret',
                  confirmation: 'verification',
-                 unlock: 'unblock',
+                 unlock:       'unblock',
                  registration: 'sign_up',
-                 sign_up: 'new'
+                 sign_up:      'new'
                }
 
     devise_scope :user do

@@ -29,7 +29,7 @@ module Users
 
         render inertia: 'users/registrations/New', props: {
           errors: format_error_messages(resource),
-          user: resource
+          user:   resource
         }
       end
     end
