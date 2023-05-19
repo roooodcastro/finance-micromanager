@@ -4,9 +4,9 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    @categories = Category.all
+    categories = Category.all
 
-    render inertia: 'categories/Index'
+    render inertia: 'categories/Index', props: { categories: }
   end
 
   def show
@@ -14,48 +14,41 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def new
-    @category = Category.new
+    category = Category.new
 
-    render inertia: 'categories/New'
+    render inertia: 'categories/New', props: { category: }
   end
 
   def edit
-    render inertia: 'categories/Edit'
+    render inertia: 'categories/Edit', props: { category: @category }
   end
 
   def create
-    @category = Category.new(category_params)
+    category = Category.new(category_params)
 
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to category_url(@category), notice: t('.success') }
-        format.json { render :show, status: :created, location: @category }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    if category.save
+      flash[:success] = t('.success')
+      redirect_to categories_path
+    else
+      flash.now[:error] = t('.error', error: category.errors.full_messages)
+      render inertia: 'categories/New', props: { category: }
     end
   end
 
   def update
-    respond_to do |format|
-      if @category.update(category_params)
-        format.html { redirect_to category_url(@category), notice: t('.success') }
-        format.json { render :show, status: :ok, location: @category }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    if @category.update(category_params)
+      flash[:success] = t('.success')
+      redirect_to categories_path
+    else
+      flash.now[:error] = t('.error', error: @category.errors.full_messages)
+      render inertia: 'categories/Edit', props: { category: @category }
     end
   end
 
   def destroy
     @category.destroy
 
-    respond_to do |format|
-      format.html { redirect_to categories_url, notice: t('.success') }
-      format.json { head :no_content }
-    end
+    redirect_to categories_url, success: t('.success')
   end
 
   private
@@ -65,6 +58,6 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def category_params
-    params.require(:category).permit.merge(account: Current.account)
+    params.require(:category).permit(:name, :color).merge(account: Current.account)
   end
 end

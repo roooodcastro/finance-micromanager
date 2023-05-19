@@ -41,6 +41,7 @@ module.exports = {
     'block-scoped-var': 'error',
     'no-lonely-if': 'error',
     'object-shorthand': ['error', 'properties'],
+    'vue/html-closing-bracket-newline': 'error',
     'vue/no-deprecated-slot-attribute': 'error',
     'spaced-comment': [
       'error',

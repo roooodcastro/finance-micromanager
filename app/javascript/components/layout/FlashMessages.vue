@@ -47,9 +47,9 @@ export default {
   },
 
   setup(props) {
-    const successMessages = (props.flashMessages?.success || []).concat(props.flashMessages?.notice || []);
-    const warningMessages = props.flashMessages?.warning || [];
-    const errorMessages = (props.flashMessages?.error || []).concat(props.flashMessages?.alert || []);
+    const successMessages = ([props.flashMessages?.success] || []).concat([props.flashMessages?.notice] || []).flat().filter(Boolean);
+    const warningMessages = ([props.flashMessages?.warning] || []).flat().filter(Boolean);
+    const errorMessages = ([props.flashMessages?.error] || []).concat([props.flashMessages?.alert] || []).flat().filter(Boolean);
 
     return {
       successMessages,

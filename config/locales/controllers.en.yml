@@ -10,8 +10,10 @@ en:
   categories:
     create:
       success: 'Category was successfully created.'
+      error: 'Category could not be created: %{error}'
     update:
       success: 'Category was successfully updated.'
+      error: 'Category could not be updated: %{error}'
     destroy:
       success: 'Category was successfully destroyed.'
 

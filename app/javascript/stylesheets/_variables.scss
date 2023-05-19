@@ -55,7 +55,7 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $mintgreen-100;
+$light:         $gray-100;
 $dark:          $mintgreen-900;
 
 $min-contrast-ratio:   2.3 !default;
@@ -69,6 +69,8 @@ $enable-rounded:            false !default;
 $body-color: $mintgreen-900;
 
 // Fonts
+
+$font-size-root: 16px;
 
 $color-contrast-dark:      $black !default;
 $color-contrast-light:     $white !default;

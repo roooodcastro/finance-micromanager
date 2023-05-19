@@ -1,7 +1,7 @@
 <template>
   <form
     v-bind="$props"
-    :method="method"
+    :method="formMethod"
     v-on="listeners"
   >
     <input
@@ -47,6 +47,7 @@ export default {
   setup(props) {
     const csrfToken = Csrf.getToken();
     const isGetRequest = props.method.toLowerCase() === 'get';
+    const formMethod = isGetRequest ? 'GET' : 'POST';
 
     const formHelper = {
       resource: props.resource,
@@ -67,6 +68,7 @@ export default {
     return {
       csrfToken,
       formHelper,
+      formMethod,
       isGetRequest,
     };
   },

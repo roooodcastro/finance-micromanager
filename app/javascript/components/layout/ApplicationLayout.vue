@@ -4,6 +4,8 @@
     <VerticalMenu />
 
     <div class="container-xxl px-3 pt-4">
+      <FlashMessages :flash-messages="flashMessages" />
+
       <slot />
     </div>
   </div>
@@ -12,15 +14,21 @@
 <script>
 import Navigation from '~/components/layout/Navigation.vue';
 import VerticalMenu from '~/components/layout/VerticalMenu.vue';
+import FlashMessages from '~/components/layout/FlashMessages.vue';
 
 import useUserStore from '~/stores/UserStore.js';
 
 export default {
   components: {
+    FlashMessages,
     Navigation,
     VerticalMenu,
   },
   props: {
+    flashMessages: {
+      type: Object,
+      required: true,
+    },
     user: {
       type: Object,
       required: true,

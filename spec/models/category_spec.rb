@@ -13,7 +13,7 @@ RSpec.describe Category do
     end
 
     context 'when a temporary category already exists' do
-      let!(:temporary_category) { create(:category, account: account, name: 'Temporary', color: '808080') }
+      let!(:temporary_category) { create(:category, account: account, name: 'Temporary', color: '#808080') }
 
       it { is_expected.to eq(temporary_category) }
 
@@ -25,7 +25,7 @@ RSpec.describe Category do
     context 'when a temporary category already exists but for another account' do
       let(:account2) { create(:account) }
 
-      let!(:temporary_category) { create(:category, account: account2, name: 'Temporary', color: '808080') }
+      let!(:temporary_category) { create(:category, account: account2, name: 'Temporary', color: '#808080') }
 
       it { is_expected.not_to eq(temporary_category) }
 

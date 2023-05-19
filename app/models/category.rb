@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  HEX_COLOR_REGEX = /\A[[0-9][a-f]]{6}\z/i
+  HEX_COLOR_REGEX = /\A#[[0-9][a-f]]{6}\z/i
   TEMPORARY_NAME  = 'Temporary'
-  TEMPORARY_COLOR = '808080'
+  TEMPORARY_COLOR = '#808080'
 
   belongs_to :account
 
