@@ -3,7 +3,12 @@
     <div class="row justify-content-center mt-5">
       <div class="col col-lg-6 col-xl-4">
         <h1 class="mb-5">
-          Finance MicroManager
+          <a
+            :href="landingPath"
+            class="text-reset text-decoration-none link-light"
+          >
+            Finance MicroManager
+          </a>
         </h1>
 
         <FlashMessages :flash-messages="flashMessages" />
@@ -15,18 +20,27 @@
 </template>
 
 <script>
+import { landings } from '~/api';
+
 import FlashMessages from '~/components/layout/FlashMessages.vue';
 
 export default {
   components: {
     FlashMessages,
   },
+
   props: {
     flashMessages: {
       type: Object,
       required: true,
     },
   },
+
+  setup() {
+    const landingPath = landings.get.path();
+
+    return { landingPath };
+  }
 };
 </script>
 

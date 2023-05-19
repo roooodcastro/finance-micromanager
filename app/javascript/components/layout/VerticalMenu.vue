@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { accounts, categories, transactions, usersSessions } from '~/api';
+import { accounts, categories, transactions, usersSessions, usersRegistrations } from '~/api';
 
 import useUserStore from '~/stores/UserStore.js';
 
@@ -53,7 +53,10 @@ export default {
         { label: 'Sign Out', path: usersSessions.destroy.path(), method: 'DELETE' },
       ];
     } else {
-      menuItems = [{ label: 'Sign In', path: usersSessions.new.path() }];
+      menuItems = [
+        { label: 'Sign In', path: usersSessions.new.path() },
+        { label: 'Sign Up', path: usersRegistrations.new.path() },
+      ];
     }
 
     menuItems.forEach((menuItem) => {

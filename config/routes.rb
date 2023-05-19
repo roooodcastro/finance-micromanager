@@ -27,8 +27,8 @@ Rails.application.routes.draw do
     devise_scope :user do
       root 'dashboards#show', as: :user_root
 
-      get 'sign_up', to: 'users/registrations#new'
-      get 'login', to: 'users/sessions#new'
+      get 'sign_up', to: 'users/registrations#new', export: true
+      get 'login', to: 'users/sessions#new', export: true
     end
 
     resource :dashboard, only: :show
