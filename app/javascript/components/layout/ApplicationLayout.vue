@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid px-0">
+  <div class="container-fluid px-0 h-100 background-curved-lines">
     <Navigation />
     <VerticalMenu />
 
