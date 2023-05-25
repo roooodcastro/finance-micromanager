@@ -1,0 +1,26 @@
+pt-BR:
+  accounts:
+    create:
+      success: 'Account was successfully created.'
+    update:
+      success: 'Account was successfully updated.'
+    destroy:
+      success: 'Account was successfully destroyed.'
+
+  categories:
+    create:
+      success: 'Categoria criada com sucesso.'
+      error: 'Categoria não pode ser criada: %{error}'
+    update:
+      success: 'Categoria atualizada com successo.'
+      error: 'Categoria não pode ser atualizada: %{error}'
+    destroy:
+      success: 'Categoria removida com sucesso.'
+
+  transactions:
+    create:
+      success: 'Transaction was successfully created.'
+    update:
+      success: 'Transaction was successfully updated.'
+    destroy:
+      success: 'Transaction was successfully destroyed.'

@@ -1,0 +1,417 @@
+{
+  "pt-BR": {
+    "accounts": {
+      "create": {
+        "success": "Account was successfully created."
+      },
+      "destroy": {
+        "success": "Account was successfully destroyed."
+      },
+      "update": {
+        "success": "Account was successfully updated."
+      }
+    },
+    "activerecord": {
+      "errors": {
+        "messages": {
+          "record_invalid": "A validação falhou: %{errors}",
+          "restrict_dependent_destroy": {
+            "has_many": "Não é possível excluir o registro pois existem %{record} dependentes",
+            "has_one": "Não é possível excluir o registro pois existe um %{record} dependente"
+          }
+        }
+      }
+    },
+    "categories": {
+      "create": {
+        "error": "Categoria não pode ser criada: %{error}",
+        "success": "Categoria criada com sucesso."
+      },
+      "destroy": {
+        "success": "Categoria removida com sucesso."
+      },
+      "update": {
+        "error": "Categoria não pode ser atualizada: %{error}",
+        "success": "Categoria atualizada com successo."
+      }
+    },
+    "date": {
+      "abbr_day_names": [
+        "dom",
+        "seg",
+        "ter",
+        "qua",
+        "qui",
+        "sex",
+        "sáb"
+      ],
+      "abbr_month_names": [
+        null,
+        "jan",
+        "fev",
+        "mar",
+        "abr",
+        "mai",
+        "jun",
+        "jul",
+        "ago",
+        "set",
+        "out",
+        "nov",
+        "dez"
+      ],
+      "day_names": [
+        "domingo",
+        "segunda-feira",
+        "terça-feira",
+        "quarta-feira",
+        "quinta-feira",
+        "sexta-feira",
+        "sábado"
+      ],
+      "formats": {
+        "default": "%d/%m/%Y",
+        "long": "%d de %B de %Y",
+        "short": "%d de %B"
+      },
+      "month_names": [
+        null,
+        "janeiro",
+        "fevereiro",
+        "março",
+        "abril",
+        "maio",
+        "junho",
+        "julho",
+        "agosto",
+        "setembro",
+        "outubro",
+        "novembro",
+        "dezembro"
+      ],
+      "order": [
+        "day",
+        "month",
+        "year"
+      ]
+    },
+    "datetime": {
+      "distance_in_words": {
+        "about_x_hours": {
+          "one": "aproximadamente %{count} hora",
+          "other": "aproximadamente %{count} horas"
+        },
+        "about_x_months": {
+          "one": "aproximadamente %{count} mês",
+          "other": "aproximadamente %{count} meses"
+        },
+        "about_x_years": {
+          "one": "aproximadamente %{count} ano",
+          "other": "aproximadamente %{count} anos"
+        },
+        "almost_x_years": {
+          "one": "quase %{count} ano",
+          "other": "quase %{count} anos"
+        },
+        "half_a_minute": "meio minuto",
+        "less_than_x_minutes": {
+          "one": "menos de um minuto",
+          "other": "menos de %{count} minutos"
+        },
+        "less_than_x_seconds": {
+          "one": "menos de %{count} segundo",
+          "other": "menos de %{count} segundos"
+        },
+        "over_x_years": {
+          "one": "mais de %{count} ano",
+          "other": "mais de %{count} anos"
+        },
+        "x_days": {
+          "one": "%{count} dia",
+          "other": "%{count} dias"
+        },
+        "x_minutes": {
+          "one": "%{count} minuto",
+          "other": "%{count} minutos"
+        },
+        "x_months": {
+          "one": "%{count} mês",
+          "other": "%{count} meses"
+        },
+        "x_seconds": {
+          "one": "%{count} segundo",
+          "other": "%{count} segundos"
+        },
+        "x_years": {
+          "one": "%{count} ano",
+          "other": "%{count} anos"
+        }
+      },
+      "prompts": {
+        "day": "Dia",
+        "hour": "Hora",
+        "minute": "Minuto",
+        "month": "Mês",
+        "second": "Segundo",
+        "year": "Ano"
+      }
+    },
+    "devise": {
+      "confirmations": {
+        "confirmed": "Sua conta foi confirmada com sucesso.",
+        "send_instructions": "Você receberá um e-mail para confirmar sua conta em alguns minutos.",
+        "send_paranoid_instructions": "Se o seu endereço de e-mail existir na nossa base de dados, você receberá um e-mail para confirmar sua conta em alguns minutos."
+      },
+      "failure": {
+        "already_authenticated": "Você já está logado.",
+        "inactive": "Sua conta ainda não foi ativada.",
+        "invalid": "%{authentication_keys} ou senha inválidos.",
+        "last_attempt": "Você tem mais uma tentativa antes que sua conta seja bloqueada",
+        "locked": "Sua conta está bloqueada.",
+        "not_found_in_database": "%{authentication_keys} ou senha inválidos.",
+        "timeout": "Sua sessão expirou. Por favor, faça login novamente para continuar.",
+        "unauthenticated": "Você precisa fazer login ou se registrar antes de continuar",
+        "unconfirmed": "Você deve confirmar o seu endreço de e-mail antes de continuar."
+      },
+      "mailer": {
+        "confirmation_instructions": {
+          "subject": "Instruções de confirmação"
+        },
+        "email_changed": {
+          "subject": "Email modificado"
+        },
+        "password_change": {
+          "subject": "Senha modificada"
+        },
+        "reset_password_instructions": {
+          "subject": "Instruções para redefinir sua senha"
+        },
+        "unlock_instructions": {
+          "subject": "Instruções para desbloquear sua conta"
+        }
+      },
+      "omniauth_callbacks": {
+        "failure": "Não foi possível autenticá-lo em %{kind} porque \"%{reason}\".",
+        "success": "Autenticado com sucesso em %{kind}."
+      },
+      "passwords": {
+        "no_token": "Você não pode acessar essa página sem ter vindo de um e-mail de redefinição de senha. Se você recebeu um e-mail para redefinir sua senha, por favor, certifique-se de estar usando a URL correta",
+        "send_instructions": "Você receberá um e-mail com instruções sobre como redefinir a sua senha em alguns minutos.",
+        "send_paranoid_instructions": "Se o seu endereço de e-mail existir em nossa base de dados, você receberá um link de recuperação de senha em alguns minutos.",
+        "updated": "Sua senha foi redefinida com sucesso. Você agora está conectado.",
+        "updated_not_active": "Sua senha foi redefinida com sucesso."
+      },
+      "registrations": {
+        "destroyed": "Até a próxima! Sua conta foi cancelada com sucesso. Esperamos te ver de volta logo.",
+        "signed_up": "Bem vindo! Você se registrou com sucesso.",
+        "signed_up_but_inactive": "Você se registrou com sucesso. Para efetuar login, você deverá ativar sua conta.",
+        "signed_up_but_locked": "Você se registrou com sucesso. Mas não foi possível logar pois sua conta está bloqueada.",
+        "signed_up_but_unconfirmed": "Uma mensagem com um link de confirmação foi enviada para o seu endereço de e-mail. Por favor, acesse o link enviado para ativar a sua conta.",
+        "update_needs_confirmation": "Você atualiou a sua conta com sucesso, mas precisamos verificar o seu novo endereço de e-mail. Por favor, acesse o seu e-mail e siga as instruções de confirmação para confirmar o seu novo endereço de e-mail.",
+        "updated": "Sua conta foi atualizada com sucesso.",
+        "updated_but_not_signed_in": "Sua conta foi atualizada com sucesso, mas como a sua senha foi redefinida, você precisa logar novamente."
+      },
+      "sessions": {
+        "already_signed_out": "Até breve!",
+        "signed_in": "Logado com sucesso.",
+        "signed_out": "Até breve!"
+      },
+      "unlocks": {
+        "send_instructions": "Você receberá um e-mail com instruções sobre como desbloquear a sua conta em alguns minutos.",
+        "send_paranoid_instructions": "Se o seu e-mail existir em nossa base de dados, você receberá um e-mail com instruções sobre como desbloquear a sua conta em alguns minutos.",
+        "unlocked": "Conta desbloqueada com sucesso. Por favor, logue para continuar."
+      }
+    },
+    "errors": {
+      "connection_refused": "Oops! Failed to connect to the Web Console middleware.\nPlease make sure a rails development server is running.\n",
+      "format": "%{attribute} %{message}",
+      "messages": {
+        "accepted": "deve ser aceito",
+        "already_confirmed": "já foi confirmado, por favor logue para continuar",
+        "blank": "não pode ficar em branco",
+        "confirmation": "não é igual a %{attribute}",
+        "confirmation_period_expired": "deve ser confirmada dentro de %{period}, por favor solicite novamente",
+        "empty": "não pode ficar vazio",
+        "equal_to": "deve ser igual a %{count}",
+        "even": "deve ser par",
+        "exclusion": "não está disponível",
+        "expired": "expirou, por favor solicite um novo",
+        "greater_than": "deve ser maior que %{count}",
+        "greater_than_or_equal_to": "deve ser maior ou igual a %{count}",
+        "in": "deve estar em %{count}",
+        "inclusion": "não está incluído na lista",
+        "invalid": "não é válido",
+        "invalid_currency": "has invalid format (must be '100', '5%{decimal}24', or '123%{thousands}456%{decimal}78'). Got %{currency}",
+        "less_than": "deve ser menor que %{count}",
+        "less_than_or_equal_to": "deve ser menor ou igual a %{count}",
+        "model_invalid": "A validação falhou: %{errors}",
+        "not_a_number": "não é um número",
+        "not_an_integer": "não é um número inteiro",
+        "not_found": "não encontrado",
+        "not_locked": "não estava bloqueado",
+        "not_saved": {
+          "one": "Não foi possível salvar este(a) %{resource}:",
+          "other": "Não foi possível salvar este(a) %{resource}:"
+        },
+        "odd": "deve ser ímpar",
+        "other_than": "deve ser diferente de %{count}",
+        "present": "deve ficar em branco",
+        "required": "é obrigatório(a)",
+        "taken": "já está em uso",
+        "too_long": {
+          "one": "é muito longo (máximo: %{count} caracter)",
+          "other": "é muito longo (máximo: %{count} caracteres)"
+        },
+        "too_short": {
+          "one": "é muito curto (mínimo: %{count} caracter)",
+          "other": "é muito curto (mínimo: %{count} caracteres)"
+        },
+        "wrong_length": {
+          "one": "não possui o tamanho esperado (%{count} caracter)",
+          "other": "não possui o tamanho esperado (%{count} caracteres)"
+        }
+      },
+      "template": {
+        "body": "Por favor, verifique o(s) seguinte(s) campo(s):",
+        "header": {
+          "one": "Não foi possível gravar %{model}: %{count} erro",
+          "other": "Não foi possível gravar %{model}: %{count} erros"
+        }
+      },
+      "unacceptable_request": "A supported version is expected in the Accept header.\n",
+      "unavailable_session": "Session %{id} is no longer available in memory.\n\nIf you happen to run on a multi-process server (like Unicorn or Puma) the process\nthis request hit doesn't store %{id} in memory. Consider turning the number of\nprocesses/workers to one (1) or using a different server in development.\n"
+    },
+    "flash": {
+      "actions": {
+        "create": {
+          "notice": "%{resource_name} was successfully created."
+        },
+        "destroy": {
+          "alert": "%{resource_name} could not be destroyed.",
+          "notice": "%{resource_name} was successfully destroyed."
+        },
+        "update": {
+          "notice": "%{resource_name} was successfully updated."
+        }
+      }
+    },
+    "hello": "Hello world",
+    "helpers": {
+      "select": {
+        "prompt": "Por favor selecione"
+      },
+      "submit": {
+        "create": "Criar %{model}",
+        "submit": "Salvar %{model}",
+        "update": "Atualizar %{model}"
+      }
+    },
+    "number": {
+      "currency": {
+        "format": {
+          "delimiter": ".",
+          "format": "%u %n",
+          "precision": 2,
+          "separator": ",",
+          "significant": false,
+          "strip_insignificant_zeros": false,
+          "unit": "R$"
+        }
+      },
+      "format": {
+        "delimiter": ".",
+        "precision": 3,
+        "round_mode": "default",
+        "separator": ",",
+        "significant": false,
+        "strip_insignificant_zeros": false
+      },
+      "human": {
+        "decimal_units": {
+          "format": "%n %u",
+          "units": {
+            "billion": {
+              "one": "bilhão",
+              "other": "bilhões"
+            },
+            "million": {
+              "one": "milhão",
+              "other": "milhões"
+            },
+            "quadrillion": {
+              "one": "quatrilhão",
+              "other": "quatrilhões"
+            },
+            "thousand": "mil",
+            "trillion": {
+              "one": "trilhão",
+              "other": "trilhões"
+            },
+            "unit": ""
+          }
+        },
+        "format": {
+          "delimiter": "",
+          "precision": 3,
+          "significant": true,
+          "strip_insignificant_zeros": true
+        },
+        "storage_units": {
+          "format": "%n %u",
+          "units": {
+            "byte": {
+              "one": "Byte",
+              "other": "Bytes"
+            },
+            "eb": "EB",
+            "gb": "GB",
+            "kb": "KB",
+            "mb": "MB",
+            "pb": "PB",
+            "tb": "TB"
+          }
+        }
+      },
+      "nth": {
+      },
+      "percentage": {
+        "format": {
+          "delimiter": ".",
+          "format": "%n%"
+        }
+      },
+      "precision": {
+        "format": {
+          "delimiter": "."
+        }
+      }
+    },
+    "support": {
+      "array": {
+        "last_word_connector": " e ",
+        "two_words_connector": " e ",
+        "words_connector": ", "
+      }
+    },
+    "time": {
+      "am": "",
+      "formats": {
+        "default": "%a, %d de %B de %Y, %H:%M:%S %z",
+        "long": "%d de %B de %Y, %H:%M",
+        "short": "%d de %B, %H:%M"
+      },
+      "pm": ""
+    },
+    "transactions": {
+      "create": {
+        "success": "Transaction was successfully created."
+      },
+      "destroy": {
+        "success": "Transaction was successfully destroyed."
+      },
+      "update": {
+        "success": "Transaction was successfully updated."
+      }
+    }
+  }
+}

@@ -51,6 +51,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'brakeman', require: false
+  gem 'i18n-js', require: false
+  gem 'listen'
   gem 'overcommit', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
