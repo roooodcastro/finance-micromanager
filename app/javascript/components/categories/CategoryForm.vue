@@ -17,14 +17,14 @@
             field-name="name"
             :form-helper="formHelper"
             :value="category.name"
-            label="Name"
+            :label="t('name_label')"
           />
 
           <label
             :for="formHelper.fieldId('color')"
             class="form-label"
           >
-            Category Color
+            {{ t('color_label') }}
           </label>
           <input
             :id="formHelper.fieldId('color')"
@@ -32,7 +32,7 @@
             class="form-control form-control-color"
             :name="formHelper.fieldName('color')"
             :value="category.color"
-            title="Choose a color"
+            :title="t('color_title')"
           >
         </div>
 
@@ -42,14 +42,14 @@
               type="submit"
               class="btn btn-primary flex-md-fill"
             >
-              Submit
+              {{ t('submit') }}
             </button>
 
             <a
               :href="listCategoriesPath"
               class="btn btn-outline-secondary flex-md-fill"
             >
-              Back
+              {{ t('back') }}
             </a>
           </div>
         </div>
@@ -60,6 +60,7 @@
 
 <script>
 import { categories } from '~/api';
+import I18n from '~/utils/I18n';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -78,6 +79,7 @@ export default {
   },
 
   setup(props) {
+    const t = I18n.scopedTranslator('views.categories.new_edit');
     const listCategoriesPath = categories.list.path();
     const isNewCategory = !props.category.id;
 
@@ -86,13 +88,14 @@ export default {
       ? categories.create.path()
       : categories.update.path({ id: props.category.id });
 
-    const formTitle = isNewCategory ? 'New Category' : `Edit Category "${props.category.name}"`;
+    const formTitle = isNewCategory ? t('new_title') : t('edit_title', { category: props.category.name });
 
     return {
       listCategoriesPath,
       formMethod,
       formAction,
       formTitle,
+      t,
     };
   },
 };

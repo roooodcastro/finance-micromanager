@@ -1,11 +1,11 @@
 <template>
   <div>
-    <PageHeader page-title="Forgot your password?" />
+    <PageHeader :page-title="t('title')" />
 
     <div class="card shadow">
       <div class="card-body py-4">
         <h4 class="card-title">
-          Forgot your password?
+          {{ t('title') }}
         </h4>
 
         <RailsForm
@@ -17,7 +17,7 @@
             <FormInputFloatingLabel
               :form-helper="formHelper"
               field-name="email"
-              label="Email Address"
+              :label="t('email_label')"
               type="email"
               autocomplete="email"
             />
@@ -27,7 +27,7 @@
                 type="submit"
                 class="btn btn-primary"
               >
-                Send me reset password instructions
+                {{ t('submit') }}
               </button>
             </div>
           </template>
@@ -43,6 +43,7 @@
 
 <script>
 import { usersPasswords } from '~/api';
+import I18n from '~/utils/I18n';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -64,6 +65,7 @@ export default {
 
     return {
       passwordsPath,
+      t: I18n.scopedTranslator('views.users.passwords.new'),
     };
   },
 };

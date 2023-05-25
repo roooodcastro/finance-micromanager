@@ -1,9 +1,9 @@
 <template>
-  <table class="table align-middle">
+  <table class="table align-middle bg-white">
     <thead class="table-light">
       <tr>
-        <th>Name</th>
-        <th>Color</th>
+        <th>{{ t('name') }}</th>
+        <th>{{ t('color') }}</th>
         <th></th>
       </tr>
     </thead>
@@ -27,16 +27,16 @@
             :href="editCategoryPath(category.id)"
             class="btn btn-outline-secondary btn-sm"
           >
-            Edit
+            {{ t('edit') }}
           </a>
 
           <a
             :href="destroyCategoryPath(category.id)"
             data-method="DELETE"
-            data-confirm="Are oyu sure? This cannot be undone."
+            :data-confirm="t('delete_confirmation')"
             class="btn btn-outline-danger btn-sm ms-2"
           >
-            Remove
+            {{ t('delete') }}
           </a>
         </td>
       </tr>
@@ -46,6 +46,7 @@
 
 <script>
 import { categories } from '~/api';
+import I18n from '~/utils/I18n';
 
 export default {
   props: {
@@ -62,6 +63,7 @@ export default {
     return {
       editCategoryPath,
       destroyCategoryPath,
+      t: I18n.scopedTranslator('views.categories.index'),
     };
   },
 };

@@ -1,11 +1,11 @@
 pt-BR:
   accounts:
     create:
-      success: 'Account was successfully created.'
+      success: 'Conta criada com sucesso.'
     update:
-      success: 'Account was successfully updated.'
+      success: 'Conta atualizada com sucesso.'
     destroy:
-      success: 'Account was successfully destroyed.'
+      success: 'Conta removida com sucesso.'
 
   categories:
     create:
@@ -19,8 +19,8 @@ pt-BR:
 
   transactions:
     create:
-      success: 'Transaction was successfully created.'
+      success: 'Transação criada com sucesso.'
     update:
-      success: 'Transaction was successfully updated.'
+      success: 'Transação atualizada com sucesso.'
     destroy:
-      success: 'Transaction was successfully destroyed.'
+      success: 'Transação removida com sucesso.'

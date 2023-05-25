@@ -1,12 +1,12 @@
 <template>
   <div>
-    <PageHeader title="Categories">
+    <PageHeader :title="t('title')">
       <template v-slot:actions>
         <a
           :href="newCategoryPath"
           class="btn btn-outline-secondary"
         >
-          New Category
+          {{ t('new') }}
         </a>
       </template>
     </PageHeader>
@@ -17,6 +17,7 @@
 
 <script>
 import { categories } from '~/api';
+import I18n from '~/utils/I18n';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import CategoriesList from '~/components/categories/CategoriesList.vue';
@@ -39,6 +40,7 @@ export default {
 
     return {
       newCategoryPath,
+      t: I18n.scopedTranslator('views.categories.index'),
     };
   },
 };

@@ -1,0 +1,70 @@
+---
+en:
+  views:
+    categories:
+      index:
+        title: Categories
+        new: New Category
+        edit: Edit
+        delete: Remove
+        delete_confirmation: Are you sure? This action cannot be undone.
+        name: Name
+        color: Color
+      new_edit:
+        new_title: New Category
+        edit_title: 'Edit Category "%{category}"'
+        name_label: Name
+        color_label: Category color
+        color_title: Choose a color
+        submit: Submit
+        back: Back
+      show:
+        title: Category
+    dashboard:
+      title: Dashboard
+    devise:
+      alternative_links: 'Or, you can also:'
+      sign_in: Sign In
+      sign_up: Sign Up
+      forgot_password: Forgot your password?
+      unlock_instructions: Didn't receive unlock instructions?
+      confirmation_instructions: Didn't receive confirmation instructions?
+    landing:
+      title: Landing
+    users:
+      confirmations:
+        new:
+          title: Resend confirmation instructions
+          email_label: Email Address
+          submit: Resend confirmation instructions
+      passwords:
+        new:
+          title: 'Forgot your password?'
+          email_label: Email Address
+          submit: Send me reset password instructions
+      registrations:
+        new:
+          title: Sign Up
+          email_label: Email Address
+          password_label: Choose a Password
+          submit: Submit
+      sessions:
+        new:
+          title: Login
+          email_label: Email Address
+          password_label: Password
+          submit: Submit
+      unlocks:
+        new:
+          title: Resend unlock instructions
+          email_label: Email Address
+          submit: Resend unlock instructions
+    vertical_menu:
+      title: Main Menu
+      close: Close
+      dashboard: Dashboard
+      accounts: Accounts
+      categories: Categories
+      sign_in: Sign In
+      sign_up: Sign Up
+      sign_out: Sign Out

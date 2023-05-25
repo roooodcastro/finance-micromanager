@@ -1,11 +1,11 @@
 <template>
   <div>
-    <PageHeader page-title="Login" />
+    <PageHeader :page-title="t('title')" />
 
     <div class="card shadow">
       <div class="card-body py-4">
         <h4 class="card-title">
-          Login
+          {{ t('title') }}
         </h4>
 
         <RailsForm
@@ -18,7 +18,7 @@
               :form-helper="formHelper"
               :value="email"
               field-name="email"
-              label="Email Address"
+              :label="t('email_label')"
               type="email"
               autocomplete="email"
             />
@@ -27,7 +27,7 @@
               :form-helper="formHelper"
               :value="password"
               field-name="password"
-              label="Password"
+              :label="t('password_label')"
               type="password"
               autocomplete="password"
             />
@@ -37,7 +37,7 @@
                 type="submit"
                 class="btn btn-primary"
               >
-                Submit
+                {{ t('submit') }}
               </button>
             </div>
           </template>
@@ -53,6 +53,7 @@
 
 <script>
 import { usersSessions } from '~/api';
+import I18n from '~/utils/I18n.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -85,6 +86,7 @@ export default {
 
     return {
       sessionsPath,
+      t: I18n.scopedTranslator('views.users.sessions.new'),
     };
   },
 };

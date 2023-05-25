@@ -1,7 +1,7 @@
 <template>
   <div>
     <h6 class="text-center mb-3">
-      Or, you can also:
+      {{ t('alternative_links') }}
     </h6>
 
     <div class="d-grid gap-3">
@@ -10,7 +10,7 @@
         :href="newSessionPath"
         class="btn btn-outline-secondary btn-sm"
       >
-        Sign In
+        {{ t('sign_in') }}
       </a>
 
       <a
@@ -18,7 +18,7 @@
         :href="newRegistrationPath"
         class="btn btn-outline-secondary btn-sm"
       >
-        Sign Up
+        {{ t('sign_up') }}
       </a>
 
       <a
@@ -26,7 +26,7 @@
         :href="newPasswordPath"
         class="btn btn-outline-secondary btn-sm"
       >
-        Forgot your password?
+        {{ t('forgot_password') }}
       </a>
 
       <a
@@ -34,7 +34,7 @@
         :href="newUnlockPath"
         class="btn btn-outline-secondary btn-sm"
       >
-        Didn't receive unlock instructions?
+        {{ t('unlock_instructions') }}
       </a>
 
       <a
@@ -42,7 +42,7 @@
         :href="newConfirmationPath"
         class="btn btn-outline-secondary btn-sm"
       >
-        Didn't receive confirmation instructions?
+        {{ t('confirmation_instructions') }}
       </a>
     </div>
   </div>
@@ -50,6 +50,7 @@
 
 <script>
 import { usersConfirmations, usersSessions, usersRegistrations, usersPasswords, usersUnlocks } from '~/api';
+import I18n from '~/utils/I18n';
 
 export default {
   props: {
@@ -82,6 +83,7 @@ export default {
       showRegistrationLink,
       showSessionLink,
       showUnlockLink,
+      t: I18n.scopedTranslator('views.devise'),
     };
   },
 }

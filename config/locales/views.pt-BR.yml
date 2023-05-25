@@ -1,0 +1,70 @@
+---
+pt-BR:
+  views:
+    categories:
+      index:
+        title: Categorias
+        new: Nova Categoria
+        edit: Editar
+        delete: Remover
+        delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
+        name: Nome
+        color: Cor
+      new_edit:
+        new_title: Nova Categoria
+        edit_title: 'Editar Categoria "%{category}"'
+        name_label: Nome
+        color_label: Cor da Categoria
+        color_title: Escolha uma cor
+        submit: Salvar
+        back: Voltar
+      show:
+        title: Categoria
+    dashboard:
+      title: Dashboard
+    devise:
+      alternative_links: 'Ou, você também pode:'
+      sign_in: Fazer Login
+      sign_up: Registrar
+      forgot_password: Esqueceu sua senha?
+      unlock_instructions: Não recebeu email de desbloqueio?
+      confirmation_instructions: Não recebeu email de confirmação?
+    landing:
+      title: Página Inicial
+    users:
+      confirmations:
+        new:
+          title: Re-enviar email de confirmação
+          email_label: Endereço de email
+          submit: Re-enviar email de confirmação
+      passwords:
+        new:
+          title: 'Esqueceu sua senha?'
+          email_label: Endereço de email
+          submit: Enviar email para resetar senha
+      registrations:
+        new:
+          title: Crie sua conta
+          email_label: Endereço de email
+          password_label: Escolha uma senha
+          submit: Criar conta
+      sessions:
+        new:
+          title: Login
+          email_label: Endereço de email
+          password_label: Senha
+          submit: Entrar
+      unlocks:
+        new:
+          title: Re-enviar email de desbloqueio de conta
+          email_label: Endereço de email
+          submit: Re-enviar email de desbloqueio
+    vertical_menu:
+      title: Menu Principal
+      close: Fechar
+      dashboard: Dashboard
+      accounts: Contas
+      categories: Categorias
+      sign_in: Fazer Login
+      sign_up: Criar conta
+      sign_out: Sair da Conta

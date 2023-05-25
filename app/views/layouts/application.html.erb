@@ -6,6 +6,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= tag(:meta, name: 'locale', content: I18n.locale) %>
+
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application.js' %>
     <%= vite_stylesheet_tag 'application.scss' %>

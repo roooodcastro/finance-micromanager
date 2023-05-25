@@ -5,6 +5,7 @@ import axios from 'axios';
 import ApplicationLayout from '../components/layout/ApplicationLayout.vue';
 import LoginLayout from '../components/layout/LoginLayout.vue';
 import Csrf from '~/utils/Csrf.js';
+import I18n from '~/utils/I18n.js';
 import Rails from '@rails/ujs';
 
 /* eslint-disable-next-line no-unused-vars */
@@ -16,8 +17,9 @@ const layouts = {
   LoginLayout,
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+async function startApplication() {
   Csrf.refreshToken();
+  await I18n.loadTranslations();
   axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
 
   Rails.start();
@@ -37,4 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .mount(el);
     },
   });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  startApplication();
 });

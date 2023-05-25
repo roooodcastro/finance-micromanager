@@ -9,13 +9,13 @@
         id="mainMenuLabel"
         class="offcanvas-title"
       >
-        Main Menu
+        {{ t('title') }}
       </h5>
       <button
         type="button"
         class="btn-close"
         data-bs-dismiss="offcanvas"
-        aria-label="Close"
+        aria-label="{{ t('close') }}"
       />
     </div>
     <div class="offcanvas-body px-0">
@@ -37,25 +37,27 @@
 
 <script>
 import { accounts, categories, transactions, usersSessions, usersRegistrations } from '~/api';
+import I18n from '~/utils/I18n';
 
 import useUserStore from '~/stores/UserStore.js';
 
 export default {
   setup() {
+    const t = I18n.scopedTranslator('views.vertical_menu')
     const userStore = useUserStore();
     let menuItems;
 
     if (userStore.isUserLoggedIn) {
       menuItems = [
-        { label: 'Dashboard', path: transactions.list.path() },
-        { label: 'Categories', path: categories.list.path() },
-        { label: 'Accounts', path: accounts.list.path() },
-        { label: 'Sign Out', path: usersSessions.destroy.path(), method: 'DELETE' },
+        { label: t('dashboard'), path: transactions.list.path() },
+        { label: t('categories'), path: categories.list.path() },
+        { label: t('accounts'), path: accounts.list.path() },
+        { label: t('sign_out'), path: usersSessions.destroy.path(), method: 'DELETE' },
       ];
     } else {
       menuItems = [
-        { label: 'Sign In', path: usersSessions.new.path() },
-        { label: 'Sign Up', path: usersRegistrations.new.path() },
+        { label: t('sign_in'), path: usersSessions.new.path() },
+        { label: t('sign_up'), path: usersRegistrations.new.path() },
       ];
     }
 
@@ -67,6 +69,7 @@ export default {
 
     return {
       menuItems,
+      t,
     };
   },
 }

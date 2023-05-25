@@ -1,11 +1,11 @@
 <template>
   <div>
-    <PageHeader page-title="Resend unlock instructions" />
+    <PageHeader :page-title="t('title')" />
 
     <div class="card shadow">
       <div class="card-body py-4">
         <h4 class="card-title">
-          Resend unlock instructions
+          {{ t('title') }}
         </h4>
 
         <RailsForm
@@ -17,7 +17,7 @@
             <FormInputFloatingLabel
               :form-helper="formHelper"
               field-name="email"
-              label="Email Address"
+              :label="t('email_label')"
               type="email"
               autocomplete="email"
               :value="prePopulatedEmail"
@@ -28,7 +28,7 @@
                 type="submit"
                 class="btn btn-primary"
               >
-                Resend unlock instructions
+                {{ t('submit') }}
               </button>
             </div>
           </template>
@@ -36,7 +36,7 @@
       </div>
 
       <div class="card-footer py-4">
-        <DeviseLinks page="sessions" />
+        <DeviseLinks page="unlocks" />
       </div>
     </div>
   </div>
@@ -44,6 +44,7 @@
 
 <script>
 import { usersUnlocks } from '~/api';
+import I18n from '~/utils/I18n';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -72,6 +73,7 @@ export default {
 
     return {
       unlocksPath,
+      t: I18n.scopedTranslator('views.users.unlocks.new'),
     };
   },
 };

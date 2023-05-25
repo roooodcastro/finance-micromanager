@@ -141,6 +141,10 @@
         "x_seconds": {
           "one": "1 second",
           "other": "%{count} seconds"
+        },
+        "x_years": {
+          "one": "%{count} ano",
+          "other": "%{count} anos"
         }
       },
       "prompts": {
@@ -267,6 +271,13 @@
           "other": "is the wrong length (should be %{count} characters)"
         }
       },
+      "template": {
+        "body": "Por favor, verifique o(s) seguinte(s) campo(s):",
+        "header": {
+          "one": "Não foi possível gravar %{model}: %{count} erro",
+          "other": "Não foi possível gravar %{model}: %{count} erros"
+        }
+      },
       "unacceptable_request": "A supported version is expected in the Accept header.\n",
       "unavailable_session": "Session %{id} is no longer available in memory.\n\nIf you happen to run on a multi-process server (like Unicorn or Puma) the process\nthis request hit doesn't store %{id} in memory. Consider turning the number of\nprocesses/workers to one (1) or using a different server in development.\n"
     },
@@ -388,6 +399,94 @@
       },
       "update": {
         "success": "Transaction was successfully updated."
+      }
+    },
+    "views": {
+      "categories": {
+        "index": {
+          "color": "Color",
+          "delete": "Remove",
+          "delete_confirmation": "Are you sure? This action cannot be undone.",
+          "edit": "Edit",
+          "name": "Name",
+          "new": "New Category",
+          "title": "Categories"
+        },
+        "new_edit": {
+          "back": "Back",
+          "color_label": "Category color",
+          "color_title": "Choose a color",
+          "edit_title": "Edit Category \"%{category}\"",
+          "name_label": "Name",
+          "new_title": "New Category",
+          "submit": "Submit"
+        },
+        "show": {
+          "title": "Category"
+        }
+      },
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "devise": {
+        "alternative_links": "Or, you can also:",
+        "confirmation_instructions": "Didn't receive confirmation instructions?",
+        "forgot_password": "Forgot your password?",
+        "sign_in": "Sign In",
+        "sign_up": "Sign Up",
+        "unlock_instructions": "Didn't receive unlock instructions?"
+      },
+      "landing": {
+        "title": "Landing"
+      },
+      "users": {
+        "confirmations": {
+          "new": {
+            "email_label": "Email Address",
+            "submit": "Resend confirmation instructions",
+            "title": "Resend confirmation instructions"
+          }
+        },
+        "passwords": {
+          "new": {
+            "email_label": "Email Address",
+            "submit": "Send me reset password instructions",
+            "title": "Forgot your password?"
+          }
+        },
+        "registrations": {
+          "new": {
+            "email_label": "Email Address",
+            "password_label": "Choose a Password",
+            "submit": "Submit",
+            "title": "Sign Up"
+          }
+        },
+        "sessions": {
+          "new": {
+            "email_label": "Email Address",
+            "password_label": "Password",
+            "submit": "Submit",
+            "title": "Login"
+          }
+        },
+        "unlocks": {
+          "new": {
+            "email_label": "Email Address",
+            "submit": "Resend unlock instructions",
+            "title": "Resend unlock instructions"
+          }
+        }
+      },
+      "vertical_menu": {
+        "accounts": "Accounts",
+        "categories": "Categories",
+        "close": "Close",
+        "dashboard": "Dashboard",
+        "sign_in": "Sign In",
+        "sign_out": "Sign Out",
+        "sign_up": "Sign Up",
+        "title": "Main Menu"
       }
     }
   }

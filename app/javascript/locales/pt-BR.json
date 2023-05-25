@@ -2,13 +2,13 @@
   "pt-BR": {
     "accounts": {
       "create": {
-        "success": "Account was successfully created."
+        "success": "Conta criada com sucesso."
       },
       "destroy": {
-        "success": "Account was successfully destroyed."
+        "success": "Conta removida com sucesso."
       },
       "update": {
-        "success": "Account was successfully updated."
+        "success": "Conta atualizada com sucesso."
       }
     },
     "activerecord": {
@@ -223,7 +223,6 @@
       }
     },
     "errors": {
-      "connection_refused": "Oops! Failed to connect to the Web Console middleware.\nPlease make sure a rails development server is running.\n",
       "format": "%{attribute} %{message}",
       "messages": {
         "accepted": "deve ser aceito",
@@ -241,7 +240,6 @@
         "in": "deve estar em %{count}",
         "inclusion": "não está incluído na lista",
         "invalid": "não é válido",
-        "invalid_currency": "has invalid format (must be '100', '5%{decimal}24', or '123%{thousands}456%{decimal}78'). Got %{currency}",
         "less_than": "deve ser menor que %{count}",
         "less_than_or_equal_to": "deve ser menor ou igual a %{count}",
         "model_invalid": "A validação falhou: %{errors}",
@@ -277,25 +275,8 @@
           "one": "Não foi possível gravar %{model}: %{count} erro",
           "other": "Não foi possível gravar %{model}: %{count} erros"
         }
-      },
-      "unacceptable_request": "A supported version is expected in the Accept header.\n",
-      "unavailable_session": "Session %{id} is no longer available in memory.\n\nIf you happen to run on a multi-process server (like Unicorn or Puma) the process\nthis request hit doesn't store %{id} in memory. Consider turning the number of\nprocesses/workers to one (1) or using a different server in development.\n"
-    },
-    "flash": {
-      "actions": {
-        "create": {
-          "notice": "%{resource_name} was successfully created."
-        },
-        "destroy": {
-          "alert": "%{resource_name} could not be destroyed.",
-          "notice": "%{resource_name} was successfully destroyed."
-        },
-        "update": {
-          "notice": "%{resource_name} was successfully updated."
-        }
       }
     },
-    "hello": "Hello world",
     "helpers": {
       "select": {
         "prompt": "Por favor selecione"
@@ -321,7 +302,6 @@
       "format": {
         "delimiter": ".",
         "precision": 3,
-        "round_mode": "default",
         "separator": ",",
         "significant": false,
         "strip_insignificant_zeros": false
@@ -372,8 +352,6 @@
           }
         }
       },
-      "nth": {
-      },
       "percentage": {
         "format": {
           "delimiter": ".",
@@ -404,13 +382,101 @@
     },
     "transactions": {
       "create": {
-        "success": "Transaction was successfully created."
+        "success": "Transação criada com sucesso."
       },
       "destroy": {
-        "success": "Transaction was successfully destroyed."
+        "success": "Transação removida com sucesso."
       },
       "update": {
-        "success": "Transaction was successfully updated."
+        "success": "Transação atualizada com sucesso."
+      }
+    },
+    "views": {
+      "categories": {
+        "index": {
+          "color": "Cor",
+          "delete": "Remover",
+          "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
+          "edit": "Editar",
+          "name": "Nome",
+          "new": "Nova Categoria",
+          "title": "Categorias"
+        },
+        "new_edit": {
+          "back": "Voltar",
+          "color_label": "Cor da Categoria",
+          "color_title": "Escolha uma cor",
+          "edit_title": "Editar Categoria \"%{category}\"",
+          "name_label": "Nome",
+          "new_title": "Nova Categoria",
+          "submit": "Salvar"
+        },
+        "show": {
+          "title": "Categoria"
+        }
+      },
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "devise": {
+        "alternative_links": "Ou, você também pode:",
+        "confirmation_instructions": "Não recebeu email de confirmação?",
+        "forgot_password": "Esqueceu sua senha?",
+        "sign_in": "Fazer Login",
+        "sign_up": "Registrar",
+        "unlock_instructions": "Não recebeu email de desbloqueio?"
+      },
+      "landing": {
+        "title": "Página Inicial"
+      },
+      "users": {
+        "confirmations": {
+          "new": {
+            "email_label": "Endereço de email",
+            "submit": "Re-enviar email de confirmação",
+            "title": "Re-enviar email de confirmação"
+          }
+        },
+        "passwords": {
+          "new": {
+            "email_label": "Endereço de email",
+            "submit": "Enviar email para resetar senha",
+            "title": "Esqueceu sua senha?"
+          }
+        },
+        "registrations": {
+          "new": {
+            "email_label": "Endereço de email",
+            "password_label": "Escolha uma senha",
+            "submit": "Criar conta",
+            "title": "Crie sua conta"
+          }
+        },
+        "sessions": {
+          "new": {
+            "email_label": "Endereço de email",
+            "password_label": "Senha",
+            "submit": "Entrar",
+            "title": "Login"
+          }
+        },
+        "unlocks": {
+          "new": {
+            "email_label": "Endereço de email",
+            "submit": "Re-enviar email de desbloqueio",
+            "title": "Re-enviar email de desbloqueio de conta"
+          }
+        }
+      },
+      "vertical_menu": {
+        "accounts": "Contas",
+        "categories": "Categorias",
+        "close": "Fechar",
+        "dashboard": "Dashboard",
+        "sign_in": "Fazer Login",
+        "sign_out": "Sair da Conta",
+        "sign_up": "Criar conta",
+        "title": "Menu Principal"
       }
     }
   }
