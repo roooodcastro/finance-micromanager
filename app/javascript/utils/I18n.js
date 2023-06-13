@@ -5,6 +5,10 @@ class I18n {
     this.i18n = new I18nJs();
   }
 
+  getLocale() {
+    return this.i18n.locale;
+  }
+
   t(scope, data) {
     return this.i18n.t(scope, data);
   }

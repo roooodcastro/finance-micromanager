@@ -382,17 +382,28 @@
     },
     "transactions": {
       "create": {
+        "error": "Transação não pode ser criada: %{error}",
         "success": "Transação criada com sucesso."
       },
       "destroy": {
         "success": "Transação removida com sucesso."
       },
       "update": {
+        "error": "Transação não pode ser atualizada: %{error}",
         "success": "Transação atualizada com sucesso."
       }
     },
     "views": {
       "categories": {
+        "form": {
+          "back": "Voltar",
+          "color_label": "Cor da Categoria",
+          "color_title": "Escolha uma cor",
+          "edit_title": "Editar Categoria \"%{category}\"",
+          "name_label": "Nome",
+          "new_title": "Nova Categoria",
+          "submit": "Salvar"
+        },
         "index": {
           "color": "Cor",
           "delete": "Remover",
@@ -401,15 +412,6 @@
           "name": "Nome",
           "new": "Nova Categoria",
           "title": "Categorias"
-        },
-        "new_edit": {
-          "back": "Voltar",
-          "color_label": "Cor da Categoria",
-          "color_title": "Escolha uma cor",
-          "edit_title": "Editar Categoria \"%{category}\"",
-          "name_label": "Nome",
-          "new_title": "Nova Categoria",
-          "submit": "Salvar"
         },
         "show": {
           "title": "Categoria"
@@ -428,6 +430,28 @@
       },
       "landing": {
         "title": "Página Inicial"
+      },
+      "transactions": {
+        "form": {
+          "amount_label": "Valor",
+          "back": "Voltar",
+          "category_label": "Categoria",
+          "date_label": "Data",
+          "edit_title": "Editar Transacão \"%{transaction}\"",
+          "name_label": "Nome",
+          "new_title": "Nova Transação",
+          "submit": "Salvar"
+        },
+        "index": {
+          "category": "Categoria",
+          "delete": "Remover",
+          "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
+          "edit": "Editar",
+          "name": "Nome",
+          "new": "Nova Transação",
+          "title": "Transações",
+          "transaction_date": "Data"
+        }
       },
       "users": {
         "confirmations": {

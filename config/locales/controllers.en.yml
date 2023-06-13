@@ -20,7 +20,9 @@ en:
   transactions:
     create:
       success: 'Transaction was successfully created.'
+      error: 'Transaction could not be created: %{error}'
     update:
       success: 'Transaction was successfully updated.'
+      error: 'Transaction could not be updated: %{error}'
     destroy:
       success: 'Transaction was successfully destroyed.'

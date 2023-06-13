@@ -14,7 +14,7 @@ export default {
   },
   setup() {
     return {
-      t: I18n.scopedTranslator('views.categories.new_edit'),
+      t: I18n.scopedTranslator('views.categories.form'),
     };
   },
 };

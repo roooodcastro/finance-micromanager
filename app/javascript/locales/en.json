@@ -392,17 +392,28 @@
     },
     "transactions": {
       "create": {
+        "error": "Transaction could not be created: %{error}",
         "success": "Transaction was successfully created."
       },
       "destroy": {
         "success": "Transaction was successfully destroyed."
       },
       "update": {
+        "error": "Transaction could not be updated: %{error}",
         "success": "Transaction was successfully updated."
       }
     },
     "views": {
       "categories": {
+        "form": {
+          "back": "Back",
+          "color_label": "Category color",
+          "color_title": "Choose a color",
+          "edit_title": "Edit Category \"%{category}\"",
+          "name_label": "Name",
+          "new_title": "New Category",
+          "submit": "Submit"
+        },
         "index": {
           "color": "Color",
           "delete": "Remove",
@@ -411,15 +422,6 @@
           "name": "Name",
           "new": "New Category",
           "title": "Categories"
-        },
-        "new_edit": {
-          "back": "Back",
-          "color_label": "Category color",
-          "color_title": "Choose a color",
-          "edit_title": "Edit Category \"%{category}\"",
-          "name_label": "Name",
-          "new_title": "New Category",
-          "submit": "Submit"
         },
         "show": {
           "title": "Category"
@@ -438,6 +440,28 @@
       },
       "landing": {
         "title": "Landing"
+      },
+      "transactions": {
+        "form": {
+          "amount_label": "Amount",
+          "back": "Back",
+          "category_label": "Category",
+          "date_label": "Date",
+          "edit_title": "Edit Transaction \"%{transaction}\"",
+          "name_label": "Name",
+          "new_title": "New Transaction",
+          "submit": "Submit"
+        },
+        "index": {
+          "category": "Category",
+          "delete": "Remove",
+          "delete_confirmation": "Are you sure? This action cannot be undone.",
+          "edit": "Edit",
+          "name": "Name",
+          "new": "New Transaction",
+          "title": "Transactions",
+          "transaction_date": "Date"
+        }
       },
       "users": {
         "confirmations": {

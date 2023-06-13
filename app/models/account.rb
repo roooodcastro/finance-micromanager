@@ -2,6 +2,7 @@
 
 class Account < ApplicationRecord
   has_many :transactions, dependent: :restrict_with_exception
+  has_many :categories, dependent: :restrict_with_exception
   has_many :imports, dependent: :restrict_with_exception
 
   enum status: { active: 'active', disabled: 'disabled' }

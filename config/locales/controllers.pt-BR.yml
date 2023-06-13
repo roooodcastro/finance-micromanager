@@ -20,7 +20,9 @@ pt-BR:
   transactions:
     create:
       success: 'Transação criada com sucesso.'
+      error: 'Transação não pode ser criada: %{error}'
     update:
       success: 'Transação atualizada com sucesso.'
+      error: 'Transação não pode ser atualizada: %{error}'
     destroy:
       success: 'Transação removida com sucesso.'

@@ -10,7 +10,7 @@ en:
         delete_confirmation: Are you sure? This action cannot be undone.
         name: Name
         color: Color
-      new_edit:
+      form:
         new_title: New Category
         edit_title: 'Edit Category "%{category}"'
         name_label: Name
@@ -31,6 +31,25 @@ en:
       confirmation_instructions: Didn't receive confirmation instructions?
     landing:
       title: Landing
+    transactions:
+      index:
+        title: Transactions
+        new: New Transaction
+        edit: Edit
+        delete: Remove
+        delete_confirmation: Are you sure? This action cannot be undone.
+        category: Category
+        transaction_date: Date
+        name: Name
+      form:
+        new_title: New Transaction
+        edit_title: 'Edit Transaction "%{transaction}"'
+        amount_label: Amount
+        category_label: Category
+        date_label: Date
+        name_label: Name
+        submit: Submit
+        back: Back
     users:
       confirmations:
         new:

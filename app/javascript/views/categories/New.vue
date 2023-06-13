@@ -32,12 +32,10 @@ export default {
 
   setup() {
     const listCategoriesPath = categories.list.path();
-    const createCategoryPath = categories.create.path();
 
     return {
       listCategoriesPath,
-      createCategoryPath,
-      t: I18n.scopedTranslator('views.categories.new_edit'),
+      t: I18n.scopedTranslator('views.categories.form'),
     };
   },
 };

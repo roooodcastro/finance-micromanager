@@ -4,7 +4,7 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    categories = Category.all
+    categories = Current.account.categories
 
     render inertia: 'categories/Index', props: { categories: }
   end

@@ -79,7 +79,7 @@ export default {
   },
 
   setup(props) {
-    const t = I18n.scopedTranslator('views.categories.new_edit');
+    const t = I18n.scopedTranslator('views.categories.form');
     const listCategoriesPath = categories.list.path();
     const isNewCategory = !props.category.id;
 

@@ -4,9 +4,9 @@ class TransactionsController < AbstractAuthenticatedController
   before_action :set_transaction, only: %i[show edit update destroy]
 
   def index
-    @transactions = Transaction.all
+    transactions = Current.account.transactions.includes(:category)
 
-    render inertia: 'transactions/Index'
+    render inertia: 'transactions/Index', props: { transactions: transactions.as_json(include: :category) }
   end
 
   def show
@@ -14,48 +14,44 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def new
-    @transaction = Transaction.new
+    transaction = Transaction.new
+    categories  = Current.account.categories
 
-    render inertia: 'transactions/New'
+    render inertia: 'transactions/New', props: { transaction:, categories: }
   end
 
   def edit
-    render inertia: 'transactions/Edit'
+    categories = Current.account.categories
+
+    render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: categories }
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
+    transaction = Transaction.new(transaction_params)
 
-    respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to transaction_url(@transaction), notice: t('.success') }
-        format.json { render :show, status: :created, location: @transaction }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
-    end
+    return redirect_to transactions_path, success: t('.success') if transaction.save
+
+    flash.now[:error] = t('.error', error: transaction.errors.full_messages)
+    categories        = Current.account.categories
+    render inertia: 'transactions/New', props: { transaction:, categories: }
   end
 
   def update
-    respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.html { redirect_to transaction_url(@transaction), notice: t('.success') }
-        format.json { render :show, status: :ok, location: @transaction }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    if @transaction.update(transaction_params)
+      flash[:success] = t('.success')
+      redirect_to transactions_path
+    else
+      flash.now[:error] = t('.error', error: @transaction.errors.full_messages)
+
+      categories = Current.account.categories
+      render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: categories }
     end
   end
 
   def destroy
     @transaction.destroy
 
-    respond_to do |format|
-      format.html { redirect_to transactions_url, notice: t('.success') }
-      format.json { head :no_content }
-    end
+    redirect_to transactions_path, success: t('.success')
   end
 
   private
@@ -65,6 +61,9 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def transaction_params
-    params.require(:transaction).permit.merge(account: Current.account)
+    params
+      .require(:transaction)
+      .permit(:name, :amount, :transaction_date, :category_id)
+      .merge(account: Current.account)
   end
 end

@@ -6,13 +6,24 @@
     >
       {{ label }}
     </label>
-    <input
-      v-bind="$attrs"
-      :id="formHelper.fieldId(fieldName)"
-      :type="type"
-      class="form-control"
-      :name="formHelper.fieldName(fieldName)"
-    >
+
+    <div class="input-group">
+      <span
+        v-if="!!prepend"
+        class="input-group-text"
+      >
+        {{ prepend }}
+      </span>
+
+      <input
+        v-bind="$attrs"
+        :id="formHelper.fieldId(fieldName)"
+        :type="type"
+        class="form-control"
+        :name="formHelper.fieldName(fieldName)"
+      >
+    </div>
+
     <div
       v-if="formHelper.hasError(fieldName)"
       class="invalid-feedback"
@@ -40,6 +51,10 @@ export default {
     type: {
       type: String,
       default: 'text',
+    },
+    prepend: {
+      type: String,
+      default: null,
     },
   },
 };
