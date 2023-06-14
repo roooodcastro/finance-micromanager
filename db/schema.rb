@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_221446) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_14_212135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_221446) do
     t.string "status", limit: 15, default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
+    t.string "currency", null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -85,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_221446) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "categories", "accounts"
   add_foreign_key "imports", "accounts"
   add_foreign_key "transactions", "accounts"

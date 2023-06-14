@@ -1,6 +1,20 @@
 ---
 en:
   views:
+    accounts:
+      index:
+        title: Accounts
+        new: New Account
+        edit: Edit
+        delete: Disable
+        delete_confirmation: Are you sure? You can re-enable this account in the future.
+        currency: Currency
+      form:
+        new_title: New Account
+        edit_title: 'Edit Account "%{account}"'
+        currency_label: Choose Currency
+        submit: Submit
+        back: Back
     categories:
       index:
         title: Categories

@@ -404,6 +404,23 @@
       }
     },
     "views": {
+      "accounts": {
+        "form": {
+          "back": "Back",
+          "currency_label": "Choose Currency",
+          "edit_title": "Edit Account \"%{account}\"",
+          "new_title": "New Account",
+          "submit": "Submit"
+        },
+        "index": {
+          "currency": "Currency",
+          "delete": "Disable",
+          "delete_confirmation": "Are you sure? You can re-enable this account in the future.",
+          "edit": "Edit",
+          "new": "New Account",
+          "title": "Accounts"
+        }
+      },
       "categories": {
         "form": {
           "back": "Back",

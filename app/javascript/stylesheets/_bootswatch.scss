@@ -187,6 +187,9 @@ th {
 }
 
 .background-curved-lines {
-  background-size: cover;
+  background-size: auto;
+  background-position-x: right;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
   background-image: url('../images/background_curves.svg');
 }

@@ -14,26 +14,22 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def new
-    transaction = Transaction.new
-    categories  = Current.account.categories
+    transaction = Current.account.transactions.new
 
-    render inertia: 'transactions/New', props: { transaction:, categories: }
+    render inertia: 'transactions/New', props: { transaction: transaction, categories: available_categories }
   end
 
   def edit
-    categories = Current.account.categories
-
-    render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: categories }
+    render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: available_categories }
   end
 
   def create
-    transaction = Transaction.new(transaction_params)
+    transaction = Current.account.transactions.new(transaction_params)
 
     return redirect_to transactions_path, success: t('.success') if transaction.save
 
     flash.now[:error] = t('.error', error: transaction.errors.full_messages)
-    categories        = Current.account.categories
-    render inertia: 'transactions/New', props: { transaction:, categories: }
+    render inertia: 'transactions/New', props: { transaction: transaction, categories: available_categories }
   end
 
   def update
@@ -43,8 +39,7 @@ class TransactionsController < AbstractAuthenticatedController
     else
       flash.now[:error] = t('.error', error: @transaction.errors.full_messages)
 
-      categories = Current.account.categories
-      render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: categories }
+      render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: available_categories }
     end
   end
 
@@ -57,13 +52,14 @@ class TransactionsController < AbstractAuthenticatedController
   private
 
   def set_transaction
-    @transaction = Transaction.find(params[:id])
+    @transaction = Current.account.transactions.find(params[:id])
   end
 
   def transaction_params
-    params
-      .require(:transaction)
-      .permit(:name, :amount, :transaction_date, :category_id)
-      .merge(account: Current.account)
+    params.require(:transaction).permit(:name, :amount, :transaction_date, :category_id)
+  end
+
+  def available_categories
+    Current.account.categories
   end
 end

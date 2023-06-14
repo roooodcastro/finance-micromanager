@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
     resources :accounts
     resources :categories
+    resources :currencies, only: %i[index]
     resources :transactions
   end
 end

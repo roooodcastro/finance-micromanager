@@ -394,6 +394,23 @@
       }
     },
     "views": {
+      "accounts": {
+        "form": {
+          "back": "Voltar",
+          "currency_label": "Selecione a Moeda",
+          "edit_title": "Editat Conta \"%{account}\"",
+          "new_title": "Nova Conta",
+          "submit": "Salvar"
+        },
+        "index": {
+          "currency": "Moeda",
+          "delete": "Desativar",
+          "delete_confirmation": "Tem certeza? Você pode re-habilitar esta conta no futuro.",
+          "edit": "Editar",
+          "new": "Nova conta",
+          "title": "Contas"
+        }
+      },
       "categories": {
         "form": {
           "back": "Voltar",

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   devise :recoverable, reset_password_within: 1.hour
   devise :rememberable, extend_remember_period: true
 
+  has_many :accounts, dependent: :restrict_with_exception
+
   validates :email, :password, presence: true
   validates :email, uniqueness: true
 end

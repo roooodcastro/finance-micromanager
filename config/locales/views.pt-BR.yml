@@ -1,6 +1,20 @@
 ---
 pt-BR:
   views:
+    accounts:
+      index:
+        title: Contas
+        new: Nova conta
+        edit: Editar
+        delete: Desativar
+        delete_confirmation: Tem certeza? Você pode re-habilitar esta conta no futuro.
+        currency: Moeda
+      form:
+        new_title: Nova Conta
+        edit_title: 'Editat Conta "%{account}"'
+        currency_label: Selecione a Moeda
+        submit: Salvar
+        back: Voltar
     categories:
       index:
         title: Categorias
