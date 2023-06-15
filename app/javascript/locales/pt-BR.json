@@ -460,6 +460,7 @@
           "submit": "Salvar"
         },
         "index": {
+          "amount": "Valor",
           "category": "Categoria",
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",

@@ -5,6 +5,7 @@
         <th>{{ t('transaction_date') }}</th>
         <th>{{ t('name') }}</th>
         <th>{{ t('category') }}</th>
+        <th>{{ t('amount') }}</th>
         <th></th>
       </tr>
     </thead>
@@ -15,7 +16,10 @@
       >
         <td>{{ formatDate(transaction.transactionDate) }}</td>
         <td>{{ transaction.name }}</td>
-        <td>{{ transaction.category.name }}</td>
+        <td>
+          <CategoryIndicator :category="transaction.category" />
+        </td>
+        <td>{{ transaction.amount }}</td>
         <td>
           <a
             :href="editTransactionPath(transaction.id)"
@@ -43,7 +47,13 @@ import { transactions } from '~/api';
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils';
 
+import CategoryIndicator from '~/components/categories/CategoryIndicator.vue';
+
 export default {
+  components: {
+    CategoryIndicator,
+  },
+
   props: {
     transactions: {
       type: Array,

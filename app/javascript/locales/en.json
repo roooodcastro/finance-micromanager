@@ -470,6 +470,7 @@
           "submit": "Submit"
         },
         "index": {
+          "amount": "Amount",
           "category": "Category",
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",

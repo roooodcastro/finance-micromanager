@@ -1,6 +1,10 @@
 // Lux 5.2.2
 // Bootswatch
 
+// Base Bootstrap files
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/mixins";
+
 $theme: "lux" !default;
 
 //
@@ -131,3 +135,5 @@ $navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 $pagination-border-color:           transparent !default;
 $pagination-hover-border-color:     $pagination-border-color !default;
 $pagination-disabled-border-color:  $pagination-border-color !default;
+
+@import "bootstrap/scss/variables.scss";

@@ -6,7 +6,7 @@ class TransactionsController < AbstractAuthenticatedController
   def index
     transactions = Current.account.transactions.includes(:category)
 
-    render inertia: 'transactions/Index', props: { transactions: transactions.as_json(include: :category) }
+    render inertia: 'transactions/Index', props: { transactions: transactions.as_json }
   end
 
   def show

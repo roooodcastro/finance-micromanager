@@ -53,8 +53,9 @@ en:
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
         category: Category
-        transaction_date: Date
+        amount: Amount
         name: Name
+        transaction_date: Date
       form:
         new_title: New Transaction
         edit_title: 'Edit Transaction "%{transaction}"'

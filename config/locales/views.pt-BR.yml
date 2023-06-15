@@ -53,8 +53,9 @@ pt-BR:
         delete: Remover
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
         category: Categoria
-        transaction_date: Data
+        amount: Valor
         name: Nome
+        transaction_date: Data
       form:
         new_title: Nova Transação
         edit_title: 'Editar Transacão "%{transaction}"'

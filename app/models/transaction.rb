@@ -8,4 +8,8 @@ class Transaction < ApplicationRecord
   belongs_to :category
 
   validates :name, :transaction_date, :amount, presence: true
+
+  def as_json(*)
+    super(include: :category).merge(amount: amount.format)
+  end
 end

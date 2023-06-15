@@ -1,10 +1,5 @@
-// Base Bootstrap files
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/mixins";
-
 // Bootstrap Overrides
 @import '../stylesheets/_variables.scss';
-@import "bootstrap/scss/variables.scss";
 
 // Bootstrap Theme (Lux)
 @import "../stylesheets/_bootswatch.scss";
