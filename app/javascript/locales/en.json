@@ -414,9 +414,9 @@
         },
         "index": {
           "currency": "Currency",
-          "delete": "Disable",
-          "delete_confirmation": "Are you sure? You can re-enable this account in the future.",
-          "edit": "Edit",
+          "delete": "Desativar",
+          "delete_confirmation": "Tem certeza? Você pode re-habilitar esta conta no futuro.",
+          "edit": "Editar",
           "new": "New Account",
           "title": "Accounts"
         }
@@ -458,10 +458,17 @@
       "landing": {
         "title": "Landing"
       },
-      "navigation": {
+      "layout": {
         "account_switcher": {
           "new_account_link": "New Account",
           "no_account_selected": "Select Account"
+        },
+        "rails": {
+          "delete": "Remove",
+          "delete_confirmation": "Are you sure? This action cannot be undone.",
+          "disable": "Disable",
+          "disable_confirmation": "Are you sure? You can re-enable this in the future.",
+          "edit": "Edit"
         },
         "vertical_menu": {
           "accounts": "Accounts",

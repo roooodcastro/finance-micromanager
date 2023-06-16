@@ -78,7 +78,7 @@ export default {
   },
 
   setup() {
-    const t = I18n.scopedTranslator('views.navigation.account_switcher');
+    const t = I18n.scopedTranslator('views.layout.account_switcher');
 
     const accountStore = useAccountStore();
     const currentAccount = accountStore.currentAccount;

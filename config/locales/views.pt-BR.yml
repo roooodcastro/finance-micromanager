@@ -5,9 +5,6 @@ pt-BR:
       index:
         title: Contas
         new: Nova conta
-        edit: Editar
-        delete: Desativar
-        delete_confirmation: Tem certeza? Você pode re-habilitar esta conta no futuro.
         currency: Moeda
       form:
         new_title: Nova Conta
@@ -45,10 +42,17 @@ pt-BR:
       confirmation_instructions: Não recebeu email de confirmação?
     landing:
       title: Página Inicial
-    navigation:
+    layout:
       account_switcher:
         new_account_link: Nova Conta
         no_account_selected: Selecione Conta
+      rails:
+        delete: Remover
+        delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
+        disable: Desativar
+        disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
+        edit: Editar
+
       vertical_menu:
         title: Menu Principal
         close: Fechar

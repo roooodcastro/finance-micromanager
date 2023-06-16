@@ -448,10 +448,17 @@
       "landing": {
         "title": "Página Inicial"
       },
-      "navigation": {
+      "layout": {
         "account_switcher": {
           "new_account_link": "Nova Conta",
           "no_account_selected": "Selecione Conta"
+        },
+        "rails": {
+          "delete": "Remover",
+          "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
+          "disable": "Desativar",
+          "disable_confirmation": "Tem certeza? Você pode re-habilitar isto no futuro.",
+          "edit": "Editar"
         },
         "vertical_menu": {
           "accounts": "Contas",

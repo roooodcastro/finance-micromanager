@@ -6,11 +6,17 @@ import {
   faChevronUp,
   faDollarSign,
   faEuroSign,
+  faPenToSquare,
   faSterlingSign,
+  faSquareMinus,
   faSquarePlus,
   faWallet,
   faYenSign,
 } from '@fortawesome/free-solid-svg-icons';
+
+import {
+  faSquareMinus as farSquareMinus,
+} from '@fortawesome/free-regular-svg-icons';
 
 library.add(
   faBrazilianRealSign,
@@ -18,7 +24,10 @@ library.add(
   faChevronUp,
   faDollarSign,
   faEuroSign,
+  faPenToSquare,
   faSterlingSign,
+  faSquareMinus,
+  farSquareMinus,
   faSquarePlus,
   faWallet,
   faYenSign,

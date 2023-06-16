@@ -5,9 +5,6 @@ en:
       index:
         title: Accounts
         new: New Account
-        edit: Edit
-        delete: Disable
-        delete_confirmation: Are you sure? You can re-enable this account in the future.
         currency: Currency
       form:
         new_title: New Account
@@ -45,10 +42,16 @@ en:
       confirmation_instructions: Didn't receive confirmation instructions?
     landing:
       title: Landing
-    navigation:
+    layout:
       account_switcher:
         new_account_link: New Account
         no_account_selected: Select Account
+      rails:
+        delete: Remove
+        delete_confirmation: Are you sure? This action cannot be undone.
+        disable: Disable
+        disable_confirmation: Are you sure? You can re-enable this in the future.
+        edit: Edit
       vertical_menu:
         title: Main Menu
         close: Close
