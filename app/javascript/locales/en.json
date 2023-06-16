@@ -458,6 +458,22 @@
       "landing": {
         "title": "Landing"
       },
+      "navigation": {
+        "account_switcher": {
+          "new_account_link": "New Account",
+          "no_account_selected": "Select Account"
+        },
+        "vertical_menu": {
+          "accounts": "Accounts",
+          "categories": "Categories",
+          "close": "Close",
+          "dashboard": "Dashboard",
+          "sign_in": "Sign In",
+          "sign_out": "Sign Out",
+          "sign_up": "Sign Up",
+          "title": "Main Menu"
+        }
+      },
       "transactions": {
         "form": {
           "amount_label": "Amount",
@@ -519,16 +535,6 @@
             "title": "Resend unlock instructions"
           }
         }
-      },
-      "vertical_menu": {
-        "accounts": "Accounts",
-        "categories": "Categories",
-        "close": "Close",
-        "dashboard": "Dashboard",
-        "sign_in": "Sign In",
-        "sign_out": "Sign Out",
-        "sign_up": "Sign Up",
-        "title": "Main Menu"
       }
     }
   }

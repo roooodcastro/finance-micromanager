@@ -45,6 +45,19 @@ en:
       confirmation_instructions: Didn't receive confirmation instructions?
     landing:
       title: Landing
+    navigation:
+      account_switcher:
+        new_account_link: New Account
+        no_account_selected: Select Account
+      vertical_menu:
+        title: Main Menu
+        close: Close
+        dashboard: Dashboard
+        accounts: Accounts
+        categories: Categories
+        sign_in: Sign In
+        sign_up: Sign Up
+        sign_out: Sign Out
     transactions:
       index:
         title: Transactions
@@ -93,12 +106,3 @@ en:
           title: Resend unlock instructions
           email_label: Email Address
           submit: Resend unlock instructions
-    vertical_menu:
-      title: Main Menu
-      close: Close
-      dashboard: Dashboard
-      accounts: Accounts
-      categories: Categories
-      sign_in: Sign In
-      sign_up: Sign Up
-      sign_out: Sign Out

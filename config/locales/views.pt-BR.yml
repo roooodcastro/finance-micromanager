@@ -45,6 +45,19 @@ pt-BR:
       confirmation_instructions: Não recebeu email de confirmação?
     landing:
       title: Página Inicial
+    navigation:
+      account_switcher:
+        new_account_link: Nova Conta
+        no_account_selected: Selecione Conta
+      vertical_menu:
+        title: Menu Principal
+        close: Fechar
+        dashboard: Dashboard
+        accounts: Contas
+        categories: Categorias
+        sign_in: Fazer Login
+        sign_up: Criar conta
+        sign_out: Sair da Conta
     transactions:
       index:
         title: Transações
@@ -93,12 +106,3 @@ pt-BR:
           title: Re-enviar email de desbloqueio de conta
           email_label: Endereço de email
           submit: Re-enviar email de desbloqueio
-    vertical_menu:
-      title: Menu Principal
-      close: Fechar
-      dashboard: Dashboard
-      accounts: Contas
-      categories: Categorias
-      sign_in: Fazer Login
-      sign_up: Criar conta
-      sign_out: Sair da Conta

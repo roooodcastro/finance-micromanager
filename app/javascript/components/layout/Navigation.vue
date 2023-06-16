@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
     <div class="container-xxl">
-      <AccountSwitcherButton />
+      <AccountSwitcher />
 
       <a class="navbar-brand d-none d-md-inline-block" href="#">Finance MicroManager</a>
 
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import AccountSwitcherButton from '~/components/layout/AccountSwitcherButton.vue';
+import AccountSwitcher from '~/components/layout/AccountSwitcher.vue';
 
 export default {
   components: {
-    AccountSwitcherButton,
+    AccountSwitcher,
   },
 };
 </script>

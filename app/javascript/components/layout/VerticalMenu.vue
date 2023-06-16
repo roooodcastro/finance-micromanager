@@ -43,7 +43,7 @@ import useUserStore from '~/stores/UserStore.js';
 
 export default {
   setup() {
-    const t = I18n.scopedTranslator('views.vertical_menu')
+    const t = I18n.scopedTranslator('views.navigation.vertical_menu')
     const userStore = useUserStore();
     let menuItems;
 

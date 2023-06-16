@@ -34,16 +34,26 @@ export default {
       type: Object,
       required: true,
     },
-    account: {
+    currentAccount: {
+      type: Object,
+      required: true,
+    },
+    availableAccounts: {
       type: Object,
       required: true,
     },
   },
   setup(props) {
-    if (props.account) {
-      const accountStore = useAccountStore();
+    const accountStore = useAccountStore();
+
+    if (props.currentAccount) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
-      accountStore.account = props.account;
+      accountStore.currentAccount = props.currentAccount;
+    }
+
+    if (props.availableAccounts) {
+      /* eslint-disable-next-line vue/no-setup-props-destructure */
+      accountStore.availableAccounts = props.availableAccounts;
     }
 
     if (props.user) {

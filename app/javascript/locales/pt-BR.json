@@ -448,6 +448,22 @@
       "landing": {
         "title": "Página Inicial"
       },
+      "navigation": {
+        "account_switcher": {
+          "new_account_link": "Nova Conta",
+          "no_account_selected": "Selecione Conta"
+        },
+        "vertical_menu": {
+          "accounts": "Contas",
+          "categories": "Categorias",
+          "close": "Fechar",
+          "dashboard": "Dashboard",
+          "sign_in": "Fazer Login",
+          "sign_out": "Sair da Conta",
+          "sign_up": "Criar conta",
+          "title": "Menu Principal"
+        }
+      },
       "transactions": {
         "form": {
           "amount_label": "Valor",
@@ -509,16 +525,6 @@
             "title": "Re-enviar email de desbloqueio de conta"
           }
         }
-      },
-      "vertical_menu": {
-        "accounts": "Contas",
-        "categories": "Categorias",
-        "close": "Fechar",
-        "dashboard": "Dashboard",
-        "sign_in": "Fazer Login",
-        "sign_out": "Sair da Conta",
-        "sign_up": "Criar conta",
-        "title": "Menu Principal"
       }
     }
   }
