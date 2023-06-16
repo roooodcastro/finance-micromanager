@@ -4,4 +4,5 @@ class AbstractAuthenticatedController < ApplicationController
   before_action :authenticate_user!
 
   inertia_share user: -> { current_user }
+  inertia_share account: -> { Current.account }
 end

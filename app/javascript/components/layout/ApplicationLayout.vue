@@ -17,6 +17,7 @@ import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 import FlashMessages from '~/components/layout/FlashMessages.vue';
 
 import useUserStore from '~/stores/UserStore.js';
+import useAccountStore from '~/stores/AccountStore.js';
 
 export default {
   components: {
@@ -33,8 +34,18 @@ export default {
       type: Object,
       required: true,
     },
+    account: {
+      type: Object,
+      required: true,
+    },
   },
   setup(props) {
+    if (props.account) {
+      const accountStore = useAccountStore();
+      /* eslint-disable-next-line vue/no-setup-props-destructure */
+      accountStore.account = props.account;
+    }
+
     if (props.user) {
       const userStore = useUserStore();
 
