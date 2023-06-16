@@ -2,6 +2,11 @@
   "name": "finance_micromanager",
   "private": "true",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@js-from-routes/client": "^1.0.4",
     "@js-from-routes/inertia": "^1.10.2",
     "@popperjs/core": "^2.11.7",

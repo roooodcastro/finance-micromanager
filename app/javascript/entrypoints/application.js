@@ -8,6 +8,8 @@ import Csrf from '~/utils/Csrf.js';
 import I18n from '~/utils/I18n.js';
 import Rails from '@rails/ujs';
 
+import '~/utils/fontAwesome.js';
+
 /* eslint-disable-next-line no-unused-vars */
 import * as bootstrap from 'bootstrap';
 
