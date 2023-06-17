@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { watch, toRefs } from 'vue';
+import { watch, toRef } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { categories as categoriesApi } from '~/api';
@@ -71,7 +71,7 @@ export default {
     // Load categories from props
     const categoryStore = useCategoryStore();
     const { categories: categoriesFromStore } = storeToRefs(categoryStore);
-    categoriesFromStore.value = toRefs(props.categories);
+    categoriesFromStore.value = toRef(props.categories);
 
     // Reload categories if account has changed while this page is open
     const accountStore = useAccountStore();

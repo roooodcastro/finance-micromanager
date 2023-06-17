@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { watch, toRefs } from 'vue';
+import { watch, toRef } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { transactions as transactionsApi } from '~/api';
@@ -72,7 +72,7 @@ export default {
     // Load transactions from props
     const transactionStore = useTransactionStore();
     const { transactions: transactionsFromStore } = storeToRefs(transactionStore);
-    transactionsFromStore.value = toRefs(props.transactions);
+    transactionsFromStore.value = toRef(props.transactions).value;
 
     // Reload transactions if account has changed while this page is open
     const accountStore = useAccountStore();
