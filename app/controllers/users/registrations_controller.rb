@@ -8,7 +8,7 @@ module Users
       render inertia: 'users/registrations/New', props: { user: resource }
     end
 
-    def create # rubocop:disable Metrics/AbcSize
+    def create
       build_resource(sign_up_params)
 
       resource.save
