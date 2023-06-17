@@ -35,9 +35,9 @@ Rails.application.routes.draw do
     resource :landing, only: :show
 
     resources :accounts
-    resources :categories
+    resources :categories, except: %i[show]
     resources :currencies, only: %i[index]
     resources :current_accounts, only: %i[create]
-    resources :transactions
+    resources :transactions, except: %i[show]
   end
 end

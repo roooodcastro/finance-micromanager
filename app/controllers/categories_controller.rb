@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
 class CategoriesController < AbstractAuthenticatedController
-  before_action :set_category, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[edit update destroy]
 
   def index
     categories = Current.account.categories
 
-    render inertia: 'categories/Index', props: { categories: }
-  end
-
-  def show
-    render inertia: 'categories/Show'
+    respond_to do |format|
+      format.html { render inertia: 'categories/Index', props: { categories: } }
+      format.json { render json: { categories: } }
+    end
   end
 
   def new

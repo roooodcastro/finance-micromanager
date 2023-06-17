@@ -9,7 +9,7 @@
     </thead>
     <tbody class="table-group-divider">
       <tr
-        v-for="category in categories"
+        v-for="category in categoriesFromStore"
         :key="category.id"
       >
         <td>{{ category.name }}</td>
@@ -22,22 +22,17 @@
             <span>{{ category.color }}</span>
           </div>
         </td>
-        <td>
-          <a
+        <td class="text-end">
+          <EditButton
+            small
             :href="editCategoryPath(category.id)"
-            class="btn btn-outline-secondary btn-sm"
-          >
-            {{ t('edit') }}
-          </a>
+          />
 
-          <a
+          <DeleteButton
+            small
             :href="destroyCategoryPath(category.id)"
-            data-method="DELETE"
-            :data-confirm="t('delete_confirmation')"
-            class="btn btn-outline-danger btn-sm ms-2"
-          >
-            {{ t('delete') }}
-          </a>
+            class="ms-2"
+          />
         </td>
       </tr>
     </tbody>
@@ -45,10 +40,23 @@
 </template>
 
 <script>
-import { categories } from '~/api';
+import { watch, toRefs } from 'vue';
+import { storeToRefs } from 'pinia';
+
+import { categories as categoriesApi } from '~/api';
 import I18n from '~/utils/I18n';
+import useAccountStore from '~/stores/AccountStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
+
+import EditButton from '~/components/rails/EditButton.vue';
+import DeleteButton from '~/components/rails/DeleteButton.vue';
 
 export default {
+  components: {
+    DeleteButton,
+    EditButton,
+  },
+
   props: {
     categories: {
       type: Array,
@@ -56,14 +64,29 @@ export default {
     },
   },
 
-  setup() {
-    const editCategoryPath = (categoryId) => categories.edit.path({ id: categoryId });
-    const destroyCategoryPath = (categoryId) => categories.destroy.path({ id: categoryId });
+  setup(props) {
+    const editCategoryPath = (categoryId) => categoriesApi.edit.path({ id: categoryId });
+    const destroyCategoryPath = (categoryId) => categoriesApi.destroy.path({ id: categoryId });
+
+    // Load categories from props
+    const categoryStore = useCategoryStore();
+    const { categories: categoriesFromStore } = storeToRefs(categoryStore);
+    categoriesFromStore.value = toRefs(props.categories);
+
+    // Reload categories if account has changed while this page is open
+    const accountStore = useAccountStore();
+    watch(
+      () => accountStore.currentAccount,
+      () => {
+        categoriesApi.list().then(response => categoriesFromStore.value = response.categories);
+      },
+    );
 
     return {
       editCategoryPath,
       destroyCategoryPath,
       t: I18n.scopedTranslator('views.categories.index'),
+      categoriesFromStore,
     };
   },
 };

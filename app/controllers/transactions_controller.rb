@@ -1,26 +1,24 @@
 # frozen_string_literal: true
 
 class TransactionsController < AbstractAuthenticatedController
-  before_action :set_transaction, only: %i[show edit update destroy]
+  before_action :set_transaction, only: %i[edit update destroy]
 
   def index
-    transactions = Current.account.transactions.includes(:category)
+    transactions = Current.account.transactions.includes(:category).as_json
 
-    render inertia: 'transactions/Index', props: { transactions: transactions.as_json }
-  end
-
-  def show
-    render inertia: 'transactions/Show'
+    respond_to do |format|
+      format.html { render inertia: 'transactions/Index', props: camelize_props(transactions:) }
+      format.json { render json: { transactions: } }
+    end
   end
 
   def new
-    transaction = Current.account.transactions.new
-
-    render inertia: 'transactions/New', props: { transaction: transaction, categories: available_categories }
+    render inertia: 'transactions/New', props: { transaction: {} }.merge(available_categories)
   end
 
   def edit
-    render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: available_categories }
+    render inertia: 'transactions/Edit',
+           props:   { transaction: camelize_props(@transaction.as_json) }.merge(available_categories)
   end
 
   def create
@@ -29,7 +27,8 @@ class TransactionsController < AbstractAuthenticatedController
     return redirect_to transactions_path, success: t('.success') if transaction.save
 
     flash.now[:error] = t('.error', error: transaction.errors.full_messages)
-    render inertia: 'transactions/New', props: { transaction: transaction, categories: available_categories }
+    render inertia: 'transactions/New',
+           props:   { transaction: camelize_props(transaction.as_json) }.merge(available_categories)
   end
 
   def update
@@ -39,7 +38,8 @@ class TransactionsController < AbstractAuthenticatedController
     else
       flash.now[:error] = t('.error', error: @transaction.errors.full_messages)
 
-      render inertia: 'transactions/Edit', props: { transaction: @transaction, categories: available_categories }
+      render inertia: 'transactions/Edit',
+             props:   { transaction: camelize_props(@transaction.as_json) }.merge(available_categories)
     end
   end
 
@@ -56,10 +56,13 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:name, :amount, :transaction_date, :category_id)
+    params
+      .require(:transaction)
+      .permit(:name, :amount, :transaction_date, :category_id)
+      .merge(amount_currency: Current.account.currency)
   end
 
   def available_categories
-    Current.account.categories
+    camelize_props(categories: Current.account.categories.as_json)
   end
 end

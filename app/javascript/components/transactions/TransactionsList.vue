@@ -11,7 +11,7 @@
     </thead>
     <tbody class="table-group-divider">
       <tr
-        v-for="transaction in transactions"
+        v-for="transaction in transactionsFromStore"
         :key="transaction.id"
       >
         <td>{{ formatDate(transaction.transactionDate) }}</td>
@@ -19,23 +19,18 @@
         <td>
           <CategoryIndicator :category="transaction.category" />
         </td>
-        <td>{{ transaction.amount }}</td>
-        <td>
-          <a
+        <td>{{ transaction.amountWithUnit }}</td>
+        <td class="text-end">
+          <EditButton
+            small
             :href="editTransactionPath(transaction.id)"
-            class="btn btn-outline-secondary btn-sm"
-          >
-            {{ t('edit') }}
-          </a>
+          />
 
-          <a
+          <DeleteButton
+            small
             :href="destroyTransactionPath(transaction.id)"
-            data-method="DELETE"
-            :data-confirm="t('delete_confirmation')"
-            class="btn btn-outline-danger btn-sm ms-2"
-          >
-            {{ t('delete') }}
-          </a>
+            class="ms-2"
+          />
         </td>
       </tr>
     </tbody>
@@ -43,15 +38,24 @@
 </template>
 
 <script>
-import { transactions } from '~/api';
+import { watch, toRefs } from 'vue';
+import { storeToRefs } from 'pinia';
+
+import { transactions as transactionsApi } from '~/api';
 import I18n from '~/utils/I18n.js';
-import { formatDate } from '~/utils/DateUtils';
+import { formatDate } from '~/utils/DateUtils.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
+import useAccountStore from '~/stores/AccountStore.js';
 
 import CategoryIndicator from '~/components/categories/CategoryIndicator.vue';
+import DeleteButton from '@/components/rails/DeleteButton.vue';
+import EditButton from '@/components/rails/EditButton.vue';
 
 export default {
   components: {
     CategoryIndicator,
+    DeleteButton,
+    EditButton,
   },
 
   props: {
@@ -61,14 +65,29 @@ export default {
     },
   },
 
-  setup() {
-    const editTransactionPath = (transactionId) => transactions.edit.path({ id: transactionId });
-    const destroyTransactionPath = (transactionId) => transactions.destroy.path({ id: transactionId });
+  setup(props) {
+    const editTransactionPath = (transactionId) => transactionsApi.edit.path({ id: transactionId });
+    const destroyTransactionPath = (transactionId) => transactionsApi.destroy.path({ id: transactionId });
+
+    // Load transactions from props
+    const transactionStore = useTransactionStore();
+    const { transactions: transactionsFromStore } = storeToRefs(transactionStore);
+    transactionsFromStore.value = toRefs(props.transactions);
+
+    // Reload transactions if account has changed while this page is open
+    const accountStore = useAccountStore();
+    watch(
+      () => accountStore.currentAccount,
+      () => {
+        transactionsApi.list().then(response => transactionsFromStore.value = response.transactions);
+      },
+    );
 
     return {
       formatDate,
       editTransactionPath,
       destroyTransactionPath,
+      transactionsFromStore,
       t: I18n.scopedTranslator('views.transactions.index'),
     };
   },

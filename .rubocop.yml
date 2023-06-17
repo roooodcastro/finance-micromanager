@@ -57,6 +57,9 @@ Metrics/MethodLength:
   AllowedMethods:
     - as_json
 
+Metrics/AbcSize:
+  Max: 30
+
 Rails:
   Enabled: true
 

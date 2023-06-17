@@ -45,9 +45,9 @@ class AccountsController < AbstractAuthenticatedController
   end
 
   def destroy
-    @account.disable!
+    @account.disabled!
 
-    redirect_to user_root_path, success: t('.success')
+    redirect_to accounts_path, success: t('.success')
   end
 
   private

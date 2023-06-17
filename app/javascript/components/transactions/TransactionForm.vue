@@ -51,7 +51,7 @@
           <CategoriesSelect
             :id="formHelper.fieldId('category_id')"
             :name="formHelper.fieldName('category_id')"
-            :value="transaction.category_id"
+            :value="transaction.categoryId"
             :categories="categories"
             required
           />
@@ -82,6 +82,7 @@
 <script>
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
+import useAccountStore from '~/stores/AccountStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -109,7 +110,8 @@ export default {
     const t = I18n.scopedTranslator('views.transactions.form');
     const listTransactionsPath = transactions.list.path();
     const isNewTransaction = !props.transaction.id;
-    const currencySymbol = '€'; // TODO: set correct currency symbol for account currency
+    const accountStore = useAccountStore();
+    const currencySymbol = accountStore.currentAccount.currencyObject.symbol;
 
     const formMethod = isNewTransaction ? 'POST' : 'PATCH';
     const formAction = isNewTransaction
@@ -118,7 +120,7 @@ export default {
 
     const formTitle = isNewTransaction ? t('new_title') : t('edit_title', { transaction: props.transaction.name });
     const defaultTransactionDate = new Date().toISOString().split('T')[0];
-    const transactionDate = props.transaction.transaction_date || defaultTransactionDate;
+    const transactionDate = props.transaction.transactionDate || defaultTransactionDate;
 
     return {
       currencySymbol,

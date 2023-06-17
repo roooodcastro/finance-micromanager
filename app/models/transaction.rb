@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Transaction < ApplicationRecord
-  monetize :amount_cents
+  monetize :amount_cents, disable_validation: true
 
   belongs_to :import, optional: true
   belongs_to :account
@@ -10,6 +10,7 @@ class Transaction < ApplicationRecord
   validates :name, :transaction_date, :amount, presence: true
 
   def as_json(*)
-    super(include: :category).merge(amount: amount.format)
+    super(except: %w[transaction_date created_at updated_at], include: :category)
+      .merge(amount_with_unit: amount.format, amount: amount)
   end
 end
