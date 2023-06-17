@@ -2,11 +2,15 @@
 
 RSpec.describe CategoriesController do
   let(:user) { create(:user) }
+  let(:account) { create(:account, user:) }
 
-  before { sign_in user }
+  before do
+    sign_in user
+    session[:current_account_id] = account.id
+  end
 
   describe 'GET index', inertia: true do
-    let!(:category) { create(:category) }
+    let!(:category) { create(:category, account:) }
 
     it 'renders the index component' do
       get :index
@@ -26,7 +30,7 @@ RSpec.describe CategoriesController do
   end
 
   describe 'GET edit', inertia: true do
-    let!(:category) { create(:category) }
+    let!(:category) { create(:category, account:) }
 
     it 'renders the edit component' do
       get :edit, params: { id: category.id }
@@ -39,8 +43,6 @@ RSpec.describe CategoriesController do
   describe 'POST create', inertia: true do
     subject(:create_request) { post :create, params: }
 
-    before { create(:account) }
-
     context 'when params are valid' do
       let(:params) { { category: { name: 'Test', color: '#FF00FF' } } }
 
@@ -50,6 +52,7 @@ RSpec.describe CategoriesController do
         expect(response).to redirect_to(categories_path)
         expect(Category.last.name).to eq('Test')
         expect(Category.last.color).to eq('#FF00FF')
+        expect(Category.last.account).to eq(account)
       end
     end
 
@@ -69,7 +72,7 @@ RSpec.describe CategoriesController do
   describe 'PATCH update', inertia: true do
     subject(:update_request) { patch :update, params: }
 
-    let!(:category) { create(:category) }
+    let!(:category) { create(:category, account:) }
 
     context 'when params are valid' do
       let(:params) { { id: category.id, category: { name: 'New Name', color: '#FF00FF' } } }
@@ -99,7 +102,7 @@ RSpec.describe CategoriesController do
   describe 'DELETE destroy' do
     subject(:delete_request) { delete :destroy, params: { id: category.id } }
 
-    let!(:category) { create(:category) }
+    let!(:category) { create(:category, account:) }
 
     it 'destroys the categroy and redirect to index' do
       expect { delete_request }.to change { Category.count }.by(-1)

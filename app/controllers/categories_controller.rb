@@ -24,11 +24,10 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def create
-    category = Category.new(category_params)
+    category = Current.account.categories.new(category_params)
 
     if category.save
-      flash[:success] = t('.success')
-      redirect_to categories_path
+      redirect_to categories_path, success: t('.success')
     else
       flash.now[:error] = t('.error', error: category.errors.full_messages)
       render inertia: 'categories/New', props: { category: }
@@ -54,10 +53,10 @@ class CategoriesController < AbstractAuthenticatedController
   private
 
   def set_category
-    @category = Category.find(params[:id])
+    @category = Current.account.categories.find(params[:id])
   end
 
   def category_params
-    params.require(:category).permit(:name, :color).merge(account: Current.account)
+    params.require(:category).permit(:name, :color)
   end
 end
