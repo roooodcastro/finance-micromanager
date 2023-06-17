@@ -11,7 +11,7 @@
         v-for="account in accounts"
         :key="account.id"
       >
-        <td>{{ account.currency_object.name }}</td>
+        <td>{{ account.currencyObject.name }}</td>
 
         <td class="text-end">
           <EditButton

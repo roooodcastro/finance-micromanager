@@ -3,7 +3,7 @@
     <div
       v-for="(message, index) in successMessages"
       :key="`success_${index}`"
-      class="alert alert-success alert-dismissible"
+      class="alert alert-success alert-dismissible fade show"
     >
       {{ message }}
       <CloseButton />
@@ -12,7 +12,7 @@
     <div
       v-for="(message, index) in warningMessages"
       :key="`warning_${index}`"
-      class="alert alert-warning alert-dismissible"
+      class="alert alert-warning alert-dismissible fade show"
     >
       <strong>Warning:</strong>
       {{ message }}
@@ -22,7 +22,7 @@
     <div
       v-for="(message, index) in errorMessages"
       :key="`error_${index}`"
-      class="alert alert-danger alert-dismissible"
+      class="alert alert-danger alert-dismissible fade show"
     >
       <strong>Error:</strong>
       {{ message }}
@@ -32,6 +32,9 @@
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
+import useFlashStore from '~/stores/FlashStore.js';
+
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
 
 export default {
@@ -39,17 +42,8 @@ export default {
     CloseButton,
   },
 
-  props: {
-    flashMessages: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  setup(props) {
-    const successMessages = ([props.flashMessages?.success] || []).concat([props.flashMessages?.notice] || []).flat().filter(Boolean);
-    const warningMessages = ([props.flashMessages?.warning] || []).flat().filter(Boolean);
-    const errorMessages = ([props.flashMessages?.error] || []).concat([props.flashMessages?.alert] || []).flat().filter(Boolean);
+  setup() {
+    const { successMessages, warningMessages, errorMessages } = storeToRefs(useFlashStore());
 
     return {
       successMessages,

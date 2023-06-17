@@ -17,6 +17,10 @@ pt-BR:
     destroy:
       success: 'Categoria removida com sucesso.'
 
+  current_accounts:
+    create:
+      error: 'Conta não encontrada.'
+
   transactions:
     create:
       success: 'Transação criada com sucesso.'

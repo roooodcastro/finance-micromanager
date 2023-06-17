@@ -17,6 +17,10 @@ en:
     destroy:
       success: 'Category was successfully destroyed.'
 
+  current_accounts:
+    create:
+      error: 'Account was not found.'
+
   transactions:
     create:
       success: 'Transaction was successfully created.'

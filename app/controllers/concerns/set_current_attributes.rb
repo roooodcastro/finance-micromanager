@@ -4,7 +4,6 @@ module SetCurrentAttributes
   extend ActiveSupport::Concern
 
   def set_current_attributes
-    # Current.account = Account.find(session[:account_id])
-    Current.account = Account.first
+    Current.account = current_user.accounts.find_by(id: session[:current_account_id])
   end
 end

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export default defineStore('account', {
   state: () => ({
-    currentAccount: null,
+    currentAccount: {},
     availableAccounts: [],
   }),
 });

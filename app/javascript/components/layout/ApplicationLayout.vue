@@ -17,6 +17,7 @@ import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 import FlashMessages from '~/components/layout/FlashMessages.vue';
 
 import useUserStore from '~/stores/UserStore.js';
+import useFlashStore from '~/stores/FlashStore.js';
 import useAccountStore from '~/stores/AccountStore.js';
 
 export default {
@@ -61,6 +62,10 @@ export default {
 
       /* eslint-disable-next-line vue/no-setup-props-destructure */
       userStore.user = props.user;
+    }
+
+    if (props.flashMessages) {
+      useFlashStore().setMessages(props.flashMessages);
     }
   },
 };

@@ -15,7 +15,7 @@
           class="me-3"
           :icon="iconFor(currentAccount.currency)"
         />
-        {{ currentAccount?.currency_object?.name }}
+        {{ currentAccount?.currencyObject?.name }}
       </template>
       <template v-else>
         {{ t('no_account_selected') }}
@@ -34,13 +34,14 @@
           class="dropdown-item AccountSwitcher__account-link"
           :class="{ active: account.id === currentAccount.id }"
           href="#"
+          @click="handleAccountChange(account.id)"
         >
           <FontAwesomeIcon
             class="me-3 text-secondary"
             :icon="iconFor(account.currency)"
           />
 
-          {{ account.currency_object.name }}
+          {{ account.currencyObject.name }}
         </a>
       </li>
 
@@ -67,9 +68,11 @@
 <script>
 import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { storeToRefs } from 'pinia';
 
 import useAccountStore from '~/stores/AccountStore.js';
-import { accounts } from '~/api';
+import useFlashStore from '~/stores/FlashStore.js';
+import { accounts, currentAccounts } from '~/api';
 import I18n from '@/utils/I18n';
 
 export default {
@@ -81,10 +84,22 @@ export default {
     const t = I18n.scopedTranslator('views.layout.account_switcher');
 
     const accountStore = useAccountStore();
-    const currentAccount = accountStore.currentAccount;
-    const availableAccounts = accountStore.availableAccounts;
+    const { currentAccount, availableAccounts } = storeToRefs(accountStore);
     const dropdownOpened = ref(false);
     const newAccountPath = accounts.new.path();
+
+    const handleAccountChange = (accountId) => {
+      currentAccounts
+        .create({ data: { account_id: accountId } })
+        .then((response) => {
+          if (response.error) {
+            const { errorMessages } = storeToRefs(useFlashStore());
+              errorMessages.value.push(response.error);
+          } else {
+            currentAccount.value = response.account;
+          }
+        });
+    };
 
     const handleDropDownClick = (ev) => {
       dropdownOpened.value = ev.target.classList.contains('show');
@@ -107,6 +122,7 @@ export default {
       currentAccount,
       dropdownOpened,
       iconFor,
+      handleAccountChange,
       handleDropDownClick,
       newAccountPath,
       t,

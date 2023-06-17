@@ -13,6 +13,6 @@ class Account < ApplicationRecord
   validates :currency, presence: true, inclusion: { in: Money::Currency.map(&:id).map(&:to_s) }
 
   def as_json(*)
-    super(except: %w[created_at updated_at]).merge(currency_object: Money::Currency.find(currency))
+    super(except: %w[created_at updated_at]).merge(currencyObject: Money::Currency.find(currency))
   end
 end

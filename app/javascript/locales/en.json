@@ -35,6 +35,11 @@
         "success": "Category was successfully updated."
       }
     },
+    "current_accounts": {
+      "create": {
+        "error": "Account was not found."
+      }
+    },
     "date": {
       "abbr_day_names": [
         "Sun",
@@ -414,9 +419,6 @@
         },
         "index": {
           "currency": "Currency",
-          "delete": "Desativar",
-          "delete_confirmation": "Tem certeza? Você pode re-habilitar esta conta no futuro.",
-          "edit": "Editar",
           "new": "New Account",
           "title": "Accounts"
         }

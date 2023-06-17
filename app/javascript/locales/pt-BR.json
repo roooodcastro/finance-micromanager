@@ -35,6 +35,11 @@
         "success": "Categoria atualizada com successo."
       }
     },
+    "current_accounts": {
+      "create": {
+        "error": "Conta não encontrada."
+      }
+    },
     "date": {
       "abbr_day_names": [
         "dom",
@@ -404,9 +409,6 @@
         },
         "index": {
           "currency": "Moeda",
-          "delete": "Desativar",
-          "delete_confirmation": "Tem certeza? Você pode re-habilitar esta conta no futuro.",
-          "edit": "Editar",
           "new": "Nova conta",
           "title": "Contas"
         }
