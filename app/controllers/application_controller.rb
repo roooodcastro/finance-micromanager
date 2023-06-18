@@ -4,10 +4,9 @@ class ApplicationController < ActionController::Base
   include SetCurrentAttributes
   include ActiveModelErrorMessages
   include CamelizeableProps
+  include Localizeable
 
   add_flash_types :success, :warning, :danger
-
-  prepend_before_action :set_current_attributes
 
   inertia_share flashMessages: -> { flash.to_h }
 end

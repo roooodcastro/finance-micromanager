@@ -300,7 +300,6 @@
         }
       }
     },
-    "hello": "Hello world",
     "helpers": {
       "select": {
         "prompt": "Please select"
@@ -311,6 +310,7 @@
         "update": "Update %{model}"
       }
     },
+    "locale_name": "English",
     "number": {
       "currency": {
         "format": {

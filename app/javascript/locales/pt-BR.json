@@ -292,6 +292,7 @@
         "update": "Atualizar %{model}"
       }
     },
+    "locale_name": "Português",
     "number": {
       "currency": {
         "format": {

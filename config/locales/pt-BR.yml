@@ -1,5 +1,6 @@
 ---
 pt-BR:
+  locale_name: Português
   activerecord:
     errors:
       messages:
