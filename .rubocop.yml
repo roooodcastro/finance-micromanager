@@ -106,3 +106,9 @@ RSpec/MultipleExpectations:
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/ContextWording:
+  Enabled: false

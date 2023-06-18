@@ -14,7 +14,7 @@
         v-for="transaction in transactionsFromStore"
         :key="transaction.id"
       >
-        <td>{{ formatDate(transaction.transactionDate) }}</td>
+        <td>{{ formatDate(new Date(transaction.transactionDate)) }}</td>
         <td>{{ transaction.name }}</td>
         <td>
           <CategoryIndicator :category="transaction.category" />

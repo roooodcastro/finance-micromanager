@@ -146,10 +146,6 @@
         "x_seconds": {
           "one": "1 second",
           "other": "%{count} seconds"
-        },
-        "x_years": {
-          "one": "%{count} ano",
-          "other": "%{count} anos"
         }
       },
       "prompts": {
@@ -274,13 +270,6 @@
         "wrong_length": {
           "one": "is the wrong length (should be 1 character)",
           "other": "is the wrong length (should be %{count} characters)"
-        }
-      },
-      "template": {
-        "body": "Por favor, verifique o(s) seguinte(s) campo(s):",
-        "header": {
-          "one": "Não foi possível gravar %{model}: %{count} erro",
-          "other": "Não foi possível gravar %{model}: %{count} erros"
         }
       },
       "unacceptable_request": "A supported version is expected in the Accept header.\n",
@@ -486,9 +475,12 @@
       "transactions": {
         "form": {
           "amount_label": "Amount",
+          "amount_type_label": "Type",
           "back": "Back",
           "category_label": "Category",
+          "credit_label": "Credit",
           "date_label": "Date",
+          "debit_label": "Debit",
           "edit_title": "Edit Transaction \"%{transaction}\"",
           "name_label": "Name",
           "new_title": "New Transaction",

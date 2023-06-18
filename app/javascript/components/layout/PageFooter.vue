@@ -8,7 +8,7 @@
           class="nav-item mx-3"
         >
           <a
-            :href="`?locale=${locale.locale}`"
+            :href="`?new_locale=${locale.locale}`"
             class="nav-link text-white text-center"
           >
             {{ locale.name }}

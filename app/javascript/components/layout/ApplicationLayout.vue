@@ -3,7 +3,7 @@
     <Navigation />
     <VerticalMenu />
 
-    <div class="container-xxl px-3 pt-4 flex-shrink-0">
+    <div class="container-xxl px-3 pt-4 mb-3 flex-shrink-0">
       <FlashMessages :flash-messages="flashMessages" />
 
       <slot />

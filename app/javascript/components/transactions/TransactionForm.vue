@@ -16,30 +16,51 @@
           <FormInput
             field-name="name"
             :form-helper="formHelper"
-            :value="transaction.name"
+            :value="transactionState.name"
             :label="t('name_label')"
             required
           />
 
-          <FormInput
-            field-name="amount"
+          <label
+            :for="formHelper.fieldId('amount')"
+            class="form-label"
+          >
+            {{ t('amount_label') }}
+          </label>
+
+          <RadioButtonsInput
+            field-name="amount_type"
             :form-helper="formHelper"
-            :value="transaction.amount"
-            :label="t('amount_label')"
-            :prepend="currencySymbol"
-            type="number"
-            step="0.01"
-            required
+            :value="transactionState.amount_type"
+            :label="t('amount_type_label')"
+            :options="amountTypeOptions"
           />
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+              {{ currencySymbol }}
+            </span>
+
+            <input
+              :id="formHelper.fieldId('amount')"
+              :name="formHelper.fieldName('amount')"
+              type="number"
+              class="form-control"
+              :value="transactionState.amount"
+              step="0.01"
+              required
+            />
+          </div>
 
           <FormInput
             field-name="transaction_date"
             :form-helper="formHelper"
-            :value="transactionDate"
+            :value="transactionState.transactionDate"
             :label="t('date_label')"
             type="date"
             required
           />
+
 
           <label
             :for="formHelper.fieldId('category_id')"
@@ -51,7 +72,7 @@
           <CategoriesSelect
             :id="formHelper.fieldId('category_id')"
             :name="formHelper.fieldName('category_id')"
-            :value="transaction.categoryId"
+            :value="transactionState.categoryId"
             :categories="categories"
             required
           />
@@ -80,18 +101,23 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
 import useAccountStore from '~/stores/AccountStore.js';
+import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
+import RadioButtonsInput from '~/components/rails/RadioButtonsInput.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 
 export default {
   components: {
     CategoriesSelect,
     FormInput,
+    RadioButtonsInput,
     RailsForm,
   },
 
@@ -119,16 +145,31 @@ export default {
       : transactions.update.path({ id: props.transaction.id });
 
     const formTitle = isNewTransaction ? t('new_title') : t('edit_title', { transaction: props.transaction.name });
+
+    const transactionState = ref(props.transaction);
+
     const defaultTransactionDate = new Date().toISOString().split('T')[0];
-    const transactionDate = props.transaction.transactionDate || defaultTransactionDate;
+    transactionState.value.transactionDate = transactionState.value.transactionDate || defaultTransactionDate;
+
+    transactionState.value.amountType = transactionState.value.amountCents > 0 ? 'credit' : 'debit';
+
+    if (transactionState.value.amount) {
+      transactionState.value.amount = Math.abs(parseLocaleNumber(transactionState.value.amount)).toFixed(2);
+    }
+
+    const amountTypeOptions = [
+      { value: 'debit', label: t('debit_label'), checked: transactionState.value.amountType === 'debit' },
+      { value: 'credit', label: t('credit_label'), checked: transactionState.value.amountType === 'credit' },
+    ];
 
     return {
+      amountTypeOptions,
       currencySymbol,
       listTransactionsPath,
       formMethod,
       formAction,
       formTitle,
-      transactionDate,
+      transactionState,
       t,
     };
   },

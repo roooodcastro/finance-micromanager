@@ -228,6 +228,7 @@
       }
     },
     "errors": {
+      "connection_refused": "Oops! Failed to connect to the Web Console middleware.\nPlease make sure a rails development server is running.\n",
       "format": "%{attribute} %{message}",
       "messages": {
         "accepted": "deve ser aceito",
@@ -245,6 +246,7 @@
         "in": "deve estar em %{count}",
         "inclusion": "não está incluído na lista",
         "invalid": "não é válido",
+        "invalid_currency": "has invalid format (must be '100', '5%{decimal}24', or '123%{thousands}456%{decimal}78'). Got %{currency}",
         "less_than": "deve ser menor que %{count}",
         "less_than_or_equal_to": "deve ser menor ou igual a %{count}",
         "model_invalid": "A validação falhou: %{errors}",
@@ -280,6 +282,22 @@
           "one": "Não foi possível gravar %{model}: %{count} erro",
           "other": "Não foi possível gravar %{model}: %{count} erros"
         }
+      },
+      "unacceptable_request": "A supported version is expected in the Accept header.\n",
+      "unavailable_session": "Session %{id} is no longer available in memory.\n\nIf you happen to run on a multi-process server (like Unicorn or Puma) the process\nthis request hit doesn't store %{id} in memory. Consider turning the number of\nprocesses/workers to one (1) or using a different server in development.\n"
+    },
+    "flash": {
+      "actions": {
+        "create": {
+          "notice": "%{resource_name} was successfully created."
+        },
+        "destroy": {
+          "alert": "%{resource_name} could not be destroyed.",
+          "notice": "%{resource_name} was successfully destroyed."
+        },
+        "update": {
+          "notice": "%{resource_name} was successfully updated."
+        }
       }
     },
     "helpers": {
@@ -308,6 +326,7 @@
       "format": {
         "delimiter": ".",
         "precision": 3,
+        "round_mode": "default",
         "separator": ",",
         "significant": false,
         "strip_insignificant_zeros": false
@@ -357,6 +376,8 @@
             "tb": "TB"
           }
         }
+      },
+      "nth": {
       },
       "percentage": {
         "format": {
@@ -477,9 +498,12 @@
       "transactions": {
         "form": {
           "amount_label": "Valor",
+          "amount_type_label": "Tipo",
           "back": "Voltar",
           "category_label": "Categoria",
+          "credit_label": "Crédito",
           "date_label": "Data",
+          "debit_label": "Débito",
           "edit_title": "Editar Transacão \"%{transaction}\"",
           "name_label": "Nome",
           "new_title": "Nova Transação",

@@ -76,7 +76,10 @@ en:
         new_title: New Transaction
         edit_title: 'Edit Transaction "%{transaction}"'
         amount_label: Amount
+        amount_type_label: Type
         category_label: Category
+        credit_label: Credit
+        debit_label: Debit
         date_label: Date
         name_label: Name
         submit: Submit

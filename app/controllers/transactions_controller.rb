@@ -4,7 +4,8 @@ class TransactionsController < AbstractAuthenticatedController
   before_action :set_transaction, only: %i[edit update destroy]
 
   def index
-    transactions = Current.account.transactions.includes(:category).as_json
+    transactions = Current.account.transactions.includes(:category)
+                          .order(transaction_date: :desc, created_at: :desc).as_json
 
     respond_to do |format|
       format.html { render inertia: 'transactions/Index', props: camelize_props(transactions:) }
@@ -58,7 +59,7 @@ class TransactionsController < AbstractAuthenticatedController
   def transaction_params
     params
       .require(:transaction)
-      .permit(:name, :amount, :transaction_date, :category_id)
+      .permit(:name, :amount, :transaction_date, :category_id, :amount_type)
       .merge(amount_currency: Current.account.currency)
   end
 
