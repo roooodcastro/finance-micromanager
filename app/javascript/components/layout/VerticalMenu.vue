@@ -28,6 +28,11 @@
           :class="{ active: menuItem.active }"
           :data-method="menuItem.method || 'GET'"
         >
+          <FontAwesomeIcon
+            :icon="menuItem.icon"
+            class="me-4"
+          />
+
           {{ menuItem.label }}
         </a>
       </div>
@@ -36,12 +41,25 @@
 </template>
 
 <script>
-import { accounts, categories, transactions, usersSessions, usersRegistrations } from '~/api';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+import {
+  accounts,
+  categories,
+  profiles as profilesApi,
+  transactions,
+  usersSessions,
+  usersRegistrations
+} from '~/api';
 import I18n from '~/utils/I18n';
 
 import useUserStore from '~/stores/UserStore.js';
 
 export default {
+  components: {
+    FontAwesomeIcon,
+  },
+
   setup() {
     const t = I18n.scopedTranslator('views.layout.vertical_menu')
     const userStore = useUserStore();
@@ -49,15 +67,16 @@ export default {
 
     if (userStore.isUserLoggedIn) {
       menuItems = [
-        { label: t('dashboard'), path: transactions.list.path() },
-        { label: t('categories'), path: categories.list.path() },
-        { label: t('accounts'), path: accounts.list.path() },
-        { label: t('sign_out'), path: usersSessions.destroy.path(), method: 'DELETE' },
+        { label: t('profile'), path: profilesApi.get.path(), icon: 'user' },
+        { label: t('dashboard'), path: transactions.list.path(), icon: 'list' },
+        { label: t('categories'), path: categories.list.path(), icon: 'shapes' },
+        { label: t('accounts'), path: accounts.list.path(), icon: 'wallet' },
+        { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
       ];
     } else {
       menuItems = [
-        { label: t('sign_in'), path: usersSessions.new.path() },
-        { label: t('sign_up'), path: usersRegistrations.new.path() },
+        { label: t('sign_in'), path: usersSessions.new.path(), icon: 'right-to-bracket' },
+        { label: t('sign_up'), path: usersRegistrations.new.path(), icon: 'user-plus' },
       ];
     }
 
