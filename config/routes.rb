@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
     resource :dashboard, only: :show
     resource :landing, only: :show
+    resource :profile, only: %i[show update]
 
     resources :accounts
     resources :categories, except: %i[show]

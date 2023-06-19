@@ -472,6 +472,13 @@
           "title": "Main Menu"
         }
       },
+      "profiles": {
+        "show": {
+          "empty_first_name_label": "-- First name not set --",
+          "empty_last_name_label": "-- Last name not set --",
+          "title": "My Profile"
+        }
+      },
       "transactions": {
         "form": {
           "amount_label": "Amount",

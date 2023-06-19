@@ -62,6 +62,11 @@ pt-BR:
         sign_in: Fazer Login
         sign_up: Criar conta
         sign_out: Sair da Conta
+    profiles:
+      show:
+        title: Meu Perfil
+        empty_first_name_label: '-- Nome não informado --'
+        empty_last_name_label:  '-- Sobrenome não informado --'
     transactions:
       index:
         title: Transações

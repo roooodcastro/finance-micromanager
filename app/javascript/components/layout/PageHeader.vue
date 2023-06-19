@@ -1,6 +1,6 @@
 <template>
   <header v-if="title || $slots.default">
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between mt-4">
       <h1
         v-if="title || $slots.default"
         class="d-flex align-items-center"

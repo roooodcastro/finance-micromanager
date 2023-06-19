@@ -61,6 +61,11 @@ en:
         sign_in: Sign In
         sign_up: Sign Up
         sign_out: Sign Out
+    profiles:
+      show:
+        title: My Profile
+        empty_first_name_label: '-- First name not set --'
+        empty_last_name_label: '-- Last name not set --'
     transactions:
       index:
         title: Transactions

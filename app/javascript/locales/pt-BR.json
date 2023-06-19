@@ -495,6 +495,13 @@
           "title": "Menu Principal"
         }
       },
+      "profiles": {
+        "show": {
+          "empty_first_name_label": "-- Nome não informado --",
+          "empty_last_name_label": "-- Sobrenome não informado --",
+          "title": "Meu Perfil"
+        }
+      },
       "transactions": {
         "form": {
           "amount_label": "Valor",
