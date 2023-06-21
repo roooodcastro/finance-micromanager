@@ -1,7 +1,8 @@
 <template>
   <nav class="navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
     <div class="container-xxl">
-      <AccountSwitcher />
+      <AccountSwitcher v-if="isUserLoggedIn" />
+      <span v-else></span>
 
       <a class="navbar-brand d-none d-md-inline-block" href="#">Finance MicroManager</a>
 
@@ -19,11 +20,20 @@
 </template>
 
 <script>
+import useUserStore from '~/stores/UserStore.js';
+
 import AccountSwitcher from '~/components/layout/AccountSwitcher.vue';
 
 export default {
   components: {
     AccountSwitcher,
+  },
+
+  setup() {
+    const userStore = useUserStore();
+    const isUserLoggedIn = userStore.isUserLoggedIn;
+
+    return { isUserLoggedIn };
   },
 };
 </script>
