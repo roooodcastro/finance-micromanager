@@ -21,6 +21,11 @@ en:
     create:
       error: 'Account was not found.'
 
+  profiles:
+    update:
+      success: Profile information updated successfully.
+      error: There was an error updating your profile info.
+
   transactions:
     create:
       success: 'Transaction was successfully created.'

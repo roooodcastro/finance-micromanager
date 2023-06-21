@@ -1,5 +1,8 @@
 <template>
-  <div class="form-floating mb-3">
+  <div
+    class="form-floating"
+    :class="containerMargin"
+  >
     <input
       v-bind="$attrs"
       :id="formHelper.fieldId(fieldName)"
@@ -39,6 +42,10 @@ export default {
     type: {
       type: String,
       default: 'text',
+    },
+    containerMargin: {
+      type: String,
+      default: 'mb-3'
     },
   },
 };

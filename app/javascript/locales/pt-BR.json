@@ -391,6 +391,12 @@
         }
       }
     },
+    "profiles": {
+      "update": {
+        "error": "Houve um erro ao autalizar os dados do seu perfil.",
+        "success": "Dados do perfil atualizados com sucesso."
+      }
+    },
     "support": {
       "array": {
         "last_word_connector": " e ",
@@ -497,9 +503,23 @@
         }
       },
       "profiles": {
+        "form": {
+          "cancel_edit_button": "Cancelar",
+          "disabled_password_label": "Senha",
+          "email_label": "Endereço de Email",
+          "first_name_label": "Nome",
+          "last_name_label": "Sobrenome",
+          "password_confirmation_label": "Confirme a Nova Senha",
+          "password_label": "Nova Senha",
+          "submit": "Salvar",
+          "update_password_link_label": "Trocar Senha"
+        },
         "show": {
+          "edit_button": "Editar perfil",
           "empty_first_name_label": "-- Nome não informado --",
           "empty_last_name_label": "-- Sobrenome não informado --",
+          "first_name": "Nome",
+          "last_name": "Sobrenome",
           "title": "Meu Perfil"
         }
       },

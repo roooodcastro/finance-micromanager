@@ -10,6 +10,5 @@ class User < ApplicationRecord
 
   has_many :accounts, dependent: :restrict_with_exception
 
-  validates :email, :password, presence: true
-  validates :email, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 end

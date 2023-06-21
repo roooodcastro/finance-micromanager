@@ -3,7 +3,10 @@
     <Navigation />
     <VerticalMenu />
 
-    <div class="container-xxl px-3 mb-3 flex-shrink-0">
+    <div
+      class="mb-3 flex-shrink-0"
+      :class="{ 'container-xxl': !skipContainer, 'px-3': !skipContainer }"
+    >
       <FlashMessages :flash-messages="flashMessages" />
 
       <slot />
@@ -46,6 +49,10 @@ export default {
     availableAccounts: {
       type: Object,
       required: true,
+    },
+    skipContainer: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {

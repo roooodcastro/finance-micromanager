@@ -64,8 +64,21 @@ pt-BR:
         sign_up: Criar conta
         sign_out: Sair da Conta
     profiles:
+      form:
+        first_name_label: Nome
+        last_name_label: Sobrenome
+        email_label: Endereço de Email
+        disabled_password_label: Senha
+        password_label: Nova Senha
+        password_confirmation_label: Confirme a Nova Senha
+        cancel_edit_button: Cancelar
+        submit: Salvar
+        update_password_link_label: Trocar Senha
       show:
         title: Meu Perfil
+        edit_button: Editar perfil
+        first_name: Nome
+        last_name:  Sobrenome
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
     transactions:

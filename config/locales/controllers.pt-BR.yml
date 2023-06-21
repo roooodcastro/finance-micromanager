@@ -21,6 +21,11 @@ pt-BR:
     create:
       error: 'Conta não encontrada.'
 
+  profiles:
+    update:
+      success: Dados do perfil atualizados com sucesso.
+      error: Houve um erro ao autalizar os dados do seu perfil.
+
   transactions:
     create:
       success: 'Transação criada com sucesso.'

@@ -63,8 +63,21 @@ en:
         sign_up: Sign Up
         sign_out: Sign Out
     profiles:
+      form:
+        first_name_label: First Name
+        last_name_label: Last Name
+        email_label: Email Address
+        disabled_password_label: Password
+        password_label: New Password
+        password_confirmation_label: Confirm Password
+        cancel_edit_button: Cancel
+        submit: Submit
+        update_password_link_label: Change Password
       show:
         title: My Profile
+        edit_button: Edit Profile
+        first_name: First Name
+        last_name: Last Name
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
     transactions:

@@ -368,6 +368,12 @@
         }
       }
     },
+    "profiles": {
+      "update": {
+        "error": "There was an error updating your profile info.",
+        "success": "Profile information updated successfully."
+      }
+    },
     "support": {
       "array": {
         "last_word_connector": ", and ",
@@ -474,9 +480,23 @@
         }
       },
       "profiles": {
+        "form": {
+          "cancel_edit_button": "Cancel",
+          "disabled_password_label": "Password",
+          "email_label": "Email Address",
+          "first_name_label": "First Name",
+          "last_name_label": "Last Name",
+          "password_confirmation_label": "Confirm Password",
+          "password_label": "New Password",
+          "submit": "Submit",
+          "update_password_link_label": "Change Password"
+        },
         "show": {
+          "edit_button": "Edit Profile",
           "empty_first_name_label": "-- First name not set --",
           "empty_last_name_label": "-- Last name not set --",
+          "first_name": "First Name",
+          "last_name": "Last Name",
           "title": "My Profile"
         }
       },
