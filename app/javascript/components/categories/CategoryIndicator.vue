@@ -29,8 +29,10 @@ export default {
 .CategoryIndicator__badge {
   border: 1px solid;
   border-radius: 4px;
+  display: inline-block;
   padding: 0.25em 0.5em;
   font-weight: bold;
+  width: 100%;
 }
 
 .CategoryIndicator__color-indicator {

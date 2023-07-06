@@ -7,7 +7,9 @@
         <tr>
           <th>{{ t('name') }}</th>
           <th>{{ t('category') }}</th>
-          <th>{{ t('amount') }}</th>
+          <th class="text-end">
+            {{ t('amount') }}
+          </th>
           <th></th>
         </tr>
       </thead>
@@ -29,7 +31,9 @@
             <td>
               <CategoryIndicator :category="transaction.category" />
             </td>
-            <td>{{ transaction.amountWithUnit }}</td>
+            <td class="text-end">
+              {{ transaction.amountWithUnit }}
+            </td>
             <td class="text-end">
               <EditButton
                 small
