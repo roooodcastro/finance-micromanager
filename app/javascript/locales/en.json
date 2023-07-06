@@ -520,8 +520,10 @@
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "edit": "Edit",
+          "filters": "Filters",
           "name": "Name",
           "new": "New Transaction",
+          "sorting": "Sorting",
           "title": "Transactions",
           "transaction_date": "Date"
         }

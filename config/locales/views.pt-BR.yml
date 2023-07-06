@@ -92,6 +92,8 @@ pt-BR:
         amount: Valor
         name: Nome
         transaction_date: Data
+        filters: Filtros
+        sorting: Ordem
       form:
         new_title: Nova Transação
         edit_title: 'Editar Transacão "%{transaction}"'

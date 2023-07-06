@@ -1,40 +1,44 @@
 <template>
-  <table class="table align-middle bg-white">
-    <thead class="table-light">
-      <tr>
-        <th>{{ t('transaction_date') }}</th>
-        <th>{{ t('name') }}</th>
-        <th>{{ t('category') }}</th>
-        <th>{{ t('amount') }}</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <tr
-        v-for="transaction in transactionsFromStore"
-        :key="transaction.id"
-      >
-        <td>{{ formatDate(new Date(transaction.transactionDate)) }}</td>
-        <td>{{ transaction.name }}</td>
-        <td>
-          <CategoryIndicator :category="transaction.category" />
-        </td>
-        <td>{{ transaction.amountWithUnit }}</td>
-        <td class="text-end">
-          <EditButton
-            small
-            :href="editTransactionPath(transaction.id)"
-          />
+  <div>
+    <TransactionsFilter @change="handleFiltersChange" />
 
-          <DeleteButton
-            small
-            :href="destroyTransactionPath(transaction.id)"
-            class="ms-2"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table align-middle bg-white">
+      <thead class="table-light">
+        <tr>
+          <th>{{ t('transaction_date') }}</th>
+          <th>{{ t('name') }}</th>
+          <th>{{ t('category') }}</th>
+          <th>{{ t('amount') }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr
+          v-for="transaction in transactionsFromStore"
+          :key="transaction.id"
+        >
+          <td>{{ formatDate(new Date(transaction.transactionDate)) }}</td>
+          <td>{{ transaction.name }}</td>
+          <td>
+            <CategoryIndicator :category="transaction.category" />
+          </td>
+          <td>{{ transaction.amountWithUnit }}</td>
+          <td class="text-end">
+            <EditButton
+              small
+              :href="editTransactionPath(transaction.id)"
+            />
+
+            <DeleteButton
+              small
+              :href="destroyTransactionPath(transaction.id)"
+              class="ms-2"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -47,15 +51,17 @@ import { formatDate } from '~/utils/DateUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useAccountStore from '~/stores/AccountStore.js';
 
+import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import CategoryIndicator from '~/components/categories/CategoryIndicator.vue';
-import DeleteButton from '@/components/rails/DeleteButton.vue';
-import EditButton from '@/components/rails/EditButton.vue';
+import DeleteButton from '~/components/rails/DeleteButton.vue';
+import EditButton from '~/components/rails/EditButton.vue';
 
 export default {
   components: {
     CategoryIndicator,
     DeleteButton,
     EditButton,
+    TransactionsFilter,
   },
 
   props: {
@@ -74,13 +80,13 @@ export default {
     const { transactions: transactionsFromStore } = storeToRefs(transactionStore);
     transactionsFromStore.value = toRef(props.transactions).value;
 
+    const handleFiltersChange = () => transactionStore.fetchTransactions();
+
     // Reload transactions if account has changed while this page is open
     const accountStore = useAccountStore();
     watch(
       () => accountStore.currentAccount,
-      () => {
-        transactionsApi.list().then(response => transactionsFromStore.value = response.transactions);
-      },
+      () => transactionStore.fetchTransactions(),
     );
 
     return {
@@ -88,6 +94,7 @@ export default {
       editTransactionPath,
       destroyTransactionPath,
       transactionsFromStore,
+      handleFiltersChange,
       t: I18n.scopedTranslator('views.transactions.index'),
     };
   },

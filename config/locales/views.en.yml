@@ -91,6 +91,8 @@ en:
         amount: Amount
         name: Name
         transaction_date: Date
+        filters: Filters
+        sorting: Sorting
       form:
         new_title: New Transaction
         edit_title: 'Edit Transaction "%{transaction}"'

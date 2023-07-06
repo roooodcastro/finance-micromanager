@@ -197,3 +197,11 @@ th {
 .icon-secondary {
   color: $indigo-700;
 }
+
+.rounded-pill-start {
+  border-radius: var(--bs-border-radius-pill) 0 0 var(--bs-border-radius-pill);
+}
+
+.rounded-pill-end {
+  border-radius: 0 var(--bs-border-radius-pill) var(--bs-border-radius-pill) 0;
+}

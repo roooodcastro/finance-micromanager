@@ -543,8 +543,10 @@
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "edit": "Editar",
+          "filters": "Filtros",
           "name": "Nome",
           "new": "Nova Transação",
+          "sorting": "Ordem",
           "title": "Transações",
           "transaction_date": "Data"
         }

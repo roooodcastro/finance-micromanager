@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
+  faArrowDownAZ,
   faAt,
   faBrazilianRealSign,
   faChevronDown,
@@ -8,6 +9,7 @@ import {
   faChevronUp,
   faDollarSign,
   faEuroSign,
+  faFilter,
   faFloppyDisk,
   faKey,
   faList,
@@ -30,6 +32,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
+  faArrowDownAZ,
   faAt,
   faBrazilianRealSign,
   faChevronDown,
@@ -37,6 +40,7 @@ library.add(
   faChevronUp,
   faDollarSign,
   faEuroSign,
+  faFilter,
   faFloppyDisk,
   faKey,
   faList,
