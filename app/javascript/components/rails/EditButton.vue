@@ -1,8 +1,7 @@
 <template>
   <a
     v-bind="$attrs"
-    class="btn btn-outline-secondary"
-    :class="{ 'btn-sm': small }"
+    class="text-secondary"
   >
     <FontAwesomeIcon
       icon="pen-to-square"
@@ -21,13 +20,6 @@ import I18n from '@/utils/I18n';
 export default {
   components: {
     FontAwesomeIcon,
-  },
-
-  props: {
-    small: {
-      type: Boolean,
-      default: false,
-    }
   },
 
   setup() {

@@ -1,4 +1,6 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import _ from 'lodash';
+
 import { transactions as transactionsApi } from '~/api';
 
 export default defineStore('transaction', {
@@ -8,6 +10,11 @@ export default defineStore('transaction', {
     excludeDebits: false,
     excludeCredits: false,
   }),
+  getters: {
+    groupedTransactions: state => {
+      return _.groupBy(state.transactions, 'transactionDate');
+    }
+  },
   actions: {
     fetchTransactions() {
       const params = {

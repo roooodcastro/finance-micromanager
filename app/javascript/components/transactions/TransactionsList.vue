@@ -5,7 +5,6 @@
     <table class="table align-middle bg-white">
       <thead class="table-light">
         <tr>
-          <th>{{ t('transaction_date') }}</th>
           <th>{{ t('name') }}</th>
           <th>{{ t('category') }}</th>
           <th>{{ t('amount') }}</th>
@@ -13,29 +12,38 @@
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr
-          v-for="transaction in transactionsFromStore"
-          :key="transaction.id"
+        <template
+          v-for="(transactionsByDate, transactionDate) in groupedTransactions"
+          :key="transactionDate"
         >
-          <td>{{ formatDate(new Date(transaction.transactionDate)) }}</td>
-          <td>{{ transaction.name }}</td>
-          <td>
-            <CategoryIndicator :category="transaction.category" />
-          </td>
-          <td>{{ transaction.amountWithUnit }}</td>
-          <td class="text-end">
-            <EditButton
-              small
-              :href="editTransactionPath(transaction.id)"
-            />
+          <tr class="TransactionsList__date-row fw-bold bg-light-primary border-0">
+            <td colspan="4">
+              {{ formatDate(new Date(transactionDate)) }}
+            </td>
+          </tr>
+          <tr
+            v-for="transaction in transactionsByDate"
+            :key="transaction.id"
+          >
+            <td>{{ transaction.name }}</td>
+            <td>
+              <CategoryIndicator :category="transaction.category" />
+            </td>
+            <td>{{ transaction.amountWithUnit }}</td>
+            <td class="text-end">
+              <EditButton
+                small
+                :href="editTransactionPath(transaction.id)"
+              />
 
-            <DeleteButton
-              small
-              :href="destroyTransactionPath(transaction.id)"
-              class="ms-2"
-            />
-          </td>
-        </tr>
+              <DeleteButton
+                small
+                :href="destroyTransactionPath(transaction.id)"
+                class="ms-3"
+              />
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>
@@ -77,7 +85,7 @@ export default {
 
     // Load transactions from props
     const transactionStore = useTransactionStore();
-    const { transactions: transactionsFromStore } = storeToRefs(transactionStore);
+    const { transactions: transactionsFromStore, groupedTransactions } = storeToRefs(transactionStore);
     transactionsFromStore.value = toRef(props.transactions).value;
 
     const handleFiltersChange = () => transactionStore.fetchTransactions();
@@ -94,6 +102,7 @@ export default {
       editTransactionPath,
       destroyTransactionPath,
       transactionsFromStore,
+      groupedTransactions,
       handleFiltersChange,
       t: I18n.scopedTranslator('views.transactions.index'),
     };

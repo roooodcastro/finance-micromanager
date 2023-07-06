@@ -1,8 +1,7 @@
 <template>
   <a
     v-bind="$attrs"
-    class="btn btn-outline-danger"
-    :class="{ 'btn-sm': small }"
+    class="text-danger"
     data-method="DELETE"
     :data-confirm="disableLabel ? t('disable_confirmation') : t('delete_confirmation')"
   >
@@ -26,10 +25,6 @@ export default {
   },
 
   props: {
-    small: {
-      type: Boolean,
-      default: false,
-    },
     disableLabel: {
       type: Boolean,
       default: false,

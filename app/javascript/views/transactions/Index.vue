@@ -6,7 +6,13 @@
           :href="newTransactionPath"
           class="btn btn-outline-secondary"
         >
-          {{ t('new') }}
+          <FontAwesomeIcon
+            icon="plus"
+            size="lg"
+          />
+          <span class="d-none d-lg-inline-block ms-2">
+            {{ t('new') }}
+          </span>
         </a>
       </template>
     </PageHeader>
@@ -18,12 +24,14 @@
 <script>
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 
 export default {
   components: {
+    FontAwesomeIcon,
     PageHeader,
     TransactionsList,
   },
