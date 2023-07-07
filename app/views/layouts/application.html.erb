@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= tag(:meta, name: 'locale', content: I18n.locale) %>
+    <%= tag(:meta, name: 'locale-file-path', content: asset_path("locales/#{I18n.locale}.json")) %>
 
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application.js' %>

@@ -1,0 +1,13 @@
+.git
+.gitignore
+.idea
+.DS_Store
+.github
+
+spec
+log
+tmp
+coverage
+public/vite
+
+.env.production.local

@@ -19,7 +19,8 @@ class I18n {
 
   async loadTranslations() {
     const locale = document.querySelector('meta[name="locale"]')?.content;
-    const response = await fetch(`/locales/${locale}.json`);
+    const localeFilePath = document.querySelector('meta[name="locale-file-path"]')?.content;
+    const response = await fetch(localeFilePath);
     const translations = await response.json();
 
     this.i18n.locale = locale;
