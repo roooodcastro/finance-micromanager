@@ -1,0 +1,16 @@
+---
+shared: &shared
+  host: localhost
+  port: 6379
+  reconnect_attempts: 5
+  reconnect_delay: 0.05
+  reconnect_delay_max: 0.25
+
+development:
+  <<: *shared
+
+test:
+  <<: *shared
+
+production:
+  <<: *shared

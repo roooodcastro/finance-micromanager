@@ -19,7 +19,9 @@ gem 'sprockets-rails'
 gem 'turbo-rails'
 gem 'vite_rails'
 
+gem 'connection_pool'
 gem 'devise'
+gem 'dotenv-rails'
 gem 'money-rails'
 gem 'pry'
 gem 'roo'
@@ -39,7 +41,6 @@ end
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'js_from_routes'
   gem 'pry-rails'

@@ -82,6 +82,7 @@ GEM
     childprocess (4.1.0)
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.3)
     debug (1.7.2)
@@ -349,6 +350,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   brakeman
+  connection_pool
   debug
   devise
   dotenv-rails

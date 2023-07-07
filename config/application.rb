@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 
 module FinanceMicromanager
   class Application < Rails::Application
+    # Custom config
+    config.redis = config_for(:redis)
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
