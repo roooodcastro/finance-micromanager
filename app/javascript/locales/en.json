@@ -19,6 +19,15 @@
             "has_many": "Cannot delete record because dependent %{record} exist",
             "has_one": "Cannot delete record because a dependent %{record} exists"
           }
+        },
+        "models": {
+          "user": {
+            "attributes": {
+              "base": {
+                "email_not_valid": "Email is not valid."
+              }
+            }
+          }
         }
       }
     },

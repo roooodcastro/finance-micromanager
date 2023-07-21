@@ -11,4 +11,14 @@ class User < ApplicationRecord
   has_many :accounts, dependent: :restrict_with_exception
 
   validates :email, presence: true, uniqueness: true
+
+  validate :validate_email_in_allow_list
+
+  def validate_email_in_allow_list
+    allow_list = Rails.application.credentials.user_email_allowlist
+    return if allow_list.empty?
+    return if allow_list.include?(email)
+
+    errors.add(:base, :email_not_valid)
+  end
 end

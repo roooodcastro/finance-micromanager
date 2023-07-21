@@ -1,0 +1,9 @@
+---
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            base:
+              email_not_valid: Email não é válido.

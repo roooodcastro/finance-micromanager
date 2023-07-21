@@ -19,6 +19,15 @@
             "has_many": "Não é possível excluir o registro pois existem %{record} dependentes",
             "has_one": "Não é possível excluir o registro pois existe um %{record} dependente"
           }
+        },
+        "models": {
+          "user": {
+            "attributes": {
+              "base": {
+                "email_not_valid": "Email não é válido."
+              }
+            }
+          }
         }
       }
     },
