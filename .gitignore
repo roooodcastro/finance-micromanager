@@ -33,5 +33,3 @@ spec/examples.txt
 yarn-error.log*
 config/credentials/*.key
 config/master.key
-
-/config/credentials/*.key

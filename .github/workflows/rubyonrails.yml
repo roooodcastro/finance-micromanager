@@ -24,6 +24,7 @@ jobs:
           POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
+      RAILS_MASTER_KEY: 51cda62d513318ce7c09b6ffe812f45c
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
       DATABASE_USERNAME: rails
