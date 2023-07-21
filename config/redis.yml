@@ -1,7 +1,8 @@
 ---
 shared: &shared
-  host: localhost
-  port: 6379
+  host: <%= ENV.fetch('REDIS_HOST', 'localhost') %>
+  password: <%= ENV.fetch('REDIS_PASSWORD', nil) %>
+  port: <%= ENV.fetch('REDIS_PORT', 6379) %>
   reconnect_attempts: 5
   reconnect_delay: 0.05
   reconnect_delay_max: 0.25

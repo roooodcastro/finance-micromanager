@@ -24,7 +24,9 @@ async function startApplication() {
   await I18n.loadTranslations();
   axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
 
-  Rails.start();
+  if (!window._rails_loaded) {
+    Rails.start();
+  }
 
   createInertiaApp({
     id: 'app',
