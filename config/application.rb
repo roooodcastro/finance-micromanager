@@ -10,8 +10,6 @@ require 'active_record/railtie'
 require 'active_storage/engine'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
-# require "action_mailbox/engine"
-# require "action_text/engine"
 require 'action_view/railtie'
 require 'action_cable/engine'
 
@@ -41,5 +39,11 @@ module FinanceMicromanager
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.action_mailer.delivery_method = :test
+    config.action_mailer.smtp_settings   = credentials.smtp.merge(
+      authentication:       'plain',
+      enable_starttls_auto: true
+    )
   end
 end

@@ -34,4 +34,4 @@ yarn-error.log*
 config/credentials/*.key
 config/master.key
 
-/config/credentials/production.key
+/config/credentials/*.key
