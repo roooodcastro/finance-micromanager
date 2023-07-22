@@ -17,7 +17,7 @@
       </ul>
 
       <p class="text-center my-0 fs-6">
-        © 2023 Rodrigo Castro
+        © 2023 Rodrigo Castro | Version {{ version }}-{{ deployTimestamp }}
       </p>
     </div>
   </footer>
@@ -31,10 +31,16 @@ import { locales as localesApi } from '~/api';
 export default {
   setup() {
     const locales = ref([]);
+    const version = document.querySelector('meta[name="version"]')?.content;
+    const deployTimestamp = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'latest';
 
     localesApi.list().then(response => locales.value = response);
 
-    return { locales };
+    return {
+      locales,
+      version,
+      deployTimestamp,
+    };
   }
 }
 </script>

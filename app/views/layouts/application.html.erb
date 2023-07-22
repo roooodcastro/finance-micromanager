@@ -8,6 +8,8 @@
 
     <%= tag(:meta, name: 'locale', content: I18n.locale) %>
     <%= tag(:meta, name: 'locale-file-path', content: asset_path("locales/#{I18n.locale}.json")) %>
+    <%= tag(:meta, name: 'version', content: Version.version) %>
+    <%= tag(:meta, name: 'deploy-timestamp', content: Version.deploy_timestamp) %>
 
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application.js' %>

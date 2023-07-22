@@ -15,7 +15,8 @@ RUN bundle install && yarn install --prod
 COPY . /finance_micromanager
 COPY deploy/docker/rails_entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh && \
-    mv .env.docker_development.local .env.production.local
+    mv .env.docker_development.local .env.production.local && \
+    date -u '+%d%m%Y%H%M%S' > DEPLOY_TIMESTAMP
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
