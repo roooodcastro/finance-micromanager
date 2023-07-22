@@ -491,6 +491,7 @@
       "profiles": {
         "form": {
           "cancel_edit_button": "Cancel",
+          "default_account_label": "Default Account",
           "disabled_password_label": "Password",
           "email_label": "Email Address",
           "first_name_label": "First Name",
@@ -501,7 +502,9 @@
           "update_password_link_label": "Change Password"
         },
         "show": {
+          "default_account": "Default Account",
           "edit_button": "Edit Profile",
+          "empty_default_account_label": "-- Default Account not set --",
           "empty_first_name_label": "-- First name not set --",
           "empty_last_name_label": "-- Last name not set --",
           "first_name": "First Name",

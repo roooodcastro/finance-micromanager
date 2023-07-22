@@ -79,6 +79,34 @@
         </div>
       </div>
 
+      <div class="row border-bottom py-3 align-items-center">
+        <FontAwesomeIcon
+          icon="wallet"
+          size="3x"
+          class="col-2 col-lg-1 icon-secondary"
+        />
+
+        <div class="col">
+          <label>
+            {{ t('default_account_label') }}
+          </label>
+          <select
+            class="form-select"
+            :id="formHelper.fieldId('default_account_id')"
+            :name="formHelper.fieldName('default_account_id')"
+          >
+          <option
+            v-for="account in availableAccounts"
+            :key="account.id"
+            :value="account.id"
+            :selected="user.defaultAccountId === account.id"
+          >
+            {{ account.currencyObject.name }}
+          </option>
+          </select>
+        </div>
+      </div>
+
       <div class="d-grid gap-2 d-md-flex">
         <a
           href="#"
@@ -108,9 +136,12 @@
 </template>
 
 <script>
-import I18n from '@/utils/I18n';
-import { profiles as profilesApi, usersPasswords as usersPasswordsApi } from '~/api';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { storeToRefs } from 'pinia';
+
+import I18n from '~/utils/I18n';
+import { profiles as profilesApi, usersPasswords as usersPasswordsApi } from '~/api';
+import useAccountStore from '~/stores/AccountStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
@@ -133,10 +164,12 @@ export default {
 
   setup() {
     const formAction = profilesApi.update.path();
-
     const changePasswordPath = usersPasswordsApi.edit.path();
+    const accountStore = useAccountStore();
+    const { availableAccounts } = storeToRefs(accountStore);
 
     return {
+      availableAccounts,
       formAction,
       changePasswordPath,
       t: I18n.scopedTranslator('views.profiles.form')

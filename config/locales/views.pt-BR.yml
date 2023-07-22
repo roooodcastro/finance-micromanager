@@ -52,7 +52,6 @@ pt-BR:
         disable: Desativar
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
-
       vertical_menu:
         title: Menu Principal
         close: Fechar
@@ -68,6 +67,7 @@ pt-BR:
         first_name_label: Nome
         last_name_label: Sobrenome
         email_label: Endereço de Email
+        default_account_label: Conta Padrão
         disabled_password_label: Senha
         password_label: Nova Senha
         password_confirmation_label: Confirme a Nova Senha
@@ -79,8 +79,10 @@ pt-BR:
         edit_button: Editar perfil
         first_name: Nome
         last_name:  Sobrenome
+        default_account: Conta Padrão
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
+        empty_default_account_label: '-- Conta padrão não informada --'
     transactions:
       index:
         title: Transações

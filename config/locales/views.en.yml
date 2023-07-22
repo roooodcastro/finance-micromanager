@@ -67,6 +67,7 @@ en:
         first_name_label: First Name
         last_name_label: Last Name
         email_label: Email Address
+        default_account_label: Default Account
         disabled_password_label: Password
         password_label: New Password
         password_confirmation_label: Confirm Password
@@ -78,8 +79,10 @@ en:
         edit_button: Edit Profile
         first_name: First Name
         last_name: Last Name
+        default_account: Default Account
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
+        empty_default_account_label: '-- Default Account not set --'
     transactions:
       index:
         title: Transactions

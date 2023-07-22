@@ -514,6 +514,7 @@
       "profiles": {
         "form": {
           "cancel_edit_button": "Cancelar",
+          "default_account_label": "Conta Padrão",
           "disabled_password_label": "Senha",
           "email_label": "Endereço de Email",
           "first_name_label": "Nome",
@@ -524,7 +525,9 @@
           "update_password_link_label": "Trocar Senha"
         },
         "show": {
+          "default_account": "Conta Padrão",
           "edit_button": "Editar perfil",
+          "empty_default_account_label": "-- Conta padrão não informada --",
           "empty_first_name_label": "-- Nome não informado --",
           "empty_last_name_label": "-- Sobrenome não informado --",
           "first_name": "Nome",

@@ -48,6 +48,13 @@
           value="**********"
         />
 
+        <ProfileListItem
+          icon="wallet"
+          :value="user.defaultAccount?.currencyObject?.name"
+          :label="t('default_account')"
+          :empty-label="t('empty_default_account_label')"
+        />
+
         <div class="d-grid gap-2 d-md-flex">
           <a
             href="#"

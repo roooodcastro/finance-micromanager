@@ -8,6 +8,8 @@ class User < ApplicationRecord
   devise :recoverable, reset_password_within: 1.hour
   devise :rememberable, extend_remember_period: true
 
+  belongs_to :default_account, class_name: 'Account'
+
   has_many :accounts, dependent: :restrict_with_exception
 
   validates :email, presence: true, uniqueness: true
@@ -20,5 +22,9 @@ class User < ApplicationRecord
     return if allow_list.include?(email)
 
     errors.add(:base, :email_not_valid)
+  end
+
+  def as_json(*)
+    super.merge(default_account: default_account.as_json)
   end
 end
