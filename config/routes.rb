@@ -2,8 +2,6 @@
 
 Rails.application.routes.draw do
   defaults export: true do
-    root to: 'landings#show'
-
     devise_for :users,
                export:      true,
                path:        'auth',
@@ -25,10 +23,16 @@ Rails.application.routes.draw do
                }
 
     devise_scope :user do
-      root 'dashboards#show', as: :user_root
-
       get 'sign_up', to: 'users/registrations#new', export: true
       get 'login', to: 'users/sessions#new', export: true
+    end
+
+    authenticated :user do
+      root 'dashboards#show', as: :user_root
+    end
+
+    unauthenticated :user do
+      root to: 'landings#show', as: :public_root
     end
 
     resource :dashboard, only: :show

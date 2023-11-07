@@ -6,6 +6,8 @@ class AbstractPublicController < ApplicationController
   private
 
   def redirect_to_login
+    return if current_user
+
     redirect_to login_path
   end
 end
