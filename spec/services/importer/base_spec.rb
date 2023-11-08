@@ -11,8 +11,7 @@ RSpec.describe Importer::Base, type: :service do
     subject(:import) { importer.import! }
 
     before do
-      allow(importer).to receive(:source).and_return(:n26)
-      allow(importer).to receive(:parse).and_return(parsed_transactions)
+      allow(importer).to receive_messages(source: :n26, parse: parsed_transactions)
     end
 
     context 'when there are no issues' do

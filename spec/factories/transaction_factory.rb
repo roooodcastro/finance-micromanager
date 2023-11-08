@@ -6,7 +6,7 @@ FactoryBot.define do
     amount { 10.00 }
     transaction_date { Time.current }
 
-    account { create(:account) }
-    category { create(:category, account:) }
+    account
+    category { association(:category, account:) }
   end
 end

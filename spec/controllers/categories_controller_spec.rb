@@ -9,7 +9,7 @@ RSpec.describe CategoriesController do
     session[:current_account_id] = account.id
   end
 
-  describe 'GET index', inertia: true do
+  describe 'GET index', :inertia do
     let!(:category) { create(:category, account:) }
 
     it 'renders the index component' do
@@ -20,7 +20,7 @@ RSpec.describe CategoriesController do
     end
   end
 
-  describe 'GET new', inertia: true do
+  describe 'GET new', :inertia do
     it 'renders the new component' do
       get :new
 
@@ -29,7 +29,7 @@ RSpec.describe CategoriesController do
     end
   end
 
-  describe 'GET edit', inertia: true do
+  describe 'GET edit', :inertia do
     let!(:category) { create(:category, account:) }
 
     it 'renders the edit component' do
@@ -40,7 +40,7 @@ RSpec.describe CategoriesController do
     end
   end
 
-  describe 'POST create', inertia: true do
+  describe 'POST create', :inertia do
     subject(:create_request) { post :create, params: }
 
     context 'when params are valid' do
@@ -69,7 +69,7 @@ RSpec.describe CategoriesController do
     end
   end
 
-  describe 'PATCH update', inertia: true do
+  describe 'PATCH update', :inertia do
     subject(:update_request) { patch :update, params: }
 
     let!(:category) { create(:category, account:) }

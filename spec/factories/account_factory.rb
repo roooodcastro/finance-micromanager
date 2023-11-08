@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :account do
     status { :active }
     currency { :usd }
-    user { create(:user) }
+    user
 
     trait :active do
       status { :active }

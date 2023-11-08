@@ -7,7 +7,7 @@ FactoryBot.define do
     sequence(:email) { |n| "email_#{n}@email.com" }
     sequence(:password) { |n| "testing#{n}" }
 
-    default_account { build(:account, user: nil) }
+    default_account { build(:account, user: nil) } # rubocop:disable FactoryBot/FactoryAssociationWithStrategy
 
     after(:build) do |user|
       user.default_account.user = user
