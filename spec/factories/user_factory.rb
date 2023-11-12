@@ -10,7 +10,7 @@ FactoryBot.define do
     default_account { build(:account, user: nil) } # rubocop:disable FactoryBot/FactoryAssociationWithStrategy
 
     after(:build) do |user|
-      user.default_account.user = user
+      user.default_account.user = user if user.default_account
     end
 
     after(:create, &:confirm)
