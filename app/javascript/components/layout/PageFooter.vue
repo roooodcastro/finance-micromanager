@@ -24,15 +24,20 @@
 </template>
 
 <script>
-import{ ref } from 'vue';
+import{ ref, onMounted } from 'vue';
 
 import { locales as localesApi } from '~/api';
 
 export default {
   setup() {
     const locales = ref([]);
-    const version = document.querySelector('meta[name="version"]')?.content;
-    const deployTimestamp = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'latest';
+    const version = ref('');
+    const deployTimestamp = ref('');
+
+    onMounted(() => {
+      version.value = document.querySelector('meta[name="version"]')?.content;
+      deployTimestamp.value = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'latest';
+    });
 
     localesApi.list().then(response => locales.value = response);
 
@@ -41,6 +46,6 @@ export default {
       version,
       deployTimestamp,
     };
-  }
+  },
 }
 </script>
