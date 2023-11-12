@@ -77,4 +77,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
+          platforms: linux/arm64
+          file: deploy/docker/rails.Dockerfile
           tags: ${{ secrets.REGISTRY_HOSTNAME }}/finance_micromanager:latest
