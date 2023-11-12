@@ -78,7 +78,7 @@ export default {
     watch(
       () => accountStore.currentAccount,
       () => {
-        categoriesApi.list().then(response => categoriesFromStore.value = response.categories);
+        categoriesApi.index().then(response => categoriesFromStore.value = response.categories);
       },
     );
 

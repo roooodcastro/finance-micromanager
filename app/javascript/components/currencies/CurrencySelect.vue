@@ -22,7 +22,7 @@ export default {
   setup() {
     let availableCurrencies = ref([]);
 
-    currencies.list().then(response => availableCurrencies.value = response);
+    currencies.index().then(response => availableCurrencies.value = response);
 
     return { availableCurrencies };
   },

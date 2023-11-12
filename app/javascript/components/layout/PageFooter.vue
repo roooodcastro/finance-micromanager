@@ -39,7 +39,7 @@ export default {
       deployTimestamp.value = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'latest';
     });
 
-    localesApi.list().then(response => locales.value = response);
+    localesApi.index().then(response => locales.value = response);
 
     return {
       locales,
