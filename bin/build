@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Load env variables from .env file
+set -o allexport
+source .env.development.local
+set +o allexport
+
+# Get current version number
+version=`cat VERSION`
+
+docker buildx build --load --platform linux/arm64 \
+  -t $DOCKER_REGISTRY/finance_micromanager:$version \
+  -t $DOCKER_REGISTRY/finance_micromanager:latest \
+  -f deploy/docker/rails.Dockerfile .
+
+docker push $DOCKER_REGISTRY/finance_micromanager:$version
+docker push $DOCKER_REGISTRY/finance_micromanager:latest
