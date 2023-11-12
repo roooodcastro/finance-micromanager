@@ -80,7 +80,7 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.categories.form');
-    const listCategoriesPath = categories.list.path();
+    const listCategoriesPath = categories.index.path();
     const isNewCategory = !props.category.id;
 
     const formMethod = isNewCategory ? 'POST' : 'PATCH';

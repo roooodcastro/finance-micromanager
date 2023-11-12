@@ -37,7 +37,7 @@ export default {
   },
 
   setup() {
-    const landingPath = landings.get.path();
+    const landingPath = landings.show.path();
 
     return { landingPath };
   }

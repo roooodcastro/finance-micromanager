@@ -134,7 +134,7 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.transactions.form');
-    const listTransactionsPath = transactions.list.path();
+    const listTransactionsPath = transactions.index.path();
     const isNewTransaction = !props.transaction.id;
     const accountStore = useAccountStore();
     const currencySymbol = accountStore.currentAccount.currencyObject.symbol;

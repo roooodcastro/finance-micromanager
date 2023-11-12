@@ -72,7 +72,7 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.accounts.form');
-    const listAccountsPath = accounts.list.path();
+    const listAccountsPath = accounts.index.path();
 
     const isNewRecord = !props.account.id;
     const formMethod = isNewRecord ? 'POST' : 'PATCH';

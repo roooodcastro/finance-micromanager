@@ -31,7 +31,7 @@ export default {
   },
 
   setup() {
-    const listAccountsPath = accounts.list.path();
+    const listAccountsPath = accounts.index.path();
 
     return {
       listAccountsPath,

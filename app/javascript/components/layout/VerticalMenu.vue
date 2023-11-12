@@ -67,10 +67,10 @@ export default {
 
     if (userStore.isUserLoggedIn) {
       menuItems = [
-        { label: t('profile'), path: profilesApi.get.path(), icon: 'user' },
-        { label: t('dashboard'), path: transactions.list.path(), icon: 'list' },
-        { label: t('categories'), path: categories.list.path(), icon: 'shapes' },
-        { label: t('accounts'), path: accounts.list.path(), icon: 'wallet' },
+        { label: t('profile'), path: profilesApi.show.path(), icon: 'user' },
+        { label: t('dashboard'), path: transactions.index.path(), icon: 'list' },
+        { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
+        { label: t('accounts'), path: accounts.index.path(), icon: 'wallet' },
         { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
       ];
     } else {

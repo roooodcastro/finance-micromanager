@@ -31,7 +31,7 @@ export default {
   },
 
   setup() {
-    const listCategoriesPath = categories.list.path();
+    const listCategoriesPath = categories.index.path();
 
     return {
       listCategoriesPath,

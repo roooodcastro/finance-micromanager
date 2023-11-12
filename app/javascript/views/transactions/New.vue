@@ -38,7 +38,7 @@ export default {
   },
 
   setup() {
-    const listTransactionsPath = transactions.list.path();
+    const listTransactionsPath = transactions.index.path();
 
     return {
       listTransactionsPath,
