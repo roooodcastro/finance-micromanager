@@ -10,7 +10,7 @@ RUN apt update -qq &&\
 WORKDIR /finance_micromanager
 COPY Gemfile Gemfile.lock package.json yarn.lock .env.docker_development /finance_micromanager/
 RUN yarn install --prod --network-timeout 300000
-RUN MAKE="make --jobs 2" bundle install --jobs 2
+RUN MAKE="make --jobs 4" bundle install --jobs 4
 
 # Copy application and configure entrypoint
 COPY . /finance_micromanager
