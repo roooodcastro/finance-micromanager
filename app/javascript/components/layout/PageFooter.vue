@@ -1,7 +1,7 @@
 <template>
   <footer
-    class="mt-auto bg-primary text-white border-0"
-    :class="{ 'py-3':!compact, 'py-1': compact }"
+    class="mt-auto text-white border-0"
+    :class="{ 'py-3 PageFooter--background':!compact, 'py-1': compact }"
   >
     <div class="container">
       <ul
@@ -61,3 +61,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+.PageFooter--background {
+  background-color: $mintgreen-700;
+}
+</style>

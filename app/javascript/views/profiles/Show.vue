@@ -1,5 +1,5 @@
 <template>
-  <div class="card border-0">
+  <div class="card border-0 ProfileShow">
     <PageHeader :page-title="t('title')" />
 
     <div class="card-header bg-primary border-0 py-4 py-lg-3 d-flex flex-column flex-lg-row align-items-center justify-content-center">
@@ -117,6 +117,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.ProfileShow {
+  margin-top: -1rem;
+}
 
 .ProfileShow__profile-photo {
   background-color: $gray-200;

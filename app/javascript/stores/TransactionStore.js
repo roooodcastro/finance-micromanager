@@ -22,7 +22,7 @@ export default defineStore('transaction', {
         excludeDebits: this.excludeDebits,
         excludeCredits: this.excludeCredits,
       };
-      transactionsApi.list({ query: params }).then(response => this.transactions = response.transactions);
+      transactionsApi.index({ query: params }).then(response => this.transactions = response.transactions);
     },
   }
 });

@@ -2,7 +2,7 @@
   <div>
     <TransactionsFilter @change="handleFiltersChange" />
 
-    <table class="table align-middle bg-white">
+    <table class="TransactionsList table align-middle bg-white">
       <thead class="table-light">
         <tr>
           <th>{{ t('name') }}</th>
@@ -113,3 +113,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .TransactionsList {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+  }
+}
+</style>

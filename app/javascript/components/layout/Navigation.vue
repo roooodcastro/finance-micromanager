@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
+  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
     <div class="container-xxl">
       <AccountSwitcher v-if="isUserLoggedIn" />
       <span v-else></span>
@@ -48,3 +48,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .Navigation {
+    padding: 0.75rem 0;
+  }
+  .Navigation .btn {
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-padding-x: 1rem;
+    --bs-btn-font-size: 0.875rem;
+    --bs-btn-border-radius: 0.25rem;
+  }
+}
+</style>

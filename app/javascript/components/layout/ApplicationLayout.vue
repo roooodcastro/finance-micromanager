@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column container-fluid px-0 h-100 background-curved-lines">
+  <div class="ApplicationLayout d-flex flex-column container-fluid px-0 background-curved-lines">
     <Navigation />
     <VerticalMenu />
 
@@ -81,3 +81,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.ApplicationLayout {
+  min-height: 100%;
+}
+</style>

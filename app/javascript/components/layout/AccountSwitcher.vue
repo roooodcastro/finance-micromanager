@@ -46,7 +46,7 @@
       </li>
 
       <li>
-        <hr class="dropdown-divider my-3">
+        <hr class="dropdown-divider my-2">
       </li>
 
       <li>
