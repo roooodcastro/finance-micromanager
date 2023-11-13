@@ -97,6 +97,7 @@ en:
         transaction_date: Date
         filters: Filters
         sorting: Sorting
+        no_transactions: There are no transactions to show.
       form:
         new_title: New Transaction
         edit_title: 'Edit Transaction "%{transaction}"'

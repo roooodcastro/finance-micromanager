@@ -97,6 +97,7 @@ pt-BR:
         transaction_date: Data
         filters: Filtros
         sorting: Ordem
+        no_transactions: Não há transações para exibir.
       form:
         new_title: Nova Transação
         edit_title: 'Editar Transacão "%{transaction}"'

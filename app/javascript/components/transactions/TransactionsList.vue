@@ -2,7 +2,11 @@
   <div>
     <TransactionsFilter @change="handleFiltersChange" />
 
-    <table class="TransactionsList table align-middle bg-white">
+    <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
+    <table
+      v-else
+      class="TransactionsList table align-middle bg-white"
+    >
       <thead class="table-light">
         <tr>
           <th>{{ t('name') }}</th>
@@ -67,12 +71,14 @@ import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue
 import CategoryIndicator from '~/components/categories/CategoryIndicator.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
 import EditButton from '~/components/rails/EditButton.vue';
+import NoTransactionsPlaceholder from "~/components/transactions/NoTransactionsPlaceholder.vue";
 
 export default {
   components: {
     CategoryIndicator,
     DeleteButton,
     EditButton,
+    NoTransactionsPlaceholder,
     TransactionsFilter,
   },
 

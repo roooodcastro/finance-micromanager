@@ -559,6 +559,7 @@
           "filters": "Filtros",
           "name": "Nome",
           "new": "Nova Transação",
+          "no_transactions": "Não há transações para exibir.",
           "sorting": "Ordem",
           "title": "Transações",
           "transaction_date": "Data"

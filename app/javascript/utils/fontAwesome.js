@@ -30,6 +30,7 @@ import {
 
 import {
   faSquareMinus as farSquareMinus,
+  faFaceFrown as farFaceFrown,
 } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
@@ -41,6 +42,7 @@ library.add(
   faChevronUp,
   faDollarSign,
   faEuroSign,
+  farFaceFrown,
   faFilter,
   faFloppyDisk,
   faKey,

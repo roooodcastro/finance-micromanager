@@ -536,6 +536,7 @@
           "filters": "Filters",
           "name": "Name",
           "new": "New Transaction",
+          "no_transactions": "There are no transactions to show.",
           "sorting": "Sorting",
           "title": "Transactions",
           "transaction_date": "Date"
