@@ -508,7 +508,8 @@
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar conta",
-          "title": "Menu Principal"
+          "title": "Menu Principal",
+          "transactions": "Transações"
         }
       },
       "profiles": {

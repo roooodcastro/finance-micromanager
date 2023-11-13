@@ -47,7 +47,8 @@ import {
   accounts,
   categories,
   profiles as profilesApi,
-  transactions,
+  transactions as transactionsApi,
+  dashboards as dashboardsApi,
   usersSessions,
   usersRegistrations
 } from '~/api';
@@ -68,7 +69,8 @@ export default {
     if (userStore.isUserLoggedIn) {
       menuItems = [
         { label: t('profile'), path: profilesApi.show.path(), icon: 'user' },
-        { label: t('dashboard'), path: transactions.index.path(), icon: 'list' },
+        { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
+        { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
         { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
         { label: t('accounts'), path: accounts.index.path(), icon: 'wallet' },
         { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
@@ -81,7 +83,10 @@ export default {
     }
 
     menuItems.forEach((menuItem) => {
-      if (window.location.pathname.includes(menuItem.path)) {
+      const currentPath = window.location.pathname;
+      const menuPath = menuItem.path;
+
+      if ((menuPath !== '/' && currentPath.includes(menuPath)) || (currentPath === '/' && menuPath === '/')) {
         menuItem['active'] = true;
       }
     })
