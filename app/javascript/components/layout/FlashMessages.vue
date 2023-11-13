@@ -32,10 +32,14 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import useFlashStore from '~/stores/FlashStore.js';
+import { Alert } from 'bootstrap';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
+
+const FLASH_DISMISS_MILLISECONDS = 10_000;
 
 export default {
   components: {
@@ -44,6 +48,14 @@ export default {
 
   setup() {
     const { successMessages, warningMessages, errorMessages } = storeToRefs(useFlashStore());
+
+    onMounted(() => {
+      setTimeout(() => {
+        document.querySelectorAll('.alert').forEach((alertElement) => {
+          new Alert(alertElement).close();
+        });
+      }, FLASH_DISMISS_MILLISECONDS);
+    });
 
     return {
       successMessages,
