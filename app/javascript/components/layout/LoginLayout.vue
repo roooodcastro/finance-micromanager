@@ -24,6 +24,8 @@ import { landings } from '~/api';
 
 import FlashMessages from '~/components/layout/FlashMessages.vue';
 
+import useFlashStore from "~/stores/FlashStore";
+
 export default {
   components: {
     FlashMessages,
@@ -36,8 +38,12 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const landingPath = landings.show.path();
+
+    if (props.flashMessages) {
+      useFlashStore().setMessages(props.flashMessages);
+    }
 
     return { landingPath };
   }
