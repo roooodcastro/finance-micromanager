@@ -4,7 +4,12 @@
       <AccountSwitcher v-if="isUserLoggedIn" />
       <span v-else></span>
 
-      <a class="navbar-brand d-none d-md-inline-block" href="#">Finance MicroManager</a>
+      <a
+        class="navbar-brand d-none d-md-inline-block"
+        :href="dashboardPath"
+      >
+        Finance MicroManager
+      </a>
 
       <button
         class="btn btn-primary"
@@ -24,6 +29,8 @@ import useUserStore from '~/stores/UserStore.js';
 
 import AccountSwitcher from '~/components/layout/AccountSwitcher.vue';
 
+import { dashboards as dashboardsApi } from '~/api';
+
 export default {
   components: {
     AccountSwitcher,
@@ -32,8 +39,12 @@ export default {
   setup() {
     const userStore = useUserStore();
     const isUserLoggedIn = userStore.isUserLoggedIn;
+    const dashboardPath = dashboardsApi.show.path();
 
-    return { isUserLoggedIn };
+    return {
+      isUserLoggedIn,
+      dashboardPath,
+    };
   },
 };
 </script>
