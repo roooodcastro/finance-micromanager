@@ -45,13 +45,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_233626) do
     t.string "name", limit: 100, null: false
     t.string "raw_import_name", limit: 100
     t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "EUR", null: false
     t.date "transaction_date", null: false
     t.bigint "import_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "account_id", null: false
     t.uuid "category_id", null: false
-    t.string "amount_currency", default: "EUR"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["category_id"], name: "index_transactions_on_category_id"

@@ -48,6 +48,8 @@
         <DeviseLinks page="sessions" />
       </div>
     </div>
+
+    <PageFooter compact />
   </div>
 </template>
 
@@ -59,10 +61,12 @@ import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
 import DeviseLinks from '~/components/devise/DeviseLinks.vue';
+import PageFooter from '~/components/layout/PageFooter.vue';
 
 export default {
   components: {
     DeviseLinks,
+    PageFooter,
     FormInputFloatingLabel,
     PageHeader,
     RailsForm,

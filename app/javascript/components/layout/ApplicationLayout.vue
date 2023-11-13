@@ -4,7 +4,7 @@
     <VerticalMenu />
 
     <div
-      class="mb-3 flex-shrink-0"
+      class="my-3 flex-shrink-0"
       :class="{ 'container-xxl': !skipContainer, 'px-3': !skipContainer }"
     >
       <FlashMessages :flash-messages="flashMessages" />

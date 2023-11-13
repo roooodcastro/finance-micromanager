@@ -1,7 +1,13 @@
 <template>
-  <footer class="mt-auto py-3 bg-primary text-white border-0">
+  <footer
+    class="mt-auto bg-primary text-white border-0"
+    :class="{ 'py-3':!compact, 'py-1': compact }"
+  >
     <div class="container">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <ul
+        class="nav justify-content-center border-bottom"
+        :class="{ 'pb-3 mb-3': !compact, 'pb-1 mb-1': compact }"
+      >
         <li
           v-for="locale in locales"
           :key="locale.locale"
@@ -29,6 +35,12 @@ import{ ref, onMounted } from 'vue';
 import { locales as localesApi } from '~/api';
 
 export default {
+  props: {
+    compact: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup() {
     const locales = ref([]);
     const version = ref('');
