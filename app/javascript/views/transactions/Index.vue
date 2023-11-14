@@ -17,7 +17,10 @@
       </template>
     </PageHeader>
 
-    <TransactionsList :transactions="transactions" />
+    <TransactionsList
+      :transactions="transactions"
+      :pagination="pagination"
+    />
   </div>
 </template>
 
@@ -39,6 +42,10 @@ export default {
   props: {
     transactions: {
       type: Array,
+      required: true,
+    },
+    pagination: {
+      type: Object,
       required: true,
     },
   },

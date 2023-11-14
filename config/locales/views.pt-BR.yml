@@ -52,6 +52,10 @@ pt-BR:
         disable: Desativar
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
+        pagination: Paginação
+        page_prev: Anterior
+        page_next: Próxima
+        page_desc: 'Exibindo %{items} de %{total}'
       vertical_menu:
         title: Menu Principal
         close: Fechar

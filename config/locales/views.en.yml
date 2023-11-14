@@ -52,6 +52,10 @@ en:
         disable: Disable
         disable_confirmation: Are you sure? You can re-enable this in the future.
         edit: Edit
+        pagination: Pagination
+        page_prev: Previous
+        page_next: Next
+        page_desc: 'Showing %{items} of %{total}'
       vertical_menu:
         title: Main Menu
         close: Close

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TransactionsController < AbstractAuthenticatedController
+  include Pagy::Backend
+
   before_action :set_transaction, only: %i[edit update destroy]
 
   def index
@@ -8,11 +10,13 @@ class TransactionsController < AbstractAuthenticatedController
                    .new(Current.account.transactions, search_params)
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
-                   .as_json
+
+    pagy, transactions = pagy(transactions)
+    props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
 
     respond_to do |format|
-      format.html { render inertia: 'transactions/Index', props: camelize_props(transactions:) }
-      format.json { render json: { transactions: } }
+      format.html { render inertia: 'transactions/Index', props: camelize_props(props) }
+      format.json { render json: props }
     end
   end
 
