@@ -11,7 +11,10 @@
       </template>
     </PageHeader>
 
-    <CategoriesList :categories="categories" />
+    <CategoriesList
+      :categories="categories"
+      :pagination="pagination"
+    />
   </div>
 </template>
 
@@ -31,6 +34,10 @@ export default {
   props: {
     categories: {
       type: Array,
+      required: true,
+    },
+    pagination: {
+      type: Object,
       required: true,
     },
   },

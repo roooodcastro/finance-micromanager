@@ -1,42 +1,49 @@
 <template>
-  <table class="table align-middle bg-white">
-    <thead class="table-light">
-      <tr>
-        <th>{{ t('name') }}</th>
-        <th>{{ t('color') }}</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <tr
-        v-for="category in categoriesFromStore"
-        :key="category.id"
-      >
-        <td>{{ category.name }}</td>
-        <td>
-          <div class="d-flex align-items-center">
-            <span
-              class="CategoriesList__color-indicator me-3"
-              :style="{ backgroundColor: category.color }"
+  <div>
+    <table class="table align-middle bg-white">
+      <thead class="table-light">
+        <tr>
+          <th>{{ t('name') }}</th>
+          <th>{{ t('color') }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr
+          v-for="category in categoriesFromStore"
+          :key="category.id"
+        >
+          <td>{{ category.name }}</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <span
+                class="CategoriesList__color-indicator me-3"
+                :style="{ backgroundColor: category.color }"
+              />
+              <span>{{ category.color }}</span>
+            </div>
+          </td>
+          <td class="text-end">
+            <EditButton
+              small
+              :href="editCategoryPath(category.id)"
             />
-            <span>{{ category.color }}</span>
-          </div>
-        </td>
-        <td class="text-end">
-          <EditButton
-            small
-            :href="editCategoryPath(category.id)"
-          />
 
-          <DeleteButton
-            small
-            :href="destroyCategoryPath(category.id)"
-            class="ms-2"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <DeleteButton
+              small
+              :href="destroyCategoryPath(category.id)"
+              class="ms-2"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Pagination
+      :pagination="paginationFromStore"
+      @change="handlePageChange"
+    />
+  </div>
 </template>
 
 <script>
@@ -50,9 +57,11 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
+import Pagination from "~/components/rails/Pagination.vue";
 
 export default {
   components: {
+    Pagination,
     DeleteButton,
     EditButton,
   },
@@ -60,6 +69,10 @@ export default {
   props: {
     categories: {
       type: Array,
+      required: true,
+    },
+    pagination: {
+      type: Object,
       required: true,
     },
   },
@@ -70,8 +83,13 @@ export default {
 
     // Load categories from props
     const categoryStore = useCategoryStore();
-    const { categories: categoriesFromStore } = storeToRefs(categoryStore);
+    const {
+      categories: categoriesFromStore,
+      pagination: paginationFromStore,
+    } = storeToRefs(categoryStore);
+
     categoriesFromStore.value = toRef(props.categories);
+    paginationFromStore.value = toRef(props.pagination).value;
 
     // Reload categories if account has changed while this page is open
     const accountStore = useAccountStore();
@@ -82,11 +100,15 @@ export default {
       },
     );
 
+    const handlePageChange = (page) => categoryStore.changePage(page);
+
     return {
       editCategoryPath,
       destroyCategoryPath,
+      handlePageChange,
       t: I18n.scopedTranslator('views.categories.index'),
       categoriesFromStore,
+      paginationFromStore,
     };
   },
 };
