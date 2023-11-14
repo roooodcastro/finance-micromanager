@@ -497,7 +497,11 @@
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "disable": "Desativar",
           "disable_confirmation": "Tem certeza? Você pode re-habilitar isto no futuro.",
-          "edit": "Editar"
+          "edit": "Editar",
+          "page_desc": "Exibindo %{items} de %{total}",
+          "page_next": "Próxima",
+          "page_prev": "Anterior",
+          "pagination": "Paginação"
         },
         "vertical_menu": {
           "accounts": "Contas",

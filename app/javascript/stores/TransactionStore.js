@@ -6,6 +6,7 @@ import { transactions as transactionsApi } from '~/api';
 export default defineStore('transaction', {
   state: () => ({
     transactions: [],
+    pagination: {},
     daysToShow: 30,
     excludeDebits: false,
     excludeCredits: false,
@@ -21,8 +22,18 @@ export default defineStore('transaction', {
         daysToShow: this.daysToShow,
         excludeDebits: this.excludeDebits,
         excludeCredits: this.excludeCredits,
+        page: this.pagination.page,
       };
-      transactionsApi.index({ query: params }).then(response => this.transactions = response.transactions);
+      transactionsApi
+        .index({ query: params })
+        .then((response) => {
+          this.transactions = response.transactions;
+          this.pagination = response.pagination;
+        });
+    },
+    changePage(page) {
+      this.pagination.page = page;
+      this.fetchTransactions();
     },
   }
 });

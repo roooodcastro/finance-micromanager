@@ -16,7 +16,7 @@ RSpec.describe CategoriesController do
       get :index
 
       expect_inertia.to render_component('categories/Index')
-                    .and include_props({ categories: [category] })
+                    .and include_props({ categories: [CamelizeProps.call(category.as_json)] })
     end
   end
 

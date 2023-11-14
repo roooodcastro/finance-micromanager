@@ -474,7 +474,11 @@
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "disable": "Disable",
           "disable_confirmation": "Are you sure? You can re-enable this in the future.",
-          "edit": "Edit"
+          "edit": "Edit",
+          "page_desc": "Showing %{items} of %{total}",
+          "page_next": "Next",
+          "page_prev": "Previous",
+          "pagination": "Pagination"
         },
         "vertical_menu": {
           "accounts": "Accounts",
