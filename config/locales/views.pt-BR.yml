@@ -61,6 +61,7 @@ pt-BR:
         close: Fechar
         dashboard: Dashboard
         transactions: Transações
+        current_account: 'Conta:'
         accounts: Contas
         categories: Categorias
         profile: Meu Perfil
