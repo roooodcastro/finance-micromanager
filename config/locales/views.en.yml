@@ -32,7 +32,7 @@ en:
       show:
         title: Category
     dashboard:
-      title: Dashboard
+      title: Transactions
     devise:
       alternative_links: 'Or, you can also:'
       sign_in: Sign In
