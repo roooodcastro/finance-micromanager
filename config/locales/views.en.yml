@@ -26,7 +26,6 @@ en:
         edit_title: 'Edit Category "%{category}"'
         name_label: Name
         color_label: Category color
-        color_title: Choose a color
         submit: Submit
         back: Back
       show:

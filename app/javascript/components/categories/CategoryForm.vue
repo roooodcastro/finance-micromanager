@@ -26,14 +26,11 @@
           >
             {{ t('color_label') }}
           </label>
-          <input
+          <ColorPickerInput
             :id="formHelper.fieldId('color')"
-            type="color"
-            class="form-control form-control-color"
             :name="formHelper.fieldName('color')"
             :value="category.color"
-            :title="t('color_title')"
-          >
+          />
         </div>
 
         <div class="card-footer">
@@ -64,9 +61,11 @@ import I18n from '~/utils/I18n';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
+import ColorPickerInput from '~/components/forms/ColorPickerInput.vue';
 
 export default {
   components: {
+    ColorPickerInput,
     FormInput,
     RailsForm,
   },
