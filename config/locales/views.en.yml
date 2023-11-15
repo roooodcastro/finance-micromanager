@@ -47,6 +47,7 @@ en:
         new_account_link: New Account
         no_account_selected: Select Account
       rails:
+        close: Close
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
         disable: Disable
@@ -57,8 +58,6 @@ en:
         page_next: Next
         page_desc: 'Showing %{items} of %{total}'
       vertical_menu:
-        title: Main Menu
-        close: Close
         dashboard: Dashboard
         transactions: Transactions
         current_account: 'Account:'

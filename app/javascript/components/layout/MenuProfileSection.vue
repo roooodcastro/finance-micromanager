@@ -1,5 +1,5 @@
 <template>
-  <div class="MenuProfileSection d-flex py-1 px-2 text-decoration-none align-items-center">
+  <div class="d-flex py-3 px-2 bg-light border-0 text-decoration-none align-items-center">
     <a
       class="text-decoration-none"
       :href="showProfilePath"
@@ -7,7 +7,7 @@
       <ProfileAvatar />
     </a>
 
-    <div class="ms-2 d-flex flex-column text-primary">
+    <div class="ms-2 d-flex flex-column text-primary flex-grow-1">
       <div>
         {{ name || email }}
       </div>
@@ -25,6 +25,11 @@
         />
       </div>
     </div>
+
+    <CloseButton
+      class="align-self-start me-1"
+      dismiss="offcanvas"
+    />
   </div>
 </template>
 
@@ -38,11 +43,13 @@ import { profiles as profilesApi } from '~/api';
 
 import ProfileAvatar from "~/components/layout/ProfileAvatar.vue";
 import AccountLabel from "~/components/accounts/AccountLabel.vue";
+import CloseButton from "~/components/bootstrap/CloseButton.vue";
 import I18n from "~/utils/I18n";
 
 export default {
   components: {
     AccountLabel,
+    CloseButton,
     ProfileAvatar,
   },
 
@@ -65,15 +72,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../stylesheets/variables';
-
-.aMenuProfileSection {
-  cursor: pointer;
-
-  &:hover {
-    background-color: $gray-100;
-  }
-}
-</style>
