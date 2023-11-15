@@ -470,6 +470,7 @@
           "no_account_selected": "Select Account"
         },
         "rails": {
+          "close": "Close",
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "disable": "Disable",
@@ -483,14 +484,12 @@
         "vertical_menu": {
           "accounts": "Accounts",
           "categories": "Categories",
-          "close": "Close",
           "current_account": "Account:",
           "dashboard": "Dashboard",
           "profile": "My Profile",
           "sign_in": "Sign In",
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
-          "title": "Main Menu",
           "transactions": "Transactions"
         }
       },

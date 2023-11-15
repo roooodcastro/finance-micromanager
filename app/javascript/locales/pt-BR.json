@@ -493,6 +493,7 @@
           "no_account_selected": "Selecione Conta"
         },
         "rails": {
+          "close": "Fechar",
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "disable": "Desativar",
@@ -506,14 +507,12 @@
         "vertical_menu": {
           "accounts": "Contas",
           "categories": "Categorias",
-          "close": "Fechar",
           "current_account": "Conta:",
           "dashboard": "Dashboard",
           "profile": "Meu Perfil",
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar conta",
-          "title": "Menu Principal",
           "transactions": "Transações"
         }
       },

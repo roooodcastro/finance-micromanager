@@ -4,25 +4,8 @@
     class="offcanvas offcanvas-start"
     aria-labelledby="mainMenuLabel"
   >
-    <div class="offcanvas-header">
-      <h5
-        id="mainMenuLabel"
-        class="offcanvas-title"
-      >
-        {{ t('title') }}
-      </h5>
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="offcanvas"
-        aria-label="{{ t('close') }}"
-      />
-    </div>
-    <div class="offcanvas-body px-0">
-      <MenuProfileSection
-        v-if="isUserLoggedIn"
-        class="mb-3"
-      />
+    <div class="offcanvas-body px-0 pt-0">
+      <MenuProfileSection v-if="isUserLoggedIn" />
 
       <div class="list-group">
         <a

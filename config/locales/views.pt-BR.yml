@@ -47,6 +47,7 @@ pt-BR:
         new_account_link: Nova Conta
         no_account_selected: Selecione Conta
       rails:
+        close: Fechar
         delete: Remover
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
         disable: Desativar
@@ -57,8 +58,6 @@ pt-BR:
         page_next: Próxima
         page_desc: 'Exibindo %{items} de %{total}'
       vertical_menu:
-        title: Menu Principal
-        close: Fechar
         dashboard: Dashboard
         transactions: Transações
         current_account: 'Conta:'
