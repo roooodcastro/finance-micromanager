@@ -431,7 +431,6 @@
         "form": {
           "back": "Back",
           "color_label": "Category color",
-          "color_title": "Choose a color",
           "edit_title": "Edit Category \"%{category}\"",
           "name_label": "Name",
           "new_title": "New Category",

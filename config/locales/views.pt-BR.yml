@@ -26,7 +26,6 @@ pt-BR:
         edit_title: 'Editar Categoria "%{category}"'
         name_label: Nome
         color_label: Cor da Categoria
-        color_title: Escolha uma cor
         submit: Salvar
         back: Voltar
       show:

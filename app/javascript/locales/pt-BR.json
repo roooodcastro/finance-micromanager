@@ -454,7 +454,6 @@
         "form": {
           "back": "Voltar",
           "color_label": "Cor da Categoria",
-          "color_title": "Escolha uma cor",
           "edit_title": "Editar Categoria \"%{category}\"",
           "name_label": "Nome",
           "new_title": "Nova Categoria",
