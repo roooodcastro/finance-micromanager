@@ -13,7 +13,7 @@
       <template v-if="currentAccount">
         <FontAwesomeIcon
           class="me-3"
-          :icon="iconFor(currentAccount.currency)"
+          :icon="faIconForCurrency(currentAccount.currency)"
         />
         {{ currentAccount?.currencyObject?.name }}
       </template>
@@ -38,7 +38,7 @@
         >
           <FontAwesomeIcon
             class="me-3 text-secondary"
-            :icon="iconFor(account.currency)"
+            :icon="faIconForCurrency(account.currency)"
           />
 
           {{ account.currencyObject.name }}
@@ -73,7 +73,8 @@ import { storeToRefs } from 'pinia';
 import useAccountStore from '~/stores/AccountStore.js';
 import useFlashStore from '~/stores/FlashStore.js';
 import { accounts, currentAccounts } from '~/api';
-import I18n from '@/utils/I18n';
+import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
+import I18n from '~/utils/I18n';
 
 export default {
   components: {
@@ -105,23 +106,11 @@ export default {
       dropdownOpened.value = ev.target.classList.contains('show');
     };
 
-    const iconFor = (currencyName) => {
-      const iconMapping = {
-        eur: 'euro-sign',
-        usd: 'dollar-sign',
-        brl: 'brazilian-real-sign',
-        gbp: 'sterling-sign',
-        jpy: 'yen-sign',
-      };
-
-      return iconMapping[currencyName] ?? 'wallet';
-    };
-
     return {
       availableAccounts,
       currentAccount,
       dropdownOpened,
-      iconFor,
+      faIconForCurrency,
       handleAccountChange,
       handleDropDownClick,
       newAccountPath,

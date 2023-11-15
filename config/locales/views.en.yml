@@ -61,6 +61,7 @@ en:
         close: Close
         dashboard: Dashboard
         transactions: Transactions
+        current_account: 'Account:'
         accounts: Accounts
         categories: Categories
         profile: My Profile

@@ -33,12 +33,12 @@ $green:     #22CC22 !default;
 $mintgreen: #40EA80 !default;
 $cyan:      #1f9bcf !default;
 
-$mintgreen-100: #d9fbe6;
-$mintgreen-200: #b3f7cc;
-$mintgreen-300: #8cf2b3;
-$mintgreen-400: #66ee99;
-$mintgreen-500: #40ea80;
-$mintgreen-600: #33bb66;
+$mintgreen-100: #E0F5E8;
+$mintgreen-200: #B8E7C9;
+$mintgreen-300: #99DDB3;
+$mintgreen-400: #70CF94;
+$mintgreen-500: #52C57D;
+$mintgreen-600: #30B261;
 $mintgreen-700: #268c4d;
 $mintgreen-800: #1a5e33;
 $mintgreen-900: #0d2f1a;
@@ -59,7 +59,7 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100;
+$light:         $mintgreen-100;
 $dark:          $mintgreen-900;
 
 $min-contrast-ratio:   2.3 !default;

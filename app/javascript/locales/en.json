@@ -484,6 +484,7 @@
           "accounts": "Accounts",
           "categories": "Categories",
           "close": "Close",
+          "current_account": "Account:",
           "dashboard": "Dashboard",
           "profile": "My Profile",
           "sign_in": "Sign In",
