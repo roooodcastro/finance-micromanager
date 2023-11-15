@@ -4,6 +4,12 @@ module Users
   class ConfirmationsController < Devise::ConfirmationsController
     def respond_with(*); end
 
+    def show
+      super
+
+      redirect_to login_path
+    end
+
     def new
       super
 
