@@ -2,6 +2,7 @@
   <div class="ApplicationLayout d-flex flex-column container-fluid px-0 background-curved-lines">
     <Navigation />
     <VerticalMenu />
+    <FloatingActionButton v-if="!skipFloatingActionButton" />
 
     <div
       class="my-3 flex-shrink-0"
@@ -25,10 +26,12 @@ import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 import useUserStore from '~/stores/UserStore.js';
 import useFlashStore from '~/stores/FlashStore.js';
 import useAccountStore from '~/stores/AccountStore.js';
+import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 
 export default {
   components: {
     FlashMessages,
+    FloatingActionButton,
     PageFooter,
     Navigation,
     VerticalMenu,
@@ -51,6 +54,10 @@ export default {
       required: true,
     },
     skipContainer: {
+      type: Boolean,
+      default: false,
+    },
+    skipFloatingActionButton: {
       type: Boolean,
       default: false,
     },

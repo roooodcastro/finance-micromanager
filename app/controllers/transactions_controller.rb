@@ -21,7 +21,8 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def new
-    render inertia: 'transactions/New', props: { transaction: {} }.merge(available_categories)
+    props = { transaction: {}, skip_floating_action_button: true }.merge(available_categories)
+    render inertia: 'transactions/New', props: camelize_props(props)
   end
 
   def edit
