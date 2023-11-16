@@ -74,8 +74,4 @@ export default {
   align-self: stretch;
   display: block;
 }
-
-.TransactionRow__amount {
-  //width: 10em;
-}
 </style>

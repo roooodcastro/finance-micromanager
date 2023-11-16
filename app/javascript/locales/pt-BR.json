@@ -451,6 +451,7 @@
           "currency": "Moeda",
           "name": "Nome",
           "new": "Nova conta",
+          "no_name": "--- Sem nome ---",
           "title": "Contas"
         }
       },
