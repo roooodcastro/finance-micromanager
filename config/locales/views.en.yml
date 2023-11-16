@@ -7,6 +7,7 @@ en:
         new: New Account
         name: Name
         currency: Currency
+        no_name: '--- No name ---'
       form:
         new_title: New Account
         edit_title: 'Edit Account "%{account}"'

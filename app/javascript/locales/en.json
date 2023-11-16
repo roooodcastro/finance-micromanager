@@ -428,6 +428,7 @@
           "currency": "Currency",
           "name": "Name",
           "new": "New Account",
+          "no_name": "--- No name ---",
           "title": "Accounts"
         }
       },
