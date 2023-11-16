@@ -89,7 +89,7 @@ RSpec.describe CategoriesController do
     context 'when params are invalid' do
       let(:params) { { id: category.id, category: { color: '#invalid' } } }
 
-      it 'does not create a new category' do
+      it 'does not update the category' do
         expect { update_request }.not_to change { Category.count }
 
         expect_inertia.to render_component('categories/Edit')
@@ -104,7 +104,7 @@ RSpec.describe CategoriesController do
 
     let!(:category) { create(:category, account:) }
 
-    it 'destroys the categroy and redirect to index' do
+    it 'destroys the category and redirect to index' do
       expect { delete_request }.to change { Category.count }.by(-1)
       expect(response).to redirect_to categories_path
     end

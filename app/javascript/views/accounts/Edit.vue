@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :page-title="t('edit_title', { account: account.id })" />
+    <PageHeader :page-title="t('edit_title', { account: account.displayName })" />
 
     <div class="row justify-content-center">
       <div class="col col-md-8 col-lg-6 col-xl-4">

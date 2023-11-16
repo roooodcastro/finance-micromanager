@@ -2,13 +2,15 @@
   "en": {
     "accounts": {
       "create": {
+        "error": "Account \"%{name}\" could not be created: %{error}",
         "success": "Account was successfully created."
       },
       "destroy": {
-        "success": "Account was successfully destroyed."
+        "success": "Account \"%{name}\" was successfully destroyed."
       },
       "update": {
-        "success": "Account was successfully updated."
+        "error": "Account \"%{name}\" could not be updated: %{error}",
+        "success": "Account \"%{name}\" was successfully updated."
       }
     },
     "activerecord": {
@@ -418,11 +420,13 @@
           "back": "Back",
           "currency_label": "Choose Currency",
           "edit_title": "Edit Account \"%{account}\"",
+          "name_label": "Name",
           "new_title": "New Account",
           "submit": "Submit"
         },
         "index": {
           "currency": "Currency",
+          "name": "Name",
           "new": "New Account",
           "title": "Accounts"
         }

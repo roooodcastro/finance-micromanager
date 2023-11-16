@@ -13,6 +13,13 @@
 
           <hr />
 
+          <FormInput
+            field-name="name"
+            :form-helper="formHelper"
+            :value="account.name"
+            :label="t('name_label')"
+          />
+
           <label
             :for="formHelper.fieldId('currency')"
             class="form-label"
@@ -56,10 +63,12 @@ import I18n from '~/utils/I18n';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import CurrencySelect from '~/components/currencies/CurrencySelect.vue';
+import FormInput from '~/components/rails/FormInput.vue';
 
 export default {
   components: {
     CurrencySelect,
+    FormInput,
     RailsForm,
   },
 
@@ -80,7 +89,7 @@ export default {
       ? accounts.create.path()
       : accounts.update.path({ id: props.account.id });
 
-    const formTitle = isNewRecord ? t('new_title') : t('edit_title', { account: props.account.id });
+    const formTitle = isNewRecord ? t('new_title') : t('edit_title', { account: props.account.displayName });
 
     return {
       formAction,

@@ -5,10 +5,12 @@ en:
       index:
         title: Accounts
         new: New Account
+        name: Name
         currency: Currency
       form:
         new_title: New Account
         edit_title: 'Edit Account "%{account}"'
+        name_label: Name
         currency_label: Choose Currency
         submit: Submit
         back: Back

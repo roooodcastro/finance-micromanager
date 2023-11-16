@@ -50,7 +50,7 @@
 
         <ProfileListItem
           icon="wallet"
-          :value="user.defaultAccount?.currencyObject?.name"
+          :value="user.defaultAccount?.displayName"
           :label="t('default_account')"
           :empty-label="t('empty_default_account_label')"
         />

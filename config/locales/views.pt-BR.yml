@@ -5,10 +5,12 @@ pt-BR:
       index:
         title: Contas
         new: Nova conta
+        name: Nome
         currency: Moeda
       form:
         new_title: Nova Conta
         edit_title: 'Editat Conta "%{account}"'
+        name_label: Nome
         currency_label: Selecione a Moeda
         submit: Salvar
         back: Voltar

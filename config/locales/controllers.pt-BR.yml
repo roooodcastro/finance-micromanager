@@ -2,10 +2,12 @@ pt-BR:
   accounts:
     create:
       success: 'Conta criada com sucesso.'
+      error: 'Conta "%{name}" não pode ser criada: %{error}'
     update:
-      success: 'Conta atualizada com sucesso.'
+      success: 'Conta "%{name}" atualizada com sucesso.'
+      error: 'Conta "%{name}" não pode ser atualizada: %{error}'
     destroy:
-      success: 'Conta removida com sucesso.'
+      success: 'Conta "%{name}" removida com sucesso.'
 
   categories:
     create:
