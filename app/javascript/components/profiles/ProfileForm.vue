@@ -91,9 +91,9 @@
             {{ t('default_account_label') }}
           </label>
           <select
-            class="form-select"
             :id="formHelper.fieldId('default_account_id')"
             :name="formHelper.fieldName('default_account_id')"
+            class="form-select"
           >
           <option
             v-for="account in availableAccounts"
@@ -101,7 +101,7 @@
             :value="account.id"
             :selected="user.defaultAccountId === account.id"
           >
-            {{ account.currencyObject.name }}
+            {{ account.displayName }}
           </option>
           </select>
         </div>

@@ -4,7 +4,7 @@
       class="me-2"
       :icon="faIconForCurrency(account.currency)"
     />
-    {{ account.currencyObject?.name }}
+    {{ account.displayName }}
   </div>
 </template>
 

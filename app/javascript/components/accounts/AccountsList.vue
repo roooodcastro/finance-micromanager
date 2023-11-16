@@ -2,6 +2,7 @@
   <table class="table align-middle bg-white">
     <thead class="table-light">
       <tr>
+        <th>{{ t('name') }}</th>
         <th>{{ t('currency') }}</th>
         <th></th>
       </tr>
@@ -11,6 +12,7 @@
         v-for="account in accounts"
         :key="account.id"
       >
+        <td>{{ account.name || '---' }}</td>
         <td>{{ account.currencyObject.name }}</td>
 
         <td class="text-end">

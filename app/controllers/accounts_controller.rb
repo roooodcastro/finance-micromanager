@@ -4,9 +4,12 @@ class AccountsController < AbstractAuthenticatedController
   before_action :set_account, only: %i[show edit update destroy]
 
   def index
-    accounts = Account.active.where(user: current_user)
+    accounts = current_user.accounts.active
 
-    render inertia: 'accounts/Index', props: { accounts: accounts, current_account: Current.account }
+    render inertia: 'accounts/Index', props: camelize_props(
+      accounts:        accounts.as_json,
+      current_account: Current.account.as_json
+    )
   end
 
   def show
@@ -16,11 +19,11 @@ class AccountsController < AbstractAuthenticatedController
   def new
     account = Account.new
 
-    render inertia: 'accounts/New', props: { account: }
+    render inertia: 'accounts/New', props: { account: camelize_props(account.as_json) }
   end
 
   def edit
-    render inertia: 'accounts/Edit', props: { account: @account }
+    render inertia: 'accounts/Edit', props: { account: camelize_props(@account.as_json) }
   end
 
   def create
@@ -28,20 +31,17 @@ class AccountsController < AbstractAuthenticatedController
 
     return redirect_to accounts_path, success: t('.success') if account.save
 
-    flash.now[:error] = t('.error', error: account.errors.full_messages)
-    render inertia: 'accounts/New', props: { account: }
+    flash.now[:error] = t('.error', name: account.display_name, error: account.errors.full_messages)
+    render inertia: 'accounts/New', props: { account: camelize_props(account.as_json) }
   end
 
   def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to account_url(@account), notice: t('.success') }
-        format.json { render :show, status: :ok, location: @account }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
+    updated = @account.update(account_params)
+
+    return redirect_to accounts_path, success: t('.success', name: @account.display_name) if updated
+
+    flash.now[:error] = t('.error', name: @account.display_name, error: @account.errors.full_messages)
+    render inertia: 'accounts/Edit', props: { account: camelize_props(@account.as_json) }
   end
 
   def destroy
@@ -57,6 +57,6 @@ class AccountsController < AbstractAuthenticatedController
   end
 
   def account_params
-    params.require(:account).permit(:currency)
+    params.require(:account).permit(:currency, :name)
   end
 end

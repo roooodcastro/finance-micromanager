@@ -2,13 +2,15 @@
   "pt-BR": {
     "accounts": {
       "create": {
+        "error": "Conta \"%{name}\" não pode ser criada: %{error}",
         "success": "Conta criada com sucesso."
       },
       "destroy": {
-        "success": "Conta removida com sucesso."
+        "success": "Conta \"%{name}\" removida com sucesso."
       },
       "update": {
-        "success": "Conta atualizada com sucesso."
+        "error": "Conta \"%{name}\" não pode ser atualizada: %{error}",
+        "success": "Conta \"%{name}\" atualizada com sucesso."
       }
     },
     "activerecord": {
@@ -441,11 +443,13 @@
           "back": "Voltar",
           "currency_label": "Selecione a Moeda",
           "edit_title": "Editat Conta \"%{account}\"",
+          "name_label": "Nome",
           "new_title": "Nova Conta",
           "submit": "Salvar"
         },
         "index": {
           "currency": "Moeda",
+          "name": "Nome",
           "new": "Nova conta",
           "title": "Contas"
         }

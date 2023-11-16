@@ -2,10 +2,12 @@ en:
   accounts:
     create:
       success: 'Account was successfully created.'
+      error: 'Account "%{name}" could not be created: %{error}'
     update:
-      success: 'Account was successfully updated.'
+      success: 'Account "%{name}" was successfully updated.'
+      error: 'Account "%{name}" could not be updated: %{error}'
     destroy:
-      success: 'Account was successfully destroyed.'
+      success: 'Account "%{name}" was successfully destroyed.'
 
   categories:
     create:

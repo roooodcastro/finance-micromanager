@@ -15,7 +15,7 @@
           class="me-3"
           :icon="faIconForCurrency(currentAccount.currency)"
         />
-        {{ currentAccount?.currencyObject?.name }}
+        {{ currentAccount?.displayName }}
       </template>
       <template v-else>
         {{ t('no_account_selected') }}
@@ -41,7 +41,7 @@
             :icon="faIconForCurrency(account.currency)"
           />
 
-          {{ account.currencyObject.name }}
+          {{ account.displayName }}
         </a>
       </li>
 
