@@ -4,7 +4,7 @@ class AccountsController < AbstractAuthenticatedController
   before_action :set_account, only: %i[show edit update destroy]
 
   def index
-    accounts = current_user.accounts.active
+    accounts = current_user.available_accounts
 
     render inertia: 'accounts/Index', props: camelize_props(
       accounts:        accounts.as_json,
@@ -53,7 +53,7 @@ class AccountsController < AbstractAuthenticatedController
   private
 
   def set_account
-    @account = current_user.accounts.find(params[:id])
+    @account = current_user.find_available_account(params[:id])
   end
 
   def account_params

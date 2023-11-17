@@ -14,6 +14,11 @@
       }
     },
     "activerecord": {
+      "attributes": {
+        "account_user": {
+          "user": "Usuário"
+        }
+      },
       "errors": {
         "messages": {
           "record_invalid": "A validação falhou: %{errors}",
@@ -23,6 +28,13 @@
           }
         },
         "models": {
+          "account_user": {
+            "attributes": {
+              "user": {
+                "owner_self_share": "já é o(a) dono(a) desta conta."
+              }
+            }
+          },
           "user": {
             "attributes": {
               "base": {
@@ -31,6 +43,9 @@
             }
           }
         }
+      },
+      "models": {
+        "user": "Usuário"
       }
     },
     "categories": {
@@ -452,6 +467,7 @@
           "name": "Nome",
           "new": "Nova conta",
           "no_name": "--- Sem nome ---",
+          "shared_text": "Compartilhado com você por %{user}",
           "title": "Contas"
         }
       },

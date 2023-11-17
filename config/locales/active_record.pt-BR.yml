@@ -1,8 +1,17 @@
 ---
 pt-BR:
   activerecord:
+    models:
+      user: Usuário
+    attributes:
+      account_user:
+        user: Usuário
     errors:
       models:
+        account_user:
+          attributes:
+            user:
+              owner_self_share: já é o(a) dono(a) desta conta.
         user:
           attributes:
             base:

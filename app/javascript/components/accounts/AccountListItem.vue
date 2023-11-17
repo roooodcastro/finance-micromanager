@@ -2,7 +2,7 @@
   <div class="AccountListItem d-flex bg-light-subtle align-items-center border mx-2 mx-lg-0 bg-white p-2">
     <FontAwesomeIcon
       size="lg"
-      class="text-secondary me-3"
+      class="AccountListItem__currency-icon text-secondary me-3"
       :icon="faIconForCurrency(account.currency)"
     />
 
@@ -11,6 +11,17 @@
       <span class="d-block fs-6 text-muted">
         {{ account.currencyObject.name }}
       </span>
+
+      <div
+        v-if="account.shared"
+        class="fs-6 text-muted"
+      >
+        <FontAwesomeIcon
+          class=" text-primary me-2"
+          icon="share-nodes"
+        />
+        {{ t('shared_text', { user: account.user.fullName }) }}
+      </div>
     </div>
 
     <td class="text-end">
@@ -68,6 +79,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.AccountListItem__currency-icon {
+  width: 2em;
+}
+
 .AccountListItem:not(:first-child) {
   margin-top: -1px;
 }

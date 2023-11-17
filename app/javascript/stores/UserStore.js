@@ -6,21 +6,10 @@ export default defineStore('user', {
   }),
   getters: {
     isUserLoggedIn: (state) => !!state.user,
-    displayName: (state) => {
-      if (!state.user) return '';
-
-      return state.user.firstName ?? state.user.email;
-    },
-    fullName: (state) => {
-      if (!state.user) return '';
-
-      return [state.user.firstName, state.user.lastName].join(' ').trim();
-    },
     nameInitials: (state) => {
       if (!state.user) return '';
 
-      const fullName = [state.user.firstName, state.user.lastName].join(' ').trim();
-      const fullNameParts = fullName.split(' ');
+      const fullNameParts = state.user.fullName.split(' ');
 
       if (fullNameParts.length > 1) {
         return [

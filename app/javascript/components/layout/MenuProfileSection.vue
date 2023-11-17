@@ -59,7 +59,7 @@ export default {
 
     const { currentAccount } = storeToRefs(accountStore);
     const email = userStore.user.email;
-    const name = userStore.fullName;
+    const name = userStore.user.fullName;
     const showProfilePath = profilesApi.show.path();
 
     return {
