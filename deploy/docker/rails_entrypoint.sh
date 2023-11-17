@@ -4,9 +4,9 @@ set -e
 export RAILS_ENV=production
 export RAILS_SERVE_STATIC_FILES=true
 
-# Build assets during first run
+# Build assets and run migrations during first run
 if [ ! -d "public/vite" ]; then
-  bundle exec rails assets:precompile
+  bundle exec rails assets:precompile db:migrate
 fi
 
 # Remove any pre-existing server.pid.
