@@ -31,7 +31,7 @@ class AccountsController < AbstractAuthenticatedController
 
     return redirect_to accounts_path, success: t('.success') if account.save
 
-    flash.now[:error] = t('.error', name: account.display_name, error: account.errors.full_messages)
+    flash.now[:error] = t('.error', name: account.display_name, error: account.errors.full_messages.join(', '))
     render inertia: 'accounts/New', props: { account: camelize_props(account.as_json) }
   end
 
@@ -40,7 +40,7 @@ class AccountsController < AbstractAuthenticatedController
 
     return redirect_to accounts_path, success: t('.success', name: @account.display_name) if updated
 
-    flash.now[:error] = t('.error', name: @account.display_name, error: @account.errors.full_messages)
+    flash.now[:error] = t('.error', name: @account.display_name, error: @account.errors.full_messages.join(', '))
     render inertia: 'accounts/Edit', props: { account: camelize_props(@account.as_json) }
   end
 
