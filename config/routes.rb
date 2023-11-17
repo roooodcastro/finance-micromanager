@@ -46,4 +46,6 @@ Rails.application.routes.draw do
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show]
   end
+
+  resource :health_check, only: :show
 end
