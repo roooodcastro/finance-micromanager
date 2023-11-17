@@ -1,0 +1,15 @@
+#!/bin/bash
+
+: ${1?"Usage: $0 ARGUMENT. Example: \"$0 1.2.3\""}
+
+version=$1
+script_location=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
+branch_name="release-$version"
+
+git checkout -b $branch_name
+
+echo $version > $script_location/../VERSION
+
+git add $script_location/../VERSION
+git commit -m "Release $version"
+git push origin $branch_name
