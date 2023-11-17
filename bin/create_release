@@ -12,4 +12,6 @@ echo $version > $script_location/../VERSION
 
 git add $script_location/../VERSION
 git commit -m "Release $version"
+git tag -a v$version -m "Release v$version"
 git push origin $branch_name
+git push origin v$version
