@@ -10,10 +10,13 @@
         {{ transaction.category.name }}
       </div>
     </div>
-    <div class="TransactionListItem__amount text-end">
+    <div
+      class="TransactionListItem__amount text-end fw-bold"
+      :class="{ 'credit-transaction': transaction.amount >= 0, 'debit-transaction': transaction.amount < 0 }"
+    >
       {{ transaction.amountWithUnit }}
     </div>
-    <div class="text-end">
+    <div class="text-end ms-2">
       <EditButton
         small
         :href="editTransactionPath(transaction.id)"
@@ -61,8 +64,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
 .TransactionListItem {
   border-left: 0.5em solid white;
+
+  .credit-transaction {
+    color: $mintgreen-700;
+  }
+
+  .debit-transaction {
+    color: $red;
+  }
 }
 
 .TransactionListItem:not(:first-child) {
