@@ -8,6 +8,7 @@ en:
         name: Name
         currency: Currency
         no_name: '--- No name ---'
+        shared_text: 'Shared with you by %{user}'
       form:
         new_title: New Account
         edit_title: 'Edit Account "%{account}"'

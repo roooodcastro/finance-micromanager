@@ -37,8 +37,14 @@
           @click="handleAccountChange(account.id)"
         >
           <FontAwesomeIcon
-            class="me-3 text-secondary"
+            class="AccountSwitcher__currency-icon me-2 text-secondary"
             :icon="faIconForCurrency(account.currency)"
+          />
+
+          <FontAwesomeIcon
+            v-if="account.shared"
+            class="me-2 text-primary"
+            icon="share-nodes"
           />
 
           {{ account.displayName }}
@@ -55,7 +61,7 @@
           :href="newAccountPath"
         >
           <FontAwesomeIcon
-            class="me-3 text-secondary"
+            class="AccountSwitcher__currency-icon me-2 text-secondary"
             icon="square-plus"
           />
           {{ t('new_account_link') }}
@@ -134,5 +140,9 @@ export default {
 
 .AccountSwitcher__account-link.active svg {
   color: $white !important;
+}
+
+.AccountSwitcher__currency-icon {
+  width: 2em;
 }
 </style>

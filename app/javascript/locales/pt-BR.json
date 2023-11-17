@@ -467,6 +467,7 @@
           "name": "Nome",
           "new": "Nova conta",
           "no_name": "--- Sem nome ---",
+          "shared_text": "Compartilhado com você por %{user}",
           "title": "Contas"
         }
       },

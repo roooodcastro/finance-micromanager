@@ -8,6 +8,7 @@ pt-BR:
         name: Nome
         currency: Moeda
         no_name: '--- Sem nome ---'
+        shared_text: 'Compartilhado com você por %{user}'
       form:
         new_title: Nova Conta
         edit_title: 'Editat Conta "%{account}"'

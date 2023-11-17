@@ -10,6 +10,7 @@ module SetCurrentAttributes
   def set_current_attributes
     Current.account = current_account if user_signed_in?
     # Current.locale is set in Localizeable concern
+    Current.user    = current_user if user_signed_in?
   end
 
   def current_account

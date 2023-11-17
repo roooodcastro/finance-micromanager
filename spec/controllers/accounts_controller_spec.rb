@@ -6,6 +6,7 @@ RSpec.describe AccountsController do
   before do
     sign_in user
     session[:current_account_id] = user.default_account.id
+    allow(Current).to receive(:user).and_return(user)
   end
 
   describe 'GET index', :inertia do

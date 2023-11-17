@@ -36,8 +36,20 @@ class User < ApplicationRecord
     account
   end
 
-  def as_json(*)
-    super.merge(default_account: default_account.as_json)
+  def as_json(attributes_only: false, **)
+    json = super(except: %w[created_at updated_at], methods: %i[full_name display_name])
+    json.merge(default_account: default_account.as_json) unless attributes_only
+    json
+  end
+
+  def display_name
+    first_name.presence || email
+  end
+
+  def full_name
+    return email unless first_name.presence || last_name.presence
+
+    [first_name, last_name].compact.join(' ')
   end
 
   def available_accounts

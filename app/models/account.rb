@@ -22,7 +22,8 @@ class Account < ApplicationRecord
 
   def as_json(*)
     currency_as_json = currency_object.as_json(only: %w[name symbol])
-    super(except: %w[created_at updated_at], methods: :display_name).merge(currency_object: currency_as_json)
+    super(except: %w[created_at updated_at], methods: :display_name)
+      .merge(currency_object: currency_as_json, shared: shared?, user: user.as_json(attributes_only: true))
   end
 
   def currency_object
@@ -31,5 +32,11 @@ class Account < ApplicationRecord
 
   def display_name
     name.presence || currency_object&.name
+  end
+
+  def shared?
+    return false if user.blank?
+
+    user != Current.user
   end
 end

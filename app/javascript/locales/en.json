@@ -436,6 +436,7 @@
           "name": "Name",
           "new": "New Account",
           "no_name": "--- No name ---",
+          "shared_text": "Shared with you by %{user}",
           "title": "Accounts"
         }
       },
