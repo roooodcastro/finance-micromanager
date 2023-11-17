@@ -66,7 +66,7 @@ git push origin $branch_name $tag_name
 
 if command -v gh &> /dev/null
 then
-  gh pr create --title "Release $new_version"
-  gh pr merge --admin
+  gh pr create --title "Release $new_version" --body ""
+  gh pr merge -m --admin
   gh release create $tag_name --title "Release $new_version" --latest --generate-notes
 fi
