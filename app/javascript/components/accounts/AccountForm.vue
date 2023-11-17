@@ -18,6 +18,7 @@
             :form-helper="formHelper"
             :value="account.name"
             :label="t('name_label')"
+            maxlength="30"
           />
 
           <label
