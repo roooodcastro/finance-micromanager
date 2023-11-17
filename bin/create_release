@@ -62,10 +62,11 @@ echo $new_version > $script_location/../VERSION
 git add $script_location/../VERSION
 git commit -m "Release $new_version"
 git tag -a $tag_name -m "Release $tag_name"
-git push origin $branch_name
-git push origin $tag_name
+git push origin $branch_name $tag_name
 
 if command -v gh &> /dev/null
 then
-  gh release create $tag_name -t "Release $new_version" --latest
+  gh pr create --title "Release $new_version"
+  gh pr merge --admin
+  gh release create $tag_name --title "Release $new_version" --latest --generate-notes
 fi
