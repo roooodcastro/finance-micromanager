@@ -11,11 +11,17 @@ RSpec.describe AccountsController do
   describe 'GET index', :inertia do
     let!(:account) { create(:account, user:) }
 
-    it 'renders the index component' do
+    let!(:shared_account) do
+      new_account = create(:account)
+      create(:account_user, account: new_account, user: user)
+      new_account
+    end
+
+    it 'renders the index component, returning all available accounts' do
       get :index
 
       expect_inertia.to render_component('accounts/Index')
-                    .and include_camelized_props({ accounts: [user.default_account, account].as_json })
+                    .and include_camelized_props({ accounts: [user.default_account, account, shared_account].as_json })
     end
   end
 
@@ -31,11 +37,28 @@ RSpec.describe AccountsController do
   describe 'GET edit', :inertia do
     let!(:account) { create(:account, user:) }
 
-    it 'renders the edit component' do
-      get :edit, params: { id: account.id }
+    context 'for an account owned by the user' do
+      it 'renders the edit component' do
+        get :edit, params: { id: account.id }
 
-      expect_inertia.to render_component('accounts/Edit')
-                    .and include_camelized_props({ account: account.as_json })
+        expect_inertia.to render_component('accounts/Edit')
+                      .and include_camelized_props({ account: account.as_json })
+      end
+    end
+
+    context 'for an account shared with the user' do
+      let!(:account) do
+        new_account = create(:account)
+        create(:account_user, account: new_account, user: user)
+        new_account
+      end
+
+      it 'renders the edit component' do
+        get :edit, params: { id: account.id }
+
+        expect_inertia.to render_component('accounts/Edit')
+                      .and include_camelized_props({ account: account.as_json })
+      end
     end
   end
 
@@ -87,7 +110,24 @@ RSpec.describe AccountsController do
 
     let!(:account) { create(:account, user: user, name: nil) }
 
-    context 'when params are valid' do
+    context 'when params are valid and account is owned by the user' do
+      let(:params) { { id: account.id, account: { name: 'New Name' } } }
+
+      it 'updates the account' do
+        expect { update_request }.not_to change { Account.count }
+
+        expect(response).to redirect_to(accounts_path)
+        expect(account.reload.name).to eq('New Name')
+      end
+    end
+
+    context 'when params are valid and account is shared with the user' do
+      let!(:account) do
+        new_account = create(:account, name: nil)
+        create(:account_user, account: new_account, user: user)
+        new_account
+      end
+
       let(:params) { { id: account.id, account: { name: 'New Name' } } }
 
       it 'updates the account' do

@@ -14,6 +14,8 @@ module SetCurrentAttributes
 
   def current_account
     account_id = session[:current_account_id] || current_user.default_account_id
-    current_user.accounts.find_by(id: account_id)
+    current_user.find_available_account(account_id)
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 end

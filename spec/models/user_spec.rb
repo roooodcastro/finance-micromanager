@@ -63,4 +63,37 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '.find_available_account' do
+    subject(:find_available_account) { user.find_available_account(id) }
+
+    let(:user) { create(:user) }
+
+    context 'when the account cannot be found' do
+      let(:id) { 'unknown' }
+
+      it 'raises a RecordNotFound exception' do
+        expect { find_available_account }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when the account is found in the user own accounts' do
+      let!(:account) { create(:account, user:) }
+      let(:id) { account.id }
+
+      it { is_expected.to eq account }
+    end
+
+    context 'when the account is found in the user shared accounts' do
+      let!(:account) do
+        new_account = create(:account)
+        create(:account_user, account: new_account, user: user)
+        new_account
+      end
+
+      let(:id) { account.id }
+
+      it { is_expected.to eq account }
+    end
+  end
 end

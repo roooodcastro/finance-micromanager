@@ -3,6 +3,10 @@ en:
   activerecord:
     errors:
       models:
+        account_user:
+          attributes:
+            user:
+              owner_self_share: is already the owner of the account.
         user:
           attributes:
             base:
