@@ -1,17 +1,71 @@
 #!/bin/bash
 
-: ${1?"Usage: $0 ARGUMENT. Example: \"$0 1.2.3\""}
+: ${1?"Usage: $0 (major|minor|patch)."}
 
-version=$1
+echo "Starting to create new $1 release for finance_micromanager..."
+
+# Load current version from the VERSION file
 script_location=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
-branch_name="release-$version"
+current_version=$(cat $script_location/../VERSION)
+
+# Split the version number into its individual components
+IFS='.' read -r -a array <<< "$current_version"
+major=${array[0]}
+minor=${array[1]}
+patch=${array[2]}
+
+# Perform the bumping of the version number
+case $1 in
+  major)
+    current_major=$major
+    major=$(expr $major + 1)
+    minor=0
+    patch=0
+    echo "Bumping major version from $current_major to $major"
+    ;;
+  minor)
+    current_minor=$minor
+    minor=$(expr $minor + 1)
+    patch=0
+    echo "Bumping minor version from $current_minor to $minor"
+    ;;
+  patch)
+    current_patch=$patch
+    patch=$(expr $patch + 1)
+    echo "Bumping patch version from $current_patch to $patch"
+    ;;
+  *)
+    echo "Invalid argument. Must be either \"major\", \"minor\", or \"patch\"."
+    exit 1
+    ;;
+esac
+
+new_version="$major.$minor.$patch"
+tag_name="v$new_version"
+branch_name="release-$new_version"
+
+echo
+echo "The version will be updated from $current_version to $new_version and a release will be created."
+
+# Ask for confirmation before proceeding
+read -p "Are you sure? (Y/y) " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  echo "Exiting"
+fi
 
 git checkout -b $branch_name
 
-echo $version > $script_location/../VERSION
+echo $new_version > $script_location/../VERSION
 
 git add $script_location/../VERSION
-git commit -m "Release $version"
-git tag -a v$version -m "Release v$version"
+git commit -m "Release $new_version"
+git tag -a $tag_name -m "Release $tag_name"
 git push origin $branch_name
-git push origin v$version
+git push origin $tag_name
+
+if command -v gh &> /dev/null
+then
+  gh release create $tag_name -t "Release $new_version" --latest
+fi
