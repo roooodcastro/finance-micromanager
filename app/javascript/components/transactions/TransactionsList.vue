@@ -12,7 +12,7 @@
           <div class="position-sticky top-0 bg-white fw-bold py-2 ps-2">
             {{ formatDate(new Date(transactionDate)) }}
           </div>
-          <TransactionRow
+          <TransactionListItem
             v-for="transaction in transactionsByDate"
             :key="transaction.id"
             :transaction="transaction"
@@ -37,7 +37,7 @@ import { formatDate } from '~/utils/DateUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useAccountStore from '~/stores/AccountStore.js';
 
-import TransactionRow from '~/components/transactions/TransactionRow.vue';
+import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
 import NoTransactionsPlaceholder from "~/components/transactions/NoTransactionsPlaceholder.vue";
@@ -46,7 +46,7 @@ export default {
   components: {
     NoTransactionsPlaceholder,
     Pagination,
-    TransactionRow,
+    TransactionListItem,
     TransactionsFilter,
   },
 
