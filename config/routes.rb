@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resource :profile, only: %i[show update]
 
     resources :accounts
+    resources :account_share_invites
     resources :categories, except: %i[show]
     resources :currencies, only: %i[index]
     resources :current_accounts, only: %i[create]
