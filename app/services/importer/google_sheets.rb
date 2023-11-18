@@ -46,7 +46,7 @@ module Importer
 
     def process_row(row, month_name)
       name             = row[2]
-      amount           = row[1] * -1
+      amount           = row[1]
       category_name    = CATEGORY_MAP[row[3]] || row[3] || 'Money In'
       transaction_date = transaction_date_for_row(row, month_name)
 
@@ -66,7 +66,13 @@ module Importer
       debit_rows   = entries.pluck(FIRST_DEBTS_COLUMN..LAST_DEBTS_COLUMN)
       fixed_debits = debit_rows[FIRST_FIXED_DEBITS_ROW..LAST_FIXED_DEBITS_ROW]
       daily_debits = debit_rows[FIRST_DAILY_DEBITS_ROW..]
-      (fixed_debits + daily_debits).map(&:compact).reject(&:empty?)
+      (fixed_debits + daily_debits)
+        .map(&:compact)
+        .reject(&:empty?)
+        .map do |row|
+          row[1] = row[1] * -1
+          row
+        end
     end
 
     def credits(entries)
