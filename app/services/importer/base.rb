@@ -40,6 +40,8 @@ module Importer
         transaction_date: transaction_date,
         raw_import_name:  raw_import_name,
         account:          Current.account,
+        created_by:       Current.user,
+        updated_by:       Current.user,
         category:         transaction_category(raw_import_name)
       )
     end

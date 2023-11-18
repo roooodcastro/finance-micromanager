@@ -4,8 +4,12 @@ RSpec.describe Importer::Base, type: :service do
   let(:importer) { described_class.new(file_name) }
   let(:file_name) { 'statement.csv' }
   let(:account) { create(:account) }
+  let(:user) { account.user }
 
-  before { Current.account = account }
+  before do
+    Current.account = account
+    Current.user    = user
+  end
 
   describe '#import!' do
     subject(:import) { importer.import! }

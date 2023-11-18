@@ -143,11 +143,11 @@ RSpec.describe AccountsController do
       let(:params) { { id: account.id, account: { currency: nil } } }
 
       it 'does not update the account' do
-        expect { update_request }.not_to change { Category.count }
+        expect { update_request }.not_to change { Account.count }
 
         expect_inertia.to render_component('accounts/Edit')
-        expect(inertia.props.dig(:category, :name)).to be_nil
-        expect(inertia.props.dig(:category, :currency)).to be_nil
+        expect(inertia.props.dig(:account, :name)).to be_nil
+        expect(inertia.props.dig(:account, :currency)).to eq('')
       end
     end
   end

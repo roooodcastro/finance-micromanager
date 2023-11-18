@@ -7,6 +7,8 @@ class Transaction < ApplicationRecord
 
   belongs_to :import, optional: true
   belongs_to :account
+  belongs_to :created_by, class_name: 'User'
+  belongs_to :updated_by, class_name: 'User'
   belongs_to :category
 
   before_validation :process_amount_type

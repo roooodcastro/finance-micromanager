@@ -21,7 +21,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def new
-    props = { transaction: {}, skip_floating_action_button: true }.merge(available_categories)
+    props = { transaction: Transaction.new.as_json, skip_floating_action_button: true }.merge(available_categories)
     render inertia: 'transactions/New', props: camelize_props(props)
   end
 
@@ -41,7 +41,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def update
-    if @transaction.update(transaction_params)
+    if @transaction.update(transaction_params.except(:created_by))
       flash[:success] = t('.success')
       redirect_to transactions_path
     else
@@ -68,7 +68,7 @@ class TransactionsController < AbstractAuthenticatedController
     params
       .require(:transaction)
       .permit(:name, :amount, :transaction_date, :category_id, :amount_type)
-      .merge(amount_currency: Current.account.currency)
+      .merge(amount_currency: Current.account.currency, created_by: current_user, updated_by: current_user)
   end
 
   def search_params
