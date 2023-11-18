@@ -5,7 +5,7 @@ module Users
     def new
       build_resource
 
-      render inertia: 'users/registrations/New', props: { user: resource }
+      render inertia: 'users/registrations/New', props: { user: resource.as_json }
     end
 
     def create

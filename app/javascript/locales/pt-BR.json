@@ -15,7 +15,7 @@
     },
     "activerecord": {
       "attributes": {
-        "account_user": {
+        "account_share": {
           "user": "Usuário"
         }
       },
@@ -28,7 +28,7 @@
           }
         },
         "models": {
-          "account_user": {
+          "account_share": {
             "attributes": {
               "user": {
                 "owner_self_share": "já é o(a) dono(a) desta conta."

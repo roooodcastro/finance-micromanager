@@ -8,11 +8,11 @@ class Account < ApplicationRecord
   has_many :transactions, dependent: :restrict_with_exception
   has_many :categories, dependent: :restrict_with_exception
   has_many :imports, dependent: :restrict_with_exception
-  has_many :account_users, dependent: :restrict_with_exception
+  has_many :account_shares, dependent: :restrict_with_exception
 
-  has_many :shared_users, class_name: 'User', through: :account_users, source: :user
+  has_many :shared_users, class_name: 'User', through: :account_shares, source: :user
 
-  scope :shared_with, ->(user) { left_joins(:account_users).where(account_users: { user: }) }
+  scope :shared_with, ->(user) { left_joins(:account_shares).where(account_shares: { user: }) }
 
   enum status: { active: 'active', disabled: 'disabled' }
 
