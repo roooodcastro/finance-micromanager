@@ -16,6 +16,22 @@ en:
         currency_label: Choose Currency
         submit: Submit
         back: Back
+    account_share_invites:
+      index:
+        pending_invite_title_pending: Account Share Invite
+        pending_invite_title_accepted: Invite Accepted
+        pending_invite_title_rejected: Invite Rejected
+        pending_invite_text_pending: >
+          %{inviter} has invited you to share their account "%{account_name}". A shared account means you both will be
+          able to view and manage transactions, categories, and all other aspects associated with the account.
+        pending_invite_text_accepted: >
+          You have accepted the invite from %{inviter} to share their account "%{account_name}". You can now to view
+          and manage transactions, categories, and all other aspects associated with the account.
+        pending_invite_text_rejected: >
+          You have declined the invite from %{inviter} to share their account "%{account_name}". You will not have
+          access to their account, but they will be able to invite you again.
+        accept: Accept
+        reject: Reject
     categories:
       index:
         title: Categories

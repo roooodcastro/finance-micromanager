@@ -453,11 +453,23 @@
       }
     },
     "views": {
+      "account_share_invites": {
+        "index": {
+          "accept": "Aceitar",
+          "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar sua conta \"%{account_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com a conta.\n",
+          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar sua conta \"%{account_name}\". Uma conta compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com a conta.\n",
+          "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar sua conta \"%{account_name}\". Você não terá acesso à conta, porém você pode ser convidado novamente.\n",
+          "pending_invite_title_accepted": "Convite Aceito",
+          "pending_invite_title_pending": "Convite de Compartilhamento de Conta",
+          "pending_invite_title_rejected": "Convite Rejeitado",
+          "reject": "Rejeitar"
+        }
+      },
       "accounts": {
         "form": {
           "back": "Voltar",
           "currency_label": "Selecione a Moeda",
-          "edit_title": "Editat Conta \"%{account}\"",
+          "edit_title": "Editar Conta \"%{account}\"",
           "name_label": "Nome",
           "new_title": "Nova Conta",
           "submit": "Salvar"
@@ -467,7 +479,7 @@
           "name": "Nome",
           "new": "Nova conta",
           "no_name": "--- Sem nome ---",
-          "shared_text": "Compartilhado com você por %{user}",
+          "shared_text": "Compartilhada com você por %{user}",
           "title": "Contas"
         }
       },

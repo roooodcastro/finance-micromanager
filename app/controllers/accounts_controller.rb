@@ -5,11 +5,15 @@ class AccountsController < AbstractAuthenticatedController
 
   def index
     accounts = current_user.available_accounts
-
-    render inertia: 'accounts/Index', props: camelize_props(
+    props    = camelize_props(
       accounts:        accounts.as_json,
       current_account: Current.account.as_json
     )
+
+    respond_to do |format|
+      format.html { render inertia: 'accounts/Index', props: props }
+      format.json { render json: props }
+    end
   end
 
   def show
