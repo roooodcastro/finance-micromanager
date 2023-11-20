@@ -1,5 +1,11 @@
 {
   "pt-BR": {
+    "account_share_invites": {
+      "create": {
+        "error": "Ocorreu um erro ao enviar um convite para compartilhar a conta \"%{account_name}\" com \"%{invitee}\": %{error}",
+        "success": "Seu convite para compartilhar a conta \"%{account_name}\" foi enviado com sucesso para \"%{invitee}\"!"
+      }
+    },
     "accounts": {
       "create": {
         "error": "Conta \"%{name}\" não pode ser criada: %{error}",
@@ -17,6 +23,9 @@
       "attributes": {
         "account_share": {
           "user": "Usuário"
+        },
+        "account_share_invite": {
+          "invitee_email": "Email do convidado"
         }
       },
       "errors": {
@@ -463,6 +472,15 @@
           "pending_invite_title_pending": "Convite de Compartilhamento de Conta",
           "pending_invite_title_rejected": "Convite Rejeitado",
           "reject": "Rejeitar"
+        },
+        "modal": {
+          "cancel": "Cancelar",
+          "confirm": "Enviar Convite",
+          "invitee_email_label": "Com quem você deseja compartilhar esta conta?",
+          "invitee_email_placeholder": "Digite o Email dele(a)",
+          "shared_warning_message": "Esta conta foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.",
+          "shared_warning_title": "Atenção",
+          "title": "Compartilhar Conta"
         }
       },
       "accounts": {
@@ -479,6 +497,7 @@
           "name": "Nome",
           "new": "Nova conta",
           "no_name": "--- Sem nome ---",
+          "share_action_link_label": "Compartilhar",
           "shared_text": "Compartilhada com você por %{user}",
           "title": "Contas"
         }

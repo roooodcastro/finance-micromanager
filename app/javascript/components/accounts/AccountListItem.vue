@@ -24,10 +24,27 @@
       </div>
     </div>
 
-    <td class="text-end">
+    <div class="text-end">
+      <a
+        class="text-secondary"
+        href="#"
+        data-bs-toggle="modal"
+        data-bs-target="#accountShareInviteModal"
+        @click="handleAccountShareInviteModalClick(account.id)"
+      >
+        <FontAwesomeIcon
+          icon="share-nodes"
+          size="lg"
+        />
+        <span class="d-none d-lg-inline-block ms-2">
+          {{ t('share_action_link_label') }}
+        </span>
+      </a>
+
       <EditButton
         small
         :href="editAccountPath(account.id)"
+        class="ms-2"
       />
 
       <DeleteButton
@@ -36,7 +53,7 @@
         :href="destroyAccountPath(account.id)"
         class="ms-2"
       />
-    </td>
+    </div>
   </div>
 </template>
 
@@ -44,6 +61,7 @@
 import { accounts as accountsApi } from '~/api';
 import I18n from '~/utils/I18n.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
+import useAccountStore from '~/stores/AccountStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -65,13 +83,16 @@ export default {
   },
 
   setup() {
+    const accountStore = useAccountStore();
     const editAccountPath = (accountId) => accountsApi.edit.path({ id: accountId });
     const destroyAccountPath = (accountId) => accountsApi.destroy.path({ id: accountId });
+    const handleAccountShareInviteModalClick = accountId => accountStore.setAccountIdForInviteModal(accountId);
 
     return {
       editAccountPath,
       destroyAccountPath,
       faIconForCurrency,
+      handleAccountShareInviteModalClick,
       t: I18n.scopedTranslator('views.accounts.index'),
     };
   },

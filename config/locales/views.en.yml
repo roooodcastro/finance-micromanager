@@ -9,6 +9,7 @@ en:
         currency: Currency
         no_name: '--- No name ---'
         shared_text: 'Shared with you by %{user}'
+        share_action_link_label: Share
       form:
         new_title: New Account
         edit_title: 'Edit Account "%{account}"'
@@ -32,6 +33,14 @@ en:
           access to their account, but they will be able to invite you again.
         accept: Accept
         reject: Reject
+      modal:
+        title: Share Account
+        shared_warning_title: Heads-up
+        shared_warning_message: This account was shared with you by %{name}. Please take care when sharing it with others.
+        invitee_email_label: Who do you want to share this account with?
+        invitee_email_placeholder: Type their Email
+        cancel: Cancel
+        confirm: Send Invite
     categories:
       index:
         title: Categories

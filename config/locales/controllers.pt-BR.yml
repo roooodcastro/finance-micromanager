@@ -9,6 +9,11 @@ pt-BR:
     destroy:
       success: 'Conta "%{name}" removida com sucesso.'
 
+  account_share_invites:
+    create:
+      success: 'Seu convite para compartilhar a conta "%{account_name}" foi enviado com sucesso para "%{invitee}"!'
+      error: 'Ocorreu um erro ao enviar um convite para compartilhar a conta "%{account_name}" com "%{invitee}": %{error}'
+
   categories:
     create:
       success: 'Categoria criada com sucesso.'
