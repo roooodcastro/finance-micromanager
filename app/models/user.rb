@@ -15,12 +15,15 @@ class User < ApplicationRecord
   belongs_to :default_account, class_name: 'Account', optional: true
 
   has_many :accounts, dependent: :restrict_with_exception
-  has_many :account_users, dependent: :restrict_with_exception
+  has_many :account_shares, dependent: :restrict_with_exception
+  has_many :shared_accounts, -> { active }, class_name: 'Account', through: :account_shares, source: :account
+  has_many :account_share_invites_given, class_name: 'AccountShareInvite', foreign_key: :account_owner_id,
+           dependent: :restrict_with_exception, inverse_of: :account_owner
+  has_many :account_share_invites_received, class_name: 'AccountShareInvite', inverse_of: :invitee,
+           foreign_key: :invitee_email, primary_key: :email, dependent: :restrict_with_exception
   # rubocop:disable Rails/InverseOf
   has_many :active_accounts, -> { active }, class_name: 'Account', dependent: :restrict_with_exception
   # rubocop:enable Rails/InverseOf
-
-  has_many :shared_accounts, -> { active }, class_name: 'Account', through: :account_users, source: :account
 
   validates :email, presence: true, uniqueness: true
   validates :default_account, presence: true, unless: :new_record?

@@ -14,7 +14,7 @@ RSpec.describe AccountsController do
 
     let!(:shared_account) do
       new_account = create(:account)
-      create(:account_user, account: new_account, user: user)
+      create(:account_share, account: new_account, user: user)
       new_account
     end
 
@@ -50,7 +50,7 @@ RSpec.describe AccountsController do
     context 'for an account shared with the user' do
       let!(:account) do
         new_account = create(:account)
-        create(:account_user, account: new_account, user: user)
+        create(:account_share, account: new_account, user: user)
         new_account
       end
 
@@ -125,7 +125,7 @@ RSpec.describe AccountsController do
     context 'when params are valid and account is shared with the user' do
       let!(:account) do
         new_account = create(:account, name: nil)
-        create(:account_user, account: new_account, user: user)
+        create(:account_share, account: new_account, user: user)
         new_account
       end
 

@@ -87,7 +87,7 @@ RSpec.describe User do
     context 'when the account is found in the user shared accounts' do
       let!(:account) do
         new_account = create(:account)
-        create(:account_user, account: new_account, user: user)
+        create(:account_share, account: new_account, user: user)
         new_account
       end
 

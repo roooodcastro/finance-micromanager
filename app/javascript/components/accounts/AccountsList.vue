@@ -1,7 +1,7 @@
 <template>
   <div class="AccountsList">
     <AccountListItem
-      v-for="account in accounts"
+      v-for="account in accountsFromStore"
       :key="account.id"
       :account="account"
     />
@@ -9,7 +9,10 @@
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
+import useAccountStore from '~/stores/AccountStore';
 
 import AccountListItem from '~/components/accounts/AccountListItem.vue';
 
@@ -25,9 +28,15 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
+    const accountStore = useAccountStore();
+
+    const { availableAccounts: accountsFromStore } = storeToRefs(accountStore);
+    accountsFromStore.value = props.accounts;
+
     return {
       t: I18n.scopedTranslator('views.accounts.index'),
+      accountsFromStore,
     };
   },
 };

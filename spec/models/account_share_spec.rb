@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-RSpec.describe AccountUser do
-  subject { account_user }
+RSpec.describe AccountShare do
+  subject { account_share }
 
-  let(:account_user) { build(:account_user) }
+  let(:account_share) { build(:account_share) }
 
   describe '#validate_no_owner_self_sharing' do
     subject(:errors) do
-      account_user.valid?
-      account_user.errors
+      account_share.valid?
+      account_share.errors
     end
 
-    let(:account_user) { build(:account_user, user:, account:) }
+    let(:account_share) { build(:account_share, user:, account:) }
 
     context 'when the user is different from the account user' do
       let(:user) { create(:user) }

@@ -30,8 +30,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
-  faSquareMinus as farSquareMinus,
+  faCircleCheck as farCircleCheck,
+  faCircleXmark as farCircleXmark,
   faFaceFrown as farFaceFrown,
+  faSquareMinus as farSquareMinus,
 } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
@@ -41,6 +43,8 @@ library.add(
   faChevronDown,
   faChevronLeft,
   faChevronUp,
+  farCircleCheck,
+  farCircleXmark,
   faDollarSign,
   faEuroSign,
   farFaceFrown,

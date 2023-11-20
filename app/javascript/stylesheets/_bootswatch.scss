@@ -204,3 +204,30 @@ th {
 .bg-light-primary {
   background-color: $mintgreen-100;
 }
+
+.side-strip {
+  position: relative;
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0.75em;
+  }
+}
+
+.side-strip-rounded {
+  &::after {
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .side-strip-#{$color} {
+    &::after {
+      background-color: $value;
+    }
+  }
+}
