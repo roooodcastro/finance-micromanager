@@ -15,6 +15,8 @@ class AccountShareInvitesController < AbstractAuthenticatedController
     }
 
     if account_share_invite.save
+      AccountShareMailer.account_share_invite_sent(account_share_invite.id).deliver_later
+
       flash[:success] = t('.success', **message_params)
     else
       flash[:error] = t('.error', **message_params.merge(error: account_share_invite.errors.full_messages.join(', ')))

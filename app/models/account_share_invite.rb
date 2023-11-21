@@ -7,7 +7,7 @@ class AccountShareInvite < ApplicationRecord
   belongs_to :account_owner, class_name: 'User'
 
   has_one :invitee, class_name: 'User', foreign_key: :email, primary_key: :invitee_email,
-          dependent: :restrict_with_exception, inverse_of: :account_share_invites_received
+          dependent: nil, inverse_of: :account_share_invites_received
 
   validates :invitee_email, presence: true, uniqueness: { scope: :account_id }
 
