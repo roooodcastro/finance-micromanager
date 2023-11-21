@@ -3,45 +3,45 @@ en:
   views:
     accounts:
       index:
-        title: Accounts
-        new: New Account
+        title: Wallets
+        new: New Wallet
         name: Name
         currency: Currency
         no_name: '--- No name ---'
         shared_text: 'Shared with you by %{user}'
         share_action_link_label: Share
       form:
-        new_title: New Account
-        edit_title: 'Edit Account "%{account}"'
+        new_title: New Wallet
+        edit_title: 'Edit Wallet "%{wallet}"'
         name_label: Name
         currency_label: Choose Currency
         submit: Submit
         back: Back
     account_share_invites:
       index:
-        pending_invite_title_pending: Account Share Invite
+        pending_invite_title_pending: Wallet Share Invite
         pending_invite_title_accepted: Invite Accepted
         pending_invite_title_rejected: Invite Rejected
-        sent_invite_title: Invite sent to %{invitee} for account "%{account_name}"
+        sent_invite_title: Invite sent to %{invitee} for wallet "%{account_name}"
         sent_invite_text_pending: The invite was sent, but the recipient has not yet replied.
         sent_invite_text_cancelled: The invite has been cancelled. The recipient can no longer accept it.
         pending_invite_text_pending: >
-          %{inviter} has invited you to share their account "%{account_name}". A shared account means you both will be
-          able to view and manage transactions, categories, and all other aspects associated with the account.
+          %{inviter} has invited you to share their wallet "%{account_name}". A shared wallet means you both will be
+          able to view and manage transactions, categories, and all other aspects associated with the wallet.
         pending_invite_text_accepted: >
-          You have accepted the invite from %{inviter} to share their account "%{account_name}". You can now to view
-          and manage transactions, categories, and all other aspects associated with the account.
+          You have accepted the invite from %{inviter} to share their wallet "%{account_name}". You can now to view
+          and manage transactions, categories, and all other aspects associated with the wallet.
         pending_invite_text_rejected: >
-          You have declined the invite from %{inviter} to share their account "%{account_name}". You will not have
-          access to their account, but they will be able to invite you again.
+          You have declined the invite from %{inviter} to share their wallet "%{account_name}". You will not have
+          access to their wallet, but they will be able to invite you again.
         accept: Accept
         reject: Reject
         cancel: Cancel Invite
       modal:
-        title: Share Account
+        title: Share Wallet
         shared_warning_title: Heads-up
-        shared_warning_message: This account was shared with you by %{name}. Please take care when sharing it with others.
-        invitee_email_label: Who do you want to share this account with?
+        shared_warning_message: This wallet was shared with you by %{name}. Please take care when sharing it with others.
+        invitee_email_label: Who do you want to share this wallet with?
         invitee_email_placeholder: Type their Email
         cancel: Cancel
         confirm: Send Invite
@@ -76,8 +76,8 @@ en:
       title: Landing
     layout:
       account_switcher:
-        new_account_link: New Account
-        no_account_selected: Select Account
+        new_account_link: New Wallet
+        no_account_selected: Select Wallet
       rails:
         close: Close
         delete: Remove
@@ -92,8 +92,8 @@ en:
       vertical_menu:
         dashboard: Dashboard
         transactions: Transactions
-        current_account: 'Account:'
-        accounts: Accounts
+        current_account: 'Wallet:'
+        accounts: Wallets
         categories: Categories
         profile: My Profile
         sign_in: Sign In
@@ -104,7 +104,7 @@ en:
         first_name_label: First Name
         last_name_label: Last Name
         email_label: Email Address
-        default_account_label: Default Account
+        default_account_label: Default Wallet
         disabled_password_label: Password
         password_label: New Password
         password_confirmation_label: Confirm Password
@@ -116,10 +116,10 @@ en:
         edit_button: Edit Profile
         first_name: First Name
         last_name: Last Name
-        default_account: Default Account
+        default_account: Default Wallet
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
-        empty_default_account_label: '-- Default Account not set --'
+        empty_default_account_label: '-- Default Wallet not set --'
     transactions:
       index:
         title: Transactions

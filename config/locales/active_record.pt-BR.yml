@@ -13,7 +13,7 @@ pt-BR:
         account_share:
           attributes:
             user:
-              owner_self_share: já é o(a) dono(a) desta conta.
+              owner_self_share: já é o(a) dono(a) desta carteira.
         user:
           attributes:
             base:

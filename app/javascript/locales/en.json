@@ -2,14 +2,14 @@
   "en": {
     "account_share_invites_sent": {
       "create": {
-        "error": "There was an error sending the invite to share the account \"%{account_name}\" with \"%{invitee}\": %{error}",
-        "success": "Your invite to share the account \"%{account_name}\" was successfully sent to \"%{invitee}\"!"
+        "error": "There was an error sending the invite to share the wallet \"%{account_name}\" with \"%{invitee}\": %{error}",
+        "success": "Your invite to share the wallet \"%{account_name}\" was successfully sent to \"%{invitee}\"!"
       }
     },
     "account_share_mailer": {
       "account_share_invite_sent": {
         "hello": "Hello",
-        "invite_paragraph": "%{inviter} has invited you to share their Finance Micromanager account \"%{account_name}\". This will allow you to view and manage the account, create transactions, view reports and statistics data, and much more. To accept, click the link below or copy/paste it directly in your browser.\n",
+        "invite_paragraph": "%{inviter} has invited you to share their Finance Micromanager wallet \"%{account_name}\". This will allow you to view and manage the wallet, create transactions, view reports and statistics data, and much more. To accept, click the link below or copy/paste it directly in your browser.\n",
         "new_account_paragraph": "Ops, it looks like you don't yet have an account with Finance Micromanager. You will need to sign up for one before accepting the invite. Click the link below or copy/paste it directly in your browser to do that.\n",
         "sign_up_link": "Sign Up for Finance Micromanager",
         "view_invite_link": "View my invites"
@@ -17,15 +17,15 @@
     },
     "accounts": {
       "create": {
-        "error": "Account \"%{name}\" could not be created: %{error}",
-        "success": "Account was successfully created."
+        "error": "Wallet \"%{name}\" could not be created: %{error}",
+        "success": "Wallet was successfully created."
       },
       "destroy": {
-        "success": "Account \"%{name}\" was successfully destroyed."
+        "success": "Wallet \"%{name}\" was successfully destroyed."
       },
       "update": {
-        "error": "Account \"%{name}\" could not be updated: %{error}",
-        "success": "Account \"%{name}\" was successfully updated."
+        "error": "Wallet \"%{name}\" could not be updated: %{error}",
+        "success": "Wallet \"%{name}\" was successfully updated."
       }
     },
     "activerecord": {
@@ -41,7 +41,7 @@
           "account_share": {
             "attributes": {
               "user": {
-                "owner_self_share": "is already the owner of the account."
+                "owner_self_share": "is already the owner of the wallet."
               }
             }
           },
@@ -70,7 +70,7 @@
     },
     "current_accounts": {
       "create": {
-        "error": "Account was not found."
+        "error": "Wallet was not found."
       }
     },
     "date": {
@@ -441,44 +441,44 @@
         "index": {
           "accept": "Accept",
           "cancel": "Cancel Invite",
-          "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their account \"%{account_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the account.\n",
-          "pending_invite_text_pending": "%{inviter} has invited you to share their account \"%{account_name}\". A shared account means you both will be able to view and manage transactions, categories, and all other aspects associated with the account.\n",
-          "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their account \"%{account_name}\". You will not have access to their account, but they will be able to invite you again.\n",
+          "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their wallet \"%{account_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the wallet.\n",
+          "pending_invite_text_pending": "%{inviter} has invited you to share their wallet \"%{account_name}\". A shared wallet means you both will be able to view and manage transactions, categories, and all other aspects associated with the wallet.\n",
+          "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their wallet \"%{account_name}\". You will not have access to their wallet, but they will be able to invite you again.\n",
           "pending_invite_title_accepted": "Invite Accepted",
-          "pending_invite_title_pending": "Account Share Invite",
+          "pending_invite_title_pending": "Wallet Share Invite",
           "pending_invite_title_rejected": "Invite Rejected",
           "reject": "Reject",
           "sent_invite_text_cancelled": "The invite has been cancelled. The recipient can no longer accept it.",
           "sent_invite_text_pending": "The invite was sent, but the recipient has not yet replied.",
-          "sent_invite_title": "Invite sent to %{invitee} for account \"%{account_name}\""
+          "sent_invite_title": "Invite sent to %{invitee} for wallet \"%{account_name}\""
         },
         "modal": {
           "cancel": "Cancel",
           "confirm": "Send Invite",
-          "invitee_email_label": "Who do you want to share this account with?",
+          "invitee_email_label": "Who do you want to share this wallet with?",
           "invitee_email_placeholder": "Type their Email",
-          "shared_warning_message": "This account was shared with you by %{name}. Please take care when sharing it with others.",
+          "shared_warning_message": "This wallet was shared with you by %{name}. Please take care when sharing it with others.",
           "shared_warning_title": "Heads-up",
-          "title": "Share Account"
+          "title": "Share Wallet"
         }
       },
       "accounts": {
         "form": {
           "back": "Back",
           "currency_label": "Choose Currency",
-          "edit_title": "Edit Account \"%{account}\"",
+          "edit_title": "Edit Wallet \"%{wallet}\"",
           "name_label": "Name",
-          "new_title": "New Account",
+          "new_title": "New Wallet",
           "submit": "Submit"
         },
         "index": {
           "currency": "Currency",
           "name": "Name",
-          "new": "New Account",
+          "new": "New Wallet",
           "no_name": "--- No name ---",
           "share_action_link_label": "Share",
           "shared_text": "Shared with you by %{user}",
-          "title": "Accounts"
+          "title": "Wallets"
         }
       },
       "categories": {
@@ -519,8 +519,8 @@
       },
       "layout": {
         "account_switcher": {
-          "new_account_link": "New Account",
-          "no_account_selected": "Select Account"
+          "new_account_link": "New Wallet",
+          "no_account_selected": "Select Wallet"
         },
         "rails": {
           "close": "Close",
@@ -535,9 +535,9 @@
           "pagination": "Pagination"
         },
         "vertical_menu": {
-          "accounts": "Accounts",
+          "accounts": "Wallets",
           "categories": "Categories",
-          "current_account": "Account:",
+          "current_account": "Wallet:",
           "dashboard": "Dashboard",
           "profile": "My Profile",
           "sign_in": "Sign In",
@@ -549,7 +549,7 @@
       "profiles": {
         "form": {
           "cancel_edit_button": "Cancel",
-          "default_account_label": "Default Account",
+          "default_account_label": "Default Wallet",
           "disabled_password_label": "Password",
           "email_label": "Email Address",
           "first_name_label": "First Name",
@@ -560,9 +560,9 @@
           "update_password_link_label": "Change Password"
         },
         "show": {
-          "default_account": "Default Account",
+          "default_account": "Default Wallet",
           "edit_button": "Edit Profile",
-          "empty_default_account_label": "-- Default Account not set --",
+          "empty_default_account_label": "-- Default Wallet not set --",
           "empty_first_name_label": "-- First name not set --",
           "empty_last_name_label": "-- Last name not set --",
           "first_name": "First Name",

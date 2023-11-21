@@ -3,47 +3,47 @@ pt-BR:
   views:
     accounts:
       index:
-        title: Contas
-        new: Nova conta
+        title: Carteiras
+        new: Nova carteira
         name: Nome
         currency: Moeda
         no_name: '--- Sem nome ---'
         shared_text: 'Compartilhada com você por %{user}'
         share_action_link_label: Compartilhar
       form:
-        new_title: Nova Conta
-        edit_title: 'Editar Conta "%{account}"'
+        new_title: Nova Carteira
+        edit_title: 'Editar Carteira "%{account}"'
         name_label: Nome
         currency_label: Selecione a Moeda
         submit: Salvar
         back: Voltar
     account_share_invites:
       index:
-        pending_invite_title_pending: Convite de Compartilhamento de Conta
+        pending_invite_title_pending: Convite de Compartilhamento de Carteira
         pending_invite_title_accepted: Convite Aceito
         pending_invite_title_rejected: Convite Rejeitado
-        sent_invite_title: Convite enviado para %{invitee} para a conta "%{account_name}"
+        sent_invite_title: Convite enviado para %{invitee} para a carteira "%{account_name}"
         sent_invite_text_pending: O convite foi enviado, mas o recipiente ainda não respondeu.
         sent_invite_text_cancelled: O convite foi cancelado. O recipiente não pode mais aceitá-lo.
         pending_invite_text_pending: >
-          %{inviter} lhe convidou para compartilhar sua conta "%{account_name}". Uma conta compartilhada significa que
+          %{inviter} lhe convidou para compartilhar sua carteira "%{account_name}". Uma carteira compartilhada significa que
           ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
-          com a conta.
+          com a carteira.
         pending_invite_text_accepted: >
-          Você aceitou o convite de %{inviter} para compartilhar sua conta "%{account_name}". Você pode agora
+          Você aceitou o convite de %{inviter} para compartilhar sua carteira "%{account_name}". Você pode agora
           visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
-          com a conta.
+          com a carteira.
         pending_invite_text_rejected: >
-          Você negou o pedido de %{inviter} para compartilhar sua conta "%{account_name}". Você não terá acesso
-          à conta, porém você pode ser convidado novamente.
+          Você negou o pedido de %{inviter} para compartilhar sua carteira "%{account_name}". Você não terá acesso
+          à carteira, porém você pode ser convidado novamente.
         accept: Aceitar
         reject: Rejeitar
         cancel: Cancelar Convite
       modal:
-        title: Compartilhar Conta
+        title: Compartilhar Carteira
         shared_warning_title: Atenção
-        shared_warning_message: Esta conta foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.
-        invitee_email_label: Com quem você deseja compartilhar esta conta?
+        shared_warning_message: Esta carteira foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.
+        invitee_email_label: Com quem você deseja compartilhar esta carteira?
         invitee_email_placeholder: Digite o Email dele(a)
         cancel: Cancelar
         confirm: Enviar Convite
@@ -78,8 +78,8 @@ pt-BR:
       title: Página Inicial
     layout:
       account_switcher:
-        new_account_link: Nova Conta
-        no_account_selected: Selecione Conta
+        new_account_link: Nova Carteira
+        no_account_selected: Selecione Carteira
       rails:
         close: Fechar
         delete: Remover
@@ -94,19 +94,19 @@ pt-BR:
       vertical_menu:
         dashboard: Dashboard
         transactions: Transações
-        current_account: 'Conta:'
-        accounts: Contas
+        current_account: 'Carteira:'
+        accounts: Carteiras
         categories: Categorias
         profile: Meu Perfil
         sign_in: Fazer Login
-        sign_up: Criar conta
-        sign_out: Sair da Conta
+        sign_up: Criar carteira
+        sign_out: Sair da Carteira
     profiles:
       form:
         first_name_label: Nome
         last_name_label: Sobrenome
         email_label: Endereço de Email
-        default_account_label: Conta Padrão
+        default_account_label: Carteira Padrão
         disabled_password_label: Senha
         password_label: Nova Senha
         password_confirmation_label: Confirme a Nova Senha
@@ -118,10 +118,10 @@ pt-BR:
         edit_button: Editar perfil
         first_name: Nome
         last_name:  Sobrenome
-        default_account: Conta Padrão
+        default_account: Carteira Padrão
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
-        empty_default_account_label: '-- Conta padrão não informada --'
+        empty_default_account_label: '-- Carteira padrão não informada --'
     transactions:
       index:
         title: Transações
@@ -161,10 +161,10 @@ pt-BR:
           submit: Enviar email para resetar senha
       registrations:
         new:
-          title: Crie sua conta
+          title: Crie sua carteira
           email_label: Endereço de email
           password_label: Escolha uma senha
-          submit: Criar conta
+          submit: Criar carteira
       sessions:
         new:
           title: Login
@@ -173,6 +173,6 @@ pt-BR:
           submit: Entrar
       unlocks:
         new:
-          title: Re-enviar email de desbloqueio de conta
+          title: Re-enviar email de desbloqueio de carteira
           email_label: Endereço de email
           submit: Re-enviar email de desbloqueio
