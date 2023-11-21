@@ -2,9 +2,9 @@
 
 class AccountShareInvitesSentController < AbstractAuthenticatedController
   def index
-    account_share_invites_sent = current_user.account_share_invites_sent.as_json
+    account_share_invites = current_user.account_share_invites_sent.as_json
 
-    render json: camelize_props(account_share_invites_sent:)
+    render json: camelize_props(account_share_invites:)
   end
 
   def create

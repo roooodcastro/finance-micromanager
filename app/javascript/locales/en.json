@@ -446,7 +446,9 @@
           "pending_invite_title_accepted": "Invite Accepted",
           "pending_invite_title_pending": "Account Share Invite",
           "pending_invite_title_rejected": "Invite Rejected",
-          "reject": "Reject"
+          "reject": "Reject",
+          "sent_invite_text": "The invite was sent, but the recipient has not yet replied.",
+          "sent_invite_title": "Invite sent to %{invitee} for account \"%{account_name}\""
         },
         "modal": {
           "cancel": "Cancel",

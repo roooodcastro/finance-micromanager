@@ -480,7 +480,9 @@
           "pending_invite_title_accepted": "Convite Aceito",
           "pending_invite_title_pending": "Convite de Compartilhamento de Conta",
           "pending_invite_title_rejected": "Convite Rejeitado",
-          "reject": "Rejeitar"
+          "reject": "Rejeitar",
+          "sent_invite_text": "O convite foi enviado, mas o recipiente ainda não respondeu.",
+          "sent_invite_title": "Convite enviado para %{invitee} para a conta \"%{account_name}\""
         },
         "modal": {
           "cancel": "Cancelar",

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 import {
   accountShareInvitesReceived as accountShareInvitesReceivedApi,
+  accountShareInvitesSent as accountShareInvitesSentApi,
 } from '~/api';
 
 export default defineStore('accountShareInvite', {
@@ -13,6 +14,11 @@ export default defineStore('accountShareInvite', {
     fetchPendingReceivedInvites() {
       accountShareInvitesReceivedApi.index().then((response) => {
         this.accountShareInvitesReceived = response.accountShareInvites;
+      });
+    },
+    fetchPendingSentInvites() {
+      accountShareInvitesSentApi.index().then((response) => {
+        this.accountShareInvitesSent = response.accountShareInvites;
       });
     },
     acceptPendingReceivedInvite(accountShareInvite) {
