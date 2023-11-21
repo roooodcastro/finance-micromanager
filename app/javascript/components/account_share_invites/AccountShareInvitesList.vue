@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AccountShareInvite
+    <AccountShareInviteReceived
       v-for="invite in accountShareInvitesReceived"
       :key="`${invite.id}_${invite.status}`"
       :account-share-invite="invite"
@@ -16,11 +16,11 @@ import { storeToRefs } from 'pinia';
 
 import useAccountStore from '~/stores/AccountStore.js';
 import useAccountShareInviteStore from '~/stores/AccountShareInviteStore.js';
-import AccountShareInvite from '~/components/account_share_invites/AccountShareInvite.vue';
+import AccountShareInviteReceived from '~/components/account_share_invites/AccountShareInviteReceived.vue';
 
 export default {
   components: {
-    AccountShareInvite
+    AccountShareInviteReceived
   },
 
   setup() {

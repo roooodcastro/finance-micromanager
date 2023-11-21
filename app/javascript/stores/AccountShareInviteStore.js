@@ -6,7 +6,7 @@ import {
 
 export default defineStore('accountShareInvite', {
   state: () => ({
-    accountShareInvitesGiven: [],
+    accountShareInvitesSent: [],
     accountShareInvitesReceived: [],
   }),
   actions: {

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe AccountShareInvitesController do
+RSpec.describe AccountShareInvitesSentController do
   let(:user) { create(:user) }
 
   before do

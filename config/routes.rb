@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     resource :profile, only: %i[show update]
 
     resources :accounts
-    resources :account_share_invites, except: %i[show new edit update]
+    resources :account_share_invites_sent, except: %i[show new edit update]
     resources :account_share_invites_received, only: %i[index update destroy]
     resources :categories, except: %i[show]
     resources :currencies, only: %i[index]
