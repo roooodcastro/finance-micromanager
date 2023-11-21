@@ -1,5 +1,5 @@
 <template>
-  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
+  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-2 py-lg-3">
     <div class="container-xxl">
       <WalletSwitcher v-if="isUserLoggedIn" />
       <span v-else></span>
@@ -11,28 +11,29 @@
         Finance MicroManager
       </a>
 
-      <button
-        class="btn btn-primary"
-        type="button"
+      <a
+        class="text-decoration-none"
+        href="#"
         data-bs-toggle="offcanvas"
         data-bs-target="#verticalMenu"
         aria-controls="verticalMenu"
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <ProfileAvatar />
+      </a>
     </div>
   </nav>
 </template>
 
 <script>
 import useUserStore from '~/stores/UserStore.js';
+import { dashboards as dashboardsApi } from '~/api';
 
 import WalletSwitcher from '~/components/layout/WalletSwitcher.vue';
-
-import { dashboards as dashboardsApi } from '~/api';
+import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
 export default {
   components: {
+    ProfileAvatar,
     WalletSwitcher,
   },
 
@@ -53,9 +54,6 @@ export default {
 @import '../../stylesheets/variables';
 
 @include media-breakpoint-down(md) {
-  .Navigation {
-    padding: 0.75rem 0;
-  }
   .Navigation .btn {
     --bs-btn-padding-y: 0.5rem;
     --bs-btn-padding-x: 1rem;

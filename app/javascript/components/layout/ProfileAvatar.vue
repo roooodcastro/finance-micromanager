@@ -22,13 +22,12 @@ export default {
 @import '../../stylesheets/variables';
 
 .ProfileAvatar {
-  background-color: $mintgreen-700;
+  background-color: $mintgreen-600;
   color: $white;
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 1.75em;
+  font-weight: lighter;
   line-height: 2em;
   margin: 2px;
-  outline: 2px solid $primary;
   height: 2em;
   width: 2em;
   text-align: center;
