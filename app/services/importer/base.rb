@@ -9,7 +9,7 @@ module Importer
     end
 
     def import!
-      parsed_transactions = parse.map { |row| build_transaction(*row) }.compact
+      parsed_transactions = parse.compact.map { |row| build_transaction(*row) }.compact
       return if parsed_transactions.empty?
 
       ActiveRecord::Base.transaction do
@@ -26,7 +26,7 @@ module Importer
 
     private
 
-    def build_transaction(raw_import_name, name, transaction_date, amount)
+    def build_transaction(raw_import_name, name, transaction_date, amount, category = nil)
       return if Transaction.exists?(
         raw_import_name:  raw_import_name,
         transaction_date: transaction_date,
@@ -42,7 +42,7 @@ module Importer
         wallet:           Current.wallet,
         created_by:       Current.user,
         updated_by:       Current.user,
-        category:         transaction_category(raw_import_name)
+        category:         category || transaction_category(raw_import_name)
       )
     end
 

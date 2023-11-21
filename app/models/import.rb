@@ -5,7 +5,7 @@ class Import < ApplicationRecord
 
   has_many :transactions, dependent: :restrict_with_exception
 
-  enum source: { ptsb: 'ptsb', n26: 'n26' }
+  enum source: { ptsb: 'ptsb', n26: 'n26', sheets: 'sheets' }
 
   validates :source, presence: true
 end
