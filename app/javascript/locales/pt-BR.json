@@ -474,6 +474,7 @@
       "account_share_invites": {
         "index": {
           "accept": "Aceitar",
+          "cancel": "Cancelar Convite",
           "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar sua conta \"%{account_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com a conta.\n",
           "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar sua conta \"%{account_name}\". Uma conta compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com a conta.\n",
           "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar sua conta \"%{account_name}\". Você não terá acesso à conta, porém você pode ser convidado novamente.\n",
@@ -481,7 +482,8 @@
           "pending_invite_title_pending": "Convite de Compartilhamento de Conta",
           "pending_invite_title_rejected": "Convite Rejeitado",
           "reject": "Rejeitar",
-          "sent_invite_text": "O convite foi enviado, mas o recipiente ainda não respondeu.",
+          "sent_invite_text_cancelled": "O convite foi cancelado. O recipiente não pode mais aceitá-lo.",
+          "sent_invite_text_pending": "O convite foi enviado, mas o recipiente ainda não respondeu.",
           "sent_invite_title": "Convite enviado para %{invitee} para a conta \"%{account_name}\""
         },
         "modal": {

@@ -5,8 +5,8 @@
       :key="`${invite.id}_received_${invite.status}`"
       :account-share-invite="invite"
       class="overflow-hidden"
-      @accepted="handleInviteResponse(invite, true)"
-      @rejected="handleInviteResponse(invite, false)"
+      @accepted="handleReceivedInviteResponse(invite, true)"
+      @rejected="handleReceivedInviteResponse(invite, false)"
     />
 
     <AccountShareInviteSent
@@ -14,6 +14,7 @@
       :key="`${invite.id}_sent_${invite.status}`"
       :account-share-invite="invite"
       class="overflow-hidden"
+      @cancelled="handleSentInviteCancellation(invite)"
     />
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
     accountShareInviteStore.fetchPendingReceivedInvites();
     accountShareInviteStore.fetchPendingSentInvites();
 
-    const handleInviteResponse = (accountShareInvite, accepted) => {
+    const handleReceivedInviteResponse = (accountShareInvite, accepted) => {
       if (accepted) {
         accountShareInviteStore.acceptPendingReceivedInvite(accountShareInvite).then(() => {
           accountStore.fetchAvailableAccounts();
@@ -56,10 +57,19 @@ export default {
       }
     };
 
+    const handleSentInviteCancellation = (accountShareInvite) => {
+      accountShareInviteStore.cancelPendingSentInvite(accountShareInvite).then(() => {
+        setTimeout(() => {
+          accountShareInviteStore.removeAccountShareInviteSent(accountShareInvite);
+        }, 5000);
+      });
+    };
+
     return {
       accountShareInvitesReceived,
       accountShareInvitesSent,
-      handleInviteResponse,
+      handleReceivedInviteResponse,
+      handleSentInviteCancellation,
     };
   },
 };

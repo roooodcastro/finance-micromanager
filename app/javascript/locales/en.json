@@ -440,6 +440,7 @@
       "account_share_invites": {
         "index": {
           "accept": "Accept",
+          "cancel": "Cancel Invite",
           "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their account \"%{account_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the account.\n",
           "pending_invite_text_pending": "%{inviter} has invited you to share their account \"%{account_name}\". A shared account means you both will be able to view and manage transactions, categories, and all other aspects associated with the account.\n",
           "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their account \"%{account_name}\". You will not have access to their account, but they will be able to invite you again.\n",
@@ -447,7 +448,8 @@
           "pending_invite_title_pending": "Account Share Invite",
           "pending_invite_title_rejected": "Invite Rejected",
           "reject": "Reject",
-          "sent_invite_text": "The invite was sent, but the recipient has not yet replied.",
+          "sent_invite_text_cancelled": "The invite has been cancelled. The recipient can no longer accept it.",
+          "sent_invite_text_pending": "The invite was sent, but the recipient has not yet replied.",
           "sent_invite_title": "Invite sent to %{invitee} for account \"%{account_name}\""
         },
         "modal": {

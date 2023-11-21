@@ -23,7 +23,8 @@ pt-BR:
         pending_invite_title_accepted: Convite Aceito
         pending_invite_title_rejected: Convite Rejeitado
         sent_invite_title: Convite enviado para %{invitee} para a conta "%{account_name}"
-        sent_invite_text: O convite foi enviado, mas o recipiente ainda não respondeu.
+        sent_invite_text_pending: O convite foi enviado, mas o recipiente ainda não respondeu.
+        sent_invite_text_cancelled: O convite foi cancelado. O recipiente não pode mais aceitá-lo.
         pending_invite_text_pending: >
           %{inviter} lhe convidou para compartilhar sua conta "%{account_name}". Uma conta compartilhada significa que
           ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
@@ -37,6 +38,7 @@ pt-BR:
           à conta, porém você pode ser convidado novamente.
         accept: Aceitar
         reject: Rejeitar
+        cancel: Cancelar Convite
       modal:
         title: Compartilhar Conta
         shared_warning_title: Atenção

@@ -2,7 +2,7 @@
 
 class AccountShareInvitesSentController < AbstractAuthenticatedController
   def index
-    account_share_invites = current_user.account_share_invites_sent.as_json
+    account_share_invites = current_user.account_share_invites_sent.pending.as_json
 
     render json: camelize_props(account_share_invites:)
   end
@@ -29,7 +29,9 @@ class AccountShareInvitesSentController < AbstractAuthenticatedController
     invite = current_user.account_share_invites_sent.find(params[:id])
     invite.cancelled!
 
-    redirect_to accounts_path, success: t('.success')
+    render json: camelize_props(account_share_invite: invite.as_json)
+  rescue ActiveRecord::ActiveRecordError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
