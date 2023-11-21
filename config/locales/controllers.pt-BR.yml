@@ -1,5 +1,5 @@
 pt-BR:
-  accounts:
+  wallets:
     create:
       success: 'Carteira criada com sucesso.'
       error: 'Carteira "%{name}" não pode ser criada: %{error}'
@@ -9,10 +9,10 @@ pt-BR:
     destroy:
       success: 'Carteira "%{name}" removida com sucesso.'
 
-  account_share_invites_sent:
+  wallet_share_invites_sent:
     create:
-      success: 'Seu convite para compartilhar a carteira "%{account_name}" foi enviado com sucesso para "%{invitee}"!'
-      error: 'Ocorreu um erro ao enviar um convite para compartilhar a carteira "%{account_name}" com "%{invitee}": %{error}'
+      success: 'Seu convite para compartilhar a carteira "%{wallet_name}" foi enviado com sucesso para "%{invitee}"!'
+      error: 'Ocorreu um erro ao enviar um convite para compartilhar a carteira "%{wallet_name}" com "%{invitee}": %{error}'
 
   categories:
     create:
@@ -24,7 +24,7 @@ pt-BR:
     destroy:
       success: 'Categoria removida com sucesso.'
 
-  current_accounts:
+  current_wallets:
     create:
       error: 'Carteira não encontrada.'
 

@@ -10,7 +10,7 @@ RSpec.describe Importer::N26, type: :service do
     let(:expected_transactions) do
       [
         ['NETFLIX.COM', 'NETFLIX.COM', Date.parse('2023-04-07'), -20],
-        ['From Test Space to Main Account', 'From Test Space to Main Account', Date.parse('2023-04-12'), 100],
+        ['From Test Space to Main Wallet', 'From Test Space to Main Wallet', Date.parse('2023-04-12'), 100],
         ['WWW.ALIEXPRESS.COM', 'WWW.ALIEXPRESS.COM', Date.parse('2023-04-13'), -9.99]
       ]
     end

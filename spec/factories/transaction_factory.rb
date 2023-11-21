@@ -8,7 +8,7 @@ FactoryBot.define do
 
     created_by { association(:user) }
     updated_by { association(:user) }
-    account { association(:account, user: created_by) }
-    category { association(:category, account:) }
+    wallet { association(:wallet, user: created_by) }
+    category { association(:category, wallet:) }
   end
 end

@@ -4,7 +4,7 @@
 import { definePathHelper } from '@js-from-routes/client'
 
 export default {
-  index: /* #__PURE__ */ definePathHelper('get', '/account_share_invites_sent'),
-  create: /* #__PURE__ */ definePathHelper('post', '/account_share_invites_sent'),
-  destroy: /* #__PURE__ */ definePathHelper('delete', '/account_share_invites_sent/:id'),
+  index: /* #__PURE__ */ definePathHelper('get', '/wallet_share_invites_sent'),
+  create: /* #__PURE__ */ definePathHelper('post', '/wallet_share_invites_sent'),
+  destroy: /* #__PURE__ */ definePathHelper('delete', '/wallet_share_invites_sent/:id'),
 }

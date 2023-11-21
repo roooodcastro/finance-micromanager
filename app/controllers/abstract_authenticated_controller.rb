@@ -4,6 +4,6 @@ class AbstractAuthenticatedController < ApplicationController
   before_action :authenticate_user!
 
   inertia_share user: -> { camelize_props(current_user.as_json) }
-  inertia_share currentAccount: -> { camelize_props(Current.account.as_json) }
-  inertia_share availableAccounts: -> { current_user.available_accounts.as_json.map(&method(:camelize_props)) }
+  inertia_share currentWallet: -> { camelize_props(Current.wallet.as_json) }
+  inertia_share availableWallets: -> { current_user.available_wallets.as_json.map(&method(:camelize_props)) }
 end

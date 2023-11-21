@@ -13,7 +13,7 @@ module Importer
       return if parsed_transactions.empty?
 
       ActiveRecord::Base.transaction do
-        import = Import.create!(source: source, account: Current.account)
+        import = Import.create!(source: source, wallet: Current.wallet)
         parsed_transactions.each { |transaction| transaction.update!(import:) }
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback
@@ -31,7 +31,7 @@ module Importer
         raw_import_name:  raw_import_name,
         transaction_date: transaction_date,
         amount_cents:     amount.to_f * 100,
-        account:          Current.account
+        wallet:           Current.wallet
       )
 
       Transaction.new(
@@ -39,7 +39,7 @@ module Importer
         amount:           amount,
         transaction_date: transaction_date,
         raw_import_name:  raw_import_name,
-        account:          Current.account,
+        wallet:           Current.wallet,
         created_by:       Current.user,
         updated_by:       Current.user,
         category:         transaction_category(raw_import_name)
@@ -51,7 +51,7 @@ module Importer
     end
 
     def temporary_category
-      @temporary_category ||= Category.temporary_category_for(Current.account)
+      @temporary_category ||= Category.temporary_category_for(Current.wallet)
     end
 
     def source

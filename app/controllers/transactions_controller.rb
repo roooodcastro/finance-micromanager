@@ -7,7 +7,7 @@ class TransactionsController < AbstractAuthenticatedController
 
   def index
     transactions = TransactionSearch
-                   .new(Current.account.transactions.includes(:category), search_params)
+                   .new(Current.wallet.transactions.includes(:category), search_params)
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 
@@ -31,7 +31,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def create
-    transaction = Current.account.transactions.new(transaction_params)
+    transaction = Current.wallet.transactions.new(transaction_params)
 
     return redirect_to transactions_path, success: t('.success') if transaction.save
 
@@ -61,14 +61,14 @@ class TransactionsController < AbstractAuthenticatedController
   private
 
   def set_transaction
-    @transaction = Current.account.transactions.find(params[:id])
+    @transaction = Current.wallet.transactions.find(params[:id])
   end
 
   def transaction_params
     params
       .require(:transaction)
       .permit(:name, :amount, :transaction_date, :category_id, :amount_type)
-      .merge(amount_currency: Current.account.currency, created_by: current_user, updated_by: current_user)
+      .merge(amount_currency: Current.wallet.currency, created_by: current_user, updated_by: current_user)
   end
 
   def search_params
@@ -76,6 +76,6 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def available_categories
-    camelize_props(categories: Current.account.categories.as_json)
+    camelize_props(categories: Current.wallet.categories.as_json)
   end
 end

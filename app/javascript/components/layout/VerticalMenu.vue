@@ -32,7 +32,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
-  accounts,
+  wallets,
   categories,
   transactions as transactionsApi,
   dashboards as dashboardsApi,
@@ -62,7 +62,7 @@ export default {
         { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
         { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
         { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
-        { label: t('accounts'), path: accounts.index.path(), icon: 'wallet' },
+        { label: t('wallets'), path: wallets.index.path(), icon: 'wallet' },
         { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
       ];
     } else {

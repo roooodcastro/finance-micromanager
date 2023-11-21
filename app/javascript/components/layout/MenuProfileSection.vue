@@ -18,10 +18,10 @@
         {{ email }}
       </div>
       <div class="d-flex flex-row">
-        {{ t('current_account') }}
-        <AccountLabel
+        {{ t('current_wallet') }}
+        <WalletLabel
           class="ms-2"
-          :account="currentAccount"
+          :wallet="currentWallet"
         />
       </div>
     </div>
@@ -37,33 +37,33 @@
 import { storeToRefs } from 'pinia';
 
 import useUserStore from '~/stores/UserStore.js';
-import useAccountStore from '~/stores/AccountStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 
 import { profiles as profilesApi } from '~/api';
 
 import ProfileAvatar from "~/components/layout/ProfileAvatar.vue";
-import AccountLabel from "~/components/accounts/AccountLabel.vue";
+import WalletLabel from "~/components/wallets/WalletLabel.vue";
 import CloseButton from "~/components/bootstrap/CloseButton.vue";
 import I18n from "~/utils/I18n";
 
 export default {
   components: {
-    AccountLabel,
+    WalletLabel,
     CloseButton,
     ProfileAvatar,
   },
 
   setup() {
-    const accountStore = useAccountStore();
+    const walletStore = useWalletStore();
     const userStore = useUserStore();
 
-    const { currentAccount } = storeToRefs(accountStore);
+    const { currentWallet } = storeToRefs(walletStore);
     const email = userStore.user.email;
     const name = userStore.user.fullName;
     const showProfilePath = profilesApi.show.path();
 
     return {
-      currentAccount,
+      currentWallet,
       name,
       email,
       showProfilePath,
