@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include CamelizeableProps
   include Localizeable
 
-  add_flash_types :success, :warning, :danger
+  add_flash_types :success, :warning, :danger, :info
 
-  inertia_share flashMessages: -> { flash.to_h }
+  inertia_share notifications: -> { flash.to_h }
 end

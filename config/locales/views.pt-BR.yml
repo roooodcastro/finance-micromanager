@@ -91,6 +91,10 @@ pt-BR:
         page_prev: Anterior
         page_next: Próxima
         page_desc: 'Exibindo %{items} de %{total}'
+        toast_title_success: Info
+        toast_title_info: Info
+        toast_title_warning: Alerta
+        toast_title_danger: Erro
       vertical_menu:
         dashboard: Dashboard
         transactions: Transações
@@ -99,8 +103,8 @@ pt-BR:
         categories: Categorias
         profile: Meu Perfil
         sign_in: Fazer Login
-        sign_up: Criar carteira
-        sign_out: Sair da Carteira
+        sign_up: Criar Conta
+        sign_out: Sair da Conta
     profiles:
       form:
         first_name_label: Nome
@@ -161,10 +165,10 @@ pt-BR:
           submit: Enviar email para resetar senha
       registrations:
         new:
-          title: Crie sua carteira
+          title: Crie sua conta
           email_label: Endereço de email
           password_label: Escolha uma senha
-          submit: Criar carteira
+          submit: Criar conta
       sessions:
         new:
           title: Login
@@ -173,6 +177,6 @@ pt-BR:
           submit: Entrar
       unlocks:
         new:
-          title: Re-enviar email de desbloqueio de carteira
+          title: Re-enviar email de desbloqueio de conta
           email_label: Endereço de email
           submit: Re-enviar email de desbloqueio

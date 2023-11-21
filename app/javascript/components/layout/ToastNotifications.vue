@@ -1,0 +1,48 @@
+<template>
+  <div class="toast-container position-absolute top-0 end-0 p-3">
+    <Toast
+      v-for="(notification, index) in notifications"
+      :key="`${notification.variant}_${index}`"
+      :variant="notification.variant"
+      :message="notification.message"
+    />
+
+    <Toast
+      v-for="(message, index) in warningMessages"
+      :key="`warning_${index}`"
+      variant="warning"
+      :message="message"
+    />
+
+    <Toast
+      v-for="(message, index) in errorMessages"
+      :key="`error_${index}`"
+      variant="danger"
+      :message="message"
+    />
+  </div>
+</template>
+
+<script>
+import { storeToRefs } from 'pinia';
+import useNotificationStore from '~/stores/NotificationStore.js';
+
+import Toast from '~/components/bootstrap/Toast.vue';
+import I18n from '~/utils/I18n';
+
+export default {
+  components: {
+    Toast,
+  },
+
+  setup() {
+    const t = I18n.scopedTranslator('views.layout.rails');
+    const { notifications } = storeToRefs(useNotificationStore());
+
+    return {
+      t,
+      notifications,
+    };
+  }
+};
+</script>

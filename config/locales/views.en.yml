@@ -89,6 +89,10 @@ en:
         page_prev: Previous
         page_next: Next
         page_desc: 'Showing %{items} of %{total}'
+        toast_title_success: Info
+        toast_title_info: Info
+        toast_title_warning: Warning
+        toast_title_danger: Error
       vertical_menu:
         dashboard: Dashboard
         transactions: Transactions
