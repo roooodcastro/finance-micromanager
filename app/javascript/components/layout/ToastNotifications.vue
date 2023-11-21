@@ -6,20 +6,6 @@
       :variant="notification.variant"
       :message="notification.message"
     />
-
-    <Toast
-      v-for="(message, index) in warningMessages"
-      :key="`warning_${index}`"
-      variant="warning"
-      :message="message"
-    />
-
-    <Toast
-      v-for="(message, index) in errorMessages"
-      :key="`error_${index}`"
-      variant="danger"
-      :message="message"
-    />
   </div>
 </template>
 
