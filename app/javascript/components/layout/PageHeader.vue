@@ -1,9 +1,9 @@
 <template>
   <header v-if="title || $slots.default">
-    <div class="d-flex align-items-center justify-content-between mt-4">
+    <div class="d-flex align-items-center justify-content-between mt-2 mt-lg-4">
       <h1
         v-if="title || $slots.default"
-        class="d-flex align-items-center"
+        class="d-flex align-items-center mb-0 mb-lg-2"
       >
         <template v-if="title">
           {{ title }}

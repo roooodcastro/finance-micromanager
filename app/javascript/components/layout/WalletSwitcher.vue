@@ -3,7 +3,7 @@
     class="btn-group"
   >
     <button
-      class="btn WalletSwitcher__button"
+      class="btn btn-sm WalletSwitcher__button"
       :class="currentWallet ? 'btn-primary' : 'btn-warning'"
       type="button"
       data-bs-toggle="dropdown"

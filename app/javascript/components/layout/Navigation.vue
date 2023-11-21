@@ -1,5 +1,5 @@
 <template>
-  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
+  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-3 py-lg-3">
     <div class="container-xxl">
       <WalletSwitcher v-if="isUserLoggedIn" />
       <span v-else></span>
@@ -12,7 +12,7 @@
       </a>
 
       <button
-        class="btn btn-primary"
+        class="btn btn-sm btn-primary"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#verticalMenu"
@@ -53,9 +53,6 @@ export default {
 @import '../../stylesheets/variables';
 
 @include media-breakpoint-down(md) {
-  .Navigation {
-    padding: 0.75rem 0;
-  }
   .Navigation .btn {
     --bs-btn-padding-y: 0.5rem;
     --bs-btn-padding-x: 1rem;
