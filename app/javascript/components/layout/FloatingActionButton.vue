@@ -1,7 +1,7 @@
 <template>
-  <div class="position-fixed end-0 bottom-0 me-3 mb-3">
+  <div class="FloatingActionButton position-fixed end-0 bottom-0 me-3 mb-3">
     <a
-      class="FloatingActionButton d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1"
+      class="FloatingActionButton__link d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1"
       :href="newTransactionPath"
     >
       <FontAwesomeIcon icon="plus" />
@@ -29,6 +29,10 @@ export default {
 
 <style lang="scss" scoped>
 .FloatingActionButton {
+  z-index: 1;
+}
+
+.FloatingActionButton__link {
   width: 4rem;
   height: 4rem;
 }
