@@ -16,7 +16,10 @@ RSpec.describe AccountShareInvitesController do
       let(:params) { { account_share_invite: { invitee_email: 'test@email.com', account_id: account.id } } }
 
       it 'sends the invite and returns a success message' do
-        expect { create_request }.to change { AccountShareInvite.count }.by(1)
+        expect { create_request }
+          .to change { AccountShareInvite.count }
+          .by(1)
+          .and have_enqueued_mail(AccountShareMailer, :account_share_invite_sent).once
 
         new_account_share_invite = AccountShareInvite.last
         expect(new_account_share_invite.invitee_email).to eq('test@email.com')
@@ -33,7 +36,9 @@ RSpec.describe AccountShareInvitesController do
       let(:params) { { account_share_invite: { invitee_email: '', account_id: account.id } } }
 
       it 'does not send the invite and returns an error message' do
-        expect { create_request }.to not_change { AccountShareInvite.count }
+        expect { create_request }
+          .to not_change { AccountShareInvite.count }
+          .and not_have_enqueued_mail(AccountShareMailer, :account_share_invite_sent).once
 
         expect(response).to redirect_to(accounts_path)
         expect(flash[:success]).to be_blank

@@ -6,6 +6,15 @@
         "success": "Seu convite para compartilhar a conta \"%{account_name}\" foi enviado com sucesso para \"%{invitee}\"!"
       }
     },
+    "account_share_mailer": {
+      "account_share_invite_sent": {
+        "hello": "Olá",
+        "invite_paragraph": "%{inviter} lhe convidou para compartilhar sua conta \"%{account_name}\" em Finance Micromanager. Isso irá permitir que você acesse, visualize e gerencie a conta, cria transações, visualise relatórios e dados estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
+        "new_account_paragraph": "Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes de aceitar este convite. Para criar uma conta, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
+        "sign_up_link": "Criar minha conta em Finance Micromanager",
+        "view_invite_link": "Ver meus convites"
+      }
+    },
     "accounts": {
       "create": {
         "error": "Conta \"%{name}\" não pode ser criada: %{error}",
