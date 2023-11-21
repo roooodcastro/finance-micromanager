@@ -25,7 +25,7 @@ import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 
 import useUserStore from '~/stores/UserStore.js';
 import useFlashStore from '~/stores/FlashStore.js';
-import useAccountStore from '~/stores/AccountStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 
 export default {
@@ -45,11 +45,11 @@ export default {
       type: Object,
       required: true,
     },
-    currentAccount: {
+    currentWallet: {
       type: Object,
       required: true,
     },
-    availableAccounts: {
+    availableWallets: {
       type: Object,
       required: true,
     },
@@ -63,16 +63,16 @@ export default {
     },
   },
   setup(props) {
-    const accountStore = useAccountStore();
+    const walletStore = useWalletStore();
 
-    if (props.currentAccount) {
+    if (props.currentWallet) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
-      accountStore.currentAccount = props.currentAccount;
+      walletStore.currentWallet = props.currentWallet;
     }
 
-    if (props.availableAccounts) {
+    if (props.availableWallets) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
-      accountStore.availableAccounts = props.availableAccounts;
+      walletStore.availableWallets = props.availableWallets;
     }
 
     if (props.user) {

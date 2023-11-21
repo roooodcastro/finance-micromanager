@@ -8,14 +8,14 @@ module SetCurrentAttributes
   end
 
   def set_current_attributes
-    Current.account = current_account if user_signed_in?
+    Current.wallet = current_wallet if user_signed_in?
     # Current.locale is set in Localizeable concern
-    Current.user    = current_user if user_signed_in?
+    Current.user   = current_user if user_signed_in?
   end
 
-  def current_account
-    account_id = session[:current_account_id] || current_user.default_account_id
-    current_user.find_available_account(account_id)
+  def current_wallet
+    wallet_id = session[:current_wallet_id] || current_user.default_wallet_id
+    current_user.find_available_wallet(wallet_id)
   rescue ActiveRecord::RecordNotFound
     nil
   end

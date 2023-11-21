@@ -52,7 +52,7 @@ import { storeToRefs } from 'pinia';
 
 import { categories as categoriesApi } from '~/api';
 import I18n from '~/utils/I18n';
-import useAccountStore from '~/stores/AccountStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
@@ -91,10 +91,10 @@ export default {
     categoriesFromStore.value = toRef(props.categories);
     paginationFromStore.value = toRef(props.pagination).value;
 
-    // Reload categories if account has changed while this page is open
-    const accountStore = useAccountStore();
+    // Reload categories if wallet has changed while this page is open
+    const walletStore = useWalletStore();
     watch(
-      () => accountStore.currentAccount,
+      () => walletStore.currentWallet,
       () => {
         categoriesApi.index().then(response => categoriesFromStore.value = response.categories);
       },

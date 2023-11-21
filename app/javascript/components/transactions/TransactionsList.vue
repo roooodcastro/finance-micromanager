@@ -35,7 +35,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import useAccountStore from '~/stores/AccountStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
@@ -75,10 +75,10 @@ export default {
     const handleFiltersChange = () => transactionStore.fetchTransactions();
     const handlePageChange = (page) => transactionStore.changePage(page);
 
-    // Reload transactions if account has changed while this page is open
-    const accountStore = useAccountStore();
+    // Reload transactions if wallet has changed while this page is open
+    const walletStore = useWalletStore();
     watch(
-      () => accountStore.currentAccount,
+      () => walletStore.currentWallet,
       () => transactionStore.fetchTransactions(),
     );
 

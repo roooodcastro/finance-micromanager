@@ -1,7 +1,7 @@
 <template>
   <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark" data-bs-theme="dark">
     <div class="container-xxl">
-      <AccountSwitcher v-if="isUserLoggedIn" />
+      <WalletSwitcher v-if="isUserLoggedIn" />
       <span v-else></span>
 
       <a
@@ -27,13 +27,13 @@
 <script>
 import useUserStore from '~/stores/UserStore.js';
 
-import AccountSwitcher from '~/components/layout/AccountSwitcher.vue';
+import WalletSwitcher from '~/components/layout/WalletSwitcher.vue';
 
 import { dashboards as dashboardsApi } from '~/api';
 
 export default {
   components: {
-    AccountSwitcher,
+    WalletSwitcher,
   },
 
   setup() {
@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../stylesheets/variables';
 
 @include media-breakpoint-down(md) {

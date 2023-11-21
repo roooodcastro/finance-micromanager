@@ -2,9 +2,9 @@
 
 RSpec.describe Category do
   describe '#temporary_category_for' do
-    subject(:temporary_category_for) { described_class.temporary_category_for(account) }
+    subject(:temporary_category_for) { described_class.temporary_category_for(wallet) }
 
-    let(:account) { create(:account) }
+    let(:wallet) { create(:wallet) }
 
     context 'when a temporary category does not yet exist' do
       it 'creates a new temporary category' do
@@ -13,7 +13,7 @@ RSpec.describe Category do
     end
 
     context 'when a temporary category already exists' do
-      let!(:temporary_category) { create(:category, account: account, name: 'Temporary', color: '#808080') }
+      let!(:temporary_category) { create(:category, wallet: wallet, name: 'Temporary', color: '#808080') }
 
       it { is_expected.to eq(temporary_category) }
 
@@ -22,10 +22,10 @@ RSpec.describe Category do
       end
     end
 
-    context 'when a temporary category already exists but for another account' do
-      let(:account2) { create(:account) }
+    context 'when a temporary category already exists but for another wallet' do
+      let(:wallet2) { create(:wallet) }
 
-      let!(:temporary_category) { create(:category, account: account2, name: 'Temporary', color: '#808080') }
+      let!(:temporary_category) { create(:category, wallet: wallet2, name: 'Temporary', color: '#808080') }
 
       it { is_expected.not_to eq(temporary_category) }
 

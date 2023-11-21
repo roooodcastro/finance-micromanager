@@ -88,20 +88,20 @@
 
         <div class="col">
           <label>
-            {{ t('default_account_label') }}
+            {{ t('default_wallet_label') }}
           </label>
           <select
-            :id="formHelper.fieldId('default_account_id')"
-            :name="formHelper.fieldName('default_account_id')"
+            :id="formHelper.fieldId('default_wallet_id')"
+            :name="formHelper.fieldName('default_wallet_id')"
             class="form-select"
           >
           <option
-            v-for="account in availableAccounts"
-            :key="account.id"
-            :value="account.id"
-            :selected="user.defaultAccountId === account.id"
+            v-for="wallet in availableWallets"
+            :key="wallet.id"
+            :value="wallet.id"
+            :selected="user.defaultWalletId === wallet.id"
           >
-            {{ account.displayName }}
+            {{ wallet.displayName }}
           </option>
           </select>
         </div>
@@ -141,7 +141,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n';
 import { profiles as profilesApi, usersPasswords as usersPasswordsApi } from '~/api';
-import useAccountStore from '~/stores/AccountStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
@@ -165,11 +165,11 @@ export default {
   setup() {
     const formAction = profilesApi.update.path();
     const changePasswordPath = usersPasswordsApi.edit.path();
-    const accountStore = useAccountStore();
-    const { availableAccounts } = storeToRefs(accountStore);
+    const walletStore = useWalletStore();
+    const { availableWallets } = storeToRefs(walletStore);
 
     return {
-      availableAccounts,
+      availableWallets,
       formAction,
       changePasswordPath,
       t: I18n.scopedTranslator('views.profiles.form')

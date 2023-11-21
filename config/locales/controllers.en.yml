@@ -1,18 +1,18 @@
 en:
-  accounts:
+  wallets:
     create:
-      success: 'Account was successfully created.'
-      error: 'Account "%{name}" could not be created: %{error}'
+      success: 'Wallet was successfully created.'
+      error: 'Wallet "%{name}" could not be created: %{error}'
     update:
-      success: 'Account "%{name}" was successfully updated.'
-      error: 'Account "%{name}" could not be updated: %{error}'
+      success: 'Wallet "%{name}" was successfully updated.'
+      error: 'Wallet "%{name}" could not be updated: %{error}'
     destroy:
-      success: 'Account "%{name}" was successfully destroyed.'
+      success: 'Wallet "%{name}" was successfully destroyed.'
 
-  account_share_invites_sent:
+  wallet_share_invites_sent:
     create:
-      success: 'Your invite to share the account "%{account_name}" was successfully sent to "%{invitee}"!'
-      error: 'There was an error sending the invite to share the account "%{account_name}" with "%{invitee}": %{error}'
+      success: 'Your invite to share the wallet "%{wallet_name}" was successfully sent to "%{invitee}"!'
+      error: 'There was an error sending the invite to share the wallet "%{wallet_name}" with "%{invitee}": %{error}'
 
   categories:
     create:
@@ -24,9 +24,9 @@ en:
     destroy:
       success: 'Category was successfully destroyed.'
 
-  current_accounts:
+  current_wallets:
     create:
-      error: 'Account was not found.'
+      error: 'Wallet was not found.'
 
   profiles:
     update:

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Current < ActiveSupport::CurrentAttributes
-  attribute :account
+  attribute :wallet
   attribute :user
   attribute :locale
 end

@@ -39,12 +39,12 @@ Rails.application.routes.draw do
     resource :landing, only: :show
     resource :profile, only: %i[show update]
 
-    resources :accounts
-    resources :account_share_invites_sent, except: %i[show new edit update]
-    resources :account_share_invites_received, only: %i[index update destroy]
+    resources :wallets
+    resources :wallet_share_invites_sent, except: %i[show new edit update]
+    resources :wallet_share_invites_received, only: %i[index update destroy]
     resources :categories, except: %i[show]
     resources :currencies, only: %i[index]
-    resources :current_accounts, only: %i[create]
+    resources :current_wallets, only: %i[create]
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show]
   end

@@ -5,17 +5,17 @@ RSpec.describe User do
 
   let(:user) { build(:user) }
 
-  describe 'default_account_validation' do
+  describe 'default_wallet_validation' do
     context 'for a new User' do
       let(:user) { build(:user) }
 
-      context 'when the user does not have a default account' do
-        before { user.default_account = nil }
+      context 'when the user does not have a default wallet' do
+        before { user.default_wallet = nil }
 
         it { is_expected.to be_valid }
       end
 
-      context 'when the user has a default account' do
+      context 'when the user has a default wallet' do
         it { is_expected.to be_valid }
       end
     end
@@ -23,77 +23,77 @@ RSpec.describe User do
     context 'for an existing User' do
       let(:user) { create(:user) }
 
-      context 'when the user does not have a default account' do
-        before { user.default_account = nil }
+      context 'when the user does not have a default wallet' do
+        before { user.default_wallet = nil }
 
         it { is_expected.not_to be_valid }
       end
 
-      context 'when the user has a default account' do
+      context 'when the user has a default wallet' do
         it { is_expected.to be_valid }
       end
     end
   end
 
-  describe '#set_default_account' do
+  describe '#set_default_wallet' do
     subject(:user_save) { user.save }
 
-    context 'when default account exists' do
-      let!(:account) { create(:account, user:) }
+    context 'when default wallet exists' do
+      let!(:wallet) { create(:wallet, user:) }
 
-      before { user.default_account = account }
+      before { user.default_wallet = wallet }
 
       it 'does not create or set anything' do
-        expect { user_save }.to not_change { Account.count }.and not_change { user.default_account }
+        expect { user_save }.to not_change { Wallet.count }.and not_change { user.default_wallet }
       end
     end
 
-    context 'when default account is nil' do
-      let(:user) { build(:user, default_account: nil) }
+    context 'when default wallet is nil' do
+      let(:user) { build(:user, default_wallet: nil) }
 
-      it 'creates the default account' do
-        expect { user_save }.to change { Account.count }.by(1)
+      it 'creates the default wallet' do
+        expect { user_save }.to change { Wallet.count }.by(1)
 
-        new_account = Account.last
+        new_wallet = Wallet.last
 
-        expect(new_account.user).to eq user
-        expect(new_account.status).to eq 'active'
-        expect(new_account.currency).to eq 'eur'
-        expect(user.reload.default_account).to eq new_account
+        expect(new_wallet.user).to eq user
+        expect(new_wallet.status).to eq 'active'
+        expect(new_wallet.currency).to eq 'eur'
+        expect(user.reload.default_wallet).to eq new_wallet
       end
     end
   end
 
-  describe '.find_available_account' do
-    subject(:find_available_account) { user.find_available_account(id) }
+  describe '.find_available_wallet' do
+    subject(:find_available_wallet) { user.find_available_wallet(id) }
 
     let(:user) { create(:user) }
 
-    context 'when the account cannot be found' do
+    context 'when the wallet cannot be found' do
       let(:id) { 'unknown' }
 
       it 'raises a RecordNotFound exception' do
-        expect { find_available_account }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { find_available_wallet }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
-    context 'when the account is found in the user own accounts' do
-      let!(:account) { create(:account, user:) }
-      let(:id) { account.id }
+    context 'when the wallet is found in the user own wallets' do
+      let!(:wallet) { create(:wallet, user:) }
+      let(:id) { wallet.id }
 
-      it { is_expected.to eq account }
+      it { is_expected.to eq wallet }
     end
 
-    context 'when the account is found in the user shared accounts' do
-      let!(:account) do
-        new_account = create(:account)
-        create(:account_share, account: new_account, user: user)
-        new_account
+    context 'when the wallet is found in the user shared wallets' do
+      let!(:wallet) do
+        new_wallet = create(:wallet)
+        create(:wallet_share, wallet: new_wallet, user: user)
+        new_wallet
       end
 
-      let(:id) { account.id }
+      let(:id) { wallet.id }
 
-      it { is_expected.to eq account }
+      it { is_expected.to eq wallet }
     end
   end
 end

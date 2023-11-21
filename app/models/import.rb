@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Import < ApplicationRecord
-  belongs_to :account
+  belongs_to :wallet
 
   has_many :transactions, dependent: :restrict_with_exception
 

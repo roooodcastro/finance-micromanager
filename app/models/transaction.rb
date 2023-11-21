@@ -6,7 +6,7 @@ class Transaction < ApplicationRecord
   attr_accessor :amount_type
 
   belongs_to :import, optional: true
-  belongs_to :account
+  belongs_to :wallet
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
   belongs_to :category

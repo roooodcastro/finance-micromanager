@@ -6,7 +6,7 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[edit update destroy]
 
   def index
-    categories = Current.account.categories
+    categories = Current.wallet.categories
 
     pagy, categories = pagy(categories)
     props            = { categories: categories.as_json, pagination: pagy_metadata(pagy) }
@@ -28,7 +28,7 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def create
-    category = Current.account.categories.new(category_params)
+    category = Current.wallet.categories.new(category_params)
 
     if category.save
       redirect_to categories_path, success: t('.success')
@@ -57,7 +57,7 @@ class CategoriesController < AbstractAuthenticatedController
   private
 
   def set_category
-    @category = Current.account.categories.find(params[:id])
+    @category = Current.wallet.categories.find(params[:id])
   end
 
   def category_params

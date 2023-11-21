@@ -105,7 +105,7 @@ import { ref } from 'vue';
 
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
-import useAccountStore from '~/stores/AccountStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -136,8 +136,8 @@ export default {
     const t = I18n.scopedTranslator('views.transactions.form');
     const listTransactionsPath = transactions.index.path();
     const isNewTransaction = !props.transaction.id;
-    const accountStore = useAccountStore();
-    const currencySymbol = accountStore.currentAccount.currencyObject.symbol;
+    const walletStore = useWalletStore();
+    const currencySymbol = walletStore.currentWallet.currencyObject.symbol;
 
     const formMethod = isNewTransaction ? 'POST' : 'PATCH';
     const formAction = isNewTransaction

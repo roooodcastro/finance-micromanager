@@ -50,9 +50,9 @@
 
         <ProfileListItem
           icon="wallet"
-          :value="user.defaultAccount?.displayName"
-          :label="t('default_account')"
-          :empty-label="t('empty_default_account_label')"
+          :value="user.defaultWallet?.displayName"
+          :label="t('default_wallet')"
+          :empty-label="t('empty_default_wallet_label')"
         />
 
         <div class="d-grid gap-2 d-md-flex">
