@@ -32,10 +32,10 @@
           >
             <template v-slot:default="{ formHelper }">
               <input
-                type="hidden"
                 :id="formHelper.fieldId('account_id')"
                 :name="formHelper.fieldName('account_id')"
                 :value="accountForInviteModal.id"
+                type="hidden"
               />
 
               <FormInput
@@ -73,7 +73,7 @@
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n';
-import { accountShareInvites as accountShareInvitesApi } from '~/api';
+import { accountShareInvitesSent as accountShareInvitesSentApi } from '~/api';
 import useAccountStore from '~/stores/AccountStore.js';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
@@ -92,7 +92,7 @@ export default {
   setup() {
     const accountStore = useAccountStore();
     const { accountForInviteModal } = storeToRefs(accountStore);
-    const accountShareInvitesPath = accountShareInvitesApi.create.path();
+    const accountShareInvitesPath = accountShareInvitesSentApi.create.path();
 
     return {
       t: I18n.scopedTranslator('views.account_share_invites.modal'),

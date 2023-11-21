@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class AccountShareInvitesController < AbstractAuthenticatedController
+class AccountShareInvitesSentController < AbstractAuthenticatedController
   def index
-    account_share_invites_given = current_user.account_share_invites_given.as_json
+    account_share_invites = current_user.account_share_invites_sent.pending.as_json
 
-    render json: camelize_props(account_share_invites_given:)
+    render json: camelize_props(account_share_invites:)
   end
 
   def create
-    account_share_invite = current_user.account_share_invites_given.new(account_share_invite_params)
+    account_share_invite = current_user.account_share_invites_sent.new(account_share_invite_params)
     message_params       = {
       account_name: account_share_invite.account&.display_name,
       invitee:      account_share_invite.invitee_email
@@ -26,10 +26,12 @@ class AccountShareInvitesController < AbstractAuthenticatedController
   end
 
   def destroy
-    invite = current_user.account_share_invites_given.find(params[:id])
+    invite = current_user.account_share_invites_sent.find(params[:id])
     invite.cancelled!
 
-    redirect_to accounts_path, success: t('.success')
+    render json: camelize_props(account_share_invite: invite.as_json)
+  rescue ActiveRecord::ActiveRecordError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private

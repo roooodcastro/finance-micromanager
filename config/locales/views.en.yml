@@ -22,6 +22,9 @@ en:
         pending_invite_title_pending: Account Share Invite
         pending_invite_title_accepted: Invite Accepted
         pending_invite_title_rejected: Invite Rejected
+        sent_invite_title: Invite sent to %{invitee} for account "%{account_name}"
+        sent_invite_text_pending: The invite was sent, but the recipient has not yet replied.
+        sent_invite_text_cancelled: The invite has been cancelled. The recipient can no longer accept it.
         pending_invite_text_pending: >
           %{inviter} has invited you to share their account "%{account_name}". A shared account means you both will be
           able to view and manage transactions, categories, and all other aspects associated with the account.
@@ -33,6 +36,7 @@ en:
           access to their account, but they will be able to invite you again.
         accept: Accept
         reject: Reject
+        cancel: Cancel Invite
       modal:
         title: Share Account
         shared_warning_title: Heads-up
