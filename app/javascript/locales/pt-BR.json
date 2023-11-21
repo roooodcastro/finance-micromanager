@@ -490,7 +490,11 @@
           "page_desc": "Exibindo %{items} de %{total}",
           "page_next": "Próxima",
           "page_prev": "Anterior",
-          "pagination": "Paginação"
+          "pagination": "Paginação",
+          "toast_title_danger": "Erro",
+          "toast_title_info": "Info",
+          "toast_title_success": "Info",
+          "toast_title_warning": "Alerta"
         },
         "vertical_menu": {
           "categories": "Categorias",
@@ -498,8 +502,8 @@
           "dashboard": "Dashboard",
           "profile": "Meu Perfil",
           "sign_in": "Fazer Login",
-          "sign_out": "Sair da Carteira",
-          "sign_up": "Criar carteira",
+          "sign_out": "Sair da Conta",
+          "sign_up": "Criar Conta",
           "transactions": "Transações",
           "wallets": "Carteiras"
         },
@@ -580,8 +584,8 @@
           "new": {
             "email_label": "Endereço de email",
             "password_label": "Escolha uma senha",
-            "submit": "Criar carteira",
-            "title": "Crie sua carteira"
+            "submit": "Criar conta",
+            "title": "Crie sua conta"
           }
         },
         "sessions": {
@@ -596,7 +600,7 @@
           "new": {
             "email_label": "Endereço de email",
             "submit": "Re-enviar email de desbloqueio",
-            "title": "Re-enviar email de desbloqueio de carteira"
+            "title": "Re-enviar email de desbloqueio de conta"
           }
         }
       },

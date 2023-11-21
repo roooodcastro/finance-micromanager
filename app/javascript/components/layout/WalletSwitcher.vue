@@ -77,7 +77,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { storeToRefs } from 'pinia';
 
 import useWalletStore from '~/stores/WalletStore.js';
-import useFlashStore from '~/stores/FlashStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 import { wallets, currentWallets } from '~/api';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
 import I18n from '~/utils/I18n';
@@ -100,7 +100,7 @@ export default {
         .create({ data: { wallet_id: walletId } })
         .then((response) => {
           if (response.error) {
-            const { errorMessages } = storeToRefs(useFlashStore());
+            const { errorMessages } = storeToRefs(useNotificationStore());
               errorMessages.value.push(response.error);
           } else {
             currentWallet.value = response.wallet;

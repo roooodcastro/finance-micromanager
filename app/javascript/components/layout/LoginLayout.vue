@@ -11,7 +11,7 @@
           </a>
         </h1>
 
-        <FlashMessages :flash-messages="flashMessages" />
+        <ToastNotifications />
 
         <slot />
       </div>
@@ -22,17 +22,17 @@
 <script>
 import { landings } from '~/api';
 
-import FlashMessages from '~/components/layout/FlashMessages.vue';
+import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 
-import useFlashStore from "~/stores/FlashStore";
+import useNotificationStore from "~/stores/NotificationStore";
 
 export default {
   components: {
-    FlashMessages,
+    ToastNotifications,
   },
 
   props: {
-    flashMessages: {
+    notifications: {
       type: Object,
       required: true,
     },
@@ -41,8 +41,8 @@ export default {
   setup(props) {
     const landingPath = landings.show.path();
 
-    if (props.flashMessages) {
-      useFlashStore().setMessages(props.flashMessages);
+    if (props.notifications) {
+      useNotificationStore().loadFromProps(props.notifications);
     }
 
     return { landingPath };

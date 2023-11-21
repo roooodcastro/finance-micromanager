@@ -8,7 +8,7 @@
       class="my-3 flex-shrink-0"
       :class="{ 'container-xxl': !skipContainer, 'px-3': !skipContainer }"
     >
-      <FlashMessages :flash-messages="flashMessages" />
+      <ToastNotifications />
 
       <slot />
     </div>
@@ -18,26 +18,26 @@
 </template>
 
 <script>
-import FlashMessages from '~/components/layout/FlashMessages.vue';
+import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 import Navigation from '~/components/layout/Navigation.vue';
 import PageFooter from '~/components/layout/PageFooter.vue';
 import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 
 import useUserStore from '~/stores/UserStore.js';
-import useFlashStore from '~/stores/FlashStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 
 export default {
   components: {
-    FlashMessages,
+    ToastNotifications,
     FloatingActionButton,
     PageFooter,
     Navigation,
     VerticalMenu,
   },
   props: {
-    flashMessages: {
+    notifications: {
       type: Object,
       required: true,
     },
@@ -82,8 +82,8 @@ export default {
       userStore.user = props.user;
     }
 
-    if (props.flashMessages) {
-      useFlashStore().setMessages(props.flashMessages);
+    if (props.notifications) {
+      useNotificationStore().loadFromProps(props.notifications);
     }
   },
 };
