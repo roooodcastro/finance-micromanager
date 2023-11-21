@@ -77,6 +77,7 @@ module.exports = {
     'vue-scoped-css/require-v-deep-argument': 'error',
     'vue-scoped-css/no-deprecated-deep-combinator': 'error',
     'vue-scoped-css/no-unused-selector': 'off',
+    'vue/html-closing-bracket-spacing': 'error',
   },
   env: {
     browser: true,

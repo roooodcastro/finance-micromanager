@@ -11,13 +11,10 @@ export default defineStore('user', {
 
       const fullNameParts = state.user.fullName.split(' ');
 
-      if (fullNameParts.length > 1) {
-        return [
-          fullNameParts[0].slice(0, 1),
-          fullNameParts[fullNameParts.length - 1].slice(0, 1)
-        ].join('').toUpperCase();
+      if (fullNameParts.length >= 1) {
+        return fullNameParts[0].slice(0, 1).toUpperCase();
       } else {
-        return state.user.email.slice(0, 2).toUpperCase();
+        return state.user.email.slice(0, 1).toUpperCase();
       }
     },
   },
