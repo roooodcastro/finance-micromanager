@@ -13,6 +13,18 @@ class AccountShareInvite < ApplicationRecord
 
   enum status: { pending: 'pending', accepted: 'accepted', rejected: 'rejected', cancelled: 'cancelled' }
 
+  def self.new_invite(account_owner:, account_id:, invitee_email:)
+    invite = find_or_initialize_by(
+      account_owner: account_owner,
+      account_id:    account_id,
+      invitee_email: invitee_email,
+      status:        :cancelled
+    )
+
+    invite.status = :pending
+    invite
+  end
+
   def as_json(*)
     super(except: %w[created_at updated_at]).merge(account: account.as_json, account_owner: account_owner.as_json)
   end

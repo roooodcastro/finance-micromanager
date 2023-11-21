@@ -9,7 +9,7 @@ en:
     destroy:
       success: 'Account "%{name}" was successfully destroyed.'
 
-  account_share_invites:
+  account_share_invites_sent:
     create:
       success: 'Your invite to share the account "%{account_name}" was successfully sent to "%{invitee}"!'
       error: 'There was an error sending the invite to share the account "%{account_name}" with "%{invitee}": %{error}'
