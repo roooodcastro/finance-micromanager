@@ -1,6 +1,6 @@
 {
   "pt-BR": {
-    "account_share_invites": {
+    "account_share_invites_sent": {
       "create": {
         "error": "Ocorreu um erro ao enviar um convite para compartilhar a conta \"%{account_name}\" com \"%{invitee}\": %{error}",
         "success": "Seu convite para compartilhar a conta \"%{account_name}\" foi enviado com sucesso para \"%{invitee}\"!"

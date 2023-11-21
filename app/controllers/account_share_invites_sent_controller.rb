@@ -8,7 +8,7 @@ class AccountShareInvitesSentController < AbstractAuthenticatedController
   end
 
   def create
-    account_share_invite = current_user.account_share_invites_sent.new(account_share_invite_params)
+    account_share_invite = AccountShareInvite.new_invite(**account_share_invite_params.to_h.symbolize_keys)
     message_params       = {
       account_name: account_share_invite.account&.display_name,
       invitee:      account_share_invite.invitee_email
