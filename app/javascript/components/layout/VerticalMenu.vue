@@ -1,7 +1,7 @@
 <template>
   <div
     id="verticalMenu"
-    class="offcanvas offcanvas-start"
+    class="VerticalMenu offcanvas offcanvas-start"
     aria-labelledby="mainMenuLabel"
   >
     <div class="offcanvas-body px-0 pt-0">
@@ -89,3 +89,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .VerticalMenu {
+    max-width: 80vw;
+  }
+}
+</style>
