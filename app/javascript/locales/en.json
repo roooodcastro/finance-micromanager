@@ -1,5 +1,11 @@
 {
   "en": {
+    "account_share_invites": {
+      "create": {
+        "error": "There was an error sending the invite to share the account \"%{account_name}\" with \"%{invitee}\": %{error}",
+        "success": "Your invite to share the account \"%{account_name}\" was successfully sent to \"%{invitee}\"!"
+      }
+    },
     "accounts": {
       "create": {
         "error": "Account \"%{name}\" could not be created: %{error}",
@@ -432,6 +438,15 @@
           "pending_invite_title_pending": "Account Share Invite",
           "pending_invite_title_rejected": "Invite Rejected",
           "reject": "Reject"
+        },
+        "modal": {
+          "cancel": "Cancel",
+          "confirm": "Send Invite",
+          "invitee_email_label": "Who do you want to share this account with?",
+          "invitee_email_placeholder": "Type their Email",
+          "shared_warning_message": "This account was shared with you by %{name}. Please take care when sharing it with others.",
+          "shared_warning_title": "Heads-up",
+          "title": "Share Account"
         }
       },
       "accounts": {
@@ -448,6 +463,7 @@
           "name": "Name",
           "new": "New Account",
           "no_name": "--- No name ---",
+          "share_action_link_label": "Share",
           "shared_text": "Shared with you by %{user}",
           "title": "Accounts"
         }

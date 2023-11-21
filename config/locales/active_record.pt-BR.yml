@@ -6,6 +6,8 @@ pt-BR:
     attributes:
       account_share:
         user: Usuário
+      account_share_invite:
+        invitee_email: Email do convidado
     errors:
       models:
         account_share:

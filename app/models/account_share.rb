@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AccountShare < ApplicationRecord
+  self.implicit_order_column = :created_at
+
   belongs_to :account
   belongs_to :user
 

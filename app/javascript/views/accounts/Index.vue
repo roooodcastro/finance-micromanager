@@ -11,6 +11,8 @@
       </template>
     </PageHeader>
 
+    <AccountShareInviteModal />
+
     <AccountShareInvitesList />
 
     <AccountsList :accounts="accounts" />
@@ -24,12 +26,14 @@ import I18n from '~/utils/I18n';
 import PageHeader from '~/components/layout/PageHeader.vue';
 import AccountsList from '~/components/accounts/AccountsList.vue';
 import AccountShareInvitesList from '~/components/account_share_invites/AccountShareInvitesList.vue';
+import AccountShareInviteModal from '~/components/account_share_invites/AccountShareInviteModal.vue';
 
 export default {
   components: {
+    AccountShareInviteModal,
+    AccountShareInvitesList,
     AccountsList,
     PageHeader,
-    AccountShareInvitesList,
   },
 
   props: {

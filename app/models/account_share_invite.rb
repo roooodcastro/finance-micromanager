@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AccountShareInvite < ApplicationRecord
+  self.implicit_order_column = :created_at
+
   belongs_to :account
   belongs_to :account_owner, class_name: 'User'
 

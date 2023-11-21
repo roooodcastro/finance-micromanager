@@ -9,6 +9,7 @@ pt-BR:
         currency: Moeda
         no_name: '--- Sem nome ---'
         shared_text: 'Compartilhada com você por %{user}'
+        share_action_link_label: Compartilhar
       form:
         new_title: Nova Conta
         edit_title: 'Editar Conta "%{account}"'
@@ -34,6 +35,14 @@ pt-BR:
           à conta, porém você pode ser convidado novamente.
         accept: Aceitar
         reject: Rejeitar
+      modal:
+        title: Compartilhar Conta
+        shared_warning_title: Atenção
+        shared_warning_message: Esta conta foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.
+        invitee_email_label: Com quem você deseja compartilhar esta conta?
+        invitee_email_placeholder: Digite o Email dele(a)
+        cancel: Cancelar
+        confirm: Enviar Convite
     categories:
       index:
         title: Categorias
