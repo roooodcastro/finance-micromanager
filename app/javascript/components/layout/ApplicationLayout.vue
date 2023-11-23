@@ -2,7 +2,6 @@
   <div class="ApplicationLayout d-flex flex-column container-fluid px-0 background-curved-lines">
     <Navigation />
     <VerticalMenu />
-    <FloatingActionButton v-if="!skipFloatingActionButton" />
 
     <div
       class="my-3 flex-shrink-0"
@@ -11,6 +10,8 @@
       <ToastNotifications />
 
       <slot />
+
+      <FloatingActionButton v-if="!skipFloatingActionButton" />
     </div>
 
     <PageFooter />
