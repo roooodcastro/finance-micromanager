@@ -4,10 +4,10 @@
       class="text-decoration-none"
       :href="showProfilePath"
     >
-      <ProfileAvatar />
+      <ProfileAvatar class="fs-1 mx-lg-3" />
     </a>
 
-    <div class="ms-2 d-flex flex-column text-primary flex-grow-1">
+    <div class="MenuProfileSection__info ms-2 d-flex flex-column text-primary flex-grow-1">
       <div>
         {{ name || email }}
       </div>
@@ -17,13 +17,10 @@
       >
         {{ email }}
       </div>
-      <div class="d-flex flex-row">
-        {{ t('current_wallet') }}
-        <WalletLabel
-          class="ms-2"
-          :wallet="currentWallet"
-        />
-      </div>
+
+      <WalletSwitcher
+        class="mt-2"
+      />
     </div>
 
     <CloseButton
@@ -34,6 +31,7 @@
 </template>
 
 <script>
+import I18n from '~/utils/I18n';
 import { storeToRefs } from 'pinia';
 
 import useUserStore from '~/stores/UserStore.js';
@@ -41,16 +39,15 @@ import useWalletStore from '~/stores/WalletStore.js';
 
 import { profiles as profilesApi } from '~/api';
 
-import ProfileAvatar from "~/components/layout/ProfileAvatar.vue";
-import WalletLabel from "~/components/wallets/WalletLabel.vue";
-import CloseButton from "~/components/bootstrap/CloseButton.vue";
-import I18n from "~/utils/I18n";
+import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
+import CloseButton from '~/components/bootstrap/CloseButton.vue';
+import WalletSwitcher from '~/components/layout/WalletSwitcher.vue';
 
 export default {
   components: {
-    WalletLabel,
     CloseButton,
     ProfileAvatar,
+    WalletSwitcher,
   },
 
   setup() {
@@ -72,3 +69,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.MenuProfileSection__info {
+  min-width: 0;
+}
+</style>

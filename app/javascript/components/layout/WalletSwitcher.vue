@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="btn-group"
-  >
+  <div class="btn-group">
     <button
-      class="btn btn-sm WalletSwitcher__button"
+      class="btn btn-sm WalletSwitcher__button py-1 px-2 d-flex align-items-center flex-grow-0"
       :class="currentWallet ? 'btn-primary' : 'btn-warning'"
       type="button"
       data-bs-toggle="dropdown"
@@ -12,16 +10,18 @@
     >
       <template v-if="currentWallet">
         <FontAwesomeIcon
-          class="me-3"
+          class="me-2"
           :icon="faIconForCurrency(currentWallet.currency)"
         />
-        {{ currentWallet?.displayName }}
+        <span class="text-truncate">
+          {{ currentWallet?.displayName }}
+        </span>
       </template>
       <template v-else>
         {{ t('no_wallet_selected') }}
       </template>
       <FontAwesomeIcon
-        class="ms-3"
+        class="ms-2"
         icon="chevron-down"
       />
     </button>
@@ -128,6 +128,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.WalletSwitcher__button {
+  min-width: 0;
+}
 
 .WalletSwitcher__button svg:last-child {
   transition: all 0.25s;

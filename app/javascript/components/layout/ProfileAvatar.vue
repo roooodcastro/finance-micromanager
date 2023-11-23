@@ -1,5 +1,5 @@
 <template>
-  <div class="ProfileAvatar rounded-circle">
+  <div class="ProfileAvatar rounded-circle btn btn-primary p-0">
     {{ nameInitials }}
   </div>
 </template>
@@ -22,14 +22,11 @@ export default {
 @import '../../stylesheets/variables';
 
 .ProfileAvatar {
-  background-color: $mintgreen-600;
-  color: $white;
   font-size: 1.75em;
   font-weight: lighter;
   line-height: 2em;
   margin: 2px;
   height: 2em;
   width: 2em;
-  text-align: center;
 }
 </style>
