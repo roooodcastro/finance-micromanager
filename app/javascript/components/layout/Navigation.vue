@@ -1,11 +1,8 @@
 <template>
   <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-2 py-lg-3">
     <div class="container-xxl">
-      <WalletSwitcher v-if="isUserLoggedIn" />
-      <span v-else></span>
-
       <a
-        class="navbar-brand d-none d-md-inline-block"
+        class="navbar-brand"
         :href="dashboardPath"
       >
         Finance MicroManager
@@ -28,13 +25,11 @@
 import useUserStore from '~/stores/UserStore.js';
 import { dashboards as dashboardsApi } from '~/api';
 
-import WalletSwitcher from '~/components/layout/WalletSwitcher.vue';
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
 export default {
   components: {
     ProfileAvatar,
-    WalletSwitcher,
   },
 
   setup() {
