@@ -136,9 +136,11 @@ RSpec.describe TransactionsController do
 
     let!(:transaction) { create(:transaction, wallet: wallet, created_by: user) }
 
-    it 'destroys the transaction and redirect to index' do
+    it 'destroys the transaction and renders json' do
       expect { delete_request }.to change { Transaction.count }.by(-1)
-      expect(response).to redirect_to transactions_path
+
+      expect(json_response)
+        .to eq('transactionId' => transaction.id, 'message' => 'Transaction was successfully destroyed.')
     end
   end
 end
