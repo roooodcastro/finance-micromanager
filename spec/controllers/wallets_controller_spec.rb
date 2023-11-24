@@ -157,14 +157,15 @@ RSpec.describe WalletsController do
 
     let!(:wallet) { create(:wallet, user:) }
 
-    it 'disables the wallet and redirects to index' do
+    it 'disables the wallet and renders json' do
       expect { delete_request }
         .to not_change { Wallet.count }
         .and change { wallet.reload.status }
         .from('active')
         .to('disabled')
 
-      expect(response).to redirect_to wallets_path
+      expect(json_response)
+        .to eq('walletId' => wallet.id, 'message' => "Wallet \"#{wallet.display_name}\" was successfully disabled.")
     end
   end
 end
