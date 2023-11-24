@@ -1,5 +1,5 @@
 <template>
-  <div class="FloatingActionButton position-fixed end-0 bottom-0 me-3 mb-3">
+  <div class="FloatingActionButton position-sticky end-0 bottom-0 pb-3 pe-3 d-flex justify-content-end">
     <a
       class="FloatingActionButton__link d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1"
       :href="newTransactionPath"
@@ -30,6 +30,10 @@ export default {
 <style lang="scss" scoped>
 .FloatingActionButton {
   z-index: 1;
+  margin-top: -4rem;
+  margin-bottom: -1rem;
+  width: 100vw;
+  margin-left: calc((100% - 100vw) / 2);
 }
 
 .FloatingActionButton__link {
