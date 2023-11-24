@@ -82,6 +82,9 @@ pt-BR:
         no_wallet_selected: Selecione Carteira
       rails:
         close: Fechar
+        confirmation_title: Confirmação
+        confirmation_yes: Confirmar
+        confirmation_no: Cancelar
         delete: Remover
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
         disable: Desativar

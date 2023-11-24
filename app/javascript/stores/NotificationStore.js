@@ -17,5 +17,8 @@ export default defineStore('notifications', {
         return { 'variant': variantMap[variant] || variant, 'message': newNotifications[variant] }
       });
     },
+    notify(message, variant = 'info') {
+      this.notifications.push({ variant, message });
+    },
   },
 });

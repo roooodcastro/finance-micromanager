@@ -51,7 +51,7 @@ class WalletsController < AbstractAuthenticatedController
   def destroy
     @wallet.disabled!
 
-    redirect_to wallets_path, success: t('.success')
+    render json: camelize_props(wallet_id: @wallet.id, message: t('.success', name: @wallet.display_name))
   end
 
   private

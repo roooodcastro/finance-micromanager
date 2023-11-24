@@ -18,6 +18,9 @@ export default defineStore('wallet', {
         this.availableWallets = response.wallets;
       });
     },
+    remove(id) {
+      this.availableWallets = this.availableWallets.filter(wallet => wallet.id !== id);
+    },
     setWalletIdForInviteModal(walletId) {
       this.walletIdForInviteModal = walletId;
     },

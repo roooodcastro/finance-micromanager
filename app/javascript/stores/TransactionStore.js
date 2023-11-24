@@ -31,6 +31,9 @@ export default defineStore('transaction', {
           this.pagination = response.pagination;
         });
     },
+    remove(id) {
+      this.transactions = this.transactions.filter(transaction => transaction.id !== id);
+    },
     changePage(page) {
       this.pagination.page = page;
       this.fetchTransactions();

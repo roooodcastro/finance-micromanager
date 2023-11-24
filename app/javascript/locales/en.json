@@ -33,7 +33,7 @@
         "success": "Category was successfully created."
       },
       "destroy": {
-        "success": "Category was successfully destroyed."
+        "success": "Category \"%{name}\" was successfully destroyed."
       },
       "update": {
         "error": "Category could not be updated: %{error}",
@@ -448,6 +448,9 @@
       "layout": {
         "rails": {
           "close": "Close",
+          "confirmation_no": "Cancel",
+          "confirmation_title": "Confirmation",
+          "confirmation_yes": "Confirm",
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "disable": "Disable",
@@ -636,7 +639,7 @@
         "success": "Wallet was successfully created."
       },
       "destroy": {
-        "success": "Wallet \"%{name}\" was successfully destroyed."
+        "success": "Wallet \"%{name}\" was successfully disabled."
       },
       "update": {
         "error": "Wallet \"%{name}\" could not be updated: %{error}",

@@ -80,6 +80,9 @@ en:
         no_wallet_selected: Select Wallet
       rails:
         close: Close
+        confirmation_title: Confirmation
+        confirmation_yes: Confirm
+        confirmation_no: Cancel
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
         disable: Disable

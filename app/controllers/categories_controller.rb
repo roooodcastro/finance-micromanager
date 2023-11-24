@@ -49,9 +49,10 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def destroy
+    category_id = @category.id
     @category.destroy
 
-    redirect_to categories_url, success: t('.success')
+    render json: camelize_props(category_id: category_id, message: t('.success', name: @category.name))
   end
 
   private

@@ -7,7 +7,7 @@ pt-BR:
       success: 'Carteira "%{name}" atualizada com sucesso.'
       error: 'Carteira "%{name}" não pode ser atualizada: %{error}'
     destroy:
-      success: 'Carteira "%{name}" removida com sucesso.'
+      success: 'Carteira "%{name}" desabilitada com sucesso.'
 
   wallet_share_invites_sent:
     create:
@@ -22,7 +22,7 @@ pt-BR:
       success: 'Categoria atualizada com successo.'
       error: 'Categoria não pode ser atualizada: %{error}'
     destroy:
-      success: 'Categoria removida com sucesso.'
+      success: 'Categoria "%{name}" removida com sucesso.'
 
   current_wallets:
     create:
