@@ -50,8 +50,9 @@
       <DeleteButton
         small
         disable-label
-        :href="destroyWalletPath(wallet.id)"
+        href="#"
         class="ms-2"
+        @delete="handleDelete(wallet.id)"
       />
     </div>
   </div>
@@ -62,6 +63,7 @@ import { wallets as walletsApi } from '~/api';
 import I18n from '~/utils/I18n.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -84,14 +86,23 @@ export default {
 
   setup() {
     const walletStore = useWalletStore();
+    const notificationStore = useNotificationStore();
+
     const editWalletPath = (walletId) => walletsApi.edit.path({ id: walletId });
-    const destroyWalletPath = (walletId) => walletsApi.destroy.path({ id: walletId });
+
     const handleWalletShareInviteModalClick = walletId => walletStore.setWalletIdForInviteModal(walletId);
+
+    const handleDelete = (id) => {
+      walletsApi.destroy({ id }).then((response) => {
+        notificationStore.notify(response.message, 'success');
+        walletStore.remove(response.walletId);
+      });
+    };
 
     return {
       editWalletPath,
-      destroyWalletPath,
       faIconForCurrency,
+      handleDelete,
       handleWalletShareInviteModalClick,
       t: I18n.scopedTranslator('views.wallets.index'),
     };

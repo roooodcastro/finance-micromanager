@@ -37,8 +37,9 @@
 
             <DeleteButton
               small
-              :href="destroyCategoryPath(category.id)"
+              href="#"
               class="ms-2"
+              @delete="handleDelete(category.id)"
             />
           </td>
         </tr>
@@ -61,6 +62,7 @@ import { categories as categoriesApi } from '~/api';
 import I18n from '~/utils/I18n';
 import useWalletStore from '~/stores/WalletStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
@@ -86,10 +88,11 @@ export default {
 
   setup(props) {
     const editCategoryPath = (categoryId) => categoriesApi.edit.path({ id: categoryId });
-    const destroyCategoryPath = (categoryId) => categoriesApi.destroy.path({ id: categoryId });
+
+    const categoryStore = useCategoryStore();
+    const notificationStore = useNotificationStore();
 
     // Load categories from props
-    const categoryStore = useCategoryStore();
     const {
       categories: categoriesFromStore,
       pagination: paginationFromStore,
@@ -108,14 +111,20 @@ export default {
     );
 
     const handlePageChange = (page) => categoryStore.changePage(page);
+    const handleDelete = (id) => {
+      categoriesApi.destroy({ id }).then((response) => {
+        notificationStore.notify(response.message, 'success');
+        categoryStore.remove(response.categoryId);
+      });
+    };
 
     return {
       editCategoryPath,
-      destroyCategoryPath,
       handlePageChange,
       t: I18n.scopedTranslator('views.categories.index'),
       categoriesFromStore,
       paginationFromStore,
+      handleDelete,
     };
   },
 };

@@ -2,6 +2,7 @@
   <div class="ApplicationLayout d-flex flex-column container-fluid px-0 background-curved-lines">
     <Navigation />
     <VerticalMenu />
+    <ConfirmationModal />
 
     <div
       class="my-3 flex-shrink-0"
@@ -28,9 +29,11 @@ import useUserStore from '~/stores/UserStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
+import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 
 export default {
   components: {
+    ConfirmationModal,
     ToastNotifications,
     FloatingActionButton,
     PageFooter,

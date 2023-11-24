@@ -25,8 +25,9 @@
 
       <DeleteButton
         small
-        :href="destroyTransactionPath(transaction.id)"
+        href="#"
         class="ms-2"
+        @delete="handleDelete(transaction.id)"
       />
     </div>
   </div>
@@ -34,6 +35,8 @@
 
 <script>
 import { transactions as transactionsApi } from '~/api';
+import useNotificationStore from '~/stores/NotificationStore.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
@@ -53,11 +56,20 @@ export default {
 
   setup() {
     const editTransactionPath = (transactionId) => transactionsApi.edit.path({ id: transactionId });
-    const destroyTransactionPath = (transactionId) => transactionsApi.destroy.path({ id: transactionId });
+
+    const notificationStore = useNotificationStore();
+    const transactionStore = useTransactionStore();
+
+    const handleDelete = (id) => {
+      transactionsApi.destroy({ id }).then((response) => {
+        notificationStore.notify(response.message, 'success');
+        transactionStore.remove(response.transactionId);
+      });
+    };
 
     return {
       editTransactionPath,
-      destroyTransactionPath,
+      handleDelete,
     };
   }
 };

@@ -44,7 +44,7 @@
         "success": "Categoria criada com sucesso."
       },
       "destroy": {
-        "success": "Categoria removida com sucesso."
+        "success": "Categoria \"%{name}\" removida com sucesso."
       },
       "update": {
         "error": "Categoria não pode ser atualizada: %{error}",
@@ -482,6 +482,9 @@
       "layout": {
         "rails": {
           "close": "Fechar",
+          "confirmation_no": "Cancelar",
+          "confirmation_title": "Confirmação",
+          "confirmation_yes": "Confirmar",
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "disable": "Desativar",
@@ -670,7 +673,7 @@
         "success": "Carteira criada com sucesso."
       },
       "destroy": {
-        "success": "Carteira \"%{name}\" removida com sucesso."
+        "success": "Carteira \"%{name}\" desabilitada com sucesso."
       },
       "update": {
         "error": "Carteira \"%{name}\" não pode ser atualizada: %{error}",

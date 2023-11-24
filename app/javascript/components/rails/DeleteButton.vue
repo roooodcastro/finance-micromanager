@@ -2,8 +2,7 @@
   <a
     v-bind="$attrs"
     class="text-danger"
-    data-method="DELETE"
-    :data-confirm="disableLabel ? t('disable_confirmation') : t('delete_confirmation')"
+    @click="openModal"
   >
     <FontAwesomeIcon
       :icon="['far', 'square-minus']"
@@ -16,8 +15,10 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import I18n from '~/utils/I18n';
+import useModalStore from '~/stores/ModalStore.js';
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
@@ -31,9 +32,24 @@ export default {
     },
   },
 
-  setup() {
+  emits: ['delete'],
+
+  setup(props, { emit }) {
+    const t = I18n.scopedTranslator('views.layout.rails');
+
+    const modalStore = useModalStore();
+
+    const confirmationMessage = props.disableLabel ? t('disable_confirmation') : t('delete_confirmation');
+    const openModal = () => {
+      modalStore
+        .showConfirmationDialog({ message: confirmationMessage })
+        .then(() => emit('delete'))
+        .catch(() => {});
+    };
+
     return {
-      t: I18n.scopedTranslator('views.layout.rails'),
+      t,
+      openModal,
     };
   },
 };

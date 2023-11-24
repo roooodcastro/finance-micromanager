@@ -16,6 +16,9 @@ export default defineStore('category', {
           this.pagination = response.pagination;
         });
     },
+    remove(id) {
+      this.categories = this.categories.filter(category => category.id !== id);
+    },
     changePage(page) {
       this.pagination.page = page;
       this.fetchCategories();

@@ -53,9 +53,10 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def destroy
+    transaction_id = @transaction.id
     @transaction.destroy
 
-    redirect_to transactions_path, success: t('.success')
+    render json: camelize_props(transaction_id: transaction_id, message: t('.success'))
   end
 
   private
