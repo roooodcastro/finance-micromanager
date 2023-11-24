@@ -22,6 +22,7 @@
 
       <Pagination
         :pagination="paginationFromStore"
+        class="mt-3"
         @change="handlePageChange"
       />
     </template>
