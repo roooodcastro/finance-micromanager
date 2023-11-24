@@ -1,5 +1,11 @@
 <template>
   <div>
+    <Pagination
+      :pagination="paginationFromStore"
+      class="mb-3"
+      @change="handlePageChange"
+    />
+
     <table class="table align-middle bg-white">
       <thead class="table-light">
         <tr>
@@ -41,6 +47,7 @@
 
     <Pagination
       :pagination="paginationFromStore"
+      class="mt-3"
       @change="handlePageChange"
     />
   </div>
