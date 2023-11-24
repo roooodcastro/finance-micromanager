@@ -29,7 +29,7 @@
               field-name="password"
               :label="t('password_label')"
               type="password"
-              autocomplete="password"
+              autocomplete="current-password"
             />
 
             <div class="d-grid">

@@ -561,7 +561,7 @@
           "new": {
             "email_label": "Email Address",
             "password_label": "Password",
-            "submit": "Submit",
+            "submit": "Log in",
             "title": "Login"
           }
         },
