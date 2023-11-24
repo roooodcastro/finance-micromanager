@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="pagination.count > pagination.items"
-    class="d-flex justify-content-center justify-content-lg-between"
+    class="d-flex justify-content-center justify-content-lg-between align-items-center"
   >
     <nav :aria-label="t('pagination')">
       <div class="btn-group">
@@ -15,21 +15,25 @@
         >
           {{ t('page_prev') }}
         </a>
-        <a
-          v-for="page in pagination.pages"
-          :key="`pagination-${page}`"
-          class="btn btn-sm btn-outline-secondary"
-          :class="{ 'active disabled': page === pagination.page }"
-          :aria-disabled="page === pagination.page"
-          @click="$emit('change', page)"
+        <template
+          v-for="(page, index) in pagination.series"
+          :key="`pagination-${page}-${index}`"
         >
-          {{ page }}
-        </a>
+          <a
+            class="btn btn-sm"
+            :class="{
+              'active disabled btn-secondary': page === `${pagination.page}`,
+              'disabled': page === 'gap',
+              'btn-outline-secondary': page !== `${pagination.page}`
+            }"
+            :aria-disabled="page === `${pagination.page}`"
+            @click="$emit('change', page)"
+            v-html="labelForPage(page)"
+          />
+        </template>
         <a
           class="btn btn-sm btn-outline-secondary rounded-pill-end"
-          :class="{
-            'disabled': pagination.page === pagination.pages,
-          }"
+          :class="{ 'disabled': pagination.page === pagination.pages }"
           :aria-disabled="pagination.page === pagination.pages"
           @click="$emit('change', pagination.page + 1)"
         >
@@ -58,8 +62,10 @@ export default {
   emits: ['change'],
 
   setup() {
+    const labelForPage = page => page === 'gap' ? '&hellip;' : page;
     return {
       t: I18n.scopedTranslator('views.layout.rails'),
+      labelForPage,
     }
   }
 };
