@@ -175,7 +175,7 @@ en:
           title: Login
           email_label: Email Address
           password_label: Password
-          submit: Submit
+          submit: Log in
       unlocks:
         new:
           title: Resend unlock instructions
