@@ -1,5 +1,11 @@
 <template>
   <div>
+    <Pagination
+      :pagination="paginationFromStore"
+      class="mb-3"
+      @change="handlePageChange"
+    />
+
     <TransactionsFilter @change="handleFiltersChange" />
 
     <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
