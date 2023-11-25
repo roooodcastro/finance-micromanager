@@ -1,8 +1,13 @@
 <template>
-  <div
+  <HorizontalSwipe
     id="verticalMenu"
     class="VerticalMenu offcanvas offcanvas-start"
     aria-labelledby="mainMenuLabel"
+    :min-translation="minTranslation"
+    :max-translation="0"
+    :enabled="swipeActive"
+    v-on="{ 'hide.bs.offcanvas': handleHide, 'shown.bs.offcanvas': handleShown }"
+    @swipeleft="handleSwipeClose"
   >
     <div class="offcanvas-body px-0 pt-0">
       <MenuProfileSection v-if="isUserLoggedIn" />
@@ -25,10 +30,12 @@
         </a>
       </div>
     </div>
-  </div>
+  </HorizontalSwipe>
 </template>
 
 <script>
+import { onMounted, ref } from 'vue';
+import { Offcanvas as BootstrapOffcanvas } from 'bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
@@ -44,9 +51,11 @@ import I18n from '~/utils/I18n';
 import useUserStore from '~/stores/UserStore.js';
 
 import MenuProfileSection from '~/components/layout/MenuProfileSection.vue';
+import HorizontalSwipe from '~/components/layout/HorizontalSwipe.vue';
 
 export default {
   components: {
+    HorizontalSwipe,
     FontAwesomeIcon,
     MenuProfileSection,
   },
@@ -79,12 +88,45 @@ export default {
       if ((menuPath !== '/' && currentPath.includes(menuPath)) || (currentPath === '/' && menuPath === '/')) {
         menuItem['active'] = true;
       }
-    })
+    });
+
+    const offcanvas = ref(null);
+
+    onMounted(() => {
+      const offcanvasElement = document.querySelector('#verticalMenu');
+      offcanvas.value = new BootstrapOffcanvas(offcanvasElement);
+    });
+
+    const minTranslation = ref(0);
+
+    const setMinTranslation = () => {
+      minTranslation.value = -document.querySelector('#verticalMenu').clientWidth;
+    };
+
+    onMounted(() => setMinTranslation());
+
+    // Disable HorizontalSwipe so that Bootstrap's OffCanvas transition works
+    const swipeActive = ref(false);
+    const handleShown = () => swipeActive.value = true;
+    const handleHide = () => swipeActive.value = false;
+
+    const handleSwipeClose = () => {
+      offcanvas.value.hide();
+
+      // Trick to force the HorizontalSwipe to reset the transition value
+      minTranslation.value = 0;
+      setTimeout(setMinTranslation, 0);
+    };
 
     return {
+      t,
       menuItems,
       isUserLoggedIn,
-      t,
+      minTranslation,
+      swipeActive,
+      handleShown,
+      handleHide,
+      handleSwipeClose,
     };
   },
 }
