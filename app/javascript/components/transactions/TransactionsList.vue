@@ -9,6 +9,7 @@
     <TransactionsFilter @change="handleFiltersChange" />
 
     <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
+
     <template v-else>
       <div class="TransactionsList">
         <template
