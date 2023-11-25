@@ -2,7 +2,7 @@
   <div>
     <Pagination
       :pagination="paginationFromStore"
-      class="mb-3"
+      class="d-none d-lg-flex mb-3"
       @change="handlePageChange"
     />
 
@@ -11,7 +11,10 @@
     <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
 
     <template v-else>
-      <div class="TransactionsList">
+      <InfiniteScrolling
+        class="TransactionsList"
+        @scroll="handleInfiniteScrolling"
+      >
         <template
           v-for="(transactionsByDate, transactionDate) in groupedTransactions"
           :key="transactionDate"
@@ -25,11 +28,11 @@
             :transaction="transaction"
           />
         </template>
-      </div>
+      </InfiniteScrolling>
 
       <Pagination
         :pagination="paginationFromStore"
-        class="mt-3"
+        class="d-none d-lg-flex mt-3"
         @change="handlePageChange"
       />
     </template>
@@ -37,11 +40,12 @@
 </template>
 
 <script>
-import { watch, toRef } from 'vue';
+import { watch, toRef, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
+import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 
@@ -49,9 +53,11 @@ import TransactionListItem from '~/components/transactions/TransactionListItem.v
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
 import NoTransactionsPlaceholder from "~/components/transactions/NoTransactionsPlaceholder.vue";
+import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
 
 export default {
   components: {
+    InfiniteScrolling,
     NoTransactionsPlaceholder,
     Pagination,
     TransactionListItem,
@@ -90,6 +96,18 @@ export default {
       () => transactionStore.fetchTransactions(),
     );
 
+    const loadingNextPage = ref(false);
+
+    const handleInfiniteScrolling = () => {
+      if (isMediaBreakpointDown('md') && !loadingNextPage.value) {
+        loadingNextPage.value = true;
+
+        transactionStore.fetchNextPage().then(() => {
+          loadingNextPage.value = false;
+        });
+      }
+    };
+
     return {
       formatDate,
       transactionsFromStore,
@@ -97,6 +115,7 @@ export default {
       paginationFromStore,
       handleFiltersChange,
       handlePageChange,
+      handleInfiniteScrolling,
       t: I18n.scopedTranslator('views.transactions.index'),
     };
   },
