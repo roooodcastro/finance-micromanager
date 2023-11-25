@@ -5,7 +5,7 @@
     <ConfirmationModal />
 
     <div
-      class="my-3 flex-shrink-0"
+      class="my-3 flex-shrink-0 flex-grow-1 d-flex flex-column"
       :class="{ 'container-xxl': !skipContainer, 'px-3': !skipContainer }"
     >
       <ToastNotifications />
