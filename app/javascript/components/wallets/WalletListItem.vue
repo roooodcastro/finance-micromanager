@@ -1,80 +1,58 @@
 <template>
-  <div class="WalletListItem d-flex bg-light-subtle align-items-center border mx-2 mx-lg-0 bg-white p-2">
-    <FontAwesomeIcon
-      size="lg"
-      class="WalletListItem__currency-icon text-secondary me-3"
-      :icon="faIconForCurrency(wallet.currency)"
-    />
-
-    <div class="flex-grow-1">
-      {{ wallet.name || t('no_name') }}
-      <span class="d-block fs-6 text-muted">
-        {{ wallet.currencyObject.name }}
-      </span>
-
-      <div
-        v-if="wallet.shared"
-        class="fs-6 text-muted"
-      >
+  <ListItemDrawerContextMenu class="mx-2 mx-lg-0">
+    <template v-slot:actions>
+      <WalletActions
+        :wallet="wallet"
+        drawer-menu
+      />
+    </template>
+    <template v-slot:item>
+      <div class="WalletListItem d-flex bg-light-subtle align-items-center border bg-white p-2">
         <FontAwesomeIcon
-          class=" text-primary me-2"
-          icon="share-nodes"
+            size="lg"
+            class="WalletListItem__currency-icon text-secondary me-3"
+            :icon="faIconForCurrency(wallet.currency)"
         />
-        {{ t('shared_text', { user: wallet.user.fullName }) }}
+
+        <div class="flex-grow-1">
+          {{ wallet.name || t('no_name') }}
+          <span class="d-block fs-6 text-muted">
+            {{ wallet.currencyObject.name }}
+          </span>
+
+          <div
+              v-if="wallet.shared"
+              class="fs-6 text-muted"
+          >
+            <FontAwesomeIcon
+                class=" text-primary me-2"
+                icon="share-nodes"
+            />
+            {{ t('shared_text', { user: wallet.user.fullName }) }}
+          </div>
+        </div>
+        <div class="d-none d-lg-flex">
+          <WalletActions :wallet="wallet" />
+        </div>
       </div>
-    </div>
-
-    <div class="text-end">
-      <a
-        class="text-secondary"
-        href="#"
-        data-bs-toggle="modal"
-        data-bs-target="#walletShareInviteModal"
-        @click="handleWalletShareInviteModalClick(wallet.id)"
-      >
-        <FontAwesomeIcon
-          icon="share-nodes"
-          size="lg"
-        />
-        <span class="d-none d-lg-inline-block ms-2">
-          {{ t('share_action_link_label') }}
-        </span>
-      </a>
-
-      <EditButton
-        small
-        :href="editWalletPath(wallet.id)"
-        class="ms-2"
-      />
-
-      <DeleteButton
-        small
-        disable-label
-        href="#"
-        class="ms-2"
-        @delete="handleDelete(wallet.id)"
-      />
-    </div>
-  </div>
+    </template>
+  </ListItemDrawerContextMenu>
 </template>
 
 <script>
-import { wallets as walletsApi } from '~/api';
 import I18n from '~/utils/I18n.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
-import useWalletStore from '~/stores/WalletStore.js';
-import useNotificationStore from '~/stores/NotificationStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import EditButton from '~/components/rails/EditButton.vue';
-import DeleteButton from '~/components/rails/DeleteButton.vue';
+import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
+import WalletActions from '~/components/wallets/WalletActions.vue';
 
 export default {
   components: {
-    DeleteButton,
-    EditButton,
     FontAwesomeIcon,
+    ListItemDrawerContextMenu,
+    WalletActions,
   },
 
   props: {
@@ -85,25 +63,8 @@ export default {
   },
 
   setup() {
-    const walletStore = useWalletStore();
-    const notificationStore = useNotificationStore();
-
-    const editWalletPath = (walletId) => walletsApi.edit.path({ id: walletId });
-
-    const handleWalletShareInviteModalClick = walletId => walletStore.setWalletIdForInviteModal(walletId);
-
-    const handleDelete = (id) => {
-      walletsApi.destroy({ id }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        walletStore.remove(response.walletId);
-      });
-    };
-
     return {
-      editWalletPath,
       faIconForCurrency,
-      handleDelete,
-      handleWalletShareInviteModalClick,
       t: I18n.scopedTranslator('views.wallets.index'),
     };
   },
