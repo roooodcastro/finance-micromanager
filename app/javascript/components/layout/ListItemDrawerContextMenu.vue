@@ -10,10 +10,10 @@
 
     <div
       class="ListItemDrawerContextMenu"
+      :style=" { transform: `translateX(${translation}px)` }"
       @touchstart="handleTouchStart"
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd"
-      :style=" { transform: `translateX(${translation}px)` }"
     >
       <slot name="item" />
     </div>
@@ -39,7 +39,7 @@ export default {
         translation.value = 0;
       } else {
         const actionsContainer = document.querySelector('#ListItemDrawerContextMenu__actions');
-        maxTranslation.value = -parseFloat(getComputedStyle(actionsContainer).width);
+        maxTranslation.value = -actionsContainer.clientWidth;
       }
     };
 

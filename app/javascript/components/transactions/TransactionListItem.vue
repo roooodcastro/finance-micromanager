@@ -1,15 +1,9 @@
 <template>
   <ListItemDrawerContextMenu class="mx-2 mx-lg-0">
     <template v-slot:actions>
-      <EditButton
-        :href="editTransactionPath(transaction.id)"
-        class="TransactionListItem__actionButton h-100 d-flex align-items-center justify-content-center bg-secondary text-white"
-      />
-
-      <DeleteButton
-        href="#"
-        class="TransactionListItem__actionButton h-100 d-flex align-items-center justify-content-center bg-danger text-white"
-        @delete="handleDelete(transaction.id)"
+      <TransactionActions
+        :transaction="transaction"
+        drawer-menu
       />
     </template>
 
@@ -32,17 +26,7 @@
           {{ transaction.amountWithUnit }}
         </div>
         <div class="d-none d-lg-flex">
-            <div class="vr mx-3"></div>
-
-            <EditButton
-              :href="editTransactionPath(transaction.id)"
-            />
-
-            <DeleteButton
-              href="#"
-              class="ms-3"
-              @delete="handleDelete(transaction.id)"
-            />
+          <TransactionActions :transaction="transaction" />
         </div>
       </div>
     </template>
@@ -50,19 +34,13 @@
 </template>
 
 <script>
-import { transactions as transactionsApi } from '~/api';
-import useNotificationStore from '~/stores/NotificationStore.js';
-import useTransactionStore from '~/stores/TransactionStore.js';
-
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
-import EditButton from '~/components/rails/EditButton.vue';
-import DeleteButton from '~/components/rails/DeleteButton.vue';
+import TransactionActions from '~/components/transactions/TransactionActions.vue';
 
 export default {
   components: {
-    DeleteButton,
-    EditButton,
     ListItemDrawerContextMenu,
+    TransactionActions,
   },
 
   props: {
@@ -71,25 +49,6 @@ export default {
       required: true,
     },
   },
-
-  setup() {
-    const editTransactionPath = (transactionId) => transactionsApi.edit.path({ id: transactionId });
-
-    const notificationStore = useNotificationStore();
-    const transactionStore = useTransactionStore();
-
-    const handleDelete = (id) => {
-      transactionsApi.destroy({ id }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        transactionStore.remove(response.transactionId);
-      });
-    };
-
-    return {
-      editTransactionPath,
-      handleDelete,
-    };
-  }
 };
 </script>
 
