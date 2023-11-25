@@ -136,4 +136,7 @@ $pagination-border-color:           transparent !default;
 $pagination-hover-border-color:     $pagination-border-color !default;
 $pagination-disabled-border-color:  $pagination-border-color !default;
 
+// Offcanvas
+$offcanvas-transition-duration:     .3s !default;
+
 @import "bootstrap/scss/variables.scss";
