@@ -6,45 +6,16 @@
       @change="handlePageChange"
     />
 
-    <table class="table align-middle bg-white">
-      <thead class="table-light">
-        <tr>
-          <th>{{ t('name') }}</th>
-          <th>{{ t('color') }}</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-        <tr
-          v-for="category in categoriesFromStore"
-          :key="category.id"
-        >
-          <td>{{ category.name }}</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <span
-                class="CategoriesList__color-indicator me-3"
-                :style="{ backgroundColor: category.color }"
-              />
-              <span>{{ category.color }}</span>
-            </div>
-          </td>
-          <td class="text-end">
-            <EditButton
-              small
-              :href="editCategoryPath(category.id)"
-            />
-
-            <DeleteButton
-              small
-              href="#"
-              class="ms-2"
-              @delete="handleDelete(category.id)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="CategoriesList">
+      <template
+        v-for="category in categoriesFromStore"
+        :key="category.id"
+      >
+        <CategoryListItem
+          :category="category"
+        />
+      </template>
+    </div>
 
     <Pagination
       :pagination="paginationFromStore"
@@ -62,17 +33,14 @@ import { categories as categoriesApi } from '~/api';
 import I18n from '~/utils/I18n';
 import useWalletStore from '~/stores/WalletStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
-import useNotificationStore from '~/stores/NotificationStore.js';
 
-import EditButton from '~/components/rails/EditButton.vue';
-import DeleteButton from '~/components/rails/DeleteButton.vue';
 import Pagination from "~/components/rails/Pagination.vue";
+import CategoryListItem from '~/components/categories/CategoryListItem.vue';
 
 export default {
   components: {
+    CategoryListItem,
     Pagination,
-    DeleteButton,
-    EditButton,
   },
 
   props: {
@@ -87,10 +55,7 @@ export default {
   },
 
   setup(props) {
-    const editCategoryPath = (categoryId) => categoriesApi.edit.path({ id: categoryId });
-
     const categoryStore = useCategoryStore();
-    const notificationStore = useNotificationStore();
 
     // Load categories from props
     const {
@@ -111,20 +76,12 @@ export default {
     );
 
     const handlePageChange = (page) => categoryStore.changePage(page);
-    const handleDelete = (id) => {
-      categoriesApi.destroy({ id }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        categoryStore.remove(response.categoryId);
-      });
-    };
 
     return {
-      editCategoryPath,
       handlePageChange,
       t: I18n.scopedTranslator('views.categories.index'),
       categoriesFromStore,
       paginationFromStore,
-      handleDelete,
     };
   },
 };
@@ -138,5 +95,13 @@ export default {
   display: inline-block;
   width: 2em;
   height: 2em;
+}
+
+@include media-breakpoint-down(md) {
+  .CategoriesList {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+  }
 }
 </style>
