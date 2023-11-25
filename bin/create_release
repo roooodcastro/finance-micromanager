@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap "echo; exit" INT
+
 : ${1?"Usage: $0 (major|minor|patch)."}
 
 echo "Starting to create new $1 release for finance_micromanager..."
@@ -69,4 +71,19 @@ then
   gh pr create --title "Release $new_version" --body ""
   gh pr merge -m --admin
   gh release create $tag_name --title "Release $new_version" --latest --generate-notes
+
+  git checkout main
+  git pull origin main
+  git branch -d $branch_name
+
+  # Ask for confirmation before building new image
+  read -p "Do you want to build and push a new Docker image? (Y/y) " -n 1 -r
+  echo    # (optional) move to a new line
+  if [[ ! $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Skipping image build."
+    echo "Done."
+  fi
+
+  bin/build
 fi
