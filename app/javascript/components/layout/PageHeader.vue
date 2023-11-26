@@ -2,6 +2,7 @@
   <header
     v-if="title || $slots.default"
     class="d-flex align-items-center justify-content-between mt-2 mt-lg-4 flex-wrap"
+    v-bind="$attrs"
   >
     <h1
       v-if="title || $slots.default"
