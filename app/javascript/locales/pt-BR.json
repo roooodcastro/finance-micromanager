@@ -462,7 +462,7 @@
           "title": "Categorias"
         },
         "show": {
-          "title": "Categoria"
+          "title": "Categoria \"%{name}\""
         }
       },
       "dashboard": {

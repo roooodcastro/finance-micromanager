@@ -62,7 +62,7 @@ en:
         submit: Submit
         back: Back
       show:
-        title: Category
+        title: 'Category "%{name}"'
     dashboard:
       title: Transactions
     devise:

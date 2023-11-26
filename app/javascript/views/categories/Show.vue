@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="t('title')" />
+    <PageHeader :title="t('title', { name: category.name })" />
   </div>
 </template>
 
@@ -12,9 +12,17 @@ export default {
   components: {
     PageHeader,
   },
+
+  props: {
+    category: {
+      type: Object,
+      required: true,
+    },
+  },
+
   setup() {
     return {
-      t: I18n.scopedTranslator('views.categories.form'),
+      t: I18n.scopedTranslator('views.categories.show'),
     };
   },
 };

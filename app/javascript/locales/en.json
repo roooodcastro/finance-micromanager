@@ -428,7 +428,7 @@
           "title": "Categories"
         },
         "show": {
-          "title": "Category"
+          "title": "Category \"%{name}\""
         }
       },
       "dashboard": {

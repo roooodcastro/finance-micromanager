@@ -64,7 +64,7 @@ pt-BR:
         submit: Salvar
         back: Voltar
       show:
-        title: Categoria
+        title: 'Categoria "%{name}"'
     dashboard:
       title: Transações
     devise:

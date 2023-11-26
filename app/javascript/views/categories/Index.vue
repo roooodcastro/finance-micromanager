@@ -11,10 +11,12 @@
       </template>
     </PageHeader>
 
-    <CategoriesList
-      :categories="categories"
-      :pagination="pagination"
-    />
+    <div class="list-group">
+      <CategoriesList
+        :categories="categories"
+        :pagination="pagination"
+      />
+    </div>
   </div>
 </template>
 

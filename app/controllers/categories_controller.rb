@@ -3,7 +3,7 @@
 class CategoriesController < AbstractAuthenticatedController
   include Pagy::Backend
 
-  before_action :set_category, only: %i[edit update destroy]
+  before_action :set_category, only: %i[show edit update destroy]
 
   def index
     categories = Current.wallet.categories
@@ -14,6 +14,13 @@ class CategoriesController < AbstractAuthenticatedController
     respond_to do |format|
       format.html { render inertia: 'categories/Index', props: camelize_props(props) }
       format.json { render json: props }
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.html { render inertia: 'categories/Show', props: camelize_props(category: @category) }
+      format.json { render json: camelize_props(category: @category) }
     end
   end
 
