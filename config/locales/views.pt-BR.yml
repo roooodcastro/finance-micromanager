@@ -64,7 +64,13 @@ pt-BR:
         submit: Salvar
         back: Voltar
       show:
-        title: 'Categoria "%{name}"'
+        title: 'Categoria'
+        sub_header_summary: Resumo
+        sub_header_recent_transactions: Transações Recentes
+        money_in: Receita
+        expenses: Gastos
+        edit: Editar
+        disable: Deletar
     dashboard:
       title: Transações
     devise:
