@@ -1,29 +1,30 @@
 <template>
-  <header v-if="title || $slots.default">
-    <div class="d-flex align-items-center justify-content-between mt-2 mt-lg-4">
-      <h1
-        v-if="title || $slots.default"
-        class="d-flex align-items-center mb-0 mb-lg-2"
-      >
-        <template v-if="title">
+  <header
+    v-if="title || $slots.default"
+    class="d-flex align-items-center justify-content-between mt-2 mt-lg-4 flex-wrap"
+  >
+    <h1
+      v-if="title || $slots.default"
+      class="PageHeader__h1 d-flex flex-column mb-0 mb-lg-2"
+    >
+      <template v-if="title">
+        <span>
           {{ title }}
-        </template>
-        <slot v-else />
+        </span>
+      </template>
+      <slot v-else />
 
-        <template v-if="subTitle">
-          <small class="text-muted d-block">
-            {{ subTitle }}
-          </small>
-        </template>
-      </h1>
+      <template v-if="subTitle">
+        <span class="fs-4 text-muted d-block">
+          {{ subTitle }}
+        </span>
+      </template>
+    </h1>
 
-      <div>
-        <slot name="actions" />
-      </div>
-    </div>
-
-    <hr />
+    <slot name="actions" />
   </header>
+
+  <hr />
 </template>
 
 <script>
@@ -49,3 +50,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .PageHeader__h1 {
+    flex-basis: 100%;
+  }
+}
+</style>

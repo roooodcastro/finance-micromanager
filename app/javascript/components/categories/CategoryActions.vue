@@ -1,4 +1,6 @@
 <template>
+  <div class="vr mx-3 d-none d-lg-flex"></div>
+
   <EditButton
     small
     :href="editCategoryPath(category.id)"

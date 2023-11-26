@@ -19,13 +19,14 @@
           v-for="(transactionsByDate, transactionDate) in groupedTransactions"
           :key="transactionDate"
         >
-          <div class="position-sticky top-0 bg-white fw-bold py-2 ps-2">
+          <div class="position-sticky top-0 bg-white fw-bold py-2 ps-2 ps-lg-0">
             {{ formatDate(new Date(transactionDate)) }}
           </div>
           <TransactionListItem
             v-for="transaction in transactionsByDate"
             :key="transaction.id"
             :transaction="transaction"
+            class="mx-2 mx-lg-0"
           />
         </template>
       </InfiniteScrolling>

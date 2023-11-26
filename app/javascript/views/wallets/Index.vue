@@ -4,8 +4,13 @@
       <template v-slot:actions>
         <a
           :href="newWalletPath"
-          class="btn btn-outline-secondary"
+          class="btn btn-sm btn-outline-secondary mt-2 mt-lg-0"
         >
+          <FontAwesomeIcon
+              icon="plus"
+              size="lg"
+              class="me-2"
+          />
           {{ t('new') }}
         </a>
       </template>
@@ -22,6 +27,7 @@
 <script>
 import { wallets } from '~/api';
 import I18n from '~/utils/I18n';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import WalletsList from '~/components/wallets/WalletsList.vue';
@@ -30,10 +36,11 @@ import WalletShareInviteModal from '~/components/wallet_share_invites/WalletShar
 
 export default {
   components: {
+    FontAwesomeIcon,
+    PageHeader,
     WalletShareInviteModal,
     WalletShareInvitesList,
     WalletsList,
-    PageHeader,
   },
 
   props: {

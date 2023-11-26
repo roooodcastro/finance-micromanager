@@ -462,6 +462,12 @@
           "title": "Categorias"
         },
         "show": {
+          "disable": "Deletar",
+          "edit": "Editar",
+          "expenses": "Gastos",
+          "money_in": "Receita",
+          "sub_header_recent_transactions": "Transações Recentes",
+          "sub_header_summary": "Resumo",
           "title": "Categoria"
         }
       },

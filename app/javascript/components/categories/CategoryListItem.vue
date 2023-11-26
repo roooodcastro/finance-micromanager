@@ -1,5 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu class="mx-2 mx-lg-0">
+  <ListItemDrawerContextMenu class="mx-2 mx-lg-0 list-group-item p-0">
     <template v-slot:actions>
       <CategoryActions
         :category="category"
@@ -7,14 +7,19 @@
       />
     </template>
     <template v-slot:item>
-      <div class="CategoryListItem d-flex bg-light-subtle align-items-center border bg-white p-2">
-        <span
-          class="CategoriesList__color-indicator rounded-circle me-3"
-          :style="{ backgroundColor: category.color }"
-        />
-        <span>{{ category.name }}</span>
+      <div class="CategoryListItem d-flex bg-light-subtle align-items-center bg-white">
+        <a
+          class="text-decoration-none list-group-item-action d-flex align-items-center p-2"
+          :href="showCategoryPath(category.id)"
+        >
+          <span
+            class="CategoriesList__color-indicator rounded-circle me-3"
+            :style="{ backgroundColor: category.color }"
+          />
+          <span>{{ category.name }}</span>
+        </a>
 
-        <div class="d-none d-lg-flex">
+        <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
           <CategoryActions :category="category" />
         </div>
       </div>
@@ -23,6 +28,8 @@
 </template>
 
 <script>
+import { categories as categoriesApi } from '~/api';
+
 import CategoryActions from '~/components/categories/CategoryActions.vue';
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
 
@@ -38,6 +45,12 @@ export default {
       required: true,
     },
   },
+
+  setup() {
+    const showCategoryPath = (categoryId) => categoriesApi.show.path({ id: categoryId });
+
+    return { showCategoryPath };
+  }
 };
 </script>
 

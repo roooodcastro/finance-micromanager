@@ -2,17 +2,19 @@
   <div class="vr mx-3 d-none d-lg-flex"></div>
 
   <EditButton
+    v-if="showEdit"
     :href="editTransactionPath(transaction.id)"
     :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
   />
 
   <DeleteButton
-      href="#"
-      :class="{
-        'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-        'ms-3': !drawerMenu,
-      }"
-      @delete="handleDelete(transaction.id)"
+    v-if="showDelete"
+    href="#"
+    :class="{
+      'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
+      'ms-3': !drawerMenu,
+    }"
+    @delete="handleDelete(transaction.id)"
   />
 </template>
 <script>
@@ -37,6 +39,14 @@ export default {
     drawerMenu: {
       type: Boolean,
       default: false,
+    },
+    showEdit: {
+      type: Boolean,
+      default: true,
+    },
+    showDelete: {
+      type: Boolean,
+      default: true,
     },
   },
 

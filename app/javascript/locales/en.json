@@ -428,6 +428,12 @@
           "title": "Categories"
         },
         "show": {
+          "disable": "Delete",
+          "edit": "Edit",
+          "expenses": "Expenses",
+          "money_in": "Money In",
+          "sub_header_recent_transactions": "Recent Transactions",
+          "sub_header_summary": "Summary",
           "title": "Category"
         }
       },

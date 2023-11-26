@@ -62,7 +62,13 @@ en:
         submit: Submit
         back: Back
       show:
-        title: Category
+        title: 'Category'
+        sub_header_summary: Summary
+        sub_header_recent_transactions: Recent Transactions
+        money_in: Money In
+        expenses: Expenses
+        edit: Edit
+        disable: Delete
     dashboard:
       title: Transactions
     devise:

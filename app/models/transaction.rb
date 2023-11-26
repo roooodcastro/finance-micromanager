@@ -18,6 +18,7 @@ class Transaction < ApplicationRecord
   scope :exclude_debits, -> { where('amount_cents > 0') }
   scope :exclude_credits, -> { where('amount_cents < 0') }
   scope :newer_than, ->(date) { where(transaction_date: [date...]) }
+  scope :recent, ->(number = 10) { order(transaction_date: :desc, created_at: :desc).limit(number) }
 
   def as_json(*)
     super(except: %w[created_at updated_at], include: :category)

@@ -4,15 +4,14 @@
       <template v-slot:actions>
         <a
           :href="newTransactionPath"
-          class="btn btn-outline-secondary"
+          class="btn btn-sm btn-outline-secondary mt-2 mt-lg-0"
         >
           <FontAwesomeIcon
             icon="plus"
             size="lg"
+            class="me-2"
           />
-          <span class="d-none d-lg-inline-block ms-2">
-            {{ t('new') }}
-          </span>
+          {{ t('new') }}
         </a>
       </template>
     </PageHeader>
