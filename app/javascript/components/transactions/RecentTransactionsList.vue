@@ -1,6 +1,9 @@
 <template>
   <div>
-    <NoTransactionsPlaceholder v-if="!transactions.length" />
+    <NoTransactionsPlaceholder
+      v-if="!transactions.length"
+      class="mb-3"
+    />
 
     <div
       v-else

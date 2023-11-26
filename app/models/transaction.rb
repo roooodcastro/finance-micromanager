@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Transaction < ApplicationRecord
+  RECENT_TRANSACTIONS_COUNT = 10
+
   monetize :amount_cents, disable_validation: true
 
   attr_accessor :amount_type
@@ -17,12 +19,21 @@ class Transaction < ApplicationRecord
 
   scope :exclude_debits, -> { where('amount_cents > 0') }
   scope :exclude_credits, -> { where('amount_cents < 0') }
+  scope :older_than, ->(date) { where(transaction_date: [...date]) }
   scope :newer_than, ->(date) { where(transaction_date: [date...]) }
-  scope :recent, ->(number = 10) { order(transaction_date: :desc, created_at: :desc).limit(number) }
+  scope :sort_by_recent, -> { order(transaction_date: :desc, created_at: :desc) }
 
   def as_json(*)
     super(except: %w[created_at updated_at], include: :category)
       .merge(amount_with_unit: amount.format, amount: amount.to_s)
+  end
+
+  def debit?
+    amount_cents.negative?
+  end
+
+  def credit?
+    amount_cents >= 0
   end
 
   private

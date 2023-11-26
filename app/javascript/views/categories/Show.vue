@@ -1,13 +1,13 @@
 <template>
   <PageHeader
     :title="t('title')"
-    :sub-title="category.name"
+    :sub-title="categoryFromStore.name"
     class="flex-wrap"
   >
     <template v-slot:actions>
       <div class="mt-2 mt-lg-0">
         <a
-          :href="editCategoryPath({ id: category.id })"
+          :href="editCategoryPath({ id: categoryFromStore.id })"
           class="btn btn-sm btn-outline-secondary"
         >
           <FontAwesomeIcon icon="pen-to-square" />
@@ -16,7 +16,7 @@
           </span>
         </a>
         <a
-          :href="editCategoryPath({ id: category.id })"
+          :href="editCategoryPath({ id: categoryFromStore.id })"
           class="btn btn-sm btn-danger ms-2"
         >
           <FontAwesomeIcon :icon="['far', 'square-minus']" />
@@ -28,9 +28,14 @@
     </template>
   </PageHeader>
 
+  <DateRangeSelector
+    class="mb-3"
+    @change="handleDateRangeChange"
+  />
+
   <div class="row">
     <div class="col-12 col-xl-6">
-      <CategorySummary :category="category" />
+      <CategorySummary :category="categoryFromStore" />
     </div>
 
     <div class="col-12 col-xl-6">
@@ -41,7 +46,7 @@
           </h5>
         </div>
         <RecentTransactionsList
-          :transactions="category.recentTransactions"
+          :transactions="categoryFromStore.recentTransactions"
         />
       </div>
     </div>
@@ -49,18 +54,23 @@
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n';
 import { categories as categoriesApi } from '~/api';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
+import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 
 export default {
   components: {
     CategorySummary,
+    DateRangeSelector,
     FontAwesomeIcon,
     PageHeader,
     RecentTransactionsList,
@@ -73,12 +83,26 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const editCategoryPath = categoriesApi.edit.path;
+
+    const dateRangeStore = useDateRangeStore();
+    const categoryStore = useCategoryStore();
+
+    const { startDate, endDate } = storeToRefs(dateRangeStore);
+    const { category: categoryFromStore } = storeToRefs(categoryStore);
+
+    categoryFromStore.value = props.category;
+
+    const handleDateRangeChange = () => {
+      categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
+    };
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
       editCategoryPath,
+      categoryFromStore,
+      handleDateRangeChange,
     };
   },
 };
