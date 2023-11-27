@@ -73,7 +73,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def search_params
-    params.permit(%i[days_to_show exclude_debits exclude_credits limit]).to_h.symbolize_keys
+    params.permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date]).to_h.symbolize_keys
   end
 
   def available_categories
