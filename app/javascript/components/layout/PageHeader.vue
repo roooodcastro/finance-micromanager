@@ -1,35 +1,67 @@
 <template>
   <header
     v-if="title || $slots.default"
-    class="d-flex align-items-center justify-content-between mt-2 mt-lg-4 flex-wrap"
+    class="PageHeader d-flex align-items-center justify-content-between mt-lg-3"
     v-bind="$attrs"
   >
     <h1
       v-if="title || $slots.default"
-      class="PageHeader__h1 d-flex flex-column mb-0 mb-lg-2"
+      class="PageHeader__h1 d-flex align-items-center mb-0 mb-lg-2"
     >
-      <template v-if="title">
-        <span>
+      <a
+        v-if="backButtonHref"
+        :href="backButtonHref"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1 px-3 me-2 me-lg-3"
+      >
+        <FontAwesomeIcon icon="chevron-left" />
+      </a>
+
+      <span class="d-flex flex-column">
+        <span v-if="title">
           {{ title }}
         </span>
-      </template>
-      <slot v-else />
+        <slot v-else />
 
-      <template v-if="subTitle">
-        <span class="fs-4 text-muted d-block">
-          {{ subTitle }}
-        </span>
-      </template>
+        <template v-if="subTitle">
+          <span class="fs-4 text-muted d-block">
+            {{ subTitle }}
+          </span>
+        </template>
+      </span>
     </h1>
 
-    <slot name="actions" />
+    <div
+      v-if="$slots.actions"
+      class="dropdown"
+    >
+      <a
+        href="#"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <FontAwesomeIcon icon="ellipsis-vertical" />
+      </a>
+      <div class="dropdown-menu">
+        <slot name="actions" />
+      </div>
+    </div>
   </header>
 
-  <hr />
+  <hr
+    v-if="title || $slots.default"
+    class="d-none d-lg-block"
+  />
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 export default {
+  components: {
+    FontAwesomeIcon,
+  },
+
   props: {
     title: {
       type: String,
@@ -42,6 +74,10 @@ export default {
     pageTitle: {
       type: String,
       default: '',
+    },
+    backButtonHref: {
+      type: String,
+      default: null,
     },
   },
   setup(props) {
@@ -56,8 +92,11 @@ export default {
 @import '../../stylesheets/variables';
 
 @include media-breakpoint-down(md) {
-  .PageHeader__h1 {
-    flex-basis: 100%;
+  .PageHeader {
+    background-color: $light-bg-subtle;
+    margin: -1rem -1rem 1.5rem -1rem;
+    padding: .5rem;
+    box-shadow: var(--bs-box-shadow);
   }
 }
 </style>
