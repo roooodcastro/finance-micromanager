@@ -12,6 +12,8 @@ class TransactionSearch
     search_exclude_debits
       .search_exclude_credits
       .search_days_to_show
+      .search_start_date
+      .search_end_date
 
     relation
   end
@@ -36,6 +38,20 @@ class TransactionSearch
     return self if !query_params.key?(:days_to_show) || query_params[:days_to_show].to_i.zero?
 
     @relation = relation.newer_than(query_params[:days_to_show].to_i.days.ago)
+    self
+  end
+
+  def search_start_date
+    return self unless query_params.key?(:start_date)
+
+    @relation = relation.newer_than(query_params[:start_date])
+    self
+  end
+
+  def search_end_date
+    return self unless query_params.key?(:end_date)
+
+    @relation = relation.older_than(query_params[:end_date])
     self
   end
 

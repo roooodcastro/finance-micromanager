@@ -1,6 +1,6 @@
 <template>
   <div
-    class="btn-group d-flex"
+    class="btn-group d-flex bg-white"
     role="group"
     aria-label="Basic example"
   >
