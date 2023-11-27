@@ -16,7 +16,10 @@
         <FontAwesomeIcon icon="chevron-left" />
       </a>
 
-      <span class="d-flex flex-column">
+      <span
+        class="d-flex flex-column"
+        :class="{ 'ps-2': !backButtonHref }"
+      >
         <span v-if="title">
           {{ title }}
         </span>
@@ -97,6 +100,7 @@ export default {
     margin: -1rem -1rem 1.5rem -1rem;
     padding: .5rem;
     box-shadow: var(--bs-box-shadow);
+    min-height: 4rem;
   }
 }
 </style>
