@@ -438,7 +438,8 @@
         }
       },
       "dashboard": {
-        "title": "Transactions"
+        "recent_transactions": "Recent Transactions",
+        "title": "Dashboard"
       },
       "devise": {
         "alternative_links": "Or, you can also:",
@@ -537,7 +538,8 @@
           "no_transactions": "There are no transactions to show.",
           "sorting": "Sorting",
           "title": "Transactions",
-          "transaction_date": "Date"
+          "transaction_date": "Date",
+          "view_more": "View all transactions&hellip;"
         }
       },
       "users": {

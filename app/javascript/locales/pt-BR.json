@@ -472,7 +472,8 @@
         }
       },
       "dashboard": {
-        "title": "Transações"
+        "recent_transactions": "Transações Recentes",
+        "title": "Dashboard"
       },
       "devise": {
         "alternative_links": "Ou, você também pode:",
@@ -571,7 +572,8 @@
           "no_transactions": "Não há transações para exibir.",
           "sorting": "Ordem",
           "title": "Transações",
-          "transaction_date": "Data"
+          "transaction_date": "Data",
+          "view_more": "Ver todas as transações&hellip;"
         }
       },
       "users": {

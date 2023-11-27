@@ -17,15 +17,15 @@ export default defineStore('transaction', {
     }
   },
   actions: {
-    fetchTransactions() {
-      const params = {
+    fetchTransactions(options = {}) {
+      const defaultOptions = {
         daysToShow: this.daysToShow,
         excludeDebits: this.excludeDebits,
         excludeCredits: this.excludeCredits,
         page: this.pagination.page,
       };
       transactionsApi
-        .index({ query: params })
+        .index({ query: Object.assign(defaultOptions, options) })
         .then((response) => {
           this.transactions = response.transactions;
           this.pagination = response.pagination;
