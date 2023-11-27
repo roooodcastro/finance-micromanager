@@ -2,6 +2,7 @@
   <PageHeader
     :title="t('title')"
     :sub-title="categoryFromStore.name"
+    :back-button-href="categoriesPath"
     class="flex-wrap"
   >
     <template v-slot:actions>
@@ -84,6 +85,7 @@ export default {
   },
 
   setup(props) {
+    const categoriesPath = categoriesApi.index.path();
     const editCategoryPath = categoriesApi.edit.path;
 
     const dateRangeStore = useDateRangeStore();
@@ -100,6 +102,7 @@ export default {
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
+      categoriesPath,
       editCategoryPath,
       categoryFromStore,
       handleDateRangeChange,

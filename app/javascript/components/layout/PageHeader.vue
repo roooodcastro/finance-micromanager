@@ -6,20 +6,28 @@
   >
     <h1
       v-if="title || $slots.default"
-      class="PageHeader__h1 d-flex flex-column mb-0 mb-lg-2"
+      class="PageHeader__h1 d-flex align-items-center mb-0 mb-lg-2"
     >
-      <template v-if="title">
-        <span>
+      <a
+        v-if="backButtonHref"
+        :href="backButtonHref"
+        class="btn btn-outline-secondary btn-sm me-3"
+      >
+        <FontAwesomeIcon icon="chevron-left" />
+      </a>
+
+      <span class="d-flex flex-column">
+        <span v-if="title">
           {{ title }}
         </span>
-      </template>
-      <slot v-else />
+        <slot v-else />
 
-      <template v-if="subTitle">
-        <span class="fs-4 text-muted d-block">
-          {{ subTitle }}
-        </span>
-      </template>
+        <template v-if="subTitle">
+          <span class="fs-4 text-muted d-block">
+            {{ subTitle }}
+          </span>
+        </template>
+      </span>
     </h1>
 
     <slot name="actions" />
@@ -29,7 +37,13 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 export default {
+  components: {
+    FontAwesomeIcon,
+  },
+
   props: {
     title: {
       type: String,
@@ -42,6 +56,10 @@ export default {
     pageTitle: {
       type: String,
       default: '',
+    },
+    backButtonHref: {
+      type: String,
+      default: null,
     },
   },
   setup(props) {
