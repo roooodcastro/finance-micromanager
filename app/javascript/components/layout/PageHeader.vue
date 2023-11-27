@@ -1,7 +1,7 @@
 <template>
   <header
     v-if="title || $slots.default"
-    class="d-flex align-items-center justify-content-between mt-2 mt-lg-4 flex-wrap"
+    class="PageHeader d-flex align-items-center justify-content-between mt-lg-3"
     v-bind="$attrs"
   >
     <h1
@@ -11,7 +11,7 @@
       <a
         v-if="backButtonHref"
         :href="backButtonHref"
-        class="btn btn-outline-secondary btn-sm me-3"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1 px-3 me-2 me-lg-3"
       >
         <FontAwesomeIcon icon="chevron-left" />
       </a>
@@ -30,10 +30,28 @@
       </span>
     </h1>
 
-    <slot name="actions" />
+    <div
+      v-if="$slots.actions"
+      class="dropdown"
+    >
+      <a
+        href="#"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <FontAwesomeIcon icon="ellipsis-vertical" />
+      </a>
+      <div class="dropdown-menu">
+        <slot name="actions" />
+      </div>
+    </div>
   </header>
 
-  <hr />
+  <hr
+    v-if="title || $slots.default"
+    class="d-none d-lg-block"
+  />
 </template>
 
 <script>
@@ -74,8 +92,11 @@ export default {
 @import '../../stylesheets/variables';
 
 @include media-breakpoint-down(md) {
-  .PageHeader__h1 {
-    flex-basis: 100%;
+  .PageHeader {
+    background-color: $light-bg-subtle;
+    margin: -1rem -1rem 1.5rem -1rem;
+    padding: .5rem;
+    box-shadow: var(--bs-box-shadow);
   }
 }
 </style>

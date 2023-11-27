@@ -2,17 +2,11 @@
   <div>
     <PageHeader :title="t('title')">
       <template v-slot:actions>
-        <a
+        <PageHeaderActionLink
           :href="newWalletPath"
-          class="btn btn-sm btn-outline-secondary mt-2 mt-lg-0"
-        >
-          <FontAwesomeIcon
-              icon="plus"
-              size="lg"
-              class="me-2"
-          />
-          {{ t('new') }}
-        </a>
+          :label="t('new')"
+          icon="plus"
+        />
       </template>
     </PageHeader>
 
@@ -27,17 +21,17 @@
 <script>
 import { wallets } from '~/api';
 import I18n from '~/utils/I18n';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import WalletsList from '~/components/wallets/WalletsList.vue';
 import WalletShareInvitesList from '~/components/wallet_share_invites/WalletShareInvitesList.vue';
 import WalletShareInviteModal from '~/components/wallet_share_invites/WalletShareInviteModal.vue';
+import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
 
 export default {
   components: {
-    FontAwesomeIcon,
     PageHeader,
+    PageHeaderActionLink,
     WalletShareInviteModal,
     WalletShareInvitesList,
     WalletsList,

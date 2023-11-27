@@ -2,17 +2,11 @@
   <div>
     <PageHeader :title="t('title')">
       <template v-slot:actions>
-        <a
+        <PageHeaderActionLink
           :href="newTransactionPath"
-          class="btn btn-sm btn-outline-secondary mt-2 mt-lg-0"
-        >
-          <FontAwesomeIcon
-            icon="plus"
-            size="lg"
-            class="me-2"
-          />
-          {{ t('new') }}
-        </a>
+          :label="t('new')"
+          icon="plus"
+        />
       </template>
     </PageHeader>
 
@@ -26,15 +20,15 @@
 <script>
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
+import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
 
 export default {
   components: {
-    FontAwesomeIcon,
     PageHeader,
+    PageHeaderActionLink,
     TransactionsList,
   },
 

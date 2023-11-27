@@ -6,26 +6,17 @@
     class="flex-wrap"
   >
     <template v-slot:actions>
-      <div class="mt-2 mt-lg-0">
-        <a
-          :href="editCategoryPath({ id: categoryFromStore.id })"
-          class="btn btn-sm btn-outline-secondary"
-        >
-          <FontAwesomeIcon icon="pen-to-square" />
-          <span class="ms-2">
-            {{ t('edit') }}
-          </span>
-        </a>
-        <a
-          :href="editCategoryPath({ id: categoryFromStore.id })"
-          class="btn btn-sm btn-danger ms-2"
-        >
-          <FontAwesomeIcon :icon="['far', 'square-minus']" />
-          <span class="ms-2">
-            {{ t('disable') }}
-          </span>
-        </a>
-      </div>
+      <PageHeaderActionLink
+        :href="editCategoryPath({ id: categoryFromStore.id })"
+        :label="t('edit')"
+        icon="pen-to-square"
+      />
+      <PageHeaderActionLink
+        :href="editCategoryPath({ id: categoryFromStore.id })"
+        :label="t('disable')"
+        :icon="['far', 'square-minus']"
+        class="text-danger"
+      />
     </template>
   </PageHeader>
 
@@ -61,19 +52,18 @@ import { categories as categoriesApi } from '~/api';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
+import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
 
 export default {
   components: {
     CategorySummary,
     DateRangeSelector,
-    FontAwesomeIcon,
     PageHeader,
+    PageHeaderActionLink,
     RecentTransactionsList,
   },
 
