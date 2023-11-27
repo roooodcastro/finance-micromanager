@@ -183,6 +183,7 @@ pt-BR:
           title: Login
           email_label: Endereço de email
           password_label: Senha
+          remember_me_label: Manter-me logado
           submit: Entrar
       unlocks:
         new:
