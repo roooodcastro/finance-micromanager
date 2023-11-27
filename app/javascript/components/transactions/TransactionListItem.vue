@@ -85,9 +85,12 @@ export default {
   }
 }
 
+.TransactionListItem__container:first-child .TransactionListItem {
+  border-top: none !important;
+}
+
 .TransactionListItem__container:not(:first-child) .TransactionListItem {
   margin-top: -1px;
-  border-top: none !important;
 }
 
 .TransactionListItem__indicator {

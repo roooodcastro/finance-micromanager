@@ -70,7 +70,8 @@ en:
         edit: Edit
         disable: Delete
     dashboard:
-      title: Transactions
+      title: Dashboard
+      recent_transactions: Recent Transactions
     devise:
       alternative_links: 'Or, you can also:'
       sign_in: Sign In
@@ -147,6 +148,7 @@ en:
         filters: Filters
         sorting: Sorting
         no_transactions: There are no transactions to show.
+        view_more: 'View all transactions&hellip;'
       form:
         new_title: New Transaction
         edit_title: 'Edit Transaction "%{transaction}"'

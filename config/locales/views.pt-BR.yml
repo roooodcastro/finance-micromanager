@@ -72,7 +72,8 @@ pt-BR:
         edit: Editar
         disable: Deletar
     dashboard:
-      title: Transações
+      title: Dashboard
+      recent_transactions: Transações Recentes
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
@@ -149,6 +150,7 @@ pt-BR:
         filters: Filtros
         sorting: Ordem
         no_transactions: Não há transações para exibir.
+        view_more: 'Ver todas as transações&hellip;'
       form:
         new_title: Nova Transação
         edit_title: 'Editar Transacão "%{transaction}"'

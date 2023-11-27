@@ -11,7 +11,7 @@ class TransactionsController < AbstractAuthenticatedController
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 
-    pagy, transactions = pagy(transactions)
+    pagy, transactions = pagy(transactions, items: params[:items])
     props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
 
     respond_to do |format|
@@ -73,7 +73,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def search_params
-    params.permit(%i[days_to_show exclude_debits exclude_credits]).to_h.symbolize_keys
+    params.permit(%i[days_to_show exclude_debits exclude_credits limit]).to_h.symbolize_keys
   end
 
   def available_categories
