@@ -32,6 +32,22 @@
               autocomplete="current-password"
             />
 
+            <div class="form-check form-switch py-2 mb-3">
+              <input
+                :id="formHelper.fieldId('remember_me')"
+                :name="formHelper.fieldName('remember_me')"
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+              />
+              <label
+                class="form-check-label ms-2"
+                :for="formHelper.fieldId('remember_me')"
+              >
+                {{ t('remember_me_label') }}
+              </label>
+            </div>
+
             <div class="d-grid">
               <button
                 type="submit"

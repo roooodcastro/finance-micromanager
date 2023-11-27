@@ -181,6 +181,7 @@ en:
           title: Login
           email_label: Email Address
           password_label: Password
+          remember_me_label: Stay signed in
           submit: Log in
       unlocks:
         new:
