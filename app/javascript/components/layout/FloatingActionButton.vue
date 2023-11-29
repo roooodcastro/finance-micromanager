@@ -1,7 +1,7 @@
 <template>
   <div class="FloatingActionButton position-sticky end-0 bottom-0 py-3 pe-3">
     <a
-      class="FloatingActionButton__link d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1"
+      class="FloatingActionButton__link d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1 shadow"
       :href="newTransactionPath"
     >
       <FontAwesomeIcon icon="plus" />

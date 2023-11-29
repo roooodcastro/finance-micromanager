@@ -11,10 +11,15 @@
       <a
         v-if="backButtonHref"
         :href="backButtonHref"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1 px-3 me-2 me-lg-3"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1 px-3 me-2"
       >
         <FontAwesomeIcon icon="chevron-left" />
       </a>
+
+      <span
+        v-if="backButtonHref"
+        class="vr me-2 me-lg-3"
+      />
 
       <span
         class="d-flex flex-column"
