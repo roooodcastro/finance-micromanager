@@ -438,6 +438,7 @@
         }
       },
       "dashboard": {
+        "category_summary": "Categories Summary",
         "recent_transactions": "Recent Transactions",
         "title": "Dashboard"
       },

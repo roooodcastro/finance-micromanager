@@ -472,6 +472,7 @@
         }
       },
       "dashboard": {
+        "category_summary": "Resumo das Categorias",
         "recent_transactions": "Transações Recentes",
         "title": "Dashboard"
       },
