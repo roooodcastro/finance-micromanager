@@ -9,7 +9,7 @@
     </template>
 
     <template v-slot:item>
-      <div class="TransactionListItem d-flex bg-light-subtle align-items-center border-top border-bottom border-start-0 pe-2">
+      <div class="TransactionListItem d-flex bg-light-subtle align-items-center border border-start-0 pe-2">
         <span
           class="TransactionListItem__indicator me-2"
           :style="{ 'background-color': transaction.category.color }"
