@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 class CategorySerializer < ApplicationSerializer
-  attr_reader :start_date, :end_date
-
-  def initialize(record, start_date: nil, end_date: nil)
-    super(record)
-
-    @start_date = start_date
-    @end_date   = end_date
-  end
-
   def as_json(include_summary: false, include_recent_transactions: false)
     json = category_as_json
     json = json.merge(summary: summary_as_json) if include_summary
@@ -34,8 +25,8 @@ class CategorySerializer < ApplicationSerializer
   def transactions
     @transactions ||= begin
       scope = record.transactions.sort_by_recent
-      scope = scope.older_than(Time.zone.parse(end_date)) if end_date
-      scope = scope.newer_than(Time.zone.parse(start_date)) if start_date
+      scope = scope.older_than(CurrentDateRange.end_date)
+      scope = scope.newer_than(CurrentDateRange.start_date)
       scope.to_a
     end
   end
