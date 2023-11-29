@@ -28,6 +28,8 @@ import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 import useUserStore from '~/stores/UserStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
+
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 
@@ -65,9 +67,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    dateRange: {
+      type: Object,
+      default: () => {},
+    },
   },
   setup(props) {
     const walletStore = useWalletStore();
+    const dateRangeStore = useDateRangeStore();
 
     if (props.currentWallet) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
@@ -88,6 +95,10 @@ export default {
 
     if (props.notifications) {
       useNotificationStore().loadFromProps(props.notifications);
+    }
+
+    if (props.dateRange.startDate) {
+      dateRangeStore.setFromProps(props.dateRange);
     }
   },
 };

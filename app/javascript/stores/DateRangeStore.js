@@ -16,6 +16,9 @@ export default defineStore('dateRange', {
   },
 
   actions: {
+    setFromProps(props) {
+      this.startDate = moment(props.startDate);
+    },
     setStartDate(newDate) {
       this.startDate = moment(newDate).startOf(this.type);
     },

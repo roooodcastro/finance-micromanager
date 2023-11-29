@@ -18,12 +18,7 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def show
-    date_params = {
-      start_date: params[:start_date] || Date.current.at_beginning_of_month.to_s,
-      end_date:   params[:end_date] || Date.current.at_end_of_month.to_s
-    }
-
-    category_serializer = CategorySerializer.new(@category, **date_params)
+    category_serializer = CategorySerializer.new(@category)
 
     props = camelize_props(category: category_serializer.as_json(
       include_summary:             true,
