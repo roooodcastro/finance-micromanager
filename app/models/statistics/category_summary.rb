@@ -24,6 +24,7 @@ module Statistics
 
     def as_json
       {
+        id:              SecureRandom.uuid,
         credit_sum:      credit_sum,
         debit_sum:       debit_sum,
         currency:        currency_name,

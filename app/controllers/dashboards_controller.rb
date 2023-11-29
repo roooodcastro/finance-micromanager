@@ -2,6 +2,8 @@
 
 class DashboardsController < AbstractAuthenticatedController
   def show
-    render inertia: 'dashboards/Show'
+    props = DashboardSerializer.new(Current.wallet).as_json
+
+    render inertia: 'dashboards/Show', props: camelize_props(props)
   end
 end

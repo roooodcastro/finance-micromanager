@@ -15,3 +15,8 @@ export function parseLocaleNumber(stringNumber) {
     .replace(new RegExp('\\' + decimalSeparator), '.')
   );
 }
+
+export function formatMoney(amount, currencySymbol) {
+  const roundedAmount = (amount + Number.EPSILON).toFixed(2);
+  return `${currencySymbol}${roundedAmount}`;
+}

@@ -47,6 +47,10 @@ Rails.application.routes.draw do
     resources :current_wallets, only: %i[create]
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show]
+
+    namespace :statistics do
+      resources :category_summaries, only: %i[index]
+    end
   end
 
   resource :health_check, only: :show

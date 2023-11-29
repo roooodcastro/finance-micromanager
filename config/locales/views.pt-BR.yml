@@ -74,6 +74,7 @@ pt-BR:
     dashboard:
       title: Dashboard
       recent_transactions: Transações Recentes
+      category_summary: Resumo das Categorias
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login

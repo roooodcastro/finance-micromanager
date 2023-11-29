@@ -35,6 +35,7 @@ import {
 
 import {
   faCircleCheck as farCircleCheck,
+  faCircleQuestion as farCircleQuestion,
   faCircleXmark as farCircleXmark,
   faFaceFrown as farFaceFrown,
   faSquareMinus as farSquareMinus,
@@ -50,6 +51,7 @@ library.add(
   faChevronUp,
   farCircleCheck,
   faCircleInfo,
+  farCircleQuestion,
   farCircleXmark,
   faDollarSign,
   faEllipsisVertical,
