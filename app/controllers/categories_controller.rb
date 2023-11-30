@@ -8,7 +8,7 @@ class CategoriesController < AbstractAuthenticatedController
   def index
     categories = Current.wallet.categories
 
-    pagy, categories = pagy(categories)
+    pagy, categories = pagy(categories, items: current_pagination_items)
     props            = { categories: categories.as_json, pagination: pagy_metadata(pagy) }
 
     respond_to do |format|

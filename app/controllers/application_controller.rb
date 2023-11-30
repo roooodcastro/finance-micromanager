@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include ActiveModelErrorMessages
   include CamelizeableProps
   include Localizeable
+  include StorePaginationOptions
 
   add_flash_types :success, :warning, :danger, :info
 

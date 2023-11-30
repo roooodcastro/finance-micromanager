@@ -11,7 +11,7 @@ class TransactionsController < AbstractAuthenticatedController
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 
-    pagy, transactions = pagy(transactions, items: params[:items])
+    pagy, transactions = pagy(transactions, items: current_pagination_items)
     props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
 
     respond_to do |format|

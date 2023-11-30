@@ -34,7 +34,7 @@
     </div>
 
     <nav
-      v-if="showPageControls"
+      v-if="paginationFromStore.count > paginationFromStore.items"
       class="ms-3"
       :aria-label="t('pagination')"
     >
@@ -111,8 +111,6 @@ export default {
     const { pagination: paginationFromStore } = storeToRefs(paginationStore);
     paginationFromStore.value = props.pagination;
 
-    const showPageControls = paginationFromStore.value.count > paginationFromStore.value.items;
-
     const handlePageChange = (page) => {
       paginationStore.setPage(page);
       emit('change');
@@ -127,7 +125,6 @@ export default {
       t: I18n.scopedTranslator('views.layout.rails'),
       paginationFromStore,
       labelForPage,
-      showPageControls,
       handlePageChange,
       handlePerPageChange,
       PAGINATION_PER_PAGE_OPTIONS,
