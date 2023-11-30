@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SubCategory < ApplicationRecord
+class Subcategory < ApplicationRecord
   self.implicit_order_column = :created_at
 
   belongs_to :category

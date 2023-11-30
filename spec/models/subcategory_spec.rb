@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe SubCategory do
-  subject { sub_category }
+RSpec.describe Subcategory do
+  subject { subcategory }
 
-  let(:sub_category) { build(:sub_category) }
+  let(:subcategory) { build(:subcategory) }
 
   describe 'basic validation' do
     it { is_expected.to be_valid }

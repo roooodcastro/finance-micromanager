@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_30_232432) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_30_233541) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,15 +32,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_232432) do
     t.index ["wallet_id"], name: "index_imports_on_wallet_id"
   end
 
-  create_table "sub_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "subcategories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "category_id", null: false
     t.string "name", limit: 50, null: false
     t.datetime "disabled_at"
     t.uuid "disabled_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_sub_categories_on_category_id"
-    t.index ["disabled_by_id"], name: "index_sub_categories_on_disabled_by_id"
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
+    t.index ["disabled_by_id"], name: "index_subcategories_on_disabled_by_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -132,11 +132,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_232432) do
 
   add_foreign_key "categories", "wallets"
   add_foreign_key "imports", "wallets"
-  add_foreign_key "sub_categories", "categories"
-  add_foreign_key "sub_categories", "users", column: "disabled_by_id"
+  add_foreign_key "subcategories", "categories"
+  add_foreign_key "subcategories", "users", column: "disabled_by_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "imports"
-  add_foreign_key "transactions", "sub_categories"
+  add_foreign_key "transactions", "subcategories", column: "sub_category_id"
   add_foreign_key "transactions", "users", column: "created_by_id"
   add_foreign_key "transactions", "users", column: "updated_by_id"
   add_foreign_key "transactions", "wallets"
