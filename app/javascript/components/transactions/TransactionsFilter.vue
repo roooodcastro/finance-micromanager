@@ -56,7 +56,7 @@
 
     <div class="btn-group mb-3 d-flex bg-white">
       <button
-        class="btn btn-sm py-1 btn-outline-secondary rounded-pill-start"
+        class="btn btn-sm py-1 btn-outline-secondary rounded-start-pill"
         :class="{ active: daysToShow === 7 }"
         @click="handleDateFilterClick(7)"
       >
@@ -72,7 +72,7 @@
       </button>
 
       <button
-        class="btn btn-sm btn-outline-secondary rounded-pill-end"
+        class="btn btn-sm btn-outline-secondary rounded-end-pill"
         :class="{ active: daysToShow === 90 }"
         @click="handleDateFilterClick(90)"
       >

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import _ from 'lodash';
 import moment from 'moment';
 
 import { statisticsCategorySummaries as categorySummariesApi } from '~/api';
@@ -10,10 +11,7 @@ export default defineStore('statistics_category_summary', {
 
   getters: {
     indexedSummaries: (state) => {
-      return state.categorySummaries.reduce((result, summary) => {
-        result[summary.categoryId] = summary;
-        return result;
-      }, {});
+      return _.keyBy(state.categorySummaries, 'categoryId');
     },
   },
 

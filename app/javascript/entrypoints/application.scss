@@ -1,8 +1,8 @@
 // Bootstrap Overrides
 @import '../stylesheets/_variables.scss';
 
-// Bootstrap Theme (Lux)
-@import "../stylesheets/_bootswatch.scss";
-
 // Rest of Bootstrap library
 @import "bootstrap/scss/bootstrap.scss";
+
+// Bootstrap Theme (Lux)
+@import "../stylesheets/_bootswatch.scss";
