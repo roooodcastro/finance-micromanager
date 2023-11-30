@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import _ from 'lodash';
 
 import { transactions as transactionsApi } from '~/api';
+import { DEBIT_TRANSACTION, CREDIT_TRANSACTION } from '~/utils/Constants.js';
 
 export default defineStore('transaction', {
   state: () => ({
@@ -55,6 +56,10 @@ export default defineStore('transaction', {
     changePage(page) {
       this.pagination.page = page;
       this.fetchTransactions();
+    },
+    setTransactionType(newType) {
+      this.excludeCredits = newType === DEBIT_TRANSACTION;
+      this.excludeDebits = newType === CREDIT_TRANSACTION;
     },
   }
 });

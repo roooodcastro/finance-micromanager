@@ -20,7 +20,9 @@
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
         <div class="card overflow-hidden">
           <div class="card-header">
-            <h5 class="m-0">{{ t('recent_transactions') }}</h5>
+            <h5 class="m-0 mb-2">{{ t('recent_transactions') }}</h5>
+
+            <TransactionTypeTabs :transactions-to-show="10" />
           </div>
           <RecentTransactionsList
             :transactions="transactions"
@@ -45,6 +47,7 @@ import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
+import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 
 export default {
   components: {
@@ -52,6 +55,7 @@ export default {
     DateRangeSelector,
     PageHeader,
     RecentTransactionsList,
+    TransactionTypeTabs,
   },
 
   props: {
@@ -96,7 +100,7 @@ export default {
     };
 
     return {
-      t: I18n.scopedTranslator('views.dashboard'),
+      t: I18n.scopedTranslator('views.dashboard.show'),
       transactions,
       handleDateRangeChange,
     };

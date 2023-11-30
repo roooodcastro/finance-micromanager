@@ -72,9 +72,10 @@ pt-BR:
         edit: Editar
         disable: Deletar
     dashboard:
-      title: Dashboard
-      recent_transactions: Transações Recentes
-      category_summary: Resumo das Categorias
+      show:
+        title: Dashboard
+        recent_transactions: Transações Recentes
+        category_summary: Resumo das Categorias
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
@@ -164,6 +165,10 @@ pt-BR:
         name_label: Nome
         submit: Salvar
         back: Voltar
+      types:
+        credit_transactions: Receitas
+        debit_transactions: Gastos
+        all_transactions: Todas
     users:
       confirmations:
         new:

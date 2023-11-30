@@ -472,9 +472,11 @@
         }
       },
       "dashboard": {
-        "category_summary": "Resumo das Categorias",
-        "recent_transactions": "Transações Recentes",
-        "title": "Dashboard"
+        "show": {
+          "category_summary": "Resumo das Categorias",
+          "recent_transactions": "Transações Recentes",
+          "title": "Dashboard"
+        }
       },
       "devise": {
         "alternative_links": "Ou, você também pode:",
@@ -575,6 +577,11 @@
           "title": "Transações",
           "transaction_date": "Data",
           "view_more": "Ver todas as transações&hellip;"
+        },
+        "types": {
+          "all_transactions": "Todas",
+          "credit_transactions": "Receitas",
+          "debit_transactions": "Gastos"
         }
       },
       "users": {
