@@ -12,6 +12,7 @@ class Transaction < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
   belongs_to :category
+  belongs_to :sub_category, optional: true
 
   before_validation :process_amount_type
 
