@@ -438,9 +438,11 @@
         }
       },
       "dashboard": {
-        "category_summary": "Categories Summary",
-        "recent_transactions": "Recent Transactions",
-        "title": "Dashboard"
+        "show": {
+          "category_summary": "Categories Summary",
+          "recent_transactions": "Recent Transactions",
+          "title": "Dashboard"
+        }
       },
       "devise": {
         "alternative_links": "Or, you can also:",
@@ -541,6 +543,11 @@
           "title": "Transactions",
           "transaction_date": "Date",
           "view_more": "View all transactions&hellip;"
+        },
+        "types": {
+          "all_transactions": "All",
+          "credit_transactions": "Money In",
+          "debit_transactions": "Expenses"
         }
       },
       "users": {
