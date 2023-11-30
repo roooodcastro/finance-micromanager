@@ -145,3 +145,11 @@ th {
 .text-hover-white:hover {
   color: $white !important;
 }
+
+.text-credit {
+  color: $mintgreen-700;
+}
+
+.text-debit {
+  color: shade-color($red, 10%);
+}
