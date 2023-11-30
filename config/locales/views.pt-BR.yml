@@ -100,8 +100,7 @@ pt-BR:
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
         pagination: Paginação
-        page_prev: Anterior
-        page_next: Próxima
+        per_page: 'Por Página:'
         page_desc: 'Exibindo %{items} de %{total}'
         toast_title_success: Info
         toast_title_info: Info

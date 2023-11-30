@@ -11,7 +11,7 @@
       <a
         v-if="backButtonHref"
         :href="backButtonHref"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1 px-3 me-2"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-2 px-3 me-2"
       >
         <FontAwesomeIcon icon="chevron-left" />
       </a>
@@ -44,7 +44,7 @@
     >
       <a
         href="#"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-1"
+        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-2"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >

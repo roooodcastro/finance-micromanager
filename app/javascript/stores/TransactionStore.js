@@ -1,13 +1,13 @@
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 import _ from 'lodash';
 
+import usePaginationStore from '~/stores/PaginationStore.js';
 import { transactions as transactionsApi } from '~/api';
 import { DEBIT_TRANSACTION, CREDIT_TRANSACTION } from '~/utils/Constants.js';
 
 export default defineStore('transaction', {
   state: () => ({
     transactions: [],
-    pagination: {},
     daysToShow: 30,
     excludeDebits: false,
     excludeCredits: false,
@@ -19,43 +19,29 @@ export default defineStore('transaction', {
   },
   actions: {
     fetchTransactions(options = {}) {
+      const paginationStore = usePaginationStore();
+      const { pagination } = storeToRefs(paginationStore);
+      const keepTransactions = options.keepTransactions;
+      delete options.keepTransactions;
+
       const defaultOptions = {
         daysToShow: this.daysToShow,
         excludeDebits: this.excludeDebits,
         excludeCredits: this.excludeCredits,
-        page: this.pagination.page,
+        ...(pagination.value),
       };
-      transactionsApi
+      return transactionsApi
         .index({ query: Object.assign(defaultOptions, options) })
         .then((response) => {
-          this.transactions = response.transactions;
-          this.pagination = response.pagination;
+          keepTransactions
+            ? this.transactions.push(...response.transactions)
+            : this.transactions = response.transactions;
+
+          pagination.value = response.pagination;
         });
-    },
-    fetchNextPage() {
-      if (this.pagination.page < this.pagination.pages) {
-        const params = {
-          daysToShow: this.daysToShow,
-          excludeDebits: this.excludeDebits,
-          excludeCredits: this.excludeCredits,
-          page: this.pagination.page + 1,
-        };
-        return transactionsApi
-          .index({ query: params })
-          .then((response) => {
-            this.transactions.push(...response.transactions);
-            this.pagination = response.pagination;
-          });
-      } else {
-        return Promise.resolve();
-      }
     },
     remove(id) {
       this.transactions = this.transactions.filter(transaction => transaction.id !== id);
-    },
-    changePage(page) {
-      this.pagination.page = page;
-      this.fetchTransactions();
     },
     setTransactionType(newType) {
       this.excludeCredits = newType === DEBIT_TRANSACTION;

@@ -38,56 +38,11 @@ html, body, #app {
   }
 }
 
-.bg-light {
-  border: 1px solid rgba(0, 0, 0, .1);
-
-  &.navbar-fixed-top {
-    border-width: 0 0 1px;
-  }
-
-  &.navbar-bottom-top {
-    border-width: 1px 0 0;
-  }
-}
-
-.nav-item {
-  margin-right: 2rem;
-}
-
 // Buttons
 
 .btn {
   font-size: $font-size-sm;
   text-transform: uppercase;
-
-  &-sm {
-    font-size: 10px;
-  }
-
-  &-warning {
-    &,
-    &:hover,
-    &:not([disabled]):not(.disabled):active,
-    &:focus {
-      color: $white;
-    }
-  }
-}
-
-.btn-outline-secondary {
-  &:not([disabled]):not(.disabled):hover,
-  &:not([disabled]):not(.disabled):focus,
-  &:not([disabled]):not(.disabled):active {
-    background-color: $indigo-400;
-  }
-
-  &:not([disabled]):not(.disabled):focus {
-    box-shadow: 0 0 0 .2rem rgba($indigo-400, .5);
-  }
-}
-
-[class*="btn-outline-"] {
-  border-width: 2px;
 }
 
 .border-secondary {
@@ -109,10 +64,6 @@ h5,
 h6 {
   text-transform: uppercase;
   letter-spacing: 3px;
-}
-
-.text-secondary {
-  color: $body-color !important;
 }
 
 // Tables
@@ -147,40 +98,7 @@ th {
   text-transform: none;
 }
 
-// Indicators
-
-.badge {
-  padding-top: .28rem;
-
-  &-pill {
-    border-radius: 10rem;
-  }
-
-  &.bg-secondary,
-  &.bg-light {
-    color: $dark;
-  }
-}
-
 // Containers
-
-.list-group-item,
-.card {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  .h1,
-  .h2,
-  .h3,
-  .h4,
-  .h5,
-  .h6 {
-    color: inherit;
-  }
-}
 
 .background-curved-lines {
   background-size: auto;
@@ -188,22 +106,6 @@ th {
   background-position-y: bottom;
   background-repeat: no-repeat;
   background-image: url('../images/background_curves.svg');
-}
-
-.icon-secondary {
-  color: $indigo-700;
-}
-
-.rounded-pill-start {
-  border-radius: var(--bs-border-radius-pill) 0 0 var(--bs-border-radius-pill);
-}
-
-.rounded-pill-end {
-  border-radius: 0 var(--bs-border-radius-pill) var(--bs-border-radius-pill) 0;
-}
-
-.bg-light-primary {
-  background-color: $mintgreen-100;
 }
 
 .side-strip {

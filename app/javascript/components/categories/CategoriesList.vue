@@ -1,8 +1,9 @@
 <template>
   <div>
     <Pagination
-      :pagination="paginationFromStore"
+      :pagination="pagination"
       class="mb-3"
+      compact
       @change="handlePageChange"
     />
 
@@ -18,7 +19,7 @@
     </div>
 
     <Pagination
-      :pagination="paginationFromStore"
+      :pagination="pagination"
       class="mt-3"
       @change="handlePageChange"
     />
@@ -60,11 +61,9 @@ export default {
     // Load categories from props
     const {
       categories: categoriesFromStore,
-      pagination: paginationFromStore,
     } = storeToRefs(categoryStore);
 
     categoriesFromStore.value = toRef(props.categories);
-    paginationFromStore.value = toRef(props.pagination).value;
 
     // Reload categories if wallet has changed while this page is open
     const walletStore = useWalletStore();
@@ -75,13 +74,12 @@ export default {
       },
     );
 
-    const handlePageChange = (page) => categoryStore.changePage(page);
+    const handlePageChange = () => categoryStore.fetchCategories();
 
     return {
       handlePageChange,
       t: I18n.scopedTranslator('views.categories.index'),
       categoriesFromStore,
-      paginationFromStore,
     };
   },
 };

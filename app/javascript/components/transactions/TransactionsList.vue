@@ -1,12 +1,15 @@
 <template>
   <div>
-    <Pagination
-      :pagination="paginationFromStore"
-      class="d-none d-lg-flex mb-3"
-      @change="handlePageChange"
-    />
+    <div class="d-flex justify-content-between">
+      <TransactionsFilter @change="handleFiltersChange" />
 
-    <TransactionsFilter @change="handleFiltersChange" />
+      <Pagination
+        :pagination="pagination"
+        compact
+        class="d-none d-lg-flex mb-3"
+        @change="handlePageChange"
+      />
+    </div>
 
     <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
 
@@ -32,7 +35,7 @@
       </InfiniteScrolling>
 
       <Pagination
-        :pagination="paginationFromStore"
+        :pagination="pagination"
         class="d-none d-lg-flex mt-3"
         @change="handlePageChange"
       />
@@ -48,6 +51,7 @@ import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import usePaginationStore from '~/stores/PaginationStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
@@ -77,18 +81,17 @@ export default {
   },
 
   setup(props) {
+    const paginationStore = usePaginationStore();
     // Load transactions from props
     const transactionStore = useTransactionStore();
     const {
       transactions: transactionsFromStore,
-      pagination: paginationFromStore,
       groupedTransactions
     } = storeToRefs(transactionStore);
     transactionsFromStore.value = toRef(props.transactions).value;
-    paginationFromStore.value = toRef(props.pagination).value;
 
     const handleFiltersChange = () => transactionStore.fetchTransactions();
-    const handlePageChange = (page) => transactionStore.changePage(page);
+    const handlePageChange = () => transactionStore.fetchTransactions();
 
     // Reload transactions if wallet has changed while this page is open
     const walletStore = useWalletStore();
@@ -103,9 +106,11 @@ export default {
       if (isMediaBreakpointDown('md') && !loadingNextPage.value) {
         loadingNextPage.value = true;
 
-        transactionStore.fetchNextPage().then(() => {
-          loadingNextPage.value = false;
-        });
+        if (paginationStore.incrementPage()) {
+          transactionStore.fetchTransactions({ keepTransactions: true }).then(() => {
+            loadingNextPage.value = false;
+          });
+        }
       }
     };
 
@@ -113,7 +118,6 @@ export default {
       formatDate,
       transactionsFromStore,
       groupedTransactions,
-      paginationFromStore,
       handleFiltersChange,
       handlePageChange,
       handleInfiniteScrolling,
