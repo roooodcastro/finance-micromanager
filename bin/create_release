@@ -63,27 +63,28 @@ echo $new_version > $script_location/../VERSION
 
 git add $script_location/../VERSION
 git commit -m "Release $new_version"
+git push origin $branch_name
+
+gh pr create --title "Release $new_version" --body ""
+gh pr merge -m --admin
+
+git checkout main
+git pull origin main
+git branch -d $branch_name
+
 git tag -a $tag_name -m "Release $tag_name"
-git push origin $branch_name $tag_name
+git push origin $tag_name
 
-if command -v gh &> /dev/null
+gh release create $tag_name --title "Release $new_version" --latest --generate-notes
+
+
+# Ask for confirmation before building new image
+read -p "Do you want to build and push a new Docker image? (Y/y) " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-  gh pr create --title "Release $new_version" --body ""
-  gh pr merge -m --admin
-  gh release create $tag_name --title "Release $new_version" --latest --generate-notes
-
-  git checkout main
-  git pull origin main
-  git branch -d $branch_name
-
-  # Ask for confirmation before building new image
-  read -p "Do you want to build and push a new Docker image? (Y/y) " -n 1 -r
-  echo    # (optional) move to a new line
-  if [[ ! $REPLY =~ ^[Yy]$ ]]
-  then
-    echo "Skipping image build."
-    echo "Done."
-  fi
-
-  bin/build
+  echo "Skipping image build."
+  echo "Done."
 fi
+
+bin/build
