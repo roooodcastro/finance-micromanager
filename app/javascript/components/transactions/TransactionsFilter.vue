@@ -1,10 +1,10 @@
 <template>
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
     <div class="mb-3">
-      <div class="btn-group">
+      <div class="dropdown">
         <a
           href="#"
-          class="btn btn-sm btn-outline-secondary rounded-pill"
+          class="btn btn-sm btn-outline-dark rounded"
           data-bs-toggle="dropdown"
         >
           <FontAwesomeIcon icon="filter" />
@@ -54,9 +54,9 @@
       </div>
     </div>
 
-    <div class="btn-group mb-3 d-flex bg-white">
+    <div class="btn-group mb-3 d-flex bg-white ms-2">
       <button
-        class="btn btn-sm py-1 btn-outline-secondary rounded-start-pill"
+        class="btn btn-sm py-1 btn-outline-dark"
         :class="{ active: daysToShow === 7 }"
         @click="handleDateFilterClick(7)"
       >
@@ -64,7 +64,7 @@
       </button>
 
       <button
-        class="btn btn-sm py-1 btn-outline-secondary"
+        class="btn btn-sm py-1 btn-outline-dark"
         :class="{ active: daysToShow === 30 }"
         @click="handleDateFilterClick(30)"
       >
@@ -72,7 +72,7 @@
       </button>
 
       <button
-        class="btn btn-sm btn-outline-secondary rounded-end-pill"
+        class="btn btn-sm btn-outline-dark"
         :class="{ active: daysToShow === 90 }"
         @click="handleDateFilterClick(90)"
       >
