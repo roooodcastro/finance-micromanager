@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n';
@@ -81,8 +82,10 @@ export default {
     const { category } = storeToRefs(categoryStore);
     const { subcategoryForFormModal: subcategory } = storeToRefs(subcategoryStore);
 
-    const isNewSubcategory = !subcategory.value?.id;
-    const title = isNewSubcategory ? t('new_title') : t('edit_title', { name: subcategory.value.name });
+    const isNewSubcategory = computed(() => !subcategory.value?.id);
+    const title = computed(() => {
+      return isNewSubcategory.value ? t('new_title') : t('edit_title', { name: subcategory.value.name });
+    });
 
     return {
       t,

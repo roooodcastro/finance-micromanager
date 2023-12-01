@@ -17,8 +17,10 @@
 </template>
 
 <script>
-import { categories as categoriesApi, subcategories as subcategoriesApi } from '~/api';
-import I18n from '~/utils/I18n';
+import { computed } from 'vue';
+
+import { subcategories as subcategoriesApi } from '~/api';
+import I18n from '~/utils/I18n.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -42,21 +44,18 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.subcategories.form');
-    const categoryPath = categoriesApi.show.path({ id: props.category.id });
-    const isNewSubcategory = !props.subcategory.id;
+    const isNewSubcategory = computed(() => !props.subcategory.id);
 
-    const formMethod = isNewSubcategory ? 'POST' : 'PATCH';
-    const formAction = isNewSubcategory
-      ? subcategoriesApi.create.path({ category_id: props.category.id })
-      : subcategoriesApi.update.path({ category_id: props.category.id, id: props.subcategory.id });
-
-    const formTitle = isNewSubcategory ? t('new_title') : t('edit_title', { name: props.subcategory.name });
+    const formMethod = computed(() => isNewSubcategory.value ? 'POST' : 'PATCH');
+    const formAction = computed(() => {
+      return isNewSubcategory.value
+        ? subcategoriesApi.create.path({ category_id: props.category.id })
+        : subcategoriesApi.update.path({ category_id: props.category.id, id: props.subcategory.id });
+    });
 
     return {
-      categoryPath,
       formMethod,
       formAction,
-      formTitle,
       t,
     };
   },

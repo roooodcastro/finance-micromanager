@@ -38,6 +38,18 @@
   <div class="row">
     <div class="col-12 col-xl-6">
       <CategorySummary :category="categoryFromStore" />
+
+      <div
+        v-if="subcategoriesFromStore.length"
+        class="card mt-3"
+      >
+        <div class="card-header">
+          <h5 class="m-0">
+            {{ t('sub_header_subcategories') }}
+          </h5>
+        </div>
+        <SubcategoriesList :subcategories="categoryFromStore.subcategories" />
+      </div>
     </div>
 
     <div class="col-12 col-xl-6">
@@ -47,9 +59,7 @@
             {{ t('sub_header_recent_transactions') }}
           </h5>
         </div>
-        <RecentTransactionsList
-          :transactions="categoryFromStore.recentTransactions"
-        />
+        <RecentTransactionsList :transactions="categoryFromStore.recentTransactions" />
       </div>
     </div>
   </div>
@@ -68,10 +78,12 @@ import RecentTransactionsList from '~/components/transactions/RecentTransactions
 import CategorySummary from '~/components/categories/CategorySummary.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
-import SubcategoryFormModal from '@/components/subcategories/SubcategoryFormModal.vue';
+import SubcategoryFormModal from '~/components/subcategories/SubcategoryFormModal.vue';
+import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
 
 export default {
   components: {
+    SubcategoriesList,
     SubcategoryFormModal,
     CategorySummary,
     DateRangeSelector,
@@ -96,9 +108,14 @@ export default {
     const subcategoryStore = useSubcategoryStore();
 
     const { startDate, endDate } = storeToRefs(dateRangeStore);
-    const { category: categoryFromStore } = storeToRefs(categoryStore);
 
+    // Load categories from props
+    const { category: categoryFromStore } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
+
+    // Load subcategories from props
+    const { subcategories: subcategoriesFromStore } = storeToRefs(subcategoryStore);
+    subcategoriesFromStore.value = props.category.subcategories;
 
     const handleDateRangeChange = () => categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
     const handleNewSubcategory = () => subcategoryStore.setSubcategoryIdForFormModal(null);
@@ -108,6 +125,7 @@ export default {
       categoriesPath,
       editCategoryPath,
       categoryFromStore,
+      subcategoriesFromStore,
       handleDateRangeChange,
       handleNewSubcategory,
     };

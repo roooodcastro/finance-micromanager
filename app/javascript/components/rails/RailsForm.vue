@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { isEmpty } from 'lodash';
 
 import Csrf from '~/utils/Csrf.js';
@@ -45,9 +46,9 @@ export default {
   },
   setup(props) {
     const csrfToken = Csrf.getToken();
-    const isGetRequest = props.method.toLowerCase() === 'get';
-    const isSafeMethod = ['get', 'post'].includes(props.method.toLowerCase());
-    const formMethod = isGetRequest ? 'GET' : 'POST';
+    const isGetRequest = computed(() => props.method.toLowerCase() === 'get');
+    const isSafeMethod = computed(() => ['get', 'post'].includes(props.method.toLowerCase()));
+    const formMethod = computed(() => isGetRequest.value ? 'GET' : 'POST');
 
     const formHelper = {
       resource: props.resource,

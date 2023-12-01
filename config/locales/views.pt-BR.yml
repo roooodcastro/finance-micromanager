@@ -67,6 +67,7 @@ pt-BR:
         title: 'Categoria'
         sub_header_summary: Resumo
         sub_header_recent_transactions: Transações Recentes
+        sub_header_subcategories: Subcategorias
         money_in: Receita
         expenses: Gastos
         edit: Editar
