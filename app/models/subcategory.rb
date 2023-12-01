@@ -12,4 +12,8 @@ class Subcategory < ApplicationRecord
 
   scope :active, -> { where(disabled_at: nil) }
   scope :disabled, -> { where.not(disabled_at: nil) }
+
+  def display_name
+    "#{category.name}/#{name}"
+  end
 end

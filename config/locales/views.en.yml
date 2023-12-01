@@ -69,6 +69,7 @@ en:
         expenses: Expenses
         edit: Edit
         disable: Delete
+        new_subcategory: Create Subcategory
     dashboard:
       show:
         title: Dashboard

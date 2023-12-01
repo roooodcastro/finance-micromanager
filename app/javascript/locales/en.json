@@ -379,6 +379,19 @@
         "success": "Profile information updated successfully."
       }
     },
+    "subcategories": {
+      "create": {
+        "error": "Subcategory could not be created: %{error}",
+        "success": "Subcategory \"%{name}\" was successfully created."
+      },
+      "destroy": {
+        "success": "Subcategory \"%{name}\" was successfully destroyed."
+      },
+      "update": {
+        "error": "Subcategory \"%{name}\" could not be updated: %{error}",
+        "success": "Subcategory \"%{name}\" was successfully updated."
+      }
+    },
     "support": {
       "array": {
         "last_word_connector": ", and ",
@@ -432,6 +445,7 @@
           "edit": "Edit",
           "expenses": "Expenses",
           "money_in": "Money In",
+          "new_subcategory": "Create Subcategory",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_summary": "Summary",
           "title": "Category"

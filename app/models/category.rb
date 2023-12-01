@@ -10,6 +10,7 @@ class Category < ApplicationRecord
   belongs_to :wallet
 
   has_many :transactions, dependent: :restrict_with_exception
+  has_many :subcategories, dependent: :restrict_with_exception
 
   validates :name, presence: true
   validates :color, format: { with: HEX_COLOR_REGEX }

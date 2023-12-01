@@ -42,7 +42,9 @@ Rails.application.routes.draw do
     resources :wallets
     resources :wallet_share_invites_sent, except: %i[show new edit update]
     resources :wallet_share_invites_received, only: %i[index update destroy]
-    resources :categories
+    resources :categories do
+      resources :subcategories, except: %i[show delete]
+    end
     resources :currencies, only: %i[index]
     resources :current_wallets, only: %i[create]
     resources :locales, only: %i[index]

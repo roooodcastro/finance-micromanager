@@ -33,6 +33,16 @@ en:
       success: Profile information updated successfully.
       error: There was an error updating your profile info.
 
+  subcategories:
+    create:
+      success: 'Subcategory "%{name}" was successfully created.'
+      error: 'Subcategory could not be created: %{error}'
+    update:
+      success: 'Subcategory "%{name}" was successfully updated.'
+      error: 'Subcategory "%{name}" could not be updated: %{error}'
+    destroy:
+      success: 'Subcategory "%{name}" was successfully destroyed.'
+
   transactions:
     create:
       success: 'Transaction was successfully created.'

@@ -71,6 +71,7 @@ pt-BR:
         expenses: Gastos
         edit: Editar
         disable: Deletar
+        new_subcategory: Criar Subcategoria
     dashboard:
       show:
         title: Dashboard

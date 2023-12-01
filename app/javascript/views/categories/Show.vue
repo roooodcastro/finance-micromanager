@@ -8,6 +8,11 @@
     <template v-slot:actions>
       <PageHeaderActionLink
         :href="editCategoryPath({ id: categoryFromStore.id })"
+        :label="t('new_subcategory')"
+        icon="plus"
+      />
+      <PageHeaderActionLink
+        :href="editCategoryPath({ id: categoryFromStore.id })"
         :label="t('edit')"
         icon="pen-to-square"
       />

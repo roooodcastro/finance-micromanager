@@ -413,6 +413,19 @@
         "success": "Dados do perfil atualizados com sucesso."
       }
     },
+    "subcategories": {
+      "create": {
+        "error": "Subategoria não pode ser criada: %{error}",
+        "success": "Subcategoria \"%{name}\" criada com sucesso."
+      },
+      "destroy": {
+        "success": "Categoria \"%{name}\" removida com sucesso."
+      },
+      "update": {
+        "error": "Subcategoria \"%{name}\" não pode ser atualizada: %{error}",
+        "success": "Subcategoria \"%{name}\" atualizada com successo."
+      }
+    },
     "support": {
       "array": {
         "last_word_connector": " e ",
@@ -466,6 +479,7 @@
           "edit": "Editar",
           "expenses": "Gastos",
           "money_in": "Receita",
+          "new_subcategory": "Criar Subcategoria",
           "sub_header_recent_transactions": "Transações Recentes",
           "sub_header_summary": "Resumo",
           "title": "Categoria"
