@@ -562,6 +562,15 @@
           "title": "Meu Perfil"
         }
       },
+      "subcategories": {
+        "form": {
+          "cancel": "Cancelar",
+          "edit_title": "Editar Subcategoria \"%{name}\"",
+          "name_label": "Nome",
+          "new_title": "Nova Subcategoria",
+          "submit": "Salvar"
+        }
+      },
       "transactions": {
         "form": {
           "amount_label": "Valor",

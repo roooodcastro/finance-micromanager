@@ -2,7 +2,6 @@
   <form
     v-bind="$props"
     :method="formMethod"
-    v-on="listeners"
   >
     <input
       v-if="!isGetRequest"
@@ -47,6 +46,7 @@ export default {
   setup(props) {
     const csrfToken = Csrf.getToken();
     const isGetRequest = props.method.toLowerCase() === 'get';
+    const isSafeMethod = ['get', 'post'].includes(props.method.toLowerCase());
     const formMethod = isGetRequest ? 'GET' : 'POST';
 
     const formHelper = {
@@ -70,6 +70,7 @@ export default {
       formHelper,
       formMethod,
       isGetRequest,
+      isSafeMethod,
     };
   },
   data() {

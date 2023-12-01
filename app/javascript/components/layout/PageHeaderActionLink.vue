@@ -16,7 +16,7 @@ export default {
 
   props: {
     icon: {
-      type: String,
+      type: [String, Array],
       default: null,
     },
     label: {

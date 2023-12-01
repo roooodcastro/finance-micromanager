@@ -7,9 +7,12 @@
   >
     <template v-slot:actions>
       <PageHeaderActionLink
-        :href="editCategoryPath({ id: categoryFromStore.id })"
+        href="#"
+        data-bs-toggle="modal"
+        data-bs-target="#subcategoryFormModal"
         :label="t('new_subcategory')"
         icon="plus"
+        @click="handleNewSubcategory"
       />
       <PageHeaderActionLink
         :href="editCategoryPath({ id: categoryFromStore.id })"
@@ -24,6 +27,8 @@
       />
     </template>
   </PageHeader>
+
+  <SubcategoryFormModal />
 
   <DateRangeSelector
     class="mb-3"
@@ -56,15 +61,18 @@ import I18n from '~/utils/I18n';
 import { categories as categoriesApi } from '~/api';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
+import SubcategoryFormModal from '@/components/subcategories/SubcategoryFormModal.vue';
 
 export default {
   components: {
+    SubcategoryFormModal,
     CategorySummary,
     DateRangeSelector,
     PageHeader,
@@ -85,15 +93,15 @@ export default {
 
     const dateRangeStore = useDateRangeStore();
     const categoryStore = useCategoryStore();
+    const subcategoryStore = useSubcategoryStore();
 
     const { startDate, endDate } = storeToRefs(dateRangeStore);
     const { category: categoryFromStore } = storeToRefs(categoryStore);
 
     categoryFromStore.value = props.category;
 
-    const handleDateRangeChange = () => {
-      categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
-    };
+    const handleDateRangeChange = () => categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
+    const handleNewSubcategory = () => subcategoryStore.setSubcategoryIdForFormModal(null);
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
@@ -101,6 +109,7 @@ export default {
       editCategoryPath,
       categoryFromStore,
       handleDateRangeChange,
+      handleNewSubcategory,
     };
   },
 };

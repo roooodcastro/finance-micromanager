@@ -136,6 +136,13 @@ en:
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
         empty_default_wallet_label: '-- Default Wallet not set --'
+    subcategories:
+      form:
+        submit: Save
+        cancel: Cancel
+        name_label: Name
+        new_title: New Subcategory
+        edit_title: Edit Subcategory "%{name}"
     transactions:
       index:
         title: Transactions

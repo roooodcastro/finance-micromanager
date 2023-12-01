@@ -528,6 +528,15 @@
           "title": "My Profile"
         }
       },
+      "subcategories": {
+        "form": {
+          "cancel": "Cancel",
+          "edit_title": "Edit Subcategory \"%{name}\"",
+          "name_label": "Name",
+          "new_title": "New Subcategory",
+          "submit": "Save"
+        }
+      },
       "transactions": {
         "form": {
           "amount_label": "Amount",
