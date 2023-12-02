@@ -42,6 +42,8 @@ en:
       error: 'Subcategory "%{name}" could not be updated: %{error}'
     destroy:
       success: 'Subcategory "%{name}" was successfully disabled.'
+    reenable:
+      success: 'Subcategory "%{name}" was successfully re-enabled.'
 
   transactions:
     create:

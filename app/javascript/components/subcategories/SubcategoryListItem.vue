@@ -8,8 +8,16 @@
       />
     </template>
     <template v-slot:item>
-      <div class="d-flex bg-light-subtle align-items-center bg-white py-2 ps-2">
-        <span>{{ subcategory.name }}</span>
+      <div
+        class="d-flex align-items-center py-2 ps-2"
+        :class="{ 'fst-italic bg-danger-subtle': isDisabled, 'bg-light-subtle': !isDisabled }"
+      >
+        <span>
+          {{ subcategory.name }}
+          <template v-if="isDisabled">
+            ({{ t('disabled') }})
+          </template>
+        </span>
 
         <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
           <SubcategoryActions
@@ -23,6 +31,10 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
+import I18n from '~/utils/I18n.js';
+
 import SubcategoryActions from '~/components/subcategories/SubcategoryActions.vue';
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
 
@@ -43,7 +55,14 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
+    const t = I18n.scopedTranslator('views.subcategories.list');
+    const isDisabled = computed(() => !!props.subcategory.disabledAt);
+
+    return {
+      t,
+      isDisabled,
+    };
   }
 };
 </script>

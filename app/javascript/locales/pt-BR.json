@@ -419,7 +419,10 @@
         "success": "Subcategoria \"%{name}\" criada com sucesso."
       },
       "destroy": {
-        "success": "Categoria \"%{name}\" desabilitada com sucesso."
+        "success": "Subcategoria \"%{name}\" desabilitada com sucesso."
+      },
+      "reenable": {
+        "success": "Subcategoria \"%{name}\" reabilitada com sucesso."
       },
       "update": {
         "error": "Subcategoria \"%{name}\" não pode ser atualizada: %{error}",
@@ -480,9 +483,11 @@
           "expenses": "Gastos",
           "money_in": "Receita",
           "new_subcategory": "Criar Subcategoria",
+          "show_all_subcategories": "Mostrar Desabilitadas",
           "sub_header_recent_transactions": "Transações Recentes",
           "sub_header_subcategories": "Subcategorias",
           "sub_header_summary": "Resumo",
+          "subcategories_options": "Opções",
           "title": "Categoria"
         }
       },
@@ -505,6 +510,9 @@
         "title": "Página Inicial"
       },
       "layout": {
+        "page_header": {
+          "action_toggle_label": "Ações"
+        },
         "rails": {
           "close": "Fechar",
           "confirmation_no": "Cancelar",
@@ -571,6 +579,10 @@
           "name_label": "Nome",
           "new_title": "Nova Subcategoria",
           "submit": "Salvar"
+        },
+        "list": {
+          "disabled": "Desabilitada",
+          "reenable_label": "Reabilitar"
         }
       },
       "transactions": {

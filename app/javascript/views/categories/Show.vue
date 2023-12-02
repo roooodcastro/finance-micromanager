@@ -6,20 +6,19 @@
     class="flex-wrap"
   >
     <template v-slot:actions>
-      <PageHeaderActionLink
-        href="#"
+      <DropdownMenuItem
         data-bs-toggle="modal"
         data-bs-target="#subcategoryFormModal"
         :label="t('new_subcategory')"
         icon="plus"
         @click="handleNewSubcategory"
       />
-      <PageHeaderActionLink
+      <DropdownMenuItem
         :href="editCategoryPath({ id: categoryFromStore.id })"
         :label="t('edit')"
         icon="pen-to-square"
       />
-      <PageHeaderActionLink
+      <DropdownMenuItem
         :href="editCategoryPath({ id: categoryFromStore.id })"
         :label="t('disable')"
         :icon="['far', 'square-minus']"
@@ -48,12 +47,16 @@
             {{ t('sub_header_subcategories') }}
           </h5>
 
-          <a class="btn btn-context-action rounded-circle">
-            <FontAwesomeIcon
-              size=lg
-              icon="gear"
+          <DropdownMenu
+            toggle-icon="gear"
+            :toggle-label="t('subcategories_options')"
+          >
+            <DropdownMenuCheckItem
+              :label="t('show_all_subcategories')"
+              :checked="showDisabledSubcategories"
+              @click="handleShowDisabledSubcategories"
             />
-          </a>
+          </DropdownMenu>
         </div>
         <SubcategoriesList :subcategories="categoryFromStore.subcategories" />
       </div>
@@ -80,13 +83,13 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
-import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
+import DropdownMenu from '~/components/ui/DropdownMenu.vue';
+import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
+import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
 import SubcategoryFormModal from '~/components/subcategories/SubcategoryFormModal.vue';
 import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
 
@@ -94,9 +97,10 @@ export default {
   components: {
     CategorySummary,
     DateRangeSelector,
-    FontAwesomeIcon,
+    DropdownMenu,
+    DropdownMenuCheckItem,
+    DropdownMenuItem,
     PageHeader,
-    PageHeaderActionLink,
     RecentTransactionsList,
     SubcategoriesList,
     SubcategoryFormModal,
@@ -124,11 +128,17 @@ export default {
     categoryFromStore.value = props.category;
 
     // Load subcategories from props
-    const { subcategories: subcategoriesFromStore } = storeToRefs(subcategoryStore);
+    const {
+      categoryId: subcategoryCategoryId,
+      subcategories: subcategoriesFromStore,
+      showDisabled: showDisabledSubcategories,
+    } = storeToRefs(subcategoryStore);
     subcategoriesFromStore.value = props.category.subcategories;
+    subcategoryCategoryId.value = props.category.id;
 
     const handleDateRangeChange = () => categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
     const handleNewSubcategory = () => subcategoryStore.setSubcategoryIdForFormModal(null);
+    const handleShowDisabledSubcategories = () => subcategoryStore.setShowDisabled(!showDisabledSubcategories.value);
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
@@ -136,8 +146,10 @@ export default {
       editCategoryPath,
       categoryFromStore,
       subcategoriesFromStore,
+      showDisabledSubcategories,
       handleDateRangeChange,
       handleNewSubcategory,
+      handleShowDisabledSubcategories,
     };
   },
 };

@@ -387,6 +387,9 @@
       "destroy": {
         "success": "Subcategory \"%{name}\" was successfully disabled."
       },
+      "reenable": {
+        "success": "Subcategory \"%{name}\" was successfully re-enabled."
+      },
       "update": {
         "error": "Subcategory \"%{name}\" could not be updated: %{error}",
         "success": "Subcategory \"%{name}\" was successfully updated."
@@ -446,9 +449,11 @@
           "expenses": "Expenses",
           "money_in": "Money In",
           "new_subcategory": "Create Subcategory",
+          "show_all_subcategories": "Show Disabled",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_subcategories": "Subcategories",
           "sub_header_summary": "Summary",
+          "subcategories_options": "Options",
           "title": "Category"
         }
       },
@@ -471,6 +476,9 @@
         "title": "Landing"
       },
       "layout": {
+        "page_header": {
+          "action_toggle_label": "Actions"
+        },
         "rails": {
           "close": "Close",
           "confirmation_no": "Cancel",
@@ -537,6 +545,10 @@
           "name_label": "Name",
           "new_title": "New Subcategory",
           "submit": "Save"
+        },
+        "list": {
+          "disabled": "Disabled",
+          "reenable_label": "Re-enable"
         }
       },
       "transactions": {

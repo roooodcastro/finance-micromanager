@@ -6,8 +6,10 @@ import useNotificationStore from '~/stores/NotificationStore.js';
 
 export default defineStore('subcategory', {
   state: () => ({
+    categoryId: null,
     subcategories: [],
     subcategoryIdForFormModal: null,
+    showDisabled: false,
   }),
   getters: {
     subcategoryForFormModal: (state) => {
@@ -19,19 +21,36 @@ export default defineStore('subcategory', {
     setSubcategoryIdForFormModal(id) {
       this.subcategoryIdForFormModal = id;
     },
+    setShowDisabled(showDisabled) {
+      if (this.showDisabled !== showDisabled) {
+        this.showDisabled = showDisabled;
+
+        return this.fetch();
+      } else {
+        return Promise.resolve();
+      }
+    },
+
+    fetch() {
+      subcategoriesApi
+        .index({ categoryId: this.categoryId, query: { showDisabled: this.showDisabled }})
+        .then((response) => this.subcategories = response.subcategories);
+    },
 
     create(categoryId, subcategory) {
       const notificationStore = useNotificationStore();
       let responseResolve;
       const returnPromise = new Promise(resolve => responseResolve = resolve);
 
-      subcategoriesApi.create({ params: { categoryId }, data: { subcategory } }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        this.subcategories = response.subcategories;
-        responseResolve();
-      }).catch((error) => {
-        notificationStore.notify(error.body.message, 'danger');
-      });
+      subcategoriesApi
+        .create({ params: { categoryId }, data: { subcategory }, query: { showDisabled: this.showDisabled } })
+        .then((response) => {
+          notificationStore.notify(response.message, 'success');
+          this.subcategories = response.subcategories;
+          responseResolve();
+        }).catch((error) => {
+          notificationStore.notify(error.body.message, 'danger');
+        });
 
       return returnPromise;
     },
@@ -41,13 +60,19 @@ export default defineStore('subcategory', {
       let responseResolve;
       const returnPromise = new Promise(resolve => responseResolve = resolve);
 
-      subcategoriesApi.update({ params: { categoryId, id }, data: { subcategory } }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        this.subcategories = response.subcategories;
-        responseResolve();
-      }).catch((error) => {
-        notificationStore.notify(error.body.message, 'danger');
-      });
+      subcategoriesApi
+        .update({
+          params: { categoryId, id },
+          data: { subcategory },
+          query: { showDisabled: this.showDisabled }
+        })
+        .then((response) => {
+          notificationStore.notify(response.message, 'success');
+          this.subcategories = response.subcategories;
+          responseResolve();
+        }).catch((error) => {
+          notificationStore.notify(error.body.message, 'danger');
+        });
 
       return returnPromise;
     },
@@ -55,12 +80,27 @@ export default defineStore('subcategory', {
     disable(categoryId, id) {
       const notificationStore = useNotificationStore();
 
-      subcategoriesApi.destroy({ categoryId, id }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        this.subcategories = response.subcategories;
-      }).catch(() => {
-        notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger');
-      });
+      subcategoriesApi
+        .destroy({ categoryId, id, query: { showDisabled: this.showDisabled } })
+        .then((response) => {
+          notificationStore.notify(response.message, 'success');
+          this.subcategories = response.subcategories;
+        }).catch(() => {
+          notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger');
+        });
     },
+
+    reenable(id) {
+      const notificationStore = useNotificationStore();
+
+      subcategoriesApi
+        .reenable({ categoryId: this.categoryId, id, query: { showDisabled: this.showDisabled } })
+        .then((response) => {
+          notificationStore.notify(response.message, 'success');
+          this.subcategories = response.subcategories;
+        }).catch(() => {
+          notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger');
+        });
+    }
   },
 });

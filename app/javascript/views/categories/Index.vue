@@ -2,7 +2,7 @@
   <div>
     <PageHeader :title="t('title')">
       <template v-slot:actions>
-        <PageHeaderActionLink
+        <DropdownMenuItem
           :href="newCategoryPath"
           :label="t('new')"
           icon="plus"
@@ -25,13 +25,13 @@ import I18n from '~/utils/I18n';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import CategoriesList from '~/components/categories/CategoriesList.vue';
-import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
+import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 
 export default {
   components: {
     CategoriesList,
     PageHeader,
-    PageHeaderActionLink,
+    DropdownMenuItem,
   },
 
   props: {

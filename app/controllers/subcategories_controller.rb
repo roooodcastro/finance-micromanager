@@ -2,12 +2,12 @@
 
 class SubcategoriesController < AbstractAuthenticatedController
   before_action :set_category
-  before_action :set_subcategory, only: %i[update destroy]
+  before_action :set_subcategory, only: %i[update destroy reenable]
 
   def index
     render json: camelize_props(
       category:      @category.as_json,
-      subcategories: @category.subcategories.active.as_json
+      subcategories: subcategories_for_props.as_json
     )
   end
 
@@ -16,7 +16,7 @@ class SubcategoriesController < AbstractAuthenticatedController
 
     if subcategory.save
       render json: camelize_props(
-        subcategories: @category.subcategories.active.as_json,
+        subcategories: subcategories_for_props.as_json,
         message:       t('.success', name: subcategory.display_name)
       )
     else
@@ -31,7 +31,7 @@ class SubcategoriesController < AbstractAuthenticatedController
     if @subcategory.update(subcategory_params)
 
       render json: camelize_props(
-        subcategories: @category.subcategories.active.as_json,
+        subcategories: subcategories_for_props.as_json,
         message:       t('.success', name: @subcategory.display_name)
       )
     else
@@ -47,12 +47,28 @@ class SubcategoriesController < AbstractAuthenticatedController
 
     render json: camelize_props(
       category:      @category.as_json,
-      subcategories: @category.subcategories.active.as_json,
+      subcategories: subcategories_for_props.as_json,
+      message:       t('.success', name: @subcategory.display_name)
+    )
+  end
+
+  def reenable
+    @subcategory.enable!
+
+    render json: camelize_props(
+      category:      @category.as_json,
+      subcategories: subcategories_for_props.as_json,
       message:       t('.success', name: @subcategory.display_name)
     )
   end
 
   private
+
+  def subcategories_for_props
+    subcategories = @category.subcategories.order(:name)
+    subcategories = subcategories.active unless params[:show_disabled].to_b
+    subcategories
+  end
 
   def set_category
     @category = Current.wallet.categories.find(params[:category_id])

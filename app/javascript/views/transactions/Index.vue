@@ -2,7 +2,7 @@
   <div>
     <PageHeader :title="t('title')">
       <template v-slot:actions>
-        <PageHeaderActionLink
+        <DropdownMenuItem
           :href="newTransactionPath"
           :label="t('new')"
           icon="plus"
@@ -23,12 +23,12 @@ import I18n from '~/utils/I18n';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
-import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
+import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 
 export default {
   components: {
     PageHeader,
-    PageHeaderActionLink,
+    DropdownMenuItem,
     TransactionsList,
   },
 
