@@ -144,7 +144,7 @@ en:
         cancel: Cancel
         name_label: Name
         new_title: New Subcategory
-        edit_title: Edit Subcategory "%{name}"
+        edit_title: Edit Subcategory
     transactions:
       index:
         title: Transactions

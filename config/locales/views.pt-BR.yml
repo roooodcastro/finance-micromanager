@@ -146,7 +146,7 @@ pt-BR:
         cancel: Cancelar
         name_label: Nome
         new_title: Nova Subcategoria
-        edit_title: Editar Subcategoria "%{name}"
+        edit_title: Editar Subcategoria
     transactions:
       index:
         title: Transações

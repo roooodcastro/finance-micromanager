@@ -12,7 +12,7 @@ class CategorySerializer < ApplicationSerializer
   private
 
   def category_as_json
-    record.as_json(include: %i[wallet subcategories])
+    record.as_json(include: %i[wallet]).merge(subcategories: record.subcategories.active)
   end
 
   def summary_as_json

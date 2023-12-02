@@ -3,14 +3,14 @@
 RSpec.describe SubcategoriesController do
   let(:user) { create(:user) }
   let(:wallet) { create(:wallet, user:) }
-  let(:category) { create(:category, wallet:) }
+  let(:category) { create(:category, wallet: wallet, name: 'MyCat') }
 
   before do
     sign_in user
     session[:current_wallet_id] = wallet.id
   end
 
-  describe 'GET index', :inertia do
+  describe 'GET index' do
     let!(:subcategory) { create(:subcategory, category:) }
 
     let(:expected_props) { CamelizeProps.call(category: category.as_json, subcategories: [subcategory.as_json]) }
@@ -22,66 +22,54 @@ RSpec.describe SubcategoriesController do
     end
   end
 
-  describe 'GET new', :inertia do
-    let(:expected_props) do
-      CamelizeProps.call(category: category.as_json, subcategory: Subcategory.new(category_id: category.id).as_json)
-    end
-
-    it 'renders the new component' do
-      get :new, params: { category_id: category.id }
-
-      expect_inertia.to render_component('subcategories/New').and include_props(expected_props.deep_stringify_keys)
-    end
-  end
-
-  describe 'GET edit', :inertia do
-    let!(:subcategory) { create(:subcategory, category:) }
-
-    let(:expected_props) { CamelizeProps.call(category: category.as_json, subcategory: subcategory.as_json) }
-
-    it 'renders the edit component' do
-      get :edit, params: { category_id: category.id, id: subcategory.id }
-
-      expect_inertia.to render_component('subcategories/Edit').and include_props(expected_props)
-    end
-  end
-
-  describe 'POST create', :inertia do
+  describe 'POST create' do
     subject(:create_request) { post :create, params: }
 
     context 'when params are valid' do
       let(:params) { { category_id: category.id, subcategory: { name: 'Test' } } }
 
-      it 'creates the new subcategory' do
+      let(:expected_json) do
+        CamelizeProps.call(
+          'subcategories' => [Subcategory.first.as_json],
+          'message'       => "Subcategory \"#{Subcategory.first.display_name}\" was successfully created."
+        )
+      end
+
+      it 'creates the new subcategory and renders json' do
         expect { create_request }.to change { Subcategory.count }.by(1)
 
-        expect(response).to redirect_to(category_path(category.id))
-        expect(Subcategory.last.name).to eq('Test')
-        expect(Subcategory.last.category).to eq(category)
+        expect(json_response).to eq(expected_json)
       end
     end
 
     context 'when params are invalid' do
       let(:params) { { category_id: category.id, subcategory: { name: '' } } }
 
-      let(:expected_props) do
+      let(:expected_json) do
         CamelizeProps.call(
-          category:    category.as_json,
-          subcategory: Subcategory.new(category: category, name: '').as_json
+          'subcategory' => Subcategory.new(category: category, name: '').as_json,
+          'message'     => 'Subcategory could not be created: Name can\'t be blank'
         )
       end
 
       it 'does not create a new subcategory' do
         expect { create_request }.not_to change { Subcategory.count }
-        expect_inertia.to render_component('subcategories/New').and include_props(expected_props)
+        expect(json_response).to eq(expected_json)
       end
     end
   end
 
-  describe 'PATCH update', :inertia do
+  describe 'PATCH update' do
     subject(:update_request) { patch :update, params: }
 
-    let!(:subcategory) { create(:subcategory, category:) }
+    let!(:subcategory) { create(:subcategory, category: category, name: 'ThisSub') }
+
+    let(:expected_json) do
+      CamelizeProps.call(
+        'subcategories' => [subcategory.reload.as_json],
+        'message'       => "Subcategory \"#{subcategory.display_name}\" was successfully updated."
+      )
+    end
 
     context 'when params are valid' do
       let(:params) { { category_id: category.id, id: subcategory.id, subcategory: { name: 'New Name' } } }
@@ -89,20 +77,23 @@ RSpec.describe SubcategoriesController do
       it 'updates the category' do
         expect { update_request }.to not_change { Category.count }.and change { subcategory.reload.name }.to('New Name')
 
-        expect(response).to redirect_to(category_path(category.id))
+        expect(json_response).to eq(expected_json)
       end
     end
 
     context 'when params are invalid' do
       let(:params) { { category_id: category.id, id: subcategory.id, subcategory: { name: '' } } }
 
-      let(:expected_props) do
-        CamelizeProps.call(category: category.as_json, subcategory: subcategory.as_json.merge(name: ''))
+      let(:expected_json) do
+        CamelizeProps.call(
+          'message'     => "Subcategory \"ThisSub\" could not be updated: Name can't be blank",
+          'subcategory' => subcategory.as_json.merge(name: '')
+        )
       end
 
       it 'does not update the subcategory' do
         expect { update_request }.to not_change { Subcategory.count }.and not_change { subcategory.reload.name }
-        expect_inertia.to render_component('subcategories/Edit').and include_props(expected_props)
+        expect(json_response).to eq(expected_json)
       end
     end
   end

@@ -567,7 +567,7 @@
       "subcategories": {
         "form": {
           "cancel": "Cancelar",
-          "edit_title": "Editar Subcategoria \"%{name}\"",
+          "edit_title": "Editar Subcategoria",
           "name_label": "Nome",
           "new_title": "Nova Subcategoria",
           "submit": "Salvar"

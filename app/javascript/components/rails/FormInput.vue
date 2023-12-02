@@ -21,6 +21,8 @@
         :type="type"
         class="form-control"
         :name="formHelper.fieldName(fieldName)"
+        :value="modelValue ?? $attrs.value"
+        @input="$emit('update:modelValue', $event.target.value)"
       >
     </div>
 
@@ -56,6 +58,12 @@ export default {
       type: String,
       default: null,
     },
+    modelValue: {
+      type: String,
+      default: null,
+    },
   },
+
+  emits: ['update:modelValue'],
 };
 </script>

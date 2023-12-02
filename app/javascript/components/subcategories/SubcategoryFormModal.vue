@@ -6,7 +6,7 @@
     :aria-labelledby="title"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
@@ -21,6 +21,7 @@
           <SubcategoryForm
             :category="category"
             :subcategory="subcategory"
+            @close="handleFormClose"
           />
         </div>
         <div class="SubcategoryFormModal__footer d-grid d-lg-flex gap-2 modal-footer">
@@ -55,8 +56,9 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import { Modal as BootstrapModal } from 'bootstrap';
 
 import I18n from '~/utils/I18n';
 import useCategoryStore from '~/stores/CategoryStore.js';
@@ -76,6 +78,9 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.subcategories.form');
 
+    const modal = ref(null);
+
+    onMounted(() => modal.value = new BootstrapModal('#subcategoryFormModal'));
     const categoryStore = useCategoryStore();
     const subcategoryStore = useSubcategoryStore();
 
@@ -83,15 +88,18 @@ export default {
     const { subcategoryForFormModal: subcategory } = storeToRefs(subcategoryStore);
 
     const isNewSubcategory = computed(() => !subcategory.value?.id);
-    const title = computed(() => {
-      return isNewSubcategory.value ? t('new_title') : t('edit_title', { name: subcategory.value.name });
-    });
+    const title = computed(() => isNewSubcategory.value ? t('new_title') : t('edit_title'));
+
+    const handleFormClose = () => {
+      modal.value.hide();
+    }
 
     return {
       t,
       category,
       subcategory,
       title,
+      handleFormClose,
     }
   },
 };
