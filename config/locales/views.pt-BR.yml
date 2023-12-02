@@ -67,10 +67,12 @@ pt-BR:
         title: 'Categoria'
         sub_header_summary: Resumo
         sub_header_recent_transactions: Transações Recentes
+        sub_header_subcategories: Subcategorias
         money_in: Receita
         expenses: Gastos
         edit: Editar
         disable: Deletar
+        new_subcategory: Criar Subcategoria
     dashboard:
       show:
         title: Dashboard
@@ -137,6 +139,13 @@ pt-BR:
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
         empty_default_wallet_label: '-- Carteira padrão não informada --'
+    subcategories:
+      form:
+        submit: Salvar
+        cancel: Cancelar
+        name_label: Nome
+        new_title: Nova Subcategoria
+        edit_title: Editar Subcategoria "%{name}"
     transactions:
       index:
         title: Transações

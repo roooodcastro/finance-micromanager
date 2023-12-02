@@ -33,6 +33,16 @@ pt-BR:
       success: Dados do perfil atualizados com sucesso.
       error: Houve um erro ao autalizar os dados do seu perfil.
 
+  subcategories:
+    create:
+      success: 'Subcategoria "%{name}" criada com sucesso.'
+      error: 'Subategoria não pode ser criada: %{error}'
+    update:
+      success: 'Subcategoria "%{name}" atualizada com successo.'
+      error: 'Subcategoria "%{name}" não pode ser atualizada: %{error}'
+    destroy:
+      success: 'Categoria "%{name}" removida com sucesso.'
+
   transactions:
     create:
       success: 'Transação criada com sucesso.'

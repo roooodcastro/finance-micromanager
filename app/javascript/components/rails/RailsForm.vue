@@ -2,7 +2,6 @@
   <form
     v-bind="$props"
     :method="formMethod"
-    v-on="listeners"
   >
     <input
       v-if="!isGetRequest"
@@ -25,6 +24,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { isEmpty } from 'lodash';
 
 import Csrf from '~/utils/Csrf.js';
@@ -46,8 +46,9 @@ export default {
   },
   setup(props) {
     const csrfToken = Csrf.getToken();
-    const isGetRequest = props.method.toLowerCase() === 'get';
-    const formMethod = isGetRequest ? 'GET' : 'POST';
+    const isGetRequest = computed(() => props.method.toLowerCase() === 'get');
+    const isSafeMethod = computed(() => ['get', 'post'].includes(props.method.toLowerCase()));
+    const formMethod = computed(() => isGetRequest.value ? 'GET' : 'POST');
 
     const formHelper = {
       resource: props.resource,
@@ -70,6 +71,7 @@ export default {
       formHelper,
       formMethod,
       isGetRequest,
+      isSafeMethod,
     };
   },
   data() {
