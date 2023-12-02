@@ -43,10 +43,17 @@
         v-if="subcategoriesFromStore.length"
         class="card mt-3"
       >
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="m-0">
             {{ t('sub_header_subcategories') }}
           </h5>
+
+          <a class="btn btn-context-action rounded-circle">
+            <FontAwesomeIcon
+              size=lg
+              icon="gear"
+            />
+          </a>
         </div>
         <SubcategoriesList :subcategories="categoryFromStore.subcategories" />
       </div>
@@ -73,6 +80,8 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
@@ -83,13 +92,14 @@ import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue'
 
 export default {
   components: {
-    SubcategoriesList,
-    SubcategoryFormModal,
     CategorySummary,
     DateRangeSelector,
+    FontAwesomeIcon,
     PageHeader,
     PageHeaderActionLink,
     RecentTransactionsList,
+    SubcategoriesList,
+    SubcategoryFormModal,
   },
 
   props: {

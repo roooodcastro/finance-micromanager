@@ -11,7 +11,7 @@
       <a
         v-if="backButtonHref"
         :href="backButtonHref"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-2 px-3 me-2"
+        class="btn btn-context-action fs-3 px-3 me-2"
       >
         <FontAwesomeIcon icon="chevron-left" />
       </a>
@@ -44,11 +44,11 @@
     >
       <a
         href="#"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-2"
+        class="btn btn-context-action rounded-circle fs-3"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <FontAwesomeIcon icon="ellipsis-vertical" />
+        <FontAwesomeIcon icon="gear" />
       </a>
       <div class="dropdown-menu">
         <slot name="actions" />
