@@ -12,19 +12,18 @@
 
   <DeleteButton
     small
+    disable-label
     href="#"
     :class="{
       'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
       'ms-3': !drawerMenu,
     }"
-    @delete="handleDelete(subcategory.id)"
+    @delete="handleDelete"
   />
 </template>
 
 <script>
-import { subcategories as subcategoriesApi } from '~/api';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
-import useNotificationStore from '~/stores/NotificationStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
@@ -36,6 +35,10 @@ export default {
   },
 
   props: {
+    category: {
+      type: Object,
+      required: true,
+    },
     subcategory: {
       type: Object,
       required: true,
@@ -48,16 +51,9 @@ export default {
 
   setup(props) {
     const subcategoryStore = useSubcategoryStore();
-    const notificationStore = useNotificationStore();
 
     const handleEdit = () => subcategoryStore.setSubcategoryIdForFormModal(props.subcategory.id);
-
-    const handleDelete = (id) => {
-      subcategoriesApi.destroy({ id }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        // subcategoryStore.remove(response.subcategoryId);
-      });
-    };
+    const handleDelete = () => subcategoryStore.disable(props.category.id, props.subcategory.id);
 
     return {
       handleEdit,

@@ -99,6 +99,7 @@ en:
         disable: Disable
         disable_confirmation: Are you sure? You can re-enable this in the future.
         edit: Edit
+        generic_error: An unexpected error has occurred. Please reload the page and try again.
         pagination: Pagination
         per_page: 'Per Page:'
         page_desc: 'Showing %{items} of %{total}'
@@ -143,7 +144,7 @@ en:
         cancel: Cancel
         name_label: Name
         new_title: New Subcategory
-        edit_title: Edit Subcategory "%{name}"
+        edit_title: Edit Subcategory
     transactions:
       index:
         title: Transactions

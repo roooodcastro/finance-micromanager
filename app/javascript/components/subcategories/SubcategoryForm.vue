@@ -4,12 +4,13 @@
     :action="formAction"
     :method="formMethod"
     resource="subcategory"
+    @submit.prevent="handleSubmit"
   >
     <template v-slot:default="{ formHelper }">
       <FormInput
+        v-model="subcategory.name"
         field-name="name"
         :form-helper="formHelper"
-        :value="subcategory.name"
         :label="t('name_label')"
       />
     </template>
@@ -18,9 +19,11 @@
 
 <script>
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 
-import { subcategories as subcategoriesApi } from '~/api';
 import I18n from '~/utils/I18n.js';
+import { subcategories as subcategoriesApi } from '~/api';
+import useSubcategoriesStore from '~/stores/SubcategoryStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -36,27 +39,43 @@ export default {
       type: Object,
       required: true,
     },
-    subcategory: {
-      type: Object,
-      required: true,
-    },
   },
 
-  setup(props) {
+  emits: ['close'],
+
+  setup(props, { emit }) {
     const t = I18n.scopedTranslator('views.subcategories.form');
-    const isNewSubcategory = computed(() => !props.subcategory.id);
+
+    const subcategoryStore = useSubcategoriesStore();
+    const { subcategoryForFormModal: subcategory } = storeToRefs(subcategoryStore);
+
+    const isNewSubcategory = computed(() => !subcategory.value.id);
 
     const formMethod = computed(() => isNewSubcategory.value ? 'POST' : 'PATCH');
     const formAction = computed(() => {
       return isNewSubcategory.value
         ? subcategoriesApi.create.path({ category_id: props.category.id })
-        : subcategoriesApi.update.path({ category_id: props.category.id, id: props.subcategory.id });
+        : subcategoriesApi.update.path({ category_id: props.category.id, id: subcategory.value.id });
     });
 
+    const handleSubmit = () => {
+      if (isNewSubcategory.value) {
+        subcategoryStore
+          .create(props.category.id, { name: subcategory.value.name ?? '' })
+          .then(() => emit('close'));
+      } else {
+        subcategoryStore
+          .update(props.category.id, subcategory.value.id, { name: subcategory.value.name })
+          .then(() => emit('close'));
+      }
+    }
+
     return {
+      t,
       formMethod,
       formAction,
-      t,
+      subcategory,
+      handleSubmit,
     };
   },
 };
