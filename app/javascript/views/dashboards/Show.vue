@@ -81,18 +81,23 @@ export default {
     const { transactions } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
-    transactionStore.fetchTransactions({ items: 10 });
-
-    categoriesFromStore.value = props.categories;
-    categorySummariesFromStore.value = props.categorySummaries;
-
-    const handleDateRangeChange = () => {
+    const fetchRecentTransactions = () => {
       transactionStore.fetchTransactions({
         startDate: startDate.value,
         endDate: endDate.value,
         items: 10,
         daysToShow: 0,
       });
+    }
+
+    fetchRecentTransactions();
+
+    categoriesFromStore.value = props.categories;
+    categorySummariesFromStore.value = props.categorySummaries;
+
+    const handleDateRangeChange = () => {
+      fetchRecentTransactions();
+
       categorySummaryStore.fetch({
         startDate: startDate.value,
         endDate: endDate.value,

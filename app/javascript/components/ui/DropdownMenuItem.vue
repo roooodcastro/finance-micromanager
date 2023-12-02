@@ -1,5 +1,8 @@
 <template>
-  <a class="dropdown-item py-2 ps-3">
+  <a
+    class="dropdown-item py-2 ps-3"
+    :href="href"
+  >
     <FontAwesomeIcon
       v-if="icon"
       :icon="icon"
@@ -22,6 +25,10 @@ export default {
     label: {
       type: String,
       required: true,
+    },
+    href: {
+      type: String,
+      default: '#',
     },
   },
 };

@@ -41,7 +41,9 @@ pt-BR:
       success: 'Subcategoria "%{name}" atualizada com successo.'
       error: 'Subcategoria "%{name}" não pode ser atualizada: %{error}'
     destroy:
-      success: 'Categoria "%{name}" desabilitada com sucesso.'
+      success: 'Subcategoria "%{name}" desabilitada com sucesso.'
+    reenable:
+      success: 'Subcategoria "%{name}" reabilitada com sucesso.'
 
   transactions:
     create:

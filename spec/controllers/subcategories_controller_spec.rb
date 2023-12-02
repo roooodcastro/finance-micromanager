@@ -122,4 +122,29 @@ RSpec.describe SubcategoriesController do
       expect(json_response).to eq(CamelizeProps.call(expected_json))
     end
   end
+
+  describe 'PATCH reenable' do
+    subject(:reenable_request) { patch :reenable, params: { category_id: category.id, id: subcategory.id } }
+
+    let!(:subcategory) { create(:subcategory, :disabled, category:) }
+    let!(:other_subcategory) { create(:subcategory, category:) }
+    let(:expected_json) do
+      {
+        'category'      => category.as_json,
+        'subcategories' => [subcategory.as_json, other_subcategory.as_json],
+        'message'       => "Subcategory \"#{subcategory.display_name}\" was successfully re-enabled."
+      }
+    end
+
+    it 'disabled the subcategory and renders json' do
+      expect { reenable_request }
+        .to not_change { Subcategory.count }
+        .and change { subcategory.reload.disabled_at }
+        .to(nil)
+        .and change { subcategory.disabled_by }
+        .to(nil)
+
+      expect(json_response).to eq(CamelizeProps.call(expected_json))
+    end
+  end
 end

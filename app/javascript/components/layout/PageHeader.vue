@@ -11,7 +11,7 @@
       <a
         v-if="backButtonHref"
         :href="backButtonHref"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-2 px-3 me-2"
+        class="btn btn-context-action fs-3 px-3 me-2"
       >
         <FontAwesomeIcon icon="chevron-left" />
       </a>
@@ -38,22 +38,13 @@
       </span>
     </h1>
 
-    <div
-      v-if="$slots.actions"
-      class="dropdown"
+    <DropdownMenu
+      toggle-icon="gear"
+      toggle-class="fs-3"
+      :toggle-label="t('action_toggle_label')"
     >
-      <a
-        href="#"
-        class="btn btn-outline-primary text-primary-emphasis text-hover-white border-0 fs-2"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <FontAwesomeIcon icon="ellipsis-vertical" />
-      </a>
-      <div class="dropdown-menu">
-        <slot name="actions" />
-      </div>
-    </div>
+      <slot name="actions" />
+    </DropdownMenu>
   </header>
 
   <hr
@@ -65,8 +56,13 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import I18n from '~/utils/I18n.js';
+
+import DropdownMenu from '~/components/ui/DropdownMenu.vue';
+
 export default {
   components: {
+    DropdownMenu,
     FontAwesomeIcon,
   },
 
@@ -89,9 +85,13 @@ export default {
     },
   },
   setup(props) {
+    const t = I18n.scopedTranslator('views.layout.page_header');
+
     if (props.pageTitle || props.title) {
       document.title = `${props.pageTitle || props.title} - Finance MicroManager`;
     }
+
+    return { t };
   },
 };
 </script>

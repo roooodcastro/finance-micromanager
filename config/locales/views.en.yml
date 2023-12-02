@@ -71,6 +71,8 @@ en:
         edit: Edit
         disable: Delete
         new_subcategory: Create Subcategory
+        subcategories_options: Options
+        show_all_subcategories: Show Disabled
     dashboard:
       show:
         title: Dashboard
@@ -86,6 +88,8 @@ en:
     landing:
       title: Landing
     layout:
+      page_header:
+        action_toggle_label: Actions
       wallet_switcher:
         new_wallet_link: New Wallet
         no_wallet_selected: Select Wallet
@@ -145,6 +149,9 @@ en:
         name_label: Name
         new_title: New Subcategory
         edit_title: Edit Subcategory
+      list:
+        disabled: Disabled
+        reenable_label: Re-enable
     transactions:
       index:
         title: Transactions

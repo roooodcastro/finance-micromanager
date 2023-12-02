@@ -2,7 +2,7 @@
   <div>
     <PageHeader :title="t('title')">
       <template v-slot:actions>
-        <PageHeaderActionLink
+        <DropdownMenuItem
           :href="newWalletPath"
           :label="t('new')"
           icon="plus"
@@ -26,12 +26,12 @@ import PageHeader from '~/components/layout/PageHeader.vue';
 import WalletsList from '~/components/wallets/WalletsList.vue';
 import WalletShareInvitesList from '~/components/wallet_share_invites/WalletShareInvitesList.vue';
 import WalletShareInviteModal from '~/components/wallet_share_invites/WalletShareInviteModal.vue';
-import PageHeaderActionLink from '~/components/layout/PageHeaderActionLink.vue';
+import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 
 export default {
   components: {
     PageHeader,
-    PageHeaderActionLink,
+    DropdownMenuItem,
     WalletShareInviteModal,
     WalletShareInvitesList,
     WalletsList,

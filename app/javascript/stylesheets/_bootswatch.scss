@@ -43,6 +43,40 @@ html, body, #app {
 .btn {
   font-size: $font-size-sm;
   text-transform: uppercase;
+
+  svg {
+    transition: all 0.15s ease-in-out;
+  }
+
+  &:hover, &:focus, &:active, &:focus-visible {
+    svg {
+      transform: scale(1.25);
+    }
+  }
+}
+
+.btn-context-action {
+  align-items: center;
+  border: none;
+  color: $gray-600;
+  display: flex;
+  flex: 0 0 auto;
+  height: 2.5em;
+  justify-content: center;
+  padding: 0;
+  width: 2.5em;
+
+  &:hover, &:focus, &:active, &:focus-visible {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+  }
+
+  &:hover {
+    color: $gray-600 !important;
+  }
+
+  &:focus, &:focus-visible, &:active {
+    color: $gray-700 !important;
+  }
 }
 
 .border-secondary {

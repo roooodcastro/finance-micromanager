@@ -73,6 +73,8 @@ pt-BR:
         edit: Editar
         disable: Deletar
         new_subcategory: Criar Subcategoria
+        subcategories_options: Opções
+        show_all_subcategories: Mostrar Desabilitadas
     dashboard:
       show:
         title: Dashboard
@@ -88,6 +90,8 @@ pt-BR:
     landing:
       title: Página Inicial
     layout:
+      page_header:
+        action_toggle_label: Ações
       wallet_switcher:
         new_wallet_link: Nova Carteira
         no_wallet_selected: Selecione Carteira
@@ -147,6 +151,9 @@ pt-BR:
         name_label: Nome
         new_title: Nova Subcategoria
         edit_title: Editar Subcategoria
+      list:
+        disabled: Desabilitada
+        reenable_label: Reabilitar
     transactions:
       index:
         title: Transações

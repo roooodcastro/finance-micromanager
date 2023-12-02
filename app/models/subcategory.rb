@@ -20,4 +20,8 @@ class Subcategory < ApplicationRecord
   def disable!
     update!(disabled_at: Time.current, disabled_by: Current.user)
   end
+
+  def enable!
+    update!(disabled_at: nil, disabled_by: nil)
+  end
 end
