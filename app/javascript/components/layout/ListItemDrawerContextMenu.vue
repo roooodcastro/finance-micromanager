@@ -1,7 +1,7 @@
 <template>
   <div class="position-relative">
     <div
-      id="ListItemDrawerContextMenu__actions"
+      ref="actionsContainer"
       class="ListItemDrawerContextMenu__actions position-absolute d-flex d-lg-none"
     >
       <slot name="actions" />
@@ -29,13 +29,13 @@ export default {
   },
   setup() {
     const minTranslation = ref(0);
+    const actionsContainer = ref(null);
 
     const setMinTranslation = () => {
       if (isMediaBreakpointUp('lg')) {
         minTranslation.value = 0;
       } else {
-        const actionsContainer = document.querySelector('#ListItemDrawerContextMenu__actions');
-        minTranslation.value = -actionsContainer.clientWidth;
+        minTranslation.value = -actionsContainer.value.clientWidth;
       }
     };
 
@@ -49,6 +49,7 @@ export default {
 
     return {
       minTranslation,
+      actionsContainer,
     };
   }
 };
