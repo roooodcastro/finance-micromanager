@@ -41,7 +41,7 @@ en:
       success: 'Subcategory "%{name}" was successfully updated.'
       error: 'Subcategory "%{name}" could not be updated: %{error}'
     destroy:
-      success: 'Subcategory "%{name}" was successfully destroyed.'
+      success: 'Subcategory "%{name}" was successfully disabled.'
 
   transactions:
     create:

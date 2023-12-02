@@ -2,16 +2,13 @@
 
 class SubcategoriesController < AbstractAuthenticatedController
   before_action :set_category
-  before_action :set_subcategory, only: %i[edit update]
+  before_action :set_subcategory, only: %i[edit update destroy]
 
   def index
-    subcategories = @category.subcategories
-    props         = { category: @category.as_json, subcategories: subcategories.as_json }
-
-    respond_to do |format|
-      format.html { render inertia: 'subcategories/Index', props: camelize_props(props) }
-      format.json { render json: camelize_props(props) }
-    end
+    render json: camelize_props(
+      category:      @category.as_json,
+      subcategories: @category.subcategories.active.as_json
+    )
   end
 
   def new
@@ -48,6 +45,16 @@ class SubcategoriesController < AbstractAuthenticatedController
       props             = { category: @category.as_json, subcategory: @subcategory.as_json }
       render inertia: 'subcategories/Edit', props: camelize_props(props)
     end
+  end
+
+  def destroy
+    @subcategory.disable!
+
+    render json: camelize_props(
+      category:      @category.as_json,
+      subcategories: @category.subcategories.active.as_json,
+      message:       t('.success', name: @subcategory.display_name)
+    )
   end
 
   private

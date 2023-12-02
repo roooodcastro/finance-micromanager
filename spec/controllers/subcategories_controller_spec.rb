@@ -15,10 +15,10 @@ RSpec.describe SubcategoriesController do
 
     let(:expected_props) { CamelizeProps.call(category: category.as_json, subcategories: [subcategory.as_json]) }
 
-    it 'renders the index component' do
+    it 'renders the subcategories as json' do
       get :index, params: { category_id: category.id }
 
-      expect_inertia.to render_component('subcategories/Index').and include_props(expected_props)
+      expect(json_response).to eq(expected_props)
     end
   end
 
@@ -104,6 +104,31 @@ RSpec.describe SubcategoriesController do
         expect { update_request }.to not_change { Subcategory.count }.and not_change { subcategory.reload.name }
         expect_inertia.to render_component('subcategories/Edit').and include_props(expected_props)
       end
+    end
+  end
+
+  describe 'DELETE destroy', :travel_to_now do
+    subject(:delete_request) { delete :destroy, params: { category_id: category.id, id: subcategory.id } }
+
+    let!(:subcategory) { create(:subcategory, category:) }
+    let!(:other_subcategory) { create(:subcategory, category:) }
+    let(:expected_json) do
+      {
+        'category'      => category.as_json,
+        'subcategories' => [other_subcategory.as_json],
+        'message'       => "Subcategory \"#{subcategory.display_name}\" was successfully disabled."
+      }
+    end
+
+    it 'disabled the subcategory and renders json' do
+      expect { delete_request }
+        .to not_change { Subcategory.count }
+        .and change { subcategory.reload.disabled_at }
+        .to(Time.current)
+        .and change { subcategory.disabled_by }
+        .to(user)
+
+      expect(json_response).to eq(CamelizeProps.call(expected_json))
     end
   end
 end

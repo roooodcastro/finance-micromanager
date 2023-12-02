@@ -4,7 +4,7 @@ class Subcategory < ApplicationRecord
   self.implicit_order_column = :created_at
 
   belongs_to :category
-  belongs_to :disabled_at, class_name: 'User', optional: true
+  belongs_to :disabled_by, class_name: 'User', optional: true
 
   has_many :transactions, dependent: :restrict_with_exception
 
@@ -15,5 +15,9 @@ class Subcategory < ApplicationRecord
 
   def display_name
     "#{category.name}/#{name}"
+  end
+
+  def disable!
+    update!(disabled_at: Time.current, disabled_by: Current.user)
   end
 end

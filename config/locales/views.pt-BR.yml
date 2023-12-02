@@ -101,6 +101,7 @@ pt-BR:
         disable: Desativar
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
+        generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
         pagination: Paginação
         per_page: 'Por Página:'
         page_desc: 'Exibindo %{items} de %{total}'

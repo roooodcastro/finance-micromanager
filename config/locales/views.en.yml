@@ -99,6 +99,7 @@ en:
         disable: Disable
         disable_confirmation: Are you sure? You can re-enable this in the future.
         edit: Edit
+        generic_error: An unexpected error has occurred. Please reload the page and try again.
         pagination: Pagination
         per_page: 'Per Page:'
         page_desc: 'Showing %{items} of %{total}'

@@ -2,6 +2,7 @@
   <ListItemDrawerContextMenu class="SubcategoryListItem list-group-item border-0 border-top p-0">
     <template v-slot:actions>
       <SubcategoryActions
+        :category="category"
         :subcategory="subcategory"
         drawer-menu
       />
@@ -11,7 +12,10 @@
         <span>{{ subcategory.name }}</span>
 
         <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
-          <SubcategoryActions :subcategory="subcategory" />
+          <SubcategoryActions
+            :category="category"
+            :subcategory="subcategory"
+          />
         </div>
       </div>
     </template>
@@ -29,6 +33,10 @@ export default {
   },
 
   props: {
+    category: {
+      type: Object,
+      required: true,
+    },
     subcategory: {
       type: Object,
       required: true,
