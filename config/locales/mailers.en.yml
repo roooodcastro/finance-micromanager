@@ -2,6 +2,7 @@
 en:
   wallet_share_mailer:
     wallet_share_invite_sent:
+      subject: You got an invite from %{inviter}!
       hello: Hello
       view_invite_link: View my invites
       sign_up_link: Sign Up for Finance Micromanager
