@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { computed, onUpdated, ref } from 'vue';
+import { computed, onMounted, onUpdated, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
@@ -127,7 +127,7 @@ export default {
         : transactions.update.path({ id: transaction.value.id });
     });
 
-    onUpdated(() => {
+    const updateTransactionDataWithDefaultValues = () => {
       if (transaction.value.amount) {
         transaction.value.amount = Math.abs(parseLocaleNumber(transaction.value.amount)).toFixed(2);
       }
@@ -140,7 +140,10 @@ export default {
 
       const defaultTransactionDate = new Date().toISOString().split('T')[0];
       transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate;
-    });
+    };
+
+    onUpdated(updateTransactionDataWithDefaultValues);
+    onMounted(updateTransactionDataWithDefaultValues);
 
     const handleSubmit = () => {
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId'];
