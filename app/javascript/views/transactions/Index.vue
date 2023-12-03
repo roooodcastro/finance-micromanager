@@ -28,7 +28,7 @@ import { TRANSACTION_FORM_MODAL_ID } from '~/utils/Constants.js';
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
-import useTransactionStore from '@/stores/TransactionStore';
+import useTransactionStore from '~/stores/TransactionStore.js';
 
 export default {
   components: {

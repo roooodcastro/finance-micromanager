@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n';
@@ -82,6 +83,9 @@ export default {
     const { transactions } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
+    categoriesFromStore.value = props.categories;
+    categorySummariesFromStore.value = props.categorySummaries;
+
     const fetchRecentTransactions = () => {
       transactionStore.setFetchParams({ daysToShow: 0 });
       paginationStore.setPaginationOptions({
@@ -93,18 +97,19 @@ export default {
       transactionStore.fetch();
     }
 
-    fetchRecentTransactions();
-
-    categoriesFromStore.value = props.categories;
-    categorySummariesFromStore.value = props.categorySummaries;
-
-    const handleDateRangeChange = () => {
-      fetchRecentTransactions();
-
+    const fetchCategorySummaries = () => {
       categorySummaryStore.fetch({
         startDate: startDate.value,
         endDate: endDate.value,
       });
+    }
+
+    watch(() => transactions.value, fetchCategorySummaries);
+    fetchRecentTransactions();
+
+    const handleDateRangeChange = () => {
+      fetchRecentTransactions();
+      fetchCategorySummaries();
     };
 
     return {
