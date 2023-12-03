@@ -15,16 +15,21 @@
           :style="{ 'background-color': transaction.category.color }"
         />
         <div class="TransactionListItem__name flex-grow-1 py-2">
-          {{ transaction.name }}
-          <div class="fs-6 text-muted">
-            {{ showDate ? formatDate(new Date(transaction.transactionDate)) : transaction.category.name }}
+          <div class="d-flex justify-content-between">
+            <span>{{ transaction.name }}</span>
+            <span
+              class="TransactionListItem__amount text-end fw-bold"
+              :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
+            >
+              {{ transaction.amountWithUnit }}
+            </span>
           </div>
-        </div>
-        <div
-          class="TransactionListItem__amount text-end fw-bold"
-          :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
-        >
-          {{ transaction.amountWithUnit }}
+          <div class="fs-6 text-muted d-flex justify-content-between">
+            <span>{{ transaction.subcategory?.displayName ?? transaction.category.name }}</span>
+            <span>
+              {{ formatDate(new Date(transaction.transactionDate)) }}
+            </span>
+          </div>
         </div>
         <div class="d-none d-lg-flex">
           <TransactionActions
@@ -54,10 +59,6 @@ export default {
     transaction: {
       type: Object,
       required: true,
-    },
-    showDate: {
-      type: Boolean,
-      default: false,
     },
     showDeleteButton: {
       type: Boolean,

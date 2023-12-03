@@ -26,7 +26,7 @@ class Transaction < ApplicationRecord
 
   def as_json(*)
     super(except: %w[created_at updated_at], include: :category)
-      .merge(amount_with_unit: amount.format, amount: amount.to_s)
+      .merge(amount_with_unit: amount.format, amount: amount.to_s, subcategory: subcategory.as_json)
   end
 
   def debit?
