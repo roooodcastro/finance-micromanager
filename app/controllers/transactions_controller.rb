@@ -7,7 +7,7 @@ class TransactionsController < AbstractAuthenticatedController
 
   def index
     transactions = TransactionSearch
-                   .new(Current.wallet.transactions.includes(:category), search_params)
+                   .new(Current.wallet.transactions.includes(:category, :subcategory), search_params)
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 

@@ -87,7 +87,7 @@ RSpec.describe SubcategoriesController do
       let(:expected_json) do
         CamelizeProps.call(
           'message'     => "Subcategory \"ThisSub\" could not be updated: Name can't be blank",
-          'subcategory' => subcategory.as_json.merge(name: '')
+          'subcategory' => subcategory.as_json.merge(name: '', display_name: 'MyCat/')
         )
       end
 

@@ -14,7 +14,6 @@
         :key="transaction.id"
         :transaction="transaction"
         :show-delete-button="false"
-        show-date
       />
 
       <a
