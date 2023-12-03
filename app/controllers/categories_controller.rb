@@ -6,7 +6,7 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    categories = Current.wallet.categories
+    categories = Current.wallet.categories.includes(:active_subcategories)
 
     pagy, categories = pagy(categories, items: current_pagination_items)
     props            = { categories: categories.as_json, pagination: pagy_metadata(pagy) }

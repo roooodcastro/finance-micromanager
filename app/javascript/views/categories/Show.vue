@@ -1,7 +1,7 @@
 <template>
   <PageHeader
-    :title="t('title')"
-    :sub-title="categoryFromStore.name"
+    :title="categoryFromStore.name"
+    :sub-title="t('title')"
     :back-button-href="categoriesPath"
     class="flex-wrap"
   >
