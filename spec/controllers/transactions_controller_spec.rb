@@ -77,6 +77,34 @@ RSpec.describe TransactionsController do
       end
     end
 
+    context 'when a subcategory is selected' do
+      let(:params) do
+        {
+          transaction: {
+            name:             'Test',
+            amount:           1.99,
+            amount_type:      :debit,
+            category_id:      "#{category.id},#{subcategory.id}",
+            transaction_date: Time.zone.today.to_s
+          }
+        }
+      end
+
+      let(:subcategory) { create(:subcategory, category:) }
+      let(:expected_json) { { 'message' => 'Transaction was successfully created.' } }
+
+      it 'creates the new transaction' do
+        expect { create_request }.to change { Transaction.count }.by(1)
+
+        new_transaction = Transaction.last
+        expect(new_transaction.category).to eq(category)
+        expect(new_transaction.subcategory).to eq(subcategory)
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response).to eq(expected_json)
+      end
+    end
+
     context 'when params are invalid' do
       let(:params) do
         {

@@ -68,6 +68,13 @@ class TransactionsController < AbstractAuthenticatedController
       .require(:transaction)
       .permit(:name, :amount, :transaction_date, :category_id, :amount_type)
       .merge(amount_currency: Current.wallet.currency, created_by: current_user, updated_by: current_user)
+      .then do |permitted_params|
+        break permitted_params unless permitted_params[:category_id]
+
+        permitted_params[:subcategory_id] = permitted_params[:category_id].split(',')[1]
+        permitted_params[:category_id]    = permitted_params[:category_id].split(',')[0]
+        permitted_params
+      end
   end
 
   def search_params

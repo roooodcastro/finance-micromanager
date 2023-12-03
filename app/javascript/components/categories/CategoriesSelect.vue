@@ -7,22 +7,22 @@
   >
     <option />
     <option
-      v-for="category in categories"
-      :key="category.id"
-      :value="category.id"
+      v-for="option in options"
+      :key="option.value"
+      :value="option.value"
     >
-      {{ category.name }}
+      {{ option.label }}
     </option>
   </select>
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
+
+import useCategoryStore from '~/stores/CategoryStore.js';
+
 export default {
   props: {
-    categories: {
-      type: Array,
-      required: true
-    },
     modelValue: {
       type: String,
       default: null,
@@ -30,5 +30,12 @@ export default {
   },
 
   emits: ['update:modelValue'],
+
+  setup() {
+    const categoryStore = useCategoryStore();
+    const { categoriesForSelect: options } = storeToRefs(categoryStore);
+
+    return { options };
+  },
 };
 </script>

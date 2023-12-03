@@ -8,6 +8,17 @@ export default defineStore('category', {
     categories: [],
     category: null,
   }),
+  getters: {
+    categoriesForSelect: (state) => {
+      return state.categories.reduce((result, category) => {
+        result.push({ label: category.name, value: category.id })
+        category.subcategories.forEach((subcategory) => {
+          result.push({ label: `${category.name}/${subcategory.name}`, value: `${category.id},${subcategory.id}`});
+        });
+        return result;
+      }, []);
+    },
+  },
   actions: {
     loadCategoriesFromProps(categories) {
       this.categories = categories;
