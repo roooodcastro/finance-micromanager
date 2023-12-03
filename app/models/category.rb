@@ -12,6 +12,10 @@ class Category < ApplicationRecord
   has_many :transactions, dependent: :restrict_with_exception
   has_many :subcategories, dependent: :restrict_with_exception
 
+  # rubocop:disable Rails/InverseOf
+  has_many :active_subcategories, -> { active }, class_name: 'Subcategory', dependent: :restrict_with_exception
+  # rubocop:enable Rails/InverseOf
+
   validates :name, presence: true
   validates :color, format: { with: HEX_COLOR_REGEX }
 
@@ -19,5 +23,9 @@ class Category < ApplicationRecord
     find_by!(wallet: wallet, name: TEMPORARY_NAME)
   rescue ActiveRecord::RecordNotFound
     create!(wallet: wallet, name: TEMPORARY_NAME, color: TEMPORARY_COLOR)
+  end
+
+  def as_json(*)
+    super.merge(subcategories: active_subcategories.as_json)
   end
 end

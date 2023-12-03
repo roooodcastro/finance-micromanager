@@ -9,14 +9,19 @@
     <template v-slot:item>
       <div class="CategoryListItem d-flex bg-light-subtle align-items-center bg-white">
         <a
-          class="text-decoration-none list-group-item-action d-flex align-items-center p-2"
+          class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
           :href="showCategoryPath(category.id)"
         >
           <span
-            class="CategoriesList__color-indicator rounded-circle me-3"
+            class="CategoriesList__color-indicator rounded-circle me-3 flex-shrink-0"
             :style="{ backgroundColor: category.color }"
           />
-          <span>{{ category.name }}</span>
+          <div class="d-flex flex-column min-width-0">
+            <span>{{ category.name }}</span>
+            <span class="fs-6 text-muted text-truncate">
+              {{ subcategoriesNames }}
+            </span>
+          </div>
         </a>
 
         <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
@@ -28,6 +33,8 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 import { categories as categoriesApi } from '~/api';
 
 import CategoryActions from '~/components/categories/CategoryActions.vue';
@@ -46,10 +53,17 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const showCategoryPath = (categoryId) => categoriesApi.show.path({ id: categoryId });
 
-    return { showCategoryPath };
+    const subcategoriesNames = computed(() => {
+      return props.category.subcategories.map(subcategory => subcategory.name).join(', ');
+    });
+
+    return {
+      showCategoryPath,
+      subcategoriesNames,
+    };
   }
 };
 </script>
