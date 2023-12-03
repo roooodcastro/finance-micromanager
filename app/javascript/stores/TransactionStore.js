@@ -10,11 +10,16 @@ export default defineStore('transaction', {
   state: () => ({
     transactions: [],
     transactionIdForFormModal: null,
-    daysToShow: 30,
-    excludeDebits: false,
-    excludeCredits: false,
+    fetchParams: {
+      daysToShow: 30,
+      excludeDebits: false,
+      excludeCredits: false,
+    },
   }),
   getters: {
+    daysToShow: (state) => state.fetchParams.daysToShow,
+    excludeDebits: (state) => state.fetchParams.excludeDebits,
+    excludeCredits: (state) => state.fetchParams.excludeCredits,
     transactionForFormModal: (state) => {
       // Clone the transaction so it doesn't affect the list before it's actually updated
       return { ...(state.transactions.find(transaction => transaction.id === state.transactionIdForFormModal) ?? {}) };
@@ -30,14 +35,8 @@ export default defineStore('transaction', {
       const keepTransactions = options.keepTransactions;
       delete options.keepTransactions;
 
-      const defaultOptions = {
-        daysToShow: this.daysToShow,
-        excludeDebits: this.excludeDebits,
-        excludeCredits: this.excludeCredits,
-        ...(pagination.value),
-      };
       return transactionsApi
-        .index({ query: Object.assign(defaultOptions, options) })
+        .index({ query: Object.assign(this.fetchParams, pagination.value) })
         .then((response) => {
           keepTransactions
             ? this.transactions.push(...response.transactions)
@@ -45,6 +44,10 @@ export default defineStore('transaction', {
 
           pagination.value = response.pagination;
         });
+    },
+
+    setFetchParams(params) {
+      this.fetchParams = Object.assign(this.fetchParams, params);
     },
 
     create(transaction) {
@@ -85,8 +88,8 @@ export default defineStore('transaction', {
       this.transactions = this.transactions.filter(transaction => transaction.id !== id);
     },
     setTransactionType(newType) {
-      this.excludeCredits = newType === DEBIT_TRANSACTION;
-      this.excludeDebits = newType === CREDIT_TRANSACTION;
+      this.fetchParams.excludeCredits = newType === DEBIT_TRANSACTION;
+      this.fetchParams.excludeDebits = newType === CREDIT_TRANSACTION;
     },
 
     setTransactionIdForFormModal(id) {

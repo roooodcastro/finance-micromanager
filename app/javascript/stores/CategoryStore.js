@@ -18,13 +18,12 @@ export default defineStore('category', {
         .show({ id, query: params })
         .then(response => this.category = response.category);
     },
-    fetchCategories() {
+    fetchCategories(options = {}) {
       const paginationStore = usePaginationStore();
       const{ pagination } = storeToRefs(paginationStore);
-      const params = pagination.value;
 
       categoriesApi
-        .index({ query: params })
+        .index({ query: Object.assign(pagination.value, options) })
         .then((response) => {
           this.categories = response.categories;
           pagination.value = response.pagination;

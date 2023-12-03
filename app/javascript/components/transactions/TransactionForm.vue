@@ -36,9 +36,9 @@
         </span>
 
         <input
-          v-model="transaction.amount"
           :id="formHelper.fieldId('amount')"
           :name="formHelper.fieldName('amount')"
+          v-model="transaction.amount"
           type="number"
           class="form-control"
           step="0.01"
@@ -63,9 +63,9 @@
       </label>
 
       <CategoriesSelect
-        v-model="transaction.categoryId"
         :id="formHelper.fieldId('category_id')"
         :name="formHelper.fieldName('category_id')"
+        v-model="transaction.categoryId"
         :categories="categories"
         required
       />
@@ -112,7 +112,11 @@ export default {
     const { categories } = storeToRefs(categoryStore);
     const { transactionForFormModal: transaction } = storeToRefs(transactionStore);
 
-    const amountTypeOptions = ref({});
+    if (!categories.value.length) {
+      categoryStore.fetchCategories({ items: Number.MAX_SAFE_INTEGER });
+    }
+
+    const amountTypeOptions = ref([]);
     const isNewRecord = computed(() => !transaction.value.id);
     const currencySymbol = computed(() => currentWallet.value.currencyObject.symbol);
 
@@ -138,22 +142,17 @@ export default {
       transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate;
     });
 
-    const resetForm = () => {
-      transaction.value = {};
-      emit('close');
-    };
-
     const handleSubmit = () => {
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId'];
       const transactionData = _.pick(transaction.value, transactionFields);
       if (isNewRecord.value) {
         transactionStore
           .create(transactionData)
-          .then(resetForm);
+          .then(() => emit('close'));
       } else {
         transactionStore
           .update(transaction.value.id, transactionData)
-          .then(resetForm);
+          .then(() => emit('close'));
       }
     }
 
