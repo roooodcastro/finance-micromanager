@@ -9,6 +9,9 @@ export default defineStore('category', {
     category: null,
   }),
   actions: {
+    loadCategoriesFromProps(categories) {
+      this.categories = categories;
+    },
     fetchCategory(id, startDate, endDate) {
       const params = { start_date: startDate, end_date: endDate };
       categoriesApi

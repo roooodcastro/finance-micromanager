@@ -555,12 +555,12 @@
         "form": {
           "amount_label": "Amount",
           "amount_type_label": "Type",
-          "back": "Back",
+          "cancel": "Cancel",
           "category_label": "Category",
           "credit_label": "Credit",
           "date_label": "Date",
           "debit_label": "Debit",
-          "edit_title": "Edit Transaction \"%{transaction}\"",
+          "edit_title": "Edit Transaction",
           "name_label": "Name",
           "new_title": "New Transaction",
           "submit": "Submit"

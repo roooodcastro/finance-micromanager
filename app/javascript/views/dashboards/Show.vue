@@ -82,7 +82,7 @@ export default {
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     const fetchRecentTransactions = () => {
-      transactionStore.fetchTransactions({
+      transactionStore.fetch({
         startDate: startDate.value,
         endDate: endDate.value,
         items: 10,

@@ -60,7 +60,7 @@ export default {
     const handleTabChange = (newType) => {
       transactionStore.setTransactionType(newType);
 
-      transactionStore.fetchTransactions({
+      transactionStore.fetch({
         startDate: startDate.value,
         endDate: endDate.value,
         items: props.transactionsToShow,

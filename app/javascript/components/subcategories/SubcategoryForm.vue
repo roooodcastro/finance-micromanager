@@ -68,7 +68,7 @@ export default {
           .update(props.category.id, subcategory.value.id, { name: subcategory.value.name })
           .then(() => emit('close'));
       }
-    }
+    };
 
     return {
       t,

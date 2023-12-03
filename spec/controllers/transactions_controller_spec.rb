@@ -58,11 +58,12 @@ RSpec.describe TransactionsController do
         }
       end
 
+      let(:expected_json) { { 'message' => 'Transaction was successfully created.' } }
+
       it 'creates the new transaction' do
         expect { create_request }.to change { Transaction.count }.by(1)
 
         new_transaction = Transaction.last
-        expect(response).to redirect_to(transactions_path)
         expect(new_transaction.name).to eq('Test')
         expect(new_transaction.amount.to_f).to eq(-1.99)
         expect(new_transaction.transaction_date).to eq(Time.zone.today)
@@ -70,6 +71,9 @@ RSpec.describe TransactionsController do
         expect(new_transaction.updated_by).to eq(user)
         expect(new_transaction.category).to eq(category)
         expect(new_transaction.wallet).to eq(wallet)
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response).to eq(expected_json)
       end
     end
 
@@ -86,11 +90,13 @@ RSpec.describe TransactionsController do
         }
       end
 
+      let(:expected_json) { { 'message' => "Transaction could not be created: Transaction date can't be blank" } }
+
       it 'does not create a new transaction' do
         expect { create_request }.not_to change { Transaction.count }
 
-        expect_inertia.to render_component('transactions/New')
-        expect(inertia.props.dig(:transaction, :name)).to eq 'Test'
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response).to eq(expected_json)
       end
     end
   end
@@ -107,6 +113,8 @@ RSpec.describe TransactionsController do
     context 'when params are valid' do
       let(:params) { { id: transaction.id, transaction: { name: 'New Name' } } }
 
+      let(:expected_json) { { 'message' => 'Transaction was successfully updated.' } }
+
       it 'updates the transaction' do
         expect { update_request }
           .to not_change { Transaction.count }
@@ -115,18 +123,22 @@ RSpec.describe TransactionsController do
           .to(user)
           .and change { transaction.reload.name }
           .to('New Name')
-        expect(response).to redirect_to(transactions_path)
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response).to eq(expected_json)
       end
     end
 
     context 'when params are invalid' do
       let(:params) { { id: transaction.id, transaction: { name: nil } } }
 
-      it 'does not update the transaction' do
-        expect { update_request }.not_to change { Transaction.count }
+      let(:expected_json) { { 'message' => "Transaction could not be updated: Name can't be blank" } }
 
-        expect_inertia.to render_component('transactions/Edit')
-        expect(inertia.props.dig(:transaction, :name)).to eq('')
+      it 'does not update the transaction' do
+        expect { update_request }.to not_change { Transaction.count }.and not_change { transaction.reload.name }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response).to eq(expected_json)
       end
     end
   end

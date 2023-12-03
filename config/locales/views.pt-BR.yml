@@ -171,7 +171,7 @@ pt-BR:
         view_more: 'Ver todas as transações&hellip;'
       form:
         new_title: Nova Transação
-        edit_title: 'Editar Transacão "%{transaction}"'
+        edit_title: Editar Transacão
         amount_label: Valor
         amount_type_label: Tipo
         category_label: Categoria
@@ -180,7 +180,7 @@ pt-BR:
         date_label: Data
         name_label: Nome
         submit: Salvar
-        back: Voltar
+        cancel: Cancelar
       types:
         credit_transactions: Receitas
         debit_transactions: Gastos

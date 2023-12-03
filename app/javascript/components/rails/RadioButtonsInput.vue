@@ -12,6 +12,7 @@
         :value="option.value"
         :checked="option.checked"
         autocomplete="off"
+        @input="$emit('update:modelValue', $event.target.value)"
       >
       <label
         class="btn btn-outline-primary btn-sm flex-fill"
@@ -38,6 +39,8 @@ export default {
       type: Array,
       required: true,
     },
-  }
+  },
+
+  emits: ['update:modelValue'],
 };
 </script>

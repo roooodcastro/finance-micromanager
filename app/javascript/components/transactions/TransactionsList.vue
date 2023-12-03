@@ -90,14 +90,14 @@ export default {
     } = storeToRefs(transactionStore);
     transactionsFromStore.value = toRef(props.transactions).value;
 
-    const handleFiltersChange = () => transactionStore.fetchTransactions();
-    const handlePageChange = () => transactionStore.fetchTransactions();
+    const handleFiltersChange = () => transactionStore.fetch();
+    const handlePageChange = () => transactionStore.fetch();
 
     // Reload transactions if wallet has changed while this page is open
     const walletStore = useWalletStore();
     watch(
       () => walletStore.currentWallet,
-      () => transactionStore.fetchTransactions(),
+      () => transactionStore.fetch(),
     );
 
     const loadingNextPage = ref(false);
@@ -107,7 +107,7 @@ export default {
         loadingNextPage.value = true;
 
         if (paginationStore.incrementPage()) {
-          transactionStore.fetchTransactions({ keepTransactions: true }).then(() => {
+          transactionStore.fetch({ keepTransactions: true }).then(() => {
             loadingNextPage.value = false;
           });
         }

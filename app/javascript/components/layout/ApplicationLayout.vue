@@ -3,6 +3,7 @@
     <Navigation />
     <VerticalMenu />
     <ConfirmationModal />
+    <TransactionFormModal />
 
     <div
       class="my-3 flex-shrink-0 flex-grow-1 d-flex flex-column"
@@ -32,14 +33,16 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
+import TransactionFormModal from '~/components/transactions/TransactionFormModal.vue';
 
 export default {
   components: {
     ConfirmationModal,
-    ToastNotifications,
     FloatingActionButton,
-    PageFooter,
     Navigation,
+    PageFooter,
+    ToastNotifications,
+    TransactionFormModal,
     VerticalMenu,
   },
   props: {

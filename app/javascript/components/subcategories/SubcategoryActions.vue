@@ -43,7 +43,7 @@ import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
-import DrawerContextMenuLink from '@/components/ui/DrawerContextMenuLink.vue';
+import DrawerContextMenuLink from '~/components/ui/DrawerContextMenuLink.vue';
 
 export default {
   components: {
