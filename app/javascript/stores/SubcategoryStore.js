@@ -21,6 +21,7 @@ export default defineStore('subcategory', {
     setSubcategoryIdForFormModal(id) {
       this.subcategoryIdForFormModal = id;
     },
+
     setShowDisabled(showDisabled) {
       if (this.showDisabled !== showDisabled) {
         this.showDisabled = showDisabled;

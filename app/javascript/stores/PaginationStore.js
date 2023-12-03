@@ -6,6 +6,9 @@ export default defineStore('pagination', {
   }),
 
   actions: {
+    setPaginationOptions(options) {
+      this.pagination = Object.assign(this.pagination, options);
+    },
     setPerPage(perPage) {
       this.pagination.items = perPage;
     },

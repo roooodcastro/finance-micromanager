@@ -37,35 +37,18 @@
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import { DEBIT_TRANSACTION, CREDIT_TRANSACTION, ALL_TRANSACTIONS } from '~/utils/Constants.js';
 
 export default {
-  props: {
-    transactionsToShow: {
-      type: Number,
-      default: null,
-    },
-  },
-
-  setup(props) {
-    const dateRangeStore = useDateRangeStore();
+  setup() {
     const transactionStore = useTransactionStore();
 
-
     const { excludeDebits, excludeCredits } = storeToRefs(transactionStore);
-    const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     const handleTabChange = (newType) => {
       transactionStore.setTransactionType(newType);
-
-      transactionStore.fetchTransactions({
-        startDate: startDate.value,
-        endDate: endDate.value,
-        items: props.transactionsToShow,
-        daysToShow: 0,
-      });
+      transactionStore.fetch();
     };
 
     return {

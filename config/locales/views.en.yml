@@ -169,7 +169,7 @@ en:
         view_more: 'View all transactions&hellip;'
       form:
         new_title: New Transaction
-        edit_title: 'Edit Transaction "%{transaction}"'
+        edit_title: Edit Transaction
         amount_label: Amount
         amount_type_label: Type
         category_label: Category
@@ -178,7 +178,7 @@ en:
         date_label: Date
         name_label: Name
         submit: Submit
-        back: Back
+        cancel: Cancel
       types:
         credit_transactions: Money In
         debit_transactions: Expenses

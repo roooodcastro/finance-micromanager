@@ -4,10 +4,7 @@
 
     <div class="row justify-content-center">
       <div class="col col-md-8 col-lg-6 col-xl-4">
-        <TransactionForm
-          :transaction="transaction"
-          :categories="categories"
-        />
+        <TransactionForm :transaction="transaction" />
       </div>
     </div>
   </div>
@@ -16,6 +13,7 @@
 <script>
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
+import useCategoryStore from '~/stores/CategoryStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
@@ -37,8 +35,10 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const listTransactionsPath = transactions.index.path();
+
+    useCategoryStore().loadCategoriesFromProps(props.categories);
 
     return {
       listTransactionsPath,

@@ -589,12 +589,12 @@
         "form": {
           "amount_label": "Valor",
           "amount_type_label": "Tipo",
-          "back": "Voltar",
+          "cancel": "Cancelar",
           "category_label": "Categoria",
           "credit_label": "Crédito",
           "date_label": "Data",
           "debit_label": "Débito",
-          "edit_title": "Editar Transacão \"%{transaction}\"",
+          "edit_title": "Editar Transacão",
           "name_label": "Nome",
           "new_title": "Nova Transação",
           "submit": "Salvar"

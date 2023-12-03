@@ -33,22 +33,20 @@ class TransactionsController < AbstractAuthenticatedController
   def create
     transaction = Current.wallet.transactions.new(transaction_params)
 
-    return redirect_to transactions_path, success: t('.success') if transaction.save
-
-    flash.now[:error] = t('.error', error: transaction.errors.full_messages)
-    render inertia: 'transactions/New',
-           props:   { transaction: camelize_props(transaction.as_json) }.merge(available_categories)
+    if transaction.save
+      render json: camelize_props(message: t('.success'))
+    else
+      render json:   camelize_props(message: t('.error', error: transaction.errors.full_messages.join(', '))),
+             status: :unprocessable_entity
+    end
   end
 
   def update
     if @transaction.update(transaction_params.except(:created_by))
-      flash[:success] = t('.success')
-      redirect_to transactions_path
+      render json: camelize_props(message: t('.success'))
     else
-      flash.now[:error] = t('.error', error: @transaction.errors.full_messages)
-
-      render inertia: 'transactions/Edit',
-             props:   { transaction: camelize_props(@transaction.as_json) }.merge(available_categories)
+      render json:   camelize_props(message: t('.error', error: @transaction.errors.full_messages.join(', '))),
+             status: :unprocessable_entity
     end
   end
 

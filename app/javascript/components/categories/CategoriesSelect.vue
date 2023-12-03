@@ -2,6 +2,8 @@
   <select
     v-bind="$attrs"
     class="form-select"
+    :value="modelValue ?? $attrs.value"
+    @change="$emit('update:modelValue', $event.target.value)"
   >
     <option />
     <option
@@ -21,6 +23,12 @@ export default {
       type: Array,
       required: true
     },
+    modelValue: {
+      type: String,
+      default: null,
+    },
   },
+
+  emits: ['update:modelValue'],
 };
 </script>

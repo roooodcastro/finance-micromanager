@@ -2,7 +2,10 @@
   <div class="FloatingActionButton position-sticky end-0 bottom-0 py-3 pe-3">
     <a
       class="FloatingActionButton__link d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1 shadow"
-      :href="newTransactionPath"
+      href="#"
+      data-bs-toggle="modal"
+      :data-bs-target="`#${TRANSACTION_FORM_MODAL_ID}`"
+      @click="handleClick"
     >
       <FontAwesomeIcon icon="plus" />
     </a>
@@ -12,7 +15,8 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import { transactions as transactionsApi } from '~/api';
+import { TRANSACTION_FORM_MODAL_ID } from '~/utils/Constants.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
 
 export default {
   components: {
@@ -20,9 +24,14 @@ export default {
   },
 
   setup() {
-    const newTransactionPath = transactionsApi.new.path();
+    const transactionStore = useTransactionStore();
 
-    return { newTransactionPath };
+    const handleClick = () => transactionStore.setTransactionIdForFormModal(null);
+
+    return {
+      handleClick,
+      TRANSACTION_FORM_MODAL_ID,
+    };
   }
 };
 </script>

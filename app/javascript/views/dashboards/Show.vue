@@ -22,7 +22,7 @@
           <div class="card-header">
             <h5 class="m-0 mb-2">{{ t('recent_transactions') }}</h5>
 
-            <TransactionTypeTabs :transactions-to-show="10" />
+            <TransactionTypeTabs />
           </div>
           <RecentTransactionsList
             :transactions="transactions"
@@ -40,6 +40,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n';
 import useTransactionStore from '~/stores/TransactionStore';
 import useDateRangeStore from '~/stores/DateRangeStore';
+import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 
@@ -72,9 +73,9 @@ export default {
   setup(props) {
     const dateRangeStore = useDateRangeStore();
     const categoryStore = useCategoryStore();
+    const paginationStore = usePaginationStore();
     const transactionStore = useTransactionStore();
     const categorySummaryStore = useStatisticsCategorySummaryStore();
-
 
     const { categories: categoriesFromStore } = storeToRefs(categoryStore);
     const { categorySummaries: categorySummariesFromStore } = storeToRefs(categorySummaryStore);
@@ -82,12 +83,14 @@ export default {
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     const fetchRecentTransactions = () => {
-      transactionStore.fetchTransactions({
+      transactionStore.setFetchParams({ daysToShow: 0 });
+      paginationStore.setPaginationOptions({
         startDate: startDate.value,
         endDate: endDate.value,
         items: 10,
-        daysToShow: 0,
-      });
+      })
+
+      transactionStore.fetch();
     }
 
     fetchRecentTransactions();

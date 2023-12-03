@@ -84,11 +84,12 @@
 
 <script>
 import { storeToRefs } from 'pinia';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
-import { getQueryParams, setQueryParam } from '~/utils/QueryStringUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import { setQueryParam } from '~/utils/QueryStringUtils.js';
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
@@ -99,25 +100,23 @@ export default {
 
   setup(_, { emit }) {
     const transactionStore = useTransactionStore();
-    const { daysToShow, excludeDebits, excludeCredits } = storeToRefs(transactionStore);
-
-    excludeDebits.value = !!getQueryParams().excludeDebits;
-    excludeCredits.value = !!getQueryParams().excludeCredits;
+    const { fetchParams, excludeDebits, excludeCredits, daysToShow } = storeToRefs(transactionStore);
 
     const handleToggleExcludeDebits = () => {
-      excludeDebits.value = !excludeDebits.value;
-      setQueryParam('excludeDebits', excludeDebits.value || null);
+      transactionStore.setFetchParams({ excludeDebits: !fetchParams.value.excludeDebits });
+      setQueryParam('excludeDebits', fetchParams.value.excludeDebits || null);
       emit('change');
     };
 
     const handleToggleExcludeCredits = () => {
-      excludeCredits.value = !excludeCredits.value;
-      setQueryParam('excludeCredits', excludeCredits.value || null);
+      transactionStore.setFetchParams({ excludeCredits: !fetchParams.value.excludeCredits });
+      setQueryParam('excludeCredits', fetchParams.value.excludeCredits || null);
       emit('change');
     };
 
     const handleDateFilterClick = (numberOfDays) => {
-      daysToShow.value = numberOfDays;
+      transactionStore.setFetchParams({ daysToShow: numberOfDays });
+      setQueryParam('numberOfDays', numberOfDays || null);
       emit('change');
     };
 
