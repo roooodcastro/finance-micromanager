@@ -716,7 +716,8 @@
         "hello": "Olá",
         "invite_paragraph": "%{inviter} lhe convidou para compartilhar sua carteira \"%{wallet_name}\" em Finance Micromanager. Isso irá permitir que você acesse, visualize e gerencie a carteira, cria transações, visualise relatórios e dados estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
         "new_wallet_paragraph": "Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes de aceitar este convite. Para criar uma carteira, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
-        "sign_up_link": "Criar minha carteira em Finance Micromanager",
+        "sign_up_link": "Criar minha conta em Finance Micromanager",
+        "subject": "Você recebeu um convite de %{inviter}!",
         "view_invite_link": "Ver meus convites"
       }
     },

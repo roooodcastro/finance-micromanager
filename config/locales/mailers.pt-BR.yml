@@ -2,9 +2,10 @@
 pt-BR:
   wallet_share_mailer:
     wallet_share_invite_sent:
+      subject: Você recebeu um convite de %{inviter}!
       hello: Olá
       view_invite_link: Ver meus convites
-      sign_up_link: Criar minha carteira em Finance Micromanager
+      sign_up_link: Criar minha conta em Finance Micromanager
       invite_paragraph: >
         %{inviter} lhe convidou para compartilhar sua carteira "%{wallet_name}" em Finance Micromanager. Isso irá
         permitir que você acesse, visualize e gerencie a carteira, cria transações, visualise relatórios e dados

@@ -7,7 +7,7 @@ class WalletShareMailer < ApplicationMailer
     @invitee             = User.find_by(email: @wallet_share_invite.invitee_email)
 
     mail_headers = {
-      subject: '',
+      subject: I18n.t('wallet_share_mailer.wallet_share_invite_sent.subject', inviter: @inviter.display_name),
       to:      @wallet_share_invite.invitee_email
     }
 
