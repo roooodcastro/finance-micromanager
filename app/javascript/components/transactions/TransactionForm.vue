@@ -66,7 +66,6 @@
         :id="formHelper.fieldId('category_id')"
         :name="formHelper.fieldName('category_id')"
         v-model="transaction.categoryId"
-        :categories="categories"
         required
       />
     </template>
@@ -166,7 +165,6 @@ export default {
       formMethod,
       formAction,
       transaction,
-      categories,
       handleSubmit,
       TRANSACTION_FORM_ID,
     };

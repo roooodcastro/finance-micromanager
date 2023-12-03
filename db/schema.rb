@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_30_233541) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_03_225842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,13 +56,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_233541) do
     t.uuid "category_id", null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id", null: false
-    t.uuid "sub_category_id"
+    t.uuid "subcategory_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["created_by_id"], name: "index_transactions_on_created_by_id"
     t.index ["import_id"], name: "index_transactions_on_import_id"
     t.index ["name"], name: "index_transactions_on_name"
-    t.index ["sub_category_id"], name: "index_transactions_on_sub_category_id"
+    t.index ["subcategory_id"], name: "index_transactions_on_subcategory_id"
     t.index ["transaction_date"], name: "index_transactions_on_transaction_date"
     t.index ["updated_by_id"], name: "index_transactions_on_updated_by_id"
     t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
@@ -136,7 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_233541) do
   add_foreign_key "subcategories", "users", column: "disabled_by_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "imports"
-  add_foreign_key "transactions", "subcategories", column: "sub_category_id"
+  add_foreign_key "transactions", "subcategories"
   add_foreign_key "transactions", "users", column: "created_by_id"
   add_foreign_key "transactions", "users", column: "updated_by_id"
   add_foreign_key "transactions", "wallets"
