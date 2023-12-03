@@ -39,6 +39,7 @@
     </h1>
 
     <DropdownMenu
+      v-if="$slots.actions"
       toggle-icon="gear"
       toggle-class="fs-3"
       :toggle-label="t('action_toggle_label')"
