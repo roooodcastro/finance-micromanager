@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 import { formatDate } from '~/utils/DateUtils';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
 
@@ -67,8 +69,8 @@ export default {
   },
 
   setup(props) {
-    const isDebit = parseLocaleNumber(props.transaction.amount) < 0;
-    const isCredit = parseLocaleNumber(props.transaction.amount) > 0;
+    const isDebit = computed(() => parseLocaleNumber(props.transaction.amount) < 0);
+    const isCredit = computed(() => parseLocaleNumber(props.transaction.amount) > 0);
     return {
       formatDate,
       isDebit,
