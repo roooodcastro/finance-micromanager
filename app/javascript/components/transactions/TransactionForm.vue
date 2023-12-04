@@ -22,27 +22,34 @@
         {{ t('amount_label') }}
       </label>
 
-      <RadioButtonsInput
-        v-model="transaction.amountType"
-        field-name="amount_type"
-        :form-helper="formHelper"
-        :label="t('amount_type_label')"
-        :options="amountTypeOptions"
-      />
+      <div class="d-flex">
+        <div class="input-group mb-3">
+          <span class="input-group-text">
+            {{ currencySymbol }}
+          </span>
 
-      <div class="input-group mb-3">
-        <span class="input-group-text">
-          {{ currencySymbol }}
-        </span>
+          <input
+            :id="formHelper.fieldId('amount')"
+            v-model="transaction.amount"
+            :name="formHelper.fieldName('amount')"
+            type="number"
+            class="form-control"
+            step="0.01"
+            required
+          />
+        </div>
 
-        <input
-          :id="formHelper.fieldId('amount')"
-          :name="formHelper.fieldName('amount')"
-          v-model="transaction.amount"
-          type="number"
-          class="form-control"
-          step="0.01"
-          required
+        <ToggleSwitch
+          v-model="transaction.amountType"
+          field-name="amount_type"
+          :form-helper="formHelper"
+          class="ms-2"
+          input-off-classes="text-danger-emphasis bg-danger-subtle border-danger-subtle"
+          input-on-classes="text-success-emphasis bg-success-subtle border-success-subtle"
+          :off-label="t('debit_label')"
+          :on-label="t('credit_label')"
+          :off-value="'debit'"
+          :on-value="'credit'"
         />
       </div>
 
@@ -64,8 +71,8 @@
 
       <CategoriesSelect
         :id="formHelper.fieldId('category_id')"
-        :name="formHelper.fieldName('category_id')"
         v-model="transaction.categoryId"
+        :name="formHelper.fieldName('category_id')"
         required
       />
     </template>
@@ -73,7 +80,7 @@
 </template>
 
 <script>
-import { computed, onMounted, onUpdated, ref } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
@@ -87,14 +94,14 @@ import { TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
-import RadioButtonsInput from '~/components/rails/RadioButtonsInput.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
+import ToggleSwitch from '@/components/ui/ToggleSwitch.vue';
 
 export default {
   components: {
+    ToggleSwitch,
     CategoriesSelect,
     FormInput,
-    RadioButtonsInput,
     RailsForm,
   },
 
@@ -115,7 +122,6 @@ export default {
       categoryStore.fetchCategories({ items: Number.MAX_SAFE_INTEGER });
     }
 
-    const amountTypeOptions = ref([]);
     const isNewRecord = computed(() => !transaction.value.id);
     const currencySymbol = computed(() => currentWallet.value.currencyObject.symbol);
 
@@ -131,17 +137,17 @@ export default {
         transaction.value.amount = Math.abs(parseLocaleNumber(transaction.value.amount)).toFixed(2);
       }
 
-      transaction.value.amountType = transaction.value.amountCents > 0 ? 'credit' : 'debit';
-      amountTypeOptions.value = [
-        { value: 'debit', label: t('debit_label'), checked: transaction.value.amountType === 'debit' },
-        { value: 'credit', label: t('credit_label'), checked: transaction.value.amountType === 'credit' },
-      ];
+      transaction.value.amountType =  transaction.value.amountCents > 0 ? 'credit' : 'debit';
 
       const defaultTransactionDate = new Date().toISOString().split('T')[0];
       transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate;
     };
 
-    onUpdated(updateTransactionDataWithDefaultValues);
+    watch(
+      () => transaction.value,
+      updateTransactionDataWithDefaultValues,
+    );
+
     onMounted(updateTransactionDataWithDefaultValues);
 
     const handleSubmit = () => {
@@ -160,7 +166,6 @@ export default {
 
     return {
       t,
-      amountTypeOptions,
       currencySymbol,
       formMethod,
       formAction,
