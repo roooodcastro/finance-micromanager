@@ -9,25 +9,47 @@
     v-on="{ 'hide.bs.offcanvas': handleHide, 'shown.bs.offcanvas': handleShown }"
     @swipeleft="handleSwipeClose"
   >
-    <div class="offcanvas-body px-0 pt-0">
+    <div class="offcanvas-body px-0 pt-0 d-flex flex-column">
       <MenuProfileSection v-if="isUserLoggedIn" />
 
-      <div class="list-group">
-        <a
-          v-for="menuItem in menuItems"
-          :key="menuItem.label"
-          :href="menuItem.path"
-          class="list-group-item list-group-item-action border-0"
-          :class="{ active: menuItem.active }"
-          :data-method="menuItem.method || 'GET'"
-        >
-          <FontAwesomeIcon
-            :icon="menuItem.icon"
-            class="me-4"
-          />
+      <div class="d-flex flex-column justify-content-between flex-grow-1">
+        <div class="list-group">
+          <a
+            v-for="menuItem in menuItems.top"
+            :key="menuItem.label"
+            :href="menuItem.path"
+            class="list-group-item list-group-item-action border-0"
+            :class="{ active: menuItem.active }"
+            :data-method="menuItem.method || 'GET'"
+          >
+            <FontAwesomeIcon
+              :icon="menuItem.icon"
+              class="me-4"
+            />
 
-          {{ menuItem.label }}
-        </a>
+            {{ menuItem.label }}
+          </a>
+        </div>
+
+        <div class="list-group">
+          <hr />
+
+          <a
+            v-for="menuItem in menuItems.bottom"
+            :key="menuItem.label"
+            :href="menuItem.path"
+            class="list-group-item list-group-item-action border-0"
+            :class="{ active: menuItem.active }"
+            :data-method="menuItem.method || 'GET'"
+          >
+            <FontAwesomeIcon
+              :icon="menuItem.icon"
+              class="me-4"
+            />
+
+            {{ menuItem.label }}
+          </a>
+        </div>
       </div>
     </div>
   </HorizontalSwipe>
@@ -67,28 +89,38 @@ export default {
     let menuItems;
 
     if (userStore.isUserLoggedIn) {
-      menuItems = [
-        { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
-        { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
-        { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
-        { label: t('wallets'), path: wallets.index.path(), icon: 'wallet' },
-        { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
-      ];
+      menuItems = {
+        top: [
+          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
+          { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
+          { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
+          { label: t('wallets'), path: wallets.index.path(), icon: 'wallet' },
+        ],
+        bottom: [
+          { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
+        ],
+      };
     } else {
-      menuItems = [
-        { label: t('sign_in'), path: usersSessions.new.path(), icon: 'right-to-bracket' },
-        { label: t('sign_up'), path: usersRegistrations.new.path(), icon: 'user-plus' },
-      ];
+      menuItems = {
+        top: [],
+        bottom: [
+          { label: t('sign_in'), path: usersSessions.new.path(), icon: 'right-to-bracket' },
+          { label: t('sign_up'), path: usersRegistrations.new.path(), icon: 'user-plus' },
+        ],
+      };
     }
 
-    menuItems.forEach((menuItem) => {
+    const setActiveMenuItem = (menuItem) => {
       const currentPath = window.location.pathname;
       const menuPath = menuItem.path;
 
       if ((menuPath !== '/' && currentPath.includes(menuPath)) || (currentPath === '/' && menuPath === '/')) {
         menuItem['active'] = true;
       }
-    });
+    };
+
+    menuItems.top.forEach(setActiveMenuItem);
+    menuItems.bottom.forEach(setActiveMenuItem);
 
     const offcanvas = ref(null);
 
