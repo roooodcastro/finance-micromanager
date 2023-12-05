@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
 class CategoriesController < AbstractAuthenticatedController
-  include Pagy::Backend
-
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
     categories = Current.wallet.categories.includes(:active_subcategories).order(:name)
 
-    pagy, categories = pagy(categories, items: current_pagination_items)
-    props            = { categories: categories.as_json, pagination: pagy_metadata(pagy) }
+    props = { categories: categories.as_json }
 
     respond_to do |format|
       format.html { render inertia: 'categories/Index', props: camelize_props(props) }

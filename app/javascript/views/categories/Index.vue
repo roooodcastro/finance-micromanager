@@ -13,7 +13,6 @@
     <div class="list-group">
       <CategoriesList
         :categories="categories"
-        :pagination="pagination"
       />
     </div>
   </div>
@@ -37,10 +36,6 @@ export default {
   props: {
     categories: {
       type: Array,
-      required: true,
-    },
-    pagination: {
-      type: Object,
       required: true,
     },
   },
