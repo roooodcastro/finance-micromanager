@@ -54,3 +54,8 @@ pt-BR:
       error: 'Transação não pode ser atualizada: %{error}'
     destroy:
       success: 'Transação removida com sucesso.'
+
+  wallets:
+    create:
+      success: 'Carteira "%{name}" foi criada com sucesso.'
+      error: 'Carteira não pode ser criada: %{error}'

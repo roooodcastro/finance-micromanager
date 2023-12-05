@@ -2,11 +2,22 @@
   "pt-BR": {
     "activerecord": {
       "attributes": {
+        "category": {
+          "color": "Cor",
+          "name": "Nome"
+        },
         "profile_share": {
           "user": "Usuário"
         },
         "profile_share_invite": {
           "invitee_email": "Email do convidado"
+        },
+        "subcategory": {
+          "name": "Nome"
+        },
+        "wallet": {
+          "balance": "Saldo",
+          "name": "Nome"
         }
       },
       "errors": {
@@ -21,7 +32,7 @@
           "profile_share": {
             "attributes": {
               "user": {
-                "owner_self_share": "já é o(a) dono(a) desta perfil."
+                "owner_self_share": "já é o(a) dono(a) deste perfil."
               }
             }
           },
@@ -35,7 +46,12 @@
         }
       },
       "models": {
-        "user": "Usuário"
+        "category": "Categoria",
+        "profile": "Perfil",
+        "subcategory": "Subcategoria",
+        "transaction": "Transação",
+        "user": "Usuário",
+        "wallet": "Carteira"
       }
     },
     "categories": {
@@ -732,6 +748,12 @@
             "title": "Re-enviar email de desbloqueio de conta"
           }
         }
+      }
+    },
+    "wallets": {
+      "create": {
+        "error": "Carteira não pode ser criada: %{error}",
+        "success": "Carteira \"%{name}\" foi criada com sucesso."
       }
     }
   }

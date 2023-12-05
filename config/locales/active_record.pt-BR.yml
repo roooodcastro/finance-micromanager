@@ -2,18 +2,31 @@
 pt-BR:
   activerecord:
     models:
+      category: Categoria
+      profile: Perfil
       user: Usuário
+      subcategory: Subcategoria
+      transaction: Transação
+      wallet: Carteira
     attributes:
+      category:
+        name: Nome
+        color: Cor
       profile_share:
         user: Usuário
       profile_share_invite:
         invitee_email: Email do convidado
+      subcategory:
+        name: Nome
+      wallet:
+        balance: Saldo
+        name: Nome
     errors:
       models:
         profile_share:
           attributes:
             user:
-              owner_self_share: já é o(a) dono(a) desta perfil.
+              owner_self_share: já é o(a) dono(a) deste perfil.
         user:
           attributes:
             base:

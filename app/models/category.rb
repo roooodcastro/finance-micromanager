@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  self.implicit_order_column = :created_at
-
   HEX_COLOR_REGEX = /\A#[[0-9][a-f]]{6}\z/i
   TEMPORARY_NAME  = 'Temporary'
   TEMPORARY_COLOR = '#808080'

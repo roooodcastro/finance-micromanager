@@ -699,6 +699,12 @@
           }
         }
       }
+    },
+    "wallets": {
+      "create": {
+        "error": "Wallet could not be created: %{error}",
+        "success": "Wallet \"%{name}\" was successfully created."
+      }
     }
   }
 }

@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class Profile < ApplicationRecord
-  self.implicit_order_column = :created_at
-
   belongs_to :user
 
   has_many :transactions, dependent: :restrict_with_exception
   has_many :categories, dependent: :restrict_with_exception
   has_many :imports, dependent: :restrict_with_exception
   has_many :profile_shares, dependent: :restrict_with_exception
+  has_many :wallets, dependent: :restrict_with_exception
 
   has_many :shared_users, class_name: 'User', through: :profile_shares, source: :user
 
