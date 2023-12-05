@@ -2,12 +2,12 @@
 
 RSpec.describe SubcategoriesController do
   let(:user) { create(:user) }
-  let(:wallet) { create(:wallet, user:) }
-  let(:category) { create(:category, wallet: wallet, name: 'MyCat') }
+  let(:profile) { create(:profile, user:) }
+  let(:category) { create(:category, profile: profile, name: 'MyCat') }
 
   before do
     sign_in user
-    session[:current_wallet_id] = wallet.id
+    session[:current_profile_id] = profile.id
   end
 
   describe 'GET index' do

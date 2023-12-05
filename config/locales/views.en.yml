@@ -1,50 +1,6 @@
 ---
 en:
   views:
-    wallets:
-      index:
-        title: Wallets
-        new: New Wallet
-        name: Name
-        currency: Currency
-        no_name: '--- No name ---'
-        shared_text: 'Shared with you by %{user}'
-        share_action_link_label: Share
-      form:
-        new_title: New Wallet
-        edit_title: 'Edit Wallet "%{wallet}"'
-        name_label: Name
-        currency_label: Choose Currency
-        submit: Submit
-        back: Back
-    wallet_share_invites:
-      index:
-        pending_invite_title_pending: Wallet Share Invite
-        pending_invite_title_accepted: Invite Accepted
-        pending_invite_title_rejected: Invite Rejected
-        sent_invite_title: Invite sent to %{invitee} for wallet "%{wallet_name}"
-        sent_invite_text_pending: The invite was sent, but the recipient has not yet replied.
-        sent_invite_text_cancelled: The invite has been cancelled. The recipient can no longer accept it.
-        pending_invite_text_pending: >
-          %{inviter} has invited you to share their wallet "%{wallet_name}". A shared wallet means you both will be
-          able to view and manage transactions, categories, and all other aspects associated with the wallet.
-        pending_invite_text_accepted: >
-          You have accepted the invite from %{inviter} to share their wallet "%{wallet_name}". You can now to view
-          and manage transactions, categories, and all other aspects associated with the wallet.
-        pending_invite_text_rejected: >
-          You have declined the invite from %{inviter} to share their wallet "%{wallet_name}". You will not have
-          access to their wallet, but they will be able to invite you again.
-        accept: Accept
-        reject: Reject
-        cancel: Cancel Invite
-      modal:
-        title: Share Wallet
-        shared_warning_title: Heads-up
-        shared_warning_message: This wallet was shared with you by %{name}. Please take care when sharing it with others.
-        invitee_email_label: Who do you want to share this wallet with?
-        invitee_email_placeholder: Type their Email
-        cancel: Cancel
-        confirm: Send Invite
     categories:
       index:
         title: Categories
@@ -90,9 +46,9 @@ en:
     layout:
       page_header:
         action_toggle_label: Actions
-      wallet_switcher:
-        new_wallet_link: New Wallet
-        no_wallet_selected: Select Wallet
+      profile_switcher:
+        new_profile_link: New Profile
+        no_profile_selected: Select Profile
       rails:
         close: Close
         confirmation_title: Confirmation
@@ -114,19 +70,63 @@ en:
       vertical_menu:
         dashboard: Dashboard
         transactions: Transactions
-        current_wallet: 'Wallet:'
-        wallets: Wallets
+        current_profile: 'Profile:'
+        profiles: Profiles
         categories: Categories
         profile: My Profile
         sign_in: Sign In
         sign_up: Sign Up
         sign_out: Sign Out
     profiles:
+      index:
+        title: Profiles
+        new: New Profile
+        name: Name
+        currency: Currency
+        no_name: '--- No name ---'
+        shared_text: 'Shared with you by %{user}'
+        share_action_link_label: Share
+      form:
+        new_title: New Profile
+        edit_title: 'Edit Profile "%{profile}"'
+        name_label: Name
+        currency_label: Choose Currency
+        submit: Submit
+        back: Back
+    profile_share_invites:
+      index:
+        pending_invite_title_pending: Profile Share Invite
+        pending_invite_title_accepted: Invite Accepted
+        pending_invite_title_rejected: Invite Rejected
+        sent_invite_title: Invite sent to %{invitee} for profile "%{profile_name}"
+        sent_invite_text_pending: The invite was sent, but the recipient has not yet replied.
+        sent_invite_text_cancelled: The invite has been cancelled. The recipient can no longer accept it.
+        pending_invite_text_pending: >
+          %{inviter} has invited you to share their profile "%{profile_name}". A shared profile means you both will be
+          able to view and manage transactions, categories, and all other aspects associated with the profile.
+        pending_invite_text_accepted: >
+          You have accepted the invite from %{inviter} to share their profile "%{profile_name}". You can now to view
+          and manage transactions, categories, and all other aspects associated with the profile.
+        pending_invite_text_rejected: >
+          You have declined the invite from %{inviter} to share their profile "%{profile_name}". You will not have
+          access to their profile, but they will be able to invite you again.
+        accept: Accept
+        reject: Reject
+        cancel: Cancel Invite
+      modal:
+        title: Share Profile
+        shared_warning_title: Heads-up
+        shared_warning_message: This profile was shared with you by %{name}. Please take care when sharing it with others.
+        invitee_email_label: Who do you want to share this profile with?
+        invitee_email_placeholder: Type their Email
+        cancel: Cancel
+        confirm: Send Invite
+    settings:
       form:
         first_name_label: First Name
         last_name_label: Last Name
         email_label: Email Address
-        default_wallet_label: Default Wallet
+        default_profile_label: Default Profile
         disabled_password_label: Password
         password_label: New Password
         password_confirmation_label: Confirm Password
@@ -138,10 +138,10 @@ en:
         edit_button: Edit Profile
         first_name: First Name
         last_name: Last Name
-        default_wallet: Default Wallet
+        default_profile: Default Profile
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
-        empty_default_wallet_label: '-- Default Wallet not set --'
+        empty_default_profile_label: '-- Default Profile not set --'
     subcategories:
       form:
         submit: Save

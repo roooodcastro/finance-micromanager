@@ -7,7 +7,7 @@ class TransactionsController < AbstractAuthenticatedController
 
   def index
     transactions = TransactionSearch
-                   .new(Current.wallet.transactions.includes(:category, :subcategory), search_params)
+                   .new(Current.profile.transactions.includes(:category, :subcategory), search_params)
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 
@@ -31,7 +31,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def create
-    transaction = Current.wallet.transactions.new(transaction_params)
+    transaction = Current.profile.transactions.new(transaction_params)
 
     if transaction.save
       render json: camelize_props(message: t('.success'))
@@ -60,14 +60,14 @@ class TransactionsController < AbstractAuthenticatedController
   private
 
   def set_transaction
-    @transaction = Current.wallet.transactions.find(params[:id])
+    @transaction = Current.profile.transactions.find(params[:id])
   end
 
   def transaction_params
     params
       .require(:transaction)
       .permit(:name, :amount, :transaction_date, :category_id, :amount_type)
-      .merge(amount_currency: Current.wallet.currency, created_by: current_user, updated_by: current_user)
+      .merge(amount_currency: Current.profile.currency, created_by: current_user, updated_by: current_user)
       .then do |permitted_params|
         break permitted_params unless permitted_params[:category_id]
 
@@ -82,6 +82,6 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def available_categories
-    camelize_props(categories: Current.wallet.categories.as_json)
+    camelize_props(categories: Current.profile.categories.as_json)
   end
 end

@@ -1,185 +1,104 @@
 <template>
   <RailsForm
     :action="formAction"
-    method="PATCH"
-    resource="user"
+    :method="formMethod"
+    resource="profile"
   >
     <template v-slot:default="{ formHelper }">
-      <div class="row border-bottom py-3 align-items-center">
-        <FontAwesomeIcon
-          icon="user-tag"
-          size="3x"
-          class="col-2 col-lg-1 icon-secondary"
-        />
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{ formTitle }}
+          </h4>
 
-        <div class="col">
-          <FormInputFloatingLabel
+          <hr />
+
+          <FormInput
+            field-name="name"
             :form-helper="formHelper"
-            field-name="first_name"
-            container-margin=""
-            :label="t('first_name_label')"
-            :value="user.firstName"
-            class="ProfileForm__input"
+            :value="profile.name"
+            :label="t('name_label')"
+            maxlength="30"
           />
-        </div>
-      </div>
 
-      <div class="row border-bottom py-3 align-items-center">
-        <FontAwesomeIcon
-          icon="user-tag"
-          size="3x"
-          class="col-2 col-lg-1 icon-secondary"
-        />
-
-        <div class="col">
-          <FormInputFloatingLabel
-            :form-helper="formHelper"
-            field-name="last_name"
-            container-margin=""
-            :label="t('last_name_label')"
-            :value="user.lastName"
-            class="ProfileForm__input"
-          />
-        </div>
-      </div>
-
-      <div class="row border-bottom py-3 align-items-center">
-        <FontAwesomeIcon
-          icon="at"
-          size="3x"
-          class="col-2 col-lg-1 icon-secondary"
-        />
-
-        <div class="col">
-          <FormInputFloatingLabel
-            :form-helper="formHelper"
-            field-name="email"
-            container-margin=""
-            :label="t('email_label')"
-            :value="user.email"
-            class="ProfileForm__input"
-          />
-        </div>
-      </div>
-
-      <div class="row border-bottom py-3 align-items-center">
-        <FontAwesomeIcon
-          icon="key"
-          size="3x"
-          class="col-2 col-lg-1 icon-secondary"
-        />
-
-        <div class="col ProfileForm__input">
-          <a
-            :href="changePasswordPath"
-            class="btn btn-secondary my-1"
+          <label
+            :for="formHelper.fieldId('currency')"
+            class="form-label"
           >
-            {{ t('update_password_link_label') }}
-          </a>
-        </div>
-      </div>
-
-      <div class="row border-bottom py-3 align-items-center">
-        <FontAwesomeIcon
-          icon="wallet"
-          size="3x"
-          class="col-2 col-lg-1 icon-secondary"
-        />
-
-        <div class="col">
-          <label>
-            {{ t('default_wallet_label') }}
+            {{ t('currency_label') }}
           </label>
-          <select
-            :id="formHelper.fieldId('default_wallet_id')"
-            :name="formHelper.fieldName('default_wallet_id')"
-            class="form-select"
-          >
-          <option
-            v-for="wallet in availableWallets"
-            :key="wallet.id"
-            :value="wallet.id"
-            :selected="user.defaultWalletId === wallet.id"
-          >
-            {{ wallet.displayName }}
-          </option>
-          </select>
+
+          <CurrencySelect
+            :id="formHelper.fieldId('currency')"
+            :name="formHelper.fieldName('currency')"
+            :value="profile.currency"
+            required
+          />
         </div>
-      </div>
 
-      <div class="d-grid gap-2 d-md-flex">
-        <a
-          href="#"
-          class="btn btn-outline-secondary mt-4"
-          @click="$emit('cancel')"
-        >
-          <FontAwesomeIcon
-            icon="chevron-left"
-            class="me-3"
-          />
-          {{ t('cancel_edit_button') }}
-        </a>
+        <div class="card-footer">
+          <div class="d-grid gap-2 d-md-flex">
+            <button
+              type="submit"
+              class="btn btn-primary flex-md-fill"
+            >
+              {{ t('submit') }}
+            </button>
 
-        <button
-          type="submit"
-          class="btn btn-primary mt-4"
-        >
-          <FontAwesomeIcon
-            icon="floppy-disk"
-            class="me-3"
-          />
-          {{ t('submit') }}
-        </button>
+            <a
+              :href="listProfilesPath"
+              class="btn btn-outline-secondary flex-md-fill"
+            >
+              {{ t('back') }}
+            </a>
+          </div>
+        </div>
       </div>
     </template>
   </RailsForm>
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { storeToRefs } from 'pinia';
-
+import { profiles } from '~/api';
 import I18n from '~/utils/I18n';
-import { profiles as profilesApi, usersPasswords as usersPasswordsApi } from '~/api';
-import useWalletStore from '~/stores/WalletStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
-import FormInputFloatingLabel from '~/components/rails/FormInputFloatingLabel.vue';
+import CurrencySelect from '~/components/currencies/CurrencySelect.vue';
+import FormInput from '~/components/rails/FormInput.vue';
 
 export default {
   components: {
-    FontAwesomeIcon,
-    FormInputFloatingLabel,
+    CurrencySelect,
+    FormInput,
     RailsForm,
   },
 
   props: {
-    user: {
+    profile: {
       type: Object,
       required: true,
     },
   },
 
-  emits: ['cancel'],
+  setup(props) {
+    const t = I18n.scopedTranslator('views.profiles.form');
+    const listProfilesPath = profiles.index.path();
 
-  setup() {
-    const formAction = profilesApi.update.path();
-    const changePasswordPath = usersPasswordsApi.edit.path();
-    const walletStore = useWalletStore();
-    const { availableWallets } = storeToRefs(walletStore);
+    const isNewRecord = !props.profile.id;
+    const formMethod = isNewRecord ? 'POST' : 'PATCH';
+    const formAction = isNewRecord
+      ? profiles.create.path()
+      : profiles.update.path({ id: props.profile.id });
+
+    const formTitle = isNewRecord ? t('new_title') : t('edit_title', { profile: props.profile.displayName });
 
     return {
-      availableWallets,
       formAction,
-      changePasswordPath,
-      t: I18n.scopedTranslator('views.profiles.form')
+      formMethod,
+      formTitle,
+      listProfilesPath,
+      t
     };
-  }
+  },
 };
 </script>
-
-<style lang="scss" scoped>
-.ProfileForm__input {
-  margin: -1px 0;
-}
-</style>

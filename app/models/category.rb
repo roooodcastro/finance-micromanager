@@ -7,7 +7,7 @@ class Category < ApplicationRecord
   TEMPORARY_NAME  = 'Temporary'
   TEMPORARY_COLOR = '#808080'
 
-  belongs_to :wallet
+  belongs_to :profile
 
   has_many :transactions, dependent: :restrict_with_exception
   has_many :subcategories, dependent: :restrict_with_exception
@@ -19,10 +19,10 @@ class Category < ApplicationRecord
   validates :name, presence: true
   validates :color, format: { with: HEX_COLOR_REGEX }
 
-  def self.temporary_category_for(wallet)
-    find_by!(wallet: wallet, name: TEMPORARY_NAME)
+  def self.temporary_category_for(profile)
+    find_by!(profile: profile, name: TEMPORARY_NAME)
   rescue ActiveRecord::RecordNotFound
-    create!(wallet: wallet, name: TEMPORARY_NAME, color: TEMPORARY_COLOR)
+    create!(profile: profile, name: TEMPORARY_NAME, color: TEMPORARY_COLOR)
   end
 
   def as_json(*)

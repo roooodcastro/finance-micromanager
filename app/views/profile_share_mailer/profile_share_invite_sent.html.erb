@@ -1,0 +1,29 @@
+<h1>
+  <%= [t('.hello'), @invitee&.display_name.presence].compact.join(' ') %>,
+</h1>
+
+<p>
+  <%= t('.invite_paragraph', inviter: @inviter.display_name, profile_name: @profile_share_invite.profile.display_name) %>
+</p>
+
+<p>
+  <%= link_to t('.view_invite_link'), profiles_url %>
+  <br />
+  <br />
+  <%= profiles_url %>
+</p>
+
+<% unless @invitee %>
+  <p>
+    <strong>
+      <%= t('.new_profile_paragraph')%>
+    </strong>
+  </p>
+
+  <p>
+    <%= link_to t('.sign_up_link'), sign_up_url %>
+    <br />
+    <br />
+    <%= sign_up_url %>
+  </p>
+<% end %>

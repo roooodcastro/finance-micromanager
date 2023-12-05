@@ -2,15 +2,15 @@
 
 RSpec.describe CategoriesController do
   let(:user) { create(:user) }
-  let(:wallet) { create(:wallet, user:) }
+  let(:profile) { create(:profile, user:) }
 
   before do
     sign_in user
-    session[:current_wallet_id] = wallet.id
+    session[:current_profile_id] = profile.id
   end
 
   describe 'GET index', :inertia do
-    let!(:category) { create(:category, wallet:) }
+    let!(:category) { create(:category, profile:) }
 
     it 'renders the index component' do
       get :index
@@ -30,7 +30,7 @@ RSpec.describe CategoriesController do
   end
 
   describe 'GET edit', :inertia do
-    let!(:category) { create(:category, wallet:) }
+    let!(:category) { create(:category, profile:) }
 
     it 'renders the edit component' do
       get :edit, params: { id: category.id }
@@ -52,7 +52,7 @@ RSpec.describe CategoriesController do
         expect(response).to redirect_to(categories_path)
         expect(Category.last.name).to eq('Test')
         expect(Category.last.color).to eq('#FF00FF')
-        expect(Category.last.wallet).to eq(wallet)
+        expect(Category.last.profile).to eq(profile)
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe CategoriesController do
   describe 'PATCH update', :inertia do
     subject(:update_request) { patch :update, params: }
 
-    let!(:category) { create(:category, wallet:) }
+    let!(:category) { create(:category, profile:) }
 
     context 'when params are valid' do
       let(:params) { { id: category.id, category: { name: 'New Name', color: '#FF00FF' } } }
@@ -102,7 +102,7 @@ RSpec.describe CategoriesController do
   describe 'DELETE destroy' do
     subject(:delete_request) { delete :destroy, params: { id: category.id } }
 
-    let!(:category) { create(:category, wallet:) }
+    let!(:category) { create(:category, profile:) }
 
     it 'destroys the category and renders json' do
       expect { delete_request }.to change { Category.count }.by(-1)

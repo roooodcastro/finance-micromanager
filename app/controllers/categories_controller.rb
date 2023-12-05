@@ -4,7 +4,7 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    categories = Current.wallet.categories.includes(:active_subcategories).order(:name)
+    categories = Current.profile.categories.includes(:active_subcategories).order(:name)
 
     props = { categories: categories.as_json }
 
@@ -39,7 +39,7 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def create
-    category = Current.wallet.categories.new(category_params)
+    category = Current.profile.categories.new(category_params)
 
     if category.save
       redirect_to categories_path, success: t('.success')
@@ -69,7 +69,7 @@ class CategoriesController < AbstractAuthenticatedController
   private
 
   def set_category
-    @category = Current.wallet.categories.find(params[:id])
+    @category = Current.profile.categories.find(params[:id])
   end
 
   def category_params

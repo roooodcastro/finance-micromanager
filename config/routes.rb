@@ -37,11 +37,11 @@ Rails.application.routes.draw do
 
     resource :dashboard, only: :show
     resource :landing, only: :show
-    resource :profile, only: %i[show update]
+    resource :setting, only: %i[show update]
 
-    resources :wallets
-    resources :wallet_share_invites_sent, except: %i[show new edit update]
-    resources :wallet_share_invites_received, only: %i[index update destroy]
+    resources :profiles
+    resources :profile_share_invites_sent, except: %i[show new edit update]
+    resources :profile_share_invites_received, only: %i[index update destroy]
     resources :categories do
       resources :subcategories, except: %i[show new edit] do
         member do
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       end
     end
     resources :currencies, only: %i[index]
-    resources :current_wallets, only: %i[create]
+    resources :current_profiles, only: %i[create]
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show]
 

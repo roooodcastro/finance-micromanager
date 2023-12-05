@@ -28,7 +28,7 @@ import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 
 import useUserStore from '~/stores/UserStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
-import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
@@ -54,11 +54,11 @@ export default {
       type: Object,
       required: true,
     },
-    currentWallet: {
+    currentProfile: {
       type: Object,
       required: true,
     },
-    availableWallets: {
+    availableProfiles: {
       type: Object,
       required: true,
     },
@@ -76,17 +76,17 @@ export default {
     },
   },
   setup(props) {
-    const walletStore = useWalletStore();
+    const profileStore = useProfileStore();
     const dateRangeStore = useDateRangeStore();
 
-    if (props.currentWallet) {
+    if (props.currentProfile) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
-      walletStore.currentWallet = props.currentWallet;
+      profileStore.currentProfile = props.currentProfile;
     }
 
-    if (props.availableWallets) {
+    if (props.availableProfiles) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
-      walletStore.availableWallets = props.availableWallets;
+      profileStore.availableProfiles = props.availableProfiles;
     }
 
     if (props.user) {

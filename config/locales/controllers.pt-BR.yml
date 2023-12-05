@@ -1,19 +1,4 @@
 pt-BR:
-  wallets:
-    create:
-      success: 'Carteira criada com sucesso.'
-      error: 'Carteira "%{name}" não pode ser criada: %{error}'
-    update:
-      success: 'Carteira "%{name}" atualizada com sucesso.'
-      error: 'Carteira "%{name}" não pode ser atualizada: %{error}'
-    destroy:
-      success: 'Carteira "%{name}" desabilitada com sucesso.'
-
-  wallet_share_invites_sent:
-    create:
-      success: 'Seu convite para compartilhar a carteira "%{wallet_name}" foi enviado com sucesso para "%{invitee}"!'
-      error: 'Ocorreu um erro ao enviar um convite para compartilhar a carteira "%{wallet_name}" com "%{invitee}": %{error}'
-
   categories:
     create:
       success: 'Categoria criada com sucesso.'
@@ -24,11 +9,26 @@ pt-BR:
     destroy:
       success: 'Categoria "%{name}" removida com sucesso.'
 
-  current_wallets:
+  current_profiles:
     create:
-      error: 'Carteira não encontrada.'
+      error: 'Perfil não encontrado.'
 
   profiles:
+    create:
+      success: 'Perfil criado com sucesso.'
+      error: 'Perfil "%{name}" não pode ser criado: %{error}'
+    update:
+      success: 'Perfil "%{name}" atualizado com sucesso.'
+      error: 'Perfil "%{name}" não pode ser atualizado: %{error}'
+    destroy:
+      success: 'Perfil "%{name}" desabilitado com sucesso.'
+
+  profile_share_invites_sent:
+    create:
+      success: 'Seu convite para compartilhar o perfil "%{profile_name}" foi enviado com sucesso para "%{invitee}"!'
+      error: 'Ocorreu um erro ao enviar um convite para compartilhar o perfil "%{profile_name}" com "%{invitee}": %{error}'
+
+  settings:
     update:
       success: Dados do perfil atualizados com sucesso.
       error: Houve um erro ao autalizar os dados do seu perfil.

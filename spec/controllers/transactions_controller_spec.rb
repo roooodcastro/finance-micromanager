@@ -2,15 +2,15 @@
 
 RSpec.describe TransactionsController do
   let(:user) { create(:user) }
-  let(:wallet) { create(:wallet, user:) }
+  let(:profile) { create(:profile, user:) }
 
   before do
     sign_in user
-    allow(Current).to receive_messages(user:, wallet:)
+    allow(Current).to receive_messages(user:, profile:)
   end
 
   describe 'GET index', :inertia do
-    let!(:transaction) { create(:transaction, wallet: wallet, created_by: user) }
+    let!(:transaction) { create(:transaction, profile: profile, created_by: user) }
 
     it 'renders the index component, returning all transactions' do
       get :index
@@ -30,7 +30,7 @@ RSpec.describe TransactionsController do
   end
 
   describe 'GET edit', :inertia do
-    let!(:transaction) { create(:transaction, wallet: wallet, created_by: user) }
+    let!(:transaction) { create(:transaction, profile: profile, created_by: user) }
 
     it 'renders the edit component' do
       get :edit, params: { id: transaction.id }
@@ -43,7 +43,7 @@ RSpec.describe TransactionsController do
   describe 'POST create', :inertia do
     subject(:create_request) { post :create, params: }
 
-    let!(:category) { create(:category, wallet:) }
+    let!(:category) { create(:category, profile:) }
 
     context 'when params are valid' do
       let(:params) do
@@ -70,7 +70,7 @@ RSpec.describe TransactionsController do
         expect(new_transaction.created_by).to eq(user)
         expect(new_transaction.updated_by).to eq(user)
         expect(new_transaction.category).to eq(category)
-        expect(new_transaction.wallet).to eq(wallet)
+        expect(new_transaction.profile).to eq(profile)
 
         expect(response).to have_http_status(:ok)
         expect(json_response).to eq(expected_json)
@@ -133,7 +133,7 @@ RSpec.describe TransactionsController do
     subject(:update_request) { patch :update, params: }
 
     let!(:transaction) do
-      create(:transaction, wallet: wallet, created_by: other_user, updated_by: other_user, name: 'Test')
+      create(:transaction, profile: profile, created_by: other_user, updated_by: other_user, name: 'Test')
     end
 
     let(:other_user) { create(:user) }
@@ -174,7 +174,7 @@ RSpec.describe TransactionsController do
   describe 'DELETE destroy' do
     subject(:delete_request) { delete :destroy, params: { id: transaction.id } }
 
-    let!(:transaction) { create(:transaction, wallet: wallet, created_by: user) }
+    let!(:transaction) { create(:transaction, profile: profile, created_by: user) }
 
     it 'destroys the transaction and renders json' do
       expect { delete_request }.to change { Transaction.count }.by(-1)

@@ -4,5 +4,5 @@
 import { definePathHelper } from '@js-from-routes/client'
 
 export default {
-  create: /* #__PURE__ */ definePathHelper('post', '/current_wallets'),
+  create: /* #__PURE__ */ definePathHelper('post', '/current_profiles'),
 }

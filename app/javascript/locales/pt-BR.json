@@ -2,10 +2,10 @@
   "pt-BR": {
     "activerecord": {
       "attributes": {
-        "wallet_share": {
+        "profile_share": {
           "user": "Usuário"
         },
-        "wallet_share_invite": {
+        "profile_share_invite": {
           "invitee_email": "Email do convidado"
         }
       },
@@ -18,17 +18,17 @@
           }
         },
         "models": {
+          "profile_share": {
+            "attributes": {
+              "user": {
+                "owner_self_share": "já é o(a) dono(a) desta perfil."
+              }
+            }
+          },
           "user": {
             "attributes": {
               "base": {
                 "email_not_valid": "Email não é válido."
-              }
-            }
-          },
-          "wallet_share": {
-            "attributes": {
-              "user": {
-                "owner_self_share": "já é o(a) dono(a) desta carteira."
               }
             }
           }
@@ -51,9 +51,9 @@
         "success": "Categoria atualizada com successo."
       }
     },
-    "current_wallets": {
+    "current_profiles": {
       "create": {
-        "error": "Carteira não encontrada."
+        "error": "Perfil não encontrado."
       }
     },
     "date": {
@@ -407,7 +407,36 @@
         }
       }
     },
+    "profile_share_invites_sent": {
+      "create": {
+        "error": "Ocorreu um erro ao enviar um convite para compartilhar o perfil \"%{profile_name}\" com \"%{invitee}\": %{error}",
+        "success": "Seu convite para compartilhar o perfil \"%{profile_name}\" foi enviado com sucesso para \"%{invitee}\"!"
+      }
+    },
+    "profile_share_mailer": {
+      "profile_share_invite_sent": {
+        "hello": "Olá",
+        "invite_paragraph": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\" em Finance Micromanager. Isso irá permitir que você acesse, visualize e gerencie o perfil, cria transações, visualise relatórios e dados estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
+        "new_profile_paragraph": "Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes de aceitar este convite. Para criar um perfil, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
+        "sign_up_link": "Criar minha conta em Finance Micromanager",
+        "subject": "Você recebeu um convite de %{inviter}!",
+        "view_invite_link": "Ver meus convites"
+      }
+    },
     "profiles": {
+      "create": {
+        "error": "Perfil \"%{name}\" não pode ser criado: %{error}",
+        "success": "Perfil criado com sucesso."
+      },
+      "destroy": {
+        "success": "Perfil \"%{name}\" desabilitado com sucesso."
+      },
+      "update": {
+        "error": "Perfil \"%{name}\" não pode ser atualizado: %{error}",
+        "success": "Perfil \"%{name}\" atualizado com sucesso."
+      }
+    },
+    "settings": {
       "update": {
         "error": "Houve um erro ao autalizar os dados do seu perfil.",
         "success": "Dados do perfil atualizados com sucesso."
@@ -513,6 +542,10 @@
         "page_header": {
           "action_toggle_label": "Ações"
         },
+        "profile_switcher": {
+          "new_profile_link": "Nova Perfil",
+          "no_profile_selected": "Selecione Perfil"
+        },
         "rails": {
           "close": "Fechar",
           "confirmation_no": "Cancelar",
@@ -534,24 +567,64 @@
         },
         "vertical_menu": {
           "categories": "Categorias",
-          "current_wallet": "Carteira:",
+          "current_profile": "Perfil:",
           "dashboard": "Dashboard",
           "profile": "Meu Perfil",
+          "profiles": "Carteiras",
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar Conta",
-          "transactions": "Transações",
-          "wallets": "Carteiras"
+          "transactions": "Transações"
+        }
+      },
+      "profile_share_invites": {
+        "index": {
+          "accept": "Aceitar",
+          "cancel": "Cancelar Convite",
+          "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.\n",
+          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\". Um perfil compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.\n",
+          "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você não terá acesso ao perfil, porém você pode ser convidado novamente.\n",
+          "pending_invite_title_accepted": "Convite Aceito",
+          "pending_invite_title_pending": "Convite de Compartilhamento de Perfil",
+          "pending_invite_title_rejected": "Convite Rejeitado",
+          "reject": "Rejeitar",
+          "sent_invite_text_cancelled": "O convite foi cancelado. O recipiente não pode mais aceitá-lo.",
+          "sent_invite_text_pending": "O convite foi enviado, mas o recipiente ainda não respondeu.",
+          "sent_invite_title": "Convite enviado para %{invitee} para o perfil \"%{profile_name}\""
         },
-        "wallet_switcher": {
-          "new_wallet_link": "Nova Carteira",
-          "no_wallet_selected": "Selecione Carteira"
+        "modal": {
+          "cancel": "Cancelar",
+          "confirm": "Enviar Convite",
+          "invitee_email_label": "Com quem você deseja compartilhar este perfil?",
+          "invitee_email_placeholder": "Digite o Email dele(a)",
+          "shared_warning_message": "Este perfil foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.",
+          "shared_warning_title": "Atenção",
+          "title": "Compartilhar Perfil"
         }
       },
       "profiles": {
         "form": {
+          "back": "Voltar",
+          "currency_label": "Selecione a Moeda",
+          "edit_title": "Editar Perfil \"%{profile}\"",
+          "name_label": "Nome",
+          "new_title": "Nova Perfil",
+          "submit": "Salvar"
+        },
+        "index": {
+          "currency": "Moeda",
+          "name": "Nome",
+          "new": "Novo perfil",
+          "no_name": "--- Sem nome ---",
+          "share_action_link_label": "Compartilhar",
+          "shared_text": "Compartilhada com você por %{user}",
+          "title": "Carteiras"
+        }
+      },
+      "settings": {
+        "form": {
           "cancel_edit_button": "Cancelar",
-          "default_wallet_label": "Carteira Padrão",
+          "default_profile_label": "Perfil Padrão",
           "disabled_password_label": "Senha",
           "email_label": "Endereço de Email",
           "first_name_label": "Nome",
@@ -562,9 +635,9 @@
           "update_password_link_label": "Trocar Senha"
         },
         "show": {
-          "default_wallet": "Carteira Padrão",
+          "default_profile": "Perfil Padrão",
           "edit_button": "Editar perfil",
-          "empty_default_wallet_label": "-- Carteira padrão não informada --",
+          "empty_default_profile_label": "-- Perfil padrão não informada --",
           "empty_first_name_label": "-- Nome não informado --",
           "empty_last_name_label": "-- Sobrenome não informado --",
           "first_name": "Nome",
@@ -659,79 +732,6 @@
             "title": "Re-enviar email de desbloqueio de conta"
           }
         }
-      },
-      "wallet_share_invites": {
-        "index": {
-          "accept": "Aceitar",
-          "cancel": "Cancelar Convite",
-          "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar sua carteira \"%{wallet_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com a carteira.\n",
-          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar sua carteira \"%{wallet_name}\". Uma carteira compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com a carteira.\n",
-          "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar sua carteira \"%{wallet_name}\". Você não terá acesso à carteira, porém você pode ser convidado novamente.\n",
-          "pending_invite_title_accepted": "Convite Aceito",
-          "pending_invite_title_pending": "Convite de Compartilhamento de Carteira",
-          "pending_invite_title_rejected": "Convite Rejeitado",
-          "reject": "Rejeitar",
-          "sent_invite_text_cancelled": "O convite foi cancelado. O recipiente não pode mais aceitá-lo.",
-          "sent_invite_text_pending": "O convite foi enviado, mas o recipiente ainda não respondeu.",
-          "sent_invite_title": "Convite enviado para %{invitee} para a carteira \"%{wallet_name}\""
-        },
-        "modal": {
-          "cancel": "Cancelar",
-          "confirm": "Enviar Convite",
-          "invitee_email_label": "Com quem você deseja compartilhar esta carteira?",
-          "invitee_email_placeholder": "Digite o Email dele(a)",
-          "shared_warning_message": "Esta carteira foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.",
-          "shared_warning_title": "Atenção",
-          "title": "Compartilhar Carteira"
-        }
-      },
-      "wallets": {
-        "form": {
-          "back": "Voltar",
-          "currency_label": "Selecione a Moeda",
-          "edit_title": "Editar Carteira \"%{wallet}\"",
-          "name_label": "Nome",
-          "new_title": "Nova Carteira",
-          "submit": "Salvar"
-        },
-        "index": {
-          "currency": "Moeda",
-          "name": "Nome",
-          "new": "Nova carteira",
-          "no_name": "--- Sem nome ---",
-          "share_action_link_label": "Compartilhar",
-          "shared_text": "Compartilhada com você por %{user}",
-          "title": "Carteiras"
-        }
-      }
-    },
-    "wallet_share_invites_sent": {
-      "create": {
-        "error": "Ocorreu um erro ao enviar um convite para compartilhar a carteira \"%{wallet_name}\" com \"%{invitee}\": %{error}",
-        "success": "Seu convite para compartilhar a carteira \"%{wallet_name}\" foi enviado com sucesso para \"%{invitee}\"!"
-      }
-    },
-    "wallet_share_mailer": {
-      "wallet_share_invite_sent": {
-        "hello": "Olá",
-        "invite_paragraph": "%{inviter} lhe convidou para compartilhar sua carteira \"%{wallet_name}\" em Finance Micromanager. Isso irá permitir que você acesse, visualize e gerencie a carteira, cria transações, visualise relatórios e dados estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
-        "new_wallet_paragraph": "Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes de aceitar este convite. Para criar uma carteira, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
-        "sign_up_link": "Criar minha conta em Finance Micromanager",
-        "subject": "Você recebeu um convite de %{inviter}!",
-        "view_invite_link": "Ver meus convites"
-      }
-    },
-    "wallets": {
-      "create": {
-        "error": "Carteira \"%{name}\" não pode ser criada: %{error}",
-        "success": "Carteira criada com sucesso."
-      },
-      "destroy": {
-        "success": "Carteira \"%{name}\" desabilitada com sucesso."
-      },
-      "update": {
-        "error": "Carteira \"%{name}\" não pode ser atualizada: %{error}",
-        "success": "Carteira \"%{name}\" atualizada com sucesso."
       }
     }
   }

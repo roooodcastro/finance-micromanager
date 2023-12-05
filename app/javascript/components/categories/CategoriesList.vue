@@ -19,7 +19,7 @@ import { storeToRefs } from 'pinia';
 
 import { categories as categoriesApi } from '~/api';
 import I18n from '~/utils/I18n';
-import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 
 import CategoryListItem from '~/components/categories/CategoryListItem.vue';
@@ -46,10 +46,10 @@ export default {
 
     categoriesFromStore.value = toRef(props.categories);
 
-    // Reload categories if wallet has changed while this list is shown
-    const walletStore = useWalletStore();
+    // Reload categories if profile has changed while this list is shown
+    const profileStore = useProfileStore();
     watch(
-      () => walletStore.currentWallet,
+      () => profileStore.currentProfile,
       () => {
         categoriesApi.index().then(response => categoriesFromStore.value = response.categories);
       },

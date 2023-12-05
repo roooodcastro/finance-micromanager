@@ -52,7 +52,7 @@ import { formatDate } from '~/utils/DateUtils.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
-import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
@@ -93,10 +93,10 @@ export default {
     const handleFiltersChange = () => transactionStore.fetch();
     const handlePageChange = () => transactionStore.fetch();
 
-    // Reload transactions if wallet has changed while this page is open
-    const walletStore = useWalletStore();
+    // Reload transactions if profile has changed while this page is open
+    const profileStore = useProfileStore();
     watch(
-      () => walletStore.currentWallet,
+      () => profileStore.currentProfile,
       () => transactionStore.fetch(),
     );
 

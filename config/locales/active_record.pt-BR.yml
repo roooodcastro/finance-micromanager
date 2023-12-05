@@ -4,16 +4,16 @@ pt-BR:
     models:
       user: Usuário
     attributes:
-      wallet_share:
+      profile_share:
         user: Usuário
-      wallet_share_invite:
+      profile_share_invite:
         invitee_email: Email do convidado
     errors:
       models:
-        wallet_share:
+        profile_share:
           attributes:
             user:
-              owner_self_share: já é o(a) dono(a) desta carteira.
+              owner_self_share: já é o(a) dono(a) desta perfil.
         user:
           attributes:
             base:
