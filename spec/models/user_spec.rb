@@ -5,17 +5,17 @@ RSpec.describe User do
 
   let(:user) { build(:user) }
 
-  describe 'default_wallet_validation' do
+  describe 'default_profile_validation' do
     context 'for a new User' do
       let(:user) { build(:user) }
 
-      context 'when the user does not have a default wallet' do
-        before { user.default_wallet = nil }
+      context 'when the user does not have a default profile' do
+        before { user.default_profile = nil }
 
         it { is_expected.to be_valid }
       end
 
-      context 'when the user has a default wallet' do
+      context 'when the user has a default profile' do
         it { is_expected.to be_valid }
       end
     end
@@ -23,77 +23,77 @@ RSpec.describe User do
     context 'for an existing User' do
       let(:user) { create(:user) }
 
-      context 'when the user does not have a default wallet' do
-        before { user.default_wallet = nil }
+      context 'when the user does not have a default profile' do
+        before { user.default_profile = nil }
 
         it { is_expected.not_to be_valid }
       end
 
-      context 'when the user has a default wallet' do
+      context 'when the user has a default profile' do
         it { is_expected.to be_valid }
       end
     end
   end
 
-  describe '#set_default_wallet' do
+  describe '#set_default_profile' do
     subject(:user_save) { user.save }
 
-    context 'when default wallet exists' do
-      let!(:wallet) { create(:wallet, user:) }
+    context 'when default profile exists' do
+      let!(:profile) { create(:profile, user:) }
 
-      before { user.default_wallet = wallet }
+      before { user.default_profile = profile }
 
       it 'does not create or set anything' do
-        expect { user_save }.to not_change { Wallet.count }.and not_change { user.default_wallet }
+        expect { user_save }.to not_change { Profile.count }.and not_change { user.default_profile }
       end
     end
 
-    context 'when default wallet is nil' do
-      let(:user) { build(:user, default_wallet: nil) }
+    context 'when default profile is nil' do
+      let(:user) { build(:user, default_profile: nil) }
 
-      it 'creates the default wallet' do
-        expect { user_save }.to change { Wallet.count }.by(1)
+      it 'creates the default profile' do
+        expect { user_save }.to change { Profile.count }.by(1)
 
-        new_wallet = Wallet.last
+        new_profile = Profile.last
 
-        expect(new_wallet.user).to eq user
-        expect(new_wallet.status).to eq 'active'
-        expect(new_wallet.currency).to eq 'eur'
-        expect(user.reload.default_wallet).to eq new_wallet
+        expect(new_profile.user).to eq user
+        expect(new_profile.status).to eq 'active'
+        expect(new_profile.currency).to eq 'eur'
+        expect(user.reload.default_profile).to eq new_profile
       end
     end
   end
 
-  describe '.find_available_wallet' do
-    subject(:find_available_wallet) { user.find_available_wallet(id) }
+  describe '.find_available_profile' do
+    subject(:find_available_profile) { user.find_available_profile(id) }
 
     let(:user) { create(:user) }
 
-    context 'when the wallet cannot be found' do
+    context 'when the profile cannot be found' do
       let(:id) { 'unknown' }
 
       it 'raises a RecordNotFound exception' do
-        expect { find_available_wallet }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { find_available_profile }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
-    context 'when the wallet is found in the user own wallets' do
-      let!(:wallet) { create(:wallet, user:) }
-      let(:id) { wallet.id }
+    context 'when the profile is found in the user own profiles' do
+      let!(:profile) { create(:profile, user:) }
+      let(:id) { profile.id }
 
-      it { is_expected.to eq wallet }
+      it { is_expected.to eq profile }
     end
 
-    context 'when the wallet is found in the user shared wallets' do
-      let!(:wallet) do
-        new_wallet = create(:wallet)
-        create(:wallet_share, wallet: new_wallet, user: user)
-        new_wallet
+    context 'when the profile is found in the user shared profiles' do
+      let!(:profile) do
+        new_profile = create(:profile)
+        create(:profile_share, profile: new_profile, user: user)
+        new_profile
       end
 
-      let(:id) { wallet.id }
+      let(:id) { profile.id }
 
-      it { is_expected.to eq wallet }
+      it { is_expected.to eq profile }
     end
   end
 end

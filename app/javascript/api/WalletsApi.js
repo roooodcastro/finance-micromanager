@@ -4,11 +4,11 @@
 import { definePathHelper } from '@js-from-routes/client'
 
 export default {
-  index: /* #__PURE__ */ definePathHelper('get', '/wallets'),
-  create: /* #__PURE__ */ definePathHelper('post', '/wallets'),
-  new: /* #__PURE__ */ definePathHelper('get', '/wallets/new'),
-  edit: /* #__PURE__ */ definePathHelper('get', '/wallets/:id/edit'),
-  show: /* #__PURE__ */ definePathHelper('get', '/wallets/:id'),
-  update: /* #__PURE__ */ definePathHelper('patch', '/wallets/:id'),
-  destroy: /* #__PURE__ */ definePathHelper('delete', '/wallets/:id'),
+  index: /* #__PURE__ */ definePathHelper('get', '/profiles'),
+  create: /* #__PURE__ */ definePathHelper('post', '/profiles'),
+  new: /* #__PURE__ */ definePathHelper('get', '/profiles/new'),
+  edit: /* #__PURE__ */ definePathHelper('get', '/profiles/:id/edit'),
+  show: /* #__PURE__ */ definePathHelper('get', '/profiles/:id'),
+  update: /* #__PURE__ */ definePathHelper('patch', '/profiles/:id'),
+  destroy: /* #__PURE__ */ definePathHelper('delete', '/profiles/:id'),
 }

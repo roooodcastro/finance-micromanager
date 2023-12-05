@@ -3,10 +3,10 @@ en:
   activerecord:
     errors:
       models:
-        wallet_share:
+        profile_share:
           attributes:
             user:
-              owner_self_share: is already the owner of the wallet.
+              owner_self_share: is already the owner of the profile.
         user:
           attributes:
             base:

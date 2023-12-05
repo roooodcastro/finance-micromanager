@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class DashboardSerializer < ApplicationSerializer
-  alias wallet record
+  alias profile record
 
   def as_json
     {
-      categories:         wallet.categories.as_json,
+      categories:         profile.categories.as_json,
       category_summaries: category_summaries.as_json
     }
   end
@@ -14,7 +14,7 @@ class DashboardSerializer < ApplicationSerializer
 
   def category_summaries
     @category_summaries ||= Statistics::CategorySummaryQuery.run(
-      wallet_id:  wallet.id,
+      profile_id: profile.id,
       start_date: CurrentDateRange.start_date,
       end_date:   CurrentDateRange.end_date
     )

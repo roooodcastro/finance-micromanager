@@ -12,36 +12,36 @@ class User < ApplicationRecord
 
   attr_accessor :initial_currency
 
-  belongs_to :default_wallet, class_name: 'Wallet', optional: true
+  belongs_to :default_profile, class_name: 'Profile', optional: true
 
-  has_many :wallets, dependent: :restrict_with_exception
-  has_many :wallet_shares, dependent: :restrict_with_exception
-  has_many :shared_wallets, -> { active }, class_name: 'Wallet', through: :wallet_shares, source: :wallet
-  has_many :wallet_share_invites_sent, class_name: 'WalletShareInvite', foreign_key: :wallet_owner_id,
-           dependent: :restrict_with_exception, inverse_of: :wallet_owner
-  has_many :wallet_share_invites_received, class_name: 'WalletShareInvite', inverse_of: :invitee,
+  has_many :profiles, dependent: :restrict_with_exception
+  has_many :profile_shares, dependent: :restrict_with_exception
+  has_many :shared_profiles, -> { active }, class_name: 'Profile', through: :profile_shares, source: :profile
+  has_many :profile_share_invites_sent, class_name: 'ProfileShareInvite', foreign_key: :profile_owner_id,
+           dependent: :restrict_with_exception, inverse_of: :profile_owner
+  has_many :profile_share_invites_received, class_name: 'ProfileShareInvite', inverse_of: :invitee,
            foreign_key: :invitee_email, primary_key: :email, dependent: :restrict_with_exception
   # rubocop:disable Rails/InverseOf
-  has_many :active_wallets, -> { active }, class_name: 'Wallet', dependent: :restrict_with_exception
+  has_many :active_profiles, -> { active }, class_name: 'Profile', dependent: :restrict_with_exception
   # rubocop:enable Rails/InverseOf
 
   validates :email, presence: true, uniqueness: true
-  validates :default_wallet, presence: true, unless: :new_record?
+  validates :default_profile, presence: true, unless: :new_record?
 
   validate :validate_email_in_allow_list
 
-  after_save :set_default_wallet!
+  after_save :set_default_profile!
 
-  def find_available_wallet(user_id)
-    wallet = wallets.find_by(id: user_id) || shared_wallets.find_by(id: user_id)
-    raise ActiveRecord::RecordNotFound unless wallet
+  def find_available_profile(user_id)
+    profile = profiles.find_by(id: user_id) || shared_profiles.find_by(id: user_id)
+    raise ActiveRecord::RecordNotFound unless profile
 
-    wallet
+    profile
   end
 
   def as_json(attributes_only: false, **)
     json = super(except: %w[created_at updated_at], methods: %i[full_name display_name])
-    json.merge(default_wallet: default_wallet.as_json) unless attributes_only
+    json.merge(default_profile: default_profile.as_json) unless attributes_only
     json
   end
 
@@ -55,8 +55,8 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
-  def available_wallets
-    (active_wallets + shared_wallets).uniq
+  def available_profiles
+    (active_profiles + shared_profiles).uniq
   end
 
   private
@@ -69,10 +69,10 @@ class User < ApplicationRecord
     errors.add(:base, :email_not_valid)
   end
 
-  def set_default_wallet!
-    return if default_wallet
+  def set_default_profile!
+    return if default_profile
 
-    wallet = wallets.first || wallets.create(currency: initial_currency || :eur, status: :active)
-    update!(default_wallet: wallet)
+    profile = profiles.first || profiles.create(currency: initial_currency || :eur, status: :active)
+    update!(default_profile: profile)
   end
 end

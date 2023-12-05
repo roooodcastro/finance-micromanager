@@ -10,26 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_03_225842) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_05_215223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.string "color", limit: 7
-    t.uuid "wallet_id", null: false
+    t.uuid "profile_id", null: false
     t.datetime "disabled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["wallet_id"], name: "index_categories_on_wallet_id"
+    t.index ["profile_id"], name: "index_categories_on_profile_id"
   end
 
   create_table "imports", force: :cascade do |t|
     t.string "source", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "wallet_id", null: false
-    t.index ["wallet_id"], name: "index_imports_on_wallet_id"
+    t.uuid "profile_id", null: false
+    t.index ["profile_id"], name: "index_imports_on_profile_id"
+  end
+
+  create_table "profile_share_invites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.uuid "profile_owner_id", null: false
+    t.string "invitee_email", null: false
+    t.string "status", limit: 15, default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invitee_email"], name: "index_profile_share_invites_on_invitee_email"
+    t.index ["profile_id", "invitee_email"], name: "index_profile_share_invites_on_profile_id_and_invitee_email", unique: true
+    t.index ["profile_id"], name: "index_profile_share_invites_on_profile_id"
+    t.index ["profile_owner_id"], name: "index_profile_share_invites_on_profile_owner_id"
+  end
+
+  create_table "profile_shares", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_profile_shares_on_profile_id"
+    t.index ["user_id"], name: "index_profile_shares_on_user_id"
+  end
+
+  create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "status", limit: 15, default: "active", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id"
+    t.string "currency", null: false
+    t.string "name", limit: 30
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "subcategories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -52,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_225842) do
     t.bigint "import_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "wallet_id", null: false
+    t.uuid "profile_id", null: false
     t.uuid "category_id", null: false
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id", null: false
@@ -62,10 +94,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_225842) do
     t.index ["created_by_id"], name: "index_transactions_on_created_by_id"
     t.index ["import_id"], name: "index_transactions_on_import_id"
     t.index ["name"], name: "index_transactions_on_name"
+    t.index ["profile_id"], name: "index_transactions_on_profile_id"
     t.index ["subcategory_id"], name: "index_transactions_on_subcategory_id"
     t.index ["transaction_date"], name: "index_transactions_on_transaction_date"
     t.index ["updated_by_id"], name: "index_transactions_on_updated_by_id"
-    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -90,60 +122,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_225842) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "default_wallet_id"
+    t.uuid "default_profile_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["default_wallet_id"], name: "index_users_on_default_wallet_id"
+    t.index ["default_profile_id"], name: "index_users_on_default_profile_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  create_table "wallet_share_invites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "wallet_id", null: false
-    t.uuid "wallet_owner_id", null: false
-    t.string "invitee_email", null: false
-    t.string "status", limit: 15, default: "pending", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["invitee_email"], name: "index_wallet_share_invites_on_invitee_email"
-    t.index ["wallet_id", "invitee_email"], name: "index_wallet_share_invites_on_wallet_id_and_invitee_email", unique: true
-    t.index ["wallet_id"], name: "index_wallet_share_invites_on_wallet_id"
-    t.index ["wallet_owner_id"], name: "index_wallet_share_invites_on_wallet_owner_id"
-  end
-
-  create_table "wallet_shares", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "wallet_id", null: false
-    t.uuid "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_wallet_shares_on_user_id"
-    t.index ["wallet_id"], name: "index_wallet_shares_on_wallet_id"
-  end
-
-  create_table "wallets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "status", limit: 15, default: "active", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "user_id"
-    t.string "currency", null: false
-    t.string "name", limit: 30
-    t.index ["user_id"], name: "index_wallets_on_user_id"
-  end
-
-  add_foreign_key "categories", "wallets"
-  add_foreign_key "imports", "wallets"
+  add_foreign_key "categories", "profiles"
+  add_foreign_key "imports", "profiles"
+  add_foreign_key "profile_share_invites", "profiles"
+  add_foreign_key "profile_share_invites", "users", column: "profile_owner_id"
+  add_foreign_key "profile_shares", "profiles"
+  add_foreign_key "profile_shares", "users"
+  add_foreign_key "profiles", "users"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "subcategories", "users", column: "disabled_by_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "imports"
+  add_foreign_key "transactions", "profiles"
   add_foreign_key "transactions", "subcategories"
   add_foreign_key "transactions", "users", column: "created_by_id"
   add_foreign_key "transactions", "users", column: "updated_by_id"
-  add_foreign_key "transactions", "wallets"
-  add_foreign_key "users", "wallets", column: "default_wallet_id"
-  add_foreign_key "wallet_share_invites", "users", column: "wallet_owner_id"
-  add_foreign_key "wallet_share_invites", "wallets"
-  add_foreign_key "wallet_shares", "users"
-  add_foreign_key "wallet_shares", "wallets"
-  add_foreign_key "wallets", "users"
+  add_foreign_key "users", "profiles", column: "default_profile_id"
 end

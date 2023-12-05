@@ -1,19 +1,4 @@
 en:
-  wallets:
-    create:
-      success: 'Wallet was successfully created.'
-      error: 'Wallet "%{name}" could not be created: %{error}'
-    update:
-      success: 'Wallet "%{name}" was successfully updated.'
-      error: 'Wallet "%{name}" could not be updated: %{error}'
-    destroy:
-      success: 'Wallet "%{name}" was successfully disabled.'
-
-  wallet_share_invites_sent:
-    create:
-      success: 'Your invite to share the wallet "%{wallet_name}" was successfully sent to "%{invitee}"!'
-      error: 'There was an error sending the invite to share the wallet "%{wallet_name}" with "%{invitee}": %{error}'
-
   categories:
     create:
       success: 'Category was successfully created.'
@@ -24,11 +9,26 @@ en:
     destroy:
       success: 'Category "%{name}" was successfully destroyed.'
 
-  current_wallets:
+  current_profiles:
     create:
-      error: 'Wallet was not found.'
+      error: 'Profile was not found.'
 
   profiles:
+    create:
+      success: 'Profile was successfully created.'
+      error: 'Profile "%{name}" could not be created: %{error}'
+    update:
+      success: 'Profile "%{name}" was successfully updated.'
+      error: 'Profile "%{name}" could not be updated: %{error}'
+    destroy:
+      success: 'Profile "%{name}" was successfully disabled.'
+
+  profile_share_invites_sent:
+    create:
+      success: 'Your invite to share the profile "%{profile_name}" was successfully sent to "%{invitee}"!'
+      error: 'There was an error sending the invite to share the profile "%{profile_name}" with "%{invitee}": %{error}'
+
+  settings:
     update:
       success: Profile information updated successfully.
       error: There was an error updating your profile info.

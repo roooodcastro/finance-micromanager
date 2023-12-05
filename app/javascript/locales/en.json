@@ -10,17 +10,17 @@
           }
         },
         "models": {
+          "profile_share": {
+            "attributes": {
+              "user": {
+                "owner_self_share": "is already the owner of the profile."
+              }
+            }
+          },
           "user": {
             "attributes": {
               "base": {
                 "email_not_valid": "Email is not valid."
-              }
-            }
-          },
-          "wallet_share": {
-            "attributes": {
-              "user": {
-                "owner_self_share": "is already the owner of the wallet."
               }
             }
           }
@@ -40,9 +40,9 @@
         "success": "Category was successfully updated."
       }
     },
-    "current_wallets": {
+    "current_profiles": {
       "create": {
-        "error": "Wallet was not found."
+        "error": "Profile was not found."
       }
     },
     "date": {
@@ -373,7 +373,36 @@
         }
       }
     },
+    "profile_share_invites_sent": {
+      "create": {
+        "error": "There was an error sending the invite to share the profile \"%{profile_name}\" with \"%{invitee}\": %{error}",
+        "success": "Your invite to share the profile \"%{profile_name}\" was successfully sent to \"%{invitee}\"!"
+      }
+    },
+    "profile_share_mailer": {
+      "profile_share_invite_sent": {
+        "hello": "Hello",
+        "invite_paragraph": "%{inviter} has invited you to share their Finance Micromanager profile \"%{profile_name}\". This will allow you to view and manage the profile, create transactions, view reports and statistics data, and much more. To accept, click the link below or copy/paste it directly in your browser.\n",
+        "new_profile_paragraph": "Ops, it looks like you don't yet have an account with Finance Micromanager. You will need to sign up for one before accepting the invite. Click the link below or copy/paste it directly in your browser to do that.\n",
+        "sign_up_link": "Sign Up for Finance Micromanager",
+        "subject": "You got an invite from %{inviter}!",
+        "view_invite_link": "View my invites"
+      }
+    },
     "profiles": {
+      "create": {
+        "error": "Profile \"%{name}\" could not be created: %{error}",
+        "success": "Profile was successfully created."
+      },
+      "destroy": {
+        "success": "Profile \"%{name}\" was successfully disabled."
+      },
+      "update": {
+        "error": "Profile \"%{name}\" could not be updated: %{error}",
+        "success": "Profile \"%{name}\" was successfully updated."
+      }
+    },
+    "settings": {
       "update": {
         "error": "There was an error updating your profile info.",
         "success": "Profile information updated successfully."
@@ -479,6 +508,10 @@
         "page_header": {
           "action_toggle_label": "Actions"
         },
+        "profile_switcher": {
+          "new_profile_link": "New Profile",
+          "no_profile_selected": "Select Profile"
+        },
         "rails": {
           "close": "Close",
           "confirmation_no": "Cancel",
@@ -500,24 +533,64 @@
         },
         "vertical_menu": {
           "categories": "Categories",
-          "current_wallet": "Wallet:",
+          "current_profile": "Profile:",
           "dashboard": "Dashboard",
           "profile": "My Profile",
+          "profiles": "Profiles",
           "sign_in": "Sign In",
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
-          "transactions": "Transactions",
-          "wallets": "Wallets"
+          "transactions": "Transactions"
+        }
+      },
+      "profile_share_invites": {
+        "index": {
+          "accept": "Accept",
+          "cancel": "Cancel Invite",
+          "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their profile \"%{profile_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the profile.\n",
+          "pending_invite_text_pending": "%{inviter} has invited you to share their profile \"%{profile_name}\". A shared profile means you both will be able to view and manage transactions, categories, and all other aspects associated with the profile.\n",
+          "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their profile \"%{profile_name}\". You will not have access to their profile, but they will be able to invite you again.\n",
+          "pending_invite_title_accepted": "Invite Accepted",
+          "pending_invite_title_pending": "Profile Share Invite",
+          "pending_invite_title_rejected": "Invite Rejected",
+          "reject": "Reject",
+          "sent_invite_text_cancelled": "The invite has been cancelled. The recipient can no longer accept it.",
+          "sent_invite_text_pending": "The invite was sent, but the recipient has not yet replied.",
+          "sent_invite_title": "Invite sent to %{invitee} for profile \"%{profile_name}\""
         },
-        "wallet_switcher": {
-          "new_wallet_link": "New Wallet",
-          "no_wallet_selected": "Select Wallet"
+        "modal": {
+          "cancel": "Cancel",
+          "confirm": "Send Invite",
+          "invitee_email_label": "Who do you want to share this profile with?",
+          "invitee_email_placeholder": "Type their Email",
+          "shared_warning_message": "This profile was shared with you by %{name}. Please take care when sharing it with others.",
+          "shared_warning_title": "Heads-up",
+          "title": "Share Profile"
         }
       },
       "profiles": {
         "form": {
+          "back": "Back",
+          "currency_label": "Choose Currency",
+          "edit_title": "Edit Profile \"%{profile}\"",
+          "name_label": "Name",
+          "new_title": "New Profile",
+          "submit": "Submit"
+        },
+        "index": {
+          "currency": "Currency",
+          "name": "Name",
+          "new": "New Profile",
+          "no_name": "--- No name ---",
+          "share_action_link_label": "Share",
+          "shared_text": "Shared with you by %{user}",
+          "title": "Profiles"
+        }
+      },
+      "settings": {
+        "form": {
           "cancel_edit_button": "Cancel",
-          "default_wallet_label": "Default Wallet",
+          "default_profile_label": "Default Profile",
           "disabled_password_label": "Password",
           "email_label": "Email Address",
           "first_name_label": "First Name",
@@ -528,9 +601,9 @@
           "update_password_link_label": "Change Password"
         },
         "show": {
-          "default_wallet": "Default Wallet",
+          "default_profile": "Default Profile",
           "edit_button": "Edit Profile",
-          "empty_default_wallet_label": "-- Default Wallet not set --",
+          "empty_default_profile_label": "-- Default Profile not set --",
           "empty_first_name_label": "-- First name not set --",
           "empty_last_name_label": "-- Last name not set --",
           "first_name": "First Name",
@@ -625,79 +698,6 @@
             "title": "Resend unlock instructions"
           }
         }
-      },
-      "wallet_share_invites": {
-        "index": {
-          "accept": "Accept",
-          "cancel": "Cancel Invite",
-          "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their wallet \"%{wallet_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the wallet.\n",
-          "pending_invite_text_pending": "%{inviter} has invited you to share their wallet \"%{wallet_name}\". A shared wallet means you both will be able to view and manage transactions, categories, and all other aspects associated with the wallet.\n",
-          "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their wallet \"%{wallet_name}\". You will not have access to their wallet, but they will be able to invite you again.\n",
-          "pending_invite_title_accepted": "Invite Accepted",
-          "pending_invite_title_pending": "Wallet Share Invite",
-          "pending_invite_title_rejected": "Invite Rejected",
-          "reject": "Reject",
-          "sent_invite_text_cancelled": "The invite has been cancelled. The recipient can no longer accept it.",
-          "sent_invite_text_pending": "The invite was sent, but the recipient has not yet replied.",
-          "sent_invite_title": "Invite sent to %{invitee} for wallet \"%{wallet_name}\""
-        },
-        "modal": {
-          "cancel": "Cancel",
-          "confirm": "Send Invite",
-          "invitee_email_label": "Who do you want to share this wallet with?",
-          "invitee_email_placeholder": "Type their Email",
-          "shared_warning_message": "This wallet was shared with you by %{name}. Please take care when sharing it with others.",
-          "shared_warning_title": "Heads-up",
-          "title": "Share Wallet"
-        }
-      },
-      "wallets": {
-        "form": {
-          "back": "Back",
-          "currency_label": "Choose Currency",
-          "edit_title": "Edit Wallet \"%{wallet}\"",
-          "name_label": "Name",
-          "new_title": "New Wallet",
-          "submit": "Submit"
-        },
-        "index": {
-          "currency": "Currency",
-          "name": "Name",
-          "new": "New Wallet",
-          "no_name": "--- No name ---",
-          "share_action_link_label": "Share",
-          "shared_text": "Shared with you by %{user}",
-          "title": "Wallets"
-        }
-      }
-    },
-    "wallet_share_invites_sent": {
-      "create": {
-        "error": "There was an error sending the invite to share the wallet \"%{wallet_name}\" with \"%{invitee}\": %{error}",
-        "success": "Your invite to share the wallet \"%{wallet_name}\" was successfully sent to \"%{invitee}\"!"
-      }
-    },
-    "wallet_share_mailer": {
-      "wallet_share_invite_sent": {
-        "hello": "Hello",
-        "invite_paragraph": "%{inviter} has invited you to share their Finance Micromanager wallet \"%{wallet_name}\". This will allow you to view and manage the wallet, create transactions, view reports and statistics data, and much more. To accept, click the link below or copy/paste it directly in your browser.\n",
-        "new_wallet_paragraph": "Ops, it looks like you don't yet have an account with Finance Micromanager. You will need to sign up for one before accepting the invite. Click the link below or copy/paste it directly in your browser to do that.\n",
-        "sign_up_link": "Sign Up for Finance Micromanager",
-        "subject": "You got an invite from %{inviter}!",
-        "view_invite_link": "View my invites"
-      }
-    },
-    "wallets": {
-      "create": {
-        "error": "Wallet \"%{name}\" could not be created: %{error}",
-        "success": "Wallet was successfully created."
-      },
-      "destroy": {
-        "success": "Wallet \"%{name}\" was successfully disabled."
-      },
-      "update": {
-        "error": "Wallet \"%{name}\" could not be updated: %{error}",
-        "success": "Wallet \"%{name}\" was successfully updated."
       }
     }
   }

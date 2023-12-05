@@ -61,7 +61,7 @@ import { Offcanvas as BootstrapOffcanvas } from 'bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
-  wallets,
+  profiles,
   categories,
   transactions as transactionsApi,
   dashboards as dashboardsApi,
@@ -94,7 +94,7 @@ export default {
           { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
           { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
           { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
-          { label: t('wallets'), path: wallets.index.path(), icon: 'wallet' },
+          { label: t('profiles'), path: profiles.index.path(), icon: 'wallet' },
         ],
         bottom: [
           { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },

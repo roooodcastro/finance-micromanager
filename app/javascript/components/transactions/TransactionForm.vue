@@ -86,7 +86,7 @@ import _ from 'lodash';
 
 import { transactions } from '~/api';
 import I18n from '~/utils/I18n';
-import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
@@ -110,11 +110,11 @@ export default {
   setup(_props, { emit }) {
     const t = I18n.scopedTranslator('views.transactions.form');
 
-    const walletStore = useWalletStore();
+    const profileStore = useProfileStore();
     const categoryStore = useCategoryStore();
     const transactionStore = useTransactionStore();
 
-    const { currentWallet } = storeToRefs(walletStore);
+    const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
     const { transactionForFormModal: transaction } = storeToRefs(transactionStore);
 
@@ -123,7 +123,7 @@ export default {
     }
 
     const isNewRecord = computed(() => !transaction.value.id);
-    const currencySymbol = computed(() => currentWallet.value.currencyObject.symbol);
+    const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
 
     const formMethod = computed(() => isNewRecord.value ? 'POST' : 'PATCH');
     const formAction = computed(() => {

@@ -4,7 +4,7 @@ module Statistics
   class CategorySummary
     include ActiveModel::Model
 
-    attr_accessor :category_id, :wallet_id, :currency_name, :credit_sum_cents, :debit_sum_cents
+    attr_accessor :category_id, :profile_id, :currency_name, :credit_sum_cents, :debit_sum_cents
 
     def credit_sum
       credit_money.to_f
@@ -30,7 +30,7 @@ module Statistics
         currency:        currency_name,
         currency_symbol: currency.symbol,
         category_id:     category_id,
-        wallet_id:       wallet_id
+        profile_id:      profile_id
       }
     end
 

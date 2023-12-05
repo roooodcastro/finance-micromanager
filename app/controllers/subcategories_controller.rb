@@ -71,7 +71,7 @@ class SubcategoriesController < AbstractAuthenticatedController
   end
 
   def set_category
-    @category = Current.wallet.categories.find(params[:category_id])
+    @category = Current.profile.categories.find(params[:category_id])
   end
 
   def set_subcategory

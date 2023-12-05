@@ -2,7 +2,7 @@
   <div class="d-flex py-3 px-2 bg-light border-0 text-decoration-none align-items-center">
     <a
       class="text-decoration-none"
-      :href="showProfilePath"
+      :href="showSettingsPath"
     >
       <ProfileAvatar class="fs-1 mx-lg-3" />
     </a>
@@ -18,7 +18,7 @@
         {{ email }}
       </div>
 
-      <WalletSwitcher
+      <ProfileSwitcher
         class="mt-2"
       />
     </div>
@@ -35,35 +35,35 @@ import I18n from '~/utils/I18n';
 import { storeToRefs } from 'pinia';
 
 import useUserStore from '~/stores/UserStore.js';
-import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 
-import { profiles as profilesApi } from '~/api';
+import { settings as settingsApi } from '~/api';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
-import WalletSwitcher from '~/components/layout/WalletSwitcher.vue';
+import ProfileSwitcher from '~/components/layout/ProfileSwitcher.vue';
 
 export default {
   components: {
     CloseButton,
     ProfileAvatar,
-    WalletSwitcher,
+    ProfileSwitcher,
   },
 
   setup() {
-    const walletStore = useWalletStore();
+    const profileStore = useProfileStore();
     const userStore = useUserStore();
 
-    const { currentWallet } = storeToRefs(walletStore);
+    const { currentProfile } = storeToRefs(profileStore);
     const email = userStore.user.email;
     const name = userStore.user.fullName;
-    const showProfilePath = profilesApi.show.path();
+    const showSettingsPath = settingsApi.show.path();
 
     return {
-      currentWallet,
+      currentProfile,
       name,
       email,
-      showProfilePath,
+      showSettingsPath,
       t: I18n.scopedTranslator('views.layout.vertical_menu'),
     };
   }

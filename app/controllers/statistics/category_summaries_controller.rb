@@ -4,7 +4,7 @@ module Statistics
   class CategorySummariesController < AbstractAuthenticatedController
     def index
       category_summaries = Statistics::CategorySummaryQuery.run(
-        wallet_id:  Current.wallet.id,
+        profile_id: Current.profile.id,
         start_date: CurrentDateRange.start_date,
         end_date:   CurrentDateRange.end_date
       ).as_json
