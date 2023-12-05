@@ -119,7 +119,7 @@ export default {
     const { transactionForFormModal: transaction } = storeToRefs(transactionStore);
 
     if (!categories.value.length) {
-      categoryStore.fetchCategories({ items: Number.MAX_SAFE_INTEGER });
+      categoryStore.fetch();
     }
 
     const isNewRecord = computed(() => !transaction.value.id);

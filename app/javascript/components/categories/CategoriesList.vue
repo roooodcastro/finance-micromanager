@@ -1,12 +1,5 @@
 <template>
   <div>
-    <Pagination
-      :pagination="pagination"
-      class="mb-3"
-      compact
-      @change="handlePageChange"
-    />
-
     <div class="CategoriesList">
       <template
         v-for="category in categoriesFromStore"
@@ -17,12 +10,6 @@
         />
       </template>
     </div>
-
-    <Pagination
-      :pagination="pagination"
-      class="mt-3"
-      @change="handlePageChange"
-    />
   </div>
 </template>
 
@@ -35,22 +22,16 @@ import I18n from '~/utils/I18n';
 import useWalletStore from '~/stores/WalletStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 
-import Pagination from "~/components/rails/Pagination.vue";
 import CategoryListItem from '~/components/categories/CategoryListItem.vue';
 
 export default {
   components: {
     CategoryListItem,
-    Pagination,
   },
 
   props: {
     categories: {
       type: Array,
-      required: true,
-    },
-    pagination: {
-      type: Object,
       required: true,
     },
   },
@@ -65,7 +46,7 @@ export default {
 
     categoriesFromStore.value = toRef(props.categories);
 
-    // Reload categories if wallet has changed while this page is open
+    // Reload categories if wallet has changed while this list is shown
     const walletStore = useWalletStore();
     watch(
       () => walletStore.currentWallet,
@@ -74,10 +55,7 @@ export default {
       },
     );
 
-    const handlePageChange = () => categoryStore.fetchCategories();
-
     return {
-      handlePageChange,
       t: I18n.scopedTranslator('views.categories.index'),
       categoriesFromStore,
     };
