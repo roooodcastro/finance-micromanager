@@ -61,12 +61,13 @@ import { Offcanvas as BootstrapOffcanvas } from 'bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
-  profiles,
-  categories,
+  categories as categoriesApi,
   transactions as transactionsApi,
   dashboards as dashboardsApi,
-  usersSessions,
-  usersRegistrations
+  profiles as profilesApi,
+  usersSessions as userSessionsApi,
+  usersRegistrations as usersRegistrationsApi,
+  wallets as walletsApi,
 } from '~/api';
 import I18n from '~/utils/I18n';
 
@@ -93,19 +94,20 @@ export default {
         top: [
           { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
           { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
-          { label: t('categories'), path: categories.index.path(), icon: 'shapes' },
-          { label: t('profiles'), path: profiles.index.path(), icon: 'wallet' },
+          { label: t('categories'), path: categoriesApi.index.path(), icon: 'shapes' },
+          { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
+          { label: t('wallets'), path: walletsApi.index.path(), icon: 'money-bills' },
         ],
         bottom: [
-          { label: t('sign_out'), path: usersSessions.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
+          { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
         ],
       };
     } else {
       menuItems = {
         top: [],
         bottom: [
-          { label: t('sign_in'), path: usersSessions.new.path(), icon: 'right-to-bracket' },
-          { label: t('sign_up'), path: usersRegistrations.new.path(), icon: 'user-plus' },
+          { label: t('sign_in'), path: userSessionsApi.new.path(), icon: 'right-to-bracket' },
+          { label: t('sign_up'), path: usersRegistrationsApi.new.path(), icon: 'user-plus' },
         ],
       };
     }

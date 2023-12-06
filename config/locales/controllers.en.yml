@@ -59,3 +59,6 @@ en:
     create:
       success: 'Wallet "%{name}" was successfully created.'
       error: 'Wallet could not be created: %{error}'
+    update:
+      success: 'Wallet "%{name}" was successfully updated.'
+      error: 'Wallet "%{name}" could not be updated: %{error}'

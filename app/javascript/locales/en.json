@@ -540,7 +540,8 @@
           "sign_in": "Sign In",
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
-          "transactions": "Transactions"
+          "transactions": "Transactions",
+          "wallets": "Wallets"
         }
       },
       "profile_share_invites": {
@@ -698,12 +699,35 @@
             "title": "Resend unlock instructions"
           }
         }
+      },
+      "wallets": {
+        "form": {
+          "cancel": "Cancel",
+          "edit_title": "Edit Wallet",
+          "name_label": "Name",
+          "new_title": "New Wallet",
+          "submit": "Save"
+        },
+        "index": {
+          "destroy": "Disable",
+          "edit": "Edit",
+          "new": "New Wallet",
+          "title": "Wallets"
+        },
+        "list": {
+          "disabled": "Disabled",
+          "reenable_label": "Re-enable"
+        }
       }
     },
     "wallets": {
       "create": {
         "error": "Wallet could not be created: %{error}",
         "success": "Wallet \"%{name}\" was successfully created."
+      },
+      "update": {
+        "error": "Wallet \"%{name}\" could not be updated: %{error}",
+        "success": "Wallet \"%{name}\" was successfully updated."
       }
     }
   }

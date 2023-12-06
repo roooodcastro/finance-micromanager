@@ -74,6 +74,7 @@ en:
         profiles: Profiles
         categories: Categories
         profile: My Profile
+        wallets: Wallets
         sign_in: Sign In
         sign_up: Sign Up
         sign_out: Sign Out
@@ -212,3 +213,19 @@ en:
           title: Resend unlock instructions
           email_label: Email Address
           submit: Resend unlock instructions
+
+    wallets:
+      form:
+        submit: Save
+        cancel: Cancel
+        name_label: Name
+        new_title: New Wallet
+        edit_title: Edit Wallet
+      index:
+        title: Wallets
+        new: New Wallet
+        edit: Edit
+        destroy: Disable
+      list:
+        disabled: Disabled
+        reenable_label: Re-enable

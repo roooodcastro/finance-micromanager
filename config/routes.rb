@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     resources :current_profiles, only: %i[create]
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show]
-    resources :wallets, only: %i[index create]
+    resources :wallets, only: %i[index create update]
 
     namespace :statistics do
       resources :category_summaries, only: %i[index]

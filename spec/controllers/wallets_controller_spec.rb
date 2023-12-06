@@ -12,12 +12,23 @@ RSpec.describe WalletsController do
   describe 'GET index' do
     let!(:wallet) { create(:wallet, profile:) }
 
-    let(:expected_props) { CamelizeProps.call(wallets: [wallet.as_json]) }
+    context 'when the format is HTML', :inertia do
+      it 'renders the index component' do
+        get :index, format: :html
 
-    it 'renders the wallets as json' do
-      get :index
+        expect_inertia.to render_component('wallets/Index')
+                      .and include_props({ wallets: [CamelizeProps.call(wallet.as_json)] })
+      end
+    end
 
-      expect(json_response).to eq(expected_props)
+    context 'when the format is JSON' do
+      let(:expected_props) { CamelizeProps.call(wallets: [wallet.as_json]) }
+
+      it 'renders the wallets as json' do
+        get :index, format: :json
+
+        expect(json_response).to eq(expected_props)
+      end
     end
   end
 
@@ -45,6 +56,39 @@ RSpec.describe WalletsController do
 
       it 'does not create a new wallet' do
         expect { create_request }.not_to change { Wallet.count }
+        expect(json_response).to eq(expected_json)
+      end
+    end
+  end
+
+  describe 'PATCH update' do
+    subject(:update_request) { patch :update, params: }
+
+    let!(:wallet) { create(:wallet, profile: profile, name: 'ThisWallet') }
+
+    let(:expected_json) do
+      CamelizeProps.call('message' => "Wallet \"#{wallet.reload.name}\" was successfully updated.")
+    end
+
+    context 'when params are valid' do
+      let(:params) { { id: wallet.id, wallet: { name: 'New Name' } } }
+
+      it 'updates the wallet' do
+        expect { update_request }.to not_change { Category.count }.and change { wallet.reload.name }.to('New Name')
+
+        expect(json_response).to eq(expected_json)
+      end
+    end
+
+    context 'when params are invalid' do
+      let(:params) { { id: wallet.id, wallet: { name: '' } } }
+
+      let(:expected_json) do
+        CamelizeProps.call('message' => "Wallet \"ThisWallet\" could not be updated: Name can't be blank")
+      end
+
+      it 'does not update the wallet' do
+        expect { update_request }.to not_change { Wallet.count }.and not_change { wallet.reload.name }
         expect(json_response).to eq(expected_json)
       end
     end
