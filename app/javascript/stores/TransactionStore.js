@@ -24,7 +24,7 @@ export default defineStore('transaction', {
       // Clone the transaction so it doesn't affect the list before it's actually updated
       return { ...(state.transactions.find(transaction => transaction.id === state.transactionIdForFormModal) ?? {}) };
     },
-    groupedTransactions: state => {
+    groupedTransactions: (state) => {
       return _.groupBy(state.transactions, 'transactionDate');
     }
   },

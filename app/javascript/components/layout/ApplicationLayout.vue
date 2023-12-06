@@ -3,7 +3,7 @@
     <Navigation />
     <VerticalMenu />
     <ConfirmationModal />
-    <TransactionFormModal />
+    <TransactionForm />
 
     <div
       class="my-3 flex-shrink-0 flex-grow-1 d-flex flex-column"
@@ -33,7 +33,7 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
-import TransactionFormModal from '~/components/transactions/TransactionFormModal.vue';
+import TransactionForm from '~/components/transactions/TransactionForm.vue';
 
 export default {
   components: {
@@ -42,7 +42,7 @@ export default {
     Navigation,
     PageFooter,
     ToastNotifications,
-    TransactionFormModal,
+    TransactionForm,
     VerticalMenu,
   },
   props: {

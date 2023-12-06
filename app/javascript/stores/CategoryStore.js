@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
-import { categories as categoriesApi } from "~/api";
+import { categories as categoriesApi } from '~/api';
 
 export default defineStore('category', {
   state: () => ({
