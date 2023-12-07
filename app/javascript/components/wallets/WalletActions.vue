@@ -16,8 +16,6 @@
     <EditButton
       small
       href="#"
-      data-bs-toggle="modal"
-      data-bs-target="#walletFormModal"
       :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
       @click="handleEdit"
     />
@@ -69,7 +67,7 @@ export default {
 
     const isDisabled = computed(() => !!props.wallet.disabledAt);
 
-    const handleEdit = () => walletStore.setIdForFormModal(props.wallet.id);
+    const handleEdit = () => walletStore.openFormModal(props.wallet.id);
     const handleDelete = () => {}; // walletStore.disable(props.wallet.id);
     const handleReenable = () => {}; // walletStore.reenable(props.wallet.id);
 

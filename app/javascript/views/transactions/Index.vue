@@ -3,9 +3,6 @@
     <PageHeader :title="t('title')">
       <template v-slot:actions>
         <DropdownMenuItem
-          href="#"
-          data-bs-toggle="modal"
-          :data-bs-target="`#${TRANSACTION_FORM_MODAL_ID}`"
           :label="t('new')"
           icon="plus"
           @click="handleClick"
@@ -23,12 +20,11 @@
 <script>
 import I18n from '~/utils/I18n';
 import { getQueryParams } from '~/utils/QueryStringUtils.js';
-import { TRANSACTION_FORM_MODAL_ID } from '~/utils/Constants.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
-import useTransactionStore from '~/stores/TransactionStore.js';
 
 export default {
   components: {
@@ -61,12 +57,11 @@ export default {
       excludeCredits: !!getQueryParams().excludeCredits,
     });
 
-    const handleClick = () => transactionStore.setTransactionIdForFormModal(null);
+    const handleClick = () => transactionStore.openFormModal(null);
 
     return {
       t: I18n.scopedTranslator('views.transactions.index'),
       handleClick,
-      TRANSACTION_FORM_MODAL_ID,
     };
   },
 };

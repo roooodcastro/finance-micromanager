@@ -28,8 +28,6 @@ import useNotificationStore from '~/stores/NotificationStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import { Modal as BootstrapModal } from 'bootstrap';
-import { TRANSACTION_FORM_MODAL_ID } from '~/utils/Constants.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 import Navigation from '~/components/layout/Navigation.vue';
@@ -111,9 +109,7 @@ export default {
     onMounted(() => {
       const queryParams = getQueryParams();
       if (queryParams['new_transaction']) {
-        const transactionStore = useTransactionStore();
-        transactionStore.setTransactionIdForFormModal(null);
-        new BootstrapModal(`#${TRANSACTION_FORM_MODAL_ID}`).show();
+        useTransactionStore().openFormModal(null);
       }
     })
   },

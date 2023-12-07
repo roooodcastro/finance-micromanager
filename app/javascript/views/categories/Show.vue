@@ -7,8 +7,6 @@
   >
     <template v-slot:actions>
       <DropdownMenuItem
-        data-bs-toggle="modal"
-        :data-bs-target="`#${SUBCATEGORY_FORM_MODAL_ID}`"
         :label="t('new_subcategory')"
         icon="plus"
         @click="handleNewSubcategory"
@@ -83,7 +81,6 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import { SUBCATEGORY_FORM_MODAL_ID } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
@@ -143,7 +140,7 @@ export default {
     subcategoryCategoryId.value = props.category.id;
 
     const handleDateRangeChange = () => categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
-    const handleNewSubcategory = () => subcategoryStore.setSubcategoryIdForFormModal(null);
+    const handleNewSubcategory = () => subcategoryStore.openFormModal(null);
     const handleShowDisabledSubcategories = () => subcategoryStore.setShowDisabled(!showDisabledSubcategories.value);
 
     return {
@@ -156,7 +153,6 @@ export default {
       handleDateRangeChange,
       handleNewSubcategory,
       handleShowDisabledSubcategories,
-      SUBCATEGORY_FORM_MODAL_ID,
     };
   },
 };

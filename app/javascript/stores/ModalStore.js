@@ -5,7 +5,11 @@ import { CONFIRMATION_MODAL_ID } from '~/utils/Constants.js';
 export default defineStore('modal', {
   state: () => ({
     confirmation: {},
+    modals: {},
   }),
+  getters: {
+    modalId: () => name => `${name}Modal`,
+  },
   actions: {
     showConfirmationDialog(options) {
       let responseConfirm, responseReject;
@@ -26,6 +30,29 @@ export default defineStore('modal', {
       new BootstrapModal(`#${CONFIRMATION_MODAL_ID}`, { keyboard: false }).show();
 
       return resolveAction;
+    },
+
+    registerModal(name) {
+      if (!this.modals[name]) {
+        const modalId = this.modalId(name);
+        this.modals[name] = new BootstrapModal(`#${modalId}`);
+      }
+    },
+
+    show(name) {
+      if (!this.modals[name]) {
+        this.registerModal(name);
+      }
+
+      this.modals[name].show();
+    },
+
+    hide(name) {
+      if (!this.modals[name]) {
+        this.registerModal(name);
+      }
+
+      this.modals[name].hide();
     },
   },
 });

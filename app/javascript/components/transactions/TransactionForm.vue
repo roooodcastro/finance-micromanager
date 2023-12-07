@@ -3,7 +3,7 @@
     :t="t"
     :record="transaction"
     :form-id="TRANSACTION_FORM_ID"
-    :modal-id="TRANSACTION_FORM_MODAL_ID"
+    :modal-id="modalId"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -98,8 +98,9 @@ import I18n from '~/utils/I18n';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useModalStore from '~/stores/ModalStore.js';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
-import { TRANSACTION_FORM_MODAL_ID, TRANSACTION_FORM_ID } from '~/utils/Constants.js';
+import { TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -122,6 +123,9 @@ export default {
     const profileStore = useProfileStore();
     const categoryStore = useCategoryStore();
     const transactionStore = useTransactionStore();
+    const modalStore = useModalStore();
+
+    const modalId = modalStore.modalId(TRANSACTION_FORM_ID);
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
@@ -157,7 +161,11 @@ export default {
       updateTransactionDataWithDefaultValues,
     );
 
-    onMounted(updateTransactionDataWithDefaultValues);
+    onMounted(() => {
+      modalStore.registerModal(TRANSACTION_FORM_ID);
+
+      updateTransactionDataWithDefaultValues();
+    });
 
     const handleSubmit = (closeModal) => {
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId'];
@@ -175,8 +183,8 @@ export default {
       formMethod,
       formAction,
       transaction,
+      modalId,
       handleSubmit,
-      TRANSACTION_FORM_MODAL_ID,
       TRANSACTION_FORM_ID,
     };
   },

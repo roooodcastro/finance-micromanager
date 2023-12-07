@@ -2,9 +2,10 @@ import { defineStore, storeToRefs } from 'pinia';
 import _ from 'lodash';
 
 import usePaginationStore from '~/stores/PaginationStore.js';
+import useModalStore from '~/stores/ModalStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import { transactions as transactionsApi } from '~/api';
-import { DEBIT_TRANSACTION, CREDIT_TRANSACTION } from '~/utils/Constants.js';
+import { DEBIT_TRANSACTION, CREDIT_TRANSACTION, TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
 export default defineStore('transaction', {
   state: () => ({
@@ -92,8 +93,10 @@ export default defineStore('transaction', {
       this.fetchParams.excludeDebits = newType === CREDIT_TRANSACTION;
     },
 
-    setTransactionIdForFormModal(id) {
+    openFormModal(id) {
+      const modalStore = useModalStore();
       this.transactionIdForFormModal = id;
+      modalStore.show(TRANSACTION_FORM_ID);
     },
   }
 });
