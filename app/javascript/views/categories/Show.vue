@@ -8,7 +8,7 @@
     <template v-slot:actions>
       <DropdownMenuItem
         data-bs-toggle="modal"
-        data-bs-target="#subcategoryFormModal"
+        :data-bs-target="`#${SUBCATEGORY_FORM_MODAL_ID}`"
         :label="t('new_subcategory')"
         icon="plus"
         @click="handleNewSubcategory"
@@ -27,7 +27,7 @@
     </template>
   </PageHeader>
 
-  <SubcategoryFormModal />
+  <SubcategoryForm :category="categoryFromStore" />
 
   <DateRangeSelector
     class="mb-3"
@@ -82,6 +82,8 @@ import { categories as categoriesApi } from '~/api';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
+import { SUBCATEGORY_FORM_MODAL_ID } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
@@ -90,11 +92,12 @@ import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import DropdownMenu from '~/components/ui/DropdownMenu.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
-import SubcategoryFormModal from '~/components/subcategories/SubcategoryFormModal.vue';
 import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
+import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 
 export default {
   components: {
+    SubcategoryForm,
     CategorySummary,
     DateRangeSelector,
     DropdownMenu,
@@ -103,7 +106,6 @@ export default {
     PageHeader,
     RecentTransactionsList,
     SubcategoriesList,
-    SubcategoryFormModal,
   },
 
   props: {
@@ -120,12 +122,16 @@ export default {
     const dateRangeStore = useDateRangeStore();
     const categoryStore = useCategoryStore();
     const subcategoryStore = useSubcategoryStore();
+    const transactionStore = useTransactionStore();
 
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     // Load categories from props
     const { category: categoryFromStore } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
+
+    const { transactions } = storeToRefs(transactionStore);
+    transactions.value = categoryFromStore.value.recentTransactions;
 
     // Load subcategories from props
     const {
@@ -150,6 +156,7 @@ export default {
       handleDateRangeChange,
       handleNewSubcategory,
       handleShowDisabledSubcategories,
+      SUBCATEGORY_FORM_MODAL_ID,
     };
   },
 };

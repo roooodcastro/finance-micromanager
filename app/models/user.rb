@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  self.implicit_order_column = :created_at
-
   devise :registerable, :trackable
   devise :confirmable, reconfirmable: true, confirm_within: 24.hours
   devise :database_authenticatable, send_email_changed_notification: true, send_password_change_notification: true

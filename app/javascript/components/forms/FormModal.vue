@@ -1,6 +1,6 @@
 <template>
   <div
-    id="subcategoryFormModal"
+    :id="modalId"
     class="modal fade"
     tabindex="-1"
     :aria-labelledby="title"
@@ -15,16 +15,12 @@
           <CloseButton dismiss="modal" />
         </div>
         <div
-          v-if="subcategory"
+          v-if="record"
           class="modal-body"
         >
-          <SubcategoryForm
-            :category="category"
-            :subcategory="subcategory"
-            @close="handleFormClose"
-          />
+          <slot :close-modal="closeModal" />
         </div>
-        <div class="SubcategoryFormModal__footer d-grid d-lg-flex gap-2 modal-footer">
+        <div class="FormModal__footer d-grid d-lg-flex gap-2 modal-footer">
           <button
             type="button"
             class="btn btn-outline-secondary"
@@ -39,7 +35,7 @@
           </button>
           <button
             type="submit"
-            form="subcategoryForm"
+            :form="formId"
             class="btn btn-primary"
           >
             <FontAwesomeIcon
@@ -57,56 +53,58 @@
 
 <script>
 import { ref, computed, onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
 import { Modal as BootstrapModal } from 'bootstrap';
 
-import I18n from '~/utils/I18n';
-import useCategoryStore from '~/stores/CategoryStore.js';
-import useSubcategoryStore from '~/stores/SubcategoryStore.js';
-
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
-import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
     CloseButton,
     FontAwesomeIcon,
-    SubcategoryForm,
   },
 
-  setup() {
-    const t = I18n.scopedTranslator('views.subcategories.form');
+  props: {
+    modalId: {
+      type: String,
+      required: true,
+    },
+    formId: {
+      type: String,
+      required: true,
+    },
+    record: {
+      type: Object,
+      required: true,
+    },
+    t: {
+      type: Function,
+      required: true,
+    },
+  },
 
+  setup(props) {
     const modal = ref(null);
 
-    onMounted(() => modal.value = new BootstrapModal('#subcategoryFormModal'));
-    const categoryStore = useCategoryStore();
-    const subcategoryStore = useSubcategoryStore();
+    onMounted(() => modal.value = new BootstrapModal(`#${props.modalId}`));
 
-    const { category } = storeToRefs(categoryStore);
-    const { subcategoryForFormModal: subcategory } = storeToRefs(subcategoryStore);
+    const isNewRecord = computed(() => !props.record.value?.id);
+    const title = computed(() => isNewRecord.value ? props.t('new_title') : props.t('edit_title'));
 
-    const isNewSubcategory = computed(() => !subcategory.value?.id);
-    const title = computed(() => isNewSubcategory.value ? t('new_title') : t('edit_title'));
-
-    const handleFormClose = () => {
+    const closeModal = () => {
       modal.value.hide();
-    }
+    };
 
     return {
-      t,
-      category,
-      subcategory,
       title,
-      handleFormClose,
+      closeModal,
     }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.SubcategoryFormModal__footer {
+.FormModal__footer {
   grid-template-columns: repeat(2, 1fr);
 }
 </style>

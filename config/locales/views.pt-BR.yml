@@ -74,6 +74,7 @@ pt-BR:
         profiles: Carteiras
         categories: Categorias
         profile: Meu Perfil
+        wallets: Carteiras
         sign_in: Fazer Login
         sign_up: Criar Conta
         sign_out: Sair da Conta
@@ -214,3 +215,19 @@ pt-BR:
           title: Re-enviar email de desbloqueio de conta
           email_label: Endereço de email
           submit: Re-enviar email de desbloqueio
+
+    wallets:
+      form:
+        submit: Salvar
+        cancel: Cancelar
+        name_label: Nome
+        new_title: Nova Carteira
+        edit_title: Editar Carteira
+      index:
+        title: Carteiras
+        new: Nova Carteira
+        edit: Editar
+        destroy: Desabilitar
+      list:
+        disabled: Desabilitada
+        reenable_label: Reabilitar

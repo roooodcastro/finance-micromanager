@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_05_215223) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_05_230314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_05_215223) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "wallets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.string "name", limit: 50, null: false
+    t.integer "balance_cents", default: 0, null: false
+    t.string "balance_currency", default: "EUR", null: false
+    t.datetime "disabled_at"
+    t.uuid "disabled_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disabled_by_id"], name: "index_wallets_on_disabled_by_id"
+    t.index ["profile_id"], name: "index_wallets_on_profile_id"
+  end
+
   add_foreign_key "categories", "profiles"
   add_foreign_key "imports", "profiles"
   add_foreign_key "profile_share_invites", "profiles"
@@ -146,4 +159,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_05_215223) do
   add_foreign_key "transactions", "users", column: "created_by_id"
   add_foreign_key "transactions", "users", column: "updated_by_id"
   add_foreign_key "users", "profiles", column: "default_profile_id"
+  add_foreign_key "wallets", "profiles"
+  add_foreign_key "wallets", "users", column: "disabled_by_id"
 end

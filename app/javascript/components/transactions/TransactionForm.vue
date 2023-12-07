@@ -1,82 +1,91 @@
 <template>
-  <RailsForm
-    :id="TRANSACTION_FORM_ID"
-    method="POST"
-    resource="transaction"
-    @submit.prevent="handleSubmit"
+  <FormModal
+    :t="t"
+    :record="transaction"
+    :form-id="TRANSACTION_FORM_ID"
+    :modal-id="TRANSACTION_FORM_MODAL_ID"
   >
-    <template v-slot:default="{ formHelper }">
-      <FormInput
-        v-model="transaction.name"
-        field-name="name"
-        :form-helper="formHelper"
-        :value="transaction.name"
-        :label="t('name_label')"
-        required
-      />
-
-      <label
-        :for="formHelper.fieldId('amount')"
-        class="form-label"
+    <template v-slot:default="{ closeModal }">
+      <RailsForm
+        :id="TRANSACTION_FORM_ID"
+        method="POST"
+        resource="transaction"
+        @submit.prevent="handleSubmit(closeModal)"
       >
-        {{ t('amount_label') }}
-      </label>
-
-      <div class="d-flex">
-        <div class="input-group mb-3">
-          <span class="input-group-text">
-            {{ currencySymbol }}
-          </span>
-
-          <input
-            :id="formHelper.fieldId('amount')"
-            v-model="transaction.amount"
-            :name="formHelper.fieldName('amount')"
-            type="number"
-            class="form-control"
-            step="0.01"
+        <template v-slot:default="{ formHelper }">
+          <FormInput
+            v-model="transaction.name"
+            field-name="name"
+            :form-helper="formHelper"
+            :value="transaction.name"
+            :label="t('name_label')"
             required
           />
-        </div>
 
-        <ToggleSwitch
-          v-model="transaction.amountType"
-          field-name="amount_type"
-          :form-helper="formHelper"
-          class="ms-2"
-          input-off-classes="text-danger-emphasis bg-danger-subtle border-danger-subtle"
-          input-on-classes="text-success-emphasis bg-success-subtle border-success-subtle"
-          :off-label="t('debit_label')"
-          :on-label="t('credit_label')"
-          :off-value="'debit'"
-          :on-value="'credit'"
-        />
-      </div>
+          <label
+            :for="formHelper.fieldId('amount')"
+            class="form-label"
+          >
+            {{ t('amount_label') }}
+          </label>
 
-      <FormInput
-        v-model="transaction.transactionDate"
-        field-name="transaction_date"
-        :form-helper="formHelper"
-        :label="t('date_label')"
-        type="date"
-        required
-      />
+          <div class="d-flex">
+            <div class="input-group mb-3">
+              <span class="input-group-text">
+                {{ currencySymbol }}
+              </span>
 
-      <label
-        :for="formHelper.fieldId('category_id')"
-        class="form-label"
-      >
-        {{ t('category_label') }}
-      </label>
+              <input
+                :id="formHelper.fieldId('amount')"
+                v-model="transaction.amount"
+                :name="formHelper.fieldName('amount')"
+                type="number"
+                class="form-control"
+                step="0.01"
+                required
+              />
+            </div>
 
-      <CategoriesSelect
-        :id="formHelper.fieldId('category_id')"
-        v-model="transaction.categoryId"
-        :name="formHelper.fieldName('category_id')"
-        required
-      />
+            <ToggleSwitch
+              v-model="transaction.amountType"
+              field-name="amount_type"
+              :form-helper="formHelper"
+              class="ms-2"
+              input-off-classes="text-danger-emphasis bg-danger-subtle border-danger-subtle"
+              input-on-classes="text-success-emphasis bg-success-subtle border-success-subtle"
+              :off-label="t('debit_label')"
+              :on-label="t('credit_label')"
+              :off-value="'debit'"
+              :on-value="'credit'"
+            />
+          </div>
+
+          <FormInput
+            v-model="transaction.transactionDate"
+            field-name="transaction_date"
+            :form-helper="formHelper"
+            :label="t('date_label')"
+            type="date"
+            required
+          />
+
+          <label
+            :for="formHelper.fieldId('category_id')"
+            class="form-label"
+          >
+            {{ t('category_label') }}
+          </label>
+
+          <CategoriesSelect
+            :id="formHelper.fieldId('category_id')"
+            v-model="transaction.categoryId"
+            :name="formHelper.fieldName('category_id')"
+            required
+          />
+        </template>
+      </RailsForm>
     </template>
-  </RailsForm>
+  </FormModal>
 </template>
 
 <script>
@@ -84,30 +93,30 @@ import { computed, onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
-import { transactions } from '~/api';
+import { transactions as transactionsApi } from '~/api';
 import I18n from '~/utils/I18n';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
-import { TRANSACTION_FORM_ID } from '~/utils/Constants.js';
+import { TRANSACTION_FORM_MODAL_ID, TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
+import FormModal from '~/components/forms/FormModal.vue';
+import ToggleSwitch from '~/components/ui/ToggleSwitch.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
-import ToggleSwitch from '@/components/ui/ToggleSwitch.vue';
 
 export default {
   components: {
-    ToggleSwitch,
     CategoriesSelect,
     FormInput,
+    FormModal,
     RailsForm,
+    ToggleSwitch,
   },
 
-  emits: ['close'],
-
-  setup(_props, { emit }) {
+  setup() {
     const t = I18n.scopedTranslator('views.transactions.form');
 
     const profileStore = useProfileStore();
@@ -116,7 +125,7 @@ export default {
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
-    const { transactionForFormModal: transaction } = storeToRefs(transactionStore);
+    const { transactionForFormModal: transaction, transactions } = storeToRefs(transactionStore);
 
     if (!categories.value.length) {
       categoryStore.fetch();
@@ -128,8 +137,8 @@ export default {
     const formMethod = computed(() => isNewRecord.value ? 'POST' : 'PATCH');
     const formAction = computed(() => {
       return isNewRecord.value
-        ? transactions.create.path()
-        : transactions.update.path({ id: transaction.value.id });
+        ? transactionsApi.create.path()
+        : transactionsApi.update.path({ id: transaction.value.id });
     });
 
     const updateTransactionDataWithDefaultValues = () => {
@@ -144,23 +153,19 @@ export default {
     };
 
     watch(
-      () => transaction.value,
+      [transaction, transactions],
       updateTransactionDataWithDefaultValues,
     );
 
     onMounted(updateTransactionDataWithDefaultValues);
 
-    const handleSubmit = () => {
+    const handleSubmit = (closeModal) => {
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId'];
       const transactionData = _.pick(transaction.value, transactionFields);
       if (isNewRecord.value) {
-        transactionStore
-          .create(transactionData)
-          .then(() => emit('close'));
+        transactionStore.create(transactionData).then(closeModal);
       } else {
-        transactionStore
-          .update(transaction.value.id, transactionData)
-          .then(() => emit('close'));
+        transactionStore.update(transaction.value.id, transactionData).then(closeModal);
       }
     }
 
@@ -171,6 +176,7 @@ export default {
       formAction,
       transaction,
       handleSubmit,
+      TRANSACTION_FORM_MODAL_ID,
       TRANSACTION_FORM_ID,
     };
   },

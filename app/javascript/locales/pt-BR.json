@@ -2,11 +2,22 @@
   "pt-BR": {
     "activerecord": {
       "attributes": {
+        "category": {
+          "color": "Cor",
+          "name": "Nome"
+        },
         "profile_share": {
           "user": "Usuário"
         },
         "profile_share_invite": {
           "invitee_email": "Email do convidado"
+        },
+        "subcategory": {
+          "name": "Nome"
+        },
+        "wallet": {
+          "balance": "Saldo",
+          "name": "Nome"
         }
       },
       "errors": {
@@ -21,7 +32,7 @@
           "profile_share": {
             "attributes": {
               "user": {
-                "owner_self_share": "já é o(a) dono(a) desta perfil."
+                "owner_self_share": "já é o(a) dono(a) deste perfil."
               }
             }
           },
@@ -35,7 +46,12 @@
         }
       },
       "models": {
-        "user": "Usuário"
+        "category": "Categoria",
+        "profile": "Perfil",
+        "subcategory": "Subcategoria",
+        "transaction": "Transação",
+        "user": "Usuário",
+        "wallet": "Carteira"
       }
     },
     "categories": {
@@ -574,7 +590,8 @@
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar Conta",
-          "transactions": "Transações"
+          "transactions": "Transações",
+          "wallets": "Carteiras"
         }
       },
       "profile_share_invites": {
@@ -732,6 +749,35 @@
             "title": "Re-enviar email de desbloqueio de conta"
           }
         }
+      },
+      "wallets": {
+        "form": {
+          "cancel": "Cancelar",
+          "edit_title": "Editar Carteira",
+          "name_label": "Nome",
+          "new_title": "Nova Carteira",
+          "submit": "Salvar"
+        },
+        "index": {
+          "destroy": "Desabilitar",
+          "edit": "Editar",
+          "new": "Nova Carteira",
+          "title": "Carteiras"
+        },
+        "list": {
+          "disabled": "Desabilitada",
+          "reenable_label": "Reabilitar"
+        }
+      }
+    },
+    "wallets": {
+      "create": {
+        "error": "Carteira não pode ser criada: %{error}",
+        "success": "Carteira \"%{name}\" foi criada com sucesso."
+      },
+      "update": {
+        "error": "Carteira \"%{name}\" não pode ser atualizada: %{error}",
+        "success": "Carteira \"%{name}\" foi atualizada com sucesso."
       }
     }
   }

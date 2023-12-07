@@ -1,20 +1,29 @@
 <template>
-  <RailsForm
-    id="subcategoryForm"
-    :action="formAction"
-    :method="formMethod"
-    resource="subcategory"
-    @submit.prevent="handleSubmit"
+  <FormModal
+    :t="t"
+    :record="subcategory"
+    :form-id="SUBCATEGORY_FORM_ID"
+    :modal-id="SUBCATEGORY_FORM_MODAL_ID"
   >
-    <template v-slot:default="{ formHelper }">
-      <FormInput
-        v-model="subcategory.name"
-        field-name="name"
-        :form-helper="formHelper"
-        :label="t('name_label')"
-      />
+    <template v-slot:default="{ closeModal }">
+      <RailsForm
+        id="subcategoryForm"
+        :action="formAction"
+        :method="formMethod"
+        resource="subcategory"
+        @submit.prevent="handleSubmit(closeModal)"
+      >
+        <template v-slot:default="{ formHelper }">
+          <FormInput
+            v-model="subcategory.name"
+            field-name="name"
+            :form-helper="formHelper"
+            :label="t('name_label')"
+          />
+        </template>
+      </RailsForm>
     </template>
-  </RailsForm>
+  </FormModal>
 </template>
 
 <script>
@@ -24,12 +33,15 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { subcategories as subcategoriesApi } from '~/api';
 import useSubcategoriesStore from '~/stores/SubcategoryStore.js';
+import { SUBCATEGORY_FORM_MODAL_ID, SUBCATEGORY_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
+import FormModal from '~/components/forms/FormModal.vue';
 
 export default {
   components: {
+    FormModal,
     FormInput,
     RailsForm,
   },
@@ -41,9 +53,7 @@ export default {
     },
   },
 
-  emits: ['close'],
-
-  setup(props, { emit }) {
+  setup(props) {
     const t = I18n.scopedTranslator('views.subcategories.form');
 
     const subcategoryStore = useSubcategoriesStore();
@@ -58,15 +68,15 @@ export default {
         : subcategoriesApi.update.path({ category_id: props.category.id, id: subcategory.value.id });
     });
 
-    const handleSubmit = () => {
+    const handleSubmit = (closeModal) => {
       if (isNewSubcategory.value) {
         subcategoryStore
           .create(props.category.id, { name: subcategory.value.name ?? '' })
-          .then(() => emit('close'));
+          .then(closeModal);
       } else {
         subcategoryStore
           .update(props.category.id, subcategory.value.id, { name: subcategory.value.name })
-          .then(() => emit('close'));
+          .then(closeModal);
       }
     };
 
@@ -76,6 +86,8 @@ export default {
       formAction,
       subcategory,
       handleSubmit,
+      SUBCATEGORY_FORM_MODAL_ID,
+      SUBCATEGORY_FORM_ID,
     };
   },
 };
