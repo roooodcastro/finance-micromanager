@@ -27,6 +27,7 @@ import {
   faShapes,
   faShareNodes,
   faSterlingSign,
+  faSquareCheck,
   faSquareMinus,
   faSquarePlus,
   faTrashCan,
@@ -43,6 +44,7 @@ import {
   faCircleQuestion as farCircleQuestion,
   faCircleXmark as farCircleXmark,
   faFaceFrown as farFaceFrown,
+  faSquare as farSquare,
   faSquareMinus as farSquareMinus,
 } from '@fortawesome/free-regular-svg-icons';
 
@@ -77,6 +79,8 @@ library.add(
   faShapes,
   faShareNodes,
   faSterlingSign,
+  farSquare,
+  faSquareCheck,
   faSquareMinus,
   farSquareMinus,
   faSquarePlus,

@@ -226,6 +226,7 @@ en:
         new: New Wallet
         edit: Edit
         destroy: Disable
+        show_disabled: Show Disabled
       list:
         disabled: Disabled
         reenable_label: Re-enable

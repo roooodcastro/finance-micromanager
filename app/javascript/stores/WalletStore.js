@@ -9,12 +9,16 @@ export default defineStore('wallet', {
   state: () => ({
     wallets: [],
     idForFormModal: null,
+    fetchParams: {
+      showDisabled: false,
+    },
   }),
   getters: {
     walletForFormModal: (state) => {
       // Clone the object so it doesn't affect the list before it's actually updated
       return { ...(state.wallets.find(wallet => wallet.id === state.idForFormModal) ?? {}) };
     },
+    showDisabled: state => state.fetchParams.showDisabled,
   },
   actions: {
     openFormModal(id) {
@@ -27,10 +31,12 @@ export default defineStore('wallet', {
       this.wallets = wallets;
     },
 
-    fetch(options = {}) {
-      walletsApi
-        .index({ query: options })
-        .then(response => this.wallets = response.wallets);
+    setFetchParams(params) {
+      this.fetchParams = Object.assign(this.fetchParams, params);
+    },
+
+    fetch() {
+      walletsApi.index({ query: this.fetchParams }).then(response => this.wallets = response.wallets);
     },
 
     create(wallet) {

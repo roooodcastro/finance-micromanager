@@ -712,6 +712,7 @@
           "destroy": "Disable",
           "edit": "Edit",
           "new": "New Wallet",
+          "show_disabled": "Show Disabled",
           "title": "Wallets"
         },
         "list": {

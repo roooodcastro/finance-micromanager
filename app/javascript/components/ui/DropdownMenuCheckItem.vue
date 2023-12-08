@@ -3,14 +3,7 @@
     class="dropdown-item py-2 ps-3"
     :href="href"
   >
-    <FontAwesomeIcon
-      v-if="checked"
-      icon="check"
-    />
-    <span
-      v-else
-      class="px-2"
-    />
+    <FontAwesomeIcon :icon="checked ? 'square-check' : ['far', 'square']" />
     <span class="ms-2">{{ label }}</span>
   </a>
 </template>

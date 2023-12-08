@@ -756,12 +756,14 @@
           "edit_title": "Editar Carteira",
           "name_label": "Nome",
           "new_title": "Nova Carteira",
+          "show_disabled": "Mostrar Desabilitadas",
           "submit": "Salvar"
         },
         "index": {
           "destroy": "Desabilitar",
           "edit": "Editar",
           "new": "Nova Carteira",
+          "show_disabled": "Show Disabled",
           "title": "Carteiras"
         },
         "list": {
