@@ -6,8 +6,9 @@
         :href="dashboardPath"
       >
         <img
-          :src="monogramWhiteUrl"
+          :src="monogramUrl"
           class="Navigation__logo"
+          aria-hidden="true"
         />
 
         <span class="d-none d-lg-inline-block ms-3">
@@ -31,7 +32,7 @@
 <script>
 import useUserStore from '~/stores/UserStore.js';
 import { dashboards as dashboardsApi } from '~/api';
-import monogramWhiteUrl from '~/images/monogram_white.svg';
+import monogramUrl from '~/images/monogram.svg';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
@@ -48,7 +49,7 @@ export default {
     return {
       isUserLoggedIn,
       dashboardPath,
-      monogramWhiteUrl,
+      monogramUrl,
     };
   },
 };
