@@ -11,6 +11,11 @@
     <%= tag(:meta, name: 'version', content: Version.version) %>
     <%= tag(:meta, name: 'deploy-timestamp', content: Version.deploy_timestamp) %>
 
+    <link rel="icon" href="<%= vite_asset_url('images/favicon/favicon.ico') %>" sizes="32x32">
+    <link rel="icon" href="<%= vite_asset_url('images/favicon/favicon.svg') %>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<%= vite_asset_url('images/favicon/apple-touch-icon.png') %>">
+    <link rel="manifest" href="<%= vite_asset_url('images/manifest.webmanifest') %>">
+
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application.js' %>
     <%= vite_stylesheet_tag 'application.scss' %>

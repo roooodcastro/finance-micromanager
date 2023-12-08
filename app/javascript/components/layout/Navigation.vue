@@ -1,11 +1,18 @@
 <template>
-  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-2 py-lg-3">
+  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-1 py-lg-2">
     <div class="container-xxl">
       <a
         class="navbar-brand"
         :href="dashboardPath"
       >
-        Finance MicroManager
+        <img
+          :src="monogramWhiteUrl"
+          class="Navigation__logo"
+        />
+
+        <span class="d-none d-lg-inline-block ms-3">
+          Finance MicroManager
+        </span>
       </a>
 
       <a
@@ -24,6 +31,7 @@
 <script>
 import useUserStore from '~/stores/UserStore.js';
 import { dashboards as dashboardsApi } from '~/api';
+import monogramWhiteUrl from '~/images/monogram_white.svg';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
@@ -40,6 +48,7 @@ export default {
     return {
       isUserLoggedIn,
       dashboardPath,
+      monogramWhiteUrl,
     };
   },
 };
@@ -55,5 +64,9 @@ export default {
     --bs-btn-font-size: 0.875rem;
     --bs-btn-border-radius: 0.25rem;
   }
+}
+
+.Navigation__logo {
+  max-height: 3rem;
 }
 </style>
