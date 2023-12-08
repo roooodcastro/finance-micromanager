@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class WalletsController < AbstractAuthenticatedController
-  before_action :set_wallet, only: %i[update]
+  before_action :set_wallet, only: %i[update destroy reenable]
 
   def index
     wallets = Current.profile.wallets.order(:name)
@@ -36,6 +36,18 @@ class WalletsController < AbstractAuthenticatedController
         message: t('.error', name: @wallet.name_was, error: @wallet.errors.full_messages.join(', '))
       ), status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @wallet.disable!
+
+    render json: camelize_props(message: t('.success', name: @wallet.name))
+  end
+
+  def reenable
+    @wallet.enable!
+
+    render json: camelize_props(message: t('.success', name: @wallet.name))
   end
 
   private

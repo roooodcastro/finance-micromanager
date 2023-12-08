@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 
+import I18n from '~/utils/I18n.js';
 import { wallets as walletsApi } from '~/api';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
@@ -74,5 +75,29 @@ export default defineStore('wallet', {
 
       return returnPromise;
     },
+
+    disable(id) {
+      const notificationStore = useNotificationStore();
+
+      walletsApi
+        .destroy({ id })
+        .then((response) => {
+          this.fetch();
+          notificationStore.notify(response.message, 'success');
+        })
+        .catch(() => notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger'));
+    },
+
+    reenable(id) {
+      const notificationStore = useNotificationStore();
+
+      walletsApi
+        .reenable({ id })
+        .then((response) => {
+          this.fetch();
+          notificationStore.notify(response.message, 'success');
+        })
+        .catch(() => notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger'));
+    }
   },
 });
