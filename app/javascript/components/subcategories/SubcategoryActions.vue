@@ -16,8 +16,6 @@
     <EditButton
       small
       href="#"
-      data-bs-toggle="modal"
-      data-bs-target="#subcategoryFormModal"
       :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
       @click="handleEdit"
     />
@@ -73,7 +71,7 @@ export default {
 
     const isDisabled = computed(() => !!props.subcategory.disabledAt);
 
-    const handleEdit = () => subcategoryStore.setSubcategoryIdForFormModal(props.subcategory.id);
+    const handleEdit = () => subcategoryStore.openFormModal(props.subcategory.id);
     const handleDelete = () => subcategoryStore.disable(props.category.id, props.subcategory.id);
     const handleReenable = () => subcategoryStore.reenable(props.subcategory.id);
 

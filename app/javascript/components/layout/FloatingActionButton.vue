@@ -3,8 +3,6 @@
     <a
       class="FloatingActionButton__link d-flex align-items-center justify-content-center btn btn-primary rounded-circle fs-1 shadow"
       href="#"
-      data-bs-toggle="modal"
-      :data-bs-target="`#${TRANSACTION_FORM_MODAL_ID}`"
       @click="handleClick"
     >
       <FontAwesomeIcon icon="plus" />
@@ -15,7 +13,6 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import { TRANSACTION_FORM_MODAL_ID } from '~/utils/Constants.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 
 export default {
@@ -26,12 +23,9 @@ export default {
   setup() {
     const transactionStore = useTransactionStore();
 
-    const handleClick = () => transactionStore.setTransactionIdForFormModal(null);
+    const handleClick = () => transactionStore.openFormModal(null);
 
-    return {
-      handleClick,
-      TRANSACTION_FORM_MODAL_ID,
-    };
+    return { handleClick };
   }
 };
 </script>

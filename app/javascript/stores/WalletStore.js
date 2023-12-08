@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 
 import { wallets as walletsApi } from '~/api';
 import useNotificationStore from '~/stores/NotificationStore.js';
+import useModalStore from '~/stores/ModalStore.js';
+import { WALLET_FORM_ID } from '~/utils/Constants.js';
 
 export default defineStore('wallet', {
   state: () => ({
@@ -15,12 +17,16 @@ export default defineStore('wallet', {
     },
   },
   actions: {
+    openFormModal(id) {
+      const modalStore = useModalStore();
+      this.idForFormModal = id;
+      modalStore.show(WALLET_FORM_ID);
+    },
+
     loadFromProps(wallets) {
       this.wallets = wallets;
     },
-    setIdForFormModal(id) {
-      this.idForFormModal = id;
-    },
+
     fetch(options = {}) {
       walletsApi
         .index({ query: options })

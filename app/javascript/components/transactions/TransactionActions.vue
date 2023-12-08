@@ -4,8 +4,6 @@
   <EditButton
     v-if="showEdit"
     href="#"
-    data-bs-toggle="modal"
-    :data-bs-target="`#${TRANSACTION_FORM_MODAL_ID}`"
     :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
     @click="handleEdit"
   />
@@ -24,7 +22,6 @@
 import { transactions as transactionsApi } from '~/api';
 import useNotificationStore from '~/stores/NotificationStore';
 import useTransactionStore from '~/stores/TransactionStore';
-import { TRANSACTION_FORM_MODAL_ID } from '~/utils/Constants.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
@@ -58,7 +55,7 @@ export default {
     const notificationStore = useNotificationStore();
     const transactionStore = useTransactionStore();
 
-    const handleEdit = () => transactionStore.setTransactionIdForFormModal(props.transaction.id);
+    const handleEdit = () => transactionStore.openFormModal(props.transaction.id);
 
     const handleDelete = (id) => {
       transactionsApi.destroy({ id }).then((response) => {
@@ -70,7 +67,6 @@ export default {
     return {
       handleEdit,
       handleDelete,
-      TRANSACTION_FORM_MODAL_ID,
     };
   }
 };

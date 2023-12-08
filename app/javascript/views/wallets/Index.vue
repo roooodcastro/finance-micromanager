@@ -3,11 +3,8 @@
     <PageHeader :title="t('title')">
       <template v-slot:actions>
         <DropdownMenuItem
-          href="#"
           :label="t('new')"
           icon="plus"
-          data-bs-toggle="modal"
-          :data-bs-target="`#${WALLET_FORM_MODAL_ID}`"
           @click="handleNew"
         />
       </template>
@@ -21,7 +18,6 @@
 <script>
 import I18n from '~/utils/I18n';
 import useWalletStore from '~/stores/WalletStore.js';
-import { WALLET_FORM_MODAL_ID } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import WalletsList from '~/components/wallets/WalletsList.vue';
@@ -47,12 +43,11 @@ export default {
     const walletStore = useWalletStore();
     walletStore.loadFromProps(props.wallets);
 
-    const handleNew = () => walletStore.setIdForFormModal(crypto.randomUUID());
+    const handleNew = () => walletStore.openFormModal(null);
 
     return {
       t: I18n.scopedTranslator('views.wallets.index'),
       handleNew,
-      WALLET_FORM_MODAL_ID,
     };
   },
 };

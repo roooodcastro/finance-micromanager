@@ -3,7 +3,7 @@
     :t="t"
     :record="wallet"
     :form-id="WALLET_FORM_ID"
-    :modal-id="WALLET_FORM_MODAL_ID"
+    :modal-id="modalId"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -33,7 +33,8 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { wallets as walletsApi } from '~/api';
 import useWalletsStore from '~/stores/WalletStore.js';
-import { WALLET_FORM_MODAL_ID, WALLET_FORM_ID } from '~/utils/Constants.js';
+import useModalStore from '~/stores/ModalStore.js';
+import { WALLET_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -48,6 +49,10 @@ export default {
 
   setup() {
     const t = I18n.scopedTranslator('views.wallets.form');
+
+    const modalStore = useModalStore();
+
+    const modalId = modalStore.modalId(WALLET_FORM_ID);
 
     const walletStore = useWalletsStore();
     const { walletForFormModal: wallet } = storeToRefs(walletStore);
@@ -74,8 +79,8 @@ export default {
       formMethod,
       formAction,
       wallet,
+      modalId,
       handleSubmit,
-      WALLET_FORM_MODAL_ID,
       WALLET_FORM_ID,
     };
   },

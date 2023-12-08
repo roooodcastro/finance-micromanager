@@ -3,6 +3,8 @@ import { defineStore } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { subcategories as subcategoriesApi } from '~/api';
 import useNotificationStore from '~/stores/NotificationStore.js';
+import useModalStore from '~/stores/ModalStore.js';
+import { SUBCATEGORY_FORM_ID } from '~/utils/Constants.js';
 
 export default defineStore('subcategory', {
   state: () => ({
@@ -18,8 +20,10 @@ export default defineStore('subcategory', {
     },
   },
   actions: {
-    setSubcategoryIdForFormModal(id) {
+    openFormModal(id) {
+      const modalStore = useModalStore();
       this.subcategoryIdForFormModal = id;
+      modalStore.show(SUBCATEGORY_FORM_ID);
     },
 
     setShowDisabled(showDisabled) {

@@ -3,7 +3,7 @@
     :t="t"
     :record="subcategory"
     :form-id="SUBCATEGORY_FORM_ID"
-    :modal-id="SUBCATEGORY_FORM_MODAL_ID"
+    :modal-id="modalId"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -33,7 +33,8 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { subcategories as subcategoriesApi } from '~/api';
 import useSubcategoriesStore from '~/stores/SubcategoryStore.js';
-import { SUBCATEGORY_FORM_MODAL_ID, SUBCATEGORY_FORM_ID } from '~/utils/Constants.js';
+import useModalStore from '~/stores/ModalStore.js';
+import { SUBCATEGORY_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -55,6 +56,10 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.subcategories.form');
+
+    const modalStore = useModalStore();
+
+    const modalId = modalStore.modalId(SUBCATEGORY_FORM_ID);
 
     const subcategoryStore = useSubcategoriesStore();
     const { subcategoryForFormModal: subcategory } = storeToRefs(subcategoryStore);
@@ -85,8 +90,8 @@ export default {
       formMethod,
       formAction,
       subcategory,
+      modalId,
       handleSubmit,
-      SUBCATEGORY_FORM_MODAL_ID,
       SUBCATEGORY_FORM_ID,
     };
   },
