@@ -622,7 +622,9 @@
       "profiles": {
         "form": {
           "back": "Voltar",
+          "currency_change_warning": "A moeda não pode ser alterada depois de criar o perfil!",
           "currency_label": "Selecione a Moeda",
+          "default_wallet_label": "Selecione a Carteira Padrão",
           "edit_title": "Editar Perfil \"%{profile}\"",
           "name_label": "Nome",
           "new_title": "Nova Perfil",

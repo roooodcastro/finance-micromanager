@@ -28,12 +28,32 @@
             {{ t('currency_label') }}
           </label>
 
+          <InfoAlert
+            :message="t('currency_change_warning')"
+          />
+
           <CurrencySelect
             :id="formHelper.fieldId('currency')"
             :name="formHelper.fieldName('currency')"
             :value="profile.currency"
+            :disabled="!isNewRecord"
             required
           />
+
+          <template v-if="!isNewRecord">
+            <label
+              :for="formHelper.fieldId('default_wallet_id')"
+              class="form-label mt-3"
+            >
+              {{ t('default_wallet_label') }}
+            </label>
+
+            <WalletsSelect
+              :id="formHelper.fieldId('default_wallet_id')"
+              :value="profile.defaultWalletId"
+              :name="formHelper.fieldName('default_wallet_id')"
+            />
+          </template>
         </div>
 
         <div class="card-footer">
@@ -59,18 +79,24 @@
 </template>
 
 <script>
-import { profiles } from '~/api';
+import { computed } from 'vue';
+
+import { profiles as profilesApi } from '~/api';
 import I18n from '~/utils/I18n';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import CurrencySelect from '~/components/currencies/CurrencySelect.vue';
 import FormInput from '~/components/rails/FormInput.vue';
+import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
+import InfoAlert from '@/components/bootstrap/InfoAlert.vue';
 
 export default {
   components: {
+    InfoAlert,
     CurrencySelect,
     FormInput,
     RailsForm,
+    WalletsSelect,
   },
 
   props: {
@@ -82,20 +108,22 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.profiles.form');
-    const listProfilesPath = profiles.index.path();
 
-    const isNewRecord = !props.profile.id;
-    const formMethod = isNewRecord ? 'POST' : 'PATCH';
-    const formAction = isNewRecord
-      ? profiles.create.path()
-      : profiles.update.path({ id: props.profile.id });
+    const listProfilesPath = profilesApi.index.path();
 
-    const formTitle = isNewRecord ? t('new_title') : t('edit_title', { profile: props.profile.displayName });
+    const isNewRecord = computed(() => !props.profile.id);
+    const formMethod = isNewRecord.value ? 'POST' : 'PATCH';
+    const formAction = isNewRecord.value
+      ? profilesApi.create.path()
+      : profilesApi.update.path({ id: props.profile.id });
+
+    const formTitle = isNewRecord.value ? t('new_title') : t('edit_title', { profile: props.profile.displayName });
 
     return {
       formAction,
       formMethod,
       formTitle,
+      isNewRecord,
       listProfilesPath,
       t
     };

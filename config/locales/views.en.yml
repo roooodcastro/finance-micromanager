@@ -92,8 +92,10 @@ en:
         edit_title: 'Edit Profile "%{profile}"'
         name_label: Name
         currency_label: Choose Currency
+        default_wallet_label: Choose Default Wallet
         submit: Submit
         back: Back
+        currency_change_warning: Currency cannot be changed after profile is created!
     profile_share_invites:
       index:
         pending_invite_title_pending: Profile Share Invite

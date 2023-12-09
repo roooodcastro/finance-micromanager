@@ -2,6 +2,7 @@
 
 class Profile < ApplicationRecord
   belongs_to :user
+  belongs_to :default_wallet, class_name: 'Wallet', optional: true
 
   has_many :transactions, dependent: :restrict_with_exception
   has_many :categories, dependent: :restrict_with_exception

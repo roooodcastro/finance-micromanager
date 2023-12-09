@@ -92,8 +92,10 @@ pt-BR:
         edit_title: 'Editar Perfil "%{profile}"'
         name_label: Nome
         currency_label: Selecione a Moeda
+        default_wallet_label: Selecione a Carteira Padrão
         submit: Salvar
         back: Voltar
+        currency_change_warning: A moeda não pode ser alterada depois de criar o perfil!
     profile_share_invites:
       index:
         pending_invite_title_pending: Convite de Compartilhamento de Perfil
