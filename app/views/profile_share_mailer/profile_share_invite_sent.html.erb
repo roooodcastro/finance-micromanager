@@ -1,6 +1,6 @@
-<h1>
-  <%= [t('.hello'), @invitee&.display_name.presence].compact.join(' ') %>,
-</h1>
+<h2>
+  <%= "#{t('.hello')} #{(@invitee&.display_name.presence || @profile_share_invite.invitee_email)}," %>
+</h2>
 
 <p>
   <%= t('.invite_paragraph', inviter: @inviter.display_name, profile_name: @profile_share_invite.profile.display_name) %>

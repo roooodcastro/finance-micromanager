@@ -402,6 +402,10 @@
         "success": "Profile \"%{name}\" was successfully updated."
       }
     },
+    "rails_mailer": {
+      "footer_sent_by": "This email was sent by",
+      "footer_version": "Version"
+    },
     "settings": {
       "update": {
         "error": "There was an error updating your profile info.",

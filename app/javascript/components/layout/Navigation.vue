@@ -7,6 +7,7 @@
       >
         <img
           :src="monogramUrl"
+          alt=""
           class="Navigation__logo"
           aria-hidden="true"
         />
