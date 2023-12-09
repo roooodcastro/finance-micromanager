@@ -33,7 +33,7 @@
 <script>
 import useUserStore from '~/stores/UserStore.js';
 import { dashboards as dashboardsApi } from '~/api';
-import monogramUrl from '~/images/monogram.svg';
+import monogramUrl from '~/images/monogram.svg?url';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
