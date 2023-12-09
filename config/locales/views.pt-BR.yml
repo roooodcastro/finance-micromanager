@@ -178,10 +178,12 @@ pt-BR:
         amount_label: Valor
         amount_type_label: Tipo
         category_label: Categoria
+        wallet_label: Carteira
         credit_label: Crédito
         debit_label: Débito
         date_label: Data
         name_label: Nome
+        optional: Opcional
         submit: Salvar
         cancel: Cancelar
       types:

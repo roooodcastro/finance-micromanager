@@ -13,6 +13,7 @@ class Transaction < ApplicationRecord
   belongs_to :updated_by, class_name: 'User'
   belongs_to :category
   belongs_to :subcategory, optional: true
+  belongs_to :wallet, optional: true
 
   before_validation :process_amount_type
 

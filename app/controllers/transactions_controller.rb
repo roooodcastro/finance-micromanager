@@ -66,7 +66,7 @@ class TransactionsController < AbstractAuthenticatedController
   def transaction_params
     params
       .require(:transaction)
-      .permit(:name, :amount, :transaction_date, :category_id, :amount_type)
+      .permit(:name, :amount, :transaction_date, :category_id, :amount_type, :wallet_id)
       .merge(amount_currency: Current.profile.currency, created_by: current_user, updated_by: current_user)
       .then do |permitted_params|
         break permitted_params unless permitted_params[:category_id]

@@ -33,7 +33,7 @@ export default {
 
   setup() {
     const walletStore = useWalletStore();
-    const { wallets: options } = storeToRefs(walletStore);
+    const { activeWallets: options } = storeToRefs(walletStore);
 
     if (!options.length) {
       walletStore.fetch();

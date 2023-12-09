@@ -176,10 +176,12 @@ en:
         amount_label: Amount
         amount_type_label: Type
         category_label: Category
+        wallet_label: Wallet
         credit_label: Credit
         debit_label: Debit
         date_label: Date
         name_label: Name
+        optional: Optional
         submit: Submit
         cancel: Cancel
       types:

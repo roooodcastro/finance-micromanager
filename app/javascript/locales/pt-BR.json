@@ -693,7 +693,9 @@
           "edit_title": "Editar Transacão",
           "name_label": "Nome",
           "new_title": "Nova Transação",
-          "submit": "Salvar"
+          "optional": "Opcional",
+          "submit": "Salvar",
+          "wallet_label": "Carteira"
         },
         "index": {
           "amount": "Valor",
