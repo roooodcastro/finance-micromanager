@@ -62,3 +62,7 @@ pt-BR:
     update:
       success: 'Carteira "%{name}" foi atualizada com sucesso.'
       error: 'Carteira "%{name}" não pode ser atualizada: %{error}'
+    destroy:
+      success: 'Carteira "%{name}" desabilitada com sucesso.'
+    reenable:
+      success: 'Carteira "%{name}" reabilitada com sucesso.'

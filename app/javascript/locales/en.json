@@ -726,6 +726,12 @@
         "error": "Wallet could not be created: %{error}",
         "success": "Wallet \"%{name}\" was successfully created."
       },
+      "destroy": {
+        "success": "Wallet \"%{name}\" was successfully disabled."
+      },
+      "reenable": {
+        "success": "Wallet \"%{name}\" was successfully re-enabled."
+      },
       "update": {
         "error": "Wallet \"%{name}\" could not be updated: %{error}",
         "success": "Wallet \"%{name}\" was successfully updated."

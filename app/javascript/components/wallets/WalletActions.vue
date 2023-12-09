@@ -68,8 +68,8 @@ export default {
     const isDisabled = computed(() => !!props.wallet.disabledAt);
 
     const handleEdit = () => walletStore.openFormModal(props.wallet.id);
-    const handleDelete = () => {}; // walletStore.disable(props.wallet.id);
-    const handleReenable = () => {}; // walletStore.reenable(props.wallet.id);
+    const handleDelete = () => walletStore.disable(props.wallet.id);
+    const handleReenable = () => walletStore.reenable(props.wallet.id);
 
     return {
       t,

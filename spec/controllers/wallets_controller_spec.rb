@@ -74,7 +74,7 @@ RSpec.describe WalletsController do
       let(:params) { { id: wallet.id, wallet: { name: 'New Name' } } }
 
       it 'updates the wallet' do
-        expect { update_request }.to not_change { Category.count }.and change { wallet.reload.name }.to('New Name')
+        expect { update_request }.to not_change { Wallet.count }.and change { wallet.reload.name }.to('New Name')
 
         expect(json_response).to eq(expected_json)
       end
@@ -91,6 +91,42 @@ RSpec.describe WalletsController do
         expect { update_request }.to not_change { Wallet.count }.and not_change { wallet.reload.name }
         expect(json_response).to eq(expected_json)
       end
+    end
+  end
+
+  describe 'DELETE destroy', :travel_to_now do
+    subject(:delete_request) { delete :destroy, params: { id: wallet.id } }
+
+    let!(:wallet) { create(:wallet, profile:) }
+    let(:expected_json) { { 'message' => "Wallet \"#{wallet.name}\" was successfully disabled." } }
+
+    it 'disabled the wallet and renders json' do
+      expect { delete_request }
+        .to not_change { Wallet.count }
+        .and change { wallet.reload.disabled_at }
+        .to(Time.current)
+        .and change { wallet.disabled_by }
+        .to(user)
+
+      expect(json_response).to eq(CamelizeProps.call(expected_json))
+    end
+  end
+
+  describe 'PATCH reenable' do
+    subject(:reenable_request) { patch :reenable, params: { id: wallet.id } }
+
+    let!(:wallet) { create(:wallet, :disabled, profile:) }
+    let(:expected_json) { { 'message' => "Wallet \"#{wallet.name}\" was successfully re-enabled." } }
+
+    it 'disabled the wallet and renders json' do
+      expect { reenable_request }
+        .to not_change { Wallet.count }
+        .and change { wallet.reload.disabled_at }
+        .to(nil)
+        .and change { wallet.disabled_by }
+        .to(nil)
+
+      expect(json_response).to eq(CamelizeProps.call(expected_json))
     end
   end
 end

@@ -777,6 +777,12 @@
         "error": "Carteira não pode ser criada: %{error}",
         "success": "Carteira \"%{name}\" foi criada com sucesso."
       },
+      "destroy": {
+        "success": "Carteira \"%{name}\" desabilitada com sucesso."
+      },
+      "reenable": {
+        "success": "Carteira \"%{name}\" reabilitada com sucesso."
+      },
       "update": {
         "error": "Carteira \"%{name}\" não pode ser atualizada: %{error}",
         "success": "Carteira \"%{name}\" foi atualizada com sucesso."

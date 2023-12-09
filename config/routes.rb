@@ -44,16 +44,16 @@ Rails.application.routes.draw do
     resources :profile_share_invites_received, only: %i[index update destroy]
     resources :categories do
       resources :subcategories, except: %i[show new edit] do
-        member do
-          patch :reenable
-        end
+        patch :reenable, on: :member
       end
     end
     resources :currencies, only: %i[index]
     resources :current_profiles, only: %i[create]
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show]
-    resources :wallets, only: %i[index create update]
+    resources :wallets, only: %i[index create update destroy] do
+      patch :reenable, on: :member
+    end
 
     namespace :statistics do
       resources :category_summaries, only: %i[index]
