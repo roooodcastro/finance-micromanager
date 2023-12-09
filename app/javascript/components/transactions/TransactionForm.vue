@@ -82,6 +82,20 @@
             :name="formHelper.fieldName('category_id')"
             required
           />
+
+          <label
+            :for="formHelper.fieldId('wallet_id')"
+            class="form-label mt-3"
+          >
+            {{ t('wallet_label') }}
+            <span class="fst-italic">({{ t('optional') }})</span>
+          </label>
+
+          <WalletsSelect
+            :id="formHelper.fieldId('wallet_id')"
+            v-model="transaction.walletId"
+            :name="formHelper.fieldName('wallet_id')"
+          />
         </template>
       </RailsForm>
     </template>
@@ -107,9 +121,11 @@ import FormInput from '~/components/rails/FormInput.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import ToggleSwitch from '~/components/ui/ToggleSwitch.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
+import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
 
 export default {
   components: {
+    WalletsSelect,
     CategoriesSelect,
     FormInput,
     FormModal,
@@ -150,6 +166,10 @@ export default {
         transaction.value.amount = Math.abs(parseLocaleNumber(transaction.value.amount)).toFixed(2);
       }
 
+      if (isNewRecord.value) {
+        transaction.value.walletId = currentProfile.value.defaultWalletId;
+      }
+
       transaction.value.amountType =  transaction.value.amountCents > 0 ? 'credit' : 'debit';
 
       const defaultTransactionDate = new Date().toISOString().split('T')[0];
@@ -168,7 +188,7 @@ export default {
     });
 
     const handleSubmit = (closeModal) => {
-      const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId'];
+      const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId', 'walletId'];
       const transactionData = _.pick(transaction.value, transactionFields);
       if (isNewRecord.value) {
         transactionStore.create(transactionData).then(closeModal);

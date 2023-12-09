@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_09_000035) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_09_232208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_000035) do
     t.uuid "created_by_id", null: false
     t.uuid "updated_by_id", null: false
     t.uuid "subcategory_id"
+    t.uuid "wallet_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["created_by_id"], name: "index_transactions_on_created_by_id"
@@ -100,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_000035) do
     t.index ["subcategory_id"], name: "index_transactions_on_subcategory_id"
     t.index ["transaction_date"], name: "index_transactions_on_transaction_date"
     t.index ["updated_by_id"], name: "index_transactions_on_updated_by_id"
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -161,6 +163,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_000035) do
   add_foreign_key "transactions", "subcategories"
   add_foreign_key "transactions", "users", column: "created_by_id"
   add_foreign_key "transactions", "users", column: "updated_by_id"
+  add_foreign_key "transactions", "wallets"
   add_foreign_key "users", "profiles", column: "default_profile_id"
   add_foreign_key "wallets", "profiles"
   add_foreign_key "wallets", "users", column: "disabled_by_id"

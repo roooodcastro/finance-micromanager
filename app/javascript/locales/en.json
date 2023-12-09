@@ -643,7 +643,9 @@
           "edit_title": "Edit Transaction",
           "name_label": "Name",
           "new_title": "New Transaction",
-          "submit": "Submit"
+          "optional": "Optional",
+          "submit": "Submit",
+          "wallet_label": "Wallet"
         },
         "index": {
           "amount": "Amount",

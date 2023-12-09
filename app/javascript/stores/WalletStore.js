@@ -18,6 +18,7 @@ export default defineBaseApiStore('wallet', {
     },
   },
   getters: {
+    activeWallets: (state) => state.wallets.filter(wallet => !wallet.disabledAt),
     showDisabled: state => state.fetchParams.showDisabled,
   },
   actions: {
