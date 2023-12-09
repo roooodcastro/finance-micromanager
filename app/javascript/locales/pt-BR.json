@@ -452,6 +452,10 @@
         "success": "Perfil \"%{name}\" atualizado com sucesso."
       }
     },
+    "rails_mailer": {
+      "footer_sent_by": "Este email foi enviado por",
+      "footer_version": "Versão"
+    },
     "settings": {
       "update": {
         "error": "Houve um erro ao autalizar os dados do seu perfil.",

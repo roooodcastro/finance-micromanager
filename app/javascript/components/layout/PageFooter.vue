@@ -48,7 +48,7 @@ export default {
 
     onMounted(() => {
       version.value = document.querySelector('meta[name="version"]')?.content;
-      deployTimestamp.value = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'latest';
+      deployTimestamp.value = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'dev';
     });
 
     localesApi.index().then(response => locales.value = response);

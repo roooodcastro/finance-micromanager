@@ -1,5 +1,8 @@
 ---
 en:
+  rails_mailer:
+    footer_sent_by: This email was sent by
+    footer_version: Version
   profile_share_mailer:
     profile_share_invite_sent:
       subject: You got an invite from %{inviter}!
