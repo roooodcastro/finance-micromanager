@@ -25,15 +25,16 @@ RSpec.describe Profile do
 
     let(:expected_profile_json) do
       {
-        id:              profile.id,
-        name:            'acc',
-        display_name:    'acc',
-        currency:        'eur',
-        status:          'active',
-        shared:          false,
-        user_id:         profile.user_id,
-        user:            expected_user_json,
-        currency_object: { name: 'Euro', symbol: '€' }
+        id:                profile.id,
+        name:              'acc',
+        display_name:      'acc',
+        currency:          'eur',
+        status:            'active',
+        shared:            false,
+        user_id:           profile.user_id,
+        user:              expected_user_json,
+        currency_object:   { name: 'Euro', symbol: '€' },
+        default_wallet_id: nil
       }
     end
 

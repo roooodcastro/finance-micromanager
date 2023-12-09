@@ -572,7 +572,9 @@
       "profiles": {
         "form": {
           "back": "Back",
+          "currency_change_warning": "Currency cannot be changed after profile is created!",
           "currency_label": "Choose Currency",
+          "default_wallet_label": "Choose Default Wallet",
           "edit_title": "Edit Profile \"%{profile}\"",
           "name_label": "Name",
           "new_title": "New Profile",

@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
-import { Modal as BootstrapModal } from 'bootstrap';
+import { computed, onMounted } from 'vue';
+import useModalStore from '~/stores/ModalStore.js';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -84,16 +84,14 @@ export default {
   },
 
   setup(props) {
-    const modal = ref(null);
+    const modalStore = useModalStore();
 
-    onMounted(() => modal.value = new BootstrapModal(`#${props.modalId}`));
+    onMounted(() => modalStore.registerModal(props.formId));
 
     const isNewRecord = computed(() => !props.record.value?.id);
     const title = computed(() => isNewRecord.value ? props.t('new_title') : props.t('edit_title'));
 
-    const closeModal = () => {
-      modal.value.hide();
-    };
+    const closeModal = () => modalStore.hide(props.formId);
 
     return {
       title,
