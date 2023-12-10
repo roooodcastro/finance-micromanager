@@ -37,6 +37,7 @@ async function startApplication() {
       return page;
     },
     setup({ el, App, props, plugin }) {
+      // eslint-disable-next-line vue/component-api-style
       createApp({ render: () => h(App, props) })
         .use(plugin)
         .use(createPinia())

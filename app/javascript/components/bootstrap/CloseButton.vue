@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 
 export default {
   props: {

@@ -8,14 +8,14 @@
       type="hidden"
       name="authenticity_token"
       :value="csrfToken"
-    />
+    >
 
     <input
       v-if="!isSafeMethod"
       :value="method"
       name="_method"
       type="hidden"
-    />
+    >
 
     <slot
       :form-helper="formHelper"
@@ -72,10 +72,6 @@ export default {
       formMethod,
       isGetRequest,
       isSafeMethod,
-    };
-  },
-  data() {
-    return {
     };
   },
 };

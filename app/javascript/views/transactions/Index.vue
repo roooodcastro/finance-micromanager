@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 import { getQueryParams } from '~/utils/QueryStringUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 

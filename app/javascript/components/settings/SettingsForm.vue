@@ -95,14 +95,14 @@
             :name="formHelper.fieldName('default_profile_id')"
             class="form-select"
           >
-          <option
-            v-for="profile in availableProfiles"
-            :key="profile.id"
-            :value="profile.id"
-            :selected="user.defaultProfileId === profile.id"
-          >
-            {{ profile.displayName }}
-          </option>
+            <option
+              v-for="profile in availableProfiles"
+              :key="profile.id"
+              :value="profile.id"
+              :selected="user.defaultProfileId === profile.id"
+            >
+              {{ profile.displayName }}
+            </option>
           </select>
         </div>
       </div>
@@ -139,8 +139,8 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { storeToRefs } from 'pinia';
 
-import I18n from '~/utils/I18n';
-import { settings as settingsApi, usersPasswords as usersPasswordsApi } from '~/api';
+import I18n from '~/utils/I18n.Js';
+import { settings as settingsApi, usersPasswords as usersPasswordsApi } from '~/api/all.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';

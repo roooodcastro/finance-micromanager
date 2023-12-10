@@ -78,9 +78,9 @@ import { storeToRefs } from 'pinia';
 
 import useProfileStore from '~/stores/ProfileStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
-import { profiles, currentProfiles } from '~/api';
+import { profiles, currentProfiles } from '~/api/all.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 
 export default {
   components: {

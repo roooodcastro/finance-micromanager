@@ -57,7 +57,7 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
-import NoTransactionsPlaceholder from "~/components/transactions/NoTransactionsPlaceholder.vue";
+import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsPlaceholder.vue';
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
 
 export default {

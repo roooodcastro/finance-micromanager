@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import profilesApi from '~/api/ProfilesApi';
+import profilesApi from '~/api/ProfilesApi.js';
 
 export default defineStore('profile', {
   state: () => ({

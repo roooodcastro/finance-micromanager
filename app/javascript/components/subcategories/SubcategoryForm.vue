@@ -31,7 +31,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import { subcategories as subcategoriesApi } from '~/api';
+import { subcategories as subcategoriesApi } from '~/api/all.js';
 import useSubcategoriesStore from '~/stores/SubcategoryStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { SUBCATEGORY_FORM_ID } from '~/utils/Constants.js';

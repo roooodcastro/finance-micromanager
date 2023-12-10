@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import { categories } from '~/api';
-import I18n from '~/utils/I18n';
+import { categories } from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import CategoriesList from '~/components/categories/CategoriesList.vue';

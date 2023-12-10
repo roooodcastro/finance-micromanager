@@ -1,5 +1,5 @@
 import I18n from '~/utils/I18n.js';
-import { wallets as walletsApi } from '~/api';
+import { wallets as walletsApi } from '~/api/all.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import { WALLET_FORM_ID } from '~/utils/Constants.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';

@@ -32,7 +32,7 @@
         </div>
 
         <div class="list-group">
-          <hr />
+          <hr>
 
           <a
             v-for="menuItem in menuItems.bottom"
@@ -68,8 +68,8 @@ import {
   usersSessions as userSessionsApi,
   usersRegistrations as usersRegistrationsApi,
   wallets as walletsApi,
-} from '~/api';
-import I18n from '~/utils/I18n';
+} from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 
 import useUserStore from '~/stores/UserStore.js';
 

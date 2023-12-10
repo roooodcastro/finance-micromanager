@@ -1,4 +1,4 @@
-import { I18n as I18nJs } from "i18n-js";
+import { I18n as I18nJs } from 'i18n-js';
 
 class I18n {
   constructor() {
@@ -14,7 +14,7 @@ class I18n {
   }
 
   scopedTranslator(rootScope) {
-    return (scope, options) => this.i18n.t(scope, { ...options, scope: rootScope });
+    return (scope, options = {}) => this.i18n.t(scope, Object.assign({ scope: rootScope }, options));
   }
 
   async loadTranslations() {

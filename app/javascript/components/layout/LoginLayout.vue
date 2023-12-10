@@ -7,7 +7,7 @@
             :href="landingPath"
             class="text-reset text-decoration-none link-light"
           >
-            Finance MicroManager
+            {{ t('app_name') }}
           </a>
         </h1>
 
@@ -20,11 +20,12 @@
 </template>
 
 <script>
-import { landings } from '~/api';
+import I18n from '~/utils/I18n.js';
+import { landings } from '~/api/all.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 
-import useNotificationStore from "~/stores/NotificationStore";
+import useNotificationStore from '~/stores/NotificationStore.js';
 
 export default {
   components: {
@@ -45,7 +46,10 @@ export default {
       useNotificationStore().loadFromProps(props.notifications);
     }
 
-    return { landingPath };
+    return {
+      t: I18n.scopedTranslator('views'),
+      landingPath,
+    };
   }
 };
 </script>

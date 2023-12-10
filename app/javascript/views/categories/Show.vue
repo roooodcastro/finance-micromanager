@@ -75,8 +75,8 @@
 
 <script>
 import { storeToRefs } from 'pinia';
-import I18n from '~/utils/I18n';
-import { categories as categoriesApi } from '~/api';
+import I18n from '~/utils/I18n.Js';
+import { categories as categoriesApi } from '~/api/all.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';

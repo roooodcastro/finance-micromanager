@@ -3,7 +3,7 @@
     <input
       type="hidden"
       :value="offValue"
-    />
+    >
     <input
       :id="formHelper.fieldId(fieldName)"
       ref="input"

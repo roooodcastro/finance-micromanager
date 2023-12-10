@@ -45,7 +45,7 @@
 <script>
 import { computed } from 'vue';
 
-import { formatDate } from '~/utils/DateUtils';
+import { formatDate } from '~/utils/DateUtils.js';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
 
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';

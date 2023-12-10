@@ -51,7 +51,7 @@
   <hr
     v-if="title || $slots.default"
     class="d-none d-lg-block"
-  />
+  >
 </template>
 
 <script>

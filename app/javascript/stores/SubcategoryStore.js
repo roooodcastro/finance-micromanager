@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import { subcategories as subcategoriesApi } from '~/api';
+import { subcategories as subcategoriesApi } from '~/api/all.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { SUBCATEGORY_FORM_ID } from '~/utils/Constants.js';

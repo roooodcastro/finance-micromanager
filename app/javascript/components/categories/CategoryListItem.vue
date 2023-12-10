@@ -35,7 +35,7 @@
 <script>
 import { computed } from 'vue';
 
-import { categories as categoriesApi } from '~/api';
+import { categories as categoriesApi } from '~/api/all.js';
 
 import CategoryActions from '~/components/categories/CategoryActions.vue';
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';

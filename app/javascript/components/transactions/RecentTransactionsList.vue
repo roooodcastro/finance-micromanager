@@ -29,9 +29,9 @@
 <script>
 import I18n from '~/utils/I18n.js';
 
-import NoTransactionsPlaceholder from "~/components/transactions/NoTransactionsPlaceholder.vue";
+import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsPlaceholder.vue';
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
-import { transactions as transactionsApi } from '~/api';
+import { transactions as transactionsApi } from '~/api/all.js';
 
 export default {
   components: {

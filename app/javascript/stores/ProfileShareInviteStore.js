@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import {
   profileShareInvitesReceived as profileShareInvitesReceivedApi,
   profileShareInvitesSent as profileShareInvitesSentApi,
-} from '~/api';
+} from '~/api/all.js';
 
 export default defineStore('profileShareInvite', {
   state: () => ({

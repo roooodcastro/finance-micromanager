@@ -10,10 +10,10 @@
           alt=""
           class="Navigation__logo"
           aria-hidden="true"
-        />
+        >
 
         <span class="d-none d-lg-inline-block ms-3">
-          Finance MicroManager
+          {{ t('app_name') }}
         </span>
       </a>
 
@@ -33,8 +33,9 @@
 <script>
 import { onMounted, ref } from 'vue';
 
+import I18n from '~/utils/I18n.js';
 import useUserStore from '~/stores/UserStore.js';
-import { dashboards as dashboardsApi } from '~/api';
+import { dashboards as dashboardsApi } from '~/api/all.js';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
@@ -54,6 +55,7 @@ export default {
     })
 
     return {
+      t: I18n.scopedTranslator('views'),
       isUserLoggedIn,
       dashboardPath,
       monogramUrl,

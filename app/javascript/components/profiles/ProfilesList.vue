@@ -12,7 +12,7 @@
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import useProfileStore from '~/stores/ProfileStore';
+import useProfileStore from '~/stores/ProfileStore.js';
 
 import ProfileListItem from '~/components/profiles/ProfileListItem.vue';
 
