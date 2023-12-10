@@ -17,7 +17,6 @@
             v-model="transaction.name"
             field-name="name"
             :form-helper="formHelper"
-            :value="transaction.name"
             :label="t('name_label')"
             required
           />

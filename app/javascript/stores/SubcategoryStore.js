@@ -52,6 +52,7 @@ export default defineStore('subcategory', {
         .then((response) => {
           notificationStore.notify(response.message, 'success');
           this.subcategories = response.subcategories;
+          document.querySelector(`#${SUBCATEGORY_FORM_ID}`).reset();
           responseResolve();
         }).catch((error) => {
           notificationStore.notify(error.body.message, 'danger');
@@ -74,6 +75,7 @@ export default defineStore('subcategory', {
         .then((response) => {
           notificationStore.notify(response.message, 'success');
           this.subcategories = response.subcategories;
+          document.querySelector(`#${SUBCATEGORY_FORM_ID}`).reset();
           responseResolve();
         }).catch((error) => {
           notificationStore.notify(error.body.message, 'danger');
