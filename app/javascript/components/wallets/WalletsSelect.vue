@@ -35,7 +35,7 @@ export default {
     const walletStore = useWalletStore();
     const { activeWallets: options } = storeToRefs(walletStore);
 
-    if (!options.length) {
+    if (!options.value.length) {
       walletStore.fetch();
     }
 
