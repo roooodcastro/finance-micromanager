@@ -31,9 +31,10 @@
 </template>
 
 <script>
+import { onMounted, ref } from 'vue';
+
 import useUserStore from '~/stores/UserStore.js';
 import { dashboards as dashboardsApi } from '~/api';
-import monogramUrl from '~/images/monogram.svg?url';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 
@@ -46,6 +47,11 @@ export default {
     const userStore = useUserStore();
     const isUserLoggedIn = userStore.isUserLoggedIn;
     const dashboardPath = dashboardsApi.show.path();
+    const monogramUrl = ref('');
+
+    onMounted(() => {
+      monogramUrl.value = document.querySelector("link[rel='icon'][type='image/svg+xml']").href;
+    })
 
     return {
       isUserLoggedIn,
