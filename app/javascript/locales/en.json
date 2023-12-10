@@ -458,6 +458,7 @@
       }
     },
     "views": {
+      "app_name": "Finance MicroManager",
       "categories": {
         "form": {
           "back": "Back",
@@ -509,6 +510,10 @@
         "title": "Landing"
       },
       "layout": {
+        "footer": {
+          "copyright_notice": "© 2023 Rodrigo Castro",
+          "version": "Version"
+        },
         "page_header": {
           "action_toggle_label": "Actions"
         },
@@ -654,12 +659,18 @@
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "edit": "Edit",
           "filters": "Filters",
+          "income": "Income",
           "name": "Name",
           "new": "New Transaction",
+          "ninety_days": "90 days",
           "no_transactions": "There are no transactions to show.",
+          "seven_days": "7 days",
           "sorting": "Sorting",
+          "spends": "Spends",
+          "thirty_days": "30 days",
           "title": "Transactions",
           "transaction_date": "Date",
+          "transaction_type": "Transaction Type",
           "view_more": "View all transactions&hellip;"
         },
         "types": {

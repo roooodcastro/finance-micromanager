@@ -1,5 +1,5 @@
 <template>
-  <div class="vr mx-3 d-none d-lg-flex"></div>
+  <div class="vr mx-3 d-none d-lg-flex" />
 
   <EditButton
     small
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n';
-import { categories as categoriesApi } from '~/api';
-import useCategoryStore from '~/stores/CategoryStore';
-import useNotificationStore from '~/stores/NotificationStore';
+import I18n from '~/utils/I18n.Js';
+import { categories as categoriesApi } from '~/api/all.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';

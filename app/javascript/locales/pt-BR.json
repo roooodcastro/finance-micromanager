@@ -508,6 +508,7 @@
       }
     },
     "views": {
+      "app_name": "Finance MicroManager",
       "categories": {
         "form": {
           "back": "Voltar",
@@ -559,6 +560,10 @@
         "title": "Página Inicial"
       },
       "layout": {
+        "footer": {
+          "copyright_notice": "© 2023 Rodrigo Castro",
+          "version": "Versão"
+        },
         "page_header": {
           "action_toggle_label": "Ações"
         },
@@ -704,12 +709,18 @@
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "edit": "Editar",
           "filters": "Filtros",
+          "income": "Receita",
           "name": "Nome",
           "new": "Nova Transação",
+          "ninety_days": "90 dias",
           "no_transactions": "Não há transações para exibir.",
+          "seven_days": "7 dias",
           "sorting": "Ordem",
+          "spends": "Gastos",
+          "thirty_days": "30 dias",
           "title": "Transações",
           "transaction_date": "Data",
+          "transaction_type": "Tipo de Transação",
           "view_more": "Ver todas as transações&hellip;"
         },
         "types": {

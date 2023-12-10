@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 import { storeToRefs } from 'pinia';
 
 import useUserStore from '~/stores/UserStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 
-import { settings as settingsApi } from '~/api';
+import { settings as settingsApi } from '~/api/all.js';
 
 import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
 import CloseButton from '~/components/bootstrap/CloseButton.vue';

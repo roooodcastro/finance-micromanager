@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import _ from 'lodash';
 import moment from 'moment';
 
-import { statisticsCategorySummaries as categorySummariesApi } from '~/api';
+import { statisticsCategorySummaries as categorySummariesApi } from '~/api/all.js';
 
 export default defineStore('statistics_category_summary', {
   state: () => ({

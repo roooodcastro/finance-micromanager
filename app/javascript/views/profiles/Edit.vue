@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { profiles } from '~/api';
-import I18n from '~/utils/I18n';
+import { profiles } from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ProfileForm from '~/components/profiles/ProfileForm.vue';

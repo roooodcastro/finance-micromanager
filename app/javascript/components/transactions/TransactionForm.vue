@@ -43,7 +43,7 @@
                 class="form-control"
                 step="0.01"
                 required
-              />
+              >
             </div>
 
             <ToggleSwitch
@@ -107,8 +107,8 @@ import { computed, onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
-import { transactions as transactionsApi } from '~/api';
-import I18n from '~/utils/I18n';
+import { transactions as transactionsApi } from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';

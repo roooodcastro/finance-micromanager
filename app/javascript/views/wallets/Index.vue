@@ -8,7 +8,7 @@
           @click="handleNew"
         />
 
-        <hr class="my-2" />
+        <hr class="my-2">
 
         <DropdownMenuCheckItem
           :label="t('show_disabled')"
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 import useWalletStore from '~/stores/WalletStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';

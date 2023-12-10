@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 
 export function defineBaseApiStore(name, options = {}) {
   const dynamicGetters = {};

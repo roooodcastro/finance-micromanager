@@ -11,7 +11,9 @@
       <div class="col-12 col-lg-6">
         <div class="card overflow-hidden">
           <div class="card-header">
-            <h5 class="m-0">{{ t('category_summary') }}</h5>
+            <h5 class="m-0">
+              {{ t('category_summary') }}
+            </h5>
           </div>
           <CategorySummariesList />
         </div>
@@ -20,7 +22,9 @@
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
         <div class="card overflow-hidden">
           <div class="card-header">
-            <h5 class="m-0 mb-2">{{ t('recent_transactions') }}</h5>
+            <h5 class="m-0 mb-2">
+              {{ t('recent_transactions') }}
+            </h5>
 
             <TransactionTypeTabs />
           </div>
@@ -38,9 +42,9 @@
 import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import I18n from '~/utils/I18n';
-import useTransactionStore from '~/stores/TransactionStore';
-import useDateRangeStore from '~/stores/DateRangeStore';
+import I18n from '~/utils/I18n.Js';
+import useTransactionStore from '~/stores/TransactionStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';

@@ -36,7 +36,7 @@
                 :name="formHelper.fieldName('profile_id')"
                 :value="profileForInviteModal.id"
                 type="hidden"
-              />
+              >
 
               <FormInput
                 :label="t('invitee_email_label')"
@@ -72,8 +72,8 @@
 <script>
 import { storeToRefs } from 'pinia';
 
-import I18n from '~/utils/I18n';
-import { profileShareInvitesSent as profileShareInvitesSentApi } from '~/api';
+import I18n from '~/utils/I18n.Js';
+import { profileShareInvitesSent as profileShareInvitesSentApi } from '~/api/all.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';

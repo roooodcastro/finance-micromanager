@@ -1,5 +1,5 @@
 <template>
-  <div class="vr mx-3 d-none d-lg-flex"></div>
+  <div class="vr mx-3 d-none d-lg-flex" />
 
   <EditButton
     v-if="showEdit"
@@ -19,9 +19,9 @@
   />
 </template>
 <script>
-import { transactions as transactionsApi } from '~/api';
-import useNotificationStore from '~/stores/NotificationStore';
-import useTransactionStore from '~/stores/TransactionStore';
+import { transactions as transactionsApi } from '~/api/all.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';

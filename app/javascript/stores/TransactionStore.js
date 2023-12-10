@@ -1,9 +1,9 @@
-import { defineBaseApiStore } from '~/stores/BaseApiStore';
+import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
 import usePaginationStore from '~/stores/PaginationStore.js';
-import { transactions as transactionsApi } from '~/api';
+import { transactions as transactionsApi } from '~/api/all.js';
 import { DEBIT_TRANSACTION, CREDIT_TRANSACTION, TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
 export default defineBaseApiStore('transaction', {

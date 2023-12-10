@@ -13,21 +13,21 @@ module.exports = {
     'plugin:vue/vue3-strongly-recommended',
     'plugin:vue/vue3-recommended',
     'plugin:vue-scoped-css/vue3-recommended',
+    'plugin:import/recommended',
   ],
   globals: {
     App: true,
-    SIR: true,
     $t: true,
-    zE: true,
-    $: true,
     document: true,
     window: true,
   },
   rules: {
-    'vue/singleline-html-element-content-newline': 'off',
-    'vue/html-indent': 'off',
-    'vue/max-attributes-per-line': 'off',
+    'import/extensions': ['error', 'always'],
+    'vue/singleline-html-element-content-newline': 'error',
+    'vue/html-indent': 'error',
+    'vue/max-attributes-per-line': 'error',
     'vue/multi-word-component-names': 'off',
+    'vue/no-bare-strings-in-template': 'error',
     'no-var': 'error',
     'no-plusplus': 'error',
     'eol-last': 'error',
@@ -40,9 +40,11 @@ module.exports = {
     'no-console': 'error',
     'block-scoped-var': 'error',
     'no-lonely-if': 'error',
+    'quotes': ['error', 'single', { 'avoidEscape': true }],
     'object-shorthand': ['error', 'properties'],
     'vue/html-closing-bracket-newline': 'error',
     'vue/no-deprecated-slot-attribute': 'error',
+    'vue/component-api-style': ['error', ['script-setup', 'composition']],
     'spaced-comment': [
       'error',
       'always',
@@ -99,9 +101,7 @@ module.exports = {
       },
       rules: {
         'vue/no-v-html': 0,
-        'vue/html-self-closing': 0,
         'class-methods-use-this': 0,
-        'linebreak-style': 0,
         'import/no-unresolved': 0,
         'vue/no-parsing-error': [
           2,
@@ -127,7 +127,13 @@ module.exports = {
     {
       files: ['**/*.vue'],
       rules: {
-        'eol-last': 0,
+        'eol-last': ['error', 'always'],
+      },
+    },
+    {
+      files: ['app/javascript/api/**/*'],
+      rules: {
+        'import/extensions': 'off',
       },
     },
   ],

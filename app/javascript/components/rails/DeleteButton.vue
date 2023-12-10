@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 import useModalStore from '~/stores/ModalStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

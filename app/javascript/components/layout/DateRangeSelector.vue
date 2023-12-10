@@ -2,7 +2,6 @@
   <div
     class="btn-group d-flex bg-white"
     role="group"
-    aria-label="Basic example"
   >
     <button
       type="button"
@@ -24,7 +23,7 @@
         :value="startDate.format('YYYY-MM')"
         :max="maxDate"
         @input="handlePickerChange"
-      />
+      >
       <span>{{ month }}</span>
       <span class="DateRangeSelector__sub-date text-muted ms-2">
         {{ year }}

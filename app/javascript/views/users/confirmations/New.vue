@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { usersConfirmations } from '~/api';
-import I18n from '~/utils/I18n';
+import { usersConfirmations } from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';

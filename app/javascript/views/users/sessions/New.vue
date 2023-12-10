@@ -39,7 +39,7 @@
                 class="form-check-input"
                 type="checkbox"
                 value="true"
-              />
+              >
               <label
                 class="form-check-label ms-2"
                 :for="formHelper.fieldId('remember_me')"
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { usersSessions } from '~/api';
+import { usersSessions } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';

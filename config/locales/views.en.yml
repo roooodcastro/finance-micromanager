@@ -1,6 +1,7 @@
 ---
 en:
   views:
+    app_name: Finance MicroManager
     categories:
       index:
         title: Categories
@@ -44,6 +45,9 @@ en:
     landing:
       title: Landing
     layout:
+      footer:
+        version: Version
+        copyright_notice: '© 2023 Rodrigo Castro'
       page_header:
         action_toggle_label: Actions
       profile_switcher:
@@ -162,6 +166,12 @@ en:
         edit: Edit
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
+        transaction_type: Transaction Type
+        spends: Spends
+        income: Income
+        seven_days: 7 days
+        thirty_days: 30 days
+        ninety_days: 90 days
         category: Category
         amount: Amount
         name: Name

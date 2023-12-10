@@ -15,7 +15,7 @@
           class="dropdown-menu mt-1 px-3 pt-3 shadow-lg TransactionFilter__dropdown"
           @click="ev => ev.stopPropagation()"
         >
-          <h6>Transaction Type</h6>
+          <h6>{{ t('transaction_type') }}</h6>
 
           <div class="row justify-content-center">
             <div class="form-check form-switch col-6 d-flex justify-content-center">
@@ -25,12 +25,12 @@
                 type="checkbox"
                 :checked="!excludeDebits"
                 @change="handleToggleExcludeDebits"
-              />
+              >
               <label
                 class="form-check-label ms-2"
                 for="toggleIncludeDebits"
               >
-                Debits
+                {{ t('spends') }}
               </label>
             </div>
 
@@ -41,12 +41,12 @@
                 type="checkbox"
                 :checked="!excludeCredits"
                 @change="handleToggleExcludeCredits"
-              />
+              >
               <label
                 class="form-check-label ms-2"
                 for="toggleIncludeCredits"
               >
-                Credits
+                {{ t('income') }}
               </label>
             </div>
           </div>
@@ -60,7 +60,7 @@
         :class="{ active: daysToShow === 7 }"
         @click="handleDateFilterClick(7)"
       >
-        7 days
+        {{ t('seven_days') }}
       </button>
 
       <button
@@ -68,7 +68,7 @@
         :class="{ active: daysToShow === 30 }"
         @click="handleDateFilterClick(30)"
       >
-        30 days
+        {{ t('thirty_days') }}
       </button>
 
       <button
@@ -76,7 +76,7 @@
         :class="{ active: daysToShow === 90 }"
         @click="handleDateFilterClick(90)"
       >
-        90 days
+        {{ t('ninety_days') }}
       </button>
     </div>
   </div>

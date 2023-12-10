@@ -14,7 +14,7 @@ import { storeToRefs } from 'pinia';
 import useNotificationStore from '~/stores/NotificationStore.js';
 
 import Toast from '~/components/bootstrap/Toast.vue';
-import I18n from '~/utils/I18n';
+import I18n from '~/utils/I18n.Js';
 
 export default {
   components: {

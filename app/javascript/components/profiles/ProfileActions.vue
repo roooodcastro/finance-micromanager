@@ -1,19 +1,19 @@
 <template>
-  <div class="vr mx-3 d-none d-lg-flex"></div>
+  <div class="vr mx-3 d-none d-lg-flex" />
 
   <a
-      :class="{
-        'd-flex align-items-center justify-content-center bg-info text-white': drawerMenu,
-        'text-info': !drawerMenu,
-      }"
-      href="#"
-      data-bs-toggle="modal"
-      data-bs-target="#profileShareInviteModal"
-      @click="handleProfileShareInviteModalClick(profile.id)"
+    :class="{
+      'd-flex align-items-center justify-content-center bg-info text-white': drawerMenu,
+      'text-info': !drawerMenu,
+    }"
+    href="#"
+    data-bs-toggle="modal"
+    data-bs-target="#profileShareInviteModal"
+    @click="handleProfileShareInviteModalClick(profile.id)"
   >
     <FontAwesomeIcon
-        icon="share-nodes"
-        size="lg"
+      icon="share-nodes"
+      size="lg"
     />
     <span class="d-none d-lg-inline-block ms-2">
       {{ t('share_action_link_label') }}
@@ -21,28 +21,28 @@
   </a>
 
   <EditButton
-      small
-      :href="editProfilePath(profile.id)"
-      :class="{
-        'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu,
-        'ms-3': !drawerMenu,
-      }"
+    small
+    :href="editProfilePath(profile.id)"
+    :class="{
+      'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu,
+      'ms-3': !drawerMenu,
+    }"
   />
 
   <DeleteButton
-      small
-      disable-label
-      href="#"
-      :class="{
-        'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-        'ms-3': !drawerMenu,
-      }"
-      @delete="handleDelete(profile.id)"
+    small
+    disable-label
+    href="#"
+    :class="{
+      'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
+      'ms-3': !drawerMenu,
+    }"
+    @delete="handleDelete(profile.id)"
   />
 </template>
 
 <script>
-import { profiles as profilesApi } from '~/api';
+import { profiles as profilesApi } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';

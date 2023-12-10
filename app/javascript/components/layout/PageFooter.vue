@@ -23,7 +23,7 @@
       </ul>
 
       <p class="text-center my-0 fs-6">
-        © 2023 Rodrigo Castro | Version {{ version }}-{{ deployTimestamp }}
+        {{ t('copyright_notice') }} | {{ t('version') }} {{ version }}-{{ deployTimestamp }}
       </p>
     </div>
   </footer>
@@ -32,7 +32,8 @@
 <script>
 import { ref, onMounted } from 'vue';
 
-import { locales as localesApi } from '~/api';
+import { locales as localesApi } from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 
 export default {
   props: {
@@ -54,6 +55,7 @@ export default {
     localesApi.index().then(response => locales.value = response);
 
     return {
+      t: I18n.scopedTranslator('views.layout.footer'),
       locales,
       version,
       deployTimestamp,

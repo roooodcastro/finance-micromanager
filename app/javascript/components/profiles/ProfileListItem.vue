@@ -9,9 +9,9 @@
     <template v-slot:item>
       <div class="ProfileListItem d-flex bg-light-subtle align-items-center border bg-white p-2">
         <FontAwesomeIcon
-            size="lg"
-            class="ProfileListItem__currency-icon text-secondary me-3"
-            :icon="faIconForCurrency(profile.currency)"
+          size="lg"
+          class="ProfileListItem__currency-icon text-secondary me-3"
+          :icon="faIconForCurrency(profile.currency)"
         />
 
         <div class="flex-grow-1">
@@ -21,12 +21,12 @@
           </span>
 
           <div
-              v-if="profile.shared"
-              class="fs-6 text-muted"
+            v-if="profile.shared"
+            class="fs-6 text-muted"
           >
             <FontAwesomeIcon
-                class=" text-primary me-2"
-                icon="share-nodes"
+              class=" text-primary me-2"
+              icon="share-nodes"
             />
             {{ t('shared_text', { user: profile.user.fullName }) }}
           </div>

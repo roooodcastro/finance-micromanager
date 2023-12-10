@@ -31,7 +31,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import { wallets as walletsApi } from '~/api';
+import { wallets as walletsApi } from '~/api/all.js';
 import useWalletsStore from '~/stores/WalletStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { WALLET_FORM_ID } from '~/utils/Constants.js';

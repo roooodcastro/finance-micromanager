@@ -16,7 +16,7 @@
 
 <script>
 import { ref } from 'vue';
-import { currencies } from '~/api';
+import { currencies } from '~/api/all.js';
 
 export default {
   setup() {

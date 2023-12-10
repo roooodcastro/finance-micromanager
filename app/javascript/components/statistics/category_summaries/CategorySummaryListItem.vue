@@ -26,7 +26,7 @@
 
 <script>
 import { formatMoney } from '~/utils/NumberFormatter.js';
-import { categories as categoriesApi } from '~/api';
+import { categories as categoriesApi } from '~/api/all.js';
 
 export default {
   props: {

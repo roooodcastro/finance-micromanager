@@ -5,7 +5,7 @@
       type="hidden"
       :name="name"
       :value="colorValue"
-    />
+    >
     <a
       :id="`${id}__toggler`"
       href="#"
@@ -14,8 +14,7 @@
       aria-expanded="false"
       class="ColorPickerInput d-block rounded-circle"
       :style="{ backgroundColor: colorValue }"
-    >
-    </a>
+    />
     <div
       class="dropdown-menu p-0"
       :aria-labelledby="`${id}__toggler`"
@@ -27,8 +26,7 @@
           class="ColorPickerInput__color-option"
           :style="{ backgroundColor: color }"
           @click="handleColorClick(color)"
-        >
-        </div>
+        />
       </div>
     </div>
   </div>

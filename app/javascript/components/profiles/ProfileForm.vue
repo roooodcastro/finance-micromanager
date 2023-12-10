@@ -11,7 +11,7 @@
             {{ formTitle }}
           </h4>
 
-          <hr />
+          <hr>
 
           <FormInput
             field-name="name"
@@ -81,8 +81,8 @@
 <script>
 import { computed } from 'vue';
 
-import { profiles as profilesApi } from '~/api';
-import I18n from '~/utils/I18n';
+import { profiles as profilesApi } from '~/api/all.js';
+import I18n from '~/utils/I18n.Js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import CurrencySelect from '~/components/currencies/CurrencySelect.vue';

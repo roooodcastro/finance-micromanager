@@ -1,5 +1,5 @@
 <template>
-  <div class="vr mx-3 d-none d-lg-flex"></div>
+  <div class="vr mx-3 d-none d-lg-flex" />
 
   <template v-if="isDisabled">
     <DrawerContextMenuLink

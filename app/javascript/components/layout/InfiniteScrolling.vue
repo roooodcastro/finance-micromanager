@@ -20,11 +20,11 @@ export default {
     };
 
     onMounted(() => {
-      document.querySelector('#app').addEventListener("scroll", handleScroll);
+      document.querySelector('#app').addEventListener('scroll', handleScroll);
     });
 
     onUnmounted(() => {
-      document.querySelector('#app').removeEventListener("scroll", handleScroll);
+      document.querySelector('#app').removeEventListener('scroll', handleScroll);
     });
 
     return {

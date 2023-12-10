@@ -36,6 +36,7 @@
     "@inertiajs/vue3": "^1.0.6",
     "@vitejs/plugin-vue": "^4.2.2",
     "eslint": "^8.40.0",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-vue": "^9.13.0",
     "eslint-plugin-vue-scoped-css": "^2.4.0",
     "sass": "^1.62.1",
