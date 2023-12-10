@@ -83,19 +83,21 @@
             required
           />
 
-          <label
-            :for="formHelper.fieldId('wallet_id')"
-            class="form-label mt-3"
-          >
-            {{ t('wallet_label') }}
-            <span class="fst-italic">({{ t('optional') }})</span>
-          </label>
+          <template v-if="showWalletField">
+            <label
+              :for="formHelper.fieldId('wallet_id')"
+              class="form-label mt-3"
+            >
+              {{ t('wallet_label') }}
+              <span class="fst-italic">({{ t('optional') }})</span>
+            </label>
 
-          <WalletsSelect
-            :id="formHelper.fieldId('wallet_id')"
-            v-model="transaction.walletId"
-            :name="formHelper.fieldName('wallet_id')"
-          />
+            <WalletsSelect
+              :id="formHelper.fieldId('wallet_id')"
+              v-model="transaction.walletId"
+              :name="formHelper.fieldName('wallet_id')"
+            />
+          </template>
         </template>
       </RailsForm>
     </template>
@@ -113,6 +115,7 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useModalStore from '~/stores/ModalStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
 import { TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
@@ -140,12 +143,16 @@ export default {
     const categoryStore = useCategoryStore();
     const transactionStore = useTransactionStore();
     const modalStore = useModalStore();
+    const walletStore = useWalletStore();
 
     const modalId = modalStore.modalId(TRANSACTION_FORM_ID);
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
     const { transactionForFormModal: transaction, transactions } = storeToRefs(transactionStore);
+    const { activeWallets } = storeToRefs(walletStore);
+
+    const showWalletField = computed(() => !!activeWallets.value.length);
 
     if (!categories.value.length) {
       categoryStore.fetch();
@@ -164,6 +171,10 @@ export default {
     const updateTransactionDataWithDefaultValues = () => {
       if (transaction.value.amount) {
         transaction.value.amount = Math.abs(parseLocaleNumber(transaction.value.amount)).toFixed(2);
+      }
+
+      if (!activeWallets.value.length) {
+        walletStore.fetch();
       }
 
       if (isNewRecord.value) {
@@ -204,6 +215,7 @@ export default {
       formAction,
       transaction,
       modalId,
+      showWalletField,
       handleSubmit,
       TRANSACTION_FORM_ID,
     };
