@@ -7,8 +7,13 @@ import I18n from '~/utils/I18n.Js';
 export function defineBaseApiStore(name, options = {}) {
   const dynamicGetters = {};
   dynamicGetters[`${options.resourceName}ForFormModal`] = (state) => {
-    // Clone the object so it doesn't affect the list before it's actually updated
-    return { ...(state[options.resourcesName].find(resource => resource.id === state.idForFormModal) ?? {}) };
+    const existingRecord = state[options.resourcesName].find(resource => resource.id === state.idForFormModal);
+
+    if (existingRecord) {
+      return { ...existingRecord }; // Clone the object so it doesn't affect the list before it's actually updated
+    } else {
+      return { _id: state.idForFormModal };
+    }
   };
 
   return defineStore(name, {
@@ -24,7 +29,7 @@ export function defineBaseApiStore(name, options = {}) {
     actions: {
       openFormModal(id) {
         const modalStore = useModalStore();
-        this.idForFormModal = id;
+        this.idForFormModal = id ?? crypto.randomUUID();
         modalStore.show(options.formId);
       },
 
@@ -48,7 +53,7 @@ export function defineBaseApiStore(name, options = {}) {
         let responseResolve;
         const returnPromise = new Promise(resolve => responseResolve = resolve);
         const data = {}
-        data[options.resourcesName] = record;
+        data[options.resourceName] = record;
 
         options
           .api
@@ -56,6 +61,7 @@ export function defineBaseApiStore(name, options = {}) {
           .then((response) => {
             this.fetch();
             notificationStore.notify(response.message, 'success');
+            document.querySelector(`#${options.formId}`).reset();
             responseResolve();
           })
           .catch((error) => {
@@ -79,6 +85,7 @@ export function defineBaseApiStore(name, options = {}) {
           .then((response) => {
             this.fetch();
             notificationStore.notify(response.message, 'success');
+            document.querySelector(`#${options.formId}`).reset();
             responseResolve();
           })
           .catch((error) => {
