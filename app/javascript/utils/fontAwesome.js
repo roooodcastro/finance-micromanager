@@ -48,6 +48,10 @@ import {
   faSquareMinus as farSquareMinus,
 } from '@fortawesome/free-regular-svg-icons';
 
+import {
+  faGithub as fabGithub,
+} from '@fortawesome/free-brands-svg-icons';
+
 library.add(
   faArrowDownAZ,
   faAt,
@@ -68,6 +72,7 @@ library.add(
   faFilter,
   faFloppyDisk,
   faGear,
+  fabGithub,
   faKey,
   faList,
   faMoneyBills,
