@@ -20,6 +20,8 @@ class Profile < ApplicationRecord
   validates :currency, presence: true, inclusion: { in: Money::Currency.map(&:id).map(&:to_s) }
   validates :name, length: { maximum: 30 }, allow_blank: true
 
+  validate :validate_currency_stays_the_same
+
   def as_json(*)
     currency_as_json = currency_object.as_json(only: %w[name symbol])
     super(except: %w[created_at updated_at], methods: :display_name)
@@ -38,5 +40,13 @@ class Profile < ApplicationRecord
     return false if user.blank?
 
     user != Current.user
+  end
+
+  private
+
+  def validate_currency_stays_the_same
+    return unless persisted? && currency_changed?
+
+    errors.add(:currency, :cannot_change_after_creation)
   end
 end

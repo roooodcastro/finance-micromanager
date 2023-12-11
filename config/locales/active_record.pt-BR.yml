@@ -12,6 +12,9 @@ pt-BR:
       category:
         name: Nome
         color: Cor
+      profile:
+        name: Nome
+        currency: Moeda
       profile_share:
         user: Usuário
       profile_share_invite:
@@ -23,6 +26,10 @@ pt-BR:
         name: Nome
     errors:
       models:
+        profile:
+          attributes:
+            currency:
+              cannot_change_after_creation: não pode ser alterada. Por favor crie um novo perfil para a moeda.
         profile_share:
           attributes:
             user:
