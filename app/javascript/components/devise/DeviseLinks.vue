@@ -50,7 +50,7 @@
 
 <script>
 import { usersConfirmations, usersSessions, usersRegistrations, usersPasswords, usersUnlocks } from '~/api/all.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 export default {
   props: {

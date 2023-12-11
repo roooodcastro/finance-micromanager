@@ -80,7 +80,7 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import { profiles, currentProfiles } from '~/api/all.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 export default {
   components: {

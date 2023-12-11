@@ -82,7 +82,7 @@
 import { computed } from 'vue';
 
 import { profiles as profilesApi } from '~/api/all.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import CurrencySelect from '~/components/currencies/CurrencySelect.vue';

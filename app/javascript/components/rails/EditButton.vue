@@ -15,7 +15,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 export default {
   components: {

@@ -77,7 +77,7 @@
 import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import { profiles as profilesApi } from '~/api/all.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';

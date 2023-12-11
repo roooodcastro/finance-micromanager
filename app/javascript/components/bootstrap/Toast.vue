@@ -26,7 +26,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
 

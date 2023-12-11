@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {

@@ -139,7 +139,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { storeToRefs } from 'pinia';
 
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import { settings as settingsApi, usersPasswords as usersPasswordsApi } from '~/api/all.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 
