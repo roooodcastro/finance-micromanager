@@ -22,6 +22,7 @@ en:
             date:
               cannot_be_older_than_finished_reconciliations: >
                 cannot be older than the date from the last finished reconciliation.
+              cannot_finish_date_in_future: cannot be a date in the future when finishing a reconciliation.
         user:
           attributes:
             base:
