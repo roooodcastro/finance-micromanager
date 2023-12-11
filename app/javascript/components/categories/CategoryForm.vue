@@ -57,7 +57,7 @@
 
 <script>
 import { categories } from '~/api/all.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';

@@ -20,7 +20,7 @@
 
 <script>
 import { profiles } from '~/api/all.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ProfilesList from '~/components/profiles/ProfilesList.vue';

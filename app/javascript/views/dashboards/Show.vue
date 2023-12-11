@@ -42,7 +42,7 @@
 import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';

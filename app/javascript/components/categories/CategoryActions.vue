@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import { categories as categoriesApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';

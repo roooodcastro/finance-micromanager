@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import useWalletStore from '~/stores/WalletStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';

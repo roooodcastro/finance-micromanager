@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import { storeToRefs } from 'pinia';
 
 import useUserStore from '~/stores/UserStore.js';

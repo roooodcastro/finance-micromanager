@@ -69,7 +69,7 @@ import {
   usersRegistrations as usersRegistrationsApi,
   wallets as walletsApi,
 } from '~/api/all.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 
 import useUserStore from '~/stores/UserStore.js';
 

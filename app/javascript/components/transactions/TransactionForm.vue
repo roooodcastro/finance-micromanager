@@ -109,7 +109,7 @@ import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
 import { transactions as transactionsApi } from '~/api/all.js';
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';

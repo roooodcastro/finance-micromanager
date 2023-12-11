@@ -40,7 +40,7 @@
 <script>
 import { storeToRefs } from 'pinia';
 
-import I18n from '~/utils/I18n.Js';
+import I18n from '~/utils/I18n.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { CONFIRMATION_MODAL_ID } from '~/utils/Constants.js';
 
