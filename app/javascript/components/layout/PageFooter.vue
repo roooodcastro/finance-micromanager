@@ -25,6 +25,15 @@
       <p class="text-center my-0 fs-6">
         {{ t('copyright_notice') }} | {{ t('version') }} {{ version }}-{{ deployTimestamp }}
       </p>
+
+      <p class="text-center mb-0 mt-2 fs-3">
+        <a
+          :href="GITHUB_REPO_URL"
+          class="link-light"
+        >
+          <FontAwesomeIcon :icon="['fab', 'github']" />
+        </a>
+      </p>
     </div>
   </footer>
 </template>
@@ -34,8 +43,15 @@ import { ref, onMounted } from 'vue';
 
 import { locales as localesApi } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
+import { GITHUB_REPO_URL } from '~/utils/Constants.js';
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
+  components: {
+    FontAwesomeIcon,
+  },
+
   props: {
     compact: {
       type: Boolean,
@@ -59,6 +75,7 @@ export default {
       locales,
       version,
       deployTimestamp,
+      GITHUB_REPO_URL,
     };
   },
 }
