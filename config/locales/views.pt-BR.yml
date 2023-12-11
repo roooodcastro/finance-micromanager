@@ -75,7 +75,7 @@ pt-BR:
         dashboard: Dashboard
         transactions: Transações
         current_profile: 'Perfil:'
-        profiles: Carteiras
+        profiles: Perfis
         categories: Categorias
         profile: Meu Perfil
         wallets: Carteiras
@@ -99,7 +99,7 @@ pt-BR:
         default_wallet_label: Selecione a Carteira Padrão
         submit: Salvar
         back: Voltar
-        currency_change_warning: A moeda não pode ser alterada depois de criar o perfil!
+        currency_change_warning: A moeda não pode ser alterada após criação do perfil!
     profile_share_invites:
       index:
         pending_invite_title_pending: Convite de Compartilhamento de Perfil

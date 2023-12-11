@@ -6,6 +6,10 @@
           "color": "Cor",
           "name": "Nome"
         },
+        "profile": {
+          "currency": "Moeda",
+          "name": "Nome"
+        },
         "profile_share": {
           "user": "Usuário"
         },
@@ -29,6 +33,13 @@
           }
         },
         "models": {
+          "profile": {
+            "attributes": {
+              "currency": {
+                "cannot_change_after_creation": "não pode ser alterada. Por favor crie um novo perfil para a moeda."
+              }
+            }
+          },
           "profile_share": {
             "attributes": {
               "user": {
@@ -595,7 +606,7 @@
           "current_profile": "Perfil:",
           "dashboard": "Dashboard",
           "profile": "Meu Perfil",
-          "profiles": "Carteiras",
+          "profiles": "Perfis",
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar Conta",
@@ -631,7 +642,7 @@
       "profiles": {
         "form": {
           "back": "Voltar",
-          "currency_change_warning": "A moeda não pode ser alterada depois de criar o perfil!",
+          "currency_change_warning": "A moeda não pode ser alterada após criação do perfil!",
           "currency_label": "Selecione a Moeda",
           "default_wallet_label": "Selecione a Carteira Padrão",
           "edit_title": "Editar Perfil \"%{profile}\"",
