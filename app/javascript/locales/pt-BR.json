@@ -58,7 +58,8 @@
                 "cannot_have_two_reconciliations_in_progress": "Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser terminada ou cancelada.\n"
               },
               "date": {
-                "cannot_be_older_than_finished_reconciliations": "não pode ser anterior à data da última reconciliação."
+                "cannot_be_older_than_finished_reconciliations": "não pode ser anterior à data da última reconciliação.",
+                "cannot_finish_date_in_future": "não pode ser uma data no futuro ao terminar uma reconciliação."
               }
             }
           },

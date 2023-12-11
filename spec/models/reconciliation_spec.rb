@@ -123,6 +123,40 @@ RSpec.describe Reconciliation do
     end
   end
 
+  describe '#validate_finish_date_in_future' do
+    subject do
+      reconciliation.valid?
+      reconciliation.errors[:date]
+    end
+
+    let(:reconciliation) { build(:reconciliation, :finished, date:) }
+
+    context 'when date is in the future but status is not finished' do
+      let(:reconciliation) { build(:reconciliation, :in_progress, date:) }
+      let(:date) { 1.day.from_now }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when date is today and status is finished' do
+      let(:date) { Date.current }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when date is in the past and status is finished' do
+      let(:date) { 1.day.ago }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when date is in the future and status is finished' do
+      let(:date) { 1.day.from_now }
+
+      it { is_expected.to be_present }
+    end
+  end
+
   describe '.currency' do
     subject(:currency) { reconciliation.currency }
 

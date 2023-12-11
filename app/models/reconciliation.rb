@@ -15,6 +15,7 @@ class Reconciliation < ApplicationRecord
   validate :validate_no_in_progress_reconciliations
   validate :validate_date_not_before_other_reconciliation
   validate :validate_no_changes_after_finished
+  validate :validate_finish_date_in_future
 
   def currency
     profile&.currency || Money.default_currency
@@ -42,5 +43,12 @@ class Reconciliation < ApplicationRecord
     return if changes.blank?
 
     errors.add(:base, :cannot_change_after_finished)
+  end
+
+  def validate_finish_date_in_future
+    return unless finished?
+    return if date <= Date.current
+
+    errors.add(:date, :cannot_finish_date_in_future)
   end
 end
