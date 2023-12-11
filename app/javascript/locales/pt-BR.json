@@ -16,6 +16,10 @@
         "profile_share_invite": {
           "invitee_email": "Email do convidado"
         },
+        "reconciliation": {
+          "date": "Data",
+          "profile": "Perfil"
+        },
         "subcategory": {
           "name": "Nome"
         },
@@ -44,6 +48,17 @@
             "attributes": {
               "user": {
                 "owner_self_share": "já é o(a) dono(a) deste perfil."
+              }
+            }
+          },
+          "reconciliation": {
+            "attributes": {
+              "base": {
+                "cannot_change_after_finished": "Esta reconciliação já está terminada. Não é mais possível alterá-la.",
+                "cannot_have_two_reconciliations_in_progress": "Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser terminada ou cancelada.\n"
+              },
+              "date": {
+                "cannot_be_older_than_finished_reconciliations": "não pode ser anterior à data da última reconciliação."
               }
             }
           },
