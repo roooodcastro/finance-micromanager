@@ -24,6 +24,17 @@
               }
             }
           },
+          "reconciliation": {
+            "attributes": {
+              "base": {
+                "cannot_change_after_finished": "This reconciliation is already finished. Further changes to it are not possible.\n",
+                "cannot_have_two_reconciliations_in_progress": "There is already a reconciliation in progress. A new reconciliation process cannot be started until the existing one is either finished or cancelled.\n"
+              },
+              "date": {
+                "cannot_be_older_than_finished_reconciliations": "cannot be older than the date from the last finished reconciliation.\n"
+              }
+            }
+          },
           "user": {
             "attributes": {
               "base": {

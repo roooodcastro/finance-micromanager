@@ -11,6 +11,17 @@ en:
           attributes:
             user:
               owner_self_share: is already the owner of the profile.
+        reconciliation:
+          attributes:
+            base:
+              cannot_have_two_reconciliations_in_progress: >
+                There is already a reconciliation in progress. A new reconciliation process cannot be started until
+                the existing one is either finished or cancelled.
+              cannot_change_after_finished: >
+                This reconciliation is already finished. Further changes to it are not possible.
+            date:
+              cannot_be_older_than_finished_reconciliations: >
+                cannot be older than the date from the last finished reconciliation.
         user:
           attributes:
             base:

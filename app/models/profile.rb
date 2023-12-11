@@ -9,6 +9,7 @@ class Profile < ApplicationRecord
   has_many :imports, dependent: :restrict_with_exception
   has_many :profile_shares, dependent: :restrict_with_exception
   has_many :wallets, dependent: :restrict_with_exception
+  has_many :reconciliations, dependent: :restrict_with_exception
 
   has_many :shared_users, class_name: 'User', through: :profile_shares, source: :user
 

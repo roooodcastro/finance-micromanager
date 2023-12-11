@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_09_232208) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_154808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_232208) do
     t.uuid "default_wallet_id"
     t.index ["default_wallet_id"], name: "index_profiles_on_default_wallet_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "reconciliations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.bigint "balance_correction_transaction_id"
+    t.date "date", null: false
+    t.string "status", limit: 20, null: false
+    t.integer "difference_amount_cents", default: 0, null: false
+    t.integer "final_balance_amount_cents", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["balance_correction_transaction_id"], name: "index_reconciliations_on_balance_correction_transaction_id"
+    t.index ["profile_id"], name: "index_reconciliations_on_profile_id"
+  end
+
+  create_table "reconciliations_wallets", force: :cascade do |t|
+    t.uuid "reconciliation_id", null: false
+    t.uuid "wallet_id", null: false
+    t.integer "balance_amount_cents", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reconciliation_id"], name: "index_reconciliations_wallets_on_reconciliation_id"
+    t.index ["wallet_id"], name: "index_reconciliations_wallets_on_wallet_id"
   end
 
   create_table "subcategories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -155,6 +178,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_232208) do
   add_foreign_key "profile_shares", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "profiles", "wallets", column: "default_wallet_id"
+  add_foreign_key "reconciliations", "profiles"
+  add_foreign_key "reconciliations", "transactions", column: "balance_correction_transaction_id"
+  add_foreign_key "reconciliations_wallets", "reconciliations"
+  add_foreign_key "reconciliations_wallets", "wallets"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "subcategories", "users", column: "disabled_by_id"
   add_foreign_key "transactions", "categories"
