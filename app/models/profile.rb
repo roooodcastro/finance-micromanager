@@ -4,6 +4,10 @@ class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :default_wallet, class_name: 'Wallet', optional: true
 
+  # rubocop:disable Rails/InverseOf, Rails/HasManyOrHasOneDependent
+  has_one :latest_reconciliation, -> { finished.order(date: :desc) }, class_name: 'Reconciliation'
+  # rubocop:enable Rails/InverseOf, Rails/HasManyOrHasOneDependent
+
   has_many :transactions, dependent: :restrict_with_exception
   has_many :categories, dependent: :restrict_with_exception
   has_many :imports, dependent: :restrict_with_exception

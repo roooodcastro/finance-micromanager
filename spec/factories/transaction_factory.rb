@@ -10,5 +10,9 @@ FactoryBot.define do
     updated_by { association(:user) }
     profile { association(:profile, user: created_by) }
     category { association(:category, profile:) }
+
+    trait :skip_validations do
+      to_create { |instance| instance.save(validate: false) }
+    end
   end
 end
