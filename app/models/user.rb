@@ -39,7 +39,7 @@ class User < ApplicationRecord
 
   def as_json(attributes_only: false, **)
     json = super(except: %w[created_at updated_at], methods: %i[full_name display_name])
-    json.merge(default_profile: default_profile.as_json) unless attributes_only
+    json = json.merge(default_profile: default_profile.as_json) unless attributes_only
     json
   end
 

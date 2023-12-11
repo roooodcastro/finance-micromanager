@@ -150,7 +150,7 @@ pt-BR:
         default_profile: Perfil Padrão
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
-        empty_default_profile_label: '-- Perfil padrão não informada --'
+        empty_default_profile_label: '-- Perfil padrão não informado --'
     subcategories:
       form:
         submit: Salvar

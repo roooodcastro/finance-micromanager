@@ -676,7 +676,7 @@
         "show": {
           "default_profile": "Perfil Padrão",
           "edit_button": "Editar perfil",
-          "empty_default_profile_label": "-- Perfil padrão não informada --",
+          "empty_default_profile_label": "-- Perfil padrão não informado --",
           "empty_first_name_label": "-- Nome não informado --",
           "empty_last_name_label": "-- Sobrenome não informado --",
           "first_name": "Nome",
