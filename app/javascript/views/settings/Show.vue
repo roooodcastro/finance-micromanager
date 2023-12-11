@@ -17,39 +17,39 @@
 
     <div class="card-body container-xxl">
       <template v-if="inEditMode">
-        <ProfileForm
+        <SettingsForm
           :user="user"
           @cancel="handleEditButtonClick"
         />
       </template>
 
       <template v-else>
-        <ProfileListItem
+        <SettingListItem
           icon="user-tag"
           :value="user.firstName"
           :label="t('first_name')"
           :empty-label="t('empty_first_name_label')"
         />
 
-        <ProfileListItem
+        <SettingListItem
           icon="user-tag"
           :value="user.lastName"
           :label="t('last_name')"
           :empty-label="t('empty_last_name_label')"
         />
 
-        <ProfileListItem
+        <SettingListItem
           icon="at"
           :value="user.email"
         />
 
-        <ProfileListItem
+        <SettingListItem
           icon="key"
           value="**********"
         />
 
-        <ProfileListItem
-          icon="profile"
+        <SettingListItem
+          icon="wallet"
           :value="user.defaultProfile?.displayName"
           :label="t('default_profile')"
           :empty-label="t('empty_default_profile_label')"
@@ -78,18 +78,18 @@ import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
-import { profiles as profilesApi } from '~/api/all.js';
+import { settings as settingsApi } from '~/api/all.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
-import ProfileListItem from '~/components/profiles/ProfileListItem.vue';
-import ProfileForm from '~/components/profiles/ProfileForm.vue';
+import SettingListItem from '~/components/settings/SettingListItem.vue';
+import SettingsForm from '~/components/settings/SettingsForm.vue';
 
 export default {
   components: {
     FontAwesomeIcon,
     PageHeader,
-    ProfileForm,
-    ProfileListItem,
+    SettingsForm,
+    SettingListItem,
   },
 
   props: {
@@ -103,7 +103,7 @@ export default {
     const inEditMode = ref(false);
     const handleEditButtonClick = () => inEditMode.value = !inEditMode.value;
 
-    const updatePath = profilesApi.update.path();
+    const updatePath = settingsApi.update.path();
 
     return {
       handleEditButtonClick,
