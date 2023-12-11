@@ -1,6 +1,98 @@
 # frozen_string_literal: true
 
 RSpec.describe Transaction do
+  describe 'validate reconciliation date' do
+    subject(:errors) do
+      transaction.valid?
+      transaction.errors[:base]
+    end
+
+    let(:profile) { create(:profile) }
+
+    before { create(:reconciliation, :finished, profile: profile, date: 2.days.ago) }
+
+    context 'when trying to create a transaction' do
+      let(:transaction) { build(:transaction, profile:, transaction_date:) }
+
+      context 'when the transaction date is after the reconciliation' do
+        let(:transaction_date) { 1.day.ago }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the transaction date is at or prior to the reconciliation' do
+        let(:transaction_date) { 2.days.ago }
+
+        it { is_expected.to be_present }
+      end
+    end
+
+    context 'when trying to edit a transaction' do
+      let(:transaction) do
+        create(:transaction, :skip_validations, profile: profile, transaction_date: old_transaction_date,
+               amount: old_amount)
+      end
+
+      let(:old_amount) { 10 }
+      let(:new_amount) { 10 }
+
+      before { transaction.update(transaction_date: new_transaction_date, amount: new_amount) }
+
+      context 'when the transaction date is unchanged and after the reconciliation' do
+        let(:old_transaction_date) { 1.day.ago }
+        let(:new_transaction_date) { 1.day.ago }
+        let(:new_amount) { 15 }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the new transaction date is prior to the reconciliation' do
+        let(:old_transaction_date) { 1.day.ago }
+        let(:new_transaction_date) { 3.days.ago }
+
+        it { is_expected.to be_present }
+      end
+
+      context 'when the new transaction date is after the reconciliation but the old date is prior' do
+        let(:old_transaction_date) { 3.days.ago }
+        let(:new_transaction_date) { 1.day.ago }
+
+        it { is_expected.to be_present }
+      end
+
+      context 'when both old and new transaction dates are after the reconciliation' do
+        let(:old_transaction_date) { 1.day.ago }
+        let(:new_transaction_date) { 1.day.from_now }
+        let(:new_amount) { 15 }
+
+        it { is_expected.to be_empty }
+      end
+    end
+
+    context 'when trying to delete a transaction' do
+      subject(:errors) do
+        transaction.destroy
+        transaction.errors[:base]
+      end
+
+      let(:transaction) do
+        create(:transaction, :skip_validations, profile:, transaction_date:)
+      end
+
+      context 'when the transaction date is after the reconciliation' do
+        let(:transaction_date) { 1.day.ago }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the transaction date is prior to the reconciliation' do
+        let(:transaction_date) { 4.days.ago }
+
+        it { is_expected.to be_present }
+      end
+    end
+  end
+
   describe '#process_amount_type' do
     subject do
       transaction.valid?

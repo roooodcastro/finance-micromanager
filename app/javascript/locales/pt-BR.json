@@ -63,6 +63,13 @@
               }
             }
           },
+          "transaction": {
+            "attributes": {
+              "base": {
+                "cannot_alter_prior_to_reconciliation": "Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última reconciliação.\n"
+              }
+            }
+          },
           "user": {
             "attributes": {
               "base": {

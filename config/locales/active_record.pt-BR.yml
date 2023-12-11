@@ -47,6 +47,12 @@ pt-BR:
             date:
               cannot_be_older_than_finished_reconciliations: não pode ser anterior à data da última reconciliação.
               cannot_finish_date_in_future: não pode ser uma data no futuro ao terminar uma reconciliação.
+        transaction:
+          attributes:
+            base:
+              cannot_alter_prior_to_reconciliation: >
+                Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última
+                reconciliação.
         user:
           attributes:
             base:

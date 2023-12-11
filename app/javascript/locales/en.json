@@ -36,6 +36,13 @@
               }
             }
           },
+          "transaction": {
+            "attributes": {
+              "base": {
+                "cannot_alter_prior_to_reconciliation": "Cannot create, edit, or delete any transactions prior to %{date}, the date of the latest reconciliation\n"
+              }
+            }
+          },
           "user": {
             "attributes": {
               "base": {
