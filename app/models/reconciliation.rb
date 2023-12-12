@@ -15,6 +15,7 @@ class Reconciliation < ApplicationRecord
   validate :validate_no_in_progress_reconciliations
   validate :validate_date_not_before_other_reconciliation
   validate :validate_no_changes_after_finished
+  validate :validate_no_changes_after_cancelled
   validate :validate_finish_date_in_future
 
   def currency
@@ -43,6 +44,14 @@ class Reconciliation < ApplicationRecord
     return if changes.blank?
 
     errors.add(:base, :cannot_change_after_finished)
+  end
+
+  def validate_no_changes_after_cancelled
+    return unless persisted?
+    return if !cancelled? || (cancelled? && status_change)
+    return if changes.blank?
+
+    errors.add(:base, :cannot_change_after_cancelled)
   end
 
   def validate_finish_date_in_future
