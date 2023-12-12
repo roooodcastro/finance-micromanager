@@ -77,7 +77,7 @@ export function defineBaseApiStore(name, options = {}) {
         let responseResolve;
         const returnPromise = new Promise(resolve => responseResolve = resolve);
         const data = {}
-        data[options.resourcesName] = record;
+        data[options.resourceName] = record;
 
         options
           .api
