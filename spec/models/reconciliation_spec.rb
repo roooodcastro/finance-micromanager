@@ -115,8 +115,20 @@ RSpec.describe Reconciliation do
     context 'when reconciliation is already finished' do
       let(:reconciliation) { create(:reconciliation, :finished) }
 
-      it 'cannot change anything' do
-        reconciliation.difference_amount = 1.5
+      it 'cannot change status to in_progress' do
+        reconciliation.status = :in_progress
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change status to cancelled' do
+        reconciliation.status = :cancelled
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change other attributes' do
+        reconciliation.date = 1.day.from_now
 
         expect(errors).to be_present
       end
@@ -153,8 +165,20 @@ RSpec.describe Reconciliation do
     context 'when reconciliation is already cancelled' do
       let(:reconciliation) { create(:reconciliation, :cancelled) }
 
-      it 'cannot change anything' do
-        reconciliation.difference_amount = 1.5
+      it 'cannot change status to in_progress' do
+        reconciliation.status = :in_progress
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change status to finished' do
+        reconciliation.status = :finished
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change other attributes' do
+        reconciliation.date = 1.day.from_now
 
         expect(errors).to be_present
       end

@@ -33,6 +33,7 @@ class Reconciliation < ApplicationRecord
 
   def validate_date_not_before_other_reconciliation
     return if profile.blank?
+    return unless in_progress?
     return if profile.reconciliations.finished.where(date: [date...]).blank?
 
     errors.add(:date, :cannot_be_older_than_finished_reconciliations)
@@ -40,7 +41,7 @@ class Reconciliation < ApplicationRecord
 
   def validate_no_changes_after_finished
     return unless persisted?
-    return if !finished? || (finished? && status_change)
+    return if valid_status_change?('finished')
     return if changes.blank?
 
     errors.add(:base, :cannot_change_after_finished)
@@ -48,7 +49,7 @@ class Reconciliation < ApplicationRecord
 
   def validate_no_changes_after_cancelled
     return unless persisted?
-    return if !cancelled? || (cancelled? && status_change)
+    return if valid_status_change?('cancelled')
     return if changes.blank?
 
     errors.add(:base, :cannot_change_after_cancelled)
@@ -59,5 +60,10 @@ class Reconciliation < ApplicationRecord
     return if date <= Date.current
 
     errors.add(:date, :cannot_finish_date_in_future)
+  end
+
+  def valid_status_change?(status_to_check)
+    (status_change&.last == status_to_check) ||
+      (status != status_to_check && !status_change) || status_change&.first == 'in_progress'
   end
 end

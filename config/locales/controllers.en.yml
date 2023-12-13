@@ -28,6 +28,25 @@ en:
       success: 'Your invite to share the profile "%{profile_name}" was successfully sent to "%{invitee}"!'
       error: 'There was an error sending the invite to share the profile "%{profile_name}" with "%{invitee}": %{error}'
 
+  reconciliations:
+    create:
+      success: 'Reconciliation for %{date} was successfully started.'
+      error: 'Reconciliation for %{date} could not be started: %{error}'
+    update:
+      success: 'Reconciliation for %{date} was successfully updated.'
+      error: 'Reconciliation for %{date} could not be updated: %{error}'
+    finish:
+      success_without_correction: >-
+        Reconciliation for %{date} has been successfully finalised. No balance difference was detected.
+      success_with_correction: >-
+        Reconciliation for %{date} has been successfully finalised. A balance difference of %{balance_difference}
+        was detected, and a correction transaction was created for %{date} to correct the profile's balance with the
+        amount reported.
+      error: 'Reconciliation for %{date} could not be finalised: %{error}'
+    destroy:
+      success: 'Reconciliation for %{date} was successfully cancelled.'
+      error: 'Reconciliation for %{date} could not be cancelled: %{error}'
+
   settings:
     update:
       success: Profile information updated successfully.

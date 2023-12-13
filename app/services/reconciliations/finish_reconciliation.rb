@@ -14,8 +14,7 @@ module Reconciliations
     end
 
     def call
-      reconciliation.finished!
-      true
+      reconciliation.update(status: :finished)
     end
   end
 end
