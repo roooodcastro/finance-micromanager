@@ -506,8 +506,8 @@
         "show": {
           "disable": "Delete",
           "edit": "Edit",
-          "expenses": "Expenses",
-          "money_in": "Money In",
+          "expenses": "Spends",
+          "money_in": "Income",
           "new_subcategory": "Create Subcategory",
           "show_all_subcategories": "Show Disabled",
           "sub_header_recent_transactions": "Recent Transactions",
@@ -668,9 +668,9 @@
           "amount_type_label": "Type",
           "cancel": "Cancel",
           "category_label": "Category",
-          "credit_label": "Credit",
+          "credit_label": "Income",
           "date_label": "Date",
-          "debit_label": "Debit",
+          "debit_label": "Spend",
           "edit_title": "Edit Transaction",
           "name_label": "Name",
           "new_title": "New Transaction",
@@ -701,8 +701,8 @@
         },
         "types": {
           "all_transactions": "All",
-          "credit_transactions": "Money In",
-          "debit_transactions": "Expenses"
+          "credit_transactions": "Income",
+          "debit_transactions": "Spends"
         }
       },
       "users": {

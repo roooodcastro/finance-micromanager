@@ -23,8 +23,8 @@ en:
         sub_header_summary: Summary
         sub_header_recent_transactions: Recent Transactions
         sub_header_subcategories: Subcategories
-        money_in: Money In
-        expenses: Expenses
+        money_in: Income
+        expenses: Spends
         edit: Edit
         disable: Delete
         new_subcategory: Create Subcategory
@@ -187,16 +187,16 @@ en:
         amount_type_label: Type
         category_label: Category
         wallet_label: Wallet
-        credit_label: Credit
-        debit_label: Debit
+        credit_label: Income
+        debit_label: Spend
         date_label: Date
         name_label: Name
         optional: Optional
         submit: Submit
         cancel: Cancel
       types:
-        credit_transactions: Money In
-        debit_transactions: Expenses
+        credit_transactions: Income
+        debit_transactions: Spends
         all_transactions: All
     users:
       confirmations:
