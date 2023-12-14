@@ -9,12 +9,12 @@ pt-BR:
       hello: Olá
       view_invite_link: Ver meus convites
       sign_up_link: Criar minha conta em Finance Micromanager
-      invite_paragraph: >
+      invite_paragraph: >-
         %{inviter} lhe convidou para compartilhar seu perfil "%{profile_name}" em Finance Micromanager. Isso irá
         permitir que você acesse, visualize e gerencie o perfil, cria transações, visualise relatórios e dados
         estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu
         navegador.
-      new_profile_paragraph: >
+      new_profile_paragraph: >-
         Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes
         de aceitar este convite. Para criar um perfil, clique no link abaixo, ou copie e cole a URL diretamente no seu
         navegador.

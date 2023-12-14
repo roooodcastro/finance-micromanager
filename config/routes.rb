@@ -55,6 +55,11 @@ Rails.application.routes.draw do
       patch :reenable, on: :member
     end
 
+    resources :reconciliations, only: %i[index show create update destroy] do
+      patch :finish, on: :member
+      resources :reconciliations_wallets, only: :create
+    end
+
     namespace :statistics do
       resources :category_summaries, only: %i[index]
     end

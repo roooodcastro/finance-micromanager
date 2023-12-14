@@ -115,8 +115,70 @@ RSpec.describe Reconciliation do
     context 'when reconciliation is already finished' do
       let(:reconciliation) { create(:reconciliation, :finished) }
 
-      it 'cannot change anything' do
+      it 'cannot change status to in_progress' do
+        reconciliation.status = :in_progress
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change status to cancelled' do
+        reconciliation.status = :cancelled
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change other attributes' do
+        reconciliation.date = 1.day.from_now
+
+        expect(errors).to be_present
+      end
+    end
+  end
+
+  describe '#validate_no_changes_after_cancelled' do
+    subject(:errors) do
+      reconciliation.valid?
+      reconciliation.errors[:base]
+    end
+
+    let(:reconciliation) { create(:reconciliation) }
+
+    context 'when reconciliation is not cancelled' do
+      it 'can still change other attributes' do
         reconciliation.difference_amount = 1.5
+        reconciliation.date              = 1.day.from_now
+
+        expect(errors).to be_empty
+      end
+    end
+
+    context 'when reconciliation is transitioning to cancelled status' do
+      it 'can still change other attributes' do
+        reconciliation.difference_amount = 1.5
+        reconciliation.date              = 1.day.from_now
+        reconciliation.status            = :cancelled
+
+        expect(errors).to be_empty
+      end
+    end
+
+    context 'when reconciliation is already cancelled' do
+      let(:reconciliation) { create(:reconciliation, :cancelled) }
+
+      it 'cannot change status to in_progress' do
+        reconciliation.status = :in_progress
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change status to finished' do
+        reconciliation.status = :finished
+
+        expect(errors).to be_present
+      end
+
+      it 'cannot change other attributes' do
+        reconciliation.date = 1.day.from_now
 
         expect(errors).to be_present
       end

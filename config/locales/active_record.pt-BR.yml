@@ -32,28 +32,29 @@ pt-BR:
         profile:
           attributes:
             currency:
-              cannot_change_after_creation: não pode ser alterada. Por favor crie um novo perfil para a moeda.
+              cannot_change_after_creation: não pode ser alterada. Por favor crie um novo perfil para a moeda
         profile_share:
           attributes:
             user:
-              owner_self_share: já é o(a) dono(a) deste perfil.
+              owner_self_share: já é o(a) dono(a) deste perfil
         reconciliation:
           attributes:
             base:
-              cannot_have_two_reconciliations_in_progress: >
+              cannot_have_two_reconciliations_in_progress: >-
                 Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser
-                terminada ou cancelada.
-              cannot_change_after_finished: Esta reconciliação já está terminada. Não é mais possível alterá-la.
+                terminada ou cancelada
+              cannot_change_after_finished: Esta reconciliação já está terminada. Não é mais possível alterá-la
+              cannot_change_after_cancelled: Esta reconciliação foi cancelada. Não é mais possível alterá-la
             date:
-              cannot_be_older_than_finished_reconciliations: não pode ser anterior à data da última reconciliação.
-              cannot_finish_date_in_future: não pode ser uma data no futuro ao terminar uma reconciliação.
+              cannot_be_older_than_finished_reconciliations: deve ser posterior à data da última reconciliação
+              cannot_finish_date_in_future: não pode ser uma data no futuro ao terminar uma reconciliação
         transaction:
           attributes:
             base:
-              cannot_alter_prior_to_reconciliation: >
+              cannot_alter_prior_to_reconciliation: >-
                 Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última
-                reconciliação.
+                reconciliação
         user:
           attributes:
             base:
-              email_not_valid: Email não é válido.
+              email_not_valid: Email não é válido

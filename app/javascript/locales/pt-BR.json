@@ -40,40 +40,41 @@
           "profile": {
             "attributes": {
               "currency": {
-                "cannot_change_after_creation": "não pode ser alterada. Por favor crie um novo perfil para a moeda."
+                "cannot_change_after_creation": "não pode ser alterada. Por favor crie um novo perfil para a moeda"
               }
             }
           },
           "profile_share": {
             "attributes": {
               "user": {
-                "owner_self_share": "já é o(a) dono(a) deste perfil."
+                "owner_self_share": "já é o(a) dono(a) deste perfil"
               }
             }
           },
           "reconciliation": {
             "attributes": {
               "base": {
-                "cannot_change_after_finished": "Esta reconciliação já está terminada. Não é mais possível alterá-la.",
-                "cannot_have_two_reconciliations_in_progress": "Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser terminada ou cancelada.\n"
+                "cannot_change_after_cancelled": "Esta reconciliação foi cancelada. Não é mais possível alterá-la",
+                "cannot_change_after_finished": "Esta reconciliação já está terminada. Não é mais possível alterá-la",
+                "cannot_have_two_reconciliations_in_progress": "Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser terminada ou cancelada"
               },
               "date": {
-                "cannot_be_older_than_finished_reconciliations": "não pode ser anterior à data da última reconciliação.",
-                "cannot_finish_date_in_future": "não pode ser uma data no futuro ao terminar uma reconciliação."
+                "cannot_be_older_than_finished_reconciliations": "deve ser posterior à data da última reconciliação",
+                "cannot_finish_date_in_future": "não pode ser uma data no futuro ao terminar uma reconciliação"
               }
             }
           },
           "transaction": {
             "attributes": {
               "base": {
-                "cannot_alter_prior_to_reconciliation": "Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última reconciliação.\n"
+                "cannot_alter_prior_to_reconciliation": "Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última reconciliação"
               }
             }
           },
           "user": {
             "attributes": {
               "base": {
-                "email_not_valid": "Email não é válido."
+                "email_not_valid": "Email não é válido"
               }
             }
           }
@@ -466,8 +467,8 @@
     "profile_share_mailer": {
       "profile_share_invite_sent": {
         "hello": "Olá",
-        "invite_paragraph": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\" em Finance Micromanager. Isso irá permitir que você acesse, visualize e gerencie o perfil, cria transações, visualise relatórios e dados estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
-        "new_profile_paragraph": "Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes de aceitar este convite. Para criar um perfil, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.\n",
+        "invite_paragraph": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\" em Finance Micromanager. Isso irá permitir que você acesse, visualize e gerencie o perfil, cria transações, visualise relatórios e dados estatísticos, e muito mais. Para aceitar, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.",
+        "new_profile_paragraph": "Opa, parece que você ainda não tem uma conta com a gente em Finance Micromanager. Você precisará de uma antes de aceitar este convite. Para criar um perfil, clique no link abaixo, ou copie e cole a URL diretamente no seu navegador.",
         "sign_up_link": "Criar minha conta em Finance Micromanager",
         "subject": "Você recebeu um convite de %{inviter}!",
         "view_invite_link": "Ver meus convites"
@@ -489,6 +490,31 @@
     "rails_mailer": {
       "footer_sent_by": "Este email foi enviado por",
       "footer_version": "Versão"
+    },
+    "reconciliations": {
+      "create": {
+        "error": "Reconciliação para %{date} não pode ser iniciada: %{error}",
+        "success": "Reconciliação para %{date} iniciada com sucesso."
+      },
+      "destroy": {
+        "error": "Reconciliação para %{date} não pode ser cancelada: %{error}",
+        "success": "Reconciliação para %{date} cancelada com sucesso."
+      },
+      "finish": {
+        "error": "Reconciliação para %{date} não pode ser finalizada: %{error}",
+        "success_with_correction": "Reconciliação para %{date} finalizada com sucesso. Uma diferença de saldo de %{balance_difference} foi detectada, e uma transação de correção foi criada para o dia %{date} para corrigir o saldo do perfil de acordo com o saldo reportado.",
+        "success_without_correction": "Reconciliação para %{date} finalizada com sucesso. Nenhuma diferença de saldo foi detectada."
+      },
+      "update": {
+        "error": "Reconciliação para %{date} não pode ser atualizada: %{error}",
+        "success": "Reconciliação para %{date} atualizada com sucesso."
+      }
+    },
+    "reconciliations_wallets": {
+      "create": {
+        "error": "Saldo da carteira não pode ser atualizado: %{error}",
+        "not_found": "Saldo da carteira não pode ser atualizado porque algum registro não pode ser encontrado. Por favor tente novamente."
+      }
     },
     "settings": {
       "update": {

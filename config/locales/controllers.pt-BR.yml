@@ -28,10 +28,36 @@ pt-BR:
       success: 'Seu convite para compartilhar o perfil "%{profile_name}" foi enviado com sucesso para "%{invitee}"!'
       error: 'Ocorreu um erro ao enviar um convite para compartilhar o perfil "%{profile_name}" com "%{invitee}": %{error}'
 
+  reconciliations:
+    create:
+      success: 'Reconciliação para %{date} iniciada com sucesso.'
+      error: 'Reconciliação para %{date} não pode ser iniciada: %{error}'
+    update:
+      success: 'Reconciliação para %{date} atualizada com sucesso.'
+      error: 'Reconciliação para %{date} não pode ser atualizada: %{error}'
+    finish:
+      success_without_correction: >-
+        Reconciliação para %{date} finalizada com sucesso. Nenhuma diferença de saldo foi detectada.
+      success_with_correction: >-
+        Reconciliação para %{date} finalizada com sucesso. Uma diferença de saldo de %{balance_difference} foi
+        detectada, e uma transação de correção foi criada para o dia %{date} para corrigir o saldo do perfil de acordo
+        com o saldo reportado.
+      error: 'Reconciliação para %{date} não pode ser finalizada: %{error}'
+    destroy:
+      success: 'Reconciliação para %{date} cancelada com sucesso.'
+      error: 'Reconciliação para %{date} não pode ser cancelada: %{error}'
+
+  reconciliations_wallets:
+    create:
+      error: 'Saldo da carteira não pode ser atualizado: %{error}'
+      not_found: >-
+        Saldo da carteira não pode ser atualizado porque algum registro não pode ser encontrado.
+        Por favor tente novamente.
+
   settings:
     update:
-      success: Dados do perfil atualizados com sucesso.
-      error: Houve um erro ao autalizar os dados do seu perfil.
+      success: 'Dados do perfil atualizados com sucesso.'
+      error: 'Houve um erro ao autalizar os dados do seu perfil.'
 
   subcategories:
     create:

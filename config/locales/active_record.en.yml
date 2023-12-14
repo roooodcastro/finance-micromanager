@@ -6,29 +6,31 @@ en:
         profile:
           attributes:
             currency:
-              cannot_change_after_creation: cannot be changed. Please create a new profile for the currency.
+              cannot_change_after_creation: cannot be changed. Please create a new profile for the currency
         profile_share:
           attributes:
             user:
-              owner_self_share: is already the owner of the profile.
+              owner_self_share: is already the owner of the profile
         reconciliation:
           attributes:
             base:
-              cannot_have_two_reconciliations_in_progress: >
+              cannot_have_two_reconciliations_in_progress: >-
                 There is already a reconciliation in progress. A new reconciliation process cannot be started until
-                the existing one is either finished or cancelled.
-              cannot_change_after_finished: >
-                This reconciliation is already finished. Further changes to it are not possible.
+                the existing one is either finished or cancelled
+              cannot_change_after_finished: >-
+                This reconciliation is already finished. Further changes to it are not possible
+              cannot_change_after_cancelled: >-
+                This reconciliation has been cancelled. Further changes to it are not possible
             date:
-              cannot_be_older_than_finished_reconciliations: >
-                cannot be older than the date from the last finished reconciliation.
-              cannot_finish_date_in_future: cannot be a date in the future when finishing a reconciliation.
+              cannot_be_older_than_finished_reconciliations: >-
+                has to be newer than the date from the last finished reconciliation
+              cannot_finish_date_in_future: cannot be a date in the future when finishing a reconciliation
         transaction:
           attributes:
             base:
-              cannot_alter_prior_to_reconciliation: >
+              cannot_alter_prior_to_reconciliation: >-
                 Cannot create, edit, or delete any transactions prior to %{date}, the date of the latest reconciliation
         user:
           attributes:
             base:
-              email_not_valid: Email is not valid.
+              email_not_valid: Email is not valid
