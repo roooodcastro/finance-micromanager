@@ -7,6 +7,8 @@ class Reconciliation < ApplicationRecord
   belongs_to :profile
   belongs_to :balance_correction_transaction, class_name: 'Transaction', optional: true
 
+  has_many :reconciliations_wallets, dependent: :destroy
+
   enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
 
   validates :date, presence: true
@@ -20,6 +22,10 @@ class Reconciliation < ApplicationRecord
 
   def currency
     profile&.currency || Money.default_currency
+  end
+
+  def as_json(*)
+    super.merge(reconciliations_wallets: reconciliations_wallets.as_json)
   end
 
   private

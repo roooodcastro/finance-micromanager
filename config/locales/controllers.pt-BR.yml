@@ -47,6 +47,13 @@ pt-BR:
       success: 'Reconciliação para %{date} cancelada com sucesso.'
       error: 'Reconciliação para %{date} não pode ser cancelada: %{error}'
 
+  reconciliations_wallets:
+    create:
+      error: 'Saldo da carteira não pode ser atualizado: %{error}'
+      not_found: >-
+        Saldo da carteira não pode ser atualizado porque algum registro não pode ser encontrado.
+        Por favor tente novamente.
+
   settings:
     update:
       success: 'Dados do perfil atualizados com sucesso.'

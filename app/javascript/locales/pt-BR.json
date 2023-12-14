@@ -510,6 +510,12 @@
         "success": "Reconciliação para %{date} atualizada com sucesso."
       }
     },
+    "reconciliations_wallets": {
+      "create": {
+        "error": "Saldo da carteira não pode ser atualizado: %{error}",
+        "not_found": "Saldo da carteira não pode ser atualizado porque algum registro não pode ser encontrado. Por favor tente novamente."
+      }
+    },
     "settings": {
       "update": {
         "error": "Houve um erro ao autalizar os dados do seu perfil.",

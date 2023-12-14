@@ -452,6 +452,12 @@
         "success": "Reconciliation for %{date} was successfully updated."
       }
     },
+    "reconciliations_wallets": {
+      "create": {
+        "error": "Wallet balance could not be updated: %{error}",
+        "not_found": "Wallet balance could not be updated because a record could not be found. Please try again."
+      }
+    },
     "settings": {
       "update": {
         "error": "There was an error updating your profile info.",
