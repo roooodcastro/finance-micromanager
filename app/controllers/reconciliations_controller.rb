@@ -6,7 +6,7 @@ class ReconciliationsController < AbstractAuthenticatedController
   before_action :set_reconciliation, only: %i[show update finish destroy]
 
   def index
-    reconciliations       = Current.profile.reconciliations.order(date: :desc)
+    reconciliations       = Current.profile.reconciliations.includes(:reconciliations_wallets).order(date: :desc)
     pagy, reconciliations = pagy(reconciliations, items: current_pagination_items)
     props                 = camelize_props(reconciliations: reconciliations.as_json, pagination: pagy_metadata(pagy))
 

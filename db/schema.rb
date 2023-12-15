@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_154808) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_14_084836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154808) do
     t.string "currency", null: false
     t.string "name", limit: 30
     t.uuid "default_wallet_id"
+    t.integer "balance_amount_cents", default: 0, null: false
     t.index ["default_wallet_id"], name: "index_profiles_on_default_wallet_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

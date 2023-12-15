@@ -16,7 +16,9 @@ class Transaction < ApplicationRecord
   belongs_to :wallet, optional: true
 
   before_validation :process_amount_type
+  before_save -> { update_balances!(:save) }
   before_destroy :check_reconciliation_date_before_destroy, prepend: true
+  before_destroy -> { update_balances!(:destroy) }
 
   validates :name, :transaction_date, :amount, presence: true
   validate :validate_cannot_alter_prior_to_reconciliation
@@ -68,5 +70,9 @@ class Transaction < ApplicationRecord
 
     errors.add(:base, :cannot_alter_prior_to_reconciliation, date: I18n.l(profile.latest_reconciliation.date))
     throw(:abort)
+  end
+
+  def update_balances!(operation)
+    ::Transactions::UpdateAssociatedBalances.call(self, operation)
   end
 end
