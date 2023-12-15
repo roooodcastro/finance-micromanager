@@ -95,7 +95,7 @@ RSpec.describe ProfilesController do
     end
 
     context 'when params are invalid' do
-      let(:params) { { profile: { name: 'Test', currency: nil } } }
+      let(:params) { { profile: { name: 'Test', status: nil } } }
 
       it 'does not create a new profile' do
         expect { create_request }.not_to change { Profile.count }

@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :profile do
     status { :active }
-    currency { :usd }
+    currency { :eur }
     user
 
     trait :active do

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Profile < ApplicationRecord
+  monetize :balance_amount_cents, with_currency: ->(instance) { instance.currency }, disable_validation: true
+
   belongs_to :user
   belongs_to :default_wallet, class_name: 'Wallet', optional: true
 
