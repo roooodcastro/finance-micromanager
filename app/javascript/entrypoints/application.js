@@ -7,6 +7,10 @@ import LoginLayout from '../components/layout/LoginLayout.vue';
 import Csrf from '~/utils/Csrf.js';
 import I18n from '~/utils/I18n.js';
 import Rails from '@rails/ujs';
+import dayjs from 'dayjs';
+import localizedFormat  from 'dayjs/plugin/localizedFormat.js';
+import 'dayjs/locale/pt-br.js';
+import 'dayjs/locale/en-gb.js';
 
 import '~/utils/fontAwesome.js';
 
@@ -22,6 +26,12 @@ const layouts = {
 async function startApplication() {
   Csrf.refreshToken();
   await I18n.loadTranslations();
+
+  // Use en-GB locale for DayJS because mm/dd/yyyy is stupid and wrong.
+  const localeForDayJs = I18n.getLocale() === 'en' ? 'en-gb' : I18n.getLocale();
+  dayjs.locale(localeForDayJs);
+  dayjs.extend(localizedFormat);
+
   axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
 
   if (!window._rails_loaded) {

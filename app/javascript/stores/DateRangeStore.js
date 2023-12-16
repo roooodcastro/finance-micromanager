@@ -1,37 +1,37 @@
 import { defineStore } from 'pinia';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export default defineStore('dateRange', {
   state: () => ({
     type: 'month',
-    startDate: moment().startOf('month'),
+    startDate: dayjs().startOf('month'),
   }),
 
   getters: {
-    nextEnabled: (state) => state.startDate < moment().startOf(state.type),
-    maxDate: () => moment().format('YYYY-MM'),
-    endDate: (state) => moment(state.startDate).endOf(state.type),
+    nextEnabled: (state) => state.startDate < dayjs().startOf(state.type),
+    maxDate: () => dayjs().format('YYYY-MM'),
+    endDate: (state) => dayjs(state.startDate).endOf(state.type),
     startMonth: (state) => state.startDate.format('MMMM'),
     startYear: (state) => state.startDate.year(),
   },
 
   actions: {
     setFromProps(props) {
-      this.startDate = moment(props.startDate);
+      this.startDate = dayjs(props.startDate);
     },
     setStartDate(newDate) {
-      this.startDate = moment(newDate).startOf(this.type);
+      this.startDate = dayjs(newDate).startOf(this.type);
     },
     setType(newType) {
       this.type = newType;
       this.startDate = this.startDate.startOf(newType);
     },
     next() {
-      this.startDate = moment(this.startDate.add(1, this.type).startOf(this.type));
+      this.startDate = dayjs(this.startDate.add(1, this.type).startOf(this.type));
     },
 
     prev() {
-      this.startDate = moment(this.startDate.add(-1, this.type).startOf(this.type));
+      this.startDate = dayjs(this.startDate.add(-1, this.type).startOf(this.type));
     }
   },
 });

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import _ from 'lodash';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import { statisticsCategorySummaries as categorySummariesApi } from '~/api/all.js';
 
@@ -18,8 +18,8 @@ export default defineStore('statistics_category_summary', {
   actions: {
     fetch(options) {
       const defaultOptions = {
-        startDate: moment().startOf('month'),
-        endDate: moment(),
+        startDate: dayjs().startOf('month'),
+        endDate: dayjs(),
       };
 
       categorySummariesApi
