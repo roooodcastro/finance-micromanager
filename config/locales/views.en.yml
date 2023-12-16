@@ -128,6 +128,16 @@ en:
         invitee_email_placeholder: Type their Email
         cancel: Cancel
         confirm: Send Invite
+    reconciliations:
+      index:
+        title: Reconciliations
+        new: Start new Reconciliation
+      form:
+        new_title: Start new Reconciliation
+        edit_title: Edit Reconciliation
+        date_label: Date
+        cancel: Cancel
+        submit: Submit
     settings:
       form:
         first_name_label: First Name
