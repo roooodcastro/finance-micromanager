@@ -130,6 +130,16 @@ pt-BR:
         invitee_email_placeholder: Digite o Email dele(a)
         cancel: Cancelar
         confirm: Enviar Convite
+    reconciliations:
+      index:
+        title: Reconciliações
+        new: Iniciar nova Reconciliação
+      form:
+        new_title: Iniciar nova Reconciliação
+        edit_title: Editar Reconciliação
+        date_label: Data
+        cancel: Cancelar
+        submit: Salvar
     settings:
       form:
         first_name_label: Nome

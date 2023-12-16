@@ -709,6 +709,19 @@
           "title": "Carteiras"
         }
       },
+      "reconciliations": {
+        "form": {
+          "cancel": "Cancelar",
+          "date_label": "Data",
+          "edit_title": "Editar Reconciliação",
+          "new_title": "Iniciar nova Reconciliação",
+          "submit": "Salvar"
+        },
+        "index": {
+          "new": "Iniciar nova Reconciliação",
+          "title": "Reconciliações"
+        }
+      },
       "settings": {
         "form": {
           "cancel_edit_button": "Cancelar",

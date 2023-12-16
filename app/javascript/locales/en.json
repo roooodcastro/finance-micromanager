@@ -651,6 +651,19 @@
           "title": "Profiles"
         }
       },
+      "reconciliations": {
+        "form": {
+          "cancel": "Cancel",
+          "date_label": "Date",
+          "edit_title": "Edit Reconciliation",
+          "new_title": "Start new Reconciliation",
+          "submit": "Submit"
+        },
+        "index": {
+          "new": "Start new Reconciliation",
+          "title": "Reconciliations"
+        }
+      },
       "settings": {
         "form": {
           "cancel_edit_button": "Cancel",
