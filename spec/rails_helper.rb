@@ -2,8 +2,30 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
+
+require 'simplecov'
+require 'simplecov_json_formatter'
+
+SimpleCov.start do
+  enable_coverage :branch
+  primary_coverage :branch
+
+  add_filter '/spec/'
+  add_filter '/config/'
+
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Models', 'app/models'
+  add_group 'Serializers', 'app/serializers'
+  add_group 'Services', 'app/services'
+
+  formatter SimpleCov::Formatter::SimpleFormatter if ENV['CI']
+end
+
 require_relative '../config/environment'
+
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'

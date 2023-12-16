@@ -30,6 +30,7 @@ spec/examples.txt
 # Devops
 .env.*.local
 .build
+coverage
 yarn-error.log*
 config/credentials/*.key
 config/master.key
