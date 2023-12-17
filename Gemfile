@@ -38,7 +38,8 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'sassc-rails'
 
 group :test do
-  gem 'simplecov'
+  gem 'simplecov', require: false
+  gem 'simplecov_json_formatter', require: false
 end
 
 group :development, :test do

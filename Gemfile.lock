@@ -397,6 +397,7 @@ DEPENDENCIES
   rubocop-rspec
   sassc-rails
   simplecov
+  simplecov_json_formatter
   spring
   sprockets-rails
   turbo-rails
