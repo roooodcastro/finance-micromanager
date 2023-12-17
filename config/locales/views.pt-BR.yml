@@ -140,6 +140,10 @@ pt-BR:
         date_label: Data
         cancel: Cancelar
         submit: Salvar
+      show:
+        title: 'Reconciliação do dia %{date}'
+        status: Status
+        sub_header_summary: Resumo
     settings:
       form:
         first_name_label: Nome

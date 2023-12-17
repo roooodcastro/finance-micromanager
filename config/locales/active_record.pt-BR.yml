@@ -22,6 +22,10 @@ pt-BR:
       reconciliation:
         date: Data
         profile: Perfil
+        statuses:
+          in_progress: Em Andamento
+          finished: Concluída
+          cancelled: Cancelada
       subcategory:
         name: Nome
       wallet:

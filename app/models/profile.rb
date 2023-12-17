@@ -32,7 +32,12 @@ class Profile < ApplicationRecord
   def as_json(*)
     currency_as_json = currency_object.as_json(only: %w[name symbol])
     super(except: %w[created_at updated_at], methods: :display_name)
-      .merge(currency_object: currency_as_json, shared: shared?, user: user.as_json(attributes_only: true))
+      .merge(
+        currency_object:          currency_as_json,
+        shared:                   shared?,
+        user:                     user.as_json(attributes_only: true),
+        last_reconciliation_date: latest_reconciliation&.date
+      )
   end
 
   def currency_object
