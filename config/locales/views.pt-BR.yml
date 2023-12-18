@@ -144,6 +144,16 @@ pt-BR:
         title: 'Reconciliação do dia %{date}'
         status: Status
         sub_header_summary: Resumo
+        sub_header_wallets: Saldos das Carteiras
+        sub_header_wallet_name: Carteira
+        sub_header_calculated_balance: Calculado
+        sub_header_real_balance: Real
+        calculated_balance_info_text: >
+          Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde
+          o início, caso esta seja a primeira reconciliação.
+        real_balance_info_text: >
+          Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito
+          contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.
     settings:
       form:
         first_name_label: Nome
