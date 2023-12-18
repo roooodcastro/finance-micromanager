@@ -19,6 +19,7 @@ export function defineBaseApiStore(name, options = {}) {
   return defineStore(name, {
     state: () => ({
       idForFormModal: null,
+      urlParams: {},
       fetchParams: {},
       ...options.state,
     }),
@@ -44,7 +45,7 @@ export function defineBaseApiStore(name, options = {}) {
       fetch() {
         return options
           .api
-          .index({ query: this.fetchParams })
+          .index(Object.assign(this.urlParams, { query: this.fetchParams }))
           .then(response => this[options.resourcesName] = response[options.resourcesName]);
       },
 
@@ -57,11 +58,13 @@ export function defineBaseApiStore(name, options = {}) {
 
         options
           .api
-          .create({ data })
+          .create({ params: this.urlParams, data })
           .then((response) => {
             this.fetch();
             notificationStore.notify(response.message, 'success');
-            document.querySelector(`#${options.formId}`).reset();
+            if (options.formId) {
+              document.querySelector(`#${options.formId}`).reset();
+            }
             responseResolve();
           })
           .catch((error) => {
@@ -81,11 +84,13 @@ export function defineBaseApiStore(name, options = {}) {
 
         options
           .api
-          .update({ params: { id }, data })
+          .update({ params: Object.assign(this.urlParams, { id }), data })
           .then((response) => {
             this.fetch();
             notificationStore.notify(response.message, 'success');
-            document.querySelector(`#${options.formId}`).reset();
+            if (options.formId) {
+              document.querySelector(`#${options.formId}`).reset();
+            }
             responseResolve();
           })
           .catch((error) => {
