@@ -1,6 +1,12 @@
 ---
 en:
   activerecord:
+    attributes:
+      reconciliation:
+        statuses:
+          in_progress: In Progress
+          finished: Completed
+          cancelled: Cancelled
     errors:
       models:
         profile:

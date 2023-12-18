@@ -18,7 +18,12 @@
         },
         "reconciliation": {
           "date": "Data",
-          "profile": "Perfil"
+          "profile": "Perfil",
+          "statuses": {
+            "cancelled": "Cancelada",
+            "finished": "Concluída",
+            "in_progress": "Em Andamento"
+          }
         },
         "subcategory": {
           "name": "Nome"
@@ -720,6 +725,11 @@
         "index": {
           "new": "Iniciar nova Reconciliação",
           "title": "Reconciliações"
+        },
+        "show": {
+          "status": "Status",
+          "sub_header_summary": "Resumo",
+          "title": "Reconciliação do dia %{date}"
         }
       },
       "settings": {

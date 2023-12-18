@@ -138,6 +138,10 @@ en:
         date_label: Date
         cancel: Cancel
         submit: Submit
+      show:
+        title: 'Reconciliation for %{date}'
+        status: Status
+        sub_header_summary: Summary
     settings:
       form:
         first_name_label: First Name

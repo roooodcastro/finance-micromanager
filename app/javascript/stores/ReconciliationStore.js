@@ -10,6 +10,7 @@ export default defineBaseApiStore('reconciliation', {
 
   state: {
     reconciliations: [],
+    reconciliation: null,
     idForFormModal: null,
     fetchParams: {},
   },

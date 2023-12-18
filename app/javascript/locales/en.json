@@ -1,6 +1,15 @@
 {
   "en": {
     "activerecord": {
+      "attributes": {
+        "reconciliation": {
+          "statuses": {
+            "cancelled": "Cancelled",
+            "finished": "Completed",
+            "in_progress": "In Progress"
+          }
+        }
+      },
       "errors": {
         "messages": {
           "record_invalid": "Validation failed: %{errors}",
@@ -662,6 +671,11 @@
         "index": {
           "new": "Start new Reconciliation",
           "title": "Reconciliations"
+        },
+        "show": {
+          "status": "Status",
+          "sub_header_summary": "Summary",
+          "title": "Reconciliation for %{date}"
         }
       },
       "settings": {
