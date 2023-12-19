@@ -18,6 +18,7 @@
             field-name="name"
             :form-helper="formHelper"
             :label="t('name_label')"
+            class="focus"
             required
           />
 
