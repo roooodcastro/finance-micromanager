@@ -36,7 +36,8 @@ class Profile < ApplicationRecord
         currency_object:          currency_as_json,
         shared:                   shared?,
         user:                     user.as_json(attributes_only: true),
-        last_reconciliation_date: latest_reconciliation&.date
+        last_reconciliation_date: latest_reconciliation&.date,
+        balance_amount:           balance_amount.to_f
       )
   end
 

@@ -36,7 +36,7 @@ RSpec.describe Profile do
   describe '.as_json' do
     subject { profile.as_json.deep_symbolize_keys }
 
-    let(:profile) { create(:profile, currency: :eur, name: 'acc') }
+    let(:profile) { create(:profile, currency: :eur, name: 'acc', balance_amount: 9.99) }
     let(:user) { profile.user }
 
     let(:expected_user_json) do
@@ -56,7 +56,8 @@ RSpec.describe Profile do
         id:                       profile.id,
         name:                     'acc',
         display_name:             'acc',
-        balance_amount_cents:     0,
+        balance_amount_cents:     999,
+        balance_amount:           9.99,
         currency:                 'eur',
         status:                   'active',
         shared:                   false,

@@ -673,14 +673,17 @@
           "title": "Reconciliations"
         },
         "show": {
+          "calculated_balance": "Calculated",
           "calculated_balance_info_text": "This balance was calculated by summing the amounts from all transaction since the last reconciliation, or since the start, if this is the first reconciliation.\n",
+          "difference_balance": "Divergence",
+          "real_balance": "Actual",
           "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.\n",
           "status": "Status",
-          "sub_header_calculated_balance": "Calculated",
-          "sub_header_real_balance": "Actual",
-          "sub_header_summary": "Summary",
-          "sub_header_wallet_name": "Wallet",
+          "sub_header_balances": "Overall Balance",
           "sub_header_wallets": "Wallet Balances",
+          "table_header_calculated_balance": "Calc.",
+          "table_header_real_balance": "Actual",
+          "table_header_wallet_name": "Wallet",
           "title": "Reconciliation for %{date}"
         }
       },
