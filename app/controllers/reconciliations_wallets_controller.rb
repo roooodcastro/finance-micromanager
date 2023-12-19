@@ -10,7 +10,7 @@ class ReconciliationsWalletsController < AbstractAuthenticatedController
 
   def create
     if @reconciliation_wallet.update(reconciliation_wallet_params)
-      head :ok
+      render json: {}
     else
       render json:   { message: t('.error', error: @reconciliation_wallet.errors.full_messages.join(', ')) },
              status: :unprocessable_entity

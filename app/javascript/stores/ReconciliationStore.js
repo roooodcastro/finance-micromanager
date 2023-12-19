@@ -14,4 +14,12 @@ export default defineBaseApiStore('reconciliation', {
     idForFormModal: null,
     fetchParams: {},
   },
+
+  actions: {
+    fetchSingle(id = null) {
+      return reconciliationsApi.show({ id: id ?? this.reconciliation.id }).then((response) => {
+        this.reconciliation = response.reconciliation;
+      });
+    },
+  },
 });
