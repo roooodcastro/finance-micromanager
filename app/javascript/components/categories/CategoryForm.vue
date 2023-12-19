@@ -18,6 +18,7 @@
             :form-helper="formHelper"
             :value="category.name"
             :label="t('name_label')"
+            class="focus"
           />
 
           <label

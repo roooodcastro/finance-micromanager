@@ -20,6 +20,7 @@
             :form-helper="formHelper"
             :label="t('date_label')"
             type="date"
+            class="focus"
             required
           />
         </template>

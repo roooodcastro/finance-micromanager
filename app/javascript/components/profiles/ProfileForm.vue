@@ -18,6 +18,7 @@
             :form-helper="formHelper"
             :value="profile.name"
             :label="t('name_label')"
+            class="focus"
             maxlength="30"
           />
 
