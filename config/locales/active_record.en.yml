@@ -7,6 +7,8 @@ en:
           in_progress: In Progress
           finished: Completed
           cancelled: Cancelled
+      reconciliation_wallet:
+        balance_amount_cents: Balance
     errors:
       models:
         profile:
@@ -31,6 +33,10 @@ en:
               cannot_be_older_than_finished_reconciliations: >-
                 has to be newer than the date from the last finished reconciliation
               cannot_finish_date_in_future: cannot be a date in the future when finishing a reconciliation
+        reconciliation_wallet:
+          attributes:
+            balance_amount_cents:
+              cannot_change_on_completed_reconciliation: cannot be changed after reconciliation is finished or cancelled
         transaction:
           attributes:
             base:

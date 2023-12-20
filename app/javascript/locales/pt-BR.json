@@ -25,6 +25,9 @@
             "in_progress": "Em Andamento"
           }
         },
+        "reconciliation_wallet": {
+          "balance_amount_cents": "Saldo"
+        },
         "subcategory": {
           "name": "Nome"
         },
@@ -66,6 +69,13 @@
               "date": {
                 "cannot_be_older_than_finished_reconciliations": "deve ser posterior à data da última reconciliação",
                 "cannot_finish_date_in_future": "não pode ser uma data no futuro ao terminar uma reconciliação"
+              }
+            }
+          },
+          "reconciliation_wallet": {
+            "attributes": {
+              "balance_amount_cents": {
+                "cannot_change_on_completed_reconciliation": "não pode ser alterado após reconciliação ser concluída ou cancelada\n"
               }
             }
           },
