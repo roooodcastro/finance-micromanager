@@ -1,6 +1,31 @@
 # frozen_string_literal: true
 
 RSpec.describe WalletBalanceSyncQuery, type: :query do
+  describe 'unspecified_balance_amount' do
+    subject { described_class.unspecified_balance_amount(profile:) }
+
+    let(:profile) { create(:profile) }
+    let!(:wallet) { create(:wallet, profile:) }
+
+    context 'when there are transactions without wallets' do
+      before do
+        create(:transaction, profile: profile, wallet: wallet, amount: -3)
+        create(:transaction, profile: profile, wallet: nil, amount: -2.99)
+      end
+
+      it { is_expected.to eq(-2.99) }
+    end
+
+    context 'when all transactions have wallets' do
+      before do
+        create(:transaction, profile: profile, wallet: wallet, amount: -3)
+        create(:transaction, profile: profile, wallet: wallet, amount: -2)
+      end
+
+      it { is_expected.to eq(0) }
+    end
+  end
+
   describe 'results' do
     subject(:results) { described_class.run(profile_id:) }
 

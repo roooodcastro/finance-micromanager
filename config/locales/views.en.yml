@@ -148,6 +148,8 @@ en:
         table_header_real_balance: Actual
         calculated_balance: Calculated
         real_balance: Actual
+        unspecified: Unspecified
+        total: Total
         difference_balance: Divergence
         calculated_balance_info_text: >
           This balance was calculated by summing the amounts from all transaction since the last reconciliation, or
@@ -155,6 +157,10 @@ en:
         real_balance_info_text: >
           This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This
           is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.
+        unspecified_balance_cannot_be_edited: >
+          Unspecified balance refers to the balance sum of transactions which do not have a wallet specified. Before
+          finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced
+          to zero.
     settings:
       form:
         first_name_label: First Name

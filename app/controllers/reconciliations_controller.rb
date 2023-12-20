@@ -17,7 +17,9 @@ class ReconciliationsController < AbstractAuthenticatedController
   end
 
   def show
-    props = camelize_props(reconciliation: @reconciliation.as_json)
+    unspecified_wallet_balance = WalletBalanceSyncQuery.unspecified_balance_amount(profile: Current.profile)
+    reconciliation_as_json     = @reconciliation.as_json.merge(unspecified_wallet_balance:)
+    props                      = camelize_props(reconciliation: reconciliation_as_json)
 
     respond_to do |format|
       format.html { render inertia: 'reconciliations/Show', props: props }
@@ -29,7 +31,9 @@ class ReconciliationsController < AbstractAuthenticatedController
     @reconciliation = Current.profile.reconciliations.new(reconciliation_params)
 
     if @reconciliation.save
-      render json: { message: message('.success') }
+      Transactions::SyncProfileAndWalletBalances.call(profile: Current.profile)
+
+      render json: camelize_props(reconciliation: @reconciliation.as_json, message: message('.success'))
     else
       render json:   { message: message('.error', error: @reconciliation.errors.full_messages.join(', ')) },
              status: :unprocessable_entity
