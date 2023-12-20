@@ -67,13 +67,43 @@
                 <input
                   class="ReconciliationWallets__input form-control form-control-sm text-end"
                   type="number"
-                  :value="groupedReconciliationsWallets[wallet.id]?.balanceAmount ?? wallet.balance"
+                  :value="groupedReconciliationsWallets[wallet.id]?.balanceAmount"
                   @change="handleChange($event, wallet.id)"
                 >
               </div>
             </td>
           </tr>
+
+          <tr
+            v-if="reconciliation.unspecifiedWalletBalance !== 0"
+          >
+            <td class="text-nowrap bg-warning-subtle">
+              {{ t('unspecified') }}
+            </td>
+            <td class="text-end fw-bold bg-warning-subtle">
+              {{ formatMoney(reconciliation.unspecifiedWalletBalance, reconciliation.currency.symbol) }}
+            </td>
+            <td class="text-center bg-warning-subtle">
+              <InfoTooltip :message="t('unspecified_balance_cannot_be_edited')" />
+            </td>
+          </tr>
         </tbody>
+
+        <tfoot class="table-group-divider">
+          <tr
+            v-if="reconciliation.unspecifiedWalletBalance !== 0"
+          >
+            <td class="text-nowrap fw-bold bg-light">
+              {{ t('total') }}
+            </td>
+            <td class="text-end fw-bold bg-light">
+              {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.symbol) }}
+            </td>
+            <td class="text-end fw-bold bg-light">
+              {{ formatMoney(realBalancesSum, reconciliation.currency.symbol) }}
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
@@ -85,7 +115,9 @@ import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
 import I18n from '~/utils/I18n.js';
+import { formatMoney } from '~/utils/NumberFormatter.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js';
 
@@ -106,13 +138,15 @@ export default {
     const timeouts = ref({});
 
     const walletStore = useWalletStore();
+    const profileStore = useProfileStore();
     const reconciliationStore = useReconciliationStore();
     const reconciliationWalletStore = useReconciliationWalletStore();
 
     walletStore.fetch();
 
     const { activeWallets: wallets } = storeToRefs(walletStore);
-    const { reconciliation } = storeToRefs(reconciliationStore);
+    const { reconciliation, realBalancesSum } = storeToRefs(reconciliationStore);
+    const { currentProfile } = storeToRefs(profileStore);
 
     const groupedReconciliationsWallets = computed(() => {
       return _.keyBy(reconciliation.value.reconciliationsWallets, 'walletId');
@@ -139,8 +173,12 @@ export default {
       loading,
       saved,
       wallets,
-      handleChange,
+      currentProfile,
+      reconciliation,
+      realBalancesSum,
       groupedReconciliationsWallets,
+      formatMoney,
+      handleChange,
     }
   }
 };

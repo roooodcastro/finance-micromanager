@@ -71,7 +71,9 @@ export default {
 
     const handleSubmit = (closeModal) => {
       if (isNewRecord.value) {
-        reconciliationStore.create({ date: reconciliation.value.date }).then(closeModal);
+        reconciliationStore.create({ date: reconciliation.value.date }).then((response) => {
+          window.location.href = reconciliationsApi.show.path({ id: response.reconciliation.id });
+        });
       } else {
         reconciliationStore.update(reconciliation.value.id, { date: reconciliation.value.date }).then(closeModal);
       }

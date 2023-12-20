@@ -694,7 +694,10 @@
           "table_header_calculated_balance": "Calc.",
           "table_header_real_balance": "Actual",
           "table_header_wallet_name": "Wallet",
-          "title": "Reconciliation for %{date}"
+          "title": "Reconciliation for %{date}",
+          "total": "Total",
+          "unspecified": "Unspecified",
+          "unspecified_balance_cannot_be_edited": "Unspecified balance refers to the balance sum of transactions which do not have a wallet specified. Before finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced to zero.\n"
         }
       },
       "settings": {

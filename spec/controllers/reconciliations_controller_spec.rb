@@ -40,17 +40,21 @@ RSpec.describe ReconciliationsController do
 
     context 'when the format is HTML', :inertia do
       let(:request_format) { :html }
+      let(:expected_props) { { reconciliation: reconciliation.as_json.merge(unspecified_wallet_balance: -3.5) } }
+
+      before { allow(WalletBalanceSyncQuery).to receive(:unspecified_balance_amount).and_return(-3.5) }
 
       it 'renders the show component' do
         show
-        expect_inertia.to render_component('reconciliations/Show')
-                      .and include_camelized_props({ reconciliation: reconciliation.as_json })
+        expect_inertia.to render_component('reconciliations/Show').and include_camelized_props(expected_props)
       end
     end
 
     context 'when the format is JSON' do
       let(:request_format) { :json }
-      let(:expected_props) { CamelizeProps.call(reconciliation: reconciliation.as_json) }
+      let(:expected_props) do
+        CamelizeProps.call(reconciliation: reconciliation.as_json.merge(unspecified_wallet_balance: 0))
+      end
 
       it 'renders the reconciliations as json' do
         show
@@ -67,11 +71,16 @@ RSpec.describe ReconciliationsController do
     context 'when the date is present and valid' do
       let(:date) { 1.day.ago.to_date }
 
-      let(:expected_json) { { 'message' => "Reconciliation for #{date} was successfully started." } }
+      let(:expected_json) do
+        {
+          'message'        => "Reconciliation for #{date} was successfully started.",
+          'reconciliation' => Reconciliation.last.as_json
+        }
+      end
 
       it 'creates a new reconciliation and renders json' do
         expect { create_request }.to change { Reconciliation.count }.by(1)
-        expect(json_response).to eq(expected_json)
+        expect(json_response).to eq(CamelizeProps.call(expected_json))
       end
     end
 

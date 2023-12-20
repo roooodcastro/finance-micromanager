@@ -748,7 +748,10 @@
           "table_header_calculated_balance": "Calc.",
           "table_header_real_balance": "Real",
           "table_header_wallet_name": "Carteira",
-          "title": "Reconciliação do dia %{date}"
+          "title": "Reconciliação do dia %{date}",
+          "total": "Total",
+          "unspecified": "Não especificado",
+          "unspecified_balance_cannot_be_edited": "Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser reduzido a zero.\n"
         }
       },
       "settings": {

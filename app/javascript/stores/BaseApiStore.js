@@ -65,7 +65,7 @@ export function defineBaseApiStore(name, options = {}) {
             if (options.formId) {
               document.querySelector(`#${options.formId}`).reset();
             }
-            responseResolve();
+            responseResolve(response);
           })
           .catch((error) => {
             const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');

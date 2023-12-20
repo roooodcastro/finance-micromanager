@@ -3,6 +3,14 @@
 class WalletBalanceSyncQuery < ApplicationQuery
   bind :profile_id, :uuid
 
+  def self.unspecified_balance_amount(profile:)
+    results      = run(profile_id: profile.id)
+    amount_cents = results.find { |result| result['wallet_id'].nil? }&.dig('amount_cents')
+    return 0 unless amount_cents
+
+    Money.from_cents(amount_cents, profile.currency).to_f
+  end
+
   def base_query
     <<~SQL.squish
       SELECT
