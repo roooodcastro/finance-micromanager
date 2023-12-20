@@ -64,6 +64,22 @@ RSpec.describe User do
     end
   end
 
+  describe '.full_name' do
+    subject { user.full_name }
+
+    context 'when first name and last name are present' do
+      let(:user) { described_class.new(first_name: 'First', last_name: 'Last') }
+
+      it { is_expected.to eq 'First Last' }
+    end
+
+    context 'when first nam eand last name are absent' do
+      let(:user) { described_class.new(email: 'test@email.com') }
+
+      it { is_expected.to eq 'test@email.com' }
+    end
+  end
+
   describe '.find_available_profile' do
     subject(:find_available_profile) { user.find_available_profile(id) }
 

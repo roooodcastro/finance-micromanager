@@ -20,6 +20,22 @@ RSpec.describe CategoriesController do
     end
   end
 
+  describe 'GET show', :inertia do
+    let!(:category) { create(:category, profile:) }
+
+    before do
+      allow(CategorySerializer)
+        .to receive(:new)
+        .and_return(instance_double(CategorySerializer, as_json: 'serializer_json'))
+    end
+
+    it 'renders the show component' do
+      get :show, params: { id: category.id }
+
+      expect_inertia.to render_component('categories/Show').and include_props({ category: 'serializer_json' })
+    end
+  end
+
   describe 'GET new', :inertia do
     it 'renders the new component' do
       get :new
