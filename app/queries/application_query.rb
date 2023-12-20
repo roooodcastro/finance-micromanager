@@ -68,7 +68,7 @@ class ApplicationQuery
 
   def results
     row_set = ApplicationRecord.connection.exec_query(query.squish, self.class.name, binds_values)
-    row_set = row_set.map { |row| wrapper_class.new(row) } if wrapper_class
+    row_set = row_set.map { |row| wrapper_class.new(**row) } if wrapper_class
     row_set.to_a
   end
 

@@ -27,6 +27,7 @@ module Statistics
         WHERE c.profile_id = @profile_id
         #{category_ids_condition}
         GROUP BY c.id, c.profile_id, w.currency
+        ORDER BY c.name
       SQL
     end
 
