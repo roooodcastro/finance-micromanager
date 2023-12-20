@@ -8,6 +8,8 @@ class ReconciliationWallet < ApplicationRecord
 
   validates :wallet_id, uniqueness: { scope: :reconciliation_id }
 
+  validate :validate_balance_amount_change
+
   def currency
     reconciliation&.currency || Money.default_currency
   end
@@ -19,5 +21,14 @@ class ReconciliationWallet < ApplicationRecord
       wallet_id:         wallet_id,
       balance_amount:    balance_amount.to_f
     }
+  end
+
+  private
+
+  def validate_balance_amount_change
+    return unless reconciliation
+    return if reconciliation.in_progress? || changes[:balance_amount_cents].blank?
+
+    errors.add(:balance_amount_cents, :cannot_change_on_completed_reconciliation)
   end
 end
