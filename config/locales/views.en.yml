@@ -141,11 +141,14 @@ en:
       show:
         title: 'Reconciliation for %{date}'
         status: Status
-        sub_header_summary: Summary
         sub_header_wallets: Wallet Balances
-        sub_header_wallet_name: Wallet
-        sub_header_calculated_balance: Calculated
-        sub_header_real_balance: Actual
+        sub_header_balances: Overall Balance
+        table_header_wallet_name: Wallet
+        table_header_calculated_balance: Calc.
+        table_header_real_balance: Actual
+        calculated_balance: Calculated
+        real_balance: Actual
+        difference_balance: Divergence
         calculated_balance_info_text: >
           This balance was calculated by summing the amounts from all transaction since the last reconciliation, or
           since the start, if this is the first reconciliation.

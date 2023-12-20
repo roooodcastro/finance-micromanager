@@ -13,13 +13,13 @@
               class="bg-light align-middle"
               style="width: 50%"
             >
-              {{ t('sub_header_wallet_name') }}
+              {{ t('table_header_wallet_name') }}
             </th>
             <th
               class="bg-light text-end text-nowrap"
               style="width: 25%"
             >
-              {{ t('sub_header_calculated_balance') }}
+              {{ t('table_header_calculated_balance') }}
 
               <InfoTooltip :message="t('calculated_balance_info_text')" />
             </th>
@@ -27,7 +27,7 @@
               class="bg-light text-end text-nowrap"
               style="width: 25%"
             >
-              {{ t('sub_header_real_balance') }}
+              {{ t('table_header_real_balance') }}
 
               <InfoTooltip :message="t('real_balance_info_text')" />
             </th>
@@ -48,7 +48,7 @@
             <td>
               <div class="input-group input-group-sm flex-nowrap">
                 <span
-                  class="input-group-text"
+                  class="input-group-text d-none d-md-inline-block"
                 >
                   <FontAwesomeIcon
                     v-if="loading[wallet.id]"
@@ -148,6 +148,12 @@ export default {
 
 <style lang="scss" scoped>
 .ReconciliationWallets__input {
-  min-width: 10rem;
+  -moz-appearance:textfield;
+  min-width: 7rem;
+
+}
+
+.ReconciliationWallets__input::-webkit-outer-spin-button, .ReconciliationWallets__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 </style>

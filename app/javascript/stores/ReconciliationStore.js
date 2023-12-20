@@ -15,6 +15,14 @@ export default defineBaseApiStore('reconciliation', {
     fetchParams: {},
   },
 
+  getters: {
+    realBalancesSum: (state) => {
+      return state.reconciliation.reconciliationsWallets.reduce((sum, reconciliationWallet) => {
+        return sum + reconciliationWallet.balanceAmount;
+      }, 0);
+    },
+  },
+
   actions: {
     fetchSingle(id = null) {
       return reconciliationsApi.show({ id: id ?? this.reconciliation.id }).then((response) => {

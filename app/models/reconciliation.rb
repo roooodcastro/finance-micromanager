@@ -25,7 +25,8 @@ class Reconciliation < ApplicationRecord
   end
 
   def as_json(*)
-    super.merge(reconciliations_wallets: reconciliations_wallets.as_json)
+    currency_as_json = difference_amount.currency.as_json(only: %w[name symbol])
+    super.merge(reconciliations_wallets: reconciliations_wallets.as_json, currency: currency_as_json)
   end
 
   private
