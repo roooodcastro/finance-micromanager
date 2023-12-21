@@ -35,8 +35,13 @@ export default {
 
   setup(props, { emit }) {
     const startPosX = ref(0);
+    const startPosY = ref(0);
+    const prevPosX = ref(0);
+    const prevPosY = ref(0);
     const translation = ref(0);
     const swipeStyle = ref({});
+    const moveThrottleMillis = 100;
+    const lastMoveTimestamp = ref(0);
 
     watch(props, () => updateTranslation(clamp(translation.value, props.minTranslation, props.maxTranslation)));
 
@@ -48,12 +53,32 @@ export default {
     updateTranslation(translation.value);
 
     const touchX = (event) => event.touches[0].clientX;
+    const touchY = (event) => event.touches[0].clientY;
 
-    const handleTouchStart = (ev) => startPosX.value = touchX(ev) - translation.value;
+    const handleTouchStart = (ev) => {
+      startPosX.value = touchX(ev) - translation.value;
+      startPosY.value = touchY(ev);
+      prevPosX.value = touchX(ev);
+      prevPosY.value = touchY(ev);
+      lastMoveTimestamp.value = Date.now();
+    }
 
     const handleTouchMove = (ev) => {
-      const currentX = touchX(ev);
-      updateTranslation(clamp(currentX - startPosX.value, props.minTranslation, props.maxTranslation));
+      const timestamp = Date.now();
+
+      if (timestamp > lastMoveTimestamp.value + moveThrottleMillis) {
+        lastMoveTimestamp.value = timestamp;
+
+        const currentX = touchX(ev);
+        const currentY = touchY(ev);
+
+        const diffX = Math.abs(currentX - prevPosX.value);
+        const diffY = Math.abs(currentY - prevPosY.value);
+
+        if (diffX > diffY) {
+          updateTranslation(clamp(currentX - startPosX.value, props.minTranslation, props.maxTranslation));
+        }
+      }
     }
 
     const handleTouchEnd = () => {
