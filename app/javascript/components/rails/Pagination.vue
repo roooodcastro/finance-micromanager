@@ -1,8 +1,8 @@
 <template>
-  <div class="d-none d-lg-flex justify-content-end align-items-center">
+  <div class="Pagination d-none d-lg-flex justify-content-end align-items-center flex-wrap">
     <div
-      v-if="!compact"
-      class="dropdown"
+      v-if="!compact && paginationFromStore.count"
+      class="dropdown flex-shrink-0"
     >
       {{ t('per_page') }}
       <button
@@ -29,13 +29,16 @@
       </ul>
     </div>
 
-    <div class="d-none d-lg-flex ms-3">
+    <div
+      v-if="paginationFromStore.count"
+      class="d-none d-lg-flex ms-3 flex-shrink-0"
+    >
       {{ t('page_desc', { items: `${paginationFromStore.from}-${paginationFromStore.to}`, total: paginationFromStore.count }) }}
     </div>
 
     <nav
-      v-if="paginationFromStore.count > paginationFromStore.items"
-      class="ms-3"
+      v-if="paginationFromStore.count && paginationFromStore.count > paginationFromStore.items"
+      class="ms-3 flex-shrink-0"
       :aria-label="t('pagination')"
     >
       <div class="btn-group">
@@ -109,7 +112,9 @@ export default {
 
     const paginationStore = usePaginationStore();
     const { pagination: paginationFromStore } = storeToRefs(paginationStore);
-    paginationFromStore.value = props.pagination;
+    if (props.pagination.length) {
+      paginationFromStore.value = props.pagination;
+    }
 
     const handlePageChange = (page) => {
       paginationStore.setPage(page);
@@ -132,3 +137,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.Pagination {
+  margin-top: -0.5rem;
+
+  > * {
+    margin-top: 0.5rem;
+  }
+}
+</style>

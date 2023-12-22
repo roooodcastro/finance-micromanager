@@ -10,6 +10,17 @@
       </template>
     </PageHeader>
 
+    <div class="d-flex justify-content-between">
+      <TransactionsFilter @change="handleFiltersChange" />
+
+      <Pagination
+        :pagination="pagination"
+        compact
+        class="d-none d-lg-flex mb-3"
+        @change="handlePageChange"
+      />
+    </div>
+
     <TransactionsList
       :transactions="transactions"
       :pagination="pagination"
@@ -25,11 +36,15 @@ import useTransactionStore from '~/stores/TransactionStore.js';
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
+import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
+import Pagination from '~/components/rails/Pagination.vue';
 
 export default {
   components: {
-    PageHeader,
     DropdownMenuItem,
+    PageHeader,
+    Pagination,
+    TransactionsFilter,
     TransactionsList,
   },
 
@@ -58,9 +73,13 @@ export default {
     });
 
     const handleClick = () => transactionStore.openFormModal(null);
+    const handleFiltersChange = () => transactionStore.fetch();
+    const handlePageChange = () => transactionStore.fetch();
 
     return {
       t: I18n.scopedTranslator('views.transactions.index'),
+      handleFiltersChange,
+      handlePageChange,
       handleClick,
     };
   },

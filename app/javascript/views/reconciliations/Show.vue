@@ -11,6 +11,23 @@
 
       <ReconciliationWallets class="mt-3" />
     </div>
+
+    <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="m-0">
+            {{ t('sub_header_transactions') }}
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <TransactionsList
+            :transactions="transactions"
+            compact
+            card-body
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,19 +35,24 @@
 import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
+import dayjs from 'dayjs';
 import { reconciliations as reconciliationsApi } from '~/api/all.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ReconciliationSummary from '~/components/reconciliations/ReconciliationSummary.vue';
 import ReconciliationWallets from '~/components/reconciliations/ReconciliationWallets.vue';
+import TransactionsList from '~/components/transactions/TransactionsList.vue';
 
 export default {
   components: {
     PageHeader,
     ReconciliationSummary,
     ReconciliationWallets,
+    TransactionsList,
   },
 
   props: {
@@ -51,9 +73,25 @@ export default {
     const { reconciliation: reconciliationFromStore } = storeToRefs(reconciliationStore);
     reconciliationFromStore.value = props.reconciliation;
 
+    const transactionStore = useTransactionStore();
+    const profileStore = useProfileStore();
+
+    const { currentProfile } = storeToRefs(profileStore);
+    const startDate = currentProfile.lastReconciliationDate ?? dayjs(0);
+
+    transactionStore.setFetchParams({
+      updateDateRange: false,
+      startDate: dayjs(startDate).add(1, 'day'),
+      endDate: props.reconciliation.date,
+      daysToShow: 0,
+    });
+    transactionStore.fetch();
+    const { transactions } = storeToRefs(transactionStore);
+
     return {
       t: I18n.scopedTranslator('views.reconciliations.show'),
       formatDate,
+      transactions,
       reconciliationsPath,
       reconciliationFromStore,
     };

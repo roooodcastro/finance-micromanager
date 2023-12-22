@@ -19,6 +19,7 @@ export default defineBaseApiStore('transaction', {
       daysToShow: 30,
       excludeDebits: false,
       excludeCredits: false,
+      updateDateRange: true,
     },
   },
   getters: {

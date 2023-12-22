@@ -690,6 +690,7 @@
           "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.\n",
           "status": "Status",
           "sub_header_balances": "Overall Balance",
+          "sub_header_transactions": "Period Transactions",
           "sub_header_wallets": "Wallet Balances",
           "table_header_calculated_balance": "Calc.",
           "table_header_real_balance": "Actual",

@@ -3,17 +3,21 @@
 
   <EditButton
     v-if="showEdit"
+    :compact="compact"
     href="#"
     :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
     @click="handleEdit"
   />
 
+  <div class="vr mx-3 d-none d-lg-flex" />
+
   <DeleteButton
     v-if="showDelete"
+    :compact="compact"
     href="#"
     :class="{
       'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-      'ms-3': !drawerMenu,
+      'me-0 me-lg-3': !drawerMenu,
     }"
     @delete="handleDelete(transaction.id)"
   />
@@ -48,6 +52,10 @@ export default {
     showDelete: {
       type: Boolean,
       default: true,
+    },
+    compact: {
+      type: Boolean,
+      default: false,
     },
   },
 

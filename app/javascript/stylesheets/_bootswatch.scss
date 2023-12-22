@@ -191,3 +191,16 @@ th {
 .min-width-0 {
   min-width: 0;
 }
+
+@include media-breakpoint-down(md) {
+  .row {
+    --bs-gutter-x: 1rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .row > * {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
