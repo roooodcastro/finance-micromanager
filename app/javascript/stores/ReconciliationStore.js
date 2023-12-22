@@ -11,6 +11,7 @@ export default defineBaseApiStore('reconciliation', {
   state: {
     reconciliations: [],
     reconciliation: null,
+    walletBalances: [],
     idForFormModal: null,
     fetchParams: {},
   },
@@ -27,6 +28,7 @@ export default defineBaseApiStore('reconciliation', {
     fetchSingle(id = null) {
       return reconciliationsApi.show({ id: id ?? this.reconciliation.id }).then((response) => {
         this.reconciliation = response.reconciliation;
+        this.walletBalances = response.walletBalances;
       });
     },
   },

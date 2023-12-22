@@ -43,7 +43,7 @@
               {{ wallet.name }}
             </td>
             <td class="text-end fw-bold">
-              {{ wallet.balanceFormatted }}
+              {{ formatMoney(walletBalances[wallet.id] ?? 0, wallet.currency.isoCode) }}
             </td>
             <td>
               <div class="input-group input-group-sm flex-nowrap">
@@ -75,13 +75,13 @@
           </tr>
 
           <tr
-            v-if="reconciliation.unspecifiedWalletBalance !== 0"
+            v-if="walletBalances['']"
           >
             <td class="text-nowrap bg-warning-subtle">
               {{ t('unspecified') }}
             </td>
             <td class="text-end fw-bold bg-warning-subtle">
-              {{ formatMoney(reconciliation.unspecifiedWalletBalance, reconciliation.currency.symbol) }}
+              {{ formatMoney(walletBalances[''], reconciliation.currency.isoCode) }}
             </td>
             <td class="text-center bg-warning-subtle">
               <InfoTooltip :message="t('unspecified_balance_cannot_be_edited')" />
@@ -90,17 +90,15 @@
         </tbody>
 
         <tfoot class="table-group-divider">
-          <tr
-            v-if="reconciliation.unspecifiedWalletBalance !== 0"
-          >
+          <tr>
             <td class="text-nowrap fw-bold bg-light">
               {{ t('total') }}
             </td>
             <td class="text-end fw-bold bg-light">
-              {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.symbol) }}
+              {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.isoCode) }}
             </td>
             <td class="text-end fw-bold bg-light">
-              {{ formatMoney(realBalancesSum, reconciliation.currency.symbol) }}
+              {{ formatMoney(realBalancesSum, reconciliation.currency.isoCode) }}
             </td>
           </tr>
         </tfoot>
@@ -145,7 +143,7 @@ export default {
     walletStore.fetch();
 
     const { activeWallets: wallets } = storeToRefs(walletStore);
-    const { reconciliation, realBalancesSum } = storeToRefs(reconciliationStore);
+    const { reconciliation, realBalancesSum, walletBalances } = storeToRefs(reconciliationStore);
     const { currentProfile } = storeToRefs(profileStore);
 
     const groupedReconciliationsWallets = computed(() => {
@@ -176,6 +174,7 @@ export default {
       currentProfile,
       reconciliation,
       realBalancesSum,
+      walletBalances,
       groupedReconciliationsWallets,
       formatMoney,
       handleChange,

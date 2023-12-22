@@ -7,8 +7,7 @@
 
   <div class="row">
     <div class="col-12 col-lg-6">
-      <ReconciliationSummary :reconciliation="reconciliationFromStore" />
-
+      <ReconciliationSummary />
       <ReconciliationWallets class="mt-3" />
     </div>
 
@@ -60,6 +59,10 @@ export default {
       type: Object,
       required: true,
     },
+    walletBalances: {
+      type: Object,
+      required: true,
+    },
   },
 
   setup(props) {
@@ -70,8 +73,9 @@ export default {
 
     // Load reconciliations from props
     const reconciliationStore = useReconciliationStore();
-    const { reconciliation: reconciliationFromStore } = storeToRefs(reconciliationStore);
+    const { reconciliation: reconciliationFromStore, walletBalances } = storeToRefs(reconciliationStore);
     reconciliationFromStore.value = props.reconciliation;
+    walletBalances.value = props.walletBalances;
 
     const transactionStore = useTransactionStore();
     const profileStore = useProfileStore();

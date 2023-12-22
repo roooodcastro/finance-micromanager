@@ -13,7 +13,7 @@
         <span class="text-center">
           {{ t('real_balance') }}
           <br>
-          {{ formatMoney(realBalancesSum, reconciliation.currency.symbol) }}
+          {{ formatMoney(realBalancesSum, reconciliation.currency.isoCode) }}
         </span>
 
         <FontAwesomeIcon
@@ -24,7 +24,7 @@
         <span class="text-center">
           {{ t('calculated_balance') }}
           <br>
-          {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.symbol) }}
+          {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.isoCode) }}
         </span>
 
         <FontAwesomeIcon
@@ -36,7 +36,7 @@
           {{ t('difference_balance') }}
           <br>
           <span :class="{ 'text-credit': differenceSum > 0, 'text-debit': differenceSum < 0 }">
-            {{ formatMoney(differenceSum, reconciliation.currency.symbol) }}
+            {{ formatMoney(differenceSum, reconciliation.currency.isoCode) }}
           </span>
         </span>
       </div>

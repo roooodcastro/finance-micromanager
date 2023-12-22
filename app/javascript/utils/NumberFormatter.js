@@ -16,8 +16,7 @@ export function parseLocaleNumber(stringNumber) {
   );
 }
 
-export function formatMoney(amount, currencySymbol) {
+export function formatMoney(amount, currency) {
   const locale = I18n.getLocale();
-  const roundedAmount = (amount + Number.EPSILON).toFixed(2);
-  return `${currencySymbol}${Intl.NumberFormat(locale).format(roundedAmount)}`;
+  return Intl.NumberFormat(locale, { style: 'currency', currency }).format(amount);
 }

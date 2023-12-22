@@ -40,9 +40,7 @@ RSpec.describe ReconciliationsController do
 
     context 'when the format is HTML', :inertia do
       let(:request_format) { :html }
-      let(:expected_props) { { reconciliation: reconciliation.as_json.merge(unspecified_wallet_balance: -3.5) } }
-
-      before { allow(WalletBalanceSyncQuery).to receive(:unspecified_balance_amount).and_return(-3.5) }
+      let(:expected_props) { { reconciliation: reconciliation.as_json } }
 
       it 'renders the show component' do
         show
@@ -52,8 +50,20 @@ RSpec.describe ReconciliationsController do
 
     context 'when the format is JSON' do
       let(:request_format) { :json }
+      let(:query_wallet_balances) { [WalletBalanceSyncQuery::WalletBalance.new('wallet_id', 12_345, 'eur')] }
+      let(:expected_wallet_balances) { { 'wallet_id' => 123.45 } }
       let(:expected_props) do
-        CamelizeProps.call(reconciliation: reconciliation.as_json.merge(unspecified_wallet_balance: 0))
+        CamelizeProps.call(
+          reconciliation:  reconciliation.as_json,
+          wallet_balances: expected_wallet_balances
+        )
+      end
+
+      before do
+        allow(WalletBalanceSyncQuery)
+          .to receive(:run)
+          .with(profile_id: profile.id, end_date: reconciliation.date)
+          .and_return(query_wallet_balances)
       end
 
       it 'renders the reconciliations as json' do
