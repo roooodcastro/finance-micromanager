@@ -10,7 +10,8 @@ export function defineBaseApiStore(name, options = {}) {
     const existingRecord = state[options.resourcesName].find(resource => resource.id === state.idForFormModal);
 
     if (existingRecord) {
-      return { ...existingRecord }; // Clone the object so it doesn't affect the list before it's actually updated
+      // Clone the object so it doesn't affect the list before it's actually updated
+      return { ...existingRecord };
     } else {
       return { _id: state.idForFormModal };
     }
@@ -88,9 +89,6 @@ export function defineBaseApiStore(name, options = {}) {
           .then((response) => {
             this.fetch();
             notificationStore.notify(response.message, 'success');
-            if (options.formId) {
-              document.querySelector(`#${options.formId}`).reset();
-            }
             responseResolve();
           })
           .catch((error) => {
