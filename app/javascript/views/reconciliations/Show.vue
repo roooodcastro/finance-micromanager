@@ -31,10 +31,12 @@
 </template>
 
 <script>
+import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
+import dayjs from 'dayjs';
+
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
-import dayjs from 'dayjs';
 import { reconciliations as reconciliationsApi } from '~/api/all.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
@@ -91,6 +93,8 @@ export default {
     });
     transactionStore.fetch();
     const { transactions } = storeToRefs(transactionStore);
+
+    watch(transactions, () => reconciliationStore.fetchSingle());
 
     return {
       t: I18n.scopedTranslator('views.reconciliations.show'),

@@ -24,7 +24,7 @@
         <span class="text-center">
           {{ t('calculated_balance') }}
           <br>
-          {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.isoCode) }}
+          {{ formatMoney(walletBalancesSum, reconciliation.currency.isoCode) }}
         </span>
 
         <FontAwesomeIcon
@@ -51,7 +51,6 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import { VARIANTS_FOR_RECONCILIATION_STATUSES } from '~/utils/Constants.js';
 
 import ReconciliationStatusBadge from '~/components/reconciliations/ReconciliationStatusBadge.vue';
@@ -65,20 +64,18 @@ export default {
 
   setup() {
     const reconciliationStore = useReconciliationStore();
-    const profileStore = useProfileStore();
 
-    const { reconciliation, realBalancesSum } = storeToRefs(reconciliationStore);
-    const { currentProfile } = storeToRefs(profileStore);
+    const { reconciliation, realBalancesSum, walletBalancesSum } = storeToRefs(reconciliationStore);
 
-    const differenceSum = computed(() => realBalancesSum.value - currentProfile.value.balanceAmount);
+    const differenceSum = computed(() => realBalancesSum.value - walletBalancesSum.value);
     const reconciliationVariant = VARIANTS_FOR_RECONCILIATION_STATUSES[reconciliation.value.status];
 
     return {
       t: I18n.scopedTranslator('views.reconciliations.show'),
       formatMoney,
       reconciliation,
-      currentProfile,
       realBalancesSum,
+      walletBalancesSum,
       differenceSum,
       reconciliationVariant,
     };
