@@ -8,7 +8,10 @@
       :icon="['far', 'square-minus']"
       size="lg"
     />
-    <span class="d-none d-lg-inline-block ms-2">
+    <span
+      v-if="!compact"
+      class="d-none d-lg-inline-block ms-2"
+    >
       {{ disableLabel ? t('disable') : t('delete') }}
     </span>
   </a>
@@ -27,6 +30,10 @@ export default {
 
   props: {
     disableLabel: {
+      type: Boolean,
+      default: false,
+    },
+    compact: {
       type: Boolean,
       default: false,
     },

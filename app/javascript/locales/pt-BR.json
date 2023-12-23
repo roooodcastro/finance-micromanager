@@ -744,6 +744,7 @@
           "real_balance_info_text": "Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.\n",
           "status": "Status",
           "sub_header_balances": "Saldo Geral",
+          "sub_header_transactions": "Transações no Período",
           "sub_header_wallets": "Saldos das Carteiras",
           "table_header_calculated_balance": "Calc.",
           "table_header_real_balance": "Real",

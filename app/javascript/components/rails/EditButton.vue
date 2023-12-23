@@ -7,7 +7,10 @@
       icon="pen-to-square"
       size="lg"
     />
-    <span class="d-none d-lg-inline-block ms-2">
+    <span
+      v-if="!compact"
+      class="d-none d-lg-inline-block ms-2"
+    >
       {{ t('edit') }}
     </span>
   </a>
@@ -20,6 +23,13 @@ import I18n from '~/utils/I18n.js';
 export default {
   components: {
     FontAwesomeIcon,
+  },
+
+  props: {
+    compact: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup() {

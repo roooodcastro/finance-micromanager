@@ -1,35 +1,29 @@
 <template>
   <div>
-    <div class="d-flex justify-content-between">
-      <TransactionsFilter @change="handleFiltersChange" />
-
-      <Pagination
-        :pagination="pagination"
-        compact
-        class="d-none d-lg-flex mb-3"
-        @change="handlePageChange"
-      />
-    </div>
-
     <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
 
     <template v-else>
       <InfiniteScrolling
-        class="TransactionsList"
+        :class="{ 'TransactionsList': !cardBody }"
         @scroll="handleInfiniteScrolling"
       >
         <template
           v-for="(transactionsByDate, transactionDate) in groupedTransactions"
           :key="transactionDate"
         >
-          <div class="position-sticky top-0 bg-white fw-bold py-2 ps-2 ps-lg-0">
+          <div
+            v-if="!compact"
+            class="position-sticky top-0 bg-white fw-bold py-2"
+            :class="{ 'ps-2 ps-lg-0': !cardBody }"
+          >
             {{ formatDate(new Date(transactionDate)) }}
           </div>
           <TransactionListItem
             v-for="transaction in transactionsByDate"
             :key="transaction.id"
             :transaction="transaction"
-            class="mx-2 mx-lg-0"
+            :compact="compact"
+            :class="{ 'mx-2 mx-lg-0': !cardBody }"
           />
         </template>
       </InfiniteScrolling>
@@ -37,6 +31,7 @@
       <Pagination
         :pagination="pagination"
         class="d-none d-lg-flex mt-3"
+        :class="{ 'me-2 me-lg-3 mb-2 mb-lg-3': cardBody }"
         @change="handlePageChange"
       />
     </template>
@@ -55,7 +50,6 @@ import usePaginationStore from '~/stores/PaginationStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
-import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
 import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsPlaceholder.vue';
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
@@ -66,7 +60,6 @@ export default {
     NoTransactionsPlaceholder,
     Pagination,
     TransactionListItem,
-    TransactionsFilter,
   },
 
   props: {
@@ -76,7 +69,15 @@ export default {
     },
     pagination: {
       type: Object,
-      required: true,
+      default: () => ({}),
+    },
+    compact: {
+      type: Boolean,
+      default: false,
+    },
+    cardBody: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -90,7 +91,6 @@ export default {
     } = storeToRefs(transactionStore);
     transactionsFromStore.value = toRef(props.transactions).value;
 
-    const handleFiltersChange = () => transactionStore.fetch();
     const handlePageChange = () => transactionStore.fetch();
 
     // Reload transactions if profile has changed while this page is open
@@ -118,7 +118,6 @@ export default {
       formatDate,
       transactionsFromStore,
       groupedTransactions,
-      handleFiltersChange,
       handlePageChange,
       handleInfiniteScrolling,
       t: I18n.scopedTranslator('views.transactions.index'),

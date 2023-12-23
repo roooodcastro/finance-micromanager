@@ -24,10 +24,12 @@ module SetCurrentAttributes
   end
 
   def current_start_date
-    session[:start_date] = params[:start_date] || session[:start_date] || Date.current.beginning_of_month.to_s
+    start_date_from_params = params[:update_date_range] ? params[:start_date] : nil
+    session[:start_date]   = start_date_from_params || session[:start_date] || Date.current.beginning_of_month.to_s
   end
 
   def current_end_date
-    session[:end_date] = params[:end_date] || session[:end_date] || Date.current.to_s
+    end_date_from_params = params[:update_date_range] ? params[:end_date] : nil
+    session[:end_date]   = end_date_from_params || session[:end_date] || Date.current.to_s
   end
 end

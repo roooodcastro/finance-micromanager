@@ -4,12 +4,13 @@
       <TransactionActions
         :transaction="transaction"
         :show-delete="showDeleteButton"
+        :compact="compact"
         drawer-menu
       />
     </template>
 
     <template v-slot:item>
-      <div class="TransactionListItem d-flex bg-light-subtle align-items-center border border-start-0 pe-2">
+      <div class="TransactionListItem d-flex bg-light-subtle align-items-center border border-start-0 pe-2 pe-lg-0">
         <span
           class="TransactionListItem__indicator me-2"
           :style="{ 'background-color': transaction.category.color }"
@@ -35,6 +36,7 @@
           <TransactionActions
             :transaction="transaction"
             :show-delete="showDeleteButton"
+            :compact="compact"
           />
         </div>
       </div>
@@ -65,6 +67,10 @@ export default {
     showDeleteButton: {
       type: Boolean,
       default: true,
+    },
+    compact: {
+      type: Boolean,
+      default: false,
     },
   },
 

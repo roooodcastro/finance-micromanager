@@ -143,6 +143,7 @@ en:
         status: Status
         sub_header_wallets: Wallet Balances
         sub_header_balances: Overall Balance
+        sub_header_transactions: Period Transactions
         table_header_wallet_name: Wallet
         table_header_calculated_balance: Calc.
         table_header_real_balance: Actual
