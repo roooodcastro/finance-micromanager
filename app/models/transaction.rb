@@ -25,7 +25,7 @@ class Transaction < ApplicationRecord
 
   scope :exclude_debits, -> { where('amount_cents > 0') }
   scope :exclude_credits, -> { where('amount_cents < 0') }
-  scope :older_than, ->(date) { where(transaction_date: [...date]) }
+  scope :older_than, ->(date) { where(transaction_date: [..date]) }
   scope :newer_than, ->(date) { where(transaction_date: [date...]) }
   scope :sort_by_recent, -> { order(transaction_date: :desc, created_at: :desc) }
 
