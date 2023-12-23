@@ -17,9 +17,12 @@ class ReconciliationsController < AbstractAuthenticatedController
   end
 
   def show
-    unspecified_wallet_balance = WalletBalanceSyncQuery.unspecified_balance_amount(profile: Current.profile)
-    reconciliation_as_json     = @reconciliation.as_json.merge(unspecified_wallet_balance:)
-    props                      = camelize_props(reconciliation: reconciliation_as_json)
+    wallet_balances = WalletBalanceSyncQuery
+                      .run(profile_id: Current.profile.id, end_date: @reconciliation.date)
+                      .index_by(&:wallet_id)
+                      .transform_values(&:amount)
+
+    props = camelize_props(reconciliation: @reconciliation.as_json, wallet_balances: wallet_balances)
 
     respond_to do |format|
       format.html { render inertia: 'reconciliations/Show', props: props }

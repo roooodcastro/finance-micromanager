@@ -24,13 +24,13 @@ module Statistics
 
     def as_json
       {
-        id:              SecureRandom.uuid,
-        credit_sum:      credit_sum,
-        debit_sum:       debit_sum,
-        currency:        currency_name,
-        currency_symbol: currency.symbol,
-        category_id:     category_id,
-        profile_id:      profile_id
+        id:            SecureRandom.uuid,
+        credit_sum:    credit_sum,
+        debit_sum:     debit_sum,
+        currency:      currency_name,
+        currency_code: currency.iso_code,
+        category_id:   category_id,
+        profile_id:    profile_id
       }
     end
 

@@ -18,7 +18,7 @@
         class="col text-end fw-bold me-2"
         :class="{ 'text-credit': totalSum > 0, 'text-debit': totalSum < 0 }"
       >
-        {{ formatMoney(totalSum, summary?.currencySymbol) }}
+        {{ formatMoney(totalSum, summary?.currencyCode) }}
       </div>
     </div>
   </div>

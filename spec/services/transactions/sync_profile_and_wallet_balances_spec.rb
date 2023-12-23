@@ -10,9 +10,9 @@ RSpec.describe Transactions::SyncProfileAndWalletBalances, type: :service do
 
     let(:query_result) do
       [
-        { 'wallet_id' => nil, 'amount_cents' => 18_000 },
-        { 'wallet_id' => wallet_a.id, 'amount_cents' => 2000 },
-        { 'wallet_id' => wallet_b.id, 'amount_cents' => 5099 }
+        WalletBalanceSyncQuery::WalletBalance.new(nil, 18_000, 'eur'),
+        WalletBalanceSyncQuery::WalletBalance.new(wallet_a.id, 2000, 'eur'),
+        WalletBalanceSyncQuery::WalletBalance.new(wallet_b.id, 5099, 'eur')
       ]
     end
 

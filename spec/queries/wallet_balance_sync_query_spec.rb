@@ -1,31 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe WalletBalanceSyncQuery, type: :query do
-  describe 'unspecified_balance_amount' do
-    subject { described_class.unspecified_balance_amount(profile:) }
-
-    let(:profile) { create(:profile) }
-    let!(:wallet) { create(:wallet, profile:) }
-
-    context 'when there are transactions without wallets' do
-      before do
-        create(:transaction, profile: profile, wallet: wallet, amount: -3)
-        create(:transaction, profile: profile, wallet: nil, amount: -2.99)
-      end
-
-      it { is_expected.to eq(-2.99) }
-    end
-
-    context 'when all transactions have wallets' do
-      before do
-        create(:transaction, profile: profile, wallet: wallet, amount: -3)
-        create(:transaction, profile: profile, wallet: wallet, amount: -2)
-      end
-
-      it { is_expected.to eq(0) }
-    end
-  end
-
   describe 'results' do
     subject(:results) { described_class.run(profile_id:) }
 
@@ -42,8 +17,8 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     context 'when there are transactions for different wallets' do
       let(:expected_results) do
         [
-          { 'wallet_id' => wallet_a.id, 'amount_cents' => 300 },
-          { 'wallet_id' => wallet_b.id, 'amount_cents' => -500 }
+          described_class::WalletBalance.new(wallet_a.id, 300, profile.currency),
+          described_class::WalletBalance.new(wallet_b.id, -500, profile.currency)
         ]
       end
 
@@ -62,8 +37,8 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     context 'when there are transactions with no wallets assigned' do
       let(:expected_results) do
         [
-          { 'wallet_id' => wallet_a.id, 'amount_cents' => 300 },
-          { 'wallet_id' => nil, 'amount_cents' => -500 }
+          described_class::WalletBalance.new(wallet_a.id, 300, profile.currency),
+          described_class::WalletBalance.new(nil, -500, profile.currency)
         ]
       end
 
@@ -80,9 +55,7 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     end
 
     context 'when profile has a finished reconciliation and there are transactions before that' do
-      let(:expected_results) do
-        [{ 'wallet_id' => wallet_a.id, 'amount_cents' => 800 }]
-      end
+      let(:expected_results) { [described_class::WalletBalance.new(wallet_a.id, 800, profile.currency)] }
 
       before do
         create(:transaction, profile: profile, wallet: wallet_a, transaction_date: 2.days.ago, amount: 5)
@@ -98,9 +71,7 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     end
 
     context 'when profile has multiple finished reconciliations and there are transactions before that' do
-      let(:expected_results) do
-        [{ 'wallet_id' => wallet_a.id, 'amount_cents' => 800 }]
-      end
+      let(:expected_results) { [described_class::WalletBalance.new(wallet_a.id, 800, profile.currency)] }
 
       before do
         reconciliation = create(:reconciliation, profile: profile, date: 5.days.ago)

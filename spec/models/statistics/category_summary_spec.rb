@@ -66,13 +66,13 @@ RSpec.describe Statistics::CategorySummary do
 
     let(:expected_json) do
       {
-        id:              expected_id,
-        credit_sum:      4.99,
-        debit_sum:       -7125.5,
-        currency:        'brl',
-        currency_symbol: 'R$',
-        category_id:     category_id,
-        profile_id:      profile_id
+        id:            expected_id,
+        credit_sum:    4.99,
+        debit_sum:     -7125.5,
+        currency:      'brl',
+        currency_code: 'BRL',
+        category_id:   category_id,
+        profile_id:    profile_id
       }
     end
 
