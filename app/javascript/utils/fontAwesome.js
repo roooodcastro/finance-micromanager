@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faArrowDownAZ,
   faAt,
+  faBan,
   faBrazilianRealSign,
   faCheck,
   faChevronDown,
@@ -33,7 +34,6 @@ import {
   faSquareCheck,
   faSquareMinus,
   faSquarePlus,
-  faTrashCan,
   faTriangleExclamation,
   faUser,
   faUserPlus,
@@ -49,6 +49,7 @@ import {
   faFaceFrown as farFaceFrown,
   faSquare as farSquare,
   faSquareMinus as farSquareMinus,
+  faTrashCan as farTrashCan,
 } from '@fortawesome/free-regular-svg-icons';
 
 import {
@@ -58,6 +59,7 @@ import {
 library.add(
   faArrowDownAZ,
   faAt,
+  faBan,
   faBrazilianRealSign,
   faCheck,
   faChevronDown,
@@ -95,7 +97,7 @@ library.add(
   faSquareMinus,
   farSquareMinus,
   faSquarePlus,
-  faTrashCan,
+  farTrashCan,
   faTriangleExclamation,
   faUser,
   faUserPlus,

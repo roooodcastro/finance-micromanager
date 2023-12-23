@@ -13,7 +13,7 @@
         v-for="transaction in transactions"
         :key="transaction.id"
         :transaction="transaction"
-        :show-delete-button="false"
+        compact
       />
 
       <a

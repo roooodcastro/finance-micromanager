@@ -5,7 +5,7 @@
     @click="openModal"
   >
     <FontAwesomeIcon
-      :icon="['far', 'square-minus']"
+      :icon="['far', 'trash-can']"
       size="lg"
     />
     <span

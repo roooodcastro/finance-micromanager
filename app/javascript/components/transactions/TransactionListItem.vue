@@ -3,7 +3,6 @@
     <template v-slot:actions>
       <TransactionActions
         :transaction="transaction"
-        :show-delete="showDeleteButton"
         :compact="compact"
         drawer-menu
       />
@@ -35,7 +34,6 @@
         <div class="d-none d-lg-flex">
           <TransactionActions
             :transaction="transaction"
-            :show-delete="showDeleteButton"
             :compact="compact"
           />
         </div>
@@ -63,10 +61,6 @@ export default {
     transaction: {
       type: Object,
       required: true,
-    },
-    showDeleteButton: {
-      type: Boolean,
-      default: true,
     },
     compact: {
       type: Boolean,
