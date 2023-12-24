@@ -1,6 +1,16 @@
 <template>
   <div class="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
-    <div class="mb-3">
+    <MultipleSelect
+      v-model="selectedCategoryIds"
+      class="mb-3"
+      :options="categoriesForSelect"
+      :placeholder="t('category_filter')"
+      :selection-label-one="t('category')"
+      :selection-label-many="t('categories')"
+      @change="handleCategoryChange"
+    />
+
+    <div class="ms-2 mb-3 flex-shrink-0">
       <div class="dropdown">
         <a
           href="#"
@@ -54,7 +64,7 @@
       </div>
     </div>
 
-    <div class="btn-group mb-3 d-flex bg-white ms-2">
+    <div class="btn-group mb-3 d-flex bg-white ms-2 flex-shrink-0">
       <button
         class="btn btn-sm py-1 btn-outline-dark"
         :class="{ active: daysToShow === 7 }"
@@ -83,24 +93,32 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
 import { setQueryParam } from '~/utils/QueryStringUtils.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import MultipleSelect from '~/components/forms/MultipleSelect.vue';
+
 export default {
   components: {
     FontAwesomeIcon,
+    MultipleSelect,
   },
 
   emits: ['change'],
 
   setup(_, { emit }) {
     const transactionStore = useTransactionStore();
+    const categoryStore = useCategoryStore();
+
     const { fetchParams, excludeDebits, excludeCredits, daysToShow } = storeToRefs(transactionStore);
+    const { categoriesForSelect } = storeToRefs(categoryStore);
 
     const handleToggleExcludeDebits = () => {
       transactionStore.setFetchParams({ excludeDebits: !fetchParams.value.excludeDebits });
@@ -120,13 +138,23 @@ export default {
       emit('change');
     };
 
+    const handleCategoryChange = () => {
+      transactionStore.setFetchParams({ categoryIds: selectedCategoryIds.value });
+      emit('change');
+    }
+
+    const selectedCategoryIds = ref('');
+
     return {
+      selectedCategoryIds,
       excludeDebits,
       excludeCredits,
       daysToShow,
+      categoriesForSelect,
       handleToggleExcludeDebits,
       handleToggleExcludeCredits,
       handleDateFilterClick,
+      handleCategoryChange,
       t: I18n.scopedTranslator('views.transactions.index'),
     };
   },

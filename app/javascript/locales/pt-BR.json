@@ -639,6 +639,13 @@
           "copyright_notice": "© 2023 Rodrigo Castro",
           "version": "Versão"
         },
+        "forms": {
+          "all": "Tudo",
+          "choose_options": "Escolha",
+          "multiple_select_selection": "seleção",
+          "multiple_select_selections": "seleções",
+          "none": "Nada"
+        },
         "page_header": {
           "action_toggle_label": "Ações"
         },
@@ -810,7 +817,9 @@
         },
         "index": {
           "amount": "Valor",
+          "categories": "Categorias",
           "category": "Categoria",
+          "category_filter": "Selecione Categoria",
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "edit": "Editar",

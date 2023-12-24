@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe SubcategoriesController do
+RSpec.describe SubcategoriesController, :travel_to_now do
   let(:user) { create(:user) }
   let(:profile) { create(:profile, user:) }
   let(:category) { create(:category, profile: profile, name: 'MyCat') }

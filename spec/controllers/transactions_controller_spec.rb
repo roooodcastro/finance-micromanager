@@ -84,7 +84,7 @@ RSpec.describe TransactionsController do
             name:             'Test',
             amount:           1.99,
             amount_type:      :debit,
-            category_id:      "#{category.id},#{subcategory.id}",
+            category_id:      "#{category.id}|#{subcategory.id}",
             transaction_date: Time.zone.today.to_s
           }
         }

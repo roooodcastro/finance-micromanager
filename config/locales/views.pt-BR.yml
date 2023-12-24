@@ -45,6 +45,12 @@ pt-BR:
     landing:
       title: Página Inicial
     layout:
+      forms:
+        all: Tudo
+        choose_options: Escolha
+        multiple_select_selection: seleção
+        multiple_select_selections: seleções
+        none: Nada
       footer:
         version: Versão
         copyright_notice: '© 2023 Rodrigo Castro'
@@ -209,6 +215,7 @@ pt-BR:
         thirty_days: 30 dias
         ninety_days: 90 dias
         category: Categoria
+        categories: Categorias
         amount: Valor
         name: Nome
         transaction_date: Data
@@ -216,6 +223,7 @@ pt-BR:
         sorting: Ordem
         no_transactions: Não há transações para exibir.
         view_more: 'Ver todas as transações&hellip;'
+        category_filter: Selecione Categoria
       form:
         new_title: Nova Transação
         edit_title: Editar Transacão
