@@ -12,7 +12,7 @@ export default defineStore('category', {
       return state.categories.reduce((result, category) => {
         result.push({ label: category.name, value: category.id })
         category.subcategories.forEach((subcategory) => {
-          result.push({ label: subcategory.displayName, value: `${category.id},${subcategory.id}`});
+          result.push({ label: subcategory.displayName, value: `${category.id}|${subcategory.id}`});
         });
         return result;
       }, []);

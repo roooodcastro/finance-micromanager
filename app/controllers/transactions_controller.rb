@@ -71,14 +71,17 @@ class TransactionsController < AbstractAuthenticatedController
       .then do |permitted_params|
         break permitted_params unless permitted_params[:category_id]
 
-        permitted_params[:subcategory_id] = permitted_params[:category_id].split(',')[1]
-        permitted_params[:category_id]    = permitted_params[:category_id].split(',')[0]
+        permitted_params[:subcategory_id] = permitted_params[:category_id].split('|')[1]
+        permitted_params[:category_id]    = permitted_params[:category_id].split('|')[0]
         permitted_params
       end
   end
 
   def search_params
-    params.permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date]).to_h.symbolize_keys
+    params
+      .permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date category_ids])
+      .to_h
+      .symbolize_keys
   end
 
   def available_categories

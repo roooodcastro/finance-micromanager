@@ -45,6 +45,12 @@ en:
     landing:
       title: Landing
     layout:
+      forms:
+        all: All
+        choose_options: Choose
+        multiple_select_selection: selection
+        multiple_select_selections: selections
+        none: None
       footer:
         version: Version
         copyright_notice: '© 2023 Rodrigo Castro'
@@ -207,6 +213,7 @@ en:
         thirty_days: 30 days
         ninety_days: 90 days
         category: Category
+        categories: Categories
         amount: Amount
         name: Name
         transaction_date: Date
@@ -214,6 +221,8 @@ en:
         sorting: Sorting
         no_transactions: There are no transactions to show.
         view_more: 'View all transactions&hellip;'
+        category_filter: Choose Category
+
       form:
         new_title: New Transaction
         edit_title: Edit Transaction

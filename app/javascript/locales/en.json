@@ -585,6 +585,13 @@
           "copyright_notice": "© 2023 Rodrigo Castro",
           "version": "Version"
         },
+        "forms": {
+          "all": "All",
+          "choose_options": "Choose",
+          "multiple_select_selection": "selection",
+          "multiple_select_selections": "selections",
+          "none": "None"
+        },
         "page_header": {
           "action_toggle_label": "Actions"
         },
@@ -756,7 +763,9 @@
         },
         "index": {
           "amount": "Amount",
+          "categories": "Categories",
           "category": "Category",
+          "category_filter": "Choose Category",
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "edit": "Edit",

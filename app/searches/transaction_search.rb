@@ -14,6 +14,7 @@ class TransactionSearch
       .search_days_to_show
       .search_start_date
       .search_end_date
+      .search_category_ids
 
     relation
   end
@@ -55,11 +56,36 @@ class TransactionSearch
     self
   end
 
+  def search_category_ids
+    return self unless query_params.key?(:category_ids)
+
+    category_ids, subcategory_ids = parse_category_ids
+    base_relation                 = relation
+
+    if category_ids.present?
+      @relation = relation.where(category_id: category_ids)
+      @relation = relation.or(base_relation.where(subcategory_id: subcategory_ids)) if subcategory_ids.present?
+    elsif subcategory_ids.present?
+      @relation = relation.where(subcategory_id: subcategory_ids)
+    end
+
+    self
+  end
+
+  def parse_category_ids
+    category_ids_raw = query_params[:category_ids].split(',')
+    category_ids     = category_ids_raw.map do |id_raw|
+      next if id_raw.include?('|')
+
+      id_raw.split('|')[0]
+    end.compact
+
+    subcategory_ids = category_ids_raw.map { |id_raw| id_raw.split('|')[1] }.compact
+
+    [category_ids, subcategory_ids]
+  end
+
   def default_search_params
-    {
-      days_to_show:    30,
-      exclude_debits:  false,
-      exclude_credits: false
-    }
+    { days_to_show: 30 }
   end
 end
