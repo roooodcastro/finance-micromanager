@@ -51,6 +51,7 @@ en:
         multiple_select_selection: selection
         multiple_select_selections: selections
         none: None
+        unspecified: Unspecified
       footer:
         version: Version
         copyright_notice: '© 2023 Rodrigo Castro'
@@ -206,6 +207,14 @@ en:
         edit: Edit
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
+        amount: Amount
+        name: Name
+        transaction_date: Date
+        sorting: Sorting
+        no_transactions: There are no transactions to show.
+        view_more: 'View all transactions&hellip;'
+      filters:
+        filters: Filters
         transaction_type: Transaction Type
         spends: Spends
         income: Income
@@ -214,15 +223,10 @@ en:
         ninety_days: 90 days
         category: Category
         categories: Categories
-        amount: Amount
-        name: Name
-        transaction_date: Date
-        filters: Filters
-        sorting: Sorting
-        no_transactions: There are no transactions to show.
-        view_more: 'View all transactions&hellip;'
+        wallet: Wallet
+        wallets: Wallets
         category_filter: Choose Category
-
+        wallet_filter: Choose Wallet
       form:
         new_title: New Transaction
         edit_title: Edit Transaction

@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown flex-shrink-0 width-15rem">
+  <div class="dropdown flex-shrink-0">
     <select
       multiple
       hidden
@@ -127,15 +127,5 @@ export default {
 .MultipleSelect__menu {
   max-height: 50vh;
   overflow-y: auto;
-}
-
-.width-10rem {
-  width: 10rem;
-}
-.width-15rem {
-  width: 15rem;
-}
-.width-20rem {
-  width: 20rem;
 }
 </style>

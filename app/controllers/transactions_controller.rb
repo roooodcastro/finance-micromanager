@@ -7,7 +7,7 @@ class TransactionsController < AbstractAuthenticatedController
 
   def index
     transactions = TransactionSearch
-                   .new(Current.profile.transactions.includes(:category, :subcategory), search_params)
+                   .new(Current.profile.transactions.includes(:category, :subcategory, :wallet), search_params)
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 
@@ -79,7 +79,7 @@ class TransactionsController < AbstractAuthenticatedController
 
   def search_params
     params
-      .permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date category_ids])
+      .permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date category_ids wallet_ids])
       .to_h
       .symbolize_keys
   end

@@ -10,7 +10,7 @@
         <thead>
           <tr>
             <th
-              class="bg-light align-middle"
+              class="bg-light align-middle text-nowrap"
               style="width: 50%"
             >
               {{ t('table_header_wallet_name') }}
@@ -42,7 +42,7 @@
             <td class="text-nowrap">
               {{ wallet.name }}
             </td>
-            <td class="text-end fw-bold">
+            <td class="text-end fw-bold text-nowrap">
               {{ formatMoney(walletBalances[wallet.id] ?? 0, wallet.currency.isoCode) }}
             </td>
             <td>

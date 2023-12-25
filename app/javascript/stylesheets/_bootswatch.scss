@@ -192,6 +192,16 @@ th {
   min-width: 0;
 }
 
+.width-10rem {
+  width: 10rem;
+}
+.width-15rem {
+  width: 15rem;
+}
+.width-20rem {
+  width: 20rem;
+}
+
 @include media-breakpoint-down(md) {
   .row {
     --bs-gutter-x: 1rem;
