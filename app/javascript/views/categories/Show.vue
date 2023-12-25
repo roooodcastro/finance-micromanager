@@ -19,7 +19,7 @@
       <DropdownMenuItem
         :href="editCategoryPath({ id: categoryFromStore.id })"
         :label="t('disable')"
-        :icon="['far', 'square-minus']"
+        icon="ban"
         class="text-danger"
       />
     </template>
