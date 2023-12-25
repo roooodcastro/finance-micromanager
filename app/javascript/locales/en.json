@@ -590,7 +590,8 @@
           "choose_options": "Choose",
           "multiple_select_selection": "selection",
           "multiple_select_selections": "selections",
-          "none": "None"
+          "none": "None",
+          "unspecified": "Unspecified"
         },
         "page_header": {
           "action_toggle_label": "Actions"
@@ -746,6 +747,21 @@
         }
       },
       "transactions": {
+        "filters": {
+          "categories": "Categories",
+          "category": "Category",
+          "category_filter": "Choose Category",
+          "filters": "Filters",
+          "income": "Income",
+          "ninety_days": "90 days",
+          "seven_days": "7 days",
+          "spends": "Spends",
+          "thirty_days": "30 days",
+          "transaction_type": "Transaction Type",
+          "wallet": "Wallet",
+          "wallet_filter": "Choose Wallet",
+          "wallets": "Wallets"
+        },
         "form": {
           "amount_label": "Amount",
           "amount_type_label": "Type",
@@ -763,25 +779,15 @@
         },
         "index": {
           "amount": "Amount",
-          "categories": "Categories",
-          "category": "Category",
-          "category_filter": "Choose Category",
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "edit": "Edit",
-          "filters": "Filters",
-          "income": "Income",
           "name": "Name",
           "new": "New Transaction",
-          "ninety_days": "90 days",
           "no_transactions": "There are no transactions to show.",
-          "seven_days": "7 days",
           "sorting": "Sorting",
-          "spends": "Spends",
-          "thirty_days": "30 days",
           "title": "Transactions",
           "transaction_date": "Date",
-          "transaction_type": "Transaction Type",
           "view_more": "View all transactions&hellip;"
         },
         "types": {

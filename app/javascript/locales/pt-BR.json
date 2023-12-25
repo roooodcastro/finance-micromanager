@@ -644,7 +644,8 @@
           "choose_options": "Escolha",
           "multiple_select_selection": "seleção",
           "multiple_select_selections": "seleções",
-          "none": "Nada"
+          "none": "Nada",
+          "unspecified": "Não especificado"
         },
         "page_header": {
           "action_toggle_label": "Ações"
@@ -800,6 +801,21 @@
         }
       },
       "transactions": {
+        "filters": {
+          "categories": "Categorias",
+          "category": "Categoria",
+          "category_filter": "Selecione Categoria",
+          "filters": "Filtros",
+          "income": "Receita",
+          "ninety_days": "90 dias",
+          "seven_days": "7 dias",
+          "spends": "Gastos",
+          "thirty_days": "30 dias",
+          "transaction_type": "Tipo de Transação",
+          "wallet": "Carteira",
+          "wallet_filter": "Selecione Carteira",
+          "wallets": "Carteiras"
+        },
         "form": {
           "amount_label": "Valor",
           "amount_type_label": "Tipo",
@@ -817,25 +833,15 @@
         },
         "index": {
           "amount": "Valor",
-          "categories": "Categorias",
-          "category": "Categoria",
-          "category_filter": "Selecione Categoria",
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "edit": "Editar",
-          "filters": "Filtros",
-          "income": "Receita",
           "name": "Nome",
           "new": "Nova Transação",
-          "ninety_days": "90 dias",
           "no_transactions": "Não há transações para exibir.",
-          "seven_days": "7 dias",
           "sorting": "Ordem",
-          "spends": "Gastos",
-          "thirty_days": "30 dias",
           "title": "Transações",
           "transaction_date": "Data",
-          "transaction_type": "Tipo de Transação",
           "view_more": "Ver todas as transações&hellip;"
         },
         "types": {

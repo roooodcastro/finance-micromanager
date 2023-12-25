@@ -20,6 +20,14 @@ export default defineBaseApiStore('wallet', {
   getters: {
     activeWallets: (state) => state.wallets.filter(wallet => !wallet.disabledAt),
     showDisabled: state => state.fetchParams.showDisabled,
+    walletsForSelect: (state) => {
+      const options = state.wallets.reduce((result, wallet) => {
+        result.push({ label: wallet.name, value: wallet.id });
+        return result;
+      }, []);
+      options.push({ label: I18n.t('views.layout.forms.unspecified'), value: 'null' });
+      return options;
+    },
   },
   actions: {
     disable(id) {

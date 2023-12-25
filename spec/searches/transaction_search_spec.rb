@@ -135,5 +135,40 @@ RSpec.describe TransactionSearch, type: :search do
         it { is_expected.to contain_exactly(cat_b_transaction, subcat_a_transaction) }
       end
     end
+
+    context 'when wallet_ids is specified' do
+      let(:query_params) { { wallet_ids: } }
+
+      let(:wallet_a) { create(:wallet) }
+      let(:wallet_b) { create(:wallet) }
+
+      let!(:transaction) { create(:transaction) }
+      let!(:wallet_a_transaction) { create(:transaction, wallet: wallet_a) }
+      let!(:wallet_b_transaction) { create(:transaction, wallet: wallet_b) }
+
+      context 'and it is empty' do
+        let(:wallet_ids) { '' }
+
+        it { is_expected.to contain_exactly(transaction, wallet_a_transaction, wallet_b_transaction) }
+      end
+
+      context 'and it contains only valid wallet_ids' do
+        let(:wallet_ids) { [wallet_a.id, wallet_b.id].join(',') }
+
+        it { is_expected.to contain_exactly(wallet_a_transaction, wallet_b_transaction) }
+      end
+
+      context 'and it contains only the null wallet_id' do
+        let(:wallet_ids) { 'null' }
+
+        it { is_expected.to contain_exactly(transaction) }
+      end
+
+      context 'and it contains a mix between valid and null wallet_ids' do
+        let(:wallet_ids) { [wallet_b.id, 'null'].join(',') }
+
+        it { is_expected.to contain_exactly(wallet_b_transaction, transaction) }
+      end
+    end
   end
 end

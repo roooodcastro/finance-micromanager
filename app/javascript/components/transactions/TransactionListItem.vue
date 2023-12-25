@@ -22,12 +22,13 @@
               class="TransactionListItem__amount text-end fw-bold"
               :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
             >
-              {{ transaction.amountWithUnit }}
+              {{ formatMoney(transaction.amount, transaction.amountCurrency) }}
             </span>
           </div>
           <div class="fs-6 text-muted d-flex justify-content-between">
             <span>{{ transaction.subcategory?.displayName ?? transaction.category.name }}</span>
             <span>
+              {{ transaction.wallet ? `${transaction.wallet.name} |` : '' }}
               {{ formatDate(new Date(transaction.transactionDate)) }}
             </span>
           </div>
@@ -48,7 +49,7 @@
 import { computed } from 'vue';
 
 import { formatDate } from '~/utils/DateUtils.js';
-import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
+import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
 import TransactionActions from '~/components/transactions/TransactionActions.vue';
@@ -75,9 +76,11 @@ export default {
   },
 
   setup(props) {
-    const isDebit = computed(() => parseLocaleNumber(props.transaction.amount) < 0);
-    const isCredit = computed(() => parseLocaleNumber(props.transaction.amount) > 0);
+    const isDebit = computed(() => props.transaction.amount < 0);
+    const isCredit = computed(() => props.transaction.amount > 0);
+
     return {
+      formatMoney,
       formatDate,
       isDebit,
       isCredit,

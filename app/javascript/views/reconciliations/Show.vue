@@ -14,8 +14,10 @@
     <div class="col-12 col-lg-6 mt-3 mt-lg-0">
       <div class="card">
         <div class="card-header">
-          <h5 class="m-0">
-            {{ t('sub_header_transactions') }}
+          <h5 class="m-0 d-flex justify-content-between">
+            <span>{{ t('sub_header_transactions') }}</span>
+
+            <TransactionsFilter link-toggle />
           </h5>
         </div>
         <div class="card-body p-0">
@@ -23,6 +25,7 @@
             :transactions="transactions"
             compact
             card-body
+            class="mb-3"
           />
         </div>
       </div>
@@ -46,10 +49,12 @@ import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js'
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ReconciliationSummary from '~/components/reconciliations/ReconciliationSummary.vue';
 import ReconciliationWallets from '~/components/reconciliations/ReconciliationWallets.vue';
+import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 
 export default {
   components: {
+    TransactionsFilter,
     PageHeader,
     ReconciliationSummary,
     ReconciliationWallets,

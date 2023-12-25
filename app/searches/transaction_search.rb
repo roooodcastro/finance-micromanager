@@ -15,6 +15,7 @@ class TransactionSearch
       .search_start_date
       .search_end_date
       .search_category_ids
+      .search_wallet_ids
 
     relation
   end
@@ -69,6 +70,17 @@ class TransactionSearch
       @relation = relation.where(subcategory_id: subcategory_ids)
     end
 
+    self
+  end
+
+  def search_wallet_ids
+    return self if !query_params.key?(:wallet_ids) || query_params[:wallet_ids].blank?
+
+    wallet_ids                              = query_params[:wallet_ids].split(',')
+    unspecified_wallet_id_index             = wallet_ids.index('null')
+    wallet_ids[unspecified_wallet_id_index] = nil if unspecified_wallet_id_index
+
+    @relation                               = relation.where(wallet_id: wallet_ids)
     self
   end
 

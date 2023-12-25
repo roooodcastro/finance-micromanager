@@ -116,7 +116,6 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
-import { parseLocaleNumber } from '~/utils/NumberFormatter.js';
 import { TRANSACTION_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -170,7 +169,7 @@ export default {
 
     const updateTransactionDataWithDefaultValues = () => {
       if (transaction.value.amount) {
-        transaction.value.amount = Math.abs(parseLocaleNumber(transaction.value.amount)).toFixed(2);
+        transaction.value.amount = Math.abs(transaction.value.amount).toFixed(2);
       }
 
       if (!activeWallets.value.length) {
