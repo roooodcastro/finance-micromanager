@@ -693,7 +693,10 @@
         "show": {
           "calculated_balance": "Calculated",
           "calculated_balance_info_text": "This balance was calculated by summing the amounts from all transaction since the last reconciliation, or since the start, if this is the first reconciliation.\n",
+          "cancel_mass_edit_transactions": "Cancel Bulk Edit",
           "difference_balance": "Divergence",
+          "enter_mass_edit_transactions": "Bulk Edit",
+          "new_transaction": "New Transaction",
           "real_balance": "Actual",
           "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.\n",
           "status": "Status",
@@ -782,6 +785,12 @@
           "delete": "Remove",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "edit": "Edit",
+          "mass_edit": "Bulk Edit",
+          "mass_edit_cancel": "Cancel",
+          "mass_edit_deselect_all": "Deselect All",
+          "mass_edit_selected": "%{count} Selected",
+          "mass_edit_submit": "Submit",
+          "mass_editing": "Bulk Editing",
           "name": "Name",
           "new": "New Transaction",
           "no_transactions": "There are no transactions to show.",
@@ -789,6 +798,15 @@
           "title": "Transactions",
           "transaction_date": "Date",
           "view_more": "View all transactions&hellip;"
+        },
+        "mass_edit_form": {
+          "cancel": "Cancel",
+          "category_label": "Category",
+          "edit_title": "Bulk Edit Transactions",
+          "editing_x_transactions": "This will affect %{count} transactions",
+          "new_title": "Bulk Edit Transactions",
+          "submit": "Submit",
+          "wallet_label": "Wallet"
         },
         "types": {
           "all_transactions": "All",

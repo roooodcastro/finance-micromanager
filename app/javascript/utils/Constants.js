@@ -3,6 +3,7 @@ export const CONFIRMATION_MODAL_ID = 'confirmationModal';
 export const RECONCILIATION_FORM_ID = 'reconciliationForm';
 export const SUBCATEGORY_FORM_ID = 'subcategoryForm';
 export const TRANSACTION_FORM_ID = 'transactionForm';
+export const MASS_EDIT_TRANSACTION_FORM_ID = 'massEditTransactionForm';
 export const WALLET_FORM_ID = 'walletForm';
 
 export const DEBIT_TRANSACTION = 'debit';

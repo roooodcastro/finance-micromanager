@@ -1,7 +1,7 @@
 <template>
   <div
     class="alert alert-info"
-    :class="{ 'd-lg-flex': !compact }"
+    :class="{ 'd-lg-flex align-items-center': !compact }"
   >
     <FontAwesomeIcon
       icon="circle-info"

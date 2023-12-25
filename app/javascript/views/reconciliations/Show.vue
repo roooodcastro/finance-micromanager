@@ -13,12 +13,43 @@
 
     <div class="col-12 col-lg-6 mt-3 mt-lg-0">
       <div class="card">
-        <div class="card-header">
-          <h5 class="m-0 d-flex justify-content-between">
-            <span>{{ t('sub_header_transactions') }}</span>
-
-            <TransactionsFilter link-toggle />
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="m-0 ">
+            {{ t('sub_header_transactions') }}
           </h5>
+
+          <div class="d-flex">
+            <TransactionsFilter
+              hide-toggle-text
+              toggle-classes="btn btn-context-action rounded-circle"
+            />
+
+            <DropdownMenu
+              toggle-icon="gear"
+              :toggle-label="t('subcategories_options')"
+              class="ms-1"
+            >
+              <DropdownMenuItem
+                :label="t('new_transaction')"
+                icon="plus"
+                @click="handleNewTransaction"
+              />
+
+              <DropdownMenuItem
+                v-if="!massEditMode"
+                :label="t('enter_mass_edit_transactions')"
+                icon="pen-to-square"
+                @click="handleEnterMassEditTransactions"
+              />
+
+              <DropdownMenuItem
+                v-else
+                :label="t('cancel_mass_edit_transactions')"
+                icon="xmark"
+                @click="handleCancelMassEditTransactions"
+              />
+            </DropdownMenu>
+          </div>
         </div>
         <div class="card-body p-0">
           <TransactionsList
@@ -51,13 +82,17 @@ import ReconciliationSummary from '~/components/reconciliations/ReconciliationSu
 import ReconciliationWallets from '~/components/reconciliations/ReconciliationWallets.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
+import DropdownMenu from '~/components/ui/DropdownMenu.vue';
+import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 
 export default {
   components: {
-    TransactionsFilter,
+    DropdownMenuItem,
+    DropdownMenu,
     PageHeader,
     ReconciliationSummary,
     ReconciliationWallets,
+    TransactionsFilter,
     TransactionsList,
   },
 
@@ -97,16 +132,24 @@ export default {
       daysToShow: 0,
     });
     transactionStore.fetch();
-    const { transactions } = storeToRefs(transactionStore);
+    const { transactions, massEditMode } = storeToRefs(transactionStore);
 
     watch(transactions, () => reconciliationStore.fetchSingle());
+
+    const handleNewTransaction = () => {};
+    const handleEnterMassEditTransactions = transactionStore.enterMassEditMode;
+    const handleCancelMassEditTransactions = transactionStore.cancelMassEditMode;
 
     return {
       t: I18n.scopedTranslator('views.reconciliations.show'),
       formatDate,
       transactions,
+      massEditMode,
       reconciliationsPath,
       reconciliationFromStore,
+      handleNewTransaction,
+      handleEnterMassEditTransactions,
+      handleCancelMassEditTransactions,
     };
   },
 };

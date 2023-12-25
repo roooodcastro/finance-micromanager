@@ -23,15 +23,15 @@
     </a>
 
     <div class="MultipleSelect__menu dropdown-menu w-100">
-      <div class="d-flex mb-2">
+      <div class="d-flex mb-2 px-2 gap-2">
         <a
-          class="btn btn-sm btn-light p-1 mx-2 flex-grow-1 fs-6"
+          class="btn btn-xs btn-light flex-grow-1"
           @click="handleAll"
         >
           {{ t('all') }}
         </a>
         <a
-          class="btn btn-sm btn-light p-1 me-2 flex-grow-1 fs-6"
+          class="btn btn-xs btn-light flex-grow-1"
           @click="handleNone"
         >
           {{ t('none') }}

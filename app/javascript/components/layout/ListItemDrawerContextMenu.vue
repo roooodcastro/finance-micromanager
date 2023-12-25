@@ -8,7 +8,7 @@
     </div>
 
     <HorizontalSwipe
-      :min-translation="minTranslation"
+      :min-translation="locked ? 0 : minTranslation"
       :max-translation="0"
     >
       <slot name="item" />
@@ -25,8 +25,16 @@ import HorizontalSwipe from '~/components/layout/HorizontalSwipe.vue';
 
 export default {
   components: {
-    HorizontalSwipe
+    HorizontalSwipe,
   },
+
+  props: {
+    locked: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   setup() {
     const minTranslation = ref(0);
     const actionsContainer = ref(null);

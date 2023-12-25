@@ -3,8 +3,15 @@ import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
 import usePaginationStore from '~/stores/PaginationStore.js';
+import useModalStore from '~/stores/ModalStore.js';
 import { transactions as transactionsApi } from '~/api/all.js';
-import { DEBIT_TRANSACTION, CREDIT_TRANSACTION, TRANSACTION_FORM_ID } from '~/utils/Constants.js';
+
+import {
+  DEBIT_TRANSACTION,
+  CREDIT_TRANSACTION,
+  TRANSACTION_FORM_ID,
+  MASS_EDIT_TRANSACTION_FORM_ID,
+} from '~/utils/Constants.js';
 
 export default defineBaseApiStore('transaction', {
   resourceName: 'transaction',
@@ -15,6 +22,8 @@ export default defineBaseApiStore('transaction', {
   state: {
     transactions: [],
     idForFormModal: null,
+    massEditMode: false,
+    massEditTransactionIds: [],
     fetchParams: {
       daysToShow: 30,
       excludeDebits: false,
@@ -27,6 +36,7 @@ export default defineBaseApiStore('transaction', {
     excludeDebits: state => state.fetchParams.excludeDebits,
     excludeCredits: state => state.fetchParams.excludeCredits,
     groupedTransactions: state => _.groupBy(state.transactions, 'transactionDate'),
+    massEditTransactionIdsCount: state => Object.keys(state.massEditTransactionIds).length,
   },
   actions: {
     fetch(options = {}) {
@@ -44,6 +54,39 @@ export default defineBaseApiStore('transaction', {
 
           pagination.value = response.pagination;
         });
+    },
+
+    enterMassEditMode() {
+      this.massEditMode = true;
+      this.massEditTransactionIds = {};
+    },
+
+    cancelMassEditMode() {
+      this.massEditMode = false;
+      this.massEditTransactionIds = {};
+    },
+
+    submitMassEdit() {
+      if (this.massEditTransactionIdsCount > 0) {
+        const modalStore = useModalStore();
+        modalStore.show(MASS_EDIT_TRANSACTION_FORM_ID);
+      }
+    },
+
+    deselectAllMassEditMode() {
+      this.massEditTransactionIds = {};
+    },
+
+    toggleMassEditTransactionId(transactionId) {
+      if (this.massEditTransactionIds[transactionId]) {
+        delete this.massEditTransactionIds[transactionId];
+      } else {
+        this.massEditTransactionIds[transactionId] = true;
+      }
+    },
+
+    massUpdate() {
+      // todo
     },
 
     remove(id) {

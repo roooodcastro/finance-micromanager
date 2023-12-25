@@ -79,6 +79,12 @@ html, body, #app {
   }
 }
 
+.btn-xs {
+  @extend .fs-6;
+  @extend .px-2;
+  @extend .py-1;
+}
+
 .border-secondary {
   border: 1px solid $gray-400 !important;
 }

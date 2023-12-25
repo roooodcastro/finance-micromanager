@@ -1,5 +1,8 @@
 <template>
-  <ListItemDrawerContextMenu class="TransactionListItem__container mx-0">
+  <ListItemDrawerContextMenu
+    class="TransactionListItem__container mx-0"
+    :locked="massEditMode"
+  >
     <template v-slot:actions>
       <TransactionActions
         :transaction="transaction"
@@ -9,12 +12,24 @@
     </template>
 
     <template v-slot:item>
-      <div class="TransactionListItem d-flex bg-light-subtle align-items-center border border-start-0 pe-2 pe-lg-0">
+      <div
+        class="TransactionListItem d-flex bg-light-subtle align-items-center border border-start-0 pe-2 pe-lg-0"
+        @click="handleClick"
+      >
         <span
           class="TransactionListItem__indicator me-2"
           :style="{ 'background-color': transaction.category.color }"
         />
-        <div class="TransactionListItem__name flex-grow-1 py-2">
+        <input
+          v-if="massEditMode"
+          type="checkbox"
+          :checked="massEditSelected"
+          class="me-2"
+        >
+        <div
+          class="TransactionListItem__name flex-grow-1 py-2"
+          :class="{ 'pe-lg-2': massEditMode }"
+        >
           <div class="d-flex justify-content-between">
             <span>{{ transaction.name }}</span>
             <span
@@ -34,6 +49,7 @@
         </div>
         <div class="d-none d-lg-flex">
           <TransactionActions
+            v-if="!massEditMode"
             :transaction="transaction"
             :compact="compact"
           />
@@ -67,17 +83,34 @@ export default {
       type: Boolean,
       default: false,
     },
+    massEditMode: {
+      type: Boolean,
+      default: false,
+    },
+    massEditSelected: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  setup(props) {
+  emits: ['mass-edit-toggle'],
+
+  setup(props, { emit }) {
     const isDebit = computed(() => props.transaction.amount < 0);
     const isCredit = computed(() => props.transaction.amount > 0);
+
+    const handleClick = () => {
+      if (props.massEditMode) {
+        emit('mass-edit-toggle', props.transaction.id);
+      }
+    };
 
     return {
       formatMoney,
       formatDate,
       isDebit,
       isCredit,
+      handleClick,
     };
   },
 };

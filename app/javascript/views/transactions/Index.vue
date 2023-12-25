@@ -5,14 +5,19 @@
         <DropdownMenuItem
           :label="t('new')"
           icon="plus"
-          @click="handleClick"
+          @click="handleNew"
+        />
+        <DropdownMenuItem
+          :label="t('mass_edit')"
+          icon="pen-to-square"
+          @click="handleMassEdit"
         />
       </template>
     </PageHeader>
 
     <div class="d-flex justify-content-between gap-2 mb-3">
       <div class="d-flex gap-2">
-        <TransactionsFilter />
+        <TransactionsFilter toggle-classes="w-100 btn btn-sm btn-outline-dark" />
         <DateRangeFilter />
       </div>
 
@@ -77,13 +82,15 @@ export default {
       excludeCredits: !!getQueryParams().excludeCredits,
     });
 
-    const handleClick = () => transactionStore.openFormModal(null);
+    const handleNew = () => transactionStore.openFormModal(null);
+    const handleMassEdit = transactionStore.enterMassEditMode;
     const handlePageChange = () => transactionStore.fetch();
 
     return {
       t: I18n.scopedTranslator('views.transactions.index'),
       handlePageChange,
-      handleClick,
+      handleNew,
+      handleMassEdit,
     };
   },
 };

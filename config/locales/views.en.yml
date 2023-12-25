@@ -159,6 +159,9 @@ en:
         unspecified: Unspecified
         total: Total
         difference_balance: Divergence
+        new_transaction: New Transaction
+        enter_mass_edit_transactions: Bulk Edit
+        cancel_mass_edit_transactions: Cancel Bulk Edit
         calculated_balance_info_text: >
           This balance was calculated by summing the amounts from all transaction since the last reconciliation, or
           since the start, if this is the first reconciliation.
@@ -204,6 +207,7 @@ en:
       index:
         title: Transactions
         new: New Transaction
+        mass_edit: Bulk Edit
         edit: Edit
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
@@ -213,6 +217,11 @@ en:
         sorting: Sorting
         no_transactions: There are no transactions to show.
         view_more: 'View all transactions&hellip;'
+        mass_editing: Bulk Editing
+        mass_edit_selected: '%{count} Selected'
+        mass_edit_cancel: Cancel
+        mass_edit_submit: Submit
+        mass_edit_deselect_all: Deselect All
       filters:
         filters: Filters
         transaction_type: Transaction Type
@@ -241,6 +250,14 @@ en:
         optional: Optional
         submit: Submit
         cancel: Cancel
+      mass_edit_form:
+        new_title: Bulk Edit Transactions
+        edit_title: Bulk Edit Transactions
+        category_label: Category
+        wallet_label: Wallet
+        submit: Submit
+        cancel: Cancel
+        editing_x_transactions: 'This will affect %{count} transactions'
       types:
         credit_transactions: Income
         debit_transactions: Spends

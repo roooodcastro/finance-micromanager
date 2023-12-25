@@ -161,6 +161,9 @@ pt-BR:
         unspecified: Não especificado
         total: Total
         difference_balance: Divergência
+        new_transaction: Nova Transação
+        enter_mass_edit_transactions: Edição em Massa
+        cancel_mass_edit_transactions: Cancelar Edição em Massa
         calculated_balance_info_text: >
           Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde
           o início, caso esta seja a primeira reconciliação.
@@ -206,6 +209,7 @@ pt-BR:
       index:
         title: Transações
         new: Nova Transação
+        mass_edit: Editar em Massa
         edit: Editar
         delete: Remover
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
@@ -215,6 +219,11 @@ pt-BR:
         sorting: Ordem
         no_transactions: Não há transações para exibir.
         view_more: 'Ver todas as transações&hellip;'
+        mass_editing: Editando em Massa
+        mass_edit_selected: '%{count} Selecionada(s)'
+        mass_edit_cancel: Cancelar
+        mass_edit_submit: Concluir
+        mass_edit_deselect_all: Deselecionar Tudo
       filters:
         filters: Filtros
         transaction_type: Tipo de Transação
@@ -243,6 +252,14 @@ pt-BR:
         optional: Opcional
         submit: Salvar
         cancel: Cancelar
+      mass_edit_form:
+        new_title: Editar Transações em Massa
+        edit_title: Editar Transações em Massa
+        category_label: Categoria
+        wallet_label: Carteira
+        submit: Salvar
+        cancel: Cancelar
+        editing_x_transactions: 'Isso irá atualizar %{count} transações'
       types:
         credit_transactions: Receitas
         debit_transactions: Gastos

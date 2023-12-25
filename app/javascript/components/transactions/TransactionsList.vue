@@ -3,6 +3,44 @@
     <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
 
     <template v-else>
+      <MassEditForm />
+
+      <div
+        v-if="massEditMode"
+        class="card my-2 bg-secondary-subtle"
+        :class="{ 'mx-2': cardBody }"
+      >
+        <h6 class="mx-2 mt-2 d-flex justify-content-between flex-wrap">
+          <span>{{ t('mass_editing') }}</span>
+          <span>{{ t('mass_edit_selected', { count: massEditTransactionIdsCount }) }}</span>
+        </h6>
+
+        <div class="d-flex p-2 gap-2 justify-content-between flex-wrap">
+          <a
+            class="btn btn-xs btn-light flex-grow-1 flex-lg-grow-0"
+            @click="handleDeselectAll"
+          >
+            {{ t('mass_edit_deselect_all') }}
+          </a>
+
+          <div class="d-flex gap-2 flex-grow-1 flex-lg-grow-0">
+            <a
+              class="btn btn-xs btn-light flex-grow-1 flex-lg-grow-0"
+              @click="handleCancelMassEdit"
+            >
+              {{ t('mass_edit_cancel') }}
+            </a>
+            <a
+              class="btn btn-xs btn-primary flex-grow-1 flex-lg-grow-0"
+              :class="{ 'disabled': massEditTransactionIdsCount === 0 }"
+              @click="handleSubmitMassEdit"
+            >
+              {{ t('mass_edit_submit') }}
+            </a>
+          </div>
+        </div>
+      </div>
+
       <InfiniteScrolling
         :class="{ 'TransactionsList': !cardBody }"
         @scroll="handleInfiniteScrolling"
@@ -24,6 +62,9 @@
             :transaction="transaction"
             :compact="compact"
             :class="{ 'mx-2 mx-lg-0': !cardBody }"
+            :mass-edit-mode="massEditMode"
+            :mass-edit-selected="massEditTransactionIds[transaction.id]"
+            @mass-edit-toggle="handleMassEditToggle"
           />
         </template>
       </InfiniteScrolling>
@@ -53,9 +94,11 @@ import TransactionListItem from '~/components/transactions/TransactionListItem.v
 import Pagination from '~/components/rails/Pagination.vue';
 import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsPlaceholder.vue';
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
+import MassEditForm from '~/components/transactions/MassEditForm.vue';
 
 export default {
   components: {
+    MassEditForm,
     InfiniteScrolling,
     NoTransactionsPlaceholder,
     Pagination,
@@ -87,7 +130,10 @@ export default {
     const transactionStore = useTransactionStore();
     const {
       transactions: transactionsFromStore,
-      groupedTransactions
+      groupedTransactions,
+      massEditMode,
+      massEditTransactionIds,
+      massEditTransactionIdsCount,
     } = storeToRefs(transactionStore);
     transactionsFromStore.value = toRef(props.transactions).value;
 
@@ -114,12 +160,24 @@ export default {
       }
     };
 
+    const handleCancelMassEdit = transactionStore.cancelMassEditMode;
+    const handleDeselectAll = transactionStore.deselectAllMassEditMode;
+    const handleMassEditToggle = transactionStore.toggleMassEditTransactionId;
+    const handleSubmitMassEdit = transactionStore.submitMassEdit;
+
     return {
       formatDate,
       transactionsFromStore,
       groupedTransactions,
+      massEditMode,
+      massEditTransactionIds,
+      massEditTransactionIdsCount,
       handlePageChange,
       handleInfiniteScrolling,
+      handleCancelMassEdit,
+      handleDeselectAll,
+      handleMassEditToggle,
+      handleSubmitMassEdit,
       t: I18n.scopedTranslator('views.transactions.index'),
     };
   },

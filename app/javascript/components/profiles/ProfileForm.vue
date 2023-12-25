@@ -89,7 +89,7 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import CurrencySelect from '~/components/currencies/CurrencySelect.vue';
 import FormInput from '~/components/rails/FormInput.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
-import InfoAlert from '@/components/bootstrap/InfoAlert.vue';
+import InfoAlert from '~/components/bootstrap/InfoAlert.vue';
 
 export default {
   components: {
