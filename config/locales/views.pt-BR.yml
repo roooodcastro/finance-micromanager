@@ -138,6 +138,8 @@ pt-BR:
         cancel: Cancelar
         confirm: Enviar Convite
     reconciliations:
+      info_alert:
+        message: 'Há uma reconcilição em andamento para o dia %{date}. <a href="%{href}">Clique aqui</a> para acessá-la.'
       index:
         title: Reconciliações
         new: Iniciar nova Reconciliação

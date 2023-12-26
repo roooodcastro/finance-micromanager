@@ -694,6 +694,9 @@
           "new": "Start new Reconciliation",
           "title": "Reconciliations"
         },
+        "info_alert": {
+          "message": "There is a reconciliation in progress for %{date}. <a href=\"%{href}\">Click here</a> to access it."
+        },
         "show": {
           "calculated_balance": "Calculated",
           "calculated_balance_info_text": "This balance was calculated by summing the amounts from all transaction since the last reconciliation, or since the start, if this is the first reconciliation.\n",

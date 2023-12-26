@@ -748,6 +748,9 @@
           "new": "Iniciar nova Reconciliação",
           "title": "Reconciliações"
         },
+        "info_alert": {
+          "message": "Há uma reconcilição em andamento para o dia %{date}. <a href=\"%{href}\">Clique aqui</a> para acessá-la."
+        },
         "show": {
           "calculated_balance": "Calculado",
           "calculated_balance_info_text": "Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde o início, caso esta seja a primeira reconciliação.\n",

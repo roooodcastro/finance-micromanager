@@ -17,7 +17,13 @@
         {{ title }}:
       </strong>
 
-      {{ message }}
+      <span
+        v-if="html"
+        v-html="message"
+      />
+      <template v-else>
+        {{ message }}
+      </template>
     </div>
   </div>
 </template>
@@ -41,7 +47,11 @@ export default {
     compact: {
       type: Boolean,
       default: false,
-    }
+    },
+    html: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
