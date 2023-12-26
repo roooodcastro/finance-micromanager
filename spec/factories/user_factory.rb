@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:first_name) { |n| "First #{n}" }
-    sequence(:last_name) { |n| "Last #{n}" }
-    sequence(:email) { |n| "email_#{n}@email.com" }
-    sequence(:password) { |n| "testing#{n}" }
+    sequence(:first_name, 'First AAA')
+    sequence(:last_name, 'Last AAA')
+    sequence(:email, 'email@email.aaa')
+    sequence(:password, 'aaaaaa')
 
     default_profile { build(:profile, user: nil) } # rubocop:disable FactoryBot/FactoryAssociationWithStrategy
 

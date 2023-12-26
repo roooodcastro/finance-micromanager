@@ -111,7 +111,7 @@ RSpec.describe SubcategoriesController, :travel_to_now do
       }
     end
 
-    it 'disabled the subcategory and renders json' do
+    it 'disables the subcategory and renders json' do
       expect { delete_request }
         .to not_change { Subcategory.count }
         .and change { subcategory.reload.disabled_at }
@@ -136,7 +136,7 @@ RSpec.describe SubcategoriesController, :travel_to_now do
       }
     end
 
-    it 'disabled the subcategory and renders json' do
+    it 're-enables the subcategory and renders json' do
       expect { reenable_request }
         .to not_change { Subcategory.count }
         .and change { subcategory.reload.disabled_at }

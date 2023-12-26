@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :transaction do
-    sequence(:name) { |n| "Transaction #{n}" }
+    sequence(:name, 'Transaction AAA')
     amount { 10.00 }
     transaction_date { Time.current }
 

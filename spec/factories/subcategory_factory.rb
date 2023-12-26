@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :subcategory do
-    sequence(:name) { |n| "Subcategory #{n}" }
+    sequence(:name, 'Subcategory AAA')
     category
 
     trait :disabled do

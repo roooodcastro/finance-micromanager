@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :wallet do
-    sequence(:name) { |n| "Wallet #{n}" }
+    sequence(:name, 'Wallet AAA')
     balance { 0 }
     profile
 
