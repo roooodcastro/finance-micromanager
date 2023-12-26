@@ -5,8 +5,9 @@ class DashboardSerializer < ApplicationSerializer
 
   def as_json
     {
-      categories:         profile.categories.as_json,
-      category_summaries: category_summaries.as_json
+      categories:                 profile.categories.as_json,
+      category_summaries:         category_summaries.as_json,
+      in_progress_reconciliation: profile.reconciliations.in_progress.last.as_json || {}
     }
   end
 

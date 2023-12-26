@@ -2,6 +2,8 @@
   <div>
     <PageHeader :title="t('title')" />
 
+    <InProgressReconciliationInfoAlert :reconciliation="inProgressReconciliation" />
+
     <DateRangeSelector
       class="mb-3"
       @change="handleDateRangeChange"
@@ -54,11 +56,13 @@ import RecentTransactionsList from '~/components/transactions/RecentTransactions
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
+import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
 
 export default {
   components: {
     CategorySummariesList,
     DateRangeSelector,
+    InProgressReconciliationInfoAlert,
     PageHeader,
     RecentTransactionsList,
     TransactionTypeTabs,
@@ -72,6 +76,10 @@ export default {
     categories: {
       type: Array,
       required:true,
+    },
+    inProgressReconciliation: {
+      type: Object,
+      required: true,
     },
   },
 
