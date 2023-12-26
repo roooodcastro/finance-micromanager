@@ -132,11 +132,14 @@ export default {
       daysToShow: 0,
     });
     transactionStore.fetch();
-    const { transactions, massEditMode } = storeToRefs(transactionStore);
+    const { transactions, massEditMode, defaultTransactionDate } = storeToRefs(transactionStore);
+
+    // Change default transaction date for new transactions created on this page
+    defaultTransactionDate.value = props.reconciliation.date;
 
     watch(transactions, () => reconciliationStore.fetchSingle());
 
-    const handleNewTransaction = () => {};
+    const handleNewTransaction = () => transactionStore.openFormModal(null);
     const handleEnterMassEditTransactions = transactionStore.enterMassEditMode;
     const handleCancelMassEditTransactions = transactionStore.cancelMassEditMode;
 

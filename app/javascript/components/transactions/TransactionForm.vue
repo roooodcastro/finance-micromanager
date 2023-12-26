@@ -148,7 +148,11 @@ export default {
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
-    const { transactionForFormModal: transaction, transactions } = storeToRefs(transactionStore);
+    const {
+      transactionForFormModal: transaction,
+      transactions,
+      defaultTransactionDate
+    } = storeToRefs(transactionStore);
     const { activeWallets } = storeToRefs(walletStore);
 
     const showWalletField = computed(() => !!activeWallets.value.length);
@@ -180,10 +184,8 @@ export default {
         transaction.value.walletId = currentProfile.value.defaultWalletId;
       }
 
-      transaction.value.amountType =  transaction.value.amountCents > 0 ? 'credit' : 'debit';
-
-      const defaultTransactionDate = new Date().toISOString().split('T')[0];
-      transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate;
+      transaction.value.amountType =  transaction.value.amount > 0 ? 'credit' : 'debit';
+      transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate.value;
     };
 
     watch(
