@@ -580,6 +580,10 @@
       "update": {
         "error": "Transação não pode ser atualizada: %{error}",
         "success": "Transação atualizada com sucesso."
+      },
+      "update_all": {
+        "error": "Transações não puderam ser atualizadas: %{error}",
+        "success": "Transações atualizadas com sucesso."
       }
     },
     "views": {
@@ -747,7 +751,10 @@
         "show": {
           "calculated_balance": "Calculado",
           "calculated_balance_info_text": "Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde o início, caso esta seja a primeira reconciliação.\n",
+          "cancel_mass_edit_transactions": "Cancelar Edição em Massa",
           "difference_balance": "Divergência",
+          "enter_mass_edit_transactions": "Edição em Massa",
+          "new_transaction": "Nova Transação",
           "real_balance": "Real",
           "real_balance_info_text": "Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.\n",
           "status": "Status",
@@ -836,6 +843,12 @@
           "delete": "Remover",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "edit": "Editar",
+          "mass_edit": "Editar em Massa",
+          "mass_edit_cancel": "Cancelar",
+          "mass_edit_deselect_all": "Deselecionar Tudo",
+          "mass_edit_selected": "%{count} Selecionada(s)",
+          "mass_edit_submit": "Concluir",
+          "mass_editing": "Editando em Massa",
           "name": "Nome",
           "new": "Nova Transação",
           "no_transactions": "Não há transações para exibir.",
@@ -843,6 +856,15 @@
           "title": "Transações",
           "transaction_date": "Data",
           "view_more": "Ver todas as transações&hellip;"
+        },
+        "mass_edit_form": {
+          "cancel": "Cancelar",
+          "category_label": "Categoria",
+          "edit_title": "Editar Transações em Massa",
+          "editing_x_transactions": "Isso irá atualizar %{count} transações",
+          "new_title": "Editar Transações em Massa",
+          "submit": "Salvar",
+          "wallet_label": "Carteira"
         },
         "types": {
           "all_transactions": "Todas",

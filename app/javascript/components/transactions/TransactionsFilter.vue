@@ -2,14 +2,13 @@
   <div class="dropdown flex-shrink-0">
     <a
       href="#"
-      class="w-100"
-      :class="{ 'btn btn-sm btn-outline-dark': !linkToggle, 'text-dark text-decoration-none': linkToggle }"
+      :class="toggleClasses"
       data-bs-toggle="dropdown"
     >
       <FontAwesomeIcon icon="filter" />
       <span
         class="ms-2"
-        :class="{ 'd-none d-lg-inline': linkToggle }"
+        :class="{ 'd-none': hideToggleText }"
       >
         {{ t('filters') }}
       </span>
@@ -103,9 +102,13 @@ export default {
   },
 
   props: {
-    linkToggle: {
+    hideToggleText: {
       type: Boolean,
       default: false,
+    },
+    toggleClasses: {
+      type: String,
+      default: '',
     },
   },
 

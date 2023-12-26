@@ -39,6 +39,7 @@ import {
   faUserPlus,
   faUserTag,
   faWallet,
+  faXmark,
   faYenSign,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -103,5 +104,6 @@ library.add(
   faUserPlus,
   faUserTag,
   faWallet,
+  faXmark,
   faYenSign,
 );

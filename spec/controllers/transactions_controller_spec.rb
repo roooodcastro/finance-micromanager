@@ -183,4 +183,126 @@ RSpec.describe TransactionsController do
         .to eq('transactionId' => transaction.id, 'message' => 'Transaction was successfully destroyed.')
     end
   end
+
+  describe 'PATCH update_all' do
+    subject(:update_all_request) { patch :update_all, params: }
+
+    let!(:transaction_a) { create(:transaction, profile: profile, category: category_a, wallet: nil) }
+    let!(:transaction_b) { create(:transaction, profile: profile, category: category_b, wallet: wallet_a) }
+    let!(:transaction_c) do
+      create(:transaction, profile: profile, category: category_a, subcategory: subcategory, wallet: nil)
+    end
+
+    let(:category_a) { create(:category) }
+    let(:category_b) { create(:category) }
+    let(:subcategory) { create(:subcategory, category: category_a) }
+    let(:wallet_a) { create(:wallet, profile:) }
+    let(:wallet_b) { create(:wallet, profile:) }
+
+    context 'when category_id is specified with no subcategory' do
+      let(:params) do
+        { transaction_ids: transaction_ids, transaction: { name: 'New Name', category_id: category_b.id } }
+      end
+
+      let(:transaction_ids) { [transaction_a.id, transaction_c.id] }
+
+      let(:expected_json) { { 'message' => 'Transactions were successfully updated.' } }
+
+      it 'updates only the category of all transactions' do
+        expect { update_all_request }
+          .to not_change { Transaction.count }
+          .and change { transaction_a.reload.category }
+          .to(category_b)
+          .and not_change { transaction_a.wallet }
+          .and not_change { transaction_a.name }
+          .and change { transaction_c.reload.category }
+          .to(category_b)
+          .and change { transaction_c.subcategory }
+          .to(nil)
+          .and not_change { transaction_b.reload.category }
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response).to eq(expected_json)
+      end
+    end
+
+    context 'when category_id and subcategory_id are specified' do
+      let(:params) do
+        {
+          transaction_ids: transaction_ids,
+          transaction:     { name: 'New Name', category_id: [category_a.id, subcategory.id].join('|') }
+        }
+      end
+
+      let(:transaction_ids) { [transaction_a.id, transaction_b.id] }
+
+      let(:expected_json) { { 'message' => 'Transactions were successfully updated.' } }
+
+      it 'updates only the category and subcategory of all transactions' do
+        expect { update_all_request }
+          .to not_change { Transaction.count }
+          .and not_change { transaction_a.reload.category }
+          .and change { transaction_a.subcategory }
+          .to(subcategory)
+          .and not_change { transaction_a.wallet }
+          .and not_change { transaction_a.name }
+          .and change { transaction_b.reload.category }
+          .to(category_a)
+          .and change { transaction_b.subcategory }
+          .to(subcategory)
+          .and not_change { transaction_c.reload.category }
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response).to eq(expected_json)
+      end
+    end
+
+    context 'when wallet_id is specified' do
+      let(:params) do
+        { transaction_ids: transaction_ids, transaction: { name: 'New Name', wallet_id: wallet_b.id } }
+      end
+
+      let(:transaction_ids) { [transaction_b.id, transaction_c.id] }
+
+      let(:expected_json) { { 'message' => 'Transactions were successfully updated.' } }
+
+      it 'updates only the wallet of all transactions' do
+        expect { update_all_request }
+          .to not_change { Transaction.count }
+          .and not_change { transaction_b.reload.category }
+          .and not_change { transaction_b.subcategory }
+          .and change { transaction_b.wallet }
+          .to(wallet_b)
+          .and not_change { transaction_b.name }
+          .and not_change { transaction_c.reload.category }
+          .and not_change { transaction_c.subcategory }
+          .and change { transaction_c.wallet }
+          .to(wallet_b)
+          .and not_change { transaction_a.reload.wallet }
+
+        expect(response).to have_http_status(:ok)
+        expect(json_response).to eq(expected_json)
+      end
+    end
+
+    context 'when there is an error' do
+      let(:params) { { transaction_ids: transaction_ids, transaction: { category_id: 'invalid' } } }
+      let(:transaction_ids) { [transaction_a.id, transaction_b.id, transaction_c.id] }
+
+      let(:expected_json) do
+        { 'message' => 'Transactions could not be updated: Validation failed: Category must exist' }
+      end
+
+      it 'does not update anything' do
+        expect { update_all_request }
+          .to not_change { Transaction.count }
+          .and not_change { transaction_a.reload.attributes }
+          .and not_change { transaction_b.reload.attributes }
+          .and not_change { transaction_c.reload.attributes }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response).to eq(expected_json)
+      end
+    end
+  end
 end

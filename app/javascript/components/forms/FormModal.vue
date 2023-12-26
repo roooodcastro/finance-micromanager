@@ -93,7 +93,7 @@ export default {
     const title = computed(() => isNewRecord.value ? props.t('new_title') : props.t('edit_title'));
 
     const closeModal = () => modalStore.hide(props.formId);
-    const handleShown = (ev) => ev.target.querySelector('input.focus').focus();
+    const handleShown = (ev) => ev.target.querySelector('input.focus')?.focus();
 
     return {
       title,

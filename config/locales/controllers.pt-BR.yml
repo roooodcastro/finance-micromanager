@@ -80,6 +80,9 @@ pt-BR:
       error: 'Transação não pode ser atualizada: %{error}'
     destroy:
       success: 'Transação removida com sucesso.'
+    update_all:
+      success: 'Transações atualizadas com sucesso.'
+      error: 'Transações não puderam ser atualizadas: %{error}'
 
   wallets:
     create:

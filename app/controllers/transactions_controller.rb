@@ -57,6 +57,20 @@ class TransactionsController < AbstractAuthenticatedController
     render json: camelize_props(transaction_id: transaction_id, message: t('.success'))
   end
 
+  def update_all
+    transactions = Current.profile.transactions.where(id: params[:transaction_ids])
+
+    Transaction.transaction do
+      transactions.find_each(batch_size: 100) do |transaction|
+        transaction.update!(update_all_params)
+      end
+    end
+
+    render json: { message: t('.success') }
+  rescue ActiveRecord::ActiveRecordError, ActiveRecord::Rollback => e
+    render json: { message: t('.error', error: e.message) }, status: :unprocessable_entity
+  end
+
   private
 
   def set_transaction
@@ -75,6 +89,13 @@ class TransactionsController < AbstractAuthenticatedController
         permitted_params[:category_id]    = permitted_params[:category_id].split('|')[0]
         permitted_params
       end
+  end
+
+  def update_all_params
+    transaction_params.permit(:category_id, :subcategory_id, :wallet_id).compact_blank.then do |uap|
+      uap[:subcategory_id] = nil if uap[:category_id].present? && uap[:subcategory_id].blank?
+      uap
+    end
   end
 
   def search_params
