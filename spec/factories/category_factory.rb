@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :category do
-    sequence(:name) { |n| "Category #{n}" }
+    sequence(:name, 'Category AAA')
     color { '#808080' }
     profile
   end

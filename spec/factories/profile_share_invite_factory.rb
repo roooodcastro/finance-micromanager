@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :profile_share_invite do
-    sequence(:invitee_email) { |n| "invitee_email_#{n}@email.com" }
+    sequence(:invitee_email, 'invitee_email@email.aaa')
     status { :pending }
     profile_owner { association(:user) }
     profile { association(:profile, user: profile_owner) }
