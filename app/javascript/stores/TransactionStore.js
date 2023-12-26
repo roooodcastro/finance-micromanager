@@ -26,6 +26,7 @@ export default defineBaseApiStore('transaction', {
     idForFormModal: null,
     massEditMode: false,
     massEditTransactionIds: [],
+    defaultTransactionDate: new Date().toISOString().split('T')[0],
     fetchParams: {
       daysToShow: 30,
       excludeDebits: false,
