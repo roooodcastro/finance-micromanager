@@ -2,7 +2,9 @@ import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
+import I18n from '~/utils/I18n.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { transactions as transactionsApi } from '~/api/all.js';
 
@@ -85,8 +87,27 @@ export default defineBaseApiStore('transaction', {
       }
     },
 
-    massUpdate() {
-      // todo
+    massUpdate(transaction) {
+      const notificationStore = useNotificationStore();
+      let responseResolve;
+      const returnPromise = new Promise(resolve => responseResolve = resolve);
+      const transactionIds = Object.keys(this.massEditTransactionIds);
+
+      transactionsApi
+        .updateAll({ data: { transaction, transactionIds } })
+        .then((response) => {
+          this.fetch();
+          document.querySelector(`#${MASS_EDIT_TRANSACTION_FORM_ID}`).reset();
+          notificationStore.notify(response.message, 'success');
+          this.cancelMassEditMode();
+          responseResolve();
+        })
+        .catch((error) => {
+          const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
+          notificationStore.notify(errorMessage, 'danger');
+        });
+
+      return returnPromise;
     },
 
     remove(id) {

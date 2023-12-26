@@ -50,7 +50,9 @@ Rails.application.routes.draw do
     resources :currencies, only: %i[index]
     resources :current_profiles, only: %i[create]
     resources :locales, only: %i[index]
-    resources :transactions, except: %i[show]
+    resources :transactions, except: %i[show] do
+      patch :update_all, on: :collection
+    end
     resources :wallets, only: %i[index create update destroy] do
       patch :reenable, on: :member
     end

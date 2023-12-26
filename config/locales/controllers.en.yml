@@ -78,7 +78,9 @@ en:
       error: 'Transaction could not be updated: %{error}'
     destroy:
       success: 'Transaction was successfully destroyed.'
-
+    update_all:
+      success: 'Transactions were successfully updated.'
+      error: 'Transactions could not be updated: %{error}'
   wallets:
     create:
       success: 'Wallet "%{name}" was successfully created.'

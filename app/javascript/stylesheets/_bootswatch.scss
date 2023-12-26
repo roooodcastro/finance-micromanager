@@ -180,6 +180,10 @@ th {
   .text-hover-#{$color}:hover {
     color: $value !important;
   }
+
+  .bg-hover-#{$color}:hover {
+    background-color: $value !important;
+  }
 }
 
 .text-hover-white:hover {

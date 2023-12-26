@@ -26,7 +26,6 @@
             :id="formHelper.fieldId('category_id')"
             v-model="transaction.categoryId"
             :name="formHelper.fieldName('category_id')"
-            required
           />
 
           <template v-if="showWalletField">
@@ -41,7 +40,6 @@
               :id="formHelper.fieldId('wallet_id')"
               v-model="transaction.walletId"
               :name="formHelper.fieldName('wallet_id')"
-              required
             />
           </template>
         </template>
@@ -66,7 +64,7 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
-import InfoAlert from '@/components/bootstrap/InfoAlert.vue';
+import InfoAlert from '~/components/bootstrap/InfoAlert.vue';
 
 export default {
   components: {
@@ -91,9 +89,12 @@ export default {
     const { activeWallets } = storeToRefs(walletStore);
     const { massEditTransactionIdsCount } = storeToRefs(transactionStore);
 
+    const transactionFields = ['categoryId', 'walletId'];
+
     const transaction = ref({});
 
     const showWalletField = computed(() => !!activeWallets.value.length);
+    const transactionData = computed(() => _.pick(transaction.value, transactionFields));
 
     if (!categories.value.length) {
       categoryStore.fetch();
@@ -106,9 +107,9 @@ export default {
     onMounted(() => modalStore.registerModal(MASS_EDIT_TRANSACTION_FORM_ID));
 
     const handleSubmit = (closeModal) => {
-      const transactionFields = ['categoryId', 'walletId'];
-      const transactionData = _.pick(transaction.value, transactionFields);
-      transactionStore.massUpdate(transactionData).then(closeModal);
+      if (!!transactionData.value.categoryId || !!transactionData.value.walletId) {
+        transactionStore.massUpdate(transactionData.value).then(closeModal);
+      }
     }
 
     return {

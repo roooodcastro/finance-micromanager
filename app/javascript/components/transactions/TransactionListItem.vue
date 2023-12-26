@@ -13,7 +13,11 @@
 
     <template v-slot:item>
       <div
-        class="TransactionListItem d-flex bg-light-subtle align-items-center border border-start-0 pe-2 pe-lg-0"
+        class="TransactionListItem d-flex align-items-center border border-start-0 pe-2 pe-lg-0"
+        :class="{
+          'bg-light-subtle bg-hover-light': !massEditSelected,
+          'bg-primary-subtle': massEditSelected,
+        }"
         @click="handleClick"
       >
         <span

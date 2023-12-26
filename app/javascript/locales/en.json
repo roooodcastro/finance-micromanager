@@ -526,6 +526,10 @@
       "update": {
         "error": "Transaction could not be updated: %{error}",
         "success": "Transaction was successfully updated."
+      },
+      "update_all": {
+        "error": "Transactions could not be updated: %{error}",
+        "success": "Transactions were successfully updated."
       }
     },
     "views": {

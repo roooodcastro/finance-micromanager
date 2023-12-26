@@ -580,6 +580,10 @@
       "update": {
         "error": "Transação não pode ser atualizada: %{error}",
         "success": "Transação atualizada com sucesso."
+      },
+      "update_all": {
+        "error": "Transações não puderam ser atualizadas: %{error}",
+        "success": "Transações atualizadas com sucesso."
       }
     },
     "views": {
