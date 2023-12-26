@@ -67,6 +67,7 @@
                 <input
                   class="ReconciliationWallets__input form-control form-control-sm text-end"
                   type="number"
+                  :disabled="reconciliation.status !== 'in_progress'"
                   :value="groupedReconciliationsWallets[wallet.id]?.balanceAmount"
                   @change="handleChange($event, wallet.id)"
                 >
@@ -159,11 +160,13 @@ export default {
 
       reconciliationWalletStore
         .create(reconciliationWalletId, { reconciliationId: reconciliation.id, walletId, balanceAmount })
-        .then(() => {
-        loading.value[walletId] = false;
-        saved.value[walletId] = true;
-        timeouts.value[walletId] = setTimeout(() => saved.value[walletId] = false, 5000);
-      });
+        .then((success) => {
+          loading.value[walletId] = false;
+          if (success) {
+            saved.value[walletId] = true;
+            timeouts.value[walletId] = setTimeout(() => saved.value[walletId] = false, 5000);
+          }
+        });
     };
 
     return {

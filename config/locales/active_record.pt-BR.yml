@@ -39,10 +39,12 @@ pt-BR:
           attributes:
             currency:
               cannot_change_after_creation: não pode ser alterada. Por favor crie um novo perfil para a moeda
+
         profile_share:
           attributes:
             user:
               owner_self_share: já é o(a) dono(a) deste perfil
+
         reconciliation:
           attributes:
             base:
@@ -54,18 +56,29 @@ pt-BR:
             date:
               cannot_be_older_than_finished_reconciliations: deve ser posterior à data da última reconciliação
               cannot_finish_date_in_future: não pode ser uma data no futuro ao terminar uma reconciliação
+
         reconciliation_wallet:
           attributes:
             balance_amount_cents:
               cannot_change_on_completed_reconciliation: >
                 não pode ser alterado após reconciliação ser concluída ou cancelada
+
         transaction:
           attributes:
             base:
               cannot_alter_prior_to_reconciliation: >-
                 Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última
                 reconciliação
+
         user:
           attributes:
             base:
               email_not_valid: Email não é válido
+
+        wallet:
+          attributes:
+            base:
+              cannot_disable_with_nonzero_balance: >
+                Não é possível desabilitar esta carteira pois seu saldo não é zero. O saldo deve ser zero para que a
+                carteira possa ser desabilitada. Isso pode ser feito criando uma nova transação, ou completando uma
+                reconciliação de forma que o saldo da carteira seja zerado.

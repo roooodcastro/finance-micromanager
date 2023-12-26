@@ -24,10 +24,11 @@ export default defineStore('reconciliationWallet', {
 
       reconciliationsWalletsApi
         .create({ params: { reconciliationId: this.reconciliationId }, data })
-        .then(() => reconciliationStore.fetchSingle().then(() => responseResolve()))
+        .then(() => reconciliationStore.fetchSingle().then(() => responseResolve(true)))
         .catch((error) => {
           const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
           notificationStore.notify(errorMessage, 'danger');
+          responseResolve(false);
         });
 
       return returnPromise;

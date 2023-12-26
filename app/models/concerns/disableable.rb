@@ -11,10 +11,24 @@ module Disableable
   end
 
   def disable!
+    return false unless can_disable?
+
     update!(disabled_at: Time.current, disabled_by: Current.user)
   end
 
   def enable!
+    return false unless can_enable?
+
     update!(disabled_at: nil, disabled_by: nil)
+  end
+
+  private
+
+  def can_disable?
+    true
+  end
+
+  def can_enable?
+    true
   end
 end

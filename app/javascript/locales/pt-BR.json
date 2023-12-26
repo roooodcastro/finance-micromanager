@@ -92,6 +92,13 @@
                 "email_not_valid": "Email não é válido"
               }
             }
+          },
+          "wallet": {
+            "attributes": {
+              "base": {
+                "cannot_disable_with_nonzero_balance": "Não é possível desabilitar esta carteira pois seu saldo não é zero. O saldo deve ser zero para que a carteira possa ser desabilitada. Isso pode ser feito criando uma nova transação, ou completando uma reconciliação de forma que o saldo da carteira seja zerado.\n"
+              }
+            }
           }
         }
       },
