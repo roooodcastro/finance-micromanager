@@ -71,6 +71,7 @@ pt-BR:
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
         generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
+        no_records: Não há nada para exibir
         pagination: Paginação
         per_page: 'Por Página:'
         page_desc: 'Exibindo %{items} de %{total}'
@@ -143,12 +144,19 @@ pt-BR:
       index:
         title: Reconciliações
         new: Iniciar nova Reconciliação
+        cancel: Cancelar
+        finish: Concluir
       form:
         new_title: Iniciar nova Reconciliação
         edit_title: Editar Reconciliação
         date_label: Data
         cancel: Cancelar
         submit: Salvar
+      list:
+        name: 'Reconciliação do dia %{date}'
+        desc_in_progress: Em andamento
+        desc_cancelled: 'Cancelada em %{date}'
+        desc_finished: 'Concluída em %{date}'
       show:
         title: 'Reconciliação do dia %{date}'
         status: Status

@@ -631,6 +631,7 @@
           "disable_confirmation": "Are you sure? You can re-enable this in the future.",
           "edit": "Edit",
           "generic_error": "An unexpected error has occurred. Please reload the page and try again.",
+          "no_records": "There's nothing to show",
           "page_desc": "Showing %{items} of %{total}",
           "pagination": "Pagination",
           "per_page": "Per Page:",
@@ -707,11 +708,20 @@
           "submit": "Submit"
         },
         "index": {
+          "cancel": "Cancel",
+          "confirm_cancel_message": "Are you sure you want to cancel the reconciliation? This cannot be undone.",
+          "finish": "Complete",
           "new": "Start new Reconciliation",
           "title": "Reconciliations"
         },
         "info_alert": {
           "message": "There is a reconciliation in progress for %{date}. <a href=\"%{href}\">Click here</a> to access it."
+        },
+        "list": {
+          "desc_cancelled": "Cancelled on %{date}",
+          "desc_finished": "Completed on %{date}",
+          "desc_in_progress": "In Progress",
+          "name": "Reconciliation for %{date}"
         },
         "show": {
           "calculated_balance": "Calculated",

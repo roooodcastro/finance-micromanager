@@ -1,5 +1,10 @@
 <template>
-  <div class="list-group">
+  <NoRecordsFound v-if="!reconciliations.length" />
+
+  <div
+    v-else
+    class="list-group"
+  >
     <template
       v-for="reconciliation in reconciliations"
       :key="`${reconciliation.id}_${reconciliation.updatedAt}`"
@@ -15,9 +20,11 @@ import { storeToRefs } from 'pinia';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 
 import ReconciliationListItem from '~/components/reconciliations/ReconciliationListItem.vue';
+import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 
 export default {
   components: {
+    NoRecordsFound,
     ReconciliationListItem,
   },
 

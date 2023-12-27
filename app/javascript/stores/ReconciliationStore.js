@@ -1,8 +1,11 @@
 import _ from 'lodash';
-import { fixUuidObjectKeys } from '~/utils/StringUtils.js';
+
 import { reconciliations as reconciliationsApi } from '~/api/all.js';
-import { RECONCILIATION_FORM_ID } from '~/utils/Constants.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
+import { fixUuidObjectKeys } from '~/utils/StringUtils.js';
+import { RECONCILIATION_FORM_ID } from '~/utils/Constants.js';
+import I18n from '~/utils/I18n.js';
 
 export default defineBaseApiStore('reconciliation', {
   resourceName: 'reconciliation',
@@ -33,6 +36,36 @@ export default defineBaseApiStore('reconciliation', {
         this.reconciliation = response.reconciliation;
         this.walletBalances = fixUuidObjectKeys(response.walletBalances);
       });
+    },
+
+    finish(id) {
+      const notificationStore = useNotificationStore();
+
+      reconciliationsApi
+        .finish({ id })
+        .then((response) => {
+          this.fetch();
+          notificationStore.notify(response.message, 'success');
+        })
+        .catch((error) => {
+          const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
+          notificationStore.notify(errorMessage, 'danger');
+        });
+    },
+
+    cancel(id) {
+      const notificationStore = useNotificationStore();
+
+      reconciliationsApi
+        .destroy({ id })
+        .then((response) => {
+          this.fetch();
+          notificationStore.notify(response.message, 'success');
+        })
+        .catch((error) => {
+          const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
+          notificationStore.notify(errorMessage, 'danger');
+        });
     },
   },
 });

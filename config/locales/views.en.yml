@@ -71,6 +71,7 @@ en:
         disable_confirmation: Are you sure? You can re-enable this in the future.
         edit: Edit
         generic_error: An unexpected error has occurred. Please reload the page and try again.
+        no_records: "There's nothing to show"
         pagination: Pagination
         per_page: 'Per Page:'
         page_desc: 'Showing %{items} of %{total}'
@@ -141,12 +142,20 @@ en:
       index:
         title: Reconciliations
         new: Start new Reconciliation
+        cancel: Cancel
+        finish: Complete
+        confirm_cancel_message: 'Are you sure you want to cancel the reconciliation? This cannot be undone.'
       form:
         new_title: Start new Reconciliation
         edit_title: Edit Reconciliation
         date_label: Date
         cancel: Cancel
         submit: Submit
+      list:
+        name: 'Reconciliation for %{date}'
+        desc_in_progress: In Progress
+        desc_cancelled: 'Cancelled on %{date}'
+        desc_finished: 'Completed on %{date}'
       show:
         title: 'Reconciliation for %{date}'
         status: Status
