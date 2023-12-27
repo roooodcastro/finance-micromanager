@@ -16,7 +16,7 @@ jobs:
     permissions: write-all
     strategy:
       matrix:
-        ruby: ['3.2', '3.3', head]
+        ruby: ['3.3', head]
     services:
       postgres:
         image: postgres:15-alpine
