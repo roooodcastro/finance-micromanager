@@ -7,7 +7,7 @@
   >
     <option />
     <option
-      v-for="option in options"
+      v-for="option in options(false)"
       :key="option.value"
       :value="option.value"
     >

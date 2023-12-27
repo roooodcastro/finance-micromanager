@@ -5,5 +5,9 @@ FactoryBot.define do
     sequence(:name, 'Category AAA')
     color { '#808080' }
     profile
+
+    trait :system do
+      category_type { :system }
+    end
   end
 end

@@ -14,6 +14,6 @@ class Subcategory < ApplicationRecord
   end
 
   def display_name
-    "#{category.name}/#{name}"
+    "#{category.display_name}/#{name}"
   end
 end

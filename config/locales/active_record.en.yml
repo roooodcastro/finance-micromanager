@@ -11,6 +11,10 @@ en:
         balance_amount_cents: Balance
     errors:
       models:
+        category:
+          attributes:
+            base:
+              cannot_edit_system_category: Cannot edit system categories
         profile:
           attributes:
             currency:

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  HEX_COLOR_REGEX = /\A#[[0-9][a-f]]{6}\z/i
-  TEMPORARY_NAME  = 'Temporary'
-  TEMPORARY_COLOR = '#808080'
+  HEX_COLOR_REGEX       = /\A#[[0-9][a-f]]{6}\z/i
+  TEMPORARY_NAME        = 'Temporary'
+  RECONCILIATION_NAME   = 'reconciliations.category_name'
+  SYSTEM_CATEGORY_COLOR = '#808080'
 
   belongs_to :profile
 
@@ -14,16 +15,43 @@ class Category < ApplicationRecord
   has_many :active_subcategories, -> { active }, class_name: 'Subcategory', dependent: :restrict_with_exception
   # rubocop:enable Rails/InverseOf
 
+  enum category_type: { user: 'user', system: 'system' }, _default: 'user'
+
   validates :name, presence: true
   validates :color, format: { with: HEX_COLOR_REGEX }
 
+  validate :validate_system_category
+
+  def self.reconciliation_category_for(profile)
+    find_or_create_by!(
+      profile:       profile,
+      name:          RECONCILIATION_NAME,
+      color:         SYSTEM_CATEGORY_COLOR,
+      category_type: :system
+    )
+  end
+
   def self.temporary_category_for(profile)
-    find_by!(profile: profile, name: TEMPORARY_NAME)
+    find_by!(profile: profile, name: TEMPORARY_NAME, category_type: :system)
   rescue ActiveRecord::RecordNotFound
-    create!(profile: profile, name: TEMPORARY_NAME, color: TEMPORARY_COLOR)
+    create!(profile: profile, name: TEMPORARY_NAME, color: SYSTEM_CATEGORY_COLOR, category_type: :system)
   end
 
   def as_json(*)
-    super.merge(subcategories: active_subcategories.as_json)
+    super.merge(
+      subcategories: active_subcategories.as_json,
+      system:        system?,
+      name:          display_name
+    )
+  end
+
+  def display_name
+    system? ? I18n.t(name) : name
+  end
+
+  def validate_system_category
+    return if !persisted? || !system?
+
+    errors.add(:base, :cannot_edit_system_category)
   end
 end

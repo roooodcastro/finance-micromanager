@@ -5,7 +5,10 @@
     :back-button-href="categoriesPath"
     class="flex-wrap"
   >
-    <template v-slot:actions>
+    <template
+      v-if="!categoryFromStore.system"
+      v-slot:actions
+    >
       <DropdownMenuItem
         :label="t('new_subcategory')"
         icon="plus"
