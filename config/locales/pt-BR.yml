@@ -2,7 +2,8 @@
 pt-BR:
   locale_name: Português
   reconciliations:
-    transaction_name: 'Ajuste de Saldo da Reconciliação'
+    transaction_name: Ajuste de Saldo da Reconciliação
+    category_name: Reconciliações
   activerecord:
     errors:
       messages:

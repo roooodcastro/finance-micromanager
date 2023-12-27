@@ -4,7 +4,7 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    categories = Current.profile.categories.includes(:active_subcategories).order(:name)
+    categories = Current.profile.categories.includes(:active_subcategories).order({ category_type: :desc }, :name)
 
     props = { categories: categories.as_json }
 

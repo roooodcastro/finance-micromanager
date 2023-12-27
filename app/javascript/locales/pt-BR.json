@@ -45,6 +45,13 @@
           }
         },
         "models": {
+          "category": {
+            "attributes": {
+              "base": {
+                "cannot_edit_system_category": "Cannot edit system categories"
+              }
+            }
+          },
           "profile": {
             "attributes": {
               "currency": {
@@ -514,6 +521,7 @@
       "footer_version": "Versão"
     },
     "reconciliations": {
+      "category_name": "Reconciliações",
       "create": {
         "error": "Reconciliação para %{date} não pode ser iniciada: %{error}",
         "success": "Reconciliação para %{date} iniciada com sucesso."
@@ -527,6 +535,7 @@
         "success_with_correction": "Reconciliação para %{date} finalizada com sucesso. Uma diferença de saldo de %{balance_difference} foi detectada, e uma transação de correção foi criada para o dia %{date} para corrigir o saldo do perfil de acordo com o saldo reportado.",
         "success_without_correction": "Reconciliação para %{date} finalizada com sucesso. Nenhuma diferença de saldo foi detectada."
       },
+      "transaction_name": "Ajuste de Saldo da Reconciliação",
       "update": {
         "error": "Reconciliação para %{date} não pode ser atualizada: %{error}",
         "success": "Reconciliação para %{date} atualizada com sucesso."

@@ -9,13 +9,19 @@ export default defineStore('category', {
   }),
   getters: {
     categoriesForSelect: (state) => {
-      return state.categories.reduce((result, category) => {
-        result.push({ label: category.name, value: category.id })
-        category.subcategories.forEach((subcategory) => {
-          result.push({ label: subcategory.displayName, value: `${category.id}|${subcategory.id}`});
-        });
-        return result;
-      }, []);
+      return (includeSystem = false) => {
+        return state.categories.reduce((result, category) => {
+          if (!includeSystem && category.system) {
+            return result;
+          }
+
+          result.push({ label: category.name, value: category.id })
+          category.subcategories.forEach((subcategory) => {
+            result.push({ label: subcategory.displayName, value: `${category.id}|${subcategory.id}`});
+          });
+          return result;
+        }, []);
+      };
     },
   },
   actions: {

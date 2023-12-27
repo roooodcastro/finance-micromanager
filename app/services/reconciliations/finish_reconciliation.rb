@@ -62,7 +62,7 @@ module Reconciliations
     end
 
     def category_for_transaction
-      profile.categories.first
+      Category.reconciliation_category_for(profile)
     end
   end
 end
