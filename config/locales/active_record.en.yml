@@ -33,6 +33,9 @@ en:
                 This reconciliation is already finished. Further changes to it are not possible
               cannot_change_after_cancelled: >-
                 This reconciliation has been cancelled. Further changes to it are not possible
+              cannot_have_transactions_with_no_wallets: >-
+                This reconciliation cannot be completed because there are transactions within the reconciliation period
+                that have unspecified wallets. Assign wallets to all transactions and try again.
             date:
               cannot_be_older_than_finished_reconciliations: >-
                 has to be newer than the date from the last finished reconciliation
@@ -54,7 +57,7 @@ en:
         wallet:
           attributes:
             base:
-              cannot_disable_with_nonzero_balance: >
+              cannot_disable_with_nonzero_balance: >-
                 Cannot be disabled because wallet has remaining balance. Wallet balance must be zero before it can be
                 disabled. This can be done by either creating a transaction, or completing a reconciliation where the
                 resulting wallet balance is zero.

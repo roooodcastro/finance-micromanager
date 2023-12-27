@@ -7,9 +7,10 @@ FactoryBot.define do
     transaction_date { Time.current }
 
     created_by { association(:user) }
-    updated_by { association(:user) }
+    updated_by { created_by }
     profile { association(:profile, user: created_by) }
     category { association(:category, profile:) }
+    wallet { association(:wallet, profile:) }
 
     trait :skip_validations do
       to_create { |instance| instance.save(validate: false) }

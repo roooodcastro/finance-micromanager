@@ -70,8 +70,9 @@
             "attributes": {
               "base": {
                 "cannot_change_after_cancelled": "Esta reconciliação foi cancelada. Não é mais possível alterá-la",
-                "cannot_change_after_finished": "Esta reconciliação já está terminada. Não é mais possível alterá-la",
-                "cannot_have_two_reconciliations_in_progress": "Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser terminada ou cancelada"
+                "cannot_change_after_finished": "Esta reconciliação já está concluída. Não é mais possível alterá-la",
+                "cannot_have_transactions_with_no_wallets": "Esta reconciliação não pode ser concluída pois há transacões dentro do período de reconciliação que não possuem uma carteira. Configure carteiras para todas as transações e tente novamente.",
+                "cannot_have_two_reconciliations_in_progress": "Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser concluída ou cancelada"
               },
               "date": {
                 "cannot_be_older_than_finished_reconciliations": "deve ser posterior à data da última reconciliação",
@@ -82,7 +83,7 @@
           "reconciliation_wallet": {
             "attributes": {
               "balance_amount_cents": {
-                "cannot_change_on_completed_reconciliation": "não pode ser alterado após reconciliação ser concluída ou cancelada\n"
+                "cannot_change_on_completed_reconciliation": "não pode ser alterado após reconciliação ser concluída ou cancelada"
               }
             }
           },
@@ -103,7 +104,7 @@
           "wallet": {
             "attributes": {
               "base": {
-                "cannot_disable_with_nonzero_balance": "Não é possível desabilitar esta carteira pois seu saldo não é zero. O saldo deve ser zero para que a carteira possa ser desabilitada. Isso pode ser feito criando uma nova transação, ou completando uma reconciliação de forma que o saldo da carteira seja zerado.\n"
+                "cannot_disable_with_nonzero_balance": "Não é possível desabilitar esta carteira pois seu saldo não é zero. O saldo deve ser zero para que a carteira possa ser desabilitada. Isso pode ser feito criando uma nova transação, ou completando uma reconciliação de forma que o saldo da carteira seja zerado."
               }
             }
           }
@@ -711,9 +712,9 @@
         "index": {
           "accept": "Aceitar",
           "cancel": "Cancelar Convite",
-          "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.\n",
-          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\". Um perfil compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.\n",
-          "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você não terá acesso ao perfil, porém você pode ser convidado novamente.\n",
+          "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.",
+          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\". Um perfil compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.",
+          "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você não terá acesso ao perfil, porém você pode ser convidado novamente.",
           "pending_invite_title_accepted": "Convite Aceito",
           "pending_invite_title_pending": "Convite de Compartilhamento de Perfil",
           "pending_invite_title_rejected": "Convite Rejeitado",
@@ -779,13 +780,13 @@
         },
         "show": {
           "calculated_balance": "Calculado",
-          "calculated_balance_info_text": "Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde o início, caso esta seja a primeira reconciliação.\n",
+          "calculated_balance_info_text": "Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde o início, caso esta seja a primeira reconciliação.",
           "cancel_mass_edit_transactions": "Cancelar Edição em Massa",
           "difference_balance": "Divergência",
           "enter_mass_edit_transactions": "Edição em Massa",
           "new_transaction": "Nova Transação",
           "real_balance": "Real",
-          "real_balance_info_text": "Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.\n",
+          "real_balance_info_text": "Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.",
           "status": "Status",
           "sub_header_balances": "Saldo Geral",
           "sub_header_transactions": "Transações no Período",
@@ -796,7 +797,7 @@
           "title": "Reconciliação do dia %{date}",
           "total": "Total",
           "unspecified": "Não especificado",
-          "unspecified_balance_cannot_be_edited": "Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser reduzido a zero.\n"
+          "unspecified_balance_cannot_be_edited": "Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser reduzido a zero."
         }
       },
       "settings": {

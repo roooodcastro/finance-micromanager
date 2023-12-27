@@ -19,6 +19,7 @@ class Reconciliation < ApplicationRecord
   validate :validate_no_changes_after_finished
   validate :validate_no_changes_after_cancelled
   validate :validate_finish_date_in_future
+  validate :validate_no_transaction_without_wallets
 
   def currency
     profile&.currency || Money.default_currency
@@ -27,6 +28,17 @@ class Reconciliation < ApplicationRecord
   def as_json(*)
     currency_as_json = difference_amount.currency.as_json(only: %w[name symbol iso_code])
     super.merge(reconciliations_wallets: reconciliations_wallets.as_json, currency: currency_as_json)
+  end
+
+  def transactions
+    @transactions ||= begin
+      start_date = profile.latest_reconciliation&.date
+
+      profile.transactions.joins(:category).where(categories: { category_type: 'user' }).then do |profile_transactions|
+        profile_transactions = profile_transactions.newer_than(start_date + 1.day) if start_date
+        profile_transactions.older_than(date)
+      end
+    end
   end
 
   private
@@ -67,6 +79,13 @@ class Reconciliation < ApplicationRecord
     return if date <= Date.current
 
     errors.add(:date, :cannot_finish_date_in_future)
+  end
+
+  def validate_no_transaction_without_wallets
+    return unless finished?
+    return if transactions.all? { |transaction| transaction.wallet_id.present? }
+
+    errors.add(:base, :cannot_have_transactions_with_no_wallets)
   end
 
   def valid_status_change?(status_to_check)

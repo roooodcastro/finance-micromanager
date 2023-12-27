@@ -116,13 +116,13 @@ en:
         sent_invite_title: Invite sent to %{invitee} for profile "%{profile_name}"
         sent_invite_text_pending: The invite was sent, but the recipient has not yet replied.
         sent_invite_text_cancelled: The invite has been cancelled. The recipient can no longer accept it.
-        pending_invite_text_pending: >
+        pending_invite_text_pending: >-
           %{inviter} has invited you to share their profile "%{profile_name}". A shared profile means you both will be
           able to view and manage transactions, categories, and all other aspects associated with the profile.
-        pending_invite_text_accepted: >
+        pending_invite_text_accepted: >-
           You have accepted the invite from %{inviter} to share their profile "%{profile_name}". You can now to view
           and manage transactions, categories, and all other aspects associated with the profile.
-        pending_invite_text_rejected: >
+        pending_invite_text_rejected: >-
           You have declined the invite from %{inviter} to share their profile "%{profile_name}". You will not have
           access to their profile, but they will be able to invite you again.
         accept: Accept
@@ -173,13 +173,13 @@ en:
         new_transaction: New Transaction
         enter_mass_edit_transactions: Bulk Edit
         cancel_mass_edit_transactions: Cancel Bulk Edit
-        calculated_balance_info_text: >
+        calculated_balance_info_text: >-
           This balance was calculated by summing the amounts from all transaction since the last reconciliation, or
           since the start, if this is the first reconciliation.
-        real_balance_info_text: >
+        real_balance_info_text: >-
           This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This
           is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.
-        unspecified_balance_cannot_be_edited: >
+        unspecified_balance_cannot_be_edited: >-
           Unspecified balance refers to the balance sum of transactions which do not have a wallet specified. Before
           finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced
           to zero.

@@ -48,6 +48,7 @@
               "base": {
                 "cannot_change_after_cancelled": "This reconciliation has been cancelled. Further changes to it are not possible",
                 "cannot_change_after_finished": "This reconciliation is already finished. Further changes to it are not possible",
+                "cannot_have_transactions_with_no_wallets": "This reconciliation cannot be completed because there are transactions within the reconciliation period that have unspecified wallets. Assign wallets to all transactions and try again.",
                 "cannot_have_two_reconciliations_in_progress": "There is already a reconciliation in progress. A new reconciliation process cannot be started until the existing one is either finished or cancelled"
               },
               "date": {
@@ -80,7 +81,7 @@
           "wallet": {
             "attributes": {
               "base": {
-                "cannot_disable_with_nonzero_balance": "Cannot be disabled because wallet has remaining balance. Wallet balance must be zero before it can be disabled. This can be done by either creating a transaction, or completing a reconciliation where the resulting wallet balance is zero.\n"
+                "cannot_disable_with_nonzero_balance": "Cannot be disabled because wallet has remaining balance. Wallet balance must be zero before it can be disabled. This can be done by either creating a transaction, or completing a reconciliation where the resulting wallet balance is zero."
               }
             }
           }
@@ -657,9 +658,9 @@
         "index": {
           "accept": "Accept",
           "cancel": "Cancel Invite",
-          "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their profile \"%{profile_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the profile.\n",
-          "pending_invite_text_pending": "%{inviter} has invited you to share their profile \"%{profile_name}\". A shared profile means you both will be able to view and manage transactions, categories, and all other aspects associated with the profile.\n",
-          "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their profile \"%{profile_name}\". You will not have access to their profile, but they will be able to invite you again.\n",
+          "pending_invite_text_accepted": "You have accepted the invite from %{inviter} to share their profile \"%{profile_name}\". You can now to view and manage transactions, categories, and all other aspects associated with the profile.",
+          "pending_invite_text_pending": "%{inviter} has invited you to share their profile \"%{profile_name}\". A shared profile means you both will be able to view and manage transactions, categories, and all other aspects associated with the profile.",
+          "pending_invite_text_rejected": "You have declined the invite from %{inviter} to share their profile \"%{profile_name}\". You will not have access to their profile, but they will be able to invite you again.",
           "pending_invite_title_accepted": "Invite Accepted",
           "pending_invite_title_pending": "Profile Share Invite",
           "pending_invite_title_rejected": "Invite Rejected",
@@ -725,13 +726,13 @@
         },
         "show": {
           "calculated_balance": "Calculated",
-          "calculated_balance_info_text": "This balance was calculated by summing the amounts from all transaction since the last reconciliation, or since the start, if this is the first reconciliation.\n",
+          "calculated_balance_info_text": "This balance was calculated by summing the amounts from all transaction since the last reconciliation, or since the start, if this is the first reconciliation.",
           "cancel_mass_edit_transactions": "Cancel Bulk Edit",
           "difference_balance": "Divergence",
           "enter_mass_edit_transactions": "Bulk Edit",
           "new_transaction": "New Transaction",
           "real_balance": "Actual",
-          "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.\n",
+          "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.",
           "status": "Status",
           "sub_header_balances": "Overall Balance",
           "sub_header_transactions": "Period Transactions",
@@ -742,7 +743,7 @@
           "title": "Reconciliation for %{date}",
           "total": "Total",
           "unspecified": "Unspecified",
-          "unspecified_balance_cannot_be_edited": "Unspecified balance refers to the balance sum of transactions which do not have a wallet specified. Before finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced to zero.\n"
+          "unspecified_balance_cannot_be_edited": "Unspecified balance refers to the balance sum of transactions which do not have a wallet specified. Before finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced to zero."
         }
       },
       "settings": {
