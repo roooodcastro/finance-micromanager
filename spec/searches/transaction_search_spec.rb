@@ -142,7 +142,7 @@ RSpec.describe TransactionSearch, type: :search do
       let(:wallet_a) { create(:wallet) }
       let(:wallet_b) { create(:wallet) }
 
-      let!(:transaction) { create(:transaction) }
+      let!(:transaction) { create(:transaction, wallet: nil) }
       let!(:wallet_a_transaction) { create(:transaction, wallet: wallet_a) }
       let!(:wallet_b_transaction) { create(:transaction, wallet: wallet_b) }
 

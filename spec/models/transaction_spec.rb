@@ -9,7 +9,10 @@ RSpec.describe Transaction do
 
     let(:profile) { create(:profile) }
 
-    before { create(:reconciliation, :finished, profile: profile, date: 2.days.ago) }
+    before do
+      create(:reconciliation, :finished, profile: profile, date: 2.days.ago)
+      profile.reload
+    end
 
     context 'when trying to create a transaction' do
       let(:transaction) { build(:transaction, profile:, transaction_date:) }

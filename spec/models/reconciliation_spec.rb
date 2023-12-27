@@ -219,6 +219,40 @@ RSpec.describe Reconciliation do
     end
   end
 
+  describe '#validate_no_transaction_without_wallets' do
+    subject do
+      reconciliation.valid?
+      reconciliation.errors[:base]
+    end
+
+    let(:profile) { create(:profile) }
+    let(:reconciliation) { build(:reconciliation, :in_progress, profile: profile, date: 1.day.ago) }
+
+    context 'when reconciliation is not finished' do
+      before { create(:transaction, profile: profile, transaction_date: 2.days.ago, wallet: nil) }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when reconciliation is being finished' do
+      let(:reconciliation) { build(:reconciliation, :finished, profile: profile, date: 1.day.ago) }
+
+      context 'and all transactions have wallets' do
+        let(:wallet) { create(:wallet, profile:) }
+
+        before { create(:transaction, profile: profile, transaction_date: 2.days.ago, wallet: wallet) }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'and a transaction does not have a wallet' do
+        before { create(:transaction, profile: profile, transaction_date: 2.days.ago, wallet: nil) }
+
+        it { is_expected.to be_present }
+      end
+    end
+  end
+
   describe '.currency' do
     subject(:currency) { reconciliation.currency }
 
@@ -238,6 +272,37 @@ RSpec.describe Reconciliation do
       it 'returns the profile currency' do
         expect(currency).to eq(Money::Currency.find(:cad))
       end
+    end
+  end
+
+  describe '.transactions' do
+    subject(:transactions) { reconciliation.transactions }
+
+    let(:profile) { create(:profile) }
+    let(:wallet) { create(:wallet, profile:) }
+    let(:reconciliation) { build(:reconciliation, profile: profile, date: 1.day.ago) }
+
+    let!(:older_transaction) { create(:transaction, profile: profile, transaction_date: 4.days.ago) }
+    let!(:start_limit_transaction) { create(:transaction, profile: profile, transaction_date: 3.days.ago) }
+    let!(:mid_transaction) { create(:transaction, profile: profile, transaction_date: 2.days.ago) }
+    let!(:end_limit_transaction) { create(:transaction, profile: profile, transaction_date: 1.day.ago) }
+
+    before { create(:transaction, profile: profile, transaction_date: Date.current) }
+
+    context 'when there are no previous finished reconciliations' do
+      it 'returns all relevant transactions' do
+        expect(transactions)
+          .to contain_exactly(older_transaction, start_limit_transaction, mid_transaction, end_limit_transaction)
+      end
+    end
+
+    context 'when there is a previous finished reconciliation' do
+      before do
+        create(:reconciliation, :finished, profile: profile, date: 3.days.ago)
+        profile.reload
+      end
+
+      it { is_expected.to contain_exactly(mid_transaction, end_limit_transaction) }
     end
   end
 end

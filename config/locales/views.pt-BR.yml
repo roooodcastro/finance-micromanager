@@ -71,6 +71,7 @@ pt-BR:
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
         generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
+        no_records: Não há nada para exibir
         pagination: Paginação
         per_page: 'Por Página:'
         page_desc: 'Exibindo %{items} de %{total}'
@@ -115,15 +116,15 @@ pt-BR:
         sent_invite_title: Convite enviado para %{invitee} para o perfil "%{profile_name}"
         sent_invite_text_pending: O convite foi enviado, mas o recipiente ainda não respondeu.
         sent_invite_text_cancelled: O convite foi cancelado. O recipiente não pode mais aceitá-lo.
-        pending_invite_text_pending: >
+        pending_invite_text_pending: >-
           %{inviter} lhe convidou para compartilhar seu perfil "%{profile_name}". Um perfil compartilhada significa que
           ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
           com o perfil.
-        pending_invite_text_accepted: >
+        pending_invite_text_accepted: >-
           Você aceitou o convite de %{inviter} para compartilhar seu perfil "%{profile_name}". Você pode agora
           visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
           com o perfil.
-        pending_invite_text_rejected: >
+        pending_invite_text_rejected: >-
           Você negou o pedido de %{inviter} para compartilhar seu perfil "%{profile_name}". Você não terá acesso
           ao perfil, porém você pode ser convidado novamente.
         accept: Aceitar
@@ -143,12 +144,19 @@ pt-BR:
       index:
         title: Reconciliações
         new: Iniciar nova Reconciliação
+        cancel: Cancelar
+        finish: Concluir
       form:
         new_title: Iniciar nova Reconciliação
         edit_title: Editar Reconciliação
         date_label: Data
         cancel: Cancelar
         submit: Salvar
+      list:
+        name: 'Reconciliação do dia %{date}'
+        desc_in_progress: Em andamento
+        desc_cancelled: 'Cancelada em %{date}'
+        desc_finished: 'Concluída em %{date}'
       show:
         title: 'Reconciliação do dia %{date}'
         status: Status
@@ -166,13 +174,13 @@ pt-BR:
         new_transaction: Nova Transação
         enter_mass_edit_transactions: Edição em Massa
         cancel_mass_edit_transactions: Cancelar Edição em Massa
-        calculated_balance_info_text: >
+        calculated_balance_info_text: >-
           Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde
           o início, caso esta seja a primeira reconciliação.
-        real_balance_info_text: >
+        real_balance_info_text: >-
           Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito
           contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.
-        unspecified_balance_cannot_be_edited: >
+        unspecified_balance_cannot_be_edited: >-
           Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de
           concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser
           reduzido a zero.

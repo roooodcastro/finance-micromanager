@@ -50,9 +50,12 @@ pt-BR:
             base:
               cannot_have_two_reconciliations_in_progress: >-
                 Já existe uma reconciliação em progresso. Uma nova reconciliação não pode ser iniciada até a atual ser
-                terminada ou cancelada
-              cannot_change_after_finished: Esta reconciliação já está terminada. Não é mais possível alterá-la
+                concluída ou cancelada
+              cannot_change_after_finished: Esta reconciliação já está concluída. Não é mais possível alterá-la
               cannot_change_after_cancelled: Esta reconciliação foi cancelada. Não é mais possível alterá-la
+              cannot_have_transactions_with_no_wallets: >-
+                Esta reconciliação não pode ser concluída pois há transacões dentro do período de reconciliação que não
+                possuem uma carteira. Configure carteiras para todas as transações e tente novamente.
             date:
               cannot_be_older_than_finished_reconciliations: deve ser posterior à data da última reconciliação
               cannot_finish_date_in_future: não pode ser uma data no futuro ao terminar uma reconciliação
@@ -60,7 +63,7 @@ pt-BR:
         reconciliation_wallet:
           attributes:
             balance_amount_cents:
-              cannot_change_on_completed_reconciliation: >
+              cannot_change_on_completed_reconciliation: >-
                 não pode ser alterado após reconciliação ser concluída ou cancelada
 
         transaction:
@@ -78,7 +81,7 @@ pt-BR:
         wallet:
           attributes:
             base:
-              cannot_disable_with_nonzero_balance: >
+              cannot_disable_with_nonzero_balance: >-
                 Não é possível desabilitar esta carteira pois seu saldo não é zero. O saldo deve ser zero para que a
                 carteira possa ser desabilitada. Isso pode ser feito criando uma nova transação, ou completando uma
                 reconciliação de forma que o saldo da carteira seja zerado.

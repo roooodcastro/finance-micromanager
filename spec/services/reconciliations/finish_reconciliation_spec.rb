@@ -20,7 +20,7 @@ RSpec.describe Reconciliations::FinishReconciliation do
     let(:wallet_a) { create(:wallet, profile: profile, balance: 10) }
     let(:wallet_b) { create(:wallet, profile: profile, balance: 0) }
 
-    let(:category) { create(:category, profile:) }
+    let(:category) { create(:category, profile: profile, category_type: :system) }
 
     before do
       create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_a,
