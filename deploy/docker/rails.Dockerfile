@@ -1,4 +1,4 @@
-FROM ruby:3.2.2
+FROM ruby:3.3
 
 # Install dependencies
 RUN apt update -qq &&\
@@ -13,7 +13,7 @@ RUN apt update -qq &&\
 # Copy setup files and install gems and yarn packages
 WORKDIR /finance_micromanager
 COPY Gemfile Gemfile.lock package.json yarn.lock .env.docker_development /finance_micromanager/
-RUN yarn install --prod --network-timeout 300000
+RUN yarn install --frozen-lockfile --prod --network-timeout 300000 && yarn cache clean
 RUN MAKE="make --jobs 4" bundle install --jobs 4
 
 # Copy application and configure entrypoint
