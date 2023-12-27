@@ -1,3 +1,5 @@
 ---
 en:
   locale_name: English
+  reconciliations:
+    transaction_name: 'Reconciliation Balance Adjustment'

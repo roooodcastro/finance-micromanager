@@ -10,13 +10,81 @@ RSpec.describe Reconciliations::FinishReconciliation do
     end
   end
 
-  describe '.call' do
+  describe '.call', :aggregate_errors do
     subject(:service_call) { service.call }
 
-    let(:reconciliation) { create(:reconciliation, :in_progress) }
+    let(:user) { create(:user) }
+    let(:profile) { create(:profile, user: user, balance_amount: 10) }
+    let(:reconciliation) { create(:reconciliation, :in_progress, profile:) }
 
-    it 'marks the reconciliation as finished' do
-      expect { service_call }.to change { reconciliation.reload.status }.to('finished')
+    let(:wallet_a) { create(:wallet, profile: profile, balance: 10) }
+    let(:wallet_b) { create(:wallet, profile: profile, balance: 0) }
+
+    let!(:category) { create(:category, profile:) }
+
+    before do
+      create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_a,
+             balance_amount: new_wallet_a_balance)
+      create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_b,
+             balance_amount: new_wallet_b_balance)
+    end
+
+    context 'when balance difference is zero at the end' do
+      let(:new_wallet_a_balance) { 15 }
+      let(:new_wallet_b_balance) { -5 }
+
+      it 'updates the wallet balance and marks reconciliation as finished, but does not create a transaction' do
+        expect { service_call }
+          .to not_change { Transaction.count }
+          .and change { wallet_a.reload.balance.to_f }
+          .to(15)
+          .and change { wallet_b.reload.balance.to_f }
+          .to(-5)
+          .and not_change { profile.reload.balance_amount.to_f }
+          .and change { reconciliation.reload.status }
+          .to('finished')
+      end
+    end
+
+    context 'when there is a balance difference' do
+      let(:new_wallet_a_balance) { 15 }
+      let(:new_wallet_b_balance) { 5 }
+
+      it 'updates the wallet balance, marks reconciliation as finished, and creates a transaction' do
+        expect { service_call }
+          .to change { Transaction.count }
+          .by(1)
+          .and change { wallet_a.reload.balance.to_f }
+          .to(15)
+          .and change { wallet_b.reload.balance.to_f }
+          .to(5)
+          .and change { profile.reload.balance_amount.to_f }
+          .to(20)
+          .and change { reconciliation.reload.status }
+          .to('finished')
+
+        transaction = Transaction.last
+        expect(transaction.name).to eq('Reconciliation Balance Adjustment')
+        expect(transaction.amount.to_f).to eq(10.0)
+        expect(transaction.transaction_date).to eq(reconciliation.date)
+        expect(transaction.category).to eq(category)
+        expect(transaction.wallet).to be_nil
+      end
+    end
+
+    context 'when an error happens' do
+      let(:new_wallet_a_balance) { 15 }
+      let(:new_wallet_b_balance) { 5 }
+      let(:category) { nil }
+
+      it 'does not change anything' do
+        expect { service_call }
+          .to not_change { Transaction.count }
+          .and not_change { wallet_a.reload.balance.to_f }
+          .and not_change { wallet_b.reload.balance.to_f }
+          .and not_change { profile.reload.balance_amount.to_f }
+          .and not_change { reconciliation.reload.status }
+      end
     end
   end
 end
