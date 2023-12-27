@@ -22,6 +22,13 @@
           }
         },
         "models": {
+          "category": {
+            "attributes": {
+              "base": {
+                "cannot_edit_system_category": "Cannot edit system categories"
+              }
+            }
+          },
           "profile": {
             "attributes": {
               "currency": {
@@ -460,6 +467,7 @@
       "footer_version": "Version"
     },
     "reconciliations": {
+      "category_name": "Reconciliations",
       "create": {
         "error": "Reconciliation for %{date} could not be started: %{error}",
         "success": "Reconciliation for %{date} was successfully started."
@@ -473,6 +481,7 @@
         "success_with_correction": "Reconciliation for %{date} has been successfully finalised. A balance difference of %{balance_difference} was detected, and a correction transaction was created for %{date} to correct the profile's balance with the amount reported.",
         "success_without_correction": "Reconciliation for %{date} has been successfully finalised. No balance difference was detected."
       },
+      "transaction_name": "Reconciliation Balance Adjustment",
       "update": {
         "error": "Reconciliation for %{date} could not be updated: %{error}",
         "success": "Reconciliation for %{date} was successfully updated."

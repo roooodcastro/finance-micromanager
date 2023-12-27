@@ -82,13 +82,7 @@ class TransactionsController < AbstractAuthenticatedController
       .require(:transaction)
       .permit(:name, :amount, :transaction_date, :category_id, :amount_type, :wallet_id)
       .merge(amount_currency: Current.profile.currency, created_by: current_user, updated_by: current_user)
-      .then do |permitted_params|
-        break permitted_params unless permitted_params[:category_id]
-
-        permitted_params[:subcategory_id] = permitted_params[:category_id].split('|')[1]
-        permitted_params[:category_id]    = permitted_params[:category_id].split('|')[0]
-        permitted_params
-      end
+      .then { |permitted_params| process_category_id_param(permitted_params) }
   end
 
   def update_all_params
@@ -96,6 +90,17 @@ class TransactionsController < AbstractAuthenticatedController
       uap[:subcategory_id] = nil if uap[:category_id].present? && uap[:subcategory_id].blank?
       uap
     end
+  end
+
+  def process_category_id_param(permitted_params)
+    return permitted_params unless permitted_params[:category_id]
+
+    permitted_params[:subcategory_id] = permitted_params[:category_id].split('|')[1]
+    permitted_params[:category_id]    = permitted_params[:category_id].split('|')[0]
+
+    permitted_params.delete(:category_id) if Category.find_by(id: permitted_params[:category_id])&.system?
+
+    permitted_params
   end
 
   def search_params

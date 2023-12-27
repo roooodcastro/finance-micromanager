@@ -1,21 +1,23 @@
 <template>
-  <div class="vr mx-3 d-none d-lg-flex" />
+  <template v-if="!category.system">
+    <div class="vr mx-3 d-none d-lg-flex" />
 
-  <EditButton
-    small
-    :href="editCategoryPath(category.id)"
-    :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
-  />
+    <EditButton
+      small
+      :href="editCategoryPath(category.id)"
+      :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
+    />
 
-  <DeleteButton
-    small
-    href="#"
-    :class="{
-      'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-      'ms-3': !drawerMenu,
-    }"
-    @delete="handleDelete(category.id)"
-  />
+    <DeleteButton
+      small
+      href="#"
+      :class="{
+        'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
+        'ms-3': !drawerMenu,
+      }"
+      @delete="handleDelete(category.id)"
+    />
+  </template>
 </template>
 
 <script>

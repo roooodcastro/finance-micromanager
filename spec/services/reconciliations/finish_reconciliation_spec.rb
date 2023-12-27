@@ -20,13 +20,15 @@ RSpec.describe Reconciliations::FinishReconciliation do
     let(:wallet_a) { create(:wallet, profile: profile, balance: 10) }
     let(:wallet_b) { create(:wallet, profile: profile, balance: 0) }
 
-    let!(:category) { create(:category, profile:) }
+    let(:category) { create(:category, profile:) }
 
     before do
       create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_a,
              balance_amount: new_wallet_a_balance)
       create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_b,
              balance_amount: new_wallet_b_balance)
+
+      allow(Category).to receive(:reconciliation_category_for).with(profile).and_return(category)
     end
 
     context 'when balance difference is zero at the end' do

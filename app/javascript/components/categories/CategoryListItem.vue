@@ -7,7 +7,10 @@
       />
     </template>
     <template v-slot:item>
-      <div class="CategoryListItem d-flex bg-light-subtle align-items-center bg-white">
+      <div
+        class="CategoryListItem d-flex align-items-center"
+        :class="{ 'bg-light-subtle': !category.system, 'bg-light': category.system }"
+      >
         <a
           class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
           :href="showCategoryPath(category.id)"

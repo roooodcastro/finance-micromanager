@@ -23,7 +23,7 @@
       <MultipleSelect
         v-model="selectedCategoryIds"
         class="flex-grow-1 flex-lg-grow-0 width-15rem w-100 mb-3"
-        :options="categoriesForSelect"
+        :options="categoriesForSelect(true)"
         :placeholder="t('category_filter')"
         :selection-label-one="t('category')"
         :selection-label-many="t('categories')"
