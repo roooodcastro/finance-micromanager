@@ -84,4 +84,7 @@ pt-BR:
               cannot_disable_with_nonzero_balance: >-
                 Não é possível desabilitar esta carteira pois seu saldo não é zero. O saldo deve ser zero para que a
                 carteira possa ser desabilitada. Isso pode ser feito criando uma nova transação, ou completando uma
-                reconciliação de forma que o saldo da carteira seja zerado.
+                reconciliação de forma que o saldo da carteira seja zerado
+              cannot_disable_with_reconciliation_in_progress: >-
+                Não é possível desabilitar esta carteira pois há uma reconciliação em andamento. A reconciliação deve
+                primeiro ser concluída ou cancelada para que a carteira possa ser desabilitada

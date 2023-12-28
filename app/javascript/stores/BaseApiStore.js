@@ -94,7 +94,7 @@ export function defineBaseApiStore(name, options = {}) {
           .catch((error) => {
             const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
             notificationStore.notify(errorMessage, 'danger');
-        });
+          });
 
         return returnPromise;
       },

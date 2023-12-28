@@ -81,7 +81,8 @@
           "wallet": {
             "attributes": {
               "base": {
-                "cannot_disable_with_nonzero_balance": "Cannot be disabled because wallet has remaining balance. Wallet balance must be zero before it can be disabled. This can be done by either creating a transaction, or completing a reconciliation where the resulting wallet balance is zero."
+                "cannot_disable_with_nonzero_balance": "Cannot be disabled because wallet has remaining balance. Wallet balance must be zero before it can be disabled. This can be done by either creating a transaction, or completing a reconciliation where the resulting wallet balance is zero",
+                "cannot_disable_with_reconciliation_in_progress": "Cannot be disabled because there is a reconciliation in progress. The reconciliation must first be either cancelled or finished so this wallet can be disabled"
               }
             }
           }
@@ -920,6 +921,7 @@
         "success": "Wallet \"%{name}\" was successfully created."
       },
       "destroy": {
+        "error": "Wallet \"%{name}\" could not be disabled: %{error}",
         "success": "Wallet \"%{name}\" was successfully disabled."
       },
       "reenable": {

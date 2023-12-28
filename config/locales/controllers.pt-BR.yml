@@ -93,5 +93,6 @@ pt-BR:
       error: 'Carteira "%{name}" não pode ser atualizada: %{error}'
     destroy:
       success: 'Carteira "%{name}" desabilitada com sucesso.'
+      error: 'Carteira "%{name}" não pode ser desabilitada: %{error}'
     reenable:
       success: 'Carteira "%{name}" reabilitada com sucesso.'

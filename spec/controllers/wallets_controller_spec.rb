@@ -98,17 +98,34 @@ RSpec.describe WalletsController do
     subject(:delete_request) { delete :destroy, params: { id: wallet.id } }
 
     let!(:wallet) { create(:wallet, profile:) }
-    let(:expected_json) { { 'message' => "Wallet \"#{wallet.name}\" was successfully disabled." } }
 
-    it 'disabled the wallet and renders json' do
-      expect { delete_request }
-        .to not_change { Wallet.count }
-        .and change { wallet.reload.disabled_at }
-        .to(Time.current)
-        .and change { wallet.disabled_by }
-        .to(user)
+    context 'when the wallet can be disabled' do
+      let(:expected_json) { { 'message' => "Wallet \"#{wallet.name}\" was successfully disabled." } }
 
-      expect(json_response).to eq(CamelizeProps.call(expected_json))
+      it 'disables the wallet and renders json success' do
+        expect { delete_request }
+          .to not_change { Wallet.count }
+          .and change { wallet.reload.disabled_at }
+          .to(Time.current)
+          .and change { wallet.disabled_by }
+          .to(user)
+
+        expect(json_response).to eq(CamelizeProps.call(expected_json))
+      end
+    end
+
+    context 'when the wallet cannot be disabled' do
+      let!(:wallet) { create(:wallet, profile: profile, balance: 1) }
+
+      it 'does not disable the wallet and renders json error' do
+        expect { delete_request }
+          .to not_change { Wallet.count }
+          .and not_change { wallet.reload.disabled_at }
+          .and not_change { wallet.disabled_by }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response['message']).to be_present
+      end
     end
   end
 
@@ -118,7 +135,7 @@ RSpec.describe WalletsController do
     let!(:wallet) { create(:wallet, :disabled, profile:) }
     let(:expected_json) { { 'message' => "Wallet \"#{wallet.name}\" was successfully re-enabled." } }
 
-    it 'disabled the wallet and renders json' do
+    it 'disables the wallet and renders json' do
       expect { reenable_request }
         .to not_change { Wallet.count }
         .and change { wallet.reload.disabled_at }
