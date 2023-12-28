@@ -12,7 +12,9 @@ RSpec.describe Wallet do
   describe '.disable!', :travel_to_now do
     subject(:disable_method) { wallet.disable! }
 
-    let(:wallet) { create(:wallet, balance:) }
+    let(:profile) { create(:profile) }
+    let(:wallet) { create(:wallet, profile:, balance:) }
+    let(:balance) { 0 }
     let(:now) { Time.current.change(usec: 0) }
     let(:user) { create(:user) }
 
@@ -39,6 +41,18 @@ RSpec.describe Wallet do
           .and not_change { wallet.disabled_by }
 
         expect(wallet.errors[:base].first).to start_with('Cannot be disabled because wallet has remaining balance.')
+      end
+    end
+
+    context 'when there is a reconciliation in progress' do
+      before { create(:reconciliation, :in_progress, profile:) }
+
+      it 'does not disable the wallet' do
+        expect { disable_method }
+          .to not_change { wallet.reload.disabled_at }
+          .and not_change { wallet.disabled_by }
+
+        expect(wallet.errors[:base].first).to start_with('Cannot be disabled because there is a reconciliation')
       end
     end
   end

@@ -19,9 +19,13 @@ class Wallet < ApplicationRecord
   private
 
   def can_disable?
-    return true if balance.to_f.zero?
+    errors.add(:base, :cannot_disable_with_nonzero_balance) if balance.to_f.nonzero?
+    errors.add(:base, :cannot_disable_with_reconciliation_in_progress) if reconciliation_in_progress?
 
-    errors.add(:base, :cannot_disable_with_nonzero_balance)
-    false
+    errors.empty?
+  end
+
+  def reconciliation_in_progress?
+    profile.reconciliations.in_progress.any?
   end
 end

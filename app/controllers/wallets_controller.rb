@@ -39,9 +39,13 @@ class WalletsController < AbstractAuthenticatedController
   end
 
   def destroy
-    @wallet.disable!
-
-    render json: camelize_props(message: t('.success', name: @wallet.name))
+    if @wallet.disable!
+      render json: camelize_props(message: t('.success', name: @wallet.name))
+    else
+      render json: camelize_props(
+        message: t('.error', name: @wallet.name, error: @wallet.errors.full_messages.join(', '))
+      ), status: :unprocessable_entity
+    end
   end
 
   def reenable

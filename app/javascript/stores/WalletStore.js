@@ -39,7 +39,10 @@ export default defineBaseApiStore('wallet', {
           this.fetch();
           notificationStore.notify(response.message, 'success');
         })
-        .catch(() => notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger'));
+        .catch((error) => {
+          const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
+          notificationStore.notify(errorMessage, 'danger');
+        });
     },
 
     reenable(id) {

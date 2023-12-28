@@ -90,5 +90,6 @@ en:
       error: 'Wallet "%{name}" could not be updated: %{error}'
     destroy:
       success: 'Wallet "%{name}" was successfully disabled.'
+      error: 'Wallet "%{name}" could not be disabled: %{error}'
     reenable:
       success: 'Wallet "%{name}" was successfully re-enabled.'
