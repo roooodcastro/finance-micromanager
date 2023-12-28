@@ -12,22 +12,23 @@
     <div class="offcanvas-body px-0 pt-0 d-flex flex-column">
       <MenuProfileSection v-if="isUserLoggedIn" />
 
-      <div class="d-flex flex-column justify-content-between flex-grow-1">
+      <div class="d-flex flex-column justify-content-between flex-grow-1 mt-3">
         <div class="list-group">
           <a
             v-for="menuItem in menuItems.top"
             :key="menuItem.label"
             :href="menuItem.path"
-            class="list-group-item list-group-item-action border-0"
+            class="VerticalMenu__item-link list-group-item list-group-item-action border-0"
             :class="{ active: menuItem.active }"
             :data-method="menuItem.method || 'GET'"
           >
             <FontAwesomeIcon
               :icon="menuItem.icon"
+              size="lg"
               class="me-4"
             />
 
-            {{ menuItem.label }}
+            <span>{{ menuItem.label }}</span>
           </a>
         </div>
 
@@ -38,7 +39,7 @@
             v-for="menuItem in menuItems.bottom"
             :key="menuItem.label"
             :href="menuItem.path"
-            class="list-group-item list-group-item-action border-0"
+            class="VerticalMenu__item-link list-group-item list-group-item-action border-0"
             :class="{ active: menuItem.active }"
             :data-method="menuItem.method || 'GET'"
           >
@@ -47,7 +48,7 @@
               class="me-4"
             />
 
-            {{ menuItem.label }}
+            <span>{{ menuItem.label }}</span>
           </a>
         </div>
       </div>
@@ -62,9 +63,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
   categories as categoriesApi,
-  transactions as transactionsApi,
   dashboards as dashboardsApi,
   profiles as profilesApi,
+  reconciliations as reconciliationsApi,
+  transactions as transactionsApi,
   usersSessions as userSessionsApi,
   usersRegistrations as usersRegistrationsApi,
   wallets as walletsApi,
@@ -92,11 +94,12 @@ export default {
     if (userStore.isUserLoggedIn) {
       menuItems = {
         top: [
-          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'list' },
+          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'home' },
           { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
-          { label: t('categories'), path: categoriesApi.index.path(), icon: 'shapes' },
+          { label: t('reconciliations'), path: reconciliationsApi.index.path(), icon: 'scale-balanced' },
+          { label: t('categories'), path: categoriesApi.index.path(), icon: ['far', 'folder'] },
           { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
-          { label: t('wallets'), path: walletsApi.index.path(), icon: 'money-bills' },
+          { label: t('wallets'), path: walletsApi.index.path(), icon: ['far', 'credit-card'] },
         ],
         bottom: [
           { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
@@ -168,6 +171,26 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.VerticalMenu__item-link {
+  span {
+    display: inline-block;
+    transition: transform 0.1s linear;
+  }
+  svg {
+    transition: transform 0.1s linear;
+    width: 2rem;
+  }
+
+  &:hover, &:active, &:focus, &.active {
+    svg {
+      transform: scale(1.25);
+    }
+    span {
+      transform: translateX(0.5rem);
+    }
+  }
+}
 
 @include media-breakpoint-down(md) {
   .VerticalMenu {

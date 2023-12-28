@@ -34,6 +34,9 @@
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="m-0 ">
             {{ t('sub_header_transactions') }}
+            <span class="fs-6 d-block mt-2">
+              {{ transactionPeriodMessage }}
+            </span>
           </h5>
 
           <div class="d-flex">
@@ -127,24 +130,25 @@ export default {
   },
 
   setup(props) {
+    const t = I18n.scopedTranslator('views.reconciliations.show');
+
     const reconciliationsPath = reconciliationsApi.index.path();
 
-    const reconciliationWalletStore = useReconciliationWalletStore();
-    reconciliationWalletStore.setReconciliationId(props.reconciliation.id);
-
-    // Load reconciliations from props
+    const transactionStore = useTransactionStore();
     const reconciliationStore = useReconciliationStore();
+    const reconciliationWalletStore = useReconciliationWalletStore();
+
+    reconciliationWalletStore.setReconciliationId(props.reconciliation.id);
     const { reconciliation: reconciliationFromStore, walletBalances } = storeToRefs(reconciliationStore);
     reconciliationFromStore.value = props.reconciliation;
     walletBalances.value = props.walletBalances;
 
-    const transactionStore = useTransactionStore();
-
-    const startDate = dayjs.tz(reconciliationFromStore.value.previousReconciliationDate ?? 0, 'utc');
+    const startDate = dayjs.tz(reconciliationFromStore.value.previousReconciliationDate ?? 0, 'utc')
+      .add(1, 'day');
 
     transactionStore.setFetchParams({
       updateDateRange: false,
-      startDate: startDate.add(1, 'day').startOf('day'),
+      startDate,
       endDate: props.reconciliation.date,
       daysToShow: 0,
     });
@@ -154,6 +158,11 @@ export default {
     // Change default transaction date for new transactions created on this page
     defaultTransactionDate.value = props.reconciliation.date;
 
+    const transactionPeriodMessage = t('sub_sub_header_transactions', {
+      start_date: formatDate(startDate),
+      end_date: formatDate(reconciliationFromStore.value.date),
+    });
+
     watch(transactions, () => reconciliationStore.fetchSingle());
 
     const handleNewTransaction = () => transactionStore.openFormModal(null);
@@ -161,12 +170,13 @@ export default {
     const handleCancelMassEditTransactions = transactionStore.cancelMassEditMode;
 
     return {
-      t: I18n.scopedTranslator('views.reconciliations.show'),
+      t,
       formatDate,
       transactions,
       massEditMode,
       reconciliationsPath,
       reconciliationFromStore,
+      transactionPeriodMessage,
       handleNewTransaction,
       handleEnterMassEditTransactions,
       handleCancelMassEditTransactions,
