@@ -45,6 +45,7 @@ export default defineBaseApiStore('reconciliation', {
         .finish({ id })
         .then((response) => {
           this.fetch();
+          this.fetchSingle();
           notificationStore.notify(response.message, 'success');
         })
         .catch((error) => {
@@ -60,6 +61,7 @@ export default defineBaseApiStore('reconciliation', {
         .destroy({ id })
         .then((response) => {
           this.fetch();
+          this.fetchSingle();
           notificationStore.notify(response.message, 'success');
         })
         .catch((error) => {

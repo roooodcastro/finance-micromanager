@@ -17,29 +17,26 @@ module Reconciliations
 
     def call
       Reconciliation.transaction do
-        update_wallet_balances!
-        create_balance_transaction!
-
-        reconciliation.update!(status: :finished)
+        transaction = create_balance_transaction!
+        reconciliation.update!(status: :finished, balance_correction_transaction: transaction)
+        Transactions::SyncProfileAndWalletBalances.call(profile:)
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback
       end
     end
 
-    private
-
-    def update_wallet_balances!
-      reconciliations_wallets.each do |reconciliation_wallet|
-        reconciliation_wallet.wallet.update!(balance: reconciliation_wallet.balance_amount)
-      end
+    def balance_difference
+      wallets_real_balance - wallets_calculated_balance
     end
+
+    private
 
     # This will also update the profile balance to the correct sum of balance from all wallets.
     def create_balance_transaction!
       return if balance_difference.to_f.zero?
 
       profile.transactions.create!(
-        name:             I18n.t('reconciliations.transaction_name'),
+        name:             'reconciliations.transaction_name',
         category:         category_for_transaction,
         wallet:           nil,
         amount:           balance_difference,
@@ -53,12 +50,15 @@ module Reconciliations
       @reconciliations_wallets ||= reconciliation.reconciliations_wallets.includes(:wallet)
     end
 
-    def new_profile_balance
-      reconciliations_wallets.sum(&:balance_amount)
+    def wallets_calculated_balance
+      @wallets_calculated_balance ||= ReconciliationWalletBalancesQuery
+                                      .run(reconciliation_id: reconciliation.id)
+                                      .map(&:amount)
+                                      .sum
     end
 
-    def balance_difference
-      new_profile_balance - profile.balance_amount
+    def wallets_real_balance
+      @wallets_real_balance ||= reconciliations_wallets.sum(&:balance_amount).to_f
     end
 
     def category_for_transaction

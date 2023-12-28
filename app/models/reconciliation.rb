@@ -27,7 +27,16 @@ class Reconciliation < ApplicationRecord
 
   def as_json(*)
     currency_as_json = difference_amount.currency.as_json(only: %w[name symbol iso_code])
-    super.merge(reconciliations_wallets: reconciliations_wallets.as_json, currency: currency_as_json)
+
+    super.merge(
+      reconciliations_wallets:      reconciliations_wallets.as_json,
+      previous_reconciliation_date: previous_finished_reconciliation&.date,
+      currency:                     currency_as_json
+    )
+  end
+
+  def previous_finished_reconciliation
+    profile.reconciliations.finished.where(date: (...date)).where.not(id:).order(date: :desc).first
   end
 
   def transactions

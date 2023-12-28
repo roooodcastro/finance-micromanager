@@ -764,7 +764,9 @@
         },
         "index": {
           "cancel": "Cancelar",
-          "confirm_cancel_message": "Are you sure you want to cancel the reconciliation? This cannot be undone.",
+          "confirm_cancel_message": "Tem certeza de que quer cancelar a reconciliação? Esta ação não poderá ser desfeita.",
+          "confirm_finish_message": "Tem certeza de que quer concluir a reconciliação? Esta ação não poderá ser desfeita.",
+          "confirm_finish_message_with_balance": "Tem certeza de que quer concluir a reconciliação? Esta ação não poderá ser desfeita. Isso criará uma transação de correção de saldo de %{amount} para o dia %{date}.",
           "finish": "Concluir",
           "new": "Iniciar nova Reconciliação",
           "title": "Reconciliações"
@@ -788,6 +790,7 @@
           "real_balance": "Real",
           "real_balance_info_text": "Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.",
           "status": "Status",
+          "sub_header_actions": "Ações",
           "sub_header_balances": "Saldo Geral",
           "sub_header_transactions": "Transações no Período",
           "sub_header_wallets": "Saldos das Carteiras",

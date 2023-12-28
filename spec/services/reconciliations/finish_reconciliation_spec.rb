@@ -14,15 +14,18 @@ RSpec.describe Reconciliations::FinishReconciliation do
     subject(:service_call) { service.call }
 
     let(:user) { create(:user) }
-    let(:profile) { create(:profile, user: user, balance_amount: 10) }
+    let(:profile) { create(:profile, user: user, balance_amount: 0) }
     let(:reconciliation) { create(:reconciliation, :in_progress, profile:) }
 
-    let(:wallet_a) { create(:wallet, profile: profile, balance: 10) }
+    let(:wallet_a) { create(:wallet, profile: profile, balance: 0) }
     let(:wallet_b) { create(:wallet, profile: profile, balance: 0) }
 
     let(:category) { create(:category, profile: profile, category_type: :system) }
 
     before do
+      wallet_a
+      create(:transaction, profile: profile, wallet: wallet_a, transaction_date: 1.day.ago, amount: 10)
+      create(:transaction, profile: profile, wallet: wallet_b, transaction_date: 1.day.from_now, amount: -5)
       create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_a,
              balance_amount: new_wallet_a_balance)
       create(:reconciliation_wallet, reconciliation: reconciliation, wallet: wallet_b,
@@ -41,7 +44,7 @@ RSpec.describe Reconciliations::FinishReconciliation do
           .and change { wallet_a.reload.balance.to_f }
           .to(15)
           .and change { wallet_b.reload.balance.to_f }
-          .to(-5)
+          .to(-10)
           .and not_change { profile.reload.balance_amount.to_f }
           .and change { reconciliation.reload.status }
           .to('finished')
@@ -59,14 +62,14 @@ RSpec.describe Reconciliations::FinishReconciliation do
           .and change { wallet_a.reload.balance.to_f }
           .to(15)
           .and change { wallet_b.reload.balance.to_f }
-          .to(5)
+          .to(0)
           .and change { profile.reload.balance_amount.to_f }
-          .to(20)
+          .to(15)
           .and change { reconciliation.reload.status }
           .to('finished')
 
         transaction = Transaction.last
-        expect(transaction.name).to eq('Reconciliation Balance Adjustment')
+        expect(transaction.name).to eq('reconciliations.transaction_name')
         expect(transaction.amount.to_f).to eq(10.0)
         expect(transaction.transaction_date).to eq(reconciliation.date)
         expect(transaction.category).to eq(category)

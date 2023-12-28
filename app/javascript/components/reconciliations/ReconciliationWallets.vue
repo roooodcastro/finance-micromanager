@@ -96,7 +96,7 @@
               {{ t('total') }}
             </td>
             <td class="text-end fw-bold bg-light">
-              {{ formatMoney(currentProfile.balanceAmount, reconciliation.currency.isoCode) }}
+              {{ formatMoney(walletBalancesSum, reconciliation.currency.isoCode) }}
             </td>
             <td class="text-end fw-bold bg-light">
               {{ formatMoney(realBalancesSum, reconciliation.currency.isoCode) }}
@@ -116,7 +116,6 @@ import _ from 'lodash';
 import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import useWalletStore from '~/stores/WalletStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js';
 
@@ -137,15 +136,13 @@ export default {
     const timeouts = ref({});
 
     const walletStore = useWalletStore();
-    const profileStore = useProfileStore();
     const reconciliationStore = useReconciliationStore();
     const reconciliationWalletStore = useReconciliationWalletStore();
 
     walletStore.fetch();
 
     const { activeWallets: wallets } = storeToRefs(walletStore);
-    const { reconciliation, realBalancesSum, walletBalances } = storeToRefs(reconciliationStore);
-    const { currentProfile } = storeToRefs(profileStore);
+    const { reconciliation, realBalancesSum, walletBalances, walletBalancesSum } = storeToRefs(reconciliationStore);
 
     const groupedReconciliationsWallets = computed(() => {
       return _.keyBy(reconciliation.value.reconciliationsWallets, 'walletId');
@@ -174,10 +171,10 @@ export default {
       loading,
       saved,
       wallets,
-      currentProfile,
       reconciliation,
       realBalancesSum,
       walletBalances,
+      walletBalancesSum,
       groupedReconciliationsWallets,
       formatMoney,
       handleChange,

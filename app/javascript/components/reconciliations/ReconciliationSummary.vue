@@ -68,7 +68,9 @@ export default {
     const { reconciliation, realBalancesSum, walletBalancesSum } = storeToRefs(reconciliationStore);
 
     const differenceSum = computed(() => realBalancesSum.value - walletBalancesSum.value);
-    const reconciliationVariant = VARIANTS_FOR_RECONCILIATION_STATUSES[reconciliation.value.status];
+    const reconciliationVariant = computed(() => {
+      return VARIANTS_FOR_RECONCILIATION_STATUSES[reconciliation.value.status];
+    });
 
     return {
       t: I18n.scopedTranslator('views.reconciliations.show'),

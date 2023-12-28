@@ -711,6 +711,8 @@
         "index": {
           "cancel": "Cancel",
           "confirm_cancel_message": "Are you sure you want to cancel the reconciliation? This cannot be undone.",
+          "confirm_finish_message": "Are you sure you want to finish the reconciliation? This cannot be undone.",
+          "confirm_finish_message_with_balance": "Are you sure you want to finish the reconciliation? This cannot be undone. This will create a balance correction transaction of %{amount} on %{date}.",
           "finish": "Complete",
           "new": "Start new Reconciliation",
           "title": "Reconciliations"
@@ -734,6 +736,7 @@
           "real_balance": "Actual",
           "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.",
           "status": "Status",
+          "sub_header_actions": "Actions",
           "sub_header_balances": "Overall Balance",
           "sub_header_transactions": "Period Transactions",
           "sub_header_wallets": "Wallet Balances",

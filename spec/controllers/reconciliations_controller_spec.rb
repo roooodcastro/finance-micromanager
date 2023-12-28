@@ -50,7 +50,7 @@ RSpec.describe ReconciliationsController do
 
     context 'when the format is JSON' do
       let(:request_format) { :json }
-      let(:query_wallet_balances) { [WalletBalanceSyncQuery::WalletBalance.new('wallet_id', 12_345, 'eur')] }
+      let(:query_wallet_balances) { [ReconciliationWalletBalancesQuery::WalletBalance.new('wallet_id', 12_345, 'eur')] }
       let(:expected_wallet_balances) { { 'wallet_id' => 123.45 } }
       let(:expected_props) do
         CamelizeProps.call(
@@ -60,9 +60,9 @@ RSpec.describe ReconciliationsController do
       end
 
       before do
-        allow(WalletBalanceSyncQuery)
+        allow(ReconciliationWalletBalancesQuery)
           .to receive(:run)
-          .with(profile_id: profile.id, end_date: reconciliation.date)
+          .with(reconciliation_id: reconciliation.id)
           .and_return(query_wallet_balances)
       end
 
