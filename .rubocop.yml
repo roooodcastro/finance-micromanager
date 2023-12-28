@@ -100,7 +100,7 @@ Metrics/CyclomaticComplexity:
     - 'bin/*'
 
 RSpec/ExampleLength:
-  Max: 20
+  Enabled: false
 
 RSpec/MultipleExpectations:
   Enabled: false

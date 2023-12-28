@@ -48,6 +48,10 @@ RSpec.describe Reconciliations::FinishReconciliation do
           .and not_change { profile.reload.balance_amount.to_f }
           .and change { reconciliation.reload.status }
           .to('finished')
+          .and not_change { reconciliation.balance_correction_transaction }
+          .and not_change { reconciliation.difference_amount.to_f }
+          .and change { reconciliation.final_balance_amount.to_f }
+          .to(10)
       end
     end
 
@@ -67,8 +71,14 @@ RSpec.describe Reconciliations::FinishReconciliation do
           .to(15)
           .and change { reconciliation.reload.status }
           .to('finished')
+          .and change { reconciliation.balance_correction_transaction }
+          .and change { reconciliation.difference_amount.to_f }
+          .to(10)
+          .and change { reconciliation.final_balance_amount.to_f }
+          .to(20)
 
         transaction = Transaction.last
+        expect(reconciliation.reload.balance_correction_transaction).to eq(transaction)
         expect(transaction.name).to eq('reconciliations.transaction_name')
         expect(transaction.amount.to_f).to eq(10.0)
         expect(transaction.transaction_date).to eq(reconciliation.date)

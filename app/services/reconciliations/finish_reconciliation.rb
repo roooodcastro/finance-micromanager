@@ -18,7 +18,14 @@ module Reconciliations
     def call
       Reconciliation.transaction do
         transaction = create_balance_transaction!
-        reconciliation.update!(status: :finished, balance_correction_transaction: transaction)
+
+        reconciliation.update!(
+          status:                         :finished,
+          balance_correction_transaction: transaction,
+          difference_amount:              balance_difference,
+          final_balance_amount:           wallets_real_balance
+        )
+
         Transactions::SyncProfileAndWalletBalances.call(profile:)
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback
