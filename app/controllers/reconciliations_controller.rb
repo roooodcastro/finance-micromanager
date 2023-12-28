@@ -23,8 +23,8 @@ class ReconciliationsController < AbstractAuthenticatedController
   end
 
   def show
-    wallet_balances = WalletBalanceSyncQuery
-                      .run(profile_id: Current.profile.id, end_date: @reconciliation.date)
+    wallet_balances = ReconciliationWalletBalancesQuery
+                      .run(reconciliation_id: @reconciliation.id)
                       .index_by(&:wallet_id)
                       .transform_values(&:amount)
 
@@ -59,8 +59,17 @@ class ReconciliationsController < AbstractAuthenticatedController
   end
 
   def finish
-    if ::Reconciliations::FinishReconciliation.call(@reconciliation)
-      render json: { message: message('.success_without_correction') }
+    finish_service = ::Reconciliations::FinishReconciliation.new(@reconciliation)
+
+    if finish_service.call
+      message = if finish_service.balance_difference.nonzero?
+                  balance_difference = Money.from_amount(finish_service.balance_difference, @reconciliation.currency)
+                  message('.success_with_correction', balance_difference: balance_difference.format)
+                else
+                  message('.success_without_correction')
+                end
+
+      render json: { message: }
     else
       render json:   { message: message('.error', error: @reconciliation.errors.full_messages.join(', ')) },
              status: :unprocessable_entity

@@ -6,6 +6,8 @@
   </span>
 </template>
 <script>
+import { computed } from 'vue';
+
 import I18n from '~/utils/I18n.js';
 import { VARIANTS_FOR_RECONCILIATION_STATUSES } from '~/utils/Constants.js';
 
@@ -18,8 +20,10 @@ export default {
   },
 
   setup(props) {
-    const statusName = I18n.t(`activerecord.attributes.reconciliation.statuses.${props.reconciliation.status}`);
-    const variant = VARIANTS_FOR_RECONCILIATION_STATUSES[props.reconciliation.status];
+    const statusName = computed(() => {
+      return I18n.t(`activerecord.attributes.reconciliation.statuses.${props.reconciliation.status}`);
+    });
+    const variant = computed(() => VARIANTS_FOR_RECONCILIATION_STATUSES[props.reconciliation.status]);
 
     return {
       statusName,

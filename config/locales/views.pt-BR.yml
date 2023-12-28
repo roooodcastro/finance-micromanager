@@ -146,6 +146,11 @@ pt-BR:
         new: Iniciar nova Reconciliação
         cancel: Cancelar
         finish: Concluir
+        confirm_cancel_message: 'Tem certeza de que quer cancelar a reconciliação? Esta ação não poderá ser desfeita.'
+        confirm_finish_message: 'Tem certeza de que quer concluir a reconciliação? Esta ação não poderá ser desfeita.'
+        confirm_finish_message_with_balance: >-
+          Tem certeza de que quer concluir a reconciliação? Esta ação não poderá ser desfeita. Isso criará uma
+          transação de correção de saldo de %{amount} para o dia %{date}.
       form:
         new_title: Iniciar nova Reconciliação
         edit_title: Editar Reconciliação
@@ -163,6 +168,7 @@ pt-BR:
         sub_header_wallets: Saldos das Carteiras
         sub_header_balances: Saldo Geral
         sub_header_transactions: Transações no Período
+        sub_header_actions: Ações
         table_header_wallet_name: Carteira
         table_header_calculated_balance: Calc.
         table_header_real_balance: Real

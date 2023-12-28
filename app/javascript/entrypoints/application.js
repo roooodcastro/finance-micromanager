@@ -9,6 +9,8 @@ import I18n from '~/utils/I18n.js';
 import Rails from '@rails/ujs';
 import dayjs from 'dayjs';
 import localizedFormat  from 'dayjs/plugin/localizedFormat.js';
+import utc  from 'dayjs/plugin/utc.js';
+import timezone  from 'dayjs/plugin/timezone.js';
 import 'dayjs/locale/pt-br.js';
 import 'dayjs/locale/en-gb.js';
 
@@ -31,6 +33,8 @@ async function startApplication() {
   const localeForDayJs = I18n.getLocale() === 'en' ? 'en-gb' : I18n.getLocale();
   dayjs.locale(localeForDayJs);
   dayjs.extend(localizedFormat);
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
 
   axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
 

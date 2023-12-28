@@ -55,6 +55,7 @@ Metrics/MethodLength:
   Max: 20
   Exclude:
     - 'bin/bundle'
+    - '**/*_query.rb'
   AllowedMethods:
     - as_json
 

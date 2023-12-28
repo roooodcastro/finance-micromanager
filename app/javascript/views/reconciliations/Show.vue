@@ -12,6 +12,24 @@
     </div>
 
     <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+      <div
+        v-if="reconciliationFromStore.status === 'in_progress'"
+        class="card mb-3"
+      >
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="m-0 ">
+            {{ t('sub_header_actions') }}
+          </h5>
+        </div>
+        <div class="card-body d-flex gap-2 justify-content-evenly">
+          <ReconciliationActions
+            :reconciliation="reconciliationFromStore"
+            buttons
+            show-finish
+          />
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="m-0 ">
@@ -74,7 +92,6 @@ import { formatDate } from '~/utils/DateUtils.js';
 import { reconciliations as reconciliationsApi } from '~/api/all.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -84,9 +101,11 @@ import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenu from '~/components/ui/DropdownMenu.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
+import ReconciliationActions from '@/components/reconciliations/ReconciliationActions.vue';
 
 export default {
   components: {
+    ReconciliationActions,
     DropdownMenuItem,
     DropdownMenu,
     PageHeader,
@@ -120,14 +139,12 @@ export default {
     walletBalances.value = props.walletBalances;
 
     const transactionStore = useTransactionStore();
-    const profileStore = useProfileStore();
 
-    const { currentProfile } = storeToRefs(profileStore);
-    const startDate = currentProfile.lastReconciliationDate ?? dayjs(0);
+    const startDate = dayjs.tz(reconciliationFromStore.value.previousReconciliationDate ?? 0, 'utc');
 
     transactionStore.setFetchParams({
       updateDateRange: false,
-      startDate: dayjs(startDate).add(1, 'day'),
+      startDate: startDate.add(1, 'day').startOf('day'),
       endDate: props.reconciliation.date,
       daysToShow: 0,
     });

@@ -11,7 +11,14 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     let!(:wallet_b) { create(:wallet, profile:) }
 
     context 'when there are no transactions' do
-      it { is_expected.to be_empty }
+      let(:expected_results) do
+        [
+          described_class::WalletBalance.new(wallet_a.id, 0, profile.currency),
+          described_class::WalletBalance.new(wallet_b.id, 0, profile.currency)
+        ]
+      end
+
+      it { is_expected.to match_array(expected_results) }
     end
 
     context 'when there are transactions for different wallets' do
@@ -38,6 +45,7 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
       let(:expected_results) do
         [
           described_class::WalletBalance.new(wallet_a.id, 300, profile.currency),
+          described_class::WalletBalance.new(wallet_b.id, 0, profile.currency),
           described_class::WalletBalance.new(nil, -500, profile.currency)
         ]
       end
@@ -55,7 +63,12 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     end
 
     context 'when profile has a finished reconciliation and there are transactions before that' do
-      let(:expected_results) { [described_class::WalletBalance.new(wallet_a.id, 800, profile.currency)] }
+      let(:expected_results) do
+        [
+          described_class::WalletBalance.new(wallet_a.id, 800, profile.currency),
+          described_class::WalletBalance.new(wallet_b.id, 0, profile.currency)
+        ]
+      end
 
       before do
         create(:transaction, profile: profile, wallet: wallet_a, transaction_date: 2.days.ago, amount: 5)
@@ -71,7 +84,12 @@ RSpec.describe WalletBalanceSyncQuery, type: :query do
     end
 
     context 'when profile has multiple finished reconciliations and there are transactions before that' do
-      let(:expected_results) { [described_class::WalletBalance.new(wallet_a.id, 800, profile.currency)] }
+      let(:expected_results) do
+        [
+          described_class::WalletBalance.new(wallet_a.id, 800, profile.currency),
+          described_class::WalletBalance.new(wallet_b.id, 0, profile.currency)
+        ]
+      end
 
       before do
         reconciliation = create(:reconciliation, profile: profile, date: 5.days.ago)

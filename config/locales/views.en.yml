@@ -145,6 +145,10 @@ en:
         cancel: Cancel
         finish: Complete
         confirm_cancel_message: 'Are you sure you want to cancel the reconciliation? This cannot be undone.'
+        confirm_finish_message: 'Are you sure you want to finish the reconciliation? This cannot be undone.'
+        confirm_finish_message_with_balance: >-
+          Are you sure you want to finish the reconciliation? This cannot be undone. This will create a balance
+          correction transaction of %{amount} on %{date}.
       form:
         new_title: Start new Reconciliation
         edit_title: Edit Reconciliation
@@ -162,6 +166,7 @@ en:
         sub_header_wallets: Wallet Balances
         sub_header_balances: Overall Balance
         sub_header_transactions: Period Transactions
+        sub_header_actions: Actions
         table_header_wallet_name: Wallet
         table_header_calculated_balance: Calc.
         table_header_real_balance: Actual
