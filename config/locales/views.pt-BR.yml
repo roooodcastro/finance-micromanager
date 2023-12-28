@@ -82,6 +82,7 @@ pt-BR:
       vertical_menu:
         dashboard: Dashboard
         transactions: Transações
+        reconciliations: Reconciliações
         current_profile: 'Perfil:'
         profiles: Perfis
         categories: Categorias
@@ -168,6 +169,7 @@ pt-BR:
         sub_header_wallets: Saldos das Carteiras
         sub_header_balances: Saldo Geral
         sub_header_transactions: Transações no Período
+        sub_sub_header_transactions: De %{start_date} a %{end_date}
         sub_header_actions: Ações
         table_header_wallet_name: Carteira
         table_header_calculated_balance: Calc.

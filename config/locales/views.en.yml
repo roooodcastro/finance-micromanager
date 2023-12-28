@@ -82,6 +82,7 @@ en:
       vertical_menu:
         dashboard: Dashboard
         transactions: Transactions
+        reconciliations: Reconciliations
         current_profile: 'Profile:'
         profiles: Profiles
         categories: Categories
@@ -165,7 +166,8 @@ en:
         status: Status
         sub_header_wallets: Wallet Balances
         sub_header_balances: Overall Balance
-        sub_header_transactions: Period Transactions
+        sub_header_transactions: Transactions for Period
+        sub_sub_header_transactions: From %{start_date} to %{end_date}
         sub_header_actions: Actions
         table_header_wallet_name: Wallet
         table_header_calculated_balance: Calc.
