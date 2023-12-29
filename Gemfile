@@ -12,9 +12,11 @@ gem 'rails', '~> 7.1.0'
 gem 'redis', '~> 4.0'
 
 # Frontend
+gem 'i18n-js'
 gem 'importmap-rails'
 gem 'inertia_rails'
 gem 'jbuilder'
+gem 'js_from_routes'
 gem 'sprockets-rails'
 gem 'turbo-rails'
 gem 'vite_rails'
@@ -44,7 +46,6 @@ end
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'js_from_routes'
   gem 'pry-rails'
   gem 'rspec'
   gem 'rspec-rails'
@@ -54,7 +55,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'brakeman', require: false
-  gem 'i18n-js', require: false
   gem 'listen'
   gem 'overcommit', require: false
   gem 'rubocop', require: false

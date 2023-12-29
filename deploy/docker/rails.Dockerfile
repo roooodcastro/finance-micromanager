@@ -14,12 +14,19 @@ RUN apt update -qq &&\
 
 # Copy setup files and install gems and yarn packages
 WORKDIR /finance_micromanager
-COPY Gemfile Gemfile.lock package.json yarn.lock .env.docker_development /finance_micromanager/
+COPY package.json yarn.lock .env.docker_development /finance_micromanager/
 RUN yarn install --frozen-lockfile --prod --network-timeout 300000 && yarn cache clean
-RUN MAKE="make --jobs 4" bundle install --jobs 4
+COPY Gemfile Gemfile.lock /finance_micromanager/
+COPY vendor/cache /finance_micromanager/vendor/cache
+RUN bundle config set deployment true && bundle install --local
 
-# Copy application and configure entrypoint
+# Copy application code
 COPY . /finance_micromanager
+
+# Compile assets
+RUN bundle exec rails assets:precompile
+
+# Configure entrypoint
 COPY deploy/docker/rails_entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh && \
     mv .env.docker_development .env.production.local && \
