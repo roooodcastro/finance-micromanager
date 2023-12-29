@@ -17,6 +17,7 @@ SimpleCov.start do
 
   # Don't cover this, it's only going to be used as a manually ran script and never be part of the application.
   add_filter '/app/services/importer/google_sheets.rb'
+  add_filter '/lib'
 
   add_group 'Controllers', 'app/controllers'
   add_group 'Mailers', 'app/mailers'

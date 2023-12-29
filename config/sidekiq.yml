@@ -1,0 +1,6 @@
+---
+:scheduler:
+  :schedule:
+    backup_database:
+      cron: '0 * * * *'
+      class: Postgresql::BackupDatabaseJob
