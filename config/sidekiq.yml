@@ -2,5 +2,5 @@
 :scheduler:
   :schedule:
     backup_database:
-      cron: '0 * * * *'
+      cron: '0 3 * * *'
       class: Postgresql::BackupDatabaseJob
