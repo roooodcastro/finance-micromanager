@@ -40,6 +40,9 @@ module FinanceMicromanager
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    # ActiveJob
+    config.active_job.queue_adapter = :sidekiq
+
     config.action_mailer.delivery_method = :test
     config.action_mailer.smtp_settings   = credentials.smtp.merge(
       authentication:       'plain',
