@@ -105,12 +105,17 @@ GEM
       railties (>= 3.2)
     dry-cli (1.0.0)
     erubi (1.12.0)
+    et-orbi (1.2.7)
+      tzinfo
     factory_bot (6.4.2)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.2)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
     ffi (1.16.3)
+    fugit (1.9.0)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     glob (0.4.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -198,6 +203,7 @@ GEM
       stringio
     puma (5.6.7)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.7.3)
     rack (2.2.8)
     rack-proxy (0.7.7)
@@ -240,6 +246,8 @@ GEM
     rdoc (6.6.2)
       psych (>= 4.0.0)
     redis (4.8.1)
+    redis-client (0.19.1)
+      connection_pool
     regexp_parser (2.8.3)
     reline (0.4.1)
       io-console (~> 0.5)
@@ -305,6 +313,8 @@ GEM
     ruby-ole (1.2.12.2)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
+    rufus-scheduler (3.9.1)
+      fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -313,6 +323,15 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sidekiq (7.2.0)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
+    sidekiq-scheduler (5.0.3)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -397,6 +416,8 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sassc-rails
+  sidekiq
+  sidekiq-scheduler
   simplecov
   simplecov_json_formatter
   spring
