@@ -11,30 +11,31 @@
 
     <div class="row">
       <div class="col-12 col-lg-6">
-        <div class="card overflow-hidden">
-          <div class="card-header">
-            <h5 class="m-0">
-              {{ t('category_summary') }}
-            </h5>
-          </div>
+        <CollapsibleCard
+          id="dashboard_show_category_summary"
+          :title="t('category_summary')"
+          no-body
+        >
           <CategorySummariesList />
-        </div>
+        </CollapsibleCard>
       </div>
 
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
-        <div class="card overflow-hidden">
-          <div class="card-header">
-            <h5 class="m-0 mb-2">
-              {{ t('recent_transactions') }}
-            </h5>
-
-            <TransactionTypeTabs />
-          </div>
-          <RecentTransactionsList
-            :transactions="transactions"
-            show-view-more-link
-          />
-        </div>
+        <CollapsibleCard
+          id="dashboard_show_recent_transactions"
+          :title="t('recent_transactions')"
+          no-body
+        >
+          <template v-slot:header>
+            <TransactionTypeTabs class="pb-2" />
+          </template>
+          <template v-slot:default>
+            <RecentTransactionsList
+              :transactions="transactions"
+              show-view-more-link
+            />
+          </template>
+        </CollapsibleCard>
       </div>
     </div>
   </div>
@@ -57,10 +58,12 @@ import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
+import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
 
 export default {
   components: {
     CategorySummariesList,
+    CollapsibleCard,
     DateRangeSelector,
     InProgressReconciliationInfoAlert,
     PageHeader,
