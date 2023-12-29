@@ -104,7 +104,7 @@ import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenu from '~/components/ui/DropdownMenu.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
-import ReconciliationActions from '@/components/reconciliations/ReconciliationActions.vue';
+import ReconciliationActions from '~/components/reconciliations/ReconciliationActions.vue';
 
 export default {
   components: {
