@@ -23,6 +23,7 @@ export default defineBaseApiStore('transaction', {
 
   state: {
     transactions: [],
+    statistics: {},
     idForFormModal: null,
     massEditMode: false,
     massEditTransactionIds: [],
@@ -32,6 +33,7 @@ export default defineBaseApiStore('transaction', {
       excludeDebits: false,
       excludeCredits: false,
       updateDateRange: true,
+      includeStatistics: false,
     },
   },
   getters: {
@@ -54,6 +56,10 @@ export default defineBaseApiStore('transaction', {
           keepTransactions
             ? this.transactions.push(...response.transactions)
             : this.transactions = response.transactions;
+
+          if (this.fetchParams.includeStatistics) {
+            this.statistics = response.statistics;
+          }
 
           pagination.value = response.pagination;
         });
