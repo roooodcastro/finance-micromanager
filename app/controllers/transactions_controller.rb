@@ -7,12 +7,16 @@ class TransactionsController < AbstractAuthenticatedController
 
   def index
     transactions = TransactionSearch
-                   .new(Current.profile.transactions.includes(:category, :subcategory, :wallet), search_params)
+                   .new(Current.profile.transactions, search_params)
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
 
+    statistics   = TransactionStatisticsSerializer.new(transactions).as_json if params[:include_statistics]
+    transactions = transactions.includes(:category, :subcategory, :wallet)
+
     pagy, transactions = pagy(transactions, items: current_pagination_items)
     props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
+    props[:statistics] = statistics if params[:include_statistics]
 
     respond_to do |format|
       format.html { render inertia: 'transactions/Index', props: camelize_props(props) }

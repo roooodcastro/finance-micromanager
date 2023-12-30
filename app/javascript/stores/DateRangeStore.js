@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 export default defineStore('dateRange', {
   state: () => ({
     type: 'month',
-    startDate: dayjs().startOf('month'),
+    startDate: dayjs().tz('utc').startOf('month'),
   }),
 
   getters: {
@@ -17,21 +17,21 @@ export default defineStore('dateRange', {
 
   actions: {
     setFromProps(props) {
-      this.startDate = dayjs(props.startDate);
+      this.startDate = dayjs.tz(props.startDate, 'utc');
     },
     setStartDate(newDate) {
-      this.startDate = dayjs(newDate).startOf(this.type);
+      this.startDate = dayjs.tz(newDate, 'utc').startOf(this.type);
     },
     setType(newType) {
       this.type = newType;
       this.startDate = this.startDate.startOf(newType);
     },
     next() {
-      this.startDate = dayjs(this.startDate.add(1, this.type).startOf(this.type));
+      this.startDate = this.startDate.add(1, this.type);
     },
 
     prev() {
-      this.startDate = dayjs(this.startDate.add(-1, this.type).startOf(this.type));
+      this.startDate = this.startDate.add(-1, this.type);
     }
   },
 });

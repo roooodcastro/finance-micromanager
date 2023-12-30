@@ -27,13 +27,12 @@
     </template>
     <div
       v-else
-      class="card-body"
+      :id="id"
+      class="collapse"
+      :class="{ 'show': !isCollapsed }"
+      v-on="{ 'show.bs.collapse': handleShow, 'hide.bs.collapse': handleHide }"
     >
-      <div
-        :id="id"
-        class="collapse"
-        :class="{ 'show': show }"
-      >
+      <div class="card-body">
         <slot />
       </div>
     </div>

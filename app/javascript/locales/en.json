@@ -588,6 +588,7 @@
         "show": {
           "category_summary": "Categories Summary",
           "recent_transactions": "Recent Transactions",
+          "sub_header_day_chart": "Daily Totals",
           "title": "Dashboard"
         }
       },

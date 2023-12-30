@@ -10,6 +10,12 @@
     />
 
     <div class="row">
+      <div class="col">
+        <DailyTotalsChart class="mb-3" />
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-12 col-lg-6">
         <CollapsibleCard
           id="dashboard_show_category_summary"
@@ -59,11 +65,13 @@ import CategorySummariesList from '~/components/statistics/category_summaries/Ca
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
 import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
+import DailyTotalsChart from '~/components/transactions/DailyTotalsChart.vue';
 
 export default {
   components: {
     CategorySummariesList,
     CollapsibleCard,
+    DailyTotalsChart,
     DateRangeSelector,
     InProgressReconciliationInfoAlert,
     PageHeader,
@@ -102,7 +110,7 @@ export default {
     categorySummariesFromStore.value = props.categorySummaries;
 
     const fetchRecentTransactions = () => {
-      transactionStore.setFetchParams({ daysToShow: 0 });
+      transactionStore.setFetchParams({ daysToShow: 0, includeStatistics: true });
       paginationStore.setPaginationOptions({
         startDate: startDate.value,
         endDate: endDate.value,
