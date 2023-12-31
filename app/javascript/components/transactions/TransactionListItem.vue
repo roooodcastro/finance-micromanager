@@ -13,7 +13,7 @@
 
     <template v-slot:item>
       <div
-        class="TransactionListItem d-flex align-items-center border border-start-0 pe-2 pe-lg-0"
+        class="TransactionListItem d-flex align-items-center border border-start-0 pe-2"
         :class="{
           'bg-light-subtle bg-hover-light': !massEditSelected,
           'bg-primary-subtle': massEditSelected,
@@ -56,6 +56,7 @@
             v-if="!massEditMode"
             :transaction="transaction"
             :compact="compact"
+            class="TransactionListItem__desktop-actions"
           />
         </div>
       </div>
@@ -147,5 +148,9 @@ export default {
   width: 0.5rem;
   align-self: stretch;
   display: block;
+}
+
+.TransactionListItem__desktop-actions {
+  margin-right: -0.5rem;
 }
 </style>
