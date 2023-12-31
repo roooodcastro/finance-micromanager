@@ -1,11 +1,14 @@
 <template>
   <div class="card overflow-hidden">
-    <div class="CollapsibleCard__card-header card-header">
+    <div
+      class="CollapsibleCard__card-header card-header"
+      :class="{ 'border-bottom-0': isCollapsed }"
+    >
       <h5 class="m-0">
         <a
           data-bs-toggle="collapse"
           class="d-block text-dark text-decoration-none"
-          :class="{ 'collapsed': isCollapsed }"
+          :class="{ 'collapsed': isInitiallyCollapsed }"
           :href="`#${id}`"
         >
           <FontAwesomeIcon icon="chevron-down" />
@@ -13,13 +16,16 @@
         </a>
       </h5>
 
-      <slot name="header" />
+      <slot
+        v-if="!isCollapsed"
+        name="header"
+      />
     </div>
     <template v-if="noBody">
       <div
         :id="id"
         class="collapse"
-        :class="{ 'show': !isCollapsed }"
+        :class="{ 'show': !isInitiallyCollapsed }"
         v-on="{ 'show.bs.collapse': handleShow, 'hide.bs.collapse': handleHide }"
       >
         <slot />
@@ -29,7 +35,7 @@
       v-else
       :id="id"
       class="collapse"
-      :class="{ 'show': !isCollapsed }"
+      :class="{ 'show': !isInitiallyCollapsed }"
       v-on="{ 'show.bs.collapse': handleShow, 'hide.bs.collapse': handleHide }"
     >
       <div class="card-body">
@@ -40,6 +46,7 @@
 </template>
 
 <script>
+import { computed, ref } from 'vue';
 import Cookies from 'js-cookie';
 import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -67,23 +74,25 @@ export default {
   },
 
   setup(props) {
-    const allCollapsedCards = Cookies.get(COLLAPSED_CARDS_COOKIE_NAME)?.split(',') ?? [];
+    const allCollapsedCards = ref(Cookies.get(COLLAPSED_CARDS_COOKIE_NAME)?.split(',') ?? []);
 
-    const isCollapsed = allCollapsedCards.includes(props.id);
+    const isCollapsed = computed(() => allCollapsedCards.value.includes(props.id));
+    const isInitiallyCollapsed = allCollapsedCards.value.includes(props.id);
 
     const handleShow = () => {
-      let allCollapsedCards = Cookies.get(COLLAPSED_CARDS_COOKIE_NAME)?.split(',') ?? [];
-      allCollapsedCards = allCollapsedCards.filter(item => item !== props.id);
-      Cookies.set(COLLAPSED_CARDS_COOKIE_NAME, allCollapsedCards.join(','));
+      allCollapsedCards.value = Cookies.get(COLLAPSED_CARDS_COOKIE_NAME)?.split(',') ?? [];
+      allCollapsedCards.value = allCollapsedCards.value.filter(item => item !== props.id);
+      Cookies.set(COLLAPSED_CARDS_COOKIE_NAME, allCollapsedCards.value.join(','));
     };
 
     const handleHide = () => {
-      let allCollapsedCards = Cookies.get(COLLAPSED_CARDS_COOKIE_NAME)?.split(',') ?? [];
-      allCollapsedCards = _.union(allCollapsedCards, [props.id]);
-      Cookies.set(COLLAPSED_CARDS_COOKIE_NAME, allCollapsedCards.join(','));
+      allCollapsedCards.value = Cookies.get(COLLAPSED_CARDS_COOKIE_NAME)?.split(',') ?? [];
+      allCollapsedCards.value = _.union(allCollapsedCards.value, [props.id]);
+      Cookies.set(COLLAPSED_CARDS_COOKIE_NAME, allCollapsedCards.value.join(','));
     };
 
     return {
+      isInitiallyCollapsed,
       isCollapsed,
       handleShow,
       handleHide,

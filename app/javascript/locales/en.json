@@ -586,9 +586,14 @@
       },
       "dashboard": {
         "show": {
-          "category_summary": "Categories Summary",
-          "recent_transactions": "Recent Transactions",
+          "average_spend": "Avg. Spend",
+          "money_in": "Money In",
+          "money_saved": "Balance",
+          "spends": "Spends",
+          "sub_header_category_summary": "Categories Summary",
           "sub_header_day_chart": "Daily Totals",
+          "sub_header_recent_transactions": "Recent Transactions",
+          "sub_header_transactions_summary": "Summary",
           "title": "Dashboard"
         }
       },

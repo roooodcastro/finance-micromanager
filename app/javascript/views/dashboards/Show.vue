@@ -17,9 +17,12 @@
 
     <div class="row">
       <div class="col-12 col-lg-6">
+        <TransactionsSummary />
+
         <CollapsibleCard
           id="dashboard_show_category_summary"
-          :title="t('category_summary')"
+          :title="t('sub_header_category_summary')"
+          class="mt-3"
           no-body
         >
           <CategorySummariesList />
@@ -29,7 +32,7 @@
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
         <CollapsibleCard
           id="dashboard_show_recent_transactions"
-          :title="t('recent_transactions')"
+          :title="t('sub_header_recent_transactions')"
           no-body
         >
           <template v-slot:header>
@@ -66,6 +69,7 @@ import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.v
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
 import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
 import DailyTotalsChart from '~/components/transactions/DailyTotalsChart.vue';
+import TransactionsSummary from '~/components/dashboard/TransactionsSummary.vue';
 
 export default {
   components: {
@@ -76,6 +80,7 @@ export default {
     InProgressReconciliationInfoAlert,
     PageHeader,
     RecentTransactionsList,
+    TransactionsSummary,
     TransactionTypeTabs,
   },
 

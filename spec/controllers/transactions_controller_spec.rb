@@ -10,25 +10,29 @@ RSpec.describe TransactionsController do
   end
 
   describe 'GET index', :inertia do
-    let!(:transaction) { create(:transaction, profile: profile, created_by: user) }
+    let!(:transaction_a) { create(:transaction, profile: profile, transaction_date: 1.day.ago, created_by: user) }
+    let!(:transaction_b) { create(:transaction, profile: profile, created_by: user) }
 
     context 'when include_statistics is false' do
+      let(:expected_props) { { transactions: [transaction_b, transaction_a].as_json } }
+
       it 'renders the index component, returning all transactions' do
         get :index
 
-        expect_inertia.to render_component('transactions/Index')
-                      .and include_camelized_props({ transactions: [transaction].as_json })
+        expect_inertia.to render_component('transactions/Index').and include_camelized_props(expected_props)
       end
     end
 
     context 'when include_statistics is true' do
       let(:expected_props) do
         {
-          transactions: [transaction].as_json,
+          transactions: [transaction_b, transaction_a].as_json,
           statistics:   {
+            spends:       0,
+            money_in:     20,
             daily_totals: [
               { date: 2.days.ago.to_date, amount: 0 },
-              { date: 1.day.ago.to_date, amount: 0 },
+              { date: 1.day.ago.to_date, amount: 10 },
               { date: Date.current, amount: 10 }
             ]
           }

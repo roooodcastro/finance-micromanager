@@ -33,8 +33,14 @@ pt-BR:
     dashboard:
       show:
         title: Dashboard
-        recent_transactions: Transações Recentes
-        category_summary: Resumo das Categorias
+        sub_header_recent_transactions: Transações Recentes
+        sub_header_category_summary: Resumo das Categorias
+        sub_header_day_chart: Totais Diários
+        sub_header_transactions_summary: Resumo
+        money_in: Receita
+        spends: Gastos
+        average_spend: Gasto Diário
+        money_saved: Saldo
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
