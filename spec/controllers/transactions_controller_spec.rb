@@ -27,15 +27,15 @@ RSpec.describe TransactionsController do
       let(:expected_props) do
         {
           transactions: [transaction_b, transaction_a].as_json,
-          statistics:   {
-            spends:       0,
-            money_in:     20,
-            daily_totals: [
+          statistics:   hash_including(
+            spends:      0,
+            moneyIn:     20,
+            dailyTotals: [
               { date: 2.days.ago.to_date, amount: 0 },
               { date: 1.day.ago.to_date, amount: 10 },
               { date: Date.current, amount: 10 }
             ]
-          }
+          )
         }
       end
 
