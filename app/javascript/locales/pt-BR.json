@@ -642,7 +642,7 @@
         "show": {
           "average_spend": "Gasto Diário",
           "money_in": "Receita",
-          "money_saved": "Quantia salva",
+          "money_saved": "Saldo",
           "spends": "Gastos",
           "sub_header_category_summary": "Resumo das Categorias",
           "sub_header_day_chart": "Totais Diários",

@@ -4,37 +4,37 @@
     :title="t('sub_header_transactions_summary')"
   >
     <div class="row">
-      <div class="col-12 col-md-7 col-lg-12 col-xl-7">
+      <div class="col-12 col-md-8 col-lg-12 col-xl-8">
         <div class="card bg-light border-0">
           <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
             <div class="text-credit">
-              <h6>{{ t('money_in') }}</h6>
+              <h5>{{ t('money_in') }}</h5>
 
-              <span class="fs-4">
+              <span class="fs-3">
                 {{ formatMoney(statistics.moneyIn) }}
               </span>
             </div>
 
             <div class="text-debit">
-              <h6>{{ t('spends') }}</h6>
+              <h5>{{ t('spends') }}</h5>
 
-              <span class="fs-4">
+              <span class="fs-3">
                 {{ formatMoney(statistics.spends * -1) }}
               </span>
             </div>
 
             <div :class="{ 'text-credit': moneySaved >= 0, 'text-debit': moneySaved < 0 }">
-              <h6>{{ t('money_saved') }}</h6>
+              <h5>{{ t('money_saved') }}</h5>
 
-              <span class="fs-4">
+              <span class="fs-3">
                 {{ formatMoney(moneySaved) }}
               </span>
             </div>
 
             <div class="text-debit">
-              <h6>{{ t('average_spend') }}</h6>
+              <h5>{{ t('average_spend') }}</h5>
 
-              <span class="fs-4">
+              <span class="fs-3">
                 {{ formatMoney(averageSpend) }}
               </span>
             </div>
@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-md-5 col-lg-12 col-xl-5">
+      <div class="col-12 col-md-4 col-lg-12 col-xl-4">
         <MoneyInSpendsChart />
       </div>
     </div>

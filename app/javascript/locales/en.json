@@ -588,7 +588,7 @@
         "show": {
           "average_spend": "Avg. Spend",
           "money_in": "Money In",
-          "money_saved": "Amount Saved",
+          "money_saved": "Balance",
           "spends": "Spends",
           "sub_header_category_summary": "Categories Summary",
           "sub_header_day_chart": "Daily Totals",

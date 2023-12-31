@@ -40,7 +40,7 @@ en:
         money_in: Money In
         spends: Spends
         average_spend: Avg. Spend
-        money_saved: Amount Saved
+        money_saved: Balance
     devise:
       alternative_links: 'Or, you can also:'
       sign_in: Sign In

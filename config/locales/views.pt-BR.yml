@@ -40,7 +40,7 @@ pt-BR:
         money_in: Receita
         spends: Gastos
         average_spend: Gasto Diário
-        money_saved: Quantia salva
+        money_saved: Saldo
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
