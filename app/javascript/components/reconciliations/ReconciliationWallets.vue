@@ -34,46 +34,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr
+          <ReconciliationWalletItem
             v-for="wallet in wallets"
             :key="wallet.id"
-            class="align-middle"
-          >
-            <td class="text-nowrap">
-              {{ wallet.name }}
-            </td>
-            <td class="text-end fw-bold text-nowrap">
-              {{ formatMoney(walletBalances[wallet.id] ?? 0, wallet.currency.isoCode) }}
-            </td>
-            <td>
-              <div class="input-group input-group-sm flex-nowrap">
-                <span
-                  class="input-group-text d-none d-md-inline-block"
-                >
-                  <FontAwesomeIcon
-                    v-if="loading[wallet.id]"
-                    icon="spinner"
-                    spin
-                  />
-                  <FontAwesomeIcon
-                    v-else-if="saved[wallet.id]"
-                    icon="check"
-                    class="text-success"
-                  />
-                  <template v-else>
-                    {{ wallet.currency.symbol }}
-                  </template>
-                </span>
-                <input
-                  class="ReconciliationWallets__input form-control form-control-sm text-end"
-                  type="number"
-                  :disabled="reconciliation.status !== 'in_progress'"
-                  :value="groupedReconciliationsWallets[wallet.id]?.balanceAmount"
-                  @change="handleChange($event, wallet.id)"
-                >
-              </div>
-            </td>
-          </tr>
+            :wallet-balance="walletBalances[wallet.id]"
+            :wallet="wallet"
+          />
 
           <tr
             v-if="walletBalances['']"
@@ -109,88 +75,42 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
-import _ from 'lodash';
 
 import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
-import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js';
 
 import InfoTooltip from '~/components/bootstrap/InfoTooltip.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import ReconciliationWalletItem from '@/components/reconciliations/ReconciliationWalletItem.vue';
 
 export default {
   components: {
-    FontAwesomeIcon,
+    ReconciliationWalletItem,
     InfoTooltip,
   },
 
   setup() {
     const t = I18n.scopedTranslator('views.reconciliations.show');
 
-    const loading = ref({});
-    const saved = ref({});
-    const timeouts = ref({});
-
     const walletStore = useWalletStore();
     const reconciliationStore = useReconciliationStore();
-    const reconciliationWalletStore = useReconciliationWalletStore();
 
     walletStore.fetch();
 
     const { activeWallets: wallets } = storeToRefs(walletStore);
     const { reconciliation, realBalancesSum, walletBalances, walletBalancesSum } = storeToRefs(reconciliationStore);
 
-    const groupedReconciliationsWallets = computed(() => {
-      return _.keyBy(reconciliation.value.reconciliationsWallets, 'walletId');
-    });
-
-    const handleChange = (ev ,walletId) => {
-      const balanceAmount = ev.target.value;
-      const reconciliationWalletId = groupedReconciliationsWallets.value[walletId]?.id;
-      loading.value[walletId] = true;
-      saved.value[walletId] = false;
-      clearTimeout(timeouts.value[walletId]);
-
-      reconciliationWalletStore
-        .create(reconciliationWalletId, { reconciliationId: reconciliation.id, walletId, balanceAmount })
-        .then((success) => {
-          loading.value[walletId] = false;
-          if (success) {
-            saved.value[walletId] = true;
-            timeouts.value[walletId] = setTimeout(() => saved.value[walletId] = false, 5000);
-          }
-        });
-    };
-
     return {
       t,
-      loading,
-      saved,
       wallets,
       reconciliation,
       realBalancesSum,
       walletBalances,
       walletBalancesSum,
-      groupedReconciliationsWallets,
       formatMoney,
-      handleChange,
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.ReconciliationWallets__input {
-  -moz-appearance:textfield;
-  min-width: 7rem;
-
-}
-
-.ReconciliationWallets__input::-webkit-outer-spin-button, .ReconciliationWallets__input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-</style>
