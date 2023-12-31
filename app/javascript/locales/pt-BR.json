@@ -641,9 +641,11 @@
       "dashboard": {
         "show": {
           "average_spend": "Gasto Diário",
+          "end_balance": "Saldo Final",
           "money_in": "Receita",
-          "money_saved": "Saldo",
+          "money_saved": "Dif. Saldo",
           "spends": "Gastos",
+          "start_balance": "Saldo Inicial",
           "sub_header_category_summary": "Resumo das Categorias",
           "sub_header_day_chart": "Totais Diários",
           "sub_header_recent_transactions": "Transações Recentes",

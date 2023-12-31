@@ -43,7 +43,7 @@
       </div>
 
       <div class="col-12 col-md-4 col-lg-12 col-xl-4">
-        <MoneyInSpendsChart />
+        <StartEndBalancesChart />
       </div>
     </div>
   </CollapsibleCard>
@@ -58,13 +58,13 @@ import useTransactionStore from '~/stores/TransactionStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
-import MoneyInSpendsChart from '~/components/transactions/MoneyInSpendsChart.vue';
+import StartEndBalancesChart from '~/components/transactions/StartEndBalancesChart.vue';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
 export default {
   components: {
     CollapsibleCard,
-    MoneyInSpendsChart,
+    StartEndBalancesChart,
   },
 
   setup() {
@@ -75,6 +75,8 @@ export default {
     const { statistics } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
+    const startBalance = computed(() => statistics.value.startBalance);
+    const endBalance = computed(() => statistics.value.endBalance);
     const moneySaved = computed(() => statistics.value.moneyIn + statistics.value.spends);
     const averageSpend = computed(() => {
       const numberOfDays = Math.round(endDate.value.diff(startDate.value, 'day', true));
@@ -86,6 +88,8 @@ export default {
       statistics,
       moneySaved,
       averageSpend,
+      startBalance,
+      endBalance,
       formatMoney,
     };
   },

@@ -3,7 +3,7 @@
     ref="chart"
     :data="chartData"
     :options="chartOptions"
-    class="MoneyInSpendsChart"
+    class="StartEndBalancesChart"
   />
 </template>
 
@@ -48,11 +48,14 @@ export default {
     );
 
     const chartData = computed(() => {
+      const backgroundColor = statistics.value.startBalance > statistics.value.endBalance
+        ? [MONEY_IN_COLOR, SPENDS_COLOR]
+        : [SPENDS_COLOR, MONEY_IN_COLOR];
       return {
-        labels: [t('money_in'), t('spends')],
+        labels: [t('start_balance'), t('end_balance')],
         datasets: [{
-          data: [statistics.value.moneyIn, statistics.value.spends * -1],
-          backgroundColor: [MONEY_IN_COLOR, SPENDS_COLOR],
+          data: [statistics.value.startBalance, statistics.value.endBalance],
+          backgroundColor,
         }],
       };
     });
@@ -96,7 +99,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.MoneyInSpendsChart {
+.StartEndBalancesChart {
   height: 9.5rem;
 }
 </style>

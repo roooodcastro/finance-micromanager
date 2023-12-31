@@ -5,7 +5,7 @@ class DashboardSerializer < ApplicationSerializer
 
   def as_json
     {
-      categories:                 profile.categories.includes(:subcategories).order(:name).as_json,
+      categories:                 profile.categories.includes(:active_subcategories).order(:name).as_json,
       category_summaries:         category_summaries.as_json,
       in_progress_reconciliation: profile.reconciliations.in_progress.last.as_json || {}
     }
