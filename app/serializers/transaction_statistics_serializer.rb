@@ -5,7 +5,9 @@ class TransactionStatisticsSerializer < ApplicationSerializer
 
   def as_json
     {
-      daily_totals:
+      daily_totals:,
+      spends:,
+      money_in:
     }
   end
 
@@ -21,6 +23,18 @@ class TransactionStatisticsSerializer < ApplicationSerializer
                                 .index_by { |transaction| transaction[:date] }
 
     days_in_period.map { |day| { date: day, amount: daily_totals_transactions.dig(day, :amount) || 0 } }
+  end
+
+  def spends
+    all_transactions.select(&:debit?).sum(&:amount).to_f
+  end
+
+  def money_in
+    all_transactions.select(&:credit?).sum(&:amount).to_f
+  end
+
+  def all_transactions
+    @all_transactions ||= transactions.to_a
   end
 
   def days_in_period

@@ -33,9 +33,14 @@ en:
     dashboard:
       show:
         title: Dashboard
-        recent_transactions: Recent Transactions
-        category_summary: Categories Summary
+        sub_header_recent_transactions: Recent Transactions
+        sub_header_category_summary: Categories Summary
         sub_header_day_chart: Daily Totals
+        sub_header_transactions_summary: Summary
+        money_in: Money In
+        spends: Spends
+        average_spend: Avg. Spend
+        money_saved: Amount Saved
     devise:
       alternative_links: 'Or, you can also:'
       sign_in: Sign In
