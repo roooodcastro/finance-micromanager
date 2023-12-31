@@ -7,6 +7,7 @@
       ref="chart"
       :data="chartData"
       :options="chartOptions"
+      class="DailyTotalsChart"
     />
   </CollapsibleCard>
 </template>
@@ -96,7 +97,7 @@ export default {
           align: 'end',
           offset: 0,
           clamp: true,
-          formatter: value => formatMoney(value),
+          formatter: value => value.toFixed(),
           display: 'auto',
         },
         tooltip: {
@@ -183,3 +184,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.DailyTotalsChart {
+  height: 15rem;
+}
+</style>
