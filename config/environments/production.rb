@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/integer/time'
+require_relative '../../lib/middlewares/cache_control'
 
 Rails.application.routes.default_url_options[:host] = Rails.application.credentials.hostname
 
@@ -26,7 +27,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  if ENV['RAILS_SERVE_STATIC_FILES'].to_b
+  if ENV['RAILS_SERVE_STATIC_FILES'].present?
     config.public_file_server.enabled = true
     config.public_file_server.headers = {
       'Cache-Control' => 'public, max-age=2592000'
