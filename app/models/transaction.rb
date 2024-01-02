@@ -30,12 +30,18 @@ class Transaction < ApplicationRecord
   scope :sort_by_recent, -> { order(transaction_date: :desc, created_at: :desc) }
 
   def as_json(*)
-    super(except: %w[created_at updated_at], include: :category)
+    super(except: %w[created_at updated_at])
       .merge(
+        name:        display_name,
         amount:      amount.to_f,
         subcategory: subcategory.as_json,
-        wallet:      wallet.as_json
+        wallet:      wallet.as_json,
+        category:    category.as_json(include_subcategories: false)
       )
+  end
+
+  def display_name
+    I18n.exists?(name) ? I18n.t(name) : name
   end
 
   def debit?
