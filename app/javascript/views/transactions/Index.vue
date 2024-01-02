@@ -22,21 +22,19 @@
       </div>
 
       <Pagination
-        :pagination="pagination"
         compact
         class="d-none d-lg-flex"
         @change="handlePageChange"
       />
     </div>
 
-    <TransactionsList
-      :transactions="transactions"
-      :pagination="pagination"
-    />
+    <TransactionsList :transactions="transactions" />
   </div>
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
 import { getQueryParams } from '~/utils/QueryStringUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
@@ -47,6 +45,7 @@ import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
 import DateRangeFilter from '~/components/transactions/DateRangeFilter.vue';
+import usePaginationStore from '~/stores/PaginationStore.js';
 
 export default {
   components: {
@@ -69,13 +68,19 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const transactionStore = useTransactionStore();
+    const paginationStore = usePaginationStore();
 
     const daysToShowFromQuery = getQueryParams().daysToShow;
     if (daysToShowFromQuery) {
       transactionStore.setFetchParams({ daysToShow: daysToShowFromQuery });
     }
+
+    const { pagination: paginationFromStore } = storeToRefs(paginationStore);
+    paginationFromStore.value = props.pagination;
+    const { transactions: transactionsFromStore } = storeToRefs(transactionStore);
+    transactionsFromStore.value = props.transactions;
 
     transactionStore.setFetchParams({
       excludeDebits: !!getQueryParams().excludeDebits,
@@ -88,6 +93,7 @@ export default {
 
     return {
       t: I18n.scopedTranslator('views.transactions.index'),
+      paginationFromStore,
       handlePageChange,
       handleNew,
       handleMassEdit,

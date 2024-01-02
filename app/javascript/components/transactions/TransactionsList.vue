@@ -1,10 +1,9 @@
 <template>
   <div>
-    <NoTransactionsPlaceholder v-if="!transactionsFromStore.length" />
+    <MassEditForm />
+    <NoTransactionsPlaceholder v-if="!transactions.length" />
 
     <template v-else>
-      <MassEditForm />
-
       <div
         v-if="massEditMode"
         class="card my-2 bg-secondary-subtle"
@@ -70,7 +69,6 @@
       </InfiniteScrolling>
 
       <Pagination
-        :pagination="pagination"
         class="d-none d-lg-flex mt-3"
         :class="{ 'me-2 me-lg-3 mb-2 mb-lg-3': cardBody }"
         @change="handlePageChange"
@@ -80,7 +78,7 @@
 </template>
 
 <script>
-import { watch, toRef, ref } from 'vue';
+import { watch, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -106,14 +104,6 @@ export default {
   },
 
   props: {
-    transactions: {
-      type: Array,
-      required: true,
-    },
-    pagination: {
-      type: Object,
-      default: () => ({}),
-    },
     compact: {
       type: Boolean,
       default: false,
@@ -124,18 +114,17 @@ export default {
     },
   },
 
-  setup(props) {
+  setup() {
     const paginationStore = usePaginationStore();
     // Load transactions from props
     const transactionStore = useTransactionStore();
     const {
-      transactions: transactionsFromStore,
+      transactions,
       groupedTransactions,
       massEditMode,
       massEditTransactionIds,
       massEditTransactionIdsCount,
     } = storeToRefs(transactionStore);
-    transactionsFromStore.value = toRef(props.transactions).value;
 
     const handlePageChange = () => transactionStore.fetch();
 
@@ -167,7 +156,7 @@ export default {
 
     return {
       formatDate,
-      transactionsFromStore,
+      transactions,
       groupedTransactions,
       massEditMode,
       massEditTransactionIds,
