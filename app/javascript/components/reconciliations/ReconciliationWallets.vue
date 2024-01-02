@@ -83,7 +83,7 @@ import useWalletStore from '~/stores/WalletStore.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 
 import InfoTooltip from '~/components/bootstrap/InfoTooltip.vue';
-import ReconciliationWalletItem from '@/components/reconciliations/ReconciliationWalletItem.vue';
+import ReconciliationWalletItem from '~/components/reconciliations/ReconciliationWalletItem.vue';
 
 export default {
   components: {

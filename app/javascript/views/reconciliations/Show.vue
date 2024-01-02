@@ -74,7 +74,6 @@
         </div>
         <div class="card-body p-0">
           <TransactionsList
-            :transactions="transactions"
             compact
             card-body
             class="mb-3"
@@ -172,7 +171,6 @@ export default {
     return {
       t,
       formatDate,
-      transactions,
       massEditMode,
       reconciliationsPath,
       reconciliationFromStore,

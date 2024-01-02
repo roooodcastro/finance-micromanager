@@ -1,7 +1,7 @@
 <template>
   <div class="Pagination d-none d-lg-flex justify-content-end align-items-center flex-wrap">
     <div
-      v-if="!compact && paginationFromStore.count"
+      v-if="!compact && pagination.count"
       class="dropdown flex-shrink-0"
     >
       {{ t('per_page') }}
@@ -11,7 +11,7 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {{ paginationFromStore.items }}
+        {{ pagination.items }}
       </button>
       <ul class="dropdown-menu">
         <li
@@ -30,14 +30,14 @@
     </div>
 
     <div
-      v-if="paginationFromStore.count"
+      v-if="pagination.count"
       class="d-none d-lg-flex ms-3 flex-shrink-0"
     >
-      {{ t('page_desc', { items: `${paginationFromStore.from}-${paginationFromStore.to}`, total: paginationFromStore.count }) }}
+      {{ t('page_desc', { items: `${pagination.from}-${pagination.to}`, total: pagination.count }) }}
     </div>
 
     <nav
-      v-if="paginationFromStore.count && paginationFromStore.count > paginationFromStore.items"
+      v-if="pagination.count && pagination.count > pagination.items"
       class="ms-3 flex-shrink-0"
       :aria-label="t('pagination')"
     >
@@ -45,26 +45,26 @@
         <a
           class="btn btn-sm btn-outline-dark"
           :class="{
-            'disabled': paginationFromStore.page === 1,
+            'disabled': pagination.page === 1,
           }"
-          :aria-disabled="paginationFromStore.page === 1"
-          @click="handlePageChange(paginationFromStore.page - 1)"
+          :aria-disabled="pagination.page === 1"
+          @click="handlePageChange(pagination.page - 1)"
         >
           <FontAwesomeIcon icon="chevron-left" />
         </a>
         <template v-if="!compact">
           <template
-            v-for="(page, index) in paginationFromStore.series"
+            v-for="(page, index) in pagination.series"
             :key="`pagination-${page}-${index}`"
           >
             <a
               class="btn btn-sm"
               :class="{
-                'active disabled btn-dark': page === `${paginationFromStore.page}`,
+                'active disabled btn-dark': page === `${pagination.page}`,
                 'disabled': page === 'gap',
-                'btn-outline-dark': page !== `${paginationFromStore.page}`
+                'btn-outline-dark': page !== `${pagination.page}`
               }"
-              :aria-disabled="page === `${paginationFromStore.page}`"
+              :aria-disabled="page === `${pagination.page}`"
               @click="handlePageChange(page)"
               v-html="labelForPage(page)"
             />
@@ -72,9 +72,9 @@
         </template>
         <a
           class="btn btn-sm btn-outline-dark"
-          :class="{ 'disabled': paginationFromStore.page === paginationFromStore.pages }"
-          :aria-disabled="paginationFromStore.page === paginationFromStore.pages"
-          @click="handlePageChange(paginationFromStore.page + 1)"
+          :class="{ 'disabled': pagination.page === pagination.pages }"
+          :aria-disabled="pagination.page === pagination.pages"
+          @click="handlePageChange(pagination.page + 1)"
         >
           <FontAwesomeIcon icon="chevron-right" />
         </a>
@@ -94,11 +94,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: { FontAwesomeIcon },
+
   props: {
-    pagination: {
-      type: Object,
-      required: true,
-    },
     compact: {
       type: Boolean,
       default: false,
@@ -107,14 +104,11 @@ export default {
 
   emits: ['change'],
 
-  setup(props, { emit }) {
+  setup(_props, { emit }) {
     const labelForPage = page => page === 'gap' ? '&hellip;' : page;
 
     const paginationStore = usePaginationStore();
-    const { pagination: paginationFromStore } = storeToRefs(paginationStore);
-    if (props.pagination.length) {
-      paginationFromStore.value = props.pagination;
-    }
+    const { pagination } = storeToRefs(paginationStore);
 
     const handlePageChange = (page) => {
       paginationStore.setPage(page);
@@ -128,7 +122,7 @@ export default {
 
     return {
       t: I18n.scopedTranslator('views.layout.rails'),
-      paginationFromStore,
+      pagination,
       labelForPage,
       handlePageChange,
       handlePerPageChange,
