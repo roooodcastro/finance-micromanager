@@ -22,7 +22,7 @@
         class="form-control"
         :name="formHelper.fieldName(fieldName)"
         :value="modelValue ?? $attrs.value"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="handleInput"
       >
     </div>
 
@@ -64,6 +64,17 @@ export default {
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'input'],
+
+  setup(props, { emit }) {
+    const handleInput = (ev) => {
+      emit('update:modelValue', ev.target.value);
+      emit('input', ev.target.value);
+    };
+
+    return {
+      handleInput,
+    };
+  }
 };
 </script>

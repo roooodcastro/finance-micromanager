@@ -4,6 +4,7 @@
     :record="transaction"
     :form-id="TRANSACTION_FORM_ID"
     :modal-id="modalId"
+    @show="updateTransactionDataWithDefaultValues"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -105,7 +106,7 @@
 </template>
 
 <script>
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
@@ -148,17 +149,17 @@ export default {
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
-    const {
-      transactionForFormModal: transaction,
-      transactions,
-      defaultTransactionDate
-    } = storeToRefs(transactionStore);
     const { activeWallets } = storeToRefs(walletStore);
+    const { transactionForFormModal: transaction, defaultTransactionDate } = storeToRefs(transactionStore);
 
     const showWalletField = computed(() => !!activeWallets.value.length);
 
     if (!categories.value.length) {
       categoryStore.fetch();
+    }
+
+    if (!activeWallets.value.length) {
+      walletStore.fetch();
     }
 
     const isNewRecord = computed(() => !transaction.value.id);
@@ -172,42 +173,38 @@ export default {
     });
 
     const updateTransactionDataWithDefaultValues = () => {
-      if (transaction.value.amount) {
-        transaction.value.amount = Math.abs(transaction.value.amount).toFixed(2);
-      }
+      transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate.value;
+      transaction.value.amountType = 'debit';
 
-      if (!activeWallets.value.length) {
-        walletStore.fetch();
+      if (transaction.value.amount) {
+        if (!transaction.value.originalAmount) {
+          transaction.value.originalAmount = transaction.value.amount;
+        }
+
+        transaction.value.amountType = transaction.value.originalAmount > 0 ? 'credit' : 'debit';
+        transaction.value.amount = Math.abs(transaction.value.amount).toFixed(2);
       }
 
       if (isNewRecord.value) {
         transaction.value.walletId = currentProfile.value.defaultWalletId;
       }
-
-      transaction.value.amountType =  transaction.value.amount > 0 ? 'credit' : 'debit';
-      transaction.value.transactionDate = transaction.value.transactionDate || defaultTransactionDate.value;
     };
-
-    watch(
-      [transaction, transactions],
-      updateTransactionDataWithDefaultValues,
-    );
 
     onMounted(() => {
       modalStore.registerModal(TRANSACTION_FORM_ID);
-
       updateTransactionDataWithDefaultValues();
     });
 
     const handleSubmit = (closeModal) => {
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId', 'walletId'];
       const transactionData = _.pick(transaction.value, transactionFields);
+
       if (isNewRecord.value) {
         transactionStore.create(transactionData).then(closeModal);
       } else {
         transactionStore.update(transaction.value.id, transactionData).then(closeModal);
       }
-    }
+    };
 
     return {
       t,
@@ -218,6 +215,7 @@ export default {
       modalId,
       showWalletField,
       handleSubmit,
+      updateTransactionDataWithDefaultValues,
       TRANSACTION_FORM_ID,
     };
   },
