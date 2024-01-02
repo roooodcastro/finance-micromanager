@@ -3,7 +3,7 @@
     v-bind="$attrs"
     class="form-select"
     :value="modelValue ?? $attrs.value"
-    @change="$emit('update:modelValue', $event.target.value)"
+    @change="handleChange"
   >
     <option />
     <option
@@ -29,9 +29,9 @@ export default {
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
 
-  setup() {
+  setup(_props, { emit }) {
     const walletStore = useWalletStore();
     const { activeWallets: options } = storeToRefs(walletStore);
 
@@ -39,7 +39,15 @@ export default {
       walletStore.fetch();
     }
 
-    return { options };
+    const handleChange = (ev) => {
+      emit('update:modelValue', ev.target.value);
+      emit('change', ev.target.value);
+    }
+
+    return {
+      options,
+      handleChange,
+    };
   },
 };
 </script>

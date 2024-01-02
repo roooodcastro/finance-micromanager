@@ -5,7 +5,7 @@
     tabindex="-1"
     :aria-labelledby="title"
     aria-hidden="true"
-    v-on="{ 'shown.bs.modal': handleShown }"
+    v-on="{ 'shown.bs.modal': handleShown, 'show.bs.modal': handleShow }"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -84,7 +84,9 @@ export default {
     },
   },
 
-  setup(props) {
+  emits: ['shown', 'show'],
+
+  setup(props, { emit }) {
     const modalStore = useModalStore();
 
     onMounted(() => modalStore.registerModal(props.formId));
@@ -93,12 +95,18 @@ export default {
     const title = computed(() => isNewRecord.value ? props.t('new_title') : props.t('edit_title'));
 
     const closeModal = () => modalStore.hide(props.formId);
-    const handleShown = (ev) => ev.target.querySelector('input.focus')?.focus();
+
+    const handleShow = () => emit('show');
+    const handleShown = (ev) => {
+      ev.target.querySelector('input.focus')?.focus();
+      emit('shown');
+    };
 
     return {
       title,
       closeModal,
       handleShown,
+      handleShow,
     }
   },
 };
