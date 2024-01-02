@@ -2,10 +2,11 @@
 
 RSpec.describe TransactionStatisticsSerializer, type: :serializer do
   let(:serializer) { described_class.new(transactions) }
-  let(:transactions) { profile.transactions.newer_than(start_date).older_than(end_date) }
+  let(:transactions) { TransactionSearch.new(profile.transactions, search_params) }
   let(:profile) { create(:profile) }
   let(:start_date) { 10.days.ago }
   let(:end_date) { 1.day.ago }
+  let(:search_params) { { exclude_debits: true, start_date: start_date, end_date: end_date } }
 
   before do
     allow(CurrentDateRange).to receive_messages(start_date:, end_date:)

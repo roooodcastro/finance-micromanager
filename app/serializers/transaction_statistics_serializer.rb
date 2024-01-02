@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class TransactionStatisticsSerializer < ApplicationSerializer
-  alias transactions record
-
   def as_json
     {
       daily_totals:,
@@ -18,7 +16,7 @@ class TransactionStatisticsSerializer < ApplicationSerializer
   def daily_totals
     daily_totals_transactions = transactions
                                 .group(:transaction_date)
-                                .reorder(:transaction_date)
+                                .order(:transaction_date)
                                 .select(:transaction_date, 'sum(amount_cents) as amount_cents')
                                 .to_a
                                 .map { |t| { date: t.transaction_date, amount: t.amount.to_f } }
@@ -69,5 +67,9 @@ class TransactionStatisticsSerializer < ApplicationSerializer
 
   def days_in_period
     (CurrentDateRange.start_date.to_date..CurrentDateRange.end_date.to_date).to_a
+  end
+
+  def transactions
+    record.search_date_range_only
   end
 end

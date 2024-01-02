@@ -6,13 +6,13 @@ class TransactionsController < AbstractAuthenticatedController
   before_action :set_transaction, only: %i[edit update destroy]
 
   def index
-    transactions = TransactionSearch
-                   .new(Current.profile.transactions, search_params)
+    transaction_search = TransactionSearch.new(Current.profile.transactions, search_params)
+
+    statistics   = TransactionStatisticsSerializer.new(transaction_search).as_json if params[:include_statistics]
+    transactions = transaction_search
                    .search
                    .order(transaction_date: :desc, created_at: :desc)
-
-    statistics   = TransactionStatisticsSerializer.new(transactions).as_json if params[:include_statistics]
-    transactions = transactions.includes(:category, :subcategory, :wallet)
+                   .includes(:category, :subcategory, :wallet)
 
     pagy, transactions = pagy(transactions, items: current_pagination_items)
     props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
