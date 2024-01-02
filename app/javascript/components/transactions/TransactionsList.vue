@@ -1,10 +1,9 @@
 <template>
   <div>
+    <MassEditForm />
     <NoTransactionsPlaceholder v-if="!transactions.length" />
 
     <template v-else>
-      <MassEditForm />
-
       <div
         v-if="massEditMode"
         class="card my-2 bg-secondary-subtle"
