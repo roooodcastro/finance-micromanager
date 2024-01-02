@@ -46,7 +46,7 @@ module Statistics
     def end_date_condition
       return '' unless end_date
 
-      'AND t.transaction_date < @end_date'
+      'AND t.transaction_date <= @end_date'
     end
   end
 end
