@@ -37,12 +37,14 @@ class Category < ApplicationRecord
     create!(profile: profile, name: TEMPORARY_NAME, color: SYSTEM_CATEGORY_COLOR, category_type: :system)
   end
 
-  def as_json(*)
-    super.merge(
-      subcategories: active_subcategories.as_json,
-      system:        system?,
-      name:          display_name
+  def as_json(include_subcategories: true)
+    json = super.merge(
+      system: system?,
+      name:   display_name
     )
+
+    json = json.merge(subcategories: active_subcategories.as_json) if include_subcategories
+    json
   end
 
   def display_name
