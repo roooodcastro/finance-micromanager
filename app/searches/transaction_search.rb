@@ -10,12 +10,19 @@ class TransactionSearch
 
   def search
     search_exclude_debits
-      .search_exclude_credits
-      .search_days_to_show
-      .search_start_date
-      .search_end_date
-      .search_category_ids
-      .search_wallet_ids
+    search_exclude_credits
+    search_days_to_show
+    search_start_date
+    search_end_date
+    search_category_ids
+    search_wallet_ids
+
+    relation
+  end
+
+  def search_date_range_only
+    search_start_date
+    search_end_date
 
     relation
   end
