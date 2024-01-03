@@ -86,6 +86,14 @@ export default defineBaseApiStore('transaction', {
       this.massEditTransactionIds = {};
     },
 
+    selectAllMassEditMode() {
+      const newTransactionIds = this.transactions.reduce((result, transaction) => {
+        result[transaction.id] = true;
+        return result;
+      }, {});
+      this.massEditTransactionIds = Object.assign(this.massEditTransactionIds, newTransactionIds);
+    },
+
     toggleMassEditTransactionId(transactionId) {
       if (this.massEditTransactionIds[transactionId]) {
         delete this.massEditTransactionIds[transactionId];

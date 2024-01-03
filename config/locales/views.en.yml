@@ -247,7 +247,8 @@ en:
         mass_edit_selected: '%{count} Selected'
         mass_edit_cancel: Cancel
         mass_edit_submit: Submit
-        mass_edit_deselect_all: Deselect All
+        mass_edit_deselect_all: None
+        mass_edit_select_all: All
       filters:
         filters: Filters
         transaction_type: Transaction Type
