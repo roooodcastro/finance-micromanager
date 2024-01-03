@@ -249,7 +249,8 @@ pt-BR:
         mass_edit_selected: '%{count} Selecionada(s)'
         mass_edit_cancel: Cancelar
         mass_edit_submit: Concluir
-        mass_edit_deselect_all: Deselecionar Tudo
+        mass_edit_deselect_all: Nada
+        mass_edit_select_all: Tudo
       filters:
         filters: Filtros
         transaction_type: Tipo de Transação

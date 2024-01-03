@@ -15,12 +15,21 @@
         </h6>
 
         <div class="d-flex p-2 gap-2 justify-content-between flex-wrap">
-          <a
-            class="btn btn-xs btn-light flex-grow-1 flex-lg-grow-0"
-            @click="handleDeselectAll"
-          >
-            {{ t('mass_edit_deselect_all') }}
-          </a>
+          <div class="d-flex gap-2">
+            <a
+              class="btn btn-xs btn-light flex-grow-1 flex-lg-grow-0"
+              @click="handleSelectAll"
+            >
+              {{ t('mass_edit_select_all') }}
+            </a>
+
+            <a
+              class="btn btn-xs btn-light flex-grow-1 flex-lg-grow-0"
+              @click="handleDeselectAll"
+            >
+              {{ t('mass_edit_deselect_all') }}
+            </a>
+          </div>
 
           <div class="d-flex gap-2 flex-grow-1 flex-lg-grow-0">
             <a
@@ -151,6 +160,7 @@ export default {
 
     const handleCancelMassEdit = transactionStore.cancelMassEditMode;
     const handleDeselectAll = transactionStore.deselectAllMassEditMode;
+    const handleSelectAll = transactionStore.selectAllMassEditMode;
     const handleMassEditToggle = transactionStore.toggleMassEditTransactionId;
     const handleSubmitMassEdit = transactionStore.submitMassEdit;
 
@@ -165,6 +175,7 @@ export default {
       handleInfiniteScrolling,
       handleCancelMassEdit,
       handleDeselectAll,
+      handleSelectAll,
       handleMassEditToggle,
       handleSubmitMassEdit,
       t: I18n.scopedTranslator('views.transactions.index'),
