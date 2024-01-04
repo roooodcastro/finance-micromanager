@@ -1,13 +1,14 @@
 en:
   categories:
     create:
-      success: 'Category was successfully created.'
+      success: 'Category "%{name}" was successfully created.'
       error: 'Category could not be created: %{error}'
     update:
-      success: 'Category was successfully updated.'
-      error: 'Category could not be updated: %{error}'
+      success: 'Category "%{name}" was successfully updated.'
+      error: 'Category "%{name}" could not be updated: %{error}'
     destroy:
-      success: 'Category "%{name}" was successfully destroyed.'
+      success: 'Category "%{name}" was successfully disabled.'
+      error: 'Category "%{name} could not be disabled.'
 
   current_profiles:
     create:

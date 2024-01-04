@@ -1,20 +1,18 @@
 <template>
   <div>
-    <div class="CategoriesList">
+    <div class="CategoriesList list-group">
       <template
-        v-for="category in categoriesFromStore"
+        v-for="category in categories"
         :key="category.id"
       >
-        <CategoryListItem
-          :category="category"
-        />
+        <CategoryListItem :category="category" />
       </template>
     </div>
   </div>
 </template>
 
 <script>
-import { watch, toRef } from 'vue';
+import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { categories as categoriesApi } from '~/api/all.js';
@@ -29,35 +27,24 @@ export default {
     CategoryListItem,
   },
 
-  props: {
-    categories: {
-      type: Array,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
     const categoryStore = useCategoryStore();
 
     // Load categories from props
-    const {
-      categories: categoriesFromStore,
-    } = storeToRefs(categoryStore);
-
-    categoriesFromStore.value = toRef(props.categories);
+    const { categories } = storeToRefs(categoryStore);
 
     // Reload categories if profile has changed while this list is shown
     const profileStore = useProfileStore();
     watch(
       () => profileStore.currentProfile,
       () => {
-        categoriesApi.index().then(response => categoriesFromStore.value = response.categories);
+        categoriesApi.index().then(response => categories.value = response.categories);
       },
     );
 
     return {
       t: I18n.scopedTranslator('views.categories.index'),
-      categoriesFromStore,
+      categories,
     };
   },
 };

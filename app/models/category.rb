@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
+  include Disableable
+
   HEX_COLOR_REGEX       = /\A#[[0-9][a-f]]{6}\z/i
   TEMPORARY_NAME        = 'Temporary'
   RECONCILIATION_NAME   = 'reconciliations.category_name'

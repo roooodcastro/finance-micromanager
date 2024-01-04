@@ -92,14 +92,15 @@
     "categories": {
       "create": {
         "error": "Category could not be created: %{error}",
-        "success": "Category was successfully created."
+        "success": "Category \"%{name}\" was successfully created."
       },
       "destroy": {
-        "success": "Category \"%{name}\" was successfully destroyed."
+        "error": "Category \"%{name} could not be disabled.",
+        "success": "Category \"%{name}\" was successfully disabled."
       },
       "update": {
-        "error": "Category could not be updated: %{error}",
-        "success": "Category was successfully updated."
+        "error": "Category \"%{name}\" could not be updated: %{error}",
+        "success": "Category \"%{name}\" was successfully updated."
       }
     },
     "current_profiles": {
@@ -554,7 +555,7 @@
       "app_name": "Finance MicroManager",
       "categories": {
         "form": {
-          "back": "Back",
+          "cancel": "Cancel",
           "color_label": "Category color",
           "edit_title": "Edit Category \"%{category}\"",
           "name_label": "Name",

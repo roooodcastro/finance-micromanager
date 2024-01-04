@@ -4,27 +4,27 @@
 
     <EditButton
       small
-      :href="editCategoryPath(category.id)"
+      href="#"
       :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
+      @click="handleEdit"
     />
 
     <DeleteButton
       small
       href="#"
+      disable-label
       :class="{
         'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
         'ms-3': !drawerMenu,
       }"
-      @delete="handleDelete(category.id)"
+      @delete="handleDelete"
     />
   </template>
 </template>
 
 <script>
 import I18n from '~/utils/I18n.js';
-import { categories as categoriesApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
-import useNotificationStore from '~/stores/NotificationStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
@@ -32,7 +32,7 @@ import DeleteButton from '~/components/rails/DeleteButton.vue';
 export default {
   components: {
     DeleteButton,
-    EditButton
+    EditButton,
   },
 
   props: {
@@ -46,22 +46,16 @@ export default {
     },
   },
 
-  setup() {
-    const editCategoryPath = (categoryId) => categoriesApi.edit.path({ id: categoryId });
+  setup(props) {
 
     const categoryStore = useCategoryStore();
-    const notificationStore = useNotificationStore();
 
-    const handleDelete = (id) => {
-      categoriesApi.destroy({ id }).then((response) => {
-        notificationStore.notify(response.message, 'success');
-        categoryStore.remove(response.categoryId);
-      });
-    };
+    const handleEdit = () => categoryStore.openFormModal(props.category.id);
+    const handleDelete = () => categoryStore.disable(props.category.id);
 
     return {
       t: I18n.scopedTranslator('views.categories.index'),
-      editCategoryPath,
+      handleEdit,
       handleDelete,
     };
   },

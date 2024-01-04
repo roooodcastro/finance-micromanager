@@ -1,13 +1,14 @@
 pt-BR:
   categories:
     create:
-      success: 'Categoria criada com sucesso.'
+      success: 'Categoria "%{name}" criada com sucesso.'
       error: 'Categoria não pode ser criada: %{error}'
     update:
-      success: 'Categoria atualizada com successo.'
-      error: 'Categoria não pode ser atualizada: %{error}'
+      success: 'Categoria "%{name}" atualizada com successo.'
+      error: 'Categoria "%{name}" não pode ser atualizada: %{error}'
     destroy:
-      success: 'Categoria "%{name}" removida com sucesso.'
+      success: 'Categoria "%{name}" desativada com sucesso.'
+      error: 'Categoria "%{name}" não pode ser desativada.'
 
   current_profiles:
     create:

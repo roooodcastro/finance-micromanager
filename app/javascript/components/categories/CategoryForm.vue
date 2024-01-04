@@ -1,22 +1,23 @@
 <template>
-  <RailsForm
-    :action="formAction"
-    :method="formMethod"
-    resource="category"
+  <FormModal
+    :t="t"
+    :record="category"
+    :form-id="CATEGORY_FORM_ID"
+    :modal-id="modalId"
   >
-    <template v-slot:default="{ formHelper }">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ formTitle }}
-          </h4>
-
-          <hr>
-
+    <template v-slot:default="{ closeModal }">
+      <RailsForm
+        :id="CATEGORY_FORM_ID"
+        :action="formAction"
+        method="PATCH"
+        resource="category"
+        @submit.prevent="handleSubmit(closeModal)"
+      >
+        <template v-slot:default="{ formHelper }">
           <FormInput
+            v-model="category.name"
             field-name="name"
             :form-helper="formHelper"
-            :value="category.name"
             :label="t('name_label')"
             class="focus"
           />
@@ -29,73 +30,68 @@
           </label>
           <ColorPickerInput
             :id="formHelper.fieldId('color')"
+            v-model="category.color"
             :name="formHelper.fieldName('color')"
-            :value="category.color"
           />
-        </div>
-
-        <div class="card-footer">
-          <div class="d-grid gap-2 d-md-flex">
-            <button
-              type="submit"
-              class="btn btn-primary flex-md-fill"
-            >
-              {{ t('submit') }}
-            </button>
-
-            <a
-              :href="listCategoriesPath"
-              class="btn btn-outline-secondary flex-md-fill"
-            >
-              {{ t('back') }}
-            </a>
-          </div>
-        </div>
-      </div>
+        </template>
+      </RailsForm>
     </template>
-  </RailsForm>
+  </FormModal>
 </template>
 
 <script>
-import { categories } from '~/api/all.js';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
+import { categories as categoriesApi } from '~/api/all.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
+import useModalStore from '~/stores/ModalStore.js';
+import { CATEGORY_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
+import FormModal from '~/components/forms/FormModal.vue';
 import ColorPickerInput from '~/components/forms/ColorPickerInput.vue';
 
 export default {
   components: {
     ColorPickerInput,
     FormInput,
+    FormModal,
     RailsForm,
   },
 
-  props: {
-    category: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
     const t = I18n.scopedTranslator('views.categories.form');
-    const listCategoriesPath = categories.index.path();
-    const isNewCategory = !props.category.id;
 
-    const formMethod = isNewCategory ? 'POST' : 'PATCH';
-    const formAction = isNewCategory
-      ? categories.create.path()
-      : categories.update.path({ id: props.category.id });
+    const modalStore = useModalStore();
+    const modalId = modalStore.modalId(CATEGORY_FORM_ID);
 
-    const formTitle = isNewCategory ? t('new_title') : t('edit_title', { category: props.category.name });
+    const categoryStore = useCategoryStore();
+    const { categoryForFormModal: category } = storeToRefs(categoryStore);
+
+    const isNewRecord = computed(() => !category.value.id);
+
+    const formAction = isNewRecord.value
+      ? categoriesApi.create.path()
+      : categoriesApi.update.path({ id: category.value.id });
+
+    const handleSubmit = (closeModal) => {
+      if (isNewRecord.value) {
+        categoryStore.create(category.value).then(closeModal);
+      } else {
+        categoryStore.update(category.value.id, category.value).then(closeModal);
+      }
+    };
 
     return {
-      listCategoriesPath,
-      formMethod,
-      formAction,
-      formTitle,
       t,
+      modalId,
+      category,
+      formAction,
+      handleSubmit,
+      CATEGORY_FORM_ID,
     };
   },
 };
