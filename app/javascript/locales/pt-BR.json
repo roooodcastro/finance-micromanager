@@ -123,14 +123,15 @@
     "categories": {
       "create": {
         "error": "Categoria não pode ser criada: %{error}",
-        "success": "Categoria criada com sucesso."
+        "success": "Categoria \"%{name}\" criada com sucesso."
       },
       "destroy": {
-        "success": "Categoria \"%{name}\" removida com sucesso."
+        "error": "Categoria \"%{name}\" não pode ser desativada.",
+        "success": "Categoria \"%{name}\" desativada com sucesso."
       },
       "update": {
-        "error": "Categoria não pode ser atualizada: %{error}",
-        "success": "Categoria atualizada com successo."
+        "error": "Categoria \"%{name}\" não pode ser atualizada: %{error}",
+        "success": "Categoria \"%{name}\" atualizada com successo."
       }
     },
     "current_profiles": {
@@ -608,7 +609,8 @@
       "app_name": "Finance MicroManager",
       "categories": {
         "form": {
-          "back": "Voltar",
+          "back": "Cancelar",
+          "cancel": "Cancel",
           "color_label": "Cor da Categoria",
           "edit_title": "Editar Categoria \"%{category}\"",
           "name_label": "Nome",

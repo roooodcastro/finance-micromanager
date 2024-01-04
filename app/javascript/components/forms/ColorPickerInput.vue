@@ -4,7 +4,7 @@
       :id="id"
       type="hidden"
       :name="name"
-      :value="colorValue"
+      :value="modelValue ?? $attrs.value"
     >
     <a
       :id="`${id}__toggler`"
@@ -13,7 +13,7 @@
       data-bs-toggle="dropdown"
       aria-expanded="false"
       class="ColorPickerInput d-block rounded-circle"
-      :style="{ backgroundColor: colorValue }"
+      :style="{ backgroundColor: modelValue ?? $attrs.value }"
     />
     <div
       class="dropdown-menu p-0"
@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import { toRef } from 'vue';
-
 import { colors } from '~/utils/ColorSwatch.js';
 
 export default {
@@ -47,20 +45,22 @@ export default {
       type: String,
       default: null,
     },
-    value: {
+    modelValue: {
       type: String,
       default: null,
     },
   },
-  setup(props) {
-    const colorValue = toRef(props.value);
+
+  emits: ['update:modelValue', 'change'],
+
+  setup(_props, { emit }) {
     const handleColorClick = (color) => {
-      colorValue.value = color;
+      emit('update:modelValue', color);
+      emit('change', color);
     };
 
     return {
       colors,
-      colorValue,
       handleColorClick,
     };
   },

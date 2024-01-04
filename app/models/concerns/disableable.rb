@@ -22,6 +22,10 @@ module Disableable
     update!(disabled_at: nil, disabled_by: nil)
   end
 
+  def disabled?
+    disabled_at.present?
+  end
+
   private
 
   def can_disable?

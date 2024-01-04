@@ -17,7 +17,7 @@ pt-BR:
         name_label: Nome
         color_label: Cor da Categoria
         submit: Salvar
-        back: Voltar
+        back: Cancelar
       show:
         title: 'Categoria'
         sub_header_summary: Resumo

@@ -9,54 +9,67 @@ RSpec.describe CategoriesController do
     session[:current_profile_id] = profile.id
   end
 
-  describe 'GET index', :inertia do
+  describe 'GET index' do
+    subject(:index_request) { get :index, format: }
+
     let!(:category) { create(:category, profile:) }
 
-    it 'renders the index component' do
-      get :index
+    context 'for a HTML request', :inertia do
+      let(:format) { :html }
 
-      expect_inertia.to render_component('categories/Index')
-                    .and include_props({ categories: [CamelizeProps.call(category.as_json)] })
+      it 'renders the index component' do
+        index_request
+
+        expect_inertia.to render_component('categories/Index')
+                      .and include_props({ categories: [CamelizeProps.call(category.as_json)] })
+      end
+    end
+
+    context 'for a JSON request' do
+      let(:format) { :json }
+
+      it 'renders the categories as json' do
+        index_request
+
+        expect(json_response).to eq({ 'categories' => [CamelizeProps.call(category.as_json)] })
+      end
     end
   end
 
   describe 'GET show', :inertia do
+    subject(:show_request) { get :show, format: format, params: { id: category.id } }
+
     let!(:category) { create(:category, profile:) }
 
     before do
       allow(CategorySerializer)
         .to receive(:new)
+        .with(category)
         .and_return(instance_double(CategorySerializer, as_json: 'serializer_json'))
     end
 
-    it 'renders the show component' do
-      get :show, params: { id: category.id }
+    context 'for a HTML request', :inertia do
+      let(:format) { :html }
 
-      expect_inertia.to render_component('categories/Show').and include_props({ category: 'serializer_json' })
+      it 'renders the show component' do
+        show_request
+
+        expect_inertia.to render_component('categories/Show').and include_props({ category: 'serializer_json' })
+      end
+    end
+
+    context 'for a JSON request' do
+      let(:format) { :json }
+
+      it 'renders the category as json' do
+        show_request
+
+        expect(json_response).to eq({ 'category' => 'serializer_json' })
+      end
     end
   end
 
-  describe 'GET new', :inertia do
-    it 'renders the new component' do
-      get :new
-
-      expect_inertia.to render_component('categories/New')
-                    .and include_props({ category: an_instance_of(Category) })
-    end
-  end
-
-  describe 'GET edit', :inertia do
-    let!(:category) { create(:category, profile:) }
-
-    it 'renders the edit component' do
-      get :edit, params: { id: category.id }
-
-      expect_inertia.to render_component('categories/Edit')
-                    .and include_props({ category: })
-    end
-  end
-
-  describe 'POST create', :inertia do
+  describe 'POST create' do
     subject(:create_request) { post :create, params: }
 
     context 'when params are valid' do
@@ -65,7 +78,7 @@ RSpec.describe CategoriesController do
       it 'creates the new category' do
         expect { create_request }.to change { Category.count }.by(1)
 
-        expect(response).to redirect_to(categories_path)
+        expect(json_response).to eq({ 'message' => 'Category "Test" was successfully created.' })
         expect(Category.last.name).to eq('Test')
         expect(Category.last.color).to eq('#FF00FF')
         expect(Category.last.profile).to eq(profile)
@@ -78,9 +91,8 @@ RSpec.describe CategoriesController do
       it 'does not create a new category' do
         expect { create_request }.not_to change { Category.count }
 
-        expect_inertia.to render_component('categories/New')
-        expect(inertia.props[:category].name).to eq 'Test'
-        expect(inertia.props[:category].color).to eq '#invalid'
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response).to eq({ 'message' => 'Category could not be created: Color is invalid' })
       end
     end
   end
@@ -88,7 +100,7 @@ RSpec.describe CategoriesController do
   describe 'PATCH update', :inertia do
     subject(:update_request) { patch :update, params: }
 
-    let!(:category) { create(:category, profile:) }
+    let!(:category) { create(:category, profile: profile, name: 'Test') }
 
     context 'when params are valid' do
       let(:params) { { id: category.id, category: { name: 'New Name', color: '#FF00FF' } } }
@@ -96,7 +108,7 @@ RSpec.describe CategoriesController do
       it 'updates the category' do
         expect { update_request }.not_to change { Category.count }
 
-        expect(response).to redirect_to(categories_path)
+        expect(json_response).to eq({ 'message' => 'Category "New Name" was successfully updated.' })
         expect(Category.last.name).to eq('New Name')
         expect(Category.last.color).to eq('#FF00FF')
       end
@@ -108,9 +120,8 @@ RSpec.describe CategoriesController do
       it 'does not update the category' do
         expect { update_request }.not_to change { Category.count }
 
-        expect_inertia.to render_component('categories/Edit')
-        expect(inertia.props[:category].name).to eq category.name
-        expect(inertia.props[:category].color).to eq '#invalid'
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response).to eq({ 'message' => 'Category "Test" could not be updated: Color is invalid' })
       end
     end
   end
@@ -121,10 +132,12 @@ RSpec.describe CategoriesController do
     let!(:category) { create(:category, profile:) }
 
     it 'destroys the category and renders json' do
-      expect { delete_request }.to change { Category.count }.by(-1)
+      expect { delete_request }
+        .to not_change { Category.count }
+        .and change { category.reload.disabled? }
+        .to(true)
 
-      expect(json_response)
-        .to eq('categoryId' => category.id, 'message' => "Category \"#{category.name}\" was successfully destroyed.")
+      expect(json_response).to eq('message' => "Category \"#{category.name}\" was successfully disabled.")
     end
   end
 end

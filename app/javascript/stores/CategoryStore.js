@@ -1,12 +1,21 @@
-import { defineStore } from 'pinia';
+import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 
+import I18n from '~/utils/I18n.js';
+import { CATEGORY_FORM_ID } from '~/utils/Constants.js';
 import { categories as categoriesApi } from '~/api/all.js';
+import useNotificationStore from '~/stores/NotificationStore.js';
 
-export default defineStore('category', {
-  state: () => ({
+export default defineBaseApiStore('category', {
+  resourceName: 'category',
+  resourcesName: 'categories',
+  formId: CATEGORY_FORM_ID,
+  api: categoriesApi,
+
+  state: {
     categories: [],
     category: null,
-  }),
+  },
+
   getters: {
     categoriesForSelect: (state) => {
       return (includeSystem = false) => {
@@ -24,6 +33,7 @@ export default defineStore('category', {
       };
     },
   },
+
   actions: {
     fetchCategory(id, startDate, endDate) {
       const params = { start_date: startDate, end_date: endDate };
@@ -31,13 +41,20 @@ export default defineStore('category', {
         .show({ id, query: params })
         .then(response => this.category = response.category);
     },
-    fetch(options = {}) {
+
+    disable(id) {
+      const notificationStore = useNotificationStore();
+
       categoriesApi
-        .index({ query: options })
-        .then(response => this.categories = response.categories);
-    },
-    remove(id) {
-      this.categories = this.categories.filter(category => category.id !== id);
+        .destroy({ id })
+        .then((response) => {
+          this.fetch();
+          notificationStore.notify(response.message, 'success');
+        })
+        .catch((error) => {
+          const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
+          notificationStore.notify(errorMessage, 'danger');
+        });
     },
   },
 });

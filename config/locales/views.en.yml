@@ -17,7 +17,7 @@ en:
         name_label: Name
         color_label: Category color
         submit: Submit
-        back: Back
+        cancel: Cancel
       show:
         title: 'Category'
         sub_header_summary: Summary

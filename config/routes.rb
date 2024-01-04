@@ -42,8 +42,8 @@ Rails.application.routes.draw do
     resources :profiles
     resources :profile_share_invites_sent, except: %i[show new edit update]
     resources :profile_share_invites_received, only: %i[index update destroy]
-    resources :categories do
-      resources :subcategories, except: %i[show new edit] do
+    resources :categories, only: %i[index show create update destroy] do
+      resources :subcategories, only: %i[index create update destroy] do
         patch :reenable, on: :member
       end
     end
