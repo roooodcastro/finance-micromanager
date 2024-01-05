@@ -82,6 +82,13 @@ en:
     update_all:
       success: 'Transactions were successfully updated.'
       error: 'Transactions could not be updated: %{error}'
+
+  users:
+    registrations:
+      update:
+        success: 'Your account has been updated successfully.'
+        error: 'There was an error updating your account: %{error}'
+
   wallets:
     create:
       success: 'Wallet "%{name}" was successfully created.'

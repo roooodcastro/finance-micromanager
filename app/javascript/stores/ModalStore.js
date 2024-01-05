@@ -34,7 +34,7 @@ export default defineStore('modal', {
 
     registerModal(name) {
       if (!this.modals[name]) {
-        const modalId = this.modalId(name);
+        const modalId = name.endsWith('Modal') ? name : this.modalId(name);
         this.modals[name] = new BootstrapModal(`#${modalId}`);
       }
     },

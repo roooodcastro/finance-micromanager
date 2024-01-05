@@ -31,6 +31,11 @@
         "subcategory": {
           "name": "Nome"
         },
+        "users": {
+          "current_password": "Senha atual",
+          "password": "Senha",
+          "password_confirmation": "Confirmação de Senha"
+        },
         "wallet": {
           "balance": "Saldo",
           "name": "Nome"
@@ -605,6 +610,14 @@
         "success": "Transações atualizadas com sucesso."
       }
     },
+    "users": {
+      "registrations": {
+        "update": {
+          "error": "Sua conta não pode ser atualizada: %{error}",
+          "success": "Sua conta foi atualizada com sucesso."
+        }
+      }
+    },
     "views": {
       "app_name": "Finance MicroManager",
       "categories": {
@@ -924,7 +937,17 @@
         },
         "passwords": {
           "new": {
+            "cancel": "Cancelar",
+            "current_password_label": "Senha atual",
+            "current_password_placeholder": "Digite sua senha atual",
             "email_label": "Endereço de email",
+            "modal_submit": "Trocar a Senha",
+            "modal_title": "Atualize sua Senha",
+            "new_password_label": "Nova Senha",
+            "new_password_placeholder": "Crie sua nova senha",
+            "password_confirmation_label": "Confirmação da Senha",
+            "password_confirmation_placeholder": "Confirme sua nova senha",
+            "passwords_must_match": "Senha e confirmação devem ser iguais!",
             "submit": "Enviar email para resetar senha",
             "title": "Esqueceu sua senha?"
           }

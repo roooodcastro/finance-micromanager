@@ -296,8 +296,18 @@ pt-BR:
       passwords:
         new:
           title: 'Esqueceu sua senha?'
+          cancel: Cancelar
+          modal_submit: Trocar a Senha
           email_label: Endereço de email
           submit: Enviar email para resetar senha
+          modal_title: Atualize sua Senha
+          passwords_must_match: Senha e confirmação devem ser iguais!
+          current_password_label: Senha atual
+          new_password_label: Nova Senha
+          password_confirmation_label: Confirmação da Senha
+          current_password_placeholder: Digite sua senha atual
+          new_password_placeholder: Crie sua nova senha
+          password_confirmation_placeholder: Confirme sua nova senha
       registrations:
         new:
           title: Crie sua conta

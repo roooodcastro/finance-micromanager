@@ -85,6 +85,12 @@ pt-BR:
       success: 'Transações atualizadas com sucesso.'
       error: 'Transações não puderam ser atualizadas: %{error}'
 
+  users:
+    registrations:
+      update:
+        success: 'Sua conta foi atualizada com sucesso.'
+        error: 'Sua conta não pode ser atualizada: %{error}'
+
   wallets:
     create:
       success: 'Carteira "%{name}" foi criada com sucesso.'

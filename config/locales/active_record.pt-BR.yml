@@ -30,6 +30,10 @@ pt-BR:
         balance_amount_cents: Saldo
       subcategory:
         name: Nome
+      users:
+        current_password: Senha atual
+        password: Senha
+        password_confirmation: Confirmação de Senha
       wallet:
         balance: Saldo
         name: Nome

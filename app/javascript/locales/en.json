@@ -551,6 +551,14 @@
         "success": "Transactions were successfully updated."
       }
     },
+    "users": {
+      "registrations": {
+        "update": {
+          "error": "There was an error updating your account: %{error}",
+          "success": "Your account has been updated successfully."
+        }
+      }
+    },
     "views": {
       "app_name": "Finance MicroManager",
       "categories": {
@@ -867,7 +875,17 @@
         },
         "passwords": {
           "new": {
+            "cancel": "Cancel",
+            "current_password_label": "Current Password",
+            "current_password_placeholder": "Type your current password",
             "email_label": "Email Address",
+            "modal_submit": "Change Password",
+            "modal_title": "Update your Password",
+            "new_password_label": "New Password",
+            "new_password_placeholder": "Type your new password",
+            "password_confirmation_label": "Confirm New Password",
+            "password_confirmation_placeholder": "Re-type your new password",
+            "passwords_must_match": "Passwords must match!",
             "submit": "Send me reset password instructions",
             "title": "Forgot your password?"
           }

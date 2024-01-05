@@ -292,8 +292,18 @@ en:
       passwords:
         new:
           title: 'Forgot your password?'
+          cancel: Cancel
+          modal_submit: Change Password
           email_label: Email Address
           submit: Send me reset password instructions
+          modal_title: Update your Password
+          passwords_must_match: Passwords must match!
+          current_password_label: Current Password
+          new_password_label: New Password
+          password_confirmation_label: Confirm New Password
+          current_password_placeholder: Type your current password
+          new_password_placeholder: Type your new password
+          password_confirmation_placeholder: Re-type your new password
       registrations:
         new:
           title: Sign Up

@@ -1,6 +1,8 @@
 <template>
   <PageHeader :title="t('title')" />
 
+  <PasswordChangeModal />
+
   <div class="card border-0">
     <div class="card-body border-0 py-4 py-lg-3 d-flex flex-column flex-lg-row align-items-center">
       <span class="ProfileShow__profile-photo d-flex justify-content-center align-items-center mb-4 mb-lg-0 me-lg-5">
@@ -106,8 +108,8 @@
           <button
             type="submit"
             class="btn btn-primary"
-            @click.prevent="handleSubmit"
             :disabled="!pendingChanges"
+            @click.prevent="handleSubmit"
           >
             <FontAwesomeIcon
               icon="floppy-disk"
@@ -146,18 +148,22 @@ import _ from 'lodash';
 
 import I18n from '~/utils/I18n.js';
 import { settings as settingsApi } from '~/api/all.js';
+import { PASSWORD_CHANGE_MODAL_ID } from '~/utils/Constants.js';
 import useUserStore from '~/stores/UserStore.js';
+import useModalStore from '~/stores/ModalStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import FormInput from '~/components/rails/FormInput.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import ProfilesSelect from '~/components/profiles/ProfilesSelect.vue';
+import PasswordChangeModal from '~/components/user/PasswordChangeModal.vue';
 
 export default {
   components: {
     FormInput,
     FontAwesomeIcon,
     PageHeader,
+    PasswordChangeModal,
     ProfilesSelect,
     RailsForm,
   },
@@ -171,6 +177,7 @@ export default {
 
   setup(props) {
     const updatePath = settingsApi.update.path();
+    const modalStore = useModalStore();
     const userStore = useUserStore();
     const { user: userFromStore } = storeToRefs(userStore);
     userFromStore.value = props.user;
@@ -181,7 +188,7 @@ export default {
     const pendingChanges = computed(() => !_.isEqual(userForForm.value, userFromStore.value));
 
     const handleSubmit = () => userStore.updateSettings(userForForm.value).then(resetFormUser);
-    const handleChangePassword = () => {};
+    const handleChangePassword = () => modalStore.show(PASSWORD_CHANGE_MODAL_ID);
 
     return {
       t: I18n.scopedTranslator('views.settings.show'),
