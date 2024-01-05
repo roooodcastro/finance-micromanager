@@ -2,16 +2,19 @@
 
 class SettingsController < AbstractAuthenticatedController
   def show
-    render inertia: 'settings/Show', props: camelize_props(user: current_user.as_json, skip_container: true)
+    props = camelize_props(user: current_user.as_json)
+
+    respond_to do |format|
+      format.html { render inertia: 'settings/Show', props: props }
+      format.json { render json: props }
+    end
   end
 
   def update
-    user = current_user
-    if user.update(user_params)
-      redirect_to setting_path, success: t('.success')
+    if current_user.update(user_params)
+      render json: { message: t('.success') }
     else
-      flash[:error] = t('.error')
-      render inertia: 'settings/Show', props: camelize_props(user: user.as_json, edit_mode: true, skip_container: true)
+      render json: { message: t('.error') }, status: :unprocessable_entity
     end
   end
 

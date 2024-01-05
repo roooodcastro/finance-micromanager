@@ -9,15 +9,29 @@ RSpec.describe SettingsController do
     session[:current_profile_id] = profile.id
   end
 
-  describe 'GET show', :inertia do
-    it 'renders the show component' do
-      get :show, format: :html
+  describe 'GET show' do
+    subject(:show_request) { get :show, format: }
 
-      expect_inertia.to render_component('settings/Show')
+    before { show_request }
+
+    context 'for a HTML request', :inertia do
+      let(:format) { :html }
+
+      it 'renders the show component' do
+        expect_inertia.to render_component('settings/Show')
+      end
+    end
+
+    context 'for a JSON request' do
+      let(:format) { :json }
+
+      it 'renders the current user as JSON' do
+        expect(json_response['user']).to be_present
+      end
     end
   end
 
-  describe 'PATCH update', :inertia do
+  describe 'PATCH update' do
     subject(:update_request) { patch :update, params: }
 
     context 'when params are valid' do
@@ -26,7 +40,7 @@ RSpec.describe SettingsController do
       it 'updates the user' do
         expect { update_request }.to change { user.reload.first_name }.to('NewFirst')
 
-        expect(response).to redirect_to(setting_path)
+        expect(json_response).to eq({ 'message' => 'Profile information updated successfully.' })
       end
     end
 
@@ -36,7 +50,7 @@ RSpec.describe SettingsController do
       it 'does not update the user' do
         expect { update_request }.to not_change { user.reload.email }
 
-        expect_inertia.to render_component('settings/Show')
+        expect(json_response).to eq({ 'message' => 'There was an error updating your profile info.' })
       end
     end
   end

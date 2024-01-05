@@ -762,27 +762,20 @@
         }
       },
       "settings": {
-        "form": {
-          "cancel_edit_button": "Cancel",
-          "default_profile_label": "Default Profile",
-          "disabled_password_label": "Password",
-          "email_label": "Email Address",
-          "first_name_label": "First Name",
-          "last_name_label": "Last Name",
-          "password_confirmation_label": "Confirm Password",
-          "password_label": "New Password",
-          "submit": "Submit",
-          "update_password_link_label": "Change Password"
-        },
         "show": {
+          "change_password_button": "Change Password",
           "default_profile": "Default Profile",
-          "edit_button": "Edit Profile",
-          "empty_default_profile_label": "-- Default Profile not set --",
+          "email": "Email",
           "empty_first_name_label": "-- First name not set --",
           "empty_last_name_label": "-- Last name not set --",
           "first_name": "First Name",
+          "header_account_settings": "Account Settings",
+          "header_profile_settings": "Profile Settings",
           "last_name": "Last Name",
-          "title": "My Profile"
+          "password": "Password",
+          "reset_form_button": "Reset",
+          "save_button": "Save Changes",
+          "title": "My Account"
         }
       },
       "subcategories": {

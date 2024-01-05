@@ -45,6 +45,7 @@
           >
             <FontAwesomeIcon
               :icon="menuItem.icon"
+              size="lg"
               class="me-4"
             />
 
