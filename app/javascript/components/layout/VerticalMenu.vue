@@ -10,15 +10,18 @@
     @swipeleft="handleSwipeClose"
   >
     <div class="offcanvas-body px-0 pt-0 d-flex flex-column">
-      <MenuProfileSection v-if="isUserLoggedIn" />
+      <MenuProfileSection
+        v-if="isUserLoggedIn"
+        class="shadow"
+      />
 
-      <div class="d-flex flex-column justify-content-between flex-grow-1 mt-3">
+      <div class="d-flex flex-column justify-content-between flex-grow-1 mt-4">
         <div class="list-group">
           <a
             v-for="menuItem in menuItems.top"
             :key="menuItem.label"
             :href="menuItem.path"
-            class="VerticalMenu__item-link list-group-item list-group-item-action border-0"
+            class="VerticalMenu__item-link list-group-item list-group-item-action border-0 rounded-0"
             :class="{ active: menuItem.active }"
             :data-method="menuItem.method || 'GET'"
           >
@@ -39,7 +42,7 @@
             v-for="menuItem in menuItems.bottom"
             :key="menuItem.label"
             :href="menuItem.path"
-            class="VerticalMenu__item-link list-group-item list-group-item-action border-0"
+            class="VerticalMenu__item-link list-group-item list-group-item-action border-0 rounded-0"
             :class="{ active: menuItem.active }"
             :data-method="menuItem.method || 'GET'"
           >
@@ -67,6 +70,7 @@ import {
   dashboards as dashboardsApi,
   profiles as profilesApi,
   reconciliations as reconciliationsApi,
+  settings as settingsApi,
   transactions as transactionsApi,
   usersSessions as userSessionsApi,
   usersRegistrations as usersRegistrationsApi,
@@ -101,6 +105,7 @@ export default {
           { label: t('categories'), path: categoriesApi.index.path(), icon: ['far', 'folder'] },
           { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
           { label: t('wallets'), path: walletsApi.index.path(), icon: ['far', 'credit-card'] },
+          { label: t('settings'), path: settingsApi.show.path(), icon: 'sliders' },
         ],
         bottom: [
           { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
@@ -174,6 +179,9 @@ export default {
 @import '../../stylesheets/variables';
 
 .VerticalMenu__item-link {
+  border-right: 5px solid transparent !important;
+  transition: all 0.1s linear;
+
   span {
     display: inline-block;
     transition: transform 0.1s linear;
@@ -184,6 +192,8 @@ export default {
   }
 
   &:hover, &:active, &:focus, &.active {
+    border-right: 5px solid $primary-text-emphasis !important;
+
     svg {
       transform: scale(1.25);
     }

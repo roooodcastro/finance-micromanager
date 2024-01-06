@@ -94,6 +94,7 @@ en:
         current_profile: 'Profile:'
         profiles: Profiles
         categories: Categories
+        settings: Preferences
         profile: My Profile
         wallets: Wallets
         sign_in: Sign In
