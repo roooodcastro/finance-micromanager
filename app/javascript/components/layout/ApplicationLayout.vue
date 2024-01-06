@@ -28,6 +28,7 @@ import useNotificationStore from '~/stores/NotificationStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useLocaleStore from '~/stores/LocaleStore.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 import Navigation from '~/components/layout/Navigation.vue';
@@ -78,8 +79,11 @@ export default {
     },
   },
   setup(props) {
+    const localeStore = useLocaleStore();
     const profileStore = useProfileStore();
     const dateRangeStore = useDateRangeStore();
+
+    localeStore.fetch();
 
     if (props.currentProfile) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */

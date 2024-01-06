@@ -31,8 +31,9 @@
         "subcategory": {
           "name": "Nome"
         },
-        "users": {
+        "user": {
           "current_password": "Senha atual",
+          "locale": "Idioma",
           "password": "Senha",
           "password_confirmation": "Confirmação de Senha"
         },
@@ -842,6 +843,7 @@
           "header_account_settings": "Configurações de Conta",
           "header_profile_settings": "Configurações de Perfil",
           "last_name": "Sobrenome",
+          "locale": "Idioma",
           "password": "Senha",
           "reset_form_button": "Desfazer",
           "save_button": "Salvar Alterações",

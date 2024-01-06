@@ -98,6 +98,20 @@
             :name="formHelper.fieldName('default_profile_id')"
           />
         </div>
+
+        <div class="mb-3">
+          <label
+            :for="formHelper.fieldId('locale')"
+            class="form-label"
+          >
+            {{ t('locale') }}
+          </label>
+          <LocalesSelect
+            :id="formHelper.fieldId('locale')"
+            v-model="userForForm.locale"
+            :name="formHelper.fieldName('locale')"
+          />
+        </div>
       </div>
 
 
@@ -157,9 +171,11 @@ import FormInput from '~/components/rails/FormInput.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import ProfilesSelect from '~/components/profiles/ProfilesSelect.vue';
 import PasswordChangeModal from '~/components/user/PasswordChangeModal.vue';
+import LocalesSelect from '@/components/forms/LocalesSelect.vue';
 
 export default {
   components: {
+    LocalesSelect,
     FormInput,
     FontAwesomeIcon,
     PageHeader,
@@ -187,7 +203,19 @@ export default {
 
     const pendingChanges = computed(() => !_.isEqual(userForForm.value, userFromStore.value));
 
-    const handleSubmit = () => userStore.updateSettings(userForForm.value).then(resetFormUser);
+    const handleSubmit = () => {
+      const localeChanged = userForForm.value.locale !== userFromStore.value.locale;
+
+      userStore.updateSettings(userForForm.value).then(() => {
+        // Need to reload the page to reload and apply translations
+        if (localeChanged) {
+          window.location = window.location.pathname;
+        }
+
+        resetFormUser();
+      });
+    };
+
     const handleChangePassword = () => modalStore.show(PASSWORD_CHANGE_MODAL_ID);
 
     return {

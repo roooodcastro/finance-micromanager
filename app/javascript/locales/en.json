@@ -11,6 +11,9 @@
         },
         "reconciliation_wallet": {
           "balance_amount_cents": "Balance"
+        },
+        "user": {
+          "locale": "Language"
         }
       },
       "errors": {
@@ -780,6 +783,7 @@
           "header_account_settings": "Account Settings",
           "header_profile_settings": "Profile Settings",
           "last_name": "Last Name",
+          "locale": "Language",
           "password": "Password",
           "reset_form_button": "Reset",
           "save_button": "Save Changes",

@@ -14,12 +14,19 @@ module Localizeable
   private
 
   def fetch_locale
-    locale = params[:new_locale] || session[:locale]
+    locale = params[:new_locale] || current_user&.locale || session[:locale]
     locale = I18n.default_locale unless I18n.locale_available?(locale)
 
     Current.locale   = locale.to_s.inquiry
     session[:locale] = locale
+    save_user_locale(locale)
 
     locale
+  end
+
+  def save_user_locale(locale)
+    return unless current_user
+
+    current_user.update(locale:)
   end
 end

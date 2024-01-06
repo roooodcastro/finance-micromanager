@@ -9,6 +9,8 @@ en:
           cancelled: Cancelled
       reconciliation_wallet:
         balance_amount_cents: Balance
+      user:
+        locale: Language
     errors:
       models:
         category:

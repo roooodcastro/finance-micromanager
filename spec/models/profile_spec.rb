@@ -47,7 +47,8 @@ RSpec.describe Profile do
         first_name:         user.first_name,
         full_name:          user.full_name,
         id:                 user.id,
-        last_name:          user.last_name
+        last_name:          user.last_name,
+        locale:             user.locale
       }
     end
 
