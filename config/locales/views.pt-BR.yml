@@ -212,6 +212,7 @@ pt-BR:
         email: Email
         password: Senha
         default_profile: Perfil Padrão
+        locale: Idioma
         header_profile_settings: Configurações de Perfil
         header_account_settings: Configurações de Conta
         empty_first_name_label: '-- Nome não informado --'

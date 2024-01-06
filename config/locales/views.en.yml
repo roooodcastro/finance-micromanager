@@ -209,6 +209,7 @@ en:
         email: Email
         password: Password
         default_profile: Default Profile
+        locale: Language
         header_profile_settings: Profile Settings
         header_account_settings: Account Settings
         empty_first_name_label: '-- First name not set --'

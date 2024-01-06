@@ -24,6 +24,7 @@ class User < ApplicationRecord
   # rubocop:enable Rails/InverseOf
 
   validates :email, presence: true, uniqueness: true
+  validates :locale, presence: true, inclusion: { in: I18n.available_locales.map(&:to_s) }
   validates :default_profile, presence: true, unless: :new_record?
 
   validate :validate_email_in_allow_list

@@ -5,13 +5,12 @@
     :value="modelValue ?? $attrs.value"
     @change="handleChange"
   >
-    <option />
     <option
-      v-for="option in options"
-      :key="option.id"
-      :value="option.id"
+      v-for="locale in locales"
+      :key="locale.locale"
+      :value="locale.locale"
     >
-      {{ option.name }}
+      {{ locale.name }}
     </option>
   </select>
 </template>
@@ -19,7 +18,7 @@
 <script>
 import { storeToRefs } from 'pinia';
 
-import useWalletStore from '~/stores/WalletStore.js';
+import useLocaleStore from '~/stores/LocaleStore.js';
 
 export default {
   props: {
@@ -32,12 +31,8 @@ export default {
   emits: ['update:modelValue', 'change'],
 
   setup(_props, { emit }) {
-    const walletStore = useWalletStore();
-    const { activeWallets: options } = storeToRefs(walletStore);
-
-    if (!options.value.length) {
-      walletStore.fetch();
-    }
+    const localeStore = useLocaleStore();
+    const { locales } = storeToRefs(localeStore);
 
     const handleChange = (ev) => {
       emit('update:modelValue', ev.target.value);
@@ -45,7 +40,7 @@ export default {
     };
 
     return {
-      options,
+      locales,
       handleChange,
     };
   },

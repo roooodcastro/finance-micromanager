@@ -12,6 +12,7 @@ class SettingsController < AbstractAuthenticatedController
 
   def update
     if current_user.update(user_params)
+      I18n.locale = current_user.locale
       render json: { message: t('.success') }
     else
       render json: { message: t('.error') }, status: :unprocessable_entity
@@ -21,6 +22,6 @@ class SettingsController < AbstractAuthenticatedController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :default_profile_id)
+    params.require(:user).permit(:first_name, :last_name, :email, :default_profile_id, :locale)
   end
 end
