@@ -102,7 +102,7 @@ export default {
         ? t('confirm_finish_message')
         : t('confirm_finish_message_with_balance', {
           date: formatDate(props.reconciliation.date),
-          amount: formatMoney(differenceSum.value, props.reconciliation.currency.isoCode)
+          amount: formatMoney(differenceSum.value),
         });
       modalStore
         .showConfirmationDialog({ message })

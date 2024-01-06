@@ -40,7 +40,7 @@
               class="TransactionListItem__amount text-end fw-bold"
               :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
             >
-              {{ formatMoney(transaction.amount, transaction.amountCurrency) }}
+              {{ formatMoney(transaction.amount) }}
             </span>
           </div>
           <div class="fs-6 text-muted d-flex justify-content-between">
