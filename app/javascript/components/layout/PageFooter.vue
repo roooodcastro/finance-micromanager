@@ -40,8 +40,9 @@
 
 <script>
 import { ref, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 
-import { locales as localesApi } from '~/api/all.js';
+import useLocaleStore from '~/stores/LocaleStore.js';
 import I18n from '~/utils/I18n.js';
 import { GITHUB_REPO_URL } from '~/utils/Constants.js';
 
@@ -59,7 +60,6 @@ export default {
     },
   },
   setup() {
-    const locales = ref([]);
     const version = ref('');
     const deployTimestamp = ref('');
 
@@ -68,7 +68,7 @@ export default {
       deployTimestamp.value = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'dev';
     });
 
-    localesApi.index().then(response => locales.value = response);
+    const { locales } = storeToRefs(useLocaleStore());
 
     return {
       t: I18n.scopedTranslator('views.layout.footer'),
