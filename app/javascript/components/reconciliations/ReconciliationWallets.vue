@@ -48,7 +48,7 @@
               {{ t('unspecified') }}
             </td>
             <td class="text-end fw-bold bg-warning-subtle">
-              {{ formatMoney(walletBalances[''], reconciliation.currency.isoCode) }}
+              {{ formatMoney(walletBalances['']) }}
             </td>
             <td class="text-center bg-warning-subtle">
               <InfoTooltip :message="t('unspecified_balance_cannot_be_edited')" />
@@ -62,10 +62,10 @@
               {{ t('total') }}
             </td>
             <td class="text-end fw-bold bg-light">
-              {{ formatMoney(walletBalancesSum, reconciliation.currency.isoCode) }}
+              {{ formatMoney(walletBalancesSum) }}
             </td>
             <td class="text-end fw-bold bg-light">
-              {{ formatMoney(realBalancesSum, reconciliation.currency.isoCode) }}
+              {{ formatMoney(realBalancesSum) }}
             </td>
           </tr>
         </tfoot>
@@ -100,12 +100,11 @@ export default {
     walletStore.fetch();
 
     const { activeWallets: wallets } = storeToRefs(walletStore);
-    const { reconciliation, realBalancesSum, walletBalances, walletBalancesSum } = storeToRefs(reconciliationStore);
+    const { realBalancesSum, walletBalances, walletBalancesSum } = storeToRefs(reconciliationStore);
 
     return {
       t,
       wallets,
-      reconciliation,
       realBalancesSum,
       walletBalances,
       walletBalancesSum,
