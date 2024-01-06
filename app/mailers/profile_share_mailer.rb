@@ -6,6 +6,8 @@ class ProfileShareMailer < ApplicationMailer
     @inviter              = @profile_share_invite.profile_owner
     @invitee              = User.find_by(email: @profile_share_invite.invitee_email)
 
+    I18n.locale = @invitee.locale if @invitee
+
     mail_headers = {
       subject: I18n.t('profile_share_mailer.profile_share_invite_sent.subject', inviter: @inviter.display_name),
       to:      @profile_share_invite.invitee_email
