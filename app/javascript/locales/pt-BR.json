@@ -31,6 +31,11 @@
         "subcategory": {
           "name": "Nome"
         },
+        "users": {
+          "current_password": "Senha atual",
+          "password": "Senha",
+          "password_confirmation": "Confirmação de Senha"
+        },
         "wallet": {
           "balance": "Saldo",
           "name": "Nome"
@@ -605,6 +610,14 @@
         "success": "Transações atualizadas com sucesso."
       }
     },
+    "users": {
+      "registrations": {
+        "update": {
+          "error": "Sua conta não pode ser atualizada: %{error}",
+          "success": "Sua conta foi atualizada com sucesso."
+        }
+      }
+    },
     "views": {
       "app_name": "Finance MicroManager",
       "categories": {
@@ -817,27 +830,22 @@
         }
       },
       "settings": {
-        "form": {
-          "cancel_edit_button": "Cancelar",
-          "default_profile_label": "Perfil Padrão",
-          "disabled_password_label": "Senha",
-          "email_label": "Endereço de Email",
-          "first_name_label": "Nome",
-          "last_name_label": "Sobrenome",
-          "password_confirmation_label": "Confirme a Nova Senha",
-          "password_label": "Nova Senha",
-          "submit": "Salvar",
-          "update_password_link_label": "Trocar Senha"
-        },
         "show": {
+          "change_password_button": "Trocar a Senha",
           "default_profile": "Perfil Padrão",
           "edit_button": "Editar perfil",
+          "email": "Email",
           "empty_default_profile_label": "-- Perfil padrão não informado --",
           "empty_first_name_label": "-- Nome não informado --",
           "empty_last_name_label": "-- Sobrenome não informado --",
           "first_name": "Nome",
+          "header_account_settings": "Configurações de Conta",
+          "header_profile_settings": "Configurações de Perfil",
           "last_name": "Sobrenome",
-          "title": "Meu Perfil"
+          "password": "Senha",
+          "reset_form_button": "Desfazer",
+          "save_button": "Salvar Alterações",
+          "title": "Minha conta"
         }
       },
       "subcategories": {
@@ -929,7 +937,17 @@
         },
         "passwords": {
           "new": {
+            "cancel": "Cancelar",
+            "current_password_label": "Senha atual",
+            "current_password_placeholder": "Digite sua senha atual",
             "email_label": "Endereço de email",
+            "modal_submit": "Trocar a Senha",
+            "modal_title": "Atualize sua Senha",
+            "new_password_label": "Nova Senha",
+            "new_password_placeholder": "Crie sua nova senha",
+            "password_confirmation_label": "Confirmação da Senha",
+            "password_confirmation_placeholder": "Confirme sua nova senha",
+            "passwords_must_match": "Senha e confirmação devem ser iguais!",
             "submit": "Enviar email para resetar senha",
             "title": "Esqueceu sua senha?"
           }

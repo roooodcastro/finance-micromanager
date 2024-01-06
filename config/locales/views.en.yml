@@ -199,26 +199,20 @@ en:
           finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced
           to zero.
     settings:
-      form:
-        first_name_label: First Name
-        last_name_label: Last Name
-        email_label: Email Address
-        default_profile_label: Default Profile
-        disabled_password_label: Password
-        password_label: New Password
-        password_confirmation_label: Confirm Password
-        cancel_edit_button: Cancel
-        submit: Submit
-        update_password_link_label: Change Password
       show:
-        title: My Profile
-        edit_button: Edit Profile
+        title: My Account
+        save_button: Save Changes
+        reset_form_button: Reset
+        change_password_button: Change Password
         first_name: First Name
         last_name: Last Name
+        email: Email
+        password: Password
         default_profile: Default Profile
+        header_profile_settings: Profile Settings
+        header_account_settings: Account Settings
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
-        empty_default_profile_label: '-- Default Profile not set --'
     subcategories:
       form:
         submit: Save
@@ -298,8 +292,18 @@ en:
       passwords:
         new:
           title: 'Forgot your password?'
+          cancel: Cancel
+          modal_submit: Change Password
           email_label: Email Address
           submit: Send me reset password instructions
+          modal_title: Update your Password
+          passwords_must_match: Passwords must match!
+          current_password_label: Current Password
+          new_password_label: New Password
+          password_confirmation_label: Confirm New Password
+          current_password_placeholder: Type your current password
+          new_password_placeholder: Type your new password
+          password_confirmation_placeholder: Re-type your new password
       registrations:
         new:
           title: Sign Up

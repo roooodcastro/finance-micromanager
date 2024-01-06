@@ -201,23 +201,19 @@ pt-BR:
           concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser
           reduzido a zero.
     settings:
-      form:
-        first_name_label: Nome
-        last_name_label: Sobrenome
-        email_label: Endereço de Email
-        default_profile_label: Perfil Padrão
-        disabled_password_label: Senha
-        password_label: Nova Senha
-        password_confirmation_label: Confirme a Nova Senha
-        cancel_edit_button: Cancelar
-        submit: Salvar
-        update_password_link_label: Trocar Senha
       show:
-        title: Meu Perfil
+        title: Minha conta
         edit_button: Editar perfil
+        save_button: Salvar Alterações
+        reset_form_button: Desfazer
+        change_password_button: Trocar a Senha
         first_name: Nome
         last_name:  Sobrenome
+        email: Email
+        password: Senha
         default_profile: Perfil Padrão
+        header_profile_settings: Configurações de Perfil
+        header_account_settings: Configurações de Conta
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
         empty_default_profile_label: '-- Perfil padrão não informado --'
@@ -300,8 +296,18 @@ pt-BR:
       passwords:
         new:
           title: 'Esqueceu sua senha?'
+          cancel: Cancelar
+          modal_submit: Trocar a Senha
           email_label: Endereço de email
           submit: Enviar email para resetar senha
+          modal_title: Atualize sua Senha
+          passwords_must_match: Senha e confirmação devem ser iguais!
+          current_password_label: Senha atual
+          new_password_label: Nova Senha
+          password_confirmation_label: Confirmação da Senha
+          current_password_placeholder: Digite sua senha atual
+          new_password_placeholder: Crie sua nova senha
+          password_confirmation_placeholder: Confirme sua nova senha
       registrations:
         new:
           title: Crie sua conta

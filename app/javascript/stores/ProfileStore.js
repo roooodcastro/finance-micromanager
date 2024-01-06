@@ -10,7 +10,13 @@ export default defineStore('profile', {
   getters: {
     profileForInviteModal: (state) => {
       return state.availableProfiles.find(profile => profile.id === state.profileIdForInviteModal);
-    }
+    },
+    profilesForSelect: (state) => {
+      return state.availableProfiles.reduce((result, profile) => {
+        result.push({ label: profile.displayName, value: profile.id });
+        return result;
+      }, []);
+    },
   },
   actions: {
     fetchAvailableProfiles() {
