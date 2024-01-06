@@ -94,6 +94,7 @@ pt-BR:
         current_profile: 'Perfil:'
         profiles: Perfis
         categories: Categorias
+        settings: Configurações
         profile: Meu Perfil
         wallets: Carteiras
         sign_in: Fazer Login

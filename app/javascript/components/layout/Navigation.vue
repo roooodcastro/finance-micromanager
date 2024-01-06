@@ -24,7 +24,11 @@
         data-bs-target="#verticalMenu"
         aria-controls="verticalMenu"
       >
-        <ProfileAvatar />
+        <FontAwesomeIcon
+          icon="bars"
+          size="lg"
+          class="fs-1 text-light text-hover-light"
+        />
       </a>
     </div>
   </nav>
@@ -37,11 +41,11 @@ import I18n from '~/utils/I18n.js';
 import useUserStore from '~/stores/UserStore.js';
 import { dashboards as dashboardsApi } from '~/api/all.js';
 
-import ProfileAvatar from '~/components/layout/ProfileAvatar.vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   components: {
-    ProfileAvatar,
+    FontAwesomeIcon,
   },
 
   setup() {
