@@ -16,10 +16,7 @@
     </PageHeader>
 
     <div class="d-flex justify-content-between gap-2 mb-3">
-      <div class="d-flex gap-2">
-        <TransactionsFilter toggle-classes="w-100 btn btn-sm btn-outline-dark" />
-        <DateRangeFilter />
-      </div>
+      <TransactionsFilter show-date-range />
 
       <Pagination
         compact
@@ -44,12 +41,10 @@ import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
-import DateRangeFilter from '~/components/transactions/DateRangeFilter.vue';
 import usePaginationStore from '~/stores/PaginationStore.js';
 
 export default {
   components: {
-    DateRangeFilter,
     DropdownMenuItem,
     PageHeader,
     Pagination,

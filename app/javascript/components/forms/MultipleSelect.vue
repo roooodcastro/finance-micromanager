@@ -1,12 +1,8 @@
 <template>
-  <div class="dropdown flex-shrink-0">
-    <select
-      multiple
-      hidden
-    />
-
+  <div class="dropdown">
     <a
-      class="form-select ps-3 py-2 border-dark text-truncate d-flex align-items-center text-decoration-none h-100"
+      class=" text-truncate"
+      :class="selectClass"
       data-bs-toggle="dropdown"
       data-bs-auto-close="outside"
       aria-expanded="false"
@@ -22,7 +18,7 @@
       </template>
     </a>
 
-    <div class="MultipleSelect__menu dropdown-menu w-100">
+    <div class="MultipleSelect__menu dropdown-menu">
       <div class="d-flex mb-2 px-2 gap-2">
         <a
           class="btn btn-xs btn-light flex-grow-1"
@@ -59,6 +55,7 @@
 <script>
 import { ref } from 'vue';
 import _ from 'lodash';
+
 import I18n from '~/utils/I18n.js';
 
 export default {
@@ -83,11 +80,15 @@ export default {
       type: Array,
       required: true,
     },
+    selectClass: {
+      type: [String, Object],
+      default: '',
+    }
   },
 
   emits: ['update:modelValue', 'change'],
 
-  setup(props, { emit} ) {
+  setup(props, { emit } ) {
     const t = I18n.scopedTranslator('views.layout.forms');
 
     const selectedOptions = ref((props.modelValue ?? '').split(',').filter(el => el !== ''));
@@ -124,8 +125,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
 .MultipleSelect__menu {
   max-height: 50vh;
   overflow-y: auto;
+  min-width: 100%;
 }
 </style>

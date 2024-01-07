@@ -40,11 +40,6 @@
           </h5>
 
           <div class="d-flex">
-            <TransactionsFilter
-              hide-toggle-text
-              toggle-classes="btn btn-context-action rounded-circle"
-            />
-
             <DropdownMenu
               toggle-icon="gear"
               :toggle-label="t('subcategories_options')"
@@ -72,11 +67,14 @@
             </DropdownMenu>
           </div>
         </div>
-        <div class="card-body p-0">
+
+        <div class="card-body p-0 d-flex flex-column align-items-center">
+          <TransactionsFilter class="m-2" />
+
           <TransactionsList
             compact
             card-body
-            class="mb-3"
+            class="mb-3 w-100"
           />
         </div>
       </div>
