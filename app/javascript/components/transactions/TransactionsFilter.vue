@@ -1,82 +1,77 @@
 <template>
-  <div class="dropdown flex-shrink-0">
-    <a
-      href="#"
-      :class="toggleClasses"
-      data-bs-toggle="dropdown"
+  <div class="dropdown d-flex gap-3 flex-wrap flex-lg-nowrap">
+    <MultipleSelect
+      v-model="selectedCategoryIds"
+      class="flex-grow-1 flex-lg-grow-0"
+      select-class="minimalist-secondary-select"
+      :options="categoriesForSelect(true)"
+      :placeholder="t('category_filter')"
+      :selection-label-one="t('category')"
+      :selection-label-many="t('categories')"
+      @change="handleCategoryChange"
+    />
+
+    <MultipleSelect
+      v-model="selectedWalletIds"
+      class="flex-grow-1 flex-lg-grow-0"
+      select-class="minimalist-secondary-select"
+      :options="walletsForSelect"
+      :placeholder="t('wallet_filter')"
+      :selection-label-one="t('wallet')"
+      :selection-label-many="t('wallets')"
+      @change="handleWalletChange"
+    />
+
+    <select
+      class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0"
+      @change="handleTransactionTypeChange"
     >
-      <FontAwesomeIcon icon="filter" />
-      <span
-        class="ms-2"
-        :class="{ 'd-none': hideToggleText }"
-      >
-        {{ t('filters') }}
-      </span>
-    </a>
+      <option value="0">
+        {{ t('all_transaction_types') }}
+      </option>
+      <option value="-1">
+        {{ t('only_spends') }}
+      </option>
+      <option value="1">
+        {{ t('only_income') }}
+      </option>
+    </select>
 
     <div
-      class="dropdown-menu mt-1 px-3 pt-3 shadow-lg TransactionFilter__dropdown"
-      @click="ev => ev.stopPropagation()"
+      v-if="showDateRange"
+      class="TransactionsFilter__date-range btn-group d-flex bg-white flex-shrink-0 flex-grow-1 flex-lg-grow-0"
     >
-      <h6>{{ t('category') }}</h6>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        :class="{ active: daysToShow === 7 }"
+        @click="handleDateFilterClick(7)"
+      >
+        {{ t('seven_days') }}
+      </button>
 
-      <MultipleSelect
-        v-model="selectedCategoryIds"
-        class="flex-grow-1 flex-lg-grow-0 width-15rem w-100 mb-3"
-        :options="categoriesForSelect(true)"
-        :placeholder="t('category_filter')"
-        :selection-label-one="t('category')"
-        :selection-label-many="t('categories')"
-        @change="handleCategoryChange"
-      />
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        :class="{ active: daysToShow === 30 }"
+        @click="handleDateFilterClick(30)"
+      >
+        {{ t('thirty_days') }}
+      </button>
 
-      <h6>{{ t('wallet') }}</h6>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        :class="{ active: daysToShow === 90 }"
+        @click="handleDateFilterClick(90)"
+      >
+        {{ t('ninety_days') }}
+      </button>
 
-      <MultipleSelect
-        v-model="selectedWalletIds"
-        class="flex-grow-1 flex-lg-grow-0 width-15rem w-100 mb-3"
-        :options="walletsForSelect"
-        :placeholder="t('wallet_filter')"
-        :selection-label-one="t('wallet')"
-        :selection-label-many="t('wallets')"
-        @change="handleWalletChange"
-      />
-
-      <h6>{{ t('transaction_type') }}</h6>
-
-      <div class="row justify-content-center">
-        <div class="form-check form-switch col-6 d-flex justify-content-center">
-          <input
-            id="toggleIncludeDebits"
-            class="form-check-input"
-            type="checkbox"
-            :checked="!excludeDebits"
-            @change="handleToggleExcludeDebits"
-          >
-          <label
-            class="form-check-label ms-2"
-            for="toggleIncludeDebits"
-          >
-            {{ t('spends') }}
-          </label>
-        </div>
-
-        <div class="form-check form-switch col-6 d-flex justify-content-center">
-          <input
-            id="toggleIncludeCredits"
-            class="form-check-input"
-            type="checkbox"
-            :checked="!excludeCredits"
-            @change="handleToggleExcludeCredits"
-          >
-          <label
-            class="form-check-label ms-2"
-            for="toggleIncludeCredits"
-          >
-            {{ t('income') }}
-          </label>
-        </div>
-      </div>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        :class="{ active: daysToShow === 0 }"
+        @click="handleDateFilterClick(0)"
+      >
+        {{ t('all_days') }}
+      </button>
     </div>
   </div>
 </template>
@@ -91,24 +86,17 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import { setQueryParam } from '~/utils/QueryStringUtils.js';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 import MultipleSelect from '~/components/forms/MultipleSelect.vue';
 
 export default {
   components: {
-    FontAwesomeIcon,
     MultipleSelect,
   },
 
   props: {
-    hideToggleText: {
+    showDateRange: {
       type: Boolean,
       default: false,
-    },
-    toggleClasses: {
-      type: String,
-      default: '',
     },
   },
 
@@ -117,19 +105,30 @@ export default {
     const categoryStore = useCategoryStore();
     const walletStore = useWalletStore();
 
-    const { fetchParams, excludeDebits, excludeCredits } = storeToRefs(transactionStore);
+    const { fetchParams, daysToShow } = storeToRefs(transactionStore);
     const { categoriesForSelect } = storeToRefs(categoryStore);
     const { walletsForSelect } = storeToRefs(walletStore);
 
-    const handleToggleExcludeDebits = () => {
-      transactionStore.setFetchParams({ excludeDebits: !fetchParams.value.excludeDebits });
-      setQueryParam('excludeDebits', fetchParams.value.excludeDebits || null);
+    const handleDateFilterClick = (numberOfDays) => {
+      transactionStore.setFetchParams({ daysToShow: numberOfDays });
+      setQueryParam('numberOfDays', numberOfDays || null);
       transactionStore.fetch();
     };
 
-    const handleToggleExcludeCredits = () => {
-      transactionStore.setFetchParams({ excludeCredits: !fetchParams.value.excludeCredits });
+    const handleTransactionTypeChange = (ev) => {
+      let excludeDebits = false;
+      let excludeCredits = false;
+      const option = parseInt(ev.target.value);
+
+      if (option === -1) {
+        excludeCredits = true;
+      } else if (option === 1) {
+        excludeDebits = true;
+      }
+
+      transactionStore.setFetchParams({ excludeDebits, excludeCredits });
       setQueryParam('excludeCredits', fetchParams.value.excludeCredits || null);
+      setQueryParam('excludeDebits', fetchParams.value.excludeDebits || null);
       transactionStore.fetch();
     };
 
@@ -149,14 +148,13 @@ export default {
     return {
       selectedCategoryIds,
       selectedWalletIds,
-      excludeDebits,
-      excludeCredits,
       categoriesForSelect,
       walletsForSelect,
-      handleToggleExcludeDebits,
-      handleToggleExcludeCredits,
+      daysToShow,
       handleCategoryChange,
       handleWalletChange,
+      handleDateFilterClick,
+      handleTransactionTypeChange,
       t: I18n.scopedTranslator('views.transactions.filters'),
     };
   },
@@ -164,7 +162,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.TransactionFilter__dropdown {
-  width: 20rem;
+.TransactionsFilter__date-range {
+  height: fit-content;
 }
 </style>

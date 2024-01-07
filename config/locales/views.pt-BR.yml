@@ -58,7 +58,7 @@ pt-BR:
         choose_options: Escolha
         multiple_select_selection: seleção
         multiple_select_selections: seleções
-        none: Nada
+        none: Nenhum
         unspecified: Não especificado
       footer:
         version: Versão
@@ -247,22 +247,24 @@ pt-BR:
         mass_edit_selected: '%{count} Selecionada(s)'
         mass_edit_cancel: Cancelar
         mass_edit_submit: Concluir
-        mass_edit_deselect_all: Nada
+        mass_edit_deselect_all: Nenhum
         mass_edit_select_all: Tudo
       filters:
         filters: Filtros
         transaction_type: Tipo de Transação
-        spends: Gastos
-        income: Receita
+        all_transaction_types: Gastos e Receitas
+        only_spends: Apenas Gastos
+        only_income: Apenas Receitas
         seven_days: 7 dias
         thirty_days: 30 dias
         ninety_days: 90 dias
+        all_days: Tudo
         category: Categoria
         categories: Categorias
         wallet: Carteira
         wallets: Carteiras
-        category_filter: Selecione Categoria
-        wallet_filter: Selecione Carteira
+        category_filter: Categoria
+        wallet_filter: Carteira
       form:
         new_title: Nova Transação
         edit_title: Editar Transacão

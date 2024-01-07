@@ -248,17 +248,19 @@ en:
       filters:
         filters: Filters
         transaction_type: Transaction Type
-        spends: Spends
-        income: Income
+        all_transaction_types: Spends & Incomes
+        only_spends: Only Spends
+        only_income: Only Income
         seven_days: 7 days
         thirty_days: 30 days
         ninety_days: 90 days
+        all_days: All
         category: Category
         categories: Categories
         wallet: Wallet
         wallets: Wallets
-        category_filter: Choose Category
-        wallet_filter: Choose Wallet
+        category_filter: Category
+        wallet_filter: Wallet
       form:
         new_title: New Transaction
         edit_title: Edit Transaction

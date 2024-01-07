@@ -806,18 +806,20 @@
       },
       "transactions": {
         "filters": {
+          "all_days": "All",
+          "all_transaction_types": "Spends & Incomes",
           "categories": "Categories",
           "category": "Category",
-          "category_filter": "Choose Category",
+          "category_filter": "Category",
           "filters": "Filters",
-          "income": "Income",
           "ninety_days": "90 days",
+          "only_income": "Only Income",
+          "only_spends": "Only Spends",
           "seven_days": "7 days",
-          "spends": "Spends",
           "thirty_days": "30 days",
           "transaction_type": "Transaction Type",
           "wallet": "Wallet",
-          "wallet_filter": "Choose Wallet",
+          "wallet_filter": "Wallet",
           "wallets": "Wallets"
         },
         "form": {

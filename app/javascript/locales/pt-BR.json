@@ -690,7 +690,7 @@
           "choose_options": "Escolha",
           "multiple_select_selection": "seleção",
           "multiple_select_selections": "seleções",
-          "none": "Nada",
+          "none": "Nenhum",
           "unspecified": "Não especificado"
         },
         "page_header": {
@@ -866,18 +866,20 @@
       },
       "transactions": {
         "filters": {
+          "all_days": "Tudo",
+          "all_transaction_types": "Gastos e Receitas",
           "categories": "Categorias",
           "category": "Categoria",
-          "category_filter": "Selecione Categoria",
+          "category_filter": "Categoria",
           "filters": "Filtros",
-          "income": "Receita",
           "ninety_days": "90 dias",
+          "only_income": "Apenas Receitas",
+          "only_spends": "Apenas Gastos",
           "seven_days": "7 dias",
-          "spends": "Gastos",
           "thirty_days": "30 dias",
           "transaction_type": "Tipo de Transação",
           "wallet": "Carteira",
-          "wallet_filter": "Selecione Carteira",
+          "wallet_filter": "Carteira",
           "wallets": "Carteiras"
         },
         "form": {
@@ -902,7 +904,7 @@
           "edit": "Editar",
           "mass_edit": "Editar em Massa",
           "mass_edit_cancel": "Cancelar",
-          "mass_edit_deselect_all": "Nada",
+          "mass_edit_deselect_all": "Nenhum",
           "mass_edit_select_all": "Tudo",
           "mass_edit_selected": "%{count} Selecionada(s)",
           "mass_edit_submit": "Concluir",
