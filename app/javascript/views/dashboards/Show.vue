@@ -39,9 +39,9 @@
             <TransactionTypeTabs class="pb-2" />
           </template>
           <template v-slot:default>
-            <RecentTransactionsList
-              :transactions="transactions"
-              show-view-more-link
+            <TransactionsList
+              compact
+              card-body
             />
           </template>
         </CollapsibleCard>
@@ -62,7 +62,7 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
-import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
+import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
@@ -79,7 +79,7 @@ export default {
     DateRangeSelector,
     InProgressReconciliationInfoAlert,
     PageHeader,
-    RecentTransactionsList,
+    TransactionsList,
     TransactionsSummary,
     TransactionTypeTabs,
   },
@@ -119,8 +119,7 @@ export default {
       paginationStore.setPaginationOptions({
         startDate: startDate.value,
         endDate: endDate.value,
-        items: 10,
-      })
+      });
 
       transactionStore.fetch();
     }
