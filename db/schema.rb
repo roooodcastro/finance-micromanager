@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_06_095351) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_09_110403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -105,6 +105,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_095351) do
     t.index ["disabled_by_id"], name: "index_subcategories_on_disabled_by_id"
   end
 
+  create_table "transaction_automations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.string "schedule_type", null: false
+    t.integer "schedule_interval", null: false
+    t.date "next_schedule_date", null: false
+    t.string "transaction_name", limit: 100, null: false
+    t.integer "transaction_amount_cents", default: 0, null: false
+    t.uuid "transaction_category_id", null: false
+    t.uuid "transaction_wallet_id"
+    t.datetime "disabled_at"
+    t.uuid "disabled_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disabled_by_id"], name: "index_transaction_automations_on_disabled_by_id"
+    t.index ["profile_id"], name: "index_transaction_automations_on_profile_id"
+    t.index ["transaction_category_id"], name: "index_transaction_automations_on_transaction_category_id"
+    t.index ["transaction_wallet_id"], name: "index_transaction_automations_on_transaction_wallet_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "raw_import_name", limit: 100
@@ -120,6 +139,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_095351) do
     t.uuid "updated_by_id", null: false
     t.uuid "subcategory_id"
     t.uuid "wallet_id"
+    t.uuid "transaction_automation_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["created_by_id"], name: "index_transactions_on_created_by_id"
@@ -127,6 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_095351) do
     t.index ["name"], name: "index_transactions_on_name"
     t.index ["profile_id"], name: "index_transactions_on_profile_id"
     t.index ["subcategory_id"], name: "index_transactions_on_subcategory_id"
+    t.index ["transaction_automation_id"], name: "index_transactions_on_transaction_automation_id"
     t.index ["transaction_date"], name: "index_transactions_on_transaction_date"
     t.index ["updated_by_id"], name: "index_transactions_on_updated_by_id"
     t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
@@ -191,10 +212,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_095351) do
   add_foreign_key "reconciliations_wallets", "wallets"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "subcategories", "users", column: "disabled_by_id"
+  add_foreign_key "transaction_automations", "categories", column: "transaction_category_id"
+  add_foreign_key "transaction_automations", "profiles"
+  add_foreign_key "transaction_automations", "users", column: "disabled_by_id"
+  add_foreign_key "transaction_automations", "wallets", column: "transaction_wallet_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "imports"
   add_foreign_key "transactions", "profiles"
   add_foreign_key "transactions", "subcategories"
+  add_foreign_key "transactions", "transaction_automations"
   add_foreign_key "transactions", "users", column: "created_by_id"
   add_foreign_key "transactions", "users", column: "updated_by_id"
   add_foreign_key "transactions", "wallets"
