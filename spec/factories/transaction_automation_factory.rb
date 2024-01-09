@@ -8,7 +8,7 @@ FactoryBot.define do
     transaction_amount { 10.00 }
     transaction_category { association(:category, profile:) }
 
-    schedule_type { schedule_types[:month] }
+    schedule_type { TransactionAutomation.schedule_types[:month] }
     schedule_interval { 1 }
     next_schedule_date { Date.current }
 

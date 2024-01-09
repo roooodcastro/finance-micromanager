@@ -48,7 +48,10 @@ RSpec.describe TransactionAutomation do
     end
 
     context 'when automation is disabled' do
-      before { transaction_automation.disable! }
+      before do
+        allow(Current).to receive(:user).and_return(transaction_automation.profile.user)
+        transaction_automation.disable!
+      end
 
       it 'does not change next_schedule_date' do
         expect { bump_next_schedule_date! }.not_to change { transaction_automation.reload.next_schedule_date }
