@@ -209,7 +209,7 @@ RSpec.describe TransactionsController do
       expect { delete_request }.to change { Transaction.count }.by(-1)
 
       expect(json_response)
-        .to eq('transactionId' => transaction.id, 'message' => 'Transaction was successfully destroyed.')
+        .to eq('transactionId' => transaction.id, 'message' => 'Transaction was successfully deleted.')
     end
   end
 

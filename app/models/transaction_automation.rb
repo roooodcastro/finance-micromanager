@@ -7,6 +7,7 @@ class TransactionAutomation < ApplicationRecord
 
   belongs_to :profile
   belongs_to :transaction_category, class_name: 'Category'
+  belongs_to :transaction_subcategory, class_name: 'Subcategory', optional: true
   belongs_to :transaction_wallet, class_name: 'Wallet', optional: true
 
   has_many :transactions, dependent: :nullify

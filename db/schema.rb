@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_09_110403) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_10_080226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -118,9 +118,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_110403) do
     t.uuid "disabled_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "transaction_subcategory_id"
     t.index ["disabled_by_id"], name: "index_transaction_automations_on_disabled_by_id"
     t.index ["profile_id"], name: "index_transaction_automations_on_profile_id"
     t.index ["transaction_category_id"], name: "index_transaction_automations_on_transaction_category_id"
+    t.index ["transaction_subcategory_id"], name: "index_transaction_automations_on_transaction_subcategory_id"
     t.index ["transaction_wallet_id"], name: "index_transaction_automations_on_transaction_wallet_id"
   end
 
@@ -214,6 +216,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_110403) do
   add_foreign_key "subcategories", "users", column: "disabled_by_id"
   add_foreign_key "transaction_automations", "categories", column: "transaction_category_id"
   add_foreign_key "transaction_automations", "profiles"
+  add_foreign_key "transaction_automations", "subcategories", column: "transaction_subcategory_id"
   add_foreign_key "transaction_automations", "users", column: "disabled_by_id"
   add_foreign_key "transaction_automations", "wallets", column: "transaction_wallet_id"
   add_foreign_key "transactions", "categories"

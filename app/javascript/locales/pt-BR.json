@@ -31,6 +31,10 @@
         "subcategory": {
           "name": "Nome"
         },
+        "transaction_automation": {
+          "transaction_category": "Categoria",
+          "transaction_name": "Nome da Transação"
+        },
         "user": {
           "current_password": "Senha atual",
           "locale": "Idioma",
@@ -594,6 +598,19 @@
       },
       "pm": ""
     },
+    "transaction_automations": {
+      "create": {
+        "error": "Automação de Transação não pode ser criada: %{error}",
+        "success": "Automação de Transação criada com sucesso."
+      },
+      "destroy": {
+        "success": "Automação de Transação removida com sucesso."
+      },
+      "update": {
+        "error": "Automação de Transação não pode ser atualizada: %{error}",
+        "success": "Automação de Transação atualizada com sucesso."
+      }
+    },
     "transactions": {
       "create": {
         "error": "Transação não pode ser criada: %{error}",
@@ -864,6 +881,33 @@
           "reenable_label": "Reabilitar"
         }
       },
+      "transaction_automations": {
+        "form": {
+          "cancel": "Cancelar",
+          "credit_label": "Receita",
+          "debit_label": "Gasto",
+          "edit_title": "Editar Automação",
+          "new_title": "Nova Automação",
+          "next_schedule_date_label": "Criar próxima transação em",
+          "optional": "Opcional",
+          "schedule_type_day": "Dia(s)",
+          "schedule_type_interval_label": "Criar transações a cada",
+          "schedule_type_month": "Mês(es)",
+          "schedule_type_week": "Semana(s)",
+          "sub_header_schedule": "Dados do Agendamento",
+          "sub_header_transaction": "Dados da Transação",
+          "submit": "Salvar",
+          "transaction_amount_label": "Valor",
+          "transaction_category_label": "Categoria",
+          "transaction_date_label": "Data",
+          "transaction_name_label": "Nome",
+          "transaction_wallet_label": "Carteira"
+        },
+        "index": {
+          "new": "Nova Automação",
+          "title": "Automações de Transações"
+        }
+      },
       "transactions": {
         "filters": {
           "all_days": "Tudo",
@@ -884,7 +928,6 @@
         },
         "form": {
           "amount_label": "Valor",
-          "amount_type_label": "Tipo",
           "cancel": "Cancelar",
           "category_label": "Categoria",
           "credit_label": "Receita",

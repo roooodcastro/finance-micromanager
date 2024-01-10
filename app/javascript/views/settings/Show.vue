@@ -171,7 +171,7 @@ import FormInput from '~/components/rails/FormInput.vue';
 import RailsForm from '~/components/rails/RailsForm.vue';
 import ProfilesSelect from '~/components/profiles/ProfilesSelect.vue';
 import PasswordChangeModal from '~/components/user/PasswordChangeModal.vue';
-import LocalesSelect from '@/components/forms/LocalesSelect.vue';
+import LocalesSelect from '~/components/forms/LocalesSelect.vue';
 
 export default {
   components: {

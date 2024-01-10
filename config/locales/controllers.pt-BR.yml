@@ -85,6 +85,16 @@ pt-BR:
       success: 'Transações atualizadas com sucesso.'
       error: 'Transações não puderam ser atualizadas: %{error}'
 
+  transaction_automations:
+    create:
+      success: 'Automação de Transação criada com sucesso.'
+      error: 'Automação de Transação não pode ser criada: %{error}'
+    update:
+      success: 'Automação de Transação atualizada com sucesso.'
+      error: 'Automação de Transação não pode ser atualizada: %{error}'
+    destroy:
+      success: 'Automação de Transação removida com sucesso.'
+
   users:
     registrations:
       update:

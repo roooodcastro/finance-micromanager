@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
+      fail-fast: false
       matrix:
         ruby: ['3.3', head]
     services:
