@@ -45,4 +45,87 @@ RSpec.describe TransactionAutomationsController do
       end
     end
   end
+
+  describe 'POST create' do
+    subject(:create_request) { post :create, params: { transaction_automation: params } }
+
+    let(:category) { create(:category, profile:) }
+    let(:subcategory) { create(:subcategory, category:) }
+    let(:wallet) { create(:wallet, profile:) }
+
+    context 'when parameters are present and valid' do
+      let(:params) do
+        {
+          schedule_type:           'W',
+          schedule_interval:       '2',
+          next_schedule_date:      2.days.from_now.to_date,
+          transaction_name:        'Netflix',
+          transaction_category_id: [category.id, subcategory.id].join('|'),
+          transaction_wallet_id:   wallet.id,
+          transaction_amount:      '-9.99'
+        }
+      end
+
+      let(:expected_json) { { 'message' => 'Transaction Automation was successfully created.' } }
+
+      it 'creates a new transaction_automation and renders json' do
+        expect { create_request }.to change { TransactionAutomation.count }.by(1)
+        expect(json_response).to eq(CamelizeProps.call(expected_json))
+      end
+    end
+
+    context 'when the transaction_automation cannot be created' do
+      let(:params) do
+        {
+          schedule_type:           'W',
+          schedule_interval:       '2',
+          next_schedule_date:      2.days.from_now.to_date,
+          transaction_name:        'Netflix',
+          transaction_category_id: nil,
+          transaction_amount:      '-9.99'
+        }
+      end
+
+      let(:expected_json) do
+        { 'message' => 'Transaction Automation could not be created: Category must exist' }
+      end
+
+      it 'does not create a new transaction automation and renders json error' do
+        expect { create_request }.to not_change { TransactionAutomation.count }
+        expect(json_response).to eq(expected_json)
+      end
+    end
+  end
+
+  describe 'PATCH update' do
+    subject(:update_request) do
+      patch :update, params: { id: transaction_automation.id, transaction_automation: params }
+    end
+
+    let(:transaction_automation) { create(:transaction_automation, profile:) }
+
+    context 'when the date is present and valid' do
+      let(:params) { { schedule_interval: 30 } }
+
+      let(:expected_json) { { 'message' => 'Transaction Automation was successfully updated.' } }
+
+      it 'updates the transaction automation and renders json' do
+        expect { update_request }.to change { transaction_automation.reload.schedule_interval }.to(30)
+        expect(json_response).to eq(expected_json)
+      end
+    end
+
+    context 'when the transaction automation cannot be updated' do
+      let(:params) { { transaction_name: nil } }
+
+      let(:expected_json) do
+        { 'message' => 'Transaction Automation could not be updated: Transaction Name can\'t be blank' }
+      end
+
+      it 'does not update the transaction automation and renders json error' do
+        expect { update_request }.to not_change { transaction_automation.reload.transaction_name }
+        expect(json_response).to eq(expected_json)
+      end
+    end
+  end
 end

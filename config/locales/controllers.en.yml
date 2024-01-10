@@ -78,10 +78,20 @@ en:
       success: 'Transaction was successfully updated.'
       error: 'Transaction could not be updated: %{error}'
     destroy:
-      success: 'Transaction was successfully destroyed.'
+      success: 'Transaction was successfully deleted.'
     update_all:
       success: 'Transactions were successfully updated.'
       error: 'Transactions could not be updated: %{error}'
+
+  transaction_automations:
+    create:
+      success: 'Transaction Automation was successfully created.'
+      error: 'Transaction Automation could not be created: %{error}'
+    update:
+      success: 'Transaction Automation was successfully updated.'
+      error: 'Transaction Automation could not be updated: %{error}'
+    destroy:
+      success: 'Transaction Automation was successfully deleted.'
 
   users:
     registrations:

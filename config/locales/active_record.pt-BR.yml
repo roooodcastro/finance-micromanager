@@ -30,6 +30,9 @@ pt-BR:
         balance_amount_cents: Saldo
       subcategory:
         name: Nome
+      transaction_automation:
+        transaction_category: Categoria
+        transaction_name: Nome da Transação
       user:
         current_password: Senha atual
         locale: Idioma

@@ -12,6 +12,10 @@
         "reconciliation_wallet": {
           "balance_amount_cents": "Balance"
         },
+        "transaction_automation": {
+          "transaction_category": "Category",
+          "transaction_name": "Transaction Name"
+        },
         "user": {
           "locale": "Language"
         }
@@ -537,13 +541,26 @@
       },
       "pm": "pm"
     },
+    "transaction_automations": {
+      "create": {
+        "error": "Transaction Automation could not be created: %{error}",
+        "success": "Transaction Automation was successfully created."
+      },
+      "destroy": {
+        "success": "Transaction Automation was successfully deleted."
+      },
+      "update": {
+        "error": "Transaction Automation could not be updated: %{error}",
+        "success": "Transaction Automation was successfully updated."
+      }
+    },
     "transactions": {
       "create": {
         "error": "Transaction could not be created: %{error}",
         "success": "Transaction was successfully created."
       },
       "destroy": {
-        "success": "Transaction was successfully destroyed."
+        "success": "Transaction was successfully deleted."
       },
       "update": {
         "error": "Transaction could not be updated: %{error}",
@@ -804,6 +821,33 @@
           "reenable_label": "Re-enable"
         }
       },
+      "transaction_automations": {
+        "form": {
+          "cancel": "Cancel",
+          "credit_label": "Income",
+          "debit_label": "Spend",
+          "edit_title": "Edit Automation",
+          "new_title": "New Automation",
+          "next_schedule_date_label": "Create next transaction on",
+          "optional": "Optional",
+          "schedule_type_day": "Day(s)",
+          "schedule_type_interval_label": "Create transactions every",
+          "schedule_type_month": "Month(s)",
+          "schedule_type_week": "Week(s)",
+          "sub_header_schedule": "Schedule Info",
+          "sub_header_transaction": "Transaction Info",
+          "submit": "Save",
+          "transaction_amount_label": "Amount",
+          "transaction_category_label": "Category",
+          "transaction_date_label": "Date",
+          "transaction_name_label": "Name",
+          "transaction_wallet_label": "Wallet"
+        },
+        "index": {
+          "new": "New Automation",
+          "title": "Transaction Automations"
+        }
+      },
       "transactions": {
         "filters": {
           "all_days": "All",
@@ -824,7 +868,6 @@
         },
         "form": {
           "amount_label": "Amount",
-          "amount_type_label": "Type",
           "cancel": "Cancel",
           "category_label": "Category",
           "credit_label": "Income",

@@ -265,7 +265,6 @@ en:
         new_title: New Transaction
         edit_title: Edit Transaction
         amount_label: Amount
-        amount_type_label: Type
         category_label: Category
         wallet_label: Wallet
         credit_label: Income
@@ -287,6 +286,32 @@ en:
         credit_transactions: Income
         debit_transactions: Spends
         all_transactions: All
+
+    transaction_automations:
+      form:
+        submit: Save
+        cancel: Cancel
+        new_title: New Automation
+        edit_title: Edit Automation
+        sub_header_schedule: Schedule Info
+        sub_header_transaction: Transaction Info
+        schedule_type_interval_label: Create transactions every
+        next_schedule_date_label: Create next transaction on
+        credit_label: Income
+        debit_label: Spend
+        transaction_date_label: Date
+        transaction_name_label: Name
+        transaction_amount_label: Amount
+        transaction_category_label: Category
+        transaction_wallet_label: Wallet
+        optional: Optional
+        schedule_type_month: Month(s)
+        schedule_type_week: Week(s)
+        schedule_type_day: Day(s)
+      index:
+        title: Transaction Automations
+        new: New Automation
+
     users:
       confirmations:
         new:

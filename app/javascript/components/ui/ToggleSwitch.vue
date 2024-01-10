@@ -75,6 +75,8 @@ export default {
       inputCssClasses.value[props.inputOffClasses] = !input.value?.checked;
     };
 
+    setInputCssClasses();
+
     watch(
       () => props.modelValue,
       () => {
@@ -82,6 +84,7 @@ export default {
         setInputCssClasses();
       }
     );
+
 
     const handleInput = (ev) => {
       setInputCssClasses();

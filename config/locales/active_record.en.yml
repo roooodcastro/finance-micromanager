@@ -9,6 +9,9 @@ en:
           cancelled: Cancelled
       reconciliation_wallet:
         balance_amount_cents: Balance
+      transaction_automation:
+        transaction_category: Category
+        transaction_name: Transaction Name
       user:
         locale: Language
     errors:

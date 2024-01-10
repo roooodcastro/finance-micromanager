@@ -1,6 +1,7 @@
 <template>
   <div class="mb-3">
     <label
+      v-if="!!label"
       :for="formHelper.fieldId(fieldName)"
       class="form-label"
     >
@@ -48,7 +49,7 @@ export default {
     },
     label: {
       type: String,
-      required: true,
+      default: null,
     },
     type: {
       type: String,

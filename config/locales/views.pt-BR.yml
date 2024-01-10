@@ -269,7 +269,6 @@ pt-BR:
         new_title: Nova Transação
         edit_title: Editar Transacão
         amount_label: Valor
-        amount_type_label: Tipo
         category_label: Categoria
         wallet_label: Carteira
         credit_label: Receita
@@ -291,6 +290,32 @@ pt-BR:
         credit_transactions: Receitas
         debit_transactions: Gastos
         all_transactions: Todas
+
+    transaction_automations:
+      form:
+        submit: Salvar
+        cancel: Cancelar
+        new_title: Nova Automação
+        edit_title: Editar Automação
+        sub_header_schedule: Dados do Agendamento
+        sub_header_transaction: Dados da Transação
+        schedule_type_interval_label: Criar transações a cada
+        next_schedule_date_label: Criar próxima transação em
+        credit_label: Receita
+        debit_label: Gasto
+        transaction_date_label: Data
+        transaction_name_label: Nome
+        transaction_amount_label: Valor
+        transaction_category_label: Categoria
+        transaction_wallet_label: Carteira
+        optional: Opcional
+        schedule_type_month: Mês(es)
+        schedule_type_week: Semana(s)
+        schedule_type_day: Dia(s)
+      index:
+        title: Automações de Transações
+        new: Nova Automação
+
     users:
       confirmations:
         new:
