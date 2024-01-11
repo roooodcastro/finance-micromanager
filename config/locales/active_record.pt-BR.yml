@@ -33,6 +33,10 @@ pt-BR:
       transaction_automation:
         transaction_category: Categoria
         transaction_name: Nome da Transação
+        schedule_types:
+          month: Mês(es)
+          week: Semana(s)
+          day: Dia(s)
       user:
         current_password: Senha atual
         locale: Idioma

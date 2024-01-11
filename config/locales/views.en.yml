@@ -311,6 +311,11 @@ en:
       index:
         title: Transaction Automations
         new: New Automation
+      list:
+        disabled: Disabled
+        reenable_label: Reenable
+        schedule_desc: 'Scheduled every %{interval}'
+        next_run_desc: 'Next run at %{date}'
 
     users:
       confirmations:

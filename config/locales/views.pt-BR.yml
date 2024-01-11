@@ -315,6 +315,11 @@ pt-BR:
       index:
         title: Automações de Transações
         new: Nova Automação
+      list:
+        disabled: Desabilitada
+        reenable_label: Reabilitar
+        schedule_desc: 'Agendado a data %{interval}'
+        next_run_desc: 'Próxima execução em %{date}'
 
     users:
       confirmations:

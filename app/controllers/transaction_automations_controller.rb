@@ -5,6 +5,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
 
   def index
     transaction_automations = Current.profile.transaction_automations
+                                     .includes(:transaction_category, :transaction_subcategory, :transaction_wallet)
     props                   = camelize_props(transaction_automations: transaction_automations.as_json)
 
     respond_to do |format|

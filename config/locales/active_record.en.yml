@@ -12,6 +12,10 @@ en:
       transaction_automation:
         transaction_category: Category
         transaction_name: Transaction Name
+        schedule_types:
+          month: Month
+          week: Week
+          day: Day
       user:
         locale: Language
     errors:
