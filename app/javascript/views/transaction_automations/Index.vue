@@ -11,6 +11,7 @@
     </PageHeader>
 
     <TransactionAutomationForm />
+    <TransactionAutomationsList />
   </div>
 </template>
 
@@ -21,11 +22,13 @@ import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.j
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TransactionAutomationForm from '~/components/transaction_automations/TransactionAutomationForm.vue';
+import TransactionAutomationsList from '~/components/transaction_automations/TransactionAutomationsList.vue';
 
 export default {
   components: {
     DropdownMenuItem,
     TransactionAutomationForm,
+    TransactionAutomationsList,
     PageHeader,
   },
 

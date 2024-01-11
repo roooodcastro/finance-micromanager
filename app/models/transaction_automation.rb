@@ -17,6 +17,17 @@ class TransactionAutomation < ApplicationRecord
 
   enum schedule_type: { month: 'M', week: 'W', day: 'D' }
 
+  def as_json
+    super(except: %w[schedule_type]).merge(
+      schedule_type:           self.class.schedule_types[schedule_type],
+      schedule_type_key:       schedule_type,
+      transaction_amount:      transaction_amount.to_f,
+      transaction_category:    transaction_category.as_json(include_subcategories: false),
+      transaction_subcategory: transaction_subcategory.as_json,
+      transaction_wallet:      transaction_wallet.as_json
+    )
+  end
+
   def currency
     profile&.currency || Money.default_currency
   end

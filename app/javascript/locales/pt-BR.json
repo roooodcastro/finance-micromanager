@@ -32,6 +32,11 @@
           "name": "Nome"
         },
         "transaction_automation": {
+          "schedule_types": {
+            "day": "Dia(s)",
+            "month": "Mês(es)",
+            "week": "Semana(s)"
+          },
           "transaction_category": "Categoria",
           "transaction_name": "Nome da Transação"
         },
@@ -906,6 +911,12 @@
         "index": {
           "new": "Nova Automação",
           "title": "Automações de Transações"
+        },
+        "list": {
+          "disabled": "Desabilitada",
+          "next_run_desc": "Próxima execução em %{date}",
+          "reenable_label": "Reabilitar",
+          "schedule_desc": "Agendado a data %{interval}"
         }
       },
       "transactions": {
