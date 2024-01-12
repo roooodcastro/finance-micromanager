@@ -5,6 +5,7 @@ import _ from 'lodash';
 import I18n from '~/utils/I18n.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { transactions as transactionsApi } from '~/api/all.js';
 
@@ -46,12 +47,14 @@ export default defineBaseApiStore('transaction', {
   actions: {
     fetch(options = {}) {
       const paginationStore = usePaginationStore();
+      const dateRangeStore = useDateRangeStore();
       const { pagination } = storeToRefs(paginationStore);
+      const { startDate, endDate } = storeToRefs(dateRangeStore);
       const keepTransactions = options.keepTransactions;
       delete options.keepTransactions;
 
       return transactionsApi
-        .index({ query: Object.assign(this.fetchParams, pagination.value) })
+        .index({ query: Object.assign({ startDate: startDate.value, endDate: endDate.value }, this.fetchParams, pagination.value) })
         .then((response) => {
           keepTransactions
             ? this.transactions.push(...response.transactions)

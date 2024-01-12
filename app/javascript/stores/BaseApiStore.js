@@ -84,13 +84,16 @@ export function defineBaseApiStore(name, options = {}) {
         const notificationStore = useNotificationStore();
         let responseResolve;
         const returnPromise = new Promise(resolve => responseResolve = resolve);
-        const data = {}
+        const data = {};
         data[options.resourceName] = record;
 
         options
           .api
           .update({ params: Object.assign(this.urlParams, { id }), data })
           .then((response) => {
+            if (typeof this.fetchSingle === 'function') {
+              this.fetchSingle(id);
+            }
             this.fetch();
             notificationStore.notify(response.message, 'success');
             responseResolve();

@@ -18,10 +18,7 @@ class CategoriesController < AbstractAuthenticatedController
   def show
     category_serializer = CategorySerializer.new(@category)
 
-    props = camelize_props(category: category_serializer.as_json(
-      include_summary:             true,
-      include_recent_transactions: true
-    ))
+    props = camelize_props(category: category_serializer.as_json(include_summary: true))
 
     respond_to do |format|
       format.html { render inertia: 'categories/Show', props: props }

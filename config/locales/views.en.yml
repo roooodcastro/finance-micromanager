@@ -26,7 +26,7 @@ en:
         money_in: Income
         expenses: Spends
         edit: Edit
-        disable: Delete
+        disable: Disable
         new_subcategory: Create Subcategory
         subcategories_options: Options
         show_all_subcategories: Show Disabled
