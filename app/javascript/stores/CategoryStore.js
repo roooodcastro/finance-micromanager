@@ -1,9 +1,11 @@
+import { storeToRefs } from 'pinia';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 
 import I18n from '~/utils/I18n.js';
 import { CATEGORY_FORM_ID } from '~/utils/Constants.js';
 import { categories as categoriesApi } from '~/api/all.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 export default defineBaseApiStore('category', {
   resourceName: 'category',
@@ -14,6 +16,9 @@ export default defineBaseApiStore('category', {
   state: {
     categories: [],
     category: null,
+    fetchParams: {
+      updateDateRange: true,
+    },
   },
 
   getters: {
@@ -35,8 +40,11 @@ export default defineBaseApiStore('category', {
   },
 
   actions: {
-    fetchCategory(id, startDate, endDate) {
-      const params = { start_date: startDate, end_date: endDate };
+    fetchSingle(id) {
+      const dateRangeStore = useDateRangeStore();
+      const { startDate, endDate } = storeToRefs(dateRangeStore);
+      const params = Object.assign({ startDate: startDate.value, endDate: endDate.value }, this.fetchParams);
+
       categoriesApi
         .show({ id, query: params })
         .then(response => this.category = response.category);

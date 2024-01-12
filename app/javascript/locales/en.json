@@ -605,7 +605,7 @@
           "title": "Categories"
         },
         "show": {
-          "disable": "Delete",
+          "disable": "Disable",
           "edit": "Edit",
           "expenses": "Spends",
           "money_in": "Income",

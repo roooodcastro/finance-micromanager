@@ -15,20 +15,18 @@
         @click="handleNewSubcategory"
       />
       <DropdownMenuItem
-        :href="editCategoryPath({ id: categoryFromStore.id })"
         :label="t('edit')"
         icon="pen-to-square"
+        @click="handleEdit"
       />
       <DropdownMenuItem
-        :href="editCategoryPath({ id: categoryFromStore.id })"
         :label="t('disable')"
         icon="ban"
         class="text-danger"
+        @click="handleDisable"
       />
     </template>
   </PageHeader>
-
-  <SubcategoryForm :category="categoryFromStore" />
 
   <DateRangeSelector
     class="mb-3"
@@ -70,23 +68,28 @@
             {{ t('sub_header_recent_transactions') }}
           </h5>
         </div>
-        <RecentTransactionsList :transactions="categoryFromStore.recentTransactions" />
+        <TransactionsList
+          compact
+          card-body
+        />
       </div>
     </div>
   </div>
+
+  <SubcategoryForm :category="categoryFromStore" />
+  <CategoryForm />
 </template>
 
 <script>
 import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { categories as categoriesApi } from '~/api/all.js';
-import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
-import RecentTransactionsList from '~/components/transactions/RecentTransactionsList.vue';
+import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import DropdownMenu from '~/components/ui/DropdownMenu.vue';
@@ -94,18 +97,20 @@ import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
 import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
 import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
+import CategoryForm from '~/components/categories/CategoryForm.vue';
 
 export default {
   components: {
-    SubcategoryForm,
+    CategoryForm,
     CategorySummary,
     DateRangeSelector,
     DropdownMenu,
     DropdownMenuCheckItem,
     DropdownMenuItem,
     PageHeader,
-    RecentTransactionsList,
     SubcategoriesList,
+    SubcategoryForm,
+    TransactionsList,
   },
 
   props: {
@@ -117,21 +122,17 @@ export default {
 
   setup(props) {
     const categoriesPath = categoriesApi.index.path();
-    const editCategoryPath = categoriesApi.edit.path;
 
-    const dateRangeStore = useDateRangeStore();
     const categoryStore = useCategoryStore();
     const subcategoryStore = useSubcategoryStore();
     const transactionStore = useTransactionStore();
-
-    const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     // Load categories from props
     const { category: categoryFromStore } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
 
-    const { transactions } = storeToRefs(transactionStore);
-    transactions.value = categoryFromStore.value.recentTransactions;
+    transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
+    transactionStore.fetch();
 
     // Load subcategories from props
     const {
@@ -142,17 +143,23 @@ export default {
     subcategoriesFromStore.value = props.category.subcategories;
     subcategoryCategoryId.value = props.category.id;
 
-    const handleDateRangeChange = () => categoryStore.fetchCategory(props.category.id, startDate.value, endDate.value);
+    const handleEdit = () => categoryStore.openFormModal(props.category.id);
+    const handleDisable = () => categoryStore.disable(props.category.id);
     const handleNewSubcategory = () => subcategoryStore.openFormModal(null);
     const handleShowDisabledSubcategories = () => subcategoryStore.setShowDisabled(!showDisabledSubcategories.value);
+    const handleDateRangeChange = () => {
+      categoryStore.fetchSingle(props.category.id);
+      transactionStore.fetch();
+    }
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
       categoriesPath,
-      editCategoryPath,
       categoryFromStore,
       subcategoriesFromStore,
       showDisabledSubcategories,
+      handleEdit,
+      handleDisable,
       handleDateRangeChange,
       handleNewSubcategory,
       handleShowDisabledSubcategories,

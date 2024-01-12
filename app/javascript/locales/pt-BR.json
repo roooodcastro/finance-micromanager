@@ -663,7 +663,7 @@
           "title": "Categorias"
         },
         "show": {
-          "disable": "Deletar",
+          "disable": "Desabilitar",
           "edit": "Editar",
           "expenses": "Gastos",
           "money_in": "Receita",

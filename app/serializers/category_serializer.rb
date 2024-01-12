@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class CategorySerializer < ApplicationSerializer
-  def as_json(include_summary: false, include_recent_transactions: false)
+  def as_json(include_summary: false)
     json = category_as_json
     json = json.merge(summary: summary_as_json) if include_summary
-    json = json.merge(recent_transactions: recent_transactions_as_json) if include_recent_transactions
 
     json
   end
@@ -37,9 +36,5 @@ class CategorySerializer < ApplicationSerializer
 
   def credit_transactions
     transactions.select(&:credit?)
-  end
-
-  def recent_transactions_as_json
-    transactions.first(Transaction::RECENT_TRANSACTIONS_COUNT).as_json
   end
 end
