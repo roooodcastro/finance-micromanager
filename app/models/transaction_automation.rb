@@ -38,6 +38,21 @@ class TransactionAutomation < ApplicationRecord
     update!(next_schedule_date: next_schedule_date + schedule_duration)
   end
 
+  def transaction_attributes
+    {
+      name:                      transaction_name,
+      amount:                    transaction_amount,
+      transaction_date:          next_schedule_date,
+      profile_id:                profile_id,
+      category_id:               transaction_category_id,
+      subcategory_id:            transaction_subcategory_id,
+      wallet_id:                 transaction_wallet_id,
+      transaction_automation_id: id,
+      created_by_id:             profile.user_id,
+      updated_by_id:             profile.user_id
+    }
+  end
+
   private
 
   def schedule_duration
