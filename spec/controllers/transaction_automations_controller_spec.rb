@@ -39,8 +39,33 @@ RSpec.describe TransactionAutomationsController do
       let(:format) { :json }
 
       it 'renders the transaction_automations as json' do
-        get :index, format: :json
+        expect(json_response).to match(expected_props)
+      end
+    end
+  end
 
+  describe 'GET show' do
+    subject(:show_request) { get :show, format: format, params: { id: transaction_automation.id } }
+
+    let!(:transaction_automation) { create(:transaction_automation, profile:) }
+
+    let(:expected_props) { { 'transactionAutomation' => CamelizeProps.call(transaction_automation.as_json) } }
+
+    before { show_request }
+
+    context 'when the format is HTML', :inertia do
+      let(:format) { :html }
+
+      it 'renders the index component' do
+        expect_inertia.to render_component('transaction_automations/Show')
+        expect(inertia.props.deep_stringify_keys).to include(expected_props)
+      end
+    end
+
+    context 'when the format is JSON' do
+      let(:format) { :json }
+
+      it 'renders the transaction_automation as json' do
         expect(json_response).to match(expected_props)
       end
     end

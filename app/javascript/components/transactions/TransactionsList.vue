@@ -1,7 +1,10 @@
 <template>
   <div>
     <MassEditForm />
-    <NoTransactionsPlaceholder v-if="!transactions.length" />
+    <NoTransactionsPlaceholder
+      v-if="!transactions.length"
+      :class="{ 'mb-3': cardBody }"
+    />
 
     <template v-else>
       <div

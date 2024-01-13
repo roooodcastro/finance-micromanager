@@ -10,8 +10,15 @@ export default defineBaseApiStore('transactionAutomation', {
 
   state: {
     transactionAutomations: [],
+    transactionAutomation: null,
     fetchParams: {},
   },
 
-  actions: {},
+  actions: {
+    fetchSingle(id) {
+      transactionAutomationsApi
+        .show({ id })
+        .then(response => this.transactionAutomation = response.transactionAutomation);
+    },
+  },
 });

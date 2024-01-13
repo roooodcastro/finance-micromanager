@@ -3,7 +3,6 @@
     :title="categoryFromStore.name"
     :sub-title="t('title')"
     :back-button-href="categoriesPath"
-    class="flex-wrap"
   >
     <template
       v-if="!categoryFromStore.system"

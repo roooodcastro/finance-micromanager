@@ -320,6 +320,23 @@ pt-BR:
         reenable_label: Reabilitar
         schedule_desc: 'Agendado a data %{interval}'
         next_run_desc: 'Próxima execução em %{date}'
+      show:
+        title: Automação de Transação
+        edit: Editar
+        sub_header_transactions: Transações Passadas
+        sub_header_summary: Resumo
+        no_last_run: -- Nunca --
+        no_next_run: -- Desabilitada --
+        no_wallet: -- Não Especificada --
+        schedule: Agendamento
+        next_schedule_date: Próxima execução
+        last_schedule_date: Última execução
+        transaction_name: Nome da Transação
+        transaction_amount: Valor
+        every: A cada
+        disabled_alert_title: Desabilitada
+        disabled_alert_message: >-
+          Esta automação está desabilitada. Ela não irá ser executada e seu agendamento não seréa autalizado.
 
     users:
       confirmations:
