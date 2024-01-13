@@ -288,6 +288,10 @@ en:
         all_transactions: All
 
     transaction_automations:
+      confirmation:
+        destroy: Are you sure you want to destroy this automation? This action cannot be undone.
+        disable: Are you sure you want to disable this automation?
+        reenable: Are you sure you want to reenable this automation?
       form:
         submit: Save
         cancel: Cancel
@@ -319,6 +323,9 @@ en:
       show:
         title: Transaction Automation
         edit: Edit
+        disable: Disable
+        reenable: Reenable
+        destroy: Delete
         sub_header_transactions: Past Transactions
         sub_header_summary: Summary
         no_last_run: -- Never --

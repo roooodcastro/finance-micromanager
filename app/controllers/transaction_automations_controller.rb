@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionAutomationsController < AbstractAuthenticatedController
-  before_action :set_transaction_automation, only: %i[show update]
+  before_action :set_transaction_automation, only: %i[show update destroy disable reenable]
 
   def index
     transaction_automations = Current.profile.transaction_automations
@@ -44,6 +44,24 @@ class TransactionAutomationsController < AbstractAuthenticatedController
       render json:   camelize_props(message: t('.error', error:)),
              status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @transaction_automation.destroy!
+
+    render json: camelize_props(message: t('.success'))
+  end
+
+  def disable
+    @transaction_automation.disable!
+
+    render json: camelize_props(message: t('.success'))
+  end
+
+  def reenable
+    @transaction_automation.enable!
+
+    render json: camelize_props(message: t('.success'))
   end
 
   private

@@ -32,7 +32,7 @@
         'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
         'me-0 me-lg-3': !drawerMenu,
       }"
-      @delete="handleDelete"
+      @delete="handleDisable"
     />
   </template>
 </template>
@@ -72,13 +72,13 @@ export default {
     const isDisabled = computed(() => !!props.transactionAutomation.disabledAt);
 
     const handleEdit = () => transactionAutomationStore.openFormModal(props.transactionAutomation.id);
-    const handleDelete = () => {};
-    const handleReenable = () => {};
+    const handleDisable = () => transactionAutomationStore.disable(props.transactionAutomation.id);
+    const handleReenable = () => transactionAutomationStore.reenable(props.transactionAutomation.id);
 
     return {
       t,
       handleEdit,
-      handleDelete,
+      handleDisable,
       handleReenable,
       isDisabled,
     };

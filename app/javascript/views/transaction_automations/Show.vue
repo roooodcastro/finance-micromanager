@@ -10,6 +10,29 @@
         icon="pen-to-square"
         @click="handleEdit"
       />
+      <DropdownMenuItem
+        v-if="!isDisabled"
+        :label="t('disable')"
+        icon="ban"
+        class="text-danger"
+        @click="handleDisable"
+      />
+      <DropdownMenuItem
+        v-if="isDisabled"
+        :label="t('reenable')"
+        icon="repeat"
+        class="text-primary"
+        @click="handleReenable"
+      />
+
+      <hr class="my-2">
+
+      <DropdownMenuItem
+        :label="t('destroy')"
+        :icon="['far', 'trash-can']"
+        class="text-bg-danger"
+        @click="handleDelete"
+      />
     </template>
   </PageHeader>
 
@@ -159,6 +182,7 @@ export default {
     // Load transaction automation from props
     const { transactionAutomation: transactionAutomationFromStore } = storeToRefs(transactionAutomationStore);
     transactionAutomationFromStore.value = props.transactionAutomation;
+    transactionAutomationStore.fetch();
 
     transactionStore.setFetchParams({ categoryIds: props.transactionAutomation.id, daysToShow: 0 });
     transactionStore.fetch();
@@ -168,6 +192,9 @@ export default {
     const isCredit = computed(() => transactionAutomationFromStore.value.transactionAmount > 0);
 
     const handleEdit = () => transactionAutomationStore.openFormModal(props.transactionAutomation.id);
+    const handleDisable = () => transactionAutomationStore.disable(props.transactionAutomation.id);
+    const handleDelete = () => transactionAutomationStore.destroy(props.transactionAutomation.id);
+    const handleReenable = () => transactionAutomationStore.reenable(props.transactionAutomation.id);
 
     return {
       I18n,
@@ -181,6 +208,9 @@ export default {
       formatMoney,
       formatDate,
       handleEdit,
+      handleDisable,
+      handleDelete,
+      handleReenable,
     };
   },
 };

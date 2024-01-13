@@ -53,7 +53,12 @@ Rails.application.routes.draw do
     resources :transactions, except: %i[show] do
       patch :update_all, on: :collection
     end
-    resources :transaction_automations, only: %i[index show create update]
+    resources :transaction_automations, only: %i[index show create update destroy] do
+      member do
+        delete :disable
+        patch :reenable
+      end
+    end
     resources :wallets, only: %i[index create update destroy] do
       patch :reenable, on: :member
     end

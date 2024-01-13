@@ -554,6 +554,12 @@
       "destroy": {
         "success": "Transaction Automation was successfully deleted."
       },
+      "disable": {
+        "success": "Transaction Automation was successfully disabled."
+      },
+      "reenable": {
+        "success": "Transaction Automation was successfully re-enabled."
+      },
       "update": {
         "error": "Transaction Automation could not be updated: %{error}",
         "success": "Transaction Automation was successfully updated."
@@ -827,6 +833,11 @@
         }
       },
       "transaction_automations": {
+        "confirmation": {
+          "destroy": "Are you sure you want to destroy this automation? This action cannot be undone.",
+          "disable": "Are you sure you want to disable this automation?",
+          "reenable": "Are you sure you want to reenable this automation?"
+        },
         "form": {
           "cancel": "Cancel",
           "credit_label": "Income",
@@ -859,6 +870,8 @@
           "schedule_desc": "Scheduled every %{interval}"
         },
         "show": {
+          "destroy": "Delete",
+          "disable": "Disable",
           "disabled_alert_message": "This automation is disabled. It will not run and its schedule will not be updated.",
           "disabled_alert_title": "Disabled",
           "edit": "Edit",
@@ -868,6 +881,7 @@
           "no_last_run": "-- Never --",
           "no_next_run": "-- Disabled --",
           "no_wallet": "-- Not Specified --",
+          "reenable": "Reenable",
           "schedule": "Schedule",
           "sub_header_summary": "Summary",
           "sub_header_transactions": "Past Transactions",

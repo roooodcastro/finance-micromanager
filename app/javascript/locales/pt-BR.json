@@ -611,6 +611,12 @@
       "destroy": {
         "success": "Automação de Transação removida com sucesso."
       },
+      "disable": {
+        "success": "Automação de Transação desabilitada com sucesso."
+      },
+      "reenable": {
+        "success": "Automação de Transação reabilitada com sucesso."
+      },
       "update": {
         "error": "Automação de Transação não pode ser atualizada: %{error}",
         "success": "Automação de Transação atualizada com sucesso."
@@ -887,6 +893,11 @@
         }
       },
       "transaction_automations": {
+        "confirmation": {
+          "destroy": "Tem certeza de que deseja remover esta automação? Esta ação não poderá ser desfeita.",
+          "disable": "Tem certeza de que deseja desabilitar esta automação?",
+          "reenable": "Tem certeza de que deseja reabilitar esta automação?"
+        },
         "form": {
           "cancel": "Cancelar",
           "credit_label": "Receita",
@@ -919,7 +930,9 @@
           "schedule_desc": "Agendado a data %{interval}"
         },
         "show": {
-          "disabled_alert_message": "Esta automação está desabilitada. Ela não irá ser executada e seu agendamento não seréa autalizado.",
+          "destroy": "Remover",
+          "disable": "Desabilitar",
+          "disabled_alert_message": "Esta automação está desabilitada. Ela não será mais executada ou ter seu agendamento atualizado.",
           "disabled_alert_title": "Desabilitada",
           "edit": "Editar",
           "every": "A cada",
@@ -928,6 +941,7 @@
           "no_last_run": "-- Nunca --",
           "no_next_run": "-- Desabilitada --",
           "no_wallet": "-- Não Especificada --",
+          "reenable": "Reabilitar",
           "schedule": "Agendamento",
           "sub_header_summary": "Resumo",
           "sub_header_transactions": "Transações Passadas",
