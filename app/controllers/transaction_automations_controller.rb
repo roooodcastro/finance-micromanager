@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionAutomationsController < AbstractAuthenticatedController
-  before_action :set_transaction_automation, only: %i[update]
+  before_action :set_transaction_automation, only: %i[show update]
 
   def index
     transaction_automations = Current.profile.transaction_automations
@@ -10,6 +10,15 @@ class TransactionAutomationsController < AbstractAuthenticatedController
 
     respond_to do |format|
       format.html { render inertia: 'transaction_automations/Index', props: props }
+      format.json { render json: props }
+    end
+  end
+
+  def show
+    props = camelize_props(transaction_automation: @transaction_automation.as_json)
+
+    respond_to do |format|
+      format.html { render inertia: 'transaction_automations/Show', props: props }
       format.json { render json: props }
     end
   end

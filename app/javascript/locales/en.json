@@ -857,6 +857,25 @@
           "next_run_desc": "Next run at %{date}",
           "reenable_label": "Reenable",
           "schedule_desc": "Scheduled every %{interval}"
+        },
+        "show": {
+          "disabled_alert_message": "This automation is disabled. It will not run and its schedule will not be updated.",
+          "disabled_alert_title": "Disabled",
+          "edit": "Edit",
+          "every": "Every",
+          "last_schedule_date": "Last Run",
+          "next_schedule_date": "Next Run",
+          "no_last_run": "-- Never --",
+          "no_next_run": "-- Disabled --",
+          "no_wallet": "-- Not Specified --",
+          "schedule": "Schedule",
+          "sub_header_summary": "Summary",
+          "sub_header_transactions": "Past Transactions",
+          "title": "Transaction Automation",
+          "transaction_amount": "Amount",
+          "transaction_category": "Category",
+          "transaction_name": "Transaction Name",
+          "transaction_wallet": "Wallet"
         }
       },
       "transactions": {

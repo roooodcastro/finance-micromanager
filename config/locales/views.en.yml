@@ -316,6 +316,24 @@ en:
         reenable_label: Reenable
         schedule_desc: 'Scheduled every %{interval}'
         next_run_desc: 'Next run at %{date}'
+      show:
+        title: Transaction Automation
+        edit: Edit
+        sub_header_transactions: Past Transactions
+        sub_header_summary: Summary
+        no_last_run: -- Never --
+        no_next_run: -- Disabled --
+        no_wallet: -- Not Specified --
+        schedule: Schedule
+        next_schedule_date: Next Run
+        last_schedule_date: Last Run
+        transaction_name: Transaction Name
+        transaction_amount: Amount
+        transaction_category: Category
+        transaction_wallet: Wallet
+        every: Every
+        disabled_alert_title: Disabled
+        disabled_alert_message: This automation is disabled. It will not run and its schedule will not be updated.
 
     users:
       confirmations:

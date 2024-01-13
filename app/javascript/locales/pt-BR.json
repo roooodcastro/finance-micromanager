@@ -917,6 +917,25 @@
           "next_run_desc": "Próxima execução em %{date}",
           "reenable_label": "Reabilitar",
           "schedule_desc": "Agendado a data %{interval}"
+        },
+        "show": {
+          "disabled_alert_message": "Esta automação está desabilitada. Ela não irá ser executada e seu agendamento não seréa autalizado.",
+          "disabled_alert_title": "Desabilitada",
+          "edit": "Editar",
+          "every": "A cada",
+          "last_schedule_date": "Última execução",
+          "next_schedule_date": "Próxima execução",
+          "no_last_run": "-- Nunca --",
+          "no_next_run": "-- Desabilitada --",
+          "no_wallet": "-- Não Especificada --",
+          "schedule": "Agendamento",
+          "sub_header_summary": "Resumo",
+          "sub_header_transactions": "Transações Passadas",
+          "title": "Automação de Transação",
+          "transaction_amount": "Valor",
+          "transaction_category": "Category",
+          "transaction_name": "Nome da Transação",
+          "transaction_wallet": "Wallet"
         }
       },
       "transactions": {
