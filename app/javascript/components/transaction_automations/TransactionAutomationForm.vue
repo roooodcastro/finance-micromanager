@@ -231,7 +231,6 @@ export default {
         transactionAutomationStore.create(transactionAutomation.value).then(closeModal);
       } else {
         transactionAutomationStore.update(transactionAutomation.value.id, transactionAutomation.value).then(closeModal);
-        transactionAutomationStore.update(transactionAutomation.value.id, transactionAutomation.value).then(closeModal);
       }
     };
 

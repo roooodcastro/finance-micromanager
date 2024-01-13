@@ -94,6 +94,10 @@ pt-BR:
       error: 'Automação de Transação não pode ser atualizada: %{error}'
     destroy:
       success: 'Automação de Transação removida com sucesso.'
+    disable:
+      success: 'Automação de Transação desabilitada com sucesso.'
+    reenable:
+      success: 'Automação de Transação reabilitada com sucesso.'
 
   users:
     registrations:

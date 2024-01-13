@@ -92,6 +92,10 @@ en:
       error: 'Transaction Automation could not be updated: %{error}'
     destroy:
       success: 'Transaction Automation was successfully deleted.'
+    disable:
+      success: 'Transaction Automation was successfully disabled.'
+    reenable:
+      success: 'Transaction Automation was successfully re-enabled.'
 
   users:
     registrations:

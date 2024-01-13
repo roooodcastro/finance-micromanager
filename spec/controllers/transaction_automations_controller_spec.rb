@@ -153,4 +153,46 @@ RSpec.describe TransactionAutomationsController do
       end
     end
   end
+
+  describe 'DELETE destroy', :travel_to_now do
+    subject(:destroy_request) do
+      delete :destroy, params: { id: transaction_automation.id }
+    end
+
+    let!(:transaction_automation) { create(:transaction_automation, profile: profile, disabled_at: nil) }
+    let(:expected_json) { { 'message' => 'Transaction Automation was successfully deleted.' } }
+
+    it 'disables the transaction automation and renders json' do
+      expect { destroy_request }.to change { TransactionAutomation.count }.by(-1)
+      expect(json_response).to eq(expected_json)
+    end
+  end
+
+  describe 'DELETE disable', :travel_to_now do
+    subject(:disable_request) do
+      delete :disable, params: { id: transaction_automation.id }
+    end
+
+    let(:transaction_automation) { create(:transaction_automation, profile: profile, disabled_at: nil) }
+    let(:expected_json) { { 'message' => 'Transaction Automation was successfully disabled.' } }
+
+    it 'disables the transaction automation and renders json' do
+      expect { disable_request }.to change { transaction_automation.reload.disabled_at }.to(Time.current)
+      expect(json_response).to eq(expected_json)
+    end
+  end
+
+  describe 'PATCH reenable', :travel_to_now do
+    subject(:reenable_request) do
+      patch :reenable, params: { id: transaction_automation.id }
+    end
+
+    let(:transaction_automation) { create(:transaction_automation, profile: profile, disabled_at: Time.current) }
+    let(:expected_json) { { 'message' => 'Transaction Automation was successfully re-enabled.' } }
+
+    it 'reenables the transaction automation and renders json' do
+      expect { reenable_request }.to change { transaction_automation.reload.disabled_at }.to(nil)
+      expect(json_response).to eq(expected_json)
+    end
+  end
 end

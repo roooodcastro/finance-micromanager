@@ -292,6 +292,10 @@ pt-BR:
         all_transactions: Todas
 
     transaction_automations:
+      confirmation:
+        destroy: Tem certeza de que deseja remover esta automação? Esta ação não poderá ser desfeita.
+        disable: Tem certeza de que deseja desabilitar esta automação?
+        reenable: Tem certeza de que deseja reabilitar esta automação?
       form:
         submit: Salvar
         cancel: Cancelar
@@ -323,6 +327,9 @@ pt-BR:
       show:
         title: Automação de Transação
         edit: Editar
+        disable: Desabilitar
+        reenable: Reabilitar
+        destroy: Remover
         sub_header_transactions: Transações Passadas
         sub_header_summary: Resumo
         no_last_run: -- Nunca --
@@ -336,7 +343,7 @@ pt-BR:
         every: A cada
         disabled_alert_title: Desabilitada
         disabled_alert_message: >-
-          Esta automação está desabilitada. Ela não irá ser executada e seu agendamento não seréa autalizado.
+          Esta automação está desabilitada. Ela não será mais executada ou ter seu agendamento atualizado.
 
     users:
       confirmations:
