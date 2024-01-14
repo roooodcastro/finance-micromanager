@@ -170,5 +170,32 @@ RSpec.describe TransactionSearch, type: :search do
         it { is_expected.to contain_exactly(wallet_b_transaction, transaction) }
       end
     end
+
+    context 'when transaction_automation_id is specified' do
+      let(:query_params) { { transaction_automation_id: } }
+      let(:transaction_automation_a) { create(:transaction_automation) }
+      let(:transaction_automation_b) { create(:transaction_automation) }
+
+      let!(:transaction_a) { create(:transaction) }
+      let!(:transaction_b) { create(:transaction, transaction_automation: transaction_automation_a) }
+
+      context 'and it is empty' do
+        let(:transaction_automation_id) { nil }
+
+        it { is_expected.to contain_exactly(transaction_a, transaction_b) }
+      end
+
+      context 'and it has an ID but there are no transactions from that automation' do
+        let(:transaction_automation_id) { transaction_automation_b.id }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'and it has an ID and there are transactions from that automation' do
+        let(:transaction_automation_id) { transaction_automation_a.id }
+
+        it { is_expected.to contain_exactly(transaction_b) }
+      end
+    end
   end
 end

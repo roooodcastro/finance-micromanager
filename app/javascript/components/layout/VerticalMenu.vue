@@ -71,6 +71,7 @@ import {
   profiles as profilesApi,
   reconciliations as reconciliationsApi,
   settings as settingsApi,
+  transactionAutomations as transactionAutomationsApi,
   transactions as transactionsApi,
   usersSessions as userSessionsApi,
   usersRegistrations as usersRegistrationsApi,
@@ -101,10 +102,11 @@ export default {
         top: [
           { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'home' },
           { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
+          { label: t('transaction_automations'), path: transactionAutomationsApi.index.path(), icon: 'robot' },
           { label: t('reconciliations'), path: reconciliationsApi.index.path(), icon: 'scale-balanced' },
           { label: t('categories'), path: categoriesApi.index.path(), icon: ['far', 'folder'] },
-          { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
           { label: t('wallets'), path: walletsApi.index.path(), icon: ['far', 'credit-card'] },
+          { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
           { label: t('settings'), path: settingsApi.show.path(), icon: 'sliders' },
         ],
         bottom: [

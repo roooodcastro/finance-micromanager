@@ -90,6 +90,7 @@ en:
       vertical_menu:
         dashboard: Dashboard
         transactions: Transactions
+        transaction_automations: Transaction Automations
         reconciliations: Reconciliations
         current_profile: 'Profile:'
         profiles: Profiles
@@ -245,6 +246,7 @@ en:
         mass_edit_submit: Submit
         mass_edit_deselect_all: None
         mass_edit_select_all: All
+        transaction_from_automation_tooltip: This transaction was created by an automation
       filters:
         filters: Filters
         transaction_type: Transaction Type

@@ -184,7 +184,7 @@ export default {
     transactionAutomationFromStore.value = props.transactionAutomation;
     transactionAutomationStore.fetch();
 
-    transactionStore.setFetchParams({ categoryIds: props.transactionAutomation.id, daysToShow: 0 });
+    transactionStore.setFetchParams({ transactionAutomationId: props.transactionAutomation.id, daysToShow: 0 });
     transactionStore.fetch();
 
     const isDisabled = computed(() => !!transactionAutomationFromStore.value.disabledAt);
