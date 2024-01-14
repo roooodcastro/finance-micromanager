@@ -759,6 +759,7 @@
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar Conta",
+          "transaction_automations": "Automações de Transação",
           "transactions": "Transações",
           "wallets": "Carteiras"
         }
@@ -1002,6 +1003,7 @@
           "sorting": "Ordem",
           "title": "Transações",
           "transaction_date": "Data",
+          "transaction_from_automation_tooltip": "Esta transação foi criada por uma automação",
           "view_more": "Ver todas as transações&hellip;"
         },
         "mass_edit_form": {

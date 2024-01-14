@@ -35,7 +35,10 @@
           :class="{ 'pe-lg-2': massEditMode }"
         >
           <div class="d-flex justify-content-between">
-            <span>{{ transaction.name }}</span>
+            <span>
+              <TransactionFromAutomationIndicator v-if="!!transaction.transactionAutomationId" />
+              {{ transaction.name }}
+            </span>
             <span
               class="TransactionListItem__amount text-end fw-bold"
               :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
@@ -72,9 +75,11 @@ import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
 import TransactionActions from '~/components/transactions/TransactionActions.vue';
+import TransactionFromAutomationIndicator from '~/components/transactions/TransactionFromAutomationIndicator.vue';
 
 export default {
   components: {
+    TransactionFromAutomationIndicator,
     ListItemDrawerContextMenu,
     TransactionActions,
   },

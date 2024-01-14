@@ -701,6 +701,7 @@
           "sign_in": "Sign In",
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
+          "transaction_automations": "Transaction Automations",
           "transactions": "Transactions",
           "wallets": "Wallets"
         }
@@ -942,6 +943,7 @@
           "sorting": "Sorting",
           "title": "Transactions",
           "transaction_date": "Date",
+          "transaction_from_automation_tooltip": "This transaction was created by an automation",
           "view_more": "View all transactions&hellip;"
         },
         "mass_edit_form": {
