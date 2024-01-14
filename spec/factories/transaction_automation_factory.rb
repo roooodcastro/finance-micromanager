@@ -14,7 +14,7 @@ FactoryBot.define do
 
     trait :disabled do
       disabled_at { Time.current }
-      disabled_by { profile.user }
+      after(:create) { |automation| automation.update!(disabled_by: automation.profile.user) }
     end
   end
 end

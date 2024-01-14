@@ -65,22 +65,22 @@
               class="col-6 col-md-8 my-1 fw-bold"
               :class="{ 'text-muted': isDisabled, 'text-credit': isCredit && !isDisabled, 'text-debit': isDebit && !isDisabled }"
             >
-              {{ formatMoney(transactionAutomation.transactionAmount) }}
+              {{ formatMoney(transactionAutomationFromStore.transactionAmount) }}
             </dd>
             <dt class="col-6 col-md-4 my-1">
               {{ t('transaction_category') }}
             </dt>
             <dd class="col-6 col-md-8 my-1">
-              <a :href="categoryPath(transactionAutomation.transactionCategoryId)">
-                {{ transactionAutomation.transactionSubcategory?.displayName ?? transactionAutomation.transactionCategory.name }}
+              <a :href="categoryPath(transactionAutomationFromStore.transactionCategoryId)">
+                {{ transactionAutomationFromStore.transactionSubcategory?.displayName ?? transactionAutomationFromStore.transactionCategory.name }}
               </a>
             </dd>
             <dt class="col-6 col-md-4 my-1">
               {{ t('transaction_wallet') }}
             </dt>
             <dd class="col-6 col-md-8 my-1">
-              <template v-if="transactionAutomation.transactionWallet">
-                {{ transactionAutomation.transactionWallet.name }}
+              <template v-if="transactionAutomationFromStore.transactionWallet">
+                {{ transactionAutomationFromStore.transactionWallet.name }}
               </template>
               <template v-else>
                 {{ t('no_wallet') }}
@@ -96,20 +96,20 @@
             </dt>
             <dd class="col-6 col-md-8 my-1">
               {{ t('every') }}
-              {{ transactionAutomation.scheduleInterval }}
-              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomation.scheduleTypeKey}`) }}
+              {{ transactionAutomationFromStore.scheduleInterval }}
+              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
             </dd>
             <dt class="col-6 col-md-4 my-1">
               {{ t('next_schedule_date') }}
             </dt>
             <dd class="col-6 col-md-8 my-1">
-              {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomation.nextScheduleDate) }}
+              {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.nextScheduleDate) }}
             </dd>
             <dt class="col-6 col-md-4 my-1">
               {{ t('last_schedule_date') }}
             </dt>
             <dd class="col-6 col-md-8 my-1">
-              {{ transactionAutomation.lastScheduleDate ? formatDate(transactionAutomation.lastScheduleDate) : t('no_last_run') }}
+              {{ transactionAutomationFromStore.lastScheduleDate ? formatDate(transactionAutomationFromStore.lastScheduleDate) : t('no_last_run') }}
             </dd>
           </dl>
         </div>

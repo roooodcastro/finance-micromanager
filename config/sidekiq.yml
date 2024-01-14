@@ -4,3 +4,6 @@
     backup_database:
       cron: '0 3 * * *'
       class: Postgresql::BackupDatabaseJob
+    process_transaction_automations:
+      cron: '0 2 * * *'
+      class: ProcessTransactionAutomationsJob

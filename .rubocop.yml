@@ -92,6 +92,9 @@ Style/RegexpLiteral:
 Lint/ConstantDefinitionInBlock:
   Enabled: false
 
+Lint/MissingSuper:
+  Enabled: false
+
 Style/HashSyntax:
   EnforcedShorthandSyntax: consistent
 
