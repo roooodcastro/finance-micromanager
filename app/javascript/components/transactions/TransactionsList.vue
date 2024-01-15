@@ -138,13 +138,13 @@ export default {
       massEditTransactionIdsCount,
     } = storeToRefs(transactionStore);
 
-    const handlePageChange = () => transactionStore.fetch();
+    const handlePageChange = () => transactionStore.fetchCollection();
 
     // Reload transactions if profile has changed while this page is open
     const profileStore = useProfileStore();
     watch(
       () => profileStore.currentProfile,
-      () => transactionStore.fetch(),
+      () => transactionStore.fetchCollection(),
     );
 
     const loadingNextPage = ref(false);
@@ -154,7 +154,7 @@ export default {
         loadingNextPage.value = true;
 
         if (paginationStore.incrementPage()) {
-          transactionStore.fetch({ keepTransactions: true }).then(() => {
+          transactionStore.fetchCollection({ keepTransactions: true }).then(() => {
             loadingNextPage.value = false;
           });
         }

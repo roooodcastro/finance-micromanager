@@ -97,11 +97,11 @@ export default {
     const transactionData = computed(() => _.pick(transaction.value, transactionFields));
 
     if (!categories.value.length) {
-      categoryStore.fetch();
+      categoryStore.fetchCollection();
     }
 
     if (!activeWallets.value.length) {
-      walletStore.fetch();
+      walletStore.fetchCollection();
     }
 
     onMounted(() => modalStore.registerModal(MASS_EDIT_TRANSACTION_FORM_ID));

@@ -149,7 +149,7 @@ export default {
       endDate: props.reconciliation.date,
       daysToShow: 0,
     });
-    transactionStore.fetch();
+    transactionStore.fetchCollection();
     const { transactions, massEditMode, defaultTransactionDate } = storeToRefs(transactionStore);
 
     // Change default transaction date for new transactions created on this page

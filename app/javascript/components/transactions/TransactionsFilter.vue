@@ -112,7 +112,7 @@ export default {
     const handleDateFilterClick = (numberOfDays) => {
       transactionStore.setFetchParams({ daysToShow: numberOfDays });
       setQueryParam('numberOfDays', numberOfDays || null);
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     };
 
     const handleTransactionTypeChange = (ev) => {
@@ -129,17 +129,17 @@ export default {
       transactionStore.setFetchParams({ excludeDebits, excludeCredits });
       setQueryParam('excludeCredits', fetchParams.value.excludeCredits || null);
       setQueryParam('excludeDebits', fetchParams.value.excludeDebits || null);
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     };
 
     const handleCategoryChange = () => {
       transactionStore.setFetchParams({ categoryIds: selectedCategoryIds.value });
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     };
 
     const handleWalletChange = () => {
       transactionStore.setFetchParams({ walletIds: selectedWalletIds.value });
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     };
 
     const selectedCategoryIds = ref('');

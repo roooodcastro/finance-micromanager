@@ -25,7 +25,7 @@ export default defineStore('user', {
   },
 
   actions: {
-    fetch() {
+    fetchCollection() {
       return settingsApi.show().then(response => this.user = response.user);
     },
 
@@ -37,7 +37,7 @@ export default defineStore('user', {
       settingsApi
         .update({ data: { user: userAttributes } })
         .then((response) => {
-          this.fetch().then(responseResolve);
+          this.fetchCollection().then(responseResolve);
           notificationStore.notify(response.message, 'success');
         })
         .catch((error) => {

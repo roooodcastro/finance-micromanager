@@ -30,13 +30,13 @@ export default defineStore('subcategory', {
       if (this.showDisabled !== showDisabled) {
         this.showDisabled = showDisabled;
 
-        return this.fetch();
+        return this.fetchCollection();
       } else {
         return Promise.resolve();
       }
     },
 
-    fetch() {
+    fetchCollection() {
       subcategoriesApi
         .index({ categoryId: this.categoryId, query: { showDisabled: this.showDisabled }})
         .then((response) => this.subcategories = response.subcategories);

@@ -45,7 +45,7 @@ export default defineBaseApiStore('transaction', {
     massEditTransactionIdsCount: state => Object.keys(state.massEditTransactionIds).length,
   },
   actions: {
-    fetch(options = {}) {
+    fetchCollection(options = {}) {
       const paginationStore = usePaginationStore();
       const dateRangeStore = useDateRangeStore();
       const { pagination } = storeToRefs(paginationStore);
@@ -114,7 +114,7 @@ export default defineBaseApiStore('transaction', {
       transactionsApi
         .updateAll({ data: { transaction, transactionIds } })
         .then((response) => {
-          this.fetch();
+          this.fetchCollection();
           document.querySelector(`#${MASS_EDIT_TRANSACTION_FORM_ID}`).reset();
           notificationStore.notify(response.message, 'success');
           this.cancelMassEditMode();

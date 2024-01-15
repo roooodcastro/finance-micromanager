@@ -16,7 +16,7 @@ export default defineStore('statistics_category_summary', {
   },
 
   actions: {
-    fetch(options) {
+    fetchCollection(options) {
       const defaultOptions = {
         startDate: dayjs().startOf('month'),
         endDate: dayjs(),

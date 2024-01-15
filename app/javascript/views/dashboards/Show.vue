@@ -121,11 +121,11 @@ export default {
         endDate: endDate.value,
       });
 
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     }
 
     const fetchCategorySummaries = () => {
-      categorySummaryStore.fetch({
+      categorySummaryStore.fetchCollection({
         startDate: startDate.value,
         endDate: endDate.value,
       });

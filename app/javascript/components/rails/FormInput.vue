@@ -60,7 +60,7 @@ export default {
       default: null,
     },
     modelValue: {
-      type: String,
+      type: [String, Number],
       default: null,
     },
   },

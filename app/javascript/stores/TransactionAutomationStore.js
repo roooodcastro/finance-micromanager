@@ -18,11 +18,6 @@ export default defineBaseApiStore('transactionAutomation', {
   },
 
   actions: {
-    fetchSingle(id) {
-      transactionAutomationsApi
-        .show({ id })
-        .then(response => this.transactionAutomation = response.transactionAutomation);
-    },
     destroy(id) {
       const notificationStore = useNotificationStore();
       const modalStore = useModalStore();
@@ -33,7 +28,7 @@ export default defineBaseApiStore('transactionAutomation', {
           transactionAutomationsApi
             .destroy({ id })
             .then((response) => {
-              this.fetch();
+              this.fetchCollection();
               notificationStore.notify(response.message, 'success');
               window.location.href = transactionAutomationsApi.index.path();
             })
@@ -54,7 +49,7 @@ export default defineBaseApiStore('transactionAutomation', {
           transactionAutomationsApi
             .disable({ id })
             .then((response) => {
-              this.fetch();
+              this.fetchCollection();
               this.fetchSingle(id);
               notificationStore.notify(response.message, 'success');
             })
@@ -74,7 +69,7 @@ export default defineBaseApiStore('transactionAutomation', {
           transactionAutomationsApi
             .reenable({ id })
             .then((response) => {
-              this.fetch();
+              this.fetchCollection();
               this.fetchSingle(id);
               notificationStore.notify(response.message, 'success');
             })

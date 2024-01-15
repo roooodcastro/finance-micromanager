@@ -36,7 +36,7 @@ export default {
     const { activeWallets: options } = storeToRefs(walletStore);
 
     if (!options.value.length) {
-      walletStore.fetch();
+      walletStore.fetchCollection();
     }
 
     const handleChange = (ev) => {

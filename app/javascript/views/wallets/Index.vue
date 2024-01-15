@@ -60,7 +60,7 @@ export default {
 
     const handleShowDisabled = () => {
       walletStore.setFetchParams({ showDisabled: !showDisabled.value });
-      walletStore.fetch();
+      walletStore.fetchCollection();
     };
 
     return {
