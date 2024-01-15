@@ -10,6 +10,8 @@ export function defineBaseApiStore(name, storeOptions = {}) {
 
   return defineStore(name, {
     state: () => ({
+      initialFetchDone: false,
+      loading: false,
       actionName: null,
       idForFormModal: null,
       urlParams: {},
@@ -36,8 +38,9 @@ export function defineBaseApiStore(name, storeOptions = {}) {
         modalStore.show(storeOptions.formId);
       },
 
-      loadFromProps(records) {
+      loadCollectionFromProps(records) {
         this[storeOptions.resourcesName] = records;
+        this.initialFetchDone = true;
       },
 
       setActionName(actionName) {
@@ -58,17 +61,27 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       fetchCollection() {
+        this.loading = true;
         return storeOptions
           .api
           .index(Object.assign(this.urlParams, { query: this.fetchParams }))
-          .then(response => this[storeOptions.resourcesName] = response[storeOptions.resourcesName]);
+          .then(response => this[storeOptions.resourcesName] = response[storeOptions.resourcesName])
+          .finally(() => {
+            this.loading = false;
+            this.initialFetchDone = true;
+          });
       },
 
       fetchSingle(id) {
-        storeOptions
+        this.loading = true;
+        return storeOptions
           .api
           .show({ id })
-          .then(response => this[storeOptions.resourceName] = response[storeOptions.resourceName]);
+          .then(response => this[storeOptions.resourceName] = response[storeOptions.resourceName])
+          .finally(() => {
+            this.loading = false;
+            this.initialFetchDone = true;
+          });
       },
 
       create(record, options = {}) {

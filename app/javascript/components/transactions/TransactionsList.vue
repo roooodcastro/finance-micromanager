@@ -2,7 +2,7 @@
   <div>
     <MassEditForm />
     <NoTransactionsPlaceholder
-      v-if="!transactions.length"
+      v-if="initialFetchDone && !transactions.length"
       :class="{ 'mb-3': cardBody }"
     />
 
@@ -56,8 +56,15 @@
         :class="{ 'TransactionsList': !cardBody }"
         @scroll="handleInfiniteScrolling"
       >
+        <template v-if="!initialFetchDone">
+          <TransactionListItemPlaceholder
+            v-for="n in 5"
+            :key="n"
+          />
+        </template>
         <template
           v-for="(transactionsByDate, transactionDate) in groupedTransactions"
+          v-else
           :key="transactionDate"
         >
           <div
@@ -81,6 +88,7 @@
       </InfiniteScrolling>
 
       <Pagination
+        v-if="!loading"
         class="d-none d-lg-flex mt-3"
         :class="{ 'me-2 me-lg-3 mb-2 mb-lg-3': cardBody }"
         @change="handlePageChange"
@@ -105,14 +113,16 @@ import Pagination from '~/components/rails/Pagination.vue';
 import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsPlaceholder.vue';
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
 import MassEditForm from '~/components/transactions/MassEditForm.vue';
+import TransactionListItemPlaceholder from '~/components/transactions/TransactionListItemPlaceholder.vue';
 
 export default {
   components: {
-    MassEditForm,
     InfiniteScrolling,
+    MassEditForm,
     NoTransactionsPlaceholder,
     Pagination,
     TransactionListItem,
+    TransactionListItemPlaceholder,
   },
 
   props: {
@@ -131,7 +141,9 @@ export default {
     // Load transactions from props
     const transactionStore = useTransactionStore();
     const {
+      loading,
       transactions,
+      initialFetchDone,
       groupedTransactions,
       massEditMode,
       massEditTransactionIds,
@@ -169,6 +181,8 @@ export default {
 
     return {
       formatDate,
+      loading,
+      initialFetchDone,
       transactions,
       groupedTransactions,
       massEditMode,

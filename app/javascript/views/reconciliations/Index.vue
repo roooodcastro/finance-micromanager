@@ -49,7 +49,7 @@ export default {
     paginationStore.setPaginationOptions(props.pagination);
 
     const reconciliationStore = useReconciliationStore();
-    reconciliationStore.loadFromProps(props.reconciliations);
+    reconciliationStore.loadCollectionFromProps(props.reconciliations);
 
     const handleNew = () => reconciliationStore.openFormModal(null);
 

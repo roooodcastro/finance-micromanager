@@ -46,6 +46,7 @@ export default defineBaseApiStore('transaction', {
   },
   actions: {
     fetchCollection(options = {}) {
+      this.loading = true;
       const paginationStore = usePaginationStore();
       const dateRangeStore = useDateRangeStore();
       const { pagination } = storeToRefs(paginationStore);
@@ -65,6 +66,10 @@ export default defineBaseApiStore('transaction', {
           }
 
           pagination.value = response.pagination;
+        })
+        .finally(() => {
+          this.loading = false;
+          this.initialFetchDone = true;
         });
     },
 
