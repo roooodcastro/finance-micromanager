@@ -188,7 +188,10 @@ export default {
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
 
     const transactionAutomationStore = useTransactionAutomationsStore();
-    const { transactionAutomationForFormModal: transactionAutomation } = storeToRefs(transactionAutomationStore);
+    const {
+      transactionAutomationForFormModal: transactionAutomation,
+      actionName,
+    } = storeToRefs(transactionAutomationStore);
 
     const isNewRecord = computed(() => !transactionAutomation.value.id);
 
@@ -227,10 +230,16 @@ export default {
         transactionAutomation.value.transactionAmount *= -1;
       }
 
+      const fetchOptions = actionName.value === 'show'
+        ? { fetchSingle: true, fetchCollection: false }
+        : { fetchCollection: true };
+
       if (isNewRecord.value) {
-        transactionAutomationStore.create(transactionAutomation.value).then(closeModal);
+        transactionAutomationStore.create(transactionAutomation.value, fetchOptions).then(closeModal);
       } else {
-        transactionAutomationStore.update(transactionAutomation.value.id, transactionAutomation.value).then(closeModal);
+        transactionAutomationStore
+          .update(transactionAutomation.value.id, transactionAutomation.value, fetchOptions)
+          .then(closeModal);
       }
     };
 

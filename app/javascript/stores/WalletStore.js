@@ -36,7 +36,7 @@ export default defineBaseApiStore('wallet', {
       walletsApi
         .destroy({ id })
         .then((response) => {
-          this.fetch();
+          this.fetchCollection();
           notificationStore.notify(response.message, 'success');
         })
         .catch((error) => {
@@ -51,7 +51,7 @@ export default defineBaseApiStore('wallet', {
       walletsApi
         .reenable({ id })
         .then((response) => {
-          this.fetch();
+          this.fetchCollection();
           notificationStore.notify(response.message, 'success');
         })
         .catch(() => notificationStore.notify(I18n.t('views.layout.rails.generic_error'), 'danger'));

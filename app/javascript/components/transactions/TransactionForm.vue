@@ -155,11 +155,11 @@ export default {
     const showWalletField = computed(() => !!activeWallets.value.length);
 
     if (!categories.value.length) {
-      categoryStore.fetch();
+      categoryStore.fetchCollection();
     }
 
     if (!activeWallets.value.length) {
-      walletStore.fetch();
+      walletStore.fetchCollection();
     }
 
     const isNewRecord = computed(() => !transaction.value.id);

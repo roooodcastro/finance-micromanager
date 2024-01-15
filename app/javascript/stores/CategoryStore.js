@@ -56,7 +56,7 @@ export default defineBaseApiStore('category', {
       categoriesApi
         .destroy({ id })
         .then((response) => {
-          this.fetch();
+          this.fetchCollection();
           notificationStore.notify(response.message, 'success');
         })
         .catch((error) => {

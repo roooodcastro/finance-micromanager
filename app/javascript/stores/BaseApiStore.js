@@ -4,68 +4,89 @@ import useNotificationStore from '~/stores/NotificationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import I18n from '~/utils/I18n.js';
 
-export function defineBaseApiStore(name, options = {}) {
+export function defineBaseApiStore(name, storeOptions = {}) {
   const dynamicState = {};
-
-  dynamicState[`${options.resourceName}ForFormModal`] = {};
+  dynamicState[`${storeOptions.resourceName}ForFormModal`] = {};
 
   return defineStore(name, {
     state: () => ({
+      actionName: null,
       idForFormModal: null,
       urlParams: {},
       fetchParams: {},
       ...dynamicState,
-      ...options.state,
+      ...storeOptions.state,
     }),
-    getters: { ...options.getters },
+    getters: { ...storeOptions.getters },
     actions: {
       openFormModal(id) {
         const modalStore = useModalStore();
         this.idForFormModal = id ?? crypto.randomUUID();
 
-        const existingRecord = this[options.resourcesName].find(resource => resource.id === this.idForFormModal);
+        const existingRecord = this[storeOptions.resourceName] ?? this[storeOptions.resourcesName]
+          .find(resource => resource.id === this.idForFormModal);
 
         if (existingRecord) {
           // Clone the object so it doesn't affect the list before it's actually updated
-          this[`${options.resourceName}ForFormModal`] = { ...existingRecord };
+          this[`${storeOptions.resourceName}ForFormModal`] = { ...existingRecord };
         } else {
-          this[`${options.resourceName}ForFormModal`] = { _id: this.idForFormModal };
+          this[`${storeOptions.resourceName}ForFormModal`] = { _id: this.idForFormModal };
         }
 
-        modalStore.show(options.formId);
+        modalStore.show(storeOptions.formId);
       },
 
       loadFromProps(records) {
-        this[options.resourcesName] = records;
+        this[storeOptions.resourcesName] = records;
+      },
+
+      setActionName(actionName) {
+        this.actionName = actionName;
       },
 
       setFetchParams(params) {
         this.fetchParams = Object.assign(this.fetchParams, params);
       },
 
-      fetch() {
-        return options
-          .api
-          .index(Object.assign(this.urlParams, { query: this.fetchParams }))
-          .then(response => this[options.resourcesName] = response[options.resourcesName]);
+      fetch(id, options) {
+        if (options.fetchSingle) {
+          this.fetchSingle(id);
+        }
+        if (!('fetchCollection' in options) || options.fetchCollection) {
+          this.fetchCollection();
+        }
       },
 
-      create(record) {
+      fetchCollection() {
+        return storeOptions
+          .api
+          .index(Object.assign(this.urlParams, { query: this.fetchParams }))
+          .then(response => this[storeOptions.resourcesName] = response[storeOptions.resourcesName]);
+      },
+
+      fetchSingle(id) {
+        storeOptions
+          .api
+          .show({ id })
+          .then(response => this[storeOptions.resourceName] = response[storeOptions.resourceName]);
+      },
+
+      create(record, options = {}) {
         const notificationStore = useNotificationStore();
         let responseResolve;
         const returnPromise = new Promise(resolve => responseResolve = resolve);
         const data = {}
-        data[options.resourceName] = record;
+        data[storeOptions.resourceName] = record;
 
-        options
+        storeOptions
           .api
           .create({ params: this.urlParams, data })
           .then((response) => {
             // Update resource list
-            this.fetch();
+            this.fetch(null, options);
 
             // Reset resourceForFormModal
-            this[`${options.resourceName}ForFormModal`] = {};
+            this[`${storeOptions.resourceName}ForFormModal`] = {};
             this.idForFormModal = null;
 
             // Notify and resolve
@@ -80,33 +101,30 @@ export function defineBaseApiStore(name, options = {}) {
         return returnPromise;
       },
 
-      update(id, record) {
+      update(id, record, options = {}) {
         const notificationStore = useNotificationStore();
         let responseResolve;
         const returnPromise = new Promise(resolve => responseResolve = resolve);
         const data = {};
-        data[options.resourceName] = record;
+        data[storeOptions.resourceName] = record;
 
-        options
+        storeOptions
           .api
           .update({ params: Object.assign(this.urlParams, { id }), data })
           .then((response) => {
-            if (typeof this.fetchSingle === 'function') {
-              this.fetchSingle(id);
-            }
-            this.fetch();
+            this.fetch(id, options);
             notificationStore.notify(response.message, 'success');
             responseResolve();
           })
           .catch((error) => {
-            const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
+            const errorMessage = error?.body?.message ?? I18n.t('views.layout.rails.generic_error');
             notificationStore.notify(errorMessage, 'danger');
           });
 
         return returnPromise;
       },
 
-      ...options.actions,
+      ...storeOptions.actions,
     },
   });
 }

@@ -8,7 +8,7 @@ export default defineStore('locale', {
     locales: [],
   }),
   actions: {
-    async fetch() {
+    async fetchCollection() {
       const localesPath = localesApi.index.path();
 
       caches.open(CACHE_NAME).then((cache) => {

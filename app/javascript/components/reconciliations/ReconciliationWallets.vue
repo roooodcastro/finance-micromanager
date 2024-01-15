@@ -97,7 +97,7 @@ export default {
     const walletStore = useWalletStore();
     const reconciliationStore = useReconciliationStore();
 
-    walletStore.fetch();
+    walletStore.fetchCollection();
 
     const { activeWallets: wallets } = storeToRefs(walletStore);
     const { realBalancesSum, walletBalances, walletBalancesSum } = storeToRefs(reconciliationStore);

@@ -131,7 +131,7 @@ export default {
     categoryFromStore.value = props.category;
 
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
-    transactionStore.fetch();
+    transactionStore.fetchCollection();
 
     // Load subcategories from props
     const {
@@ -148,7 +148,7 @@ export default {
     const handleShowDisabledSubcategories = () => subcategoryStore.setShowDisabled(!showDisabledSubcategories.value);
     const handleDateRangeChange = () => {
       categoryStore.fetchSingle(props.category.id);
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     }
 
     return {

@@ -84,7 +84,7 @@ export default {
 
     const handleNew = () => transactionStore.openFormModal(null);
     const handleMassEdit = transactionStore.enterMassEditMode;
-    const handlePageChange = () => transactionStore.fetch();
+    const handlePageChange = () => transactionStore.fetchCollection();
 
     return {
       t: I18n.scopedTranslator('views.transactions.index'),

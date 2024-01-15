@@ -48,7 +48,7 @@ export default {
 
     const handleTabChange = (newType) => {
       transactionStore.setTransactionType(newType);
-      transactionStore.fetch();
+      transactionStore.fetchCollection();
     };
 
     return {

@@ -177,15 +177,15 @@ export default {
     const categoryPath = id => categoriesApi.show.path({ id });
 
     const transactionAutomationStore = useTransactionAutomationStore();
-    const transactionStore = useTransactionStore();
+    transactionAutomationStore.setActionName('show');
 
     // Load transaction automation from props
     const { transactionAutomation: transactionAutomationFromStore } = storeToRefs(transactionAutomationStore);
     transactionAutomationFromStore.value = props.transactionAutomation;
-    transactionAutomationStore.fetch();
 
+    const transactionStore = useTransactionStore();
     transactionStore.setFetchParams({ transactionAutomationId: props.transactionAutomation.id, daysToShow: 0 });
-    transactionStore.fetch();
+    transactionStore.fetchCollection();
 
     const isDisabled = computed(() => !!transactionAutomationFromStore.value.disabledAt);
     const isDebit = computed(() => transactionAutomationFromStore.value.transactionAmount < 0);

@@ -83,7 +83,7 @@ export default {
     const profileStore = useProfileStore();
     const dateRangeStore = useDateRangeStore();
 
-    localeStore.fetch();
+    localeStore.fetchCollection();
 
     if (props.currentProfile) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
