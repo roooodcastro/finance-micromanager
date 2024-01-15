@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <LoadingOverlay :loading="loading && initialFetchDone">
     <MassEditForm />
     <NoTransactionsPlaceholder
       v-if="initialFetchDone && !transactions.length"
@@ -94,7 +94,7 @@
         @change="handlePageChange"
       />
     </template>
-  </div>
+  </LoadingOverlay>
 </template>
 
 <script>
@@ -114,10 +114,12 @@ import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsP
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
 import MassEditForm from '~/components/transactions/MassEditForm.vue';
 import TransactionListItemPlaceholder from '~/components/transactions/TransactionListItemPlaceholder.vue';
+import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
   components: {
     InfiniteScrolling,
+    LoadingOverlay,
     MassEditForm,
     NoTransactionsPlaceholder,
     Pagination,
