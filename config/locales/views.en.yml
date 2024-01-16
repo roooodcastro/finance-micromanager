@@ -3,6 +3,9 @@ en:
   views:
     app_name: Finance MicroManager
     categories:
+      confirmation:
+        disable: Are you sure you want to disable this category?
+        reenable: Are you sure you want to reenable this category?
       index:
         title: Categories
         new: New Category
@@ -13,7 +16,7 @@ en:
         color: Color
       form:
         new_title: New Category
-        edit_title: 'Edit Category "%{category}"'
+        edit_title: Edit Category
         name_label: Name
         color_label: Category color
         submit: Submit
@@ -27,9 +30,13 @@ en:
         expenses: Spends
         edit: Edit
         disable: Disable
+        reenable: Re-enable
         new_subcategory: Create Subcategory
         subcategories_options: Options
         show_all_subcategories: Show Disabled
+        disabled_category_warning: >-
+          This category is disabled. It cannot be edited or used for new transactions. Historical data will remain
+          accessible.
     dashboard:
       show:
         title: Dashboard
@@ -112,7 +119,7 @@ en:
         share_action_link_label: Share
       form:
         new_title: New Profile
-        edit_title: 'Edit Profile "%{profile}"'
+        edit_title: Edit Profile
         name_label: Name
         currency_label: Choose Currency
         default_wallet_label: Choose Default Wallet

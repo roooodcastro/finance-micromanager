@@ -1,35 +1,37 @@
 <template>
-  <div class="vr mx-3 d-none d-lg-flex" />
+  <template v-if="!isCategoryDisabled">
+    <div class="vr mx-3 d-none d-lg-flex" />
 
-  <template v-if="isDisabled">
-    <DrawerContextMenuLink
-      variant="success"
-      icon="repeat"
-      href="#"
-      :label="t('reenable_label')"
-      :drawer="drawerMenu"
-      :class="{ 'SubcategoryActions__reenable-button': !drawerMenu }"
-      @click="handleReenable"
-    />
-  </template>
-  <template v-else>
-    <EditButton
-      small
-      href="#"
-      :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
-      @click="handleEdit"
-    />
+    <template v-if="isDisabled">
+      <DrawerContextMenuLink
+        variant="success"
+        icon="repeat"
+        href="#"
+        :label="t('reenable_label')"
+        :drawer="drawerMenu"
+        :class="{ 'SubcategoryActions__reenable-button': !drawerMenu }"
+        @click="handleReenable"
+      />
+    </template>
+    <template v-else>
+      <EditButton
+        small
+        href="#"
+        :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
+        @click="handleEdit"
+      />
 
-    <DeleteButton
-      small
-      disable-label
-      href="#"
-      :class="{
-        'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-        'ms-3': !drawerMenu,
-      }"
-      @delete="handleDelete"
-    />
+      <DeleteButton
+        small
+        disable-label
+        href="#"
+        :class="{
+          'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
+          'ms-3': !drawerMenu,
+        }"
+        @delete="handleDelete"
+      />
+    </template>
   </template>
 </template>
 
@@ -69,6 +71,7 @@ export default {
     const t = I18n.scopedTranslator('views.subcategories.list');
     const subcategoryStore = useSubcategoryStore();
 
+    const isCategoryDisabled = computed(() => !!props.category.disabledAt);
     const isDisabled = computed(() => !!props.subcategory.disabledAt);
 
     const handleEdit = () => subcategoryStore.openFormModal(props.subcategory.id);
@@ -81,6 +84,7 @@ export default {
       handleDelete,
       handleReenable,
       isDisabled,
+      isCategoryDisabled,
     };
   },
 };

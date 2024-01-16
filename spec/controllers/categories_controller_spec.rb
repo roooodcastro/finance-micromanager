@@ -129,15 +129,58 @@ RSpec.describe CategoriesController do
   describe 'DELETE destroy' do
     subject(:delete_request) { delete :destroy, params: { id: category.id } }
 
-    let!(:category) { create(:category, profile:) }
+    context 'when category can be disabled' do
+      let!(:category) { create(:category, profile:) }
 
-    it 'destroys the category and renders json' do
-      expect { delete_request }
-        .to not_change { Category.count }
-        .and change { category.reload.disabled? }
-        .to(true)
+      it 'disables the category and renders json' do
+        expect { delete_request }
+          .to not_change { Category.count }
+          .and change { category.reload.disabled? }
+          .to(true)
 
-      expect(json_response).to eq('message' => "Category \"#{category.name}\" was successfully disabled.")
+        expect(json_response).to eq('message' => "Category \"#{category.name}\" was successfully disabled.")
+      end
+    end
+
+    context 'when category cannot be disabled' do
+      let!(:category) { create(:category, :system, profile:) }
+
+      it 'does not disable the category and renders json' do
+        expect { delete_request }
+          .to not_change { Category.count }
+          .and not_change { category.reload.disabled? }
+
+        expect(json_response).to eq('message' => "Category \"#{category.name}\" could not be disabled.")
+      end
+    end
+  end
+
+  describe 'PATCH reenable' do
+    subject(:reenable_request) { patch :reenable, params: { id: category.id } }
+
+    context 'when category can be reenabled' do
+      let!(:category) { create(:category, :disabled, profile:) }
+
+      it 're-enables the category and renders json' do
+        expect { reenable_request }
+          .to not_change { Category.count }
+          .and change { category.reload.disabled? }
+          .to(false)
+
+        expect(json_response).to eq('message' => "Category \"#{category.name}\" was successfully re-enabled.")
+      end
+    end
+
+    context 'when category cannot be reenabled' do
+      let!(:category) { create(:category, :system, :disabled, profile:) }
+
+      it 'does not re-enable the category and renders json' do
+        expect { reenable_request }
+          .to not_change { Category.count }
+          .and not_change { category.reload.disabled? }
+
+        expect(json_response).to eq('message' => "Category \"#{category.name}\" could not be re-enabled.")
+      end
     end
   end
 end

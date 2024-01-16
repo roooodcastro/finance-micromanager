@@ -6,6 +6,10 @@ FactoryBot.define do
     color { '#808080' }
     profile
 
+    trait :disabled do
+      disabled_at { Time.current }
+    end
+
     trait :system do
       category_type { :system }
     end

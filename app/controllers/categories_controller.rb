@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CategoriesController < AbstractAuthenticatedController
-  before_action :set_category, only: %i[show update destroy]
+  before_action :set_category, only: %i[show update destroy reenable]
 
   def index
     categories = Current.profile.categories.active
@@ -49,11 +49,17 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def destroy
-    if @category.disable!
-      render json: { message: t('.success', name: @category.name) }
-    else
-      render json: { message: t('.error', name: @category.name) }, status: :unprocessable_entity
-    end
+    @category.disable!
+    render json: { message: t('.success', name: @category.name) }
+  rescue ActiveRecord::RecordInvalid
+    render json: { message: t('.error', name: @category.name) }, status: :unprocessable_entity
+  end
+
+  def reenable
+    @category.enable!
+    render json: { message: t('.success', name: @category.name) }
+  rescue ActiveRecord::RecordInvalid
+    render json: { message: t('.error', name: @category.name) }, status: :unprocessable_entity
   end
 
   private

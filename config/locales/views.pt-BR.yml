@@ -3,6 +3,9 @@ pt-BR:
   views:
     app_name: Finance MicroManager
     categories:
+      confirmation:
+        disable: Tem certeza de que deseja desabilitar esta categoria?
+        reenable: Tem certeza de que deseja reabilitar esta categoria?
       index:
         title: Categorias
         new: Nova Categoria
@@ -13,7 +16,7 @@ pt-BR:
         color: Cor
       form:
         new_title: Nova Categoria
-        edit_title: 'Editar Categoria "%{category}"'
+        edit_title: Editar Categoria
         name_label: Nome
         color_label: Cor da Categoria
         submit: Salvar
@@ -27,9 +30,13 @@ pt-BR:
         expenses: Gastos
         edit: Editar
         disable: Desabilitar
+        reenable: Reabilitar
         new_subcategory: Criar Subcategoria
         subcategories_options: Opções
         show_all_subcategories: Mostrar Desabilitadas
+        disabled_category_warning: >-
+          Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos
+          serão mantidos.
     dashboard:
       show:
         title: Dashboard
@@ -112,7 +119,7 @@ pt-BR:
         share_action_link_label: Compartilhar
       form:
         new_title: Nova Perfil
-        edit_title: 'Editar Perfil "%{profile}"'
+        edit_title: Editar Perfil
         name_label: Nome
         currency_label: Selecione a Moeda
         default_wallet_label: Selecione a Carteira Padrão
