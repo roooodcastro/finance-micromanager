@@ -4,6 +4,7 @@
     :record="wallet"
     :form-id="WALLET_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -51,6 +52,8 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.wallets.form');
 
+    const loading = ref(false);
+
     const modalStore = useModalStore();
 
     const modalId = modalStore.modalId(WALLET_FORM_ID);
@@ -68,15 +71,23 @@ export default {
     });
 
     const handleSubmit = (closeModal) => {
+      loading.value = true;
       if (isNewRecord.value) {
-        walletStore.create({ name: wallet.value.name ?? '' }).then(closeModal);
+        walletStore
+          .create({ name: wallet.value.name ?? '' })
+          .then(closeModal)
+          .finally(() => loading.value = false);
       } else {
-        walletStore.update(wallet.value.id, { name: wallet.value.name }).then(closeModal);
+        walletStore
+          .update(wallet.value.id, { name: wallet.value.name })
+          .then(closeModal)
+          .finally(() => loading.value = false);
       }
     };
 
     return {
       t,
+      loading,
       formMethod,
       formAction,
       wallet,

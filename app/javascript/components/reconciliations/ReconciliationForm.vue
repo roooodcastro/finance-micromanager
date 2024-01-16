@@ -4,6 +4,7 @@
     :record="reconciliation"
     :form-id="RECONCILIATION_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -53,6 +54,8 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.reconciliations.form');
 
+    const loading = ref(false);
+
     const modalStore = useModalStore();
 
     const modalId = modalStore.modalId(RECONCILIATION_FORM_ID);
@@ -70,17 +73,25 @@ export default {
     });
 
     const handleSubmit = (closeModal) => {
+      loading.value = true;
       if (isNewRecord.value) {
-        reconciliationStore.create({ date: reconciliation.value.date }).then((response) => {
-          window.location.href = reconciliationsApi.show.path({ id: response.reconciliation.id });
-        });
+        reconciliationStore
+          .create({ date: reconciliation.value.date })
+          .then((response) => {
+            window.location.href = reconciliationsApi.show.path({ id: response.reconciliation.id });
+          })
+          .finally(() => loading.value = false);
       } else {
-        reconciliationStore.update(reconciliation.value.id, { date: reconciliation.value.date }).then(closeModal);
+        reconciliationStore
+          .update(reconciliation.value.id, { date: reconciliation.value.date })
+          .then(closeModal)
+          .finally(() => loading.value = false);
       }
     };
 
     return {
       t,
+      loading,
       formMethod,
       formAction,
       reconciliation,
