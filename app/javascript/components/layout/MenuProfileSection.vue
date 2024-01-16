@@ -24,6 +24,7 @@
     </div>
 
     <CloseButton
+      v-if="offcanvas"
       class="align-self-start me-1"
       dismiss="offcanvas"
     />
@@ -48,6 +49,13 @@ export default {
     CloseButton,
     ProfileAvatar,
     ProfileSwitcher,
+  },
+
+  props: {
+    offcanvas: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup() {

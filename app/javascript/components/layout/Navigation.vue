@@ -18,7 +18,7 @@
       </a>
 
       <a
-        class="text-decoration-none"
+        class="text-decoration-none d-block d-xxl-none"
         href="#"
         data-bs-toggle="offcanvas"
         data-bs-target="#verticalMenu"

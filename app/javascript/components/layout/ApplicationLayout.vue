@@ -1,7 +1,7 @@
 <template>
   <div class="ApplicationLayout d-flex flex-column container-fluid px-0 background-curved-lines">
     <Navigation />
-    <VerticalMenu />
+    <VerticalMenuOffcanvas />
     <ConfirmationModal />
     <TransactionForm />
 
@@ -11,7 +11,13 @@
     >
       <ToastNotifications />
 
-      <slot />
+      <div class="d-flex">
+        <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
+
+        <div class="min-width-0 flex-grow-1">
+          <slot />
+        </div>
+      </div>
 
       <FloatingActionButton v-if="!skipFloatingActionButton" />
     </div>
@@ -34,6 +40,7 @@ import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 import Navigation from '~/components/layout/Navigation.vue';
 import PageFooter from '~/components/layout/PageFooter.vue';
 import VerticalMenu from '~/components/layout/VerticalMenu.vue';
+import VerticalMenuOffcanvas from '~/components/layout/VerticalMenuOffcanvas.vue';
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
@@ -47,6 +54,7 @@ export default {
     ToastNotifications,
     TransactionForm,
     VerticalMenu,
+    VerticalMenuOffcanvas,
   },
   props: {
     notifications: {
