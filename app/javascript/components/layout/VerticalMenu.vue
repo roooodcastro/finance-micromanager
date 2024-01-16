@@ -1,68 +1,56 @@
 <template>
-  <HorizontalSwipe
-    id="verticalMenu"
-    class="VerticalMenu offcanvas offcanvas-start"
-    aria-labelledby="mainMenuLabel"
-    :min-translation="minTranslation"
-    :max-translation="0"
-    :enabled="swipeActive"
-    v-on="{ 'hide.bs.offcanvas': handleHide, 'shown.bs.offcanvas': handleShown }"
-    @swipeleft="handleSwipeClose"
-  >
-    <div class="offcanvas-body px-0 pt-0 d-flex flex-column">
-      <MenuProfileSection
-        v-if="isUserLoggedIn"
-        class="shadow"
-      />
+  <div :class="{ 'VerticalMenu__desktop': !offcanvas }">
+    <MenuProfileSection
+      v-if="isUserLoggedIn"
+      :class="{ 'shadow': offcanvas }"
+      :offcanvas="offcanvas"
+    />
 
-      <div class="d-flex flex-column justify-content-between flex-grow-1 mt-4">
-        <div class="list-group">
-          <a
-            v-for="menuItem in menuItems.top"
-            :key="menuItem.label"
-            :href="menuItem.path"
-            class="VerticalMenu__item-link list-group-item list-group-item-action border-0 rounded-0"
-            :class="{ active: menuItem.active }"
-            :data-method="menuItem.method || 'GET'"
-          >
-            <FontAwesomeIcon
-              :icon="menuItem.icon"
-              size="lg"
-              class="me-4"
-            />
+    <div class="d-flex flex-column justify-content-between flex-grow-1 mt-4">
+      <div class="list-group">
+        <a
+          v-for="menuItem in menuItems.top"
+          :key="menuItem.label"
+          :href="menuItem.path"
+          class="VerticalMenu__item-link list-group-item list-group-item-action border-0 rounded-0"
+          :class="{ active: menuItem.active, 'py-3': !offcanvas }"
+          :data-method="menuItem.method || 'GET'"
+        >
+          <FontAwesomeIcon
+            :icon="menuItem.icon"
+            size="lg"
+            class="me-4"
+          />
 
-            <span>{{ menuItem.label }}</span>
-          </a>
-        </div>
+          <span>{{ menuItem.label }}</span>
+        </a>
+      </div>
 
-        <div class="list-group">
-          <hr>
+      <div class="list-group">
+        <hr>
 
-          <a
-            v-for="menuItem in menuItems.bottom"
-            :key="menuItem.label"
-            :href="menuItem.path"
-            class="VerticalMenu__item-link list-group-item list-group-item-action border-0 rounded-0"
-            :class="{ active: menuItem.active }"
-            :data-method="menuItem.method || 'GET'"
-          >
-            <FontAwesomeIcon
-              :icon="menuItem.icon"
-              size="lg"
-              class="me-4"
-            />
+        <a
+          v-for="menuItem in menuItems.bottom"
+          :key="menuItem.label"
+          :href="menuItem.path"
+          class="VerticalMenu__item-link list-group-item list-group-item-action border-0 rounded-0"
+          :class="{ active: menuItem.active, 'py-3': !offcanvas }"
+          :data-method="menuItem.method || 'GET'"
+        >
+          <FontAwesomeIcon
+            :icon="menuItem.icon"
+            size="lg"
+            class="me-4"
+          />
 
-            <span>{{ menuItem.label }}</span>
-          </a>
-        </div>
+          <span>{{ menuItem.label }}</span>
+        </a>
       </div>
     </div>
-  </HorizontalSwipe>
+  </div>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
-import { Offcanvas as BootstrapOffcanvas } from 'bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
@@ -82,13 +70,18 @@ import I18n from '~/utils/I18n.js';
 import useUserStore from '~/stores/UserStore.js';
 
 import MenuProfileSection from '~/components/layout/MenuProfileSection.vue';
-import HorizontalSwipe from '~/components/layout/HorizontalSwipe.vue';
 
 export default {
   components: {
-    HorizontalSwipe,
     FontAwesomeIcon,
     MenuProfileSection,
+  },
+
+  props: {
+    offcanvas: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup() {
@@ -135,43 +128,10 @@ export default {
     menuItems.top.forEach(setActiveMenuItem);
     menuItems.bottom.forEach(setActiveMenuItem);
 
-    const offcanvas = ref(null);
-
-    onMounted(() => {
-      const offcanvasElement = document.querySelector('#verticalMenu');
-      offcanvas.value = new BootstrapOffcanvas(offcanvasElement);
-    });
-
-    const minTranslation = ref(0);
-
-    const setMinTranslation = () => {
-      minTranslation.value = -document.querySelector('#verticalMenu').clientWidth;
-    };
-
-    onMounted(() => setMinTranslation());
-
-    // Disable HorizontalSwipe so that Bootstrap's OffCanvas transition works
-    const swipeActive = ref(false);
-    const handleShown = () => swipeActive.value = true;
-    const handleHide = () => swipeActive.value = false;
-
-    const handleSwipeClose = () => {
-      offcanvas.value.hide();
-
-      // Trick to force the HorizontalSwipe to reset the transition value
-      minTranslation.value = 0;
-      setTimeout(setMinTranslation, 0);
-    };
-
     return {
       t,
       menuItems,
       isUserLoggedIn,
-      minTranslation,
-      swipeActive,
-      handleShown,
-      handleHide,
-      handleSwipeClose,
     };
   },
 }
@@ -179,6 +139,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.VerticalMenu__desktop {
+  margin-top: -1rem;
+  min-width: 20rem;
+}
 
 .VerticalMenu__item-link {
   border-right: 5px solid transparent !important;
@@ -202,12 +167,6 @@ export default {
     span {
       transform: translateX(0.5rem);
     }
-  }
-}
-
-@include media-breakpoint-down(md) {
-  .VerticalMenu {
-    max-width: 80vw;
   }
 }
 </style>
