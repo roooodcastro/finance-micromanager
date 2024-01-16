@@ -34,7 +34,10 @@
 
   <div class="row">
     <div class="col-12 col-xl-6">
-      <CategorySummary :category="categoryFromStore" />
+      <CategorySummary
+        :category="categoryFromStore"
+        :loading="loadingCategory"
+      />
 
       <div
         v-if="subcategoriesFromStore.length"
@@ -127,7 +130,7 @@ export default {
     const transactionStore = useTransactionStore();
 
     // Load categories from props
-    const { category: categoryFromStore } = storeToRefs(categoryStore);
+    const { category: categoryFromStore, loading: loadingCategory } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
 
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
@@ -157,6 +160,7 @@ export default {
       categoryFromStore,
       subcategoriesFromStore,
       showDisabledSubcategories,
+      loadingCategory,
       handleEdit,
       handleDisable,
       handleDateRangeChange,

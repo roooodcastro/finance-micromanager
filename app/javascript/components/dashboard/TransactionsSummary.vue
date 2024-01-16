@@ -2,8 +2,43 @@
   <CollapsibleCard
     id="transactions_summary"
     :title="t('sub_header_transactions_summary')"
+    :loading="loading && initialFetchDone"
   >
-    <div class="row">
+    <div
+      v-if="!initialFetchDone"
+      class="row"
+    >
+      <div class="col-12 col-md-8 col-lg-12 col-xl-8">
+        <div class="card bg-light border-0">
+          <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
+            <div class="placeholder-glow pb-2">
+              <h5>{{ t('money_in') }}</h5>
+              <span class="placeholder col-6 fs-2" />
+            </div>
+
+            <div class="placeholder-glow pb-2">
+              <h5>{{ t('spends') }}</h5>
+              <span class="placeholder col-6 fs-2" />
+            </div>
+
+            <div class="placeholder-glow pb-2">
+              <h5>{{ t('money_saved') }}</h5>
+              <span class="placeholder col-6 fs-2" />
+            </div>
+
+            <div class="placeholder-glow pb-2">
+              <h5>{{ t('average_spend') }}</h5>
+              <span class="placeholder col-6 fs-2" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-else
+      class="row"
+    >
       <div class="col-12 col-md-8 col-lg-12 col-xl-8">
         <div class="card bg-light border-0">
           <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
@@ -72,7 +107,7 @@ export default {
 
     const dateRangeStore = useDateRangeStore();
     const transactionStore = useTransactionStore();
-    const { statistics } = storeToRefs(transactionStore);
+    const { statistics, loading, initialFetchDone } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     const startBalance = computed(() => statistics.value.startBalance);
@@ -85,6 +120,8 @@ export default {
 
     return {
       t,
+      loading,
+      initialFetchDone,
       statistics,
       moneySaved,
       averageSpend,

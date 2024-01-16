@@ -41,13 +41,15 @@ export default defineBaseApiStore('category', {
 
   actions: {
     fetchSingle(id) {
+      this.loading = true;
       const dateRangeStore = useDateRangeStore();
       const { startDate, endDate } = storeToRefs(dateRangeStore);
       const params = Object.assign({ startDate: startDate.value, endDate: endDate.value }, this.fetchParams);
 
       categoriesApi
         .show({ id, query: params })
-        .then(response => this.category = response.category);
+        .then(response => this.category = response.category)
+        .finally(() => this.loading = false);
     },
 
     disable(id) {

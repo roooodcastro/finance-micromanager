@@ -136,7 +136,6 @@ export default {
 
     const handleDateRangeChange = () => {
       fetchRecentTransactions();
-      fetchCategorySummaries();
     };
 
     return {

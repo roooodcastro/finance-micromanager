@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <LoadingOverlay :loading="loading">
     <div class="CategorySummariesList">
       <template
         v-for="category in categories"
@@ -11,7 +11,7 @@
         />
       </template>
     </div>
-  </div>
+  </LoadingOverlay>
 </template>
 
 <script>
@@ -21,9 +21,11 @@ import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySumma
 import useCategoryStore from '~/stores/CategoryStore.js';
 
 import CategorySummaryListItem from '~/components/statistics/category_summaries/CategorySummaryListItem.vue';
+import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
   components: {
+    LoadingOverlay,
     CategorySummaryListItem,
   },
 
@@ -32,9 +34,10 @@ export default {
     const categorySummaryStore = useStatisticsCategorySummaryStore();
 
     const { categories } = storeToRefs(categoryStore);
-    const { indexedSummaries } = storeToRefs(categorySummaryStore);
+    const { indexedSummaries, loading } = storeToRefs(categorySummaryStore);
 
     return {
+      loading,
       categories,
       indexedSummaries,
     };

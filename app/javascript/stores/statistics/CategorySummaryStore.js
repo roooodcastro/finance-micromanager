@@ -6,6 +6,7 @@ import { statisticsCategorySummaries as categorySummariesApi } from '~/api/all.j
 
 export default defineStore('statistics_category_summary', {
   state: () => ({
+    loading: false,
     categorySummaries: [],
   }),
 
@@ -17,6 +18,7 @@ export default defineStore('statistics_category_summary', {
 
   actions: {
     fetchCollection(options) {
+      this.loading = true;
       const defaultOptions = {
         startDate: dayjs().startOf('month'),
         endDate: dayjs(),
@@ -24,7 +26,8 @@ export default defineStore('statistics_category_summary', {
 
       categorySummariesApi
         .index({ query: Object.assign(defaultOptions, options) })
-        .then(response => this.categorySummaries = response.categorySummaries);
+        .then(response => this.categorySummaries = response.categorySummaries)
+        .finally(() => this.loading = false);
     },
   },
 });
