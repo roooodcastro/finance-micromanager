@@ -6,6 +6,7 @@ import { CATEGORY_FORM_ID } from '~/utils/Constants.js';
 import { categories as categoriesApi } from '~/api/all.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useModalStore from '~/stores/ModalStore.js';
 
 export default defineBaseApiStore('category', {
   resourceName: 'category',
@@ -52,18 +53,43 @@ export default defineBaseApiStore('category', {
         .finally(() => this.loading = false);
     },
 
-    disable(id) {
+    disable(id, fetchOptions = {}) {
       const notificationStore = useNotificationStore();
+      const modalStore = useModalStore();
 
-      categoriesApi
-        .destroy({ id })
-        .then((response) => {
-          this.fetchCollection();
-          notificationStore.notify(response.message, 'success');
-        })
-        .catch((error) => {
-          const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
-          notificationStore.notify(errorMessage, 'danger');
+      modalStore
+        .showConfirmationDialog({ message: I18n.t('views.categories.confirmation.disable') })
+        .then(() => {
+          categoriesApi
+            .destroy({ id })
+            .then((response) => {
+              this.fetch(id, fetchOptions);
+              notificationStore.notify(response.message, 'success');
+            })
+            .catch((error) => {
+              const errorMessage = error?.body?.message ?? I18n.t('views.layout.rails.generic_error');
+              notificationStore.notify(errorMessage, 'danger');
+            });
+        });
+    },
+
+    reenable(id, fetchOptions = {}) {
+      const notificationStore = useNotificationStore();
+      const modalStore = useModalStore();
+
+      modalStore
+        .showConfirmationDialog({ message: I18n.t('views.categories.confirmation.reenable') })
+        .then(() => {
+          categoriesApi
+            .reenable({ id })
+            .then((response) => {
+              this.fetch(id, fetchOptions);
+              notificationStore.notify(response.message, 'success');
+            })
+            .catch((error) => {
+              const errorMessage = error?.body?.message ?? I18n.t('views.layout.rails.generic_error');
+              notificationStore.notify(errorMessage, 'danger');
+            });
         });
     },
   },

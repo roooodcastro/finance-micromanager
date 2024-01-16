@@ -8,21 +8,34 @@
       v-if="!categoryFromStore.system"
       v-slot:actions
     >
+      <template v-if="!isDisabled">
+        <DropdownMenuItem
+          :label="t('new_subcategory')"
+          icon="plus"
+          @click="handleNewSubcategory"
+        />
+        <DropdownMenuItem
+          :label="t('edit')"
+          icon="pen-to-square"
+          @click="handleEdit"
+        />
+
+        <hr class="my-2">
+
+        <DropdownMenuItem
+          v-if="!isDisabled"
+          :label="t('disable')"
+          icon="ban"
+          class="text-bg-danger"
+          @click="handleDisable"
+        />
+      </template>
       <DropdownMenuItem
-        :label="t('new_subcategory')"
-        icon="plus"
-        @click="handleNewSubcategory"
-      />
-      <DropdownMenuItem
-        :label="t('edit')"
-        icon="pen-to-square"
-        @click="handleEdit"
-      />
-      <DropdownMenuItem
-        :label="t('disable')"
-        icon="ban"
-        class="text-danger"
-        @click="handleDisable"
+        v-else
+        :label="t('reenable')"
+        icon="repeat"
+        class="text-bg-success"
+        @click="handleReenable"
       />
     </template>
   </PageHeader>
@@ -30,6 +43,11 @@
   <DateRangeSelector
     class="mb-3"
     @change="handleDateRangeChange"
+  />
+
+  <WarningAlert
+    v-if="isDisabled"
+    :message="t('disabled_category_warning')"
   />
 
   <div class="row">
@@ -49,9 +67,18 @@
           </h5>
 
           <DropdownMenu
+            v-if="!isDisabled"
             toggle-icon="gear"
             :toggle-label="t('subcategories_options')"
           >
+            <DropdownMenuItem
+              :label="t('new_subcategory')"
+              icon="plus"
+              @click="handleNewSubcategory"
+            />
+
+            <hr class="my-2">
+
             <DropdownMenuCheckItem
               :label="t('show_all_subcategories')"
               :checked="showDisabledSubcategories"
@@ -59,6 +86,7 @@
             />
           </DropdownMenu>
         </div>
+
         <SubcategoriesList :subcategories="categoryFromStore.subcategories" />
       </div>
     </div>
@@ -83,7 +111,9 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
 import { categories as categoriesApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
@@ -100,9 +130,11 @@ import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
 import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
 import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import CategoryForm from '~/components/categories/CategoryForm.vue';
+import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 
 export default {
   components: {
+    WarningAlert,
     CategoryForm,
     CategorySummary,
     DateRangeSelector,
@@ -133,6 +165,8 @@ export default {
     const { category: categoryFromStore, loading: loadingCategory } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
 
+    const isDisabled = computed(() => !!categoryFromStore.value.disabledAt);
+
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
     transactionStore.fetchCollection();
 
@@ -146,7 +180,8 @@ export default {
     subcategoryCategoryId.value = props.category.id;
 
     const handleEdit = () => categoryStore.openFormModal(props.category.id);
-    const handleDisable = () => categoryStore.disable(props.category.id);
+    const handleDisable = () => categoryStore.disable(props.category.id, { fetchSingle: true });
+    const handleReenable = () => categoryStore.reenable(props.category.id, { fetchSingle: true });
     const handleNewSubcategory = () => subcategoryStore.openFormModal(null);
     const handleShowDisabledSubcategories = () => subcategoryStore.setShowDisabled(!showDisabledSubcategories.value);
     const handleDateRangeChange = () => {
@@ -156,6 +191,7 @@ export default {
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
+      isDisabled,
       categoriesPath,
       categoryFromStore,
       subcategoriesFromStore,
@@ -163,6 +199,7 @@ export default {
       loadingCategory,
       handleEdit,
       handleDisable,
+      handleReenable,
       handleDateRangeChange,
       handleNewSubcategory,
       handleShowDisabledSubcategories,

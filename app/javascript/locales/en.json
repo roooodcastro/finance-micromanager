@@ -107,8 +107,12 @@
         "success": "Category \"%{name}\" was successfully created."
       },
       "destroy": {
-        "error": "Category \"%{name} could not be disabled.",
+        "error": "Category \"%{name}\" could not be disabled.",
         "success": "Category \"%{name}\" was successfully disabled."
+      },
+      "reenable": {
+        "error": "Category \"%{name}\" could not be re-enabled.",
+        "success": "Category \"%{name}\" was successfully re-enabled."
       },
       "update": {
         "error": "Category \"%{name}\" could not be updated: %{error}",
@@ -593,10 +597,14 @@
     "views": {
       "app_name": "Finance MicroManager",
       "categories": {
+        "confirmation": {
+          "disable": "Are you sure you want to disable this category?",
+          "reenable": "Are you sure you want to reenable this category?"
+        },
         "form": {
           "cancel": "Cancel",
           "color_label": "Category color",
-          "edit_title": "Edit Category \"%{category}\"",
+          "edit_title": "Edit Category",
           "name_label": "Name",
           "new_title": "New Category",
           "submit": "Submit"
@@ -612,10 +620,12 @@
         },
         "show": {
           "disable": "Disable",
+          "disabled_category_warning": "This category is disabled. It cannot be edited or used for new transactions. Historical data will remain accessible.",
           "edit": "Edit",
           "expenses": "Spends",
           "money_in": "Income",
           "new_subcategory": "Create Subcategory",
+          "reenable": "Re-enable",
           "show_all_subcategories": "Show Disabled",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_subcategories": "Subcategories",
@@ -737,7 +747,7 @@
           "currency_change_warning": "Currency cannot be changed after profile is created!",
           "currency_label": "Choose Currency",
           "default_wallet_label": "Choose Default Wallet",
-          "edit_title": "Edit Profile \"%{profile}\"",
+          "edit_title": "Edit Profile",
           "name_label": "Name",
           "new_title": "New Profile",
           "submit": "Submit"

@@ -9,6 +9,9 @@ pt-BR:
     destroy:
       success: 'Categoria "%{name}" desativada com sucesso.'
       error: 'Categoria "%{name}" não pode ser desativada.'
+    reenable:
+      success: 'Categoria "%{name}" reabilitada com sucesso.'
+      error: 'Categoria "%{name}" não pode ser reabilitada.'
 
   current_profiles:
     create:

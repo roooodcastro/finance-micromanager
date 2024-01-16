@@ -144,6 +144,10 @@
         "error": "Categoria \"%{name}\" não pode ser desativada.",
         "success": "Categoria \"%{name}\" desativada com sucesso."
       },
+      "reenable": {
+        "error": "Categoria \"%{name}\" não pode ser reabilitada.",
+        "success": "Categoria \"%{name}\" reabilitada com sucesso."
+      },
       "update": {
         "error": "Categoria \"%{name}\" não pode ser atualizada: %{error}",
         "success": "Categoria \"%{name}\" atualizada com successo."
@@ -650,11 +654,15 @@
     "views": {
       "app_name": "Finance MicroManager",
       "categories": {
+        "confirmation": {
+          "disable": "Tem certeza de que deseja desabilitar esta categoria?",
+          "reenable": "Tem certeza de que deseja reabilitar esta categoria?"
+        },
         "form": {
           "back": "Cancelar",
           "cancel": "Cancel",
           "color_label": "Cor da Categoria",
-          "edit_title": "Editar Categoria \"%{category}\"",
+          "edit_title": "Editar Categoria",
           "name_label": "Nome",
           "new_title": "Nova Categoria",
           "submit": "Salvar"
@@ -670,10 +678,12 @@
         },
         "show": {
           "disable": "Desabilitar",
+          "disabled_category_warning": "Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos serão mantidos.",
           "edit": "Editar",
           "expenses": "Gastos",
           "money_in": "Receita",
           "new_subcategory": "Criar Subcategoria",
+          "reenable": "Reabilitar",
           "show_all_subcategories": "Mostrar Desabilitadas",
           "sub_header_recent_transactions": "Transações Recentes",
           "sub_header_subcategories": "Subcategorias",
@@ -795,7 +805,7 @@
           "currency_change_warning": "A moeda não pode ser alterada após criação do perfil!",
           "currency_label": "Selecione a Moeda",
           "default_wallet_label": "Selecione a Carteira Padrão",
-          "edit_title": "Editar Perfil \"%{profile}\"",
+          "edit_title": "Editar Perfil",
           "name_label": "Nome",
           "new_title": "Nova Perfil",
           "submit": "Salvar"
