@@ -110,9 +110,11 @@ export default {
     const { walletsForSelect } = storeToRefs(walletStore);
 
     const handleDateFilterClick = (numberOfDays) => {
-      transactionStore.setFetchParams({ daysToShow: numberOfDays });
-      setQueryParam('numberOfDays', numberOfDays || null);
-      transactionStore.fetchCollection();
+      if (fetchParams.value.daysToShow !== numberOfDays) {
+        transactionStore.setFetchParams({ daysToShow: numberOfDays });
+        setQueryParam('numberOfDays', numberOfDays || null);
+        transactionStore.fetchCollection();
+      }
     };
 
     const handleTransactionTypeChange = (ev) => {

@@ -52,7 +52,7 @@ export default {
 
   setup(props) {
     const walletStore = useWalletStore();
-    walletStore.loadFromProps(props.wallets);
+    walletStore.loadCollectionFromProps(props.wallets);
 
     const { showDisabled }  = storeToRefs(walletStore);
 

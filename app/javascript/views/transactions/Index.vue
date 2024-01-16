@@ -65,21 +65,22 @@ export default {
 
   setup(props) {
     const transactionStore = useTransactionStore();
-    const paginationStore = usePaginationStore();
+    transactionStore.loadCollectionFromProps(props.transactions);
 
     const daysToShowFromQuery = getQueryParams().daysToShow;
     if (daysToShowFromQuery) {
       transactionStore.setFetchParams({ daysToShow: daysToShowFromQuery });
     }
 
+    const paginationStore = usePaginationStore();
     const { pagination: paginationFromStore } = storeToRefs(paginationStore);
     paginationFromStore.value = props.pagination;
-    const { transactions: transactionsFromStore } = storeToRefs(transactionStore);
-    transactionsFromStore.value = props.transactions;
 
     transactionStore.setFetchParams({
       excludeDebits: !!getQueryParams().excludeDebits,
       excludeCredits: !!getQueryParams().excludeCredits,
+      startDate: null,
+      endDate: null,
     });
 
     const handleNew = () => transactionStore.openFormModal(null);

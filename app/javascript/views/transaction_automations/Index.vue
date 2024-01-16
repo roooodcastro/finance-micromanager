@@ -43,7 +43,7 @@ export default {
     const transactionAutomationStore = useTransactionAutomationStore();
     transactionAutomationStore.setActionName('index');
 
-    transactionAutomationStore.loadFromProps(props.transactionAutomations);
+    transactionAutomationStore.loadCollectionFromProps(props.transactionAutomations);
 
     const handleNew = () => transactionAutomationStore.openFormModal(null);
 
