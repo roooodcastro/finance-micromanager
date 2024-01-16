@@ -22,26 +22,28 @@
       />
     </div>
     <template v-if="noBody">
-      <div
+      <LoadingOverlay
         :id="id"
         class="collapse"
         :class="{ 'show': !isInitiallyCollapsed }"
+        :loading="loading"
         v-on="{ 'show.bs.collapse': handleShow, 'hide.bs.collapse': handleHide }"
       >
         <slot />
-      </div>
+      </LoadingOverlay>
     </template>
-    <div
+    <LoadingOverlay
       v-else
       :id="id"
       class="collapse"
       :class="{ 'show': !isInitiallyCollapsed }"
+      :loading="loading"
       v-on="{ 'show.bs.collapse': handleShow, 'hide.bs.collapse': handleHide }"
     >
       <div class="card-body">
         <slot />
       </div>
-    </div>
+    </LoadingOverlay>
   </div>
 </template>
 
@@ -52,9 +54,11 @@ import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { COLLAPSED_CARDS_COOKIE_NAME } from '~/utils/Constants.js';
+import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
   components: {
+    LoadingOverlay,
     FontAwesomeIcon
   },
 
@@ -68,6 +72,10 @@ export default {
       default: '',
     },
     noBody: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
       type: Boolean,
       default: false,
     },

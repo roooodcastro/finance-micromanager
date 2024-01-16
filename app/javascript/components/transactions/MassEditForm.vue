@@ -4,6 +4,7 @@
     :record="{}"
     :form-id="MASS_EDIT_TRANSACTION_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -78,6 +79,8 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.transactions.mass_edit_form');
 
+    const loading = ref(false);
+
     const categoryStore = useCategoryStore();
     const transactionStore = useTransactionStore();
     const modalStore = useModalStore();
@@ -108,12 +111,14 @@ export default {
 
     const handleSubmit = (closeModal) => {
       if (!!transactionData.value.categoryId || !!transactionData.value.walletId) {
-        transactionStore.massUpdate(transactionData.value).then(closeModal);
+        loading.value = true;
+        transactionStore.massUpdate(transactionData.value).then(closeModal).finally(() => loading.value = false);
       }
     }
 
     return {
       t,
+      loading,
       transaction,
       massEditTransactionIdsCount,
       modalId,

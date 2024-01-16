@@ -4,6 +4,7 @@
     :record="category"
     :form-id="CATEGORY_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -40,7 +41,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -65,6 +66,8 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.categories.form');
 
+    const loading = ref(false);
+
     const modalStore = useModalStore();
     const modalId = modalStore.modalId(CATEGORY_FORM_ID);
 
@@ -78,15 +81,17 @@ export default {
       : categoriesApi.update.path({ id: category.value.id });
 
     const handleSubmit = (closeModal) => {
+      loading.value = true;
       if (isNewRecord.value) {
-        categoryStore.create(category.value).then(closeModal);
+        categoryStore.create(category.value).then(closeModal).finally(() => loading.value = false);
       } else {
-        categoryStore.update(category.value.id, category.value).then(closeModal);
+        categoryStore.update(category.value.id, category.value).then(closeModal).finally(() => loading.value = false);
       }
     };
 
     return {
       t,
+      loading,
       modalId,
       category,
       formAction,

@@ -4,6 +4,7 @@
     :record="transactionAutomation"
     :form-id="TRANSACTION_AUTOMATION_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
     @show="updateDataWithDefaultValues"
   >
     <template v-slot:default="{ closeModal }">
@@ -142,7 +143,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -172,6 +173,8 @@ export default {
 
   setup() {
     const t = I18n.scopedTranslator('views.transaction_automations.form');
+
+    const loading = ref(false);
 
     const scheduleTypeOptions = [
       { value: 'M', label: t('schedule_type_month') },
@@ -226,6 +229,7 @@ export default {
     };
 
     const handleSubmit = (closeModal) => {
+      loading.value = true;
       if (transactionAutomation.value.amountType === 'debit') {
         transactionAutomation.value.transactionAmount *= -1;
       }
@@ -235,16 +239,21 @@ export default {
         : { fetchCollection: true };
 
       if (isNewRecord.value) {
-        transactionAutomationStore.create(transactionAutomation.value, fetchOptions).then(closeModal);
+        transactionAutomationStore
+          .create(transactionAutomation.value, fetchOptions)
+          .then(closeModal)
+          .finally(() => loading.value = false);
       } else {
         transactionAutomationStore
           .update(transactionAutomation.value.id, transactionAutomation.value, fetchOptions)
-          .then(closeModal);
+          .then(closeModal)
+          .finally(() => loading.value = false);
       }
     };
 
     return {
       t,
+      loading,
       formMethod,
       formAction,
       currencySymbol,

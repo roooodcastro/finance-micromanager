@@ -17,7 +17,10 @@ module Localizeable
     locale = params[:new_locale] || current_user&.locale || session[:locale]
     locale = I18n.default_locale unless I18n.locale_available?(locale)
 
-    Current.locale   = locale.to_s.inquiry
+    Current.locale = locale.to_s.inquiry
+    old_locale     = session[:locale]
+    return if old_locale == locale
+
     session[:locale] = locale
     save_user_locale(locale)
 

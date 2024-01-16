@@ -2,6 +2,7 @@
   <CollapsibleCard
     id="dashboard_show_day_chart"
     :title="t('sub_header_day_chart')"
+    :loading="loading"
   >
     <BarChart
       ref="chart"
@@ -52,7 +53,7 @@ export default {
     const t = I18n.scopedTranslator('views.dashboard.show');
     const transactionStore = useTransactionStore();
 
-    const { statistics } = storeToRefs(transactionStore);
+    const { statistics, loading } = storeToRefs(transactionStore);
 
     ChartJS.register(
       BarElement,
@@ -177,6 +178,7 @@ export default {
 
     return {
       t,
+      loading,
       chart,
       chartData,
       chartOptions,

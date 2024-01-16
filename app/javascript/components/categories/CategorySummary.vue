@@ -5,7 +5,10 @@
         {{ t('sub_header_summary') }}
       </h5>
     </div>
-    <div class="CategorySummary__card-body card-body d-grid gap-2 p-2">
+    <LoadingOverlay
+      :loading="loading"
+      class="CategorySummary__card-body card-body d-grid gap-2 p-2"
+    >
       <div class="card bg-success-subtle text-success-emphasis border-0">
         <div class="card-body">
           <h5 class="card-title">
@@ -29,18 +32,24 @@
           </span>
         </div>
       </div>
-    </div>
+    </LoadingOverlay>
   </div>
 </template>
 
 <script>
 import I18n from '~/utils/I18n.js';
+import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
+  components: { LoadingOverlay },
   props: {
     category: {
       type: Object,
       required: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 

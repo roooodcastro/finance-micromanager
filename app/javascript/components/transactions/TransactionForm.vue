@@ -4,6 +4,7 @@
     :record="transaction"
     :form-id="TRANSACTION_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
     @show="updateTransactionDataWithDefaultValues"
   >
     <template v-slot:default="{ closeModal }">
@@ -106,7 +107,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 
@@ -138,6 +139,8 @@ export default {
 
   setup() {
     const t = I18n.scopedTranslator('views.transactions.form');
+
+    const loading = ref(false);
 
     const profileStore = useProfileStore();
     const categoryStore = useCategoryStore();
@@ -196,18 +199,23 @@ export default {
     });
 
     const handleSubmit = (closeModal) => {
+      loading.value = true;
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId', 'walletId'];
       const transactionData = _.pick(transaction.value, transactionFields);
 
       if (isNewRecord.value) {
-        transactionStore.create(transactionData).then(closeModal);
+        transactionStore.create(transactionData).then(closeModal).finally(() => loading.value = false);
       } else {
-        transactionStore.update(transaction.value.id, transactionData).then(closeModal);
+        transactionStore
+          .update(transaction.value.id, transactionData)
+          .then(closeModal)
+          .finally(() => loading.value = false);
       }
     };
 
     return {
       t,
+      loading,
       currencySymbol,
       formMethod,
       formAction,

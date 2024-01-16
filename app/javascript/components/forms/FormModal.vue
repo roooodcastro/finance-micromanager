@@ -8,7 +8,10 @@
     v-on="{ 'shown.bs.modal': handleShown, 'show.bs.modal': handleShow }"
   >
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+      <LoadingOverlay
+        :loading="loading"
+        class="modal-content"
+      >
         <div class="modal-header">
           <h5 class="modal-title">
             {{ title }}
@@ -47,7 +50,7 @@
             {{ t('submit') }}
           </button>
         </div>
-      </div>
+      </LoadingOverlay>
     </div>
   </div>
 </template>
@@ -58,9 +61,11 @@ import useModalStore from '~/stores/ModalStore.js';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
   components: {
+    LoadingOverlay,
     CloseButton,
     FontAwesomeIcon,
   },
@@ -82,6 +87,10 @@ export default {
       type: Function,
       required: true,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   emits: ['shown', 'show'],
@@ -91,7 +100,7 @@ export default {
 
     onMounted(() => modalStore.registerModal(props.formId));
 
-    const isNewRecord = computed(() => !props.record.value?.id);
+    const isNewRecord = computed(() => !props.record?.id);
     const title = computed(() => isNewRecord.value ? props.t('new_title') : props.t('edit_title'));
 
     const closeModal = () => modalStore.hide(props.formId);

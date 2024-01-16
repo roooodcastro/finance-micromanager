@@ -4,6 +4,7 @@
     :record="subcategory"
     :form-id="SUBCATEGORY_FORM_ID"
     :modal-id="modalId"
+    :loading="loading"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -58,6 +59,8 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.subcategories.form');
 
+    const loading = ref(false);
+
     const modalStore = useModalStore();
 
     const modalId = modalStore.modalId(SUBCATEGORY_FORM_ID);
@@ -75,19 +78,23 @@ export default {
     });
 
     const handleSubmit = (closeModal) => {
+      loading.value = true;
       if (isNewSubcategory.value) {
         subcategoryStore
           .create(props.category.id, { name: subcategory.value.name ?? '' })
-          .then(closeModal);
+          .then(closeModal)
+          .finally(() => loading.value = false);
       } else {
         subcategoryStore
           .update(props.category.id, subcategory.value.id, { name: subcategory.value.name })
-          .then(closeModal);
+          .then(closeModal)
+          .finally(() => loading.value = false);
       }
     };
 
     return {
       t,
+      loading,
       formMethod,
       formAction,
       subcategory,
