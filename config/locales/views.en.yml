@@ -10,10 +10,14 @@ en:
         title: Categories
         new: New Category
         edit: Edit
-        delete: Remove
+        delete: Disable
+        reenable_label: Re-enable
         delete_confirmation: Are you sure? This action cannot be undone.
         name: Name
         color: Color
+        show_disabled: Show Disabled Categories
+        show_system: Show System Categories
+        disabled: Disabled
       form:
         new_title: New Category
         edit_title: Edit Category

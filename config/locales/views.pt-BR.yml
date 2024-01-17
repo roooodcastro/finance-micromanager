@@ -10,10 +10,14 @@ pt-BR:
         title: Categorias
         new: Nova Categoria
         edit: Editar
-        delete: Remover
+        delete: Desabilitar
+        reenable_label: Reabilitar
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
         name: Nome
         color: Cor
+        show_disabled: Exibir Categorias Desabilitadas
+        show_system: Exibir Categorias do Sistema
+        disabled: Desabilitada
       form:
         new_title: Nova Categoria
         edit_title: Editar Categoria

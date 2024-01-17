@@ -4,8 +4,8 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show update destroy reenable]
 
   def index
-    categories = Current.profile.categories.active
-                        .includes(:active_subcategories).order({ category_type: :desc }, :name)
+    initial_relation = Current.profile.categories.includes(:active_subcategories).order({ category_type: :desc }, :name)
+    categories       = CategorySearch.new(initial_relation, search_params).search
 
     props = camelize_props(categories: categories.as_json)
 
@@ -70,5 +70,9 @@ class CategoriesController < AbstractAuthenticatedController
 
   def category_params
     params.require(:category).permit(:name, :color)
+  end
+
+  def search_params
+    params.permit(%i[show_system show_disabled]).to_h.symbolize_keys
   end
 end

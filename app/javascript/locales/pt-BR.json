@@ -669,11 +669,15 @@
         },
         "index": {
           "color": "Cor",
-          "delete": "Remover",
+          "delete": "Desabilitar",
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
+          "disabled": "Desabilitada",
           "edit": "Editar",
           "name": "Nome",
           "new": "Nova Categoria",
+          "reenable_label": "Reabilitar",
+          "show_disabled": "Exibir Categorias Desabilitadas",
+          "show_system": "Exibir Categorias do Sistema",
           "title": "Categorias"
         },
         "show": {

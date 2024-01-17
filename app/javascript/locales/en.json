@@ -611,11 +611,15 @@
         },
         "index": {
           "color": "Color",
-          "delete": "Remove",
+          "delete": "Disable",
           "delete_confirmation": "Are you sure? This action cannot be undone.",
+          "disabled": "Disabled",
           "edit": "Edit",
           "name": "Name",
           "new": "New Category",
+          "reenable_label": "Re-enable",
+          "show_disabled": "Show Disabled Categories",
+          "show_system": "Show System Categories",
           "title": "Categories"
         },
         "show": {

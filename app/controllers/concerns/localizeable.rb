@@ -19,7 +19,7 @@ module Localizeable
 
     Current.locale = locale.to_s.inquiry
     old_locale     = session[:locale]
-    return if old_locale == locale
+    return locale if old_locale == locale
 
     session[:locale] = locale
     save_user_locale(locale)

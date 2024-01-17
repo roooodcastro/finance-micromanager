@@ -1,38 +1,55 @@
 <template>
-  <div>
-    <CategoryForm />
+  <PageHeader :title="t('title')">
+    <template v-slot:actions>
+      <DropdownMenuItem
+        :label="t('new')"
+        icon="plus"
+        @click="handleNew"
+      />
 
-    <PageHeader :title="t('title')">
-      <template v-slot:actions>
-        <DropdownMenuItem
-          :label="t('new')"
-          icon="plus"
-          @click="handleNew"
-        />
-      </template>
-    </PageHeader>
+      <hr class="my-2">
 
-    <CategoriesList />
-  </div>
+      <DropdownMenuCheckItem
+        :label="t('show_system')"
+        :checked="showSystem"
+        @click="handleShowSystem"
+      />
+
+      <DropdownMenuCheckItem
+        :label="t('show_disabled')"
+        :checked="showDisabled"
+        @click="handleShowDisabled"
+      />
+    </template>
+  </PageHeader>
+
+  <CategoriesList />
+
+  <CategoryForm />
 </template>
 
 <script>
+
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import { CATEGORY_OPTIONS_COOKIE_NAME } from '~/utils/Constants.js';
+import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import CategoriesList from '~/components/categories/CategoriesList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
+import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
 import CategoryForm from '~/components/categories/CategoryForm.vue';
 
 export default {
   components: {
     CategoriesList,
     CategoryForm,
-    PageHeader,
+    DropdownMenuCheckItem,
     DropdownMenuItem,
+    PageHeader,
   },
 
   props: {
@@ -44,15 +61,33 @@ export default {
 
   setup(props) {
     const categoryStore = useCategoryStore();
-    const { categories: categoriesFromStore } = storeToRefs(categoryStore);
+    const { categories: categoriesFromStore, showDisabled, showSystem } = storeToRefs(categoryStore);
     categoriesFromStore.value = props.categories;
 
+    const initialShowDisabled = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'sd');
+    const initialShowSystem = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'ss');
+    categoryStore.setFetchParams({ showDisabled: initialShowDisabled, showSystem: initialShowSystem });
+
     const handleNew = () => categoryStore.openFormModal(null);
+    const handleShowDisabled = () => {
+      categoryStore.setFetchParams({ showDisabled: !showDisabled.value });
+      setValueToJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'sd', showDisabled.value);
+      categoryStore.fetchCollection();
+    };
+    const handleShowSystem = () => {
+      categoryStore.setFetchParams({ showSystem: !showSystem.value });
+      setValueToJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'ss', showSystem.value);
+      categoryStore.fetchCollection();
+    };
 
     return {
       t: I18n.scopedTranslator('views.categories.index'),
       categoriesFromStore,
+      showDisabled,
+      showSystem,
       handleNew,
+      handleShowDisabled,
+      handleShowSystem,
     };
   },
 };
