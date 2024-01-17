@@ -38,16 +38,19 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import usePaginationStore from '~/stores/PaginationStore.js';
 import { DEBIT_TRANSACTION, CREDIT_TRANSACTION, ALL_TRANSACTIONS } from '~/utils/Constants.js';
 
 export default {
   setup() {
     const transactionStore = useTransactionStore();
+    const paginationStore = usePaginationStore();
 
     const { excludeDebits, excludeCredits } = storeToRefs(transactionStore);
 
     const handleTabChange = (newType) => {
       transactionStore.setTransactionType(newType);
+      paginationStore.setPage(1);
       transactionStore.fetchCollection();
     };
 
