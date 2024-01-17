@@ -33,9 +33,7 @@ export default {
 <style lang="scss" scoped>
 .FloatingActionButton {
   z-index: 1;
-  margin-top: auto;
-  margin-bottom: -1rem;
-  margin-left: calc(((100% - 100vw) / 2) + 100vw - 5rem);
+  margin: auto 0 -1rem auto;
 }
 
 .FloatingActionButton__link {

@@ -71,6 +71,10 @@ export default {
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
 
+.Navigation {
+  height: $main-navbar-height;
+}
+
 @include media-breakpoint-down(md) {
   .Navigation .btn {
     --bs-btn-padding-y: 0.5rem;
