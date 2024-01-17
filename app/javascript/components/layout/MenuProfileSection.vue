@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex py-3 px-2 bg-light border-0 text-decoration-none align-items-center">
+  <div
+    class="d-flex py-3 px-2 border-0 text-decoration-none align-items-center"
+    :class="{ 'bg-light': offcanvas }"
+  >
     <a
       class="text-decoration-none"
       :href="showSettingsPath"

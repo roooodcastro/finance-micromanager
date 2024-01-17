@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'VerticalMenu__desktop': !offcanvas }">
+  <div :class="{ 'VerticalMenu__desktop shadow': !offcanvas }">
     <MenuProfileSection
       v-if="isUserLoggedIn"
       :class="{ 'shadow': offcanvas }"
@@ -141,11 +141,18 @@ export default {
 @import '../../stylesheets/variables';
 
 .VerticalMenu__desktop {
-  margin-top: -1rem;
+  background-color: $gray-300;
+  flex-grow: 1;
+  height: 100vh;
+  margin-left: -1rem;
+  max-width: 25rem;
   min-width: 20rem;
+  position: sticky;
+  top: $main-navbar-height;
 }
 
 .VerticalMenu__item-link {
+  background-color: transparent;
   border-right: 5px solid transparent !important;
   transition: all 0.1s linear;
 
@@ -159,6 +166,7 @@ export default {
   }
 
   &:hover, &:active, &:focus, &.active {
+    background-color: $primary;
     border-right: 5px solid $primary-text-emphasis !important;
 
     svg {

@@ -5,21 +5,18 @@
     <ConfirmationModal />
     <TransactionForm />
 
-    <div
-      class="my-3 flex-shrink-0 flex-grow-1 d-flex flex-column"
-      :class="{ 'container-xxl': !skipContainer, 'px-3': !skipContainer }"
-    >
-      <ToastNotifications />
+    <div class="d-flex container-fluid px-3">
+      <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
 
-      <div class="d-flex">
-        <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
+      <div class="my-3 flex-grow-1 min-width-0 d-flex flex-column">
+        <ToastNotifications />
 
         <div class="min-width-0 flex-grow-1">
           <slot />
         </div>
-      </div>
 
-      <FloatingActionButton v-if="!skipFloatingActionButton" />
+        <FloatingActionButton v-if="!skipFloatingActionButton" />
+      </div>
     </div>
 
     <PageFooter />
@@ -72,10 +69,6 @@ export default {
     availableProfiles: {
       type: Object,
       required: true,
-    },
-    skipContainer: {
-      type: Boolean,
-      default: false,
     },
     skipFloatingActionButton: {
       type: Boolean,

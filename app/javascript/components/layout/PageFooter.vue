@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="mt-auto text-white border-0"
+    class="PageFooter mt-auto text-white border-0"
     :class="{ 'py-3 PageFooter--background':!compact, 'py-1': compact }"
   >
     <div class="container">
@@ -83,6 +83,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.PageFooter {
+  height: $page-footer-height;
+}
 
 .PageFooter--background {
   background-color: $mintgreen-700;
