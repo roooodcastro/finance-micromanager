@@ -1,5 +1,5 @@
 <template>
-  <div class="ApplicationLayout d-flex flex-column container-fluid px-0 background-curved-lines">
+  <div class="ApplicationLayout d-flex flex-column container-fluid px-0">
     <Navigation />
     <VerticalMenuOffcanvas />
     <ConfirmationModal />
