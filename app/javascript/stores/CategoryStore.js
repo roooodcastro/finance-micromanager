@@ -38,6 +38,8 @@ export default defineBaseApiStore('category', {
         }, []);
       };
     },
+    showDisabled: state => state.fetchParams.showDisabled,
+    showSystem: state => state.fetchParams.showSystem,
   },
 
   actions: {

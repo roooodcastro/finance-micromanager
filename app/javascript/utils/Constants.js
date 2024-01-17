@@ -22,5 +22,6 @@ export const VARIANTS_FOR_RECONCILIATION_STATUSES = {
 };
 
 export const COLLAPSED_CARDS_COOKIE_NAME = 'collapsed-cards';
+export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
 
 export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-micromanager';
