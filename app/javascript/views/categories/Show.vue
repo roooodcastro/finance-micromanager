@@ -119,6 +119,7 @@ import { categories as categoriesApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
@@ -160,6 +161,13 @@ export default {
     const categoryStore = useCategoryStore();
     const subcategoryStore = useSubcategoryStore();
     const transactionStore = useTransactionStore();
+    const floatingActionButtonStore = useFloatingActionButtonStore();
+
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.categories.floating_button_label'),
+      icon: ['far', 'folder'],
+      callback: () => categoryStore.openFormModal(null),
+    });
 
     // Load categories from props
     const { category: categoryFromStore, loading: loadingCategory } = storeToRefs(categoryStore);

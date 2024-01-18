@@ -18,6 +18,7 @@
 <script>
 import I18n from '~/utils/I18n.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -42,6 +43,13 @@ export default {
   setup(props) {
     const transactionAutomationStore = useTransactionAutomationStore();
     transactionAutomationStore.setActionName('index');
+
+    const floatingActionButtonStore = useFloatingActionButtonStore();
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.transaction_automations.floating_button_label'),
+      icon: 'robot',
+      callback: () => transactionAutomationStore.openFormModal(null),
+    });
 
     transactionAutomationStore.loadCollectionFromProps(props.transactionAutomations);
 

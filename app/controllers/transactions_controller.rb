@@ -25,7 +25,7 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def new
-    props = { transaction: Transaction.new.as_json, skip_floating_action_button: true }.merge(available_categories)
+    props = { transaction: Transaction.new.as_json }.merge(available_categories)
     render inertia: 'transactions/New', props: camelize_props(props)
   end
 
