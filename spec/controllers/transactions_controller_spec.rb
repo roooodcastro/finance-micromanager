@@ -49,26 +49,6 @@ RSpec.describe TransactionsController do
     end
   end
 
-  describe 'GET new', :inertia do
-    it 'renders the new component' do
-      get :new
-
-      expect_inertia.to render_component('transactions/New')
-                    .and include_camelized_props({ transaction: Transaction.new.as_json })
-    end
-  end
-
-  describe 'GET edit', :inertia do
-    let!(:transaction) { create(:transaction, profile: profile, created_by: user) }
-
-    it 'renders the edit component' do
-      get :edit, params: { id: transaction.id }
-
-      expect_inertia.to render_component('transactions/Edit')
-                    .and include_camelized_props({ transaction: transaction.as_json })
-    end
-  end
-
   describe 'POST create', :inertia do
     subject(:create_request) { post :create, params: }
 

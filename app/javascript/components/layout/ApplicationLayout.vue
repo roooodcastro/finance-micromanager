@@ -5,7 +5,7 @@
     <ConfirmationModal />
     <TransactionForm />
 
-    <div class="d-flex container-fluid px-3">
+    <div class="d-flex container-fluid flex-grow-1 px-3">
       <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
 
       <div class="my-3 flex-grow-1 min-width-0 d-flex flex-column">
@@ -15,7 +15,7 @@
           <slot />
         </div>
 
-        <FloatingActionButton v-if="!skipFloatingActionButton" />
+        <FloatingActionButton />
       </div>
     </div>
 
