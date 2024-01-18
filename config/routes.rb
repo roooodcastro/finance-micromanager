@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     resources :currencies, only: %i[index]
     resources :current_profiles, only: %i[create]
     resources :locales, only: %i[index]
-    resources :transactions, except: %i[show] do
+    resources :transactions, except: %i[show new edit] do
       patch :update_all, on: :collection
     end
     resources :transaction_automations, only: %i[index show create update destroy] do

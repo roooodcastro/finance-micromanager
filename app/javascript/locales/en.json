@@ -601,6 +601,7 @@
           "disable": "Are you sure you want to disable this category?",
           "reenable": "Are you sure you want to reenable this category?"
         },
+        "floating_button_label": "New Category",
         "form": {
           "cancel": "Cancel",
           "color_label": "Category color",
@@ -853,6 +854,7 @@
           "disable": "Are you sure you want to disable this automation?",
           "reenable": "Are you sure you want to reenable this automation?"
         },
+        "floating_button_label": "New Transaction Automation",
         "form": {
           "cancel": "Cancel",
           "credit_label": "Income",
@@ -925,6 +927,7 @@
           "wallet_filter": "Wallet",
           "wallets": "Wallets"
         },
+        "floating_button_label": "New Transaction",
         "form": {
           "amount_label": "Amount",
           "cancel": "Cancel",
@@ -1026,6 +1029,7 @@
         }
       },
       "wallets": {
+        "floating_button_label": "New Wallet",
         "form": {
           "cancel": "Cancel",
           "edit_title": "Edit Wallet",

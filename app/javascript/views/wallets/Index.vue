@@ -26,6 +26,7 @@
 <script>
 import I18n from '~/utils/I18n.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import WalletsList from '~/components/wallets/WalletsList.vue';
@@ -53,6 +54,13 @@ export default {
   setup(props) {
     const walletStore = useWalletStore();
     walletStore.loadCollectionFromProps(props.wallets);
+
+    const floatingActionButtonStore = useFloatingActionButtonStore();
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.wallets.floating_button_label'),
+      icon: ['far', 'credit-card'],
+      callback: () => walletStore.openFormModal(null),
+    });
 
     const { showDisabled }  = storeToRefs(walletStore);
 

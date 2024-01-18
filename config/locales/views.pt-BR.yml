@@ -3,6 +3,7 @@ pt-BR:
   views:
     app_name: Finance MicroManager
     categories:
+      floating_button_label: Nova Categoria
       confirmation:
         disable: Tem certeza de que deseja desabilitar esta categoria?
         reenable: Tem certeza de que deseja reabilitar esta categoria?
@@ -243,6 +244,7 @@ pt-BR:
         disabled: Desabilitada
         reenable_label: Reabilitar
     transactions:
+      floating_button_label: Nova Transação
       index:
         title: Transações
         new: Nova Transação
@@ -306,6 +308,7 @@ pt-BR:
         all_transactions: Todas
 
     transaction_automations:
+      floating_button_label: Nova Automação de Transação
       confirmation:
         destroy: Tem certeza de que deseja remover esta automação? Esta ação não poderá ser desfeita.
         disable: Tem certeza de que deseja desabilitar esta automação?
@@ -400,6 +403,7 @@ pt-BR:
           submit: Re-enviar email de desbloqueio
 
     wallets:
+      floating_button_label: Nova Carteira
       form:
         submit: Salvar
         cancel: Cancelar

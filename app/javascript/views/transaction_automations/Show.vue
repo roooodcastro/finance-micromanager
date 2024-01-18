@@ -145,6 +145,7 @@ import {
 } from '~/api/all.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { formatDate } from '~/utils/DateUtils.js';
 
@@ -178,6 +179,13 @@ export default {
 
     const transactionAutomationStore = useTransactionAutomationStore();
     transactionAutomationStore.setActionName('show');
+
+    const floatingActionButtonStore = useFloatingActionButtonStore();
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.transaction_automations.floating_button_label'),
+      icon: 'robot',
+      callback: () => transactionAutomationStore.openFormModal(null),
+    });
 
     // Load transaction automation from props
     const { transactionAutomation: transactionAutomationFromStore } = storeToRefs(transactionAutomationStore);

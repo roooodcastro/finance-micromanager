@@ -34,6 +34,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { CATEGORY_OPTIONS_COOKIE_NAME } from '~/utils/Constants.js';
 import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
 
@@ -63,6 +64,13 @@ export default {
     const categoryStore = useCategoryStore();
     const { categories: categoriesFromStore, showDisabled, showSystem } = storeToRefs(categoryStore);
     categoriesFromStore.value = props.categories;
+
+    const floatingActionButtonStore = useFloatingActionButtonStore();
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.categories.floating_button_label'),
+      icon: ['far', 'folder'],
+      callback: () => categoryStore.openFormModal(null),
+    });
 
     const initialShowDisabled = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'sd');
     const initialShowSystem = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'ss');

@@ -658,6 +658,7 @@
           "disable": "Tem certeza de que deseja desabilitar esta categoria?",
           "reenable": "Tem certeza de que deseja reabilitar esta categoria?"
         },
+        "floating_button_label": "Nova Categoria",
         "form": {
           "back": "Cancelar",
           "cancel": "Cancel",
@@ -913,6 +914,7 @@
           "disable": "Tem certeza de que deseja desabilitar esta automação?",
           "reenable": "Tem certeza de que deseja reabilitar esta automação?"
         },
+        "floating_button_label": "Nova Automação de Transação",
         "form": {
           "cancel": "Cancelar",
           "credit_label": "Receita",
@@ -985,6 +987,7 @@
           "wallet_filter": "Carteira",
           "wallets": "Carteiras"
         },
+        "floating_button_label": "Nova Transação",
         "form": {
           "amount_label": "Valor",
           "cancel": "Cancelar",
@@ -1086,6 +1089,7 @@
         }
       },
       "wallets": {
+        "floating_button_label": "Nova Carteira",
         "form": {
           "cancel": "Cancelar",
           "edit_title": "Editar Carteira",

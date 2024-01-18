@@ -3,6 +3,7 @@ en:
   views:
     app_name: Finance MicroManager
     categories:
+      floating_button_label: New Category
       confirmation:
         disable: Are you sure you want to disable this category?
         reenable: Are you sure you want to reenable this category?
@@ -238,6 +239,7 @@ en:
         disabled: Disabled
         reenable_label: Re-enable
     transactions:
+      floating_button_label: New Transaction
       index:
         title: Transactions
         new: New Transaction
@@ -301,6 +303,7 @@ en:
         all_transactions: All
 
     transaction_automations:
+      floating_button_label: New Transaction Automation
       confirmation:
         destroy: Are you sure you want to destroy this automation? This action cannot be undone.
         disable: Are you sure you want to disable this automation?
@@ -396,6 +399,7 @@ en:
           submit: Resend unlock instructions
 
     wallets:
+      floating_button_label: New Wallet
       form:
         submit: Save
         cancel: Cancel

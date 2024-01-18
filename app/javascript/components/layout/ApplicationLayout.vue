@@ -5,7 +5,7 @@
     <ConfirmationModal />
     <TransactionForm />
 
-    <div class="d-flex container-fluid px-3">
+    <div class="d-flex container-fluid flex-grow-1 px-3">
       <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
 
       <div class="my-3 flex-grow-1 min-width-0 d-flex flex-column">
@@ -15,7 +15,7 @@
           <slot />
         </div>
 
-        <FloatingActionButton v-if="!skipFloatingActionButton" />
+        <FloatingActionButton />
       </div>
     </div>
 
@@ -26,11 +26,13 @@
 <script>
 import { onMounted } from 'vue';
 import { getQueryParams } from '~/utils/QueryStringUtils.js';
+import I18n from '~/utils/I18n.js';
 import useUserStore from '~/stores/UserStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import useLocaleStore from '~/stores/LocaleStore.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
@@ -70,10 +72,6 @@ export default {
       type: Object,
       required: true,
     },
-    skipFloatingActionButton: {
-      type: Boolean,
-      default: false,
-    },
     dateRange: {
       type: Object,
       default: () => {},
@@ -83,8 +81,16 @@ export default {
     const localeStore = useLocaleStore();
     const profileStore = useProfileStore();
     const dateRangeStore = useDateRangeStore();
+    const transactionStore = useTransactionStore();
+    const floatingActionButtonStore = useFloatingActionButtonStore();
 
     localeStore.fetchCollection();
+
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.transactions.floating_button_label'),
+      icon: 'list',
+      callback: () => transactionStore.openFormModal(null),
+    });
 
     if (props.currentProfile) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
@@ -114,7 +120,7 @@ export default {
     onMounted(() => {
       const queryParams = getQueryParams();
       if (queryParams['new_transaction']) {
-        useTransactionStore().openFormModal(null);
+        transactionStore.openFormModal(null);
       }
     })
   },
