@@ -31,8 +31,13 @@ export default defineStore('user', {
 
     updateSettings(userAttributes) {
       const notificationStore = useNotificationStore();
+
       let responseResolve;
-      const returnPromise = new Promise(resolve => responseResolve = resolve);
+      let responseReject;
+      const returnPromise = new Promise((resolve, reject) => {
+        responseResolve = resolve;
+        responseReject = reject;
+      });
 
       settingsApi
         .update({ data: { user: userAttributes } })
@@ -43,6 +48,7 @@ export default defineStore('user', {
         .catch((error) => {
           const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
           notificationStore.notify(errorMessage, 'danger');
+          responseReject(error);
         });
 
       return returnPromise;

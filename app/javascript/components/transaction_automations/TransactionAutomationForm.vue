@@ -242,11 +242,13 @@ export default {
         transactionAutomationStore
           .create(transactionAutomation.value, fetchOptions)
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         transactionAutomationStore
           .update(transactionAutomation.value.id, transactionAutomation.value, fetchOptions)
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       }
     };

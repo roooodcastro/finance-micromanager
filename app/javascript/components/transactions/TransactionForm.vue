@@ -204,11 +204,16 @@ export default {
       const transactionData = _.pick(transaction.value, transactionFields);
 
       if (isNewRecord.value) {
-        transactionStore.create(transactionData).then(closeModal).finally(() => loading.value = false);
+        transactionStore
+          .create(transactionData)
+          .then(closeModal)
+          .catch(() => {})
+          .finally(() => loading.value = false);
       } else {
         transactionStore
           .update(transaction.value.id, transactionData)
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       }
     };

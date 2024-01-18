@@ -112,7 +112,11 @@ export default {
     const handleSubmit = (closeModal) => {
       if (!!transactionData.value.categoryId || !!transactionData.value.walletId) {
         loading.value = true;
-        transactionStore.massUpdate(transactionData.value).then(closeModal).finally(() => loading.value = false);
+        transactionStore
+          .massUpdate(transactionData.value)
+          .then(closeModal)
+          .catch(() => {})
+          .finally(() => loading.value = false);
       }
     }
 

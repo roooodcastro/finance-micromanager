@@ -21,6 +21,7 @@
             :form-helper="formHelper"
             :label="t('name_label')"
             class="focus"
+            required
           />
 
           <label
@@ -33,6 +34,7 @@
             :id="formHelper.fieldId('color')"
             v-model="category.color"
             :name="formHelper.fieldName('color')"
+            required
           />
         </template>
       </RailsForm>
@@ -83,9 +85,17 @@ export default {
     const handleSubmit = (closeModal) => {
       loading.value = true;
       if (isNewRecord.value) {
-        categoryStore.create(category.value).then(closeModal).finally(() => loading.value = false);
+        categoryStore
+          .create(category.value)
+          .then(closeModal)
+          .catch(() => {})
+          .finally(() => loading.value = false);
       } else {
-        categoryStore.update(category.value.id, category.value).then(closeModal).finally(() => loading.value = false);
+        categoryStore
+          .update(category.value.id, category.value)
+          .then(closeModal)
+          .catch(() => {})
+          .finally(() => loading.value = false);
       }
     };
 

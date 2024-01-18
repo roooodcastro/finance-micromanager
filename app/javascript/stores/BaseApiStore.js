@@ -86,8 +86,14 @@ export function defineBaseApiStore(name, storeOptions = {}) {
 
       create(record, options = {}) {
         const notificationStore = useNotificationStore();
+
         let responseResolve;
-        const returnPromise = new Promise(resolve => responseResolve = resolve);
+        let responseReject;
+        const returnPromise = new Promise((resolve, reject) => {
+          responseResolve = resolve;
+          responseReject = reject;
+        });
+
         const data = {}
         data[storeOptions.resourceName] = record;
 
@@ -109,6 +115,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
           .catch((error) => {
             const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
             notificationStore.notify(errorMessage, 'danger');
+            responseReject(error);
         });
 
         return returnPromise;
@@ -116,8 +123,14 @@ export function defineBaseApiStore(name, storeOptions = {}) {
 
       update(id, record, options = {}) {
         const notificationStore = useNotificationStore();
+
         let responseResolve;
-        const returnPromise = new Promise(resolve => responseResolve = resolve);
+        let responseReject;
+        const returnPromise = new Promise((resolve, reject) => {
+          responseResolve = resolve;
+          responseReject = reject;
+        });
+
         const data = {};
         data[storeOptions.resourceName] = record;
 
@@ -132,6 +145,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
           .catch((error) => {
             const errorMessage = error?.body?.message ?? I18n.t('views.layout.rails.generic_error');
             notificationStore.notify(errorMessage, 'danger');
+            responseReject(error);
           });
 
         return returnPromise;

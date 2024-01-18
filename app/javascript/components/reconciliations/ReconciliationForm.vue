@@ -80,11 +80,13 @@ export default {
           .then((response) => {
             window.location.href = reconciliationsApi.show.path({ id: response.reconciliation.id });
           })
+          .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         reconciliationStore
           .update(reconciliation.value.id, { date: reconciliation.value.date })
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       }
     };
