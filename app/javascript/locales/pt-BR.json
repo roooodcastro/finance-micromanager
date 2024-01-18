@@ -739,7 +739,7 @@
           "action_toggle_label": "Ações"
         },
         "profile_switcher": {
-          "new_profile_link": "Nova Perfil",
+          "new_profile_link": "Novo Perfil",
           "no_profile_selected": "Selecione Perfil"
         },
         "rails": {
@@ -783,7 +783,7 @@
           "accept": "Aceitar",
           "cancel": "Cancelar Convite",
           "pending_invite_text_accepted": "Você aceitou o convite de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você pode agora visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.",
-          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\". Um perfil compartilhada significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.",
+          "pending_invite_text_pending": "%{inviter} lhe convidou para compartilhar seu perfil \"%{profile_name}\". Um perfil compartilhado significa que ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.",
           "pending_invite_text_rejected": "Você negou o pedido de %{inviter} para compartilhar seu perfil \"%{profile_name}\". Você não terá acesso ao perfil, porém você pode ser convidado novamente.",
           "pending_invite_title_accepted": "Convite Aceito",
           "pending_invite_title_pending": "Convite de Compartilhamento de Perfil",
@@ -797,8 +797,8 @@
           "cancel": "Cancelar",
           "confirm": "Enviar Convite",
           "invitee_email_label": "Com quem você deseja compartilhar este perfil?",
-          "invitee_email_placeholder": "Digite o Email dele(a)",
-          "shared_warning_message": "Este perfil foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.",
+          "invitee_email_placeholder": "Digite o Email do convidado",
+          "shared_warning_message": "Este perfil foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-lo com terceiros.",
           "shared_warning_title": "Atenção",
           "title": "Compartilhar Perfil"
         }
@@ -811,7 +811,7 @@
           "default_wallet_label": "Selecione a Carteira Padrão",
           "edit_title": "Editar Perfil",
           "name_label": "Nome",
-          "new_title": "Nova Perfil",
+          "new_title": "Novo Perfil",
           "submit": "Salvar"
         },
         "index": {
@@ -820,8 +820,8 @@
           "new": "Novo perfil",
           "no_name": "--- Sem nome ---",
           "share_action_link_label": "Compartilhar",
-          "shared_text": "Compartilhada com você por %{user}",
-          "title": "Carteiras"
+          "shared_text": "Compartilhado com você por %{user}",
+          "title": "Perfis"
         }
       },
       "reconciliations": {

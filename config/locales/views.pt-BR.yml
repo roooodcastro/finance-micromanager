@@ -77,7 +77,7 @@ pt-BR:
       page_header:
         action_toggle_label: Ações
       profile_switcher:
-        new_profile_link: Nova Perfil
+        new_profile_link: Novo Perfil
         no_profile_selected: Selecione Perfil
       rails:
         close: Fechar
@@ -114,15 +114,15 @@ pt-BR:
         sign_out: Sair da Conta
     profiles:
       index:
-        title: Carteiras
+        title: Perfis
         new: Novo perfil
         name: Nome
         currency: Moeda
         no_name: '--- Sem nome ---'
-        shared_text: 'Compartilhada com você por %{user}'
+        shared_text: 'Compartilhado com você por %{user}'
         share_action_link_label: Compartilhar
       form:
-        new_title: Nova Perfil
+        new_title: Novo Perfil
         edit_title: Editar Perfil
         name_label: Nome
         currency_label: Selecione a Moeda
@@ -139,13 +139,12 @@ pt-BR:
         sent_invite_text_pending: O convite foi enviado, mas o recipiente ainda não respondeu.
         sent_invite_text_cancelled: O convite foi cancelado. O recipiente não pode mais aceitá-lo.
         pending_invite_text_pending: >-
-          %{inviter} lhe convidou para compartilhar seu perfil "%{profile_name}". Um perfil compartilhada significa que
+          %{inviter} lhe convidou para compartilhar seu perfil "%{profile_name}". Um perfil compartilhado significa que
           ambos poderão visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
           com o perfil.
         pending_invite_text_accepted: >-
           Você aceitou o convite de %{inviter} para compartilhar seu perfil "%{profile_name}". Você pode agora
-          visualizar e gerenciar transações, categorias, e todos os outros aspectos associados
-          com o perfil.
+          visualizar e gerenciar transações, categorias, e todos os outros aspectos associados com o perfil.
         pending_invite_text_rejected: >-
           Você negou o pedido de %{inviter} para compartilhar seu perfil "%{profile_name}". Você não terá acesso
           ao perfil, porém você pode ser convidado novamente.
@@ -155,14 +154,16 @@ pt-BR:
       modal:
         title: Compartilhar Perfil
         shared_warning_title: Atenção
-        shared_warning_message: Este perfil foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-la com terceiros.
+        shared_warning_message: >-
+          Este perfil foi compartilhada com você por %{name}. Por favor tenha cuidado ao compartilhá-lo com terceiros.
         invitee_email_label: Com quem você deseja compartilhar este perfil?
-        invitee_email_placeholder: Digite o Email dele(a)
+        invitee_email_placeholder: Digite o Email do convidado
         cancel: Cancelar
         confirm: Enviar Convite
     reconciliations:
       info_alert:
-        message: 'Há uma reconcilição em andamento para o dia %{date}. <a href="%{href}">Clique aqui</a> para acessá-la.'
+        message: >-
+          Há uma reconcilição em andamento para o dia %{date}. <a href="%{href}">Clique aqui</a> para acessá-la.
       index:
         title: Reconciliações
         new: Iniciar nova Reconciliação
