@@ -76,11 +76,13 @@ export default {
         walletStore
           .create({ name: wallet.value.name ?? '' })
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         walletStore
           .update(wallet.value.id, { name: wallet.value.name })
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       }
     };

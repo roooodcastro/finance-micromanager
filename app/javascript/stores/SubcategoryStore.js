@@ -44,8 +44,13 @@ export default defineStore('subcategory', {
 
     create(categoryId, subcategory) {
       const notificationStore = useNotificationStore();
+
       let responseResolve;
-      const returnPromise = new Promise(resolve => responseResolve = resolve);
+      let responseReject;
+      const returnPromise = new Promise((resolve, reject) => {
+        responseResolve = resolve;
+        responseReject = reject;
+      });
 
       subcategoriesApi
         .create({ params: { categoryId }, data: { subcategory }, query: { showDisabled: this.showDisabled } })
@@ -56,6 +61,7 @@ export default defineStore('subcategory', {
           responseResolve();
         }).catch((error) => {
           notificationStore.notify(error.body.message, 'danger');
+          responseReject(error);
         });
 
       return returnPromise;
@@ -63,8 +69,13 @@ export default defineStore('subcategory', {
 
     update(categoryId, id, subcategory) {
       const notificationStore = useNotificationStore();
+
       let responseResolve;
-      const returnPromise = new Promise(resolve => responseResolve = resolve);
+      let responseReject;
+      const returnPromise = new Promise((resolve, reject) => {
+        responseResolve = resolve;
+        responseReject = reject;
+      });
 
       subcategoriesApi
         .update({
@@ -79,6 +90,7 @@ export default defineStore('subcategory', {
           responseResolve();
         }).catch((error) => {
           notificationStore.notify(error.body.message, 'danger');
+          responseReject(error);
         });
 
       return returnPromise;

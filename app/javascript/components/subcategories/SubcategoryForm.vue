@@ -83,11 +83,13 @@ export default {
         subcategoryStore
           .create(props.category.id, { name: subcategory.value.name ?? '' })
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         subcategoryStore
           .update(props.category.id, subcategory.value.id, { name: subcategory.value.name })
           .then(closeModal)
+          .catch(() => {})
           .finally(() => loading.value = false);
       }
     };

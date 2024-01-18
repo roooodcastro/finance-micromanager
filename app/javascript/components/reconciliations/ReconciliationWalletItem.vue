@@ -93,13 +93,12 @@ export default {
           walletId: props.wallet.id,
           balanceAmount
         })
-        .then((success) => {
-          loading.value = false;
-          if (success) {
-            saved.value = true;
-            timeout.value = setTimeout(() => saved.value = false, 5000);
-          }
-        });
+        .then(() => {
+          saved.value = true;
+          timeout.value = setTimeout(() => saved.value = false, 5000);
+        })
+        .catch(() => {})
+        .finally(() => loading.value = false);
     };
 
     return {

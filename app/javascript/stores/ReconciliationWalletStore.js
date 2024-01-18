@@ -18,17 +18,23 @@ export default defineStore('reconciliationWallet', {
     create(id, record) {
       const notificationStore = useNotificationStore();
       const reconciliationStore = useReconciliationStore();
+
       let responseResolve;
-      const returnPromise = new Promise(resolve => responseResolve = resolve);
+      let responseReject;
+      const returnPromise = new Promise((resolve, reject) => {
+        responseResolve = resolve;
+        responseReject = reject;
+      });
+
       const data = { id, reconciliationWallet: record };
 
       reconciliationsWalletsApi
         .create({ params: { reconciliationId: this.reconciliationId }, data })
-        .then(() => reconciliationStore.fetchSingle().then(() => responseResolve(true)))
+        .then(() => reconciliationStore.fetchSingle(this.reconciliationId).then(responseResolve))
         .catch((error) => {
           const errorMessage = error.body.message ?? I18n.t('views.layout.rails.generic_error');
           notificationStore.notify(errorMessage, 'danger');
-          responseResolve(false);
+          responseReject(error);
         });
 
       return returnPromise;
