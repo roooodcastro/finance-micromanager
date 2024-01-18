@@ -166,7 +166,8 @@ export default {
   }
 
   &:hover, &:active, &:focus, &.active {
-    background-color: $primary;
+    color: color-contrast($primary);
+    background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity, 1));
     border-right: 5px solid $primary-text-emphasis !important;
 
     svg {
