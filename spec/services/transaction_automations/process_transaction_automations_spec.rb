@@ -73,10 +73,15 @@ RSpec.describe TransactionAutomations::ProcessTransactionAutomations, :travel_to
     end
 
     context 'when there is a disabled automation with the same next_schedule_date' do
-      before { create(:transaction_automation, :disabled, profile: profile, next_schedule_date: date) }
+      let!(:transaction_automation) do
+        create(:transaction_automation, :disabled, profile: profile, next_schedule_date: date)
+      end
 
-      it 'does not create a transaction' do
-        expect { service_call }.not_to change { Transaction.count }
+      it 'does not create a transaction but does bump the date' do
+        expect { service_call }
+          .to not_change { Transaction.count }
+          .and change { transaction_automation.reload.next_schedule_date }
+          .to(1.month.from_now.to_date)
       end
     end
   end
