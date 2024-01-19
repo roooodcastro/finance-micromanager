@@ -33,7 +33,7 @@ class TransactionAutomation < ApplicationRecord
   end
 
   def bump_next_schedule_date!
-    return if disabled? || !schedule_duration
+    return unless schedule_duration
 
     update!(next_schedule_date: next_schedule_date + schedule_duration)
   end
