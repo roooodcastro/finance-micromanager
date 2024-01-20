@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -169,6 +169,8 @@ export default {
       callback: () => categoryStore.openFormModal(null),
     });
 
+    const { transactions } = storeToRefs(transactionStore);
+
     // Load categories from props
     const { category: categoryFromStore, loading: loadingCategory } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
@@ -186,6 +188,9 @@ export default {
     } = storeToRefs(subcategoryStore);
     subcategoriesFromStore.value = props.category.subcategories;
     subcategoryCategoryId.value = props.category.id;
+
+    watch(subcategoriesFromStore, () => { categoryStore.fetchSingle(props.category.id) });
+    watch(transactions, () => { categoryStore.fetchSingle(props.category.id) });
 
     const handleEdit = () => categoryStore.openFormModal(props.category.id);
     const handleDisable = () => categoryStore.disable(props.category.id, { fetchSingle: true });
