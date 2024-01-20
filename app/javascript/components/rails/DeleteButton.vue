@@ -5,7 +5,7 @@
     @click="openModal"
   >
     <FontAwesomeIcon
-      :icon="['far', 'trash-can']"
+      :icon="disableLabel ? 'ban' : ['far', 'trash-can']"
       size="lg"
     />
     <span
