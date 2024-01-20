@@ -7,27 +7,31 @@
         variant="success"
         icon="repeat"
         href="#"
-        :label="t('reenable_label')"
+        label=""
         :drawer="drawerMenu"
-        :class="{ 'SubcategoryActions__reenable-button': !drawerMenu }"
+        :class="{ 'SubcategoryActions__reenable-button me-0': !drawerMenu }"
         @click="handleReenable"
       />
     </template>
     <template v-else>
       <EditButton
         small
+        compact
         href="#"
         :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
         @click="handleEdit"
       />
 
+      <div class="vr mx-3 d-none d-lg-flex" />
+
       <DeleteButton
         small
         disable-label
+        compact
         href="#"
         :class="{
           'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-          'ms-3': !drawerMenu,
+          'me-0 me-lg-3': !drawerMenu,
         }"
         @delete="handleDelete"
       />
