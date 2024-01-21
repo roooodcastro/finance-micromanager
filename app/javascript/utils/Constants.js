@@ -25,3 +25,5 @@ export const COLLAPSED_CARDS_COOKIE_NAME = 'collapsed-cards';
 export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
 
 export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-micromanager';
+
+export const BROWSER_CACHE_NAME = 'finance_micromanager_cache';

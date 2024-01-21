@@ -1,12 +1,51 @@
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
+import dayjs from 'dayjs';
 
 import useNotificationStore from '~/stores/NotificationStore.js';
+import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import I18n from '~/utils/I18n.js';
+import { BROWSER_CACHE_NAME } from '~/utils/Constants.js';
 
 export function defineBaseApiStore(name, storeOptions = {}) {
   const dynamicState = {};
   dynamicState[`${storeOptions.resourceName}ForFormModal`] = {};
+
+  const fetchCollectionFromApi = (store) => {
+    // console.log(`Fetching ${storeOptions.resourcesName} from API`);
+
+    store.loading = true;
+    return storeOptions
+      .api
+      .index(Object.assign(store.urlParams, { query: store.fetchParams }))
+      .then(response => store[storeOptions.resourcesName] = response[storeOptions.resourcesName])
+      .finally(() => {
+        store.loading = false;
+        store.initialFetchDone = true;
+      });
+  };
+
+  const fetchCollectionFromCache = (store) => {
+    // console.log(`Fetching ${storeOptions.resourcesName} from cache`);
+    const path = storeOptions.api.index.path(Object.assign(store.urlParams, { query: store.fetchParams }));
+
+    return caches.open(BROWSER_CACHE_NAME).then((cache) => {
+      return cache.match(path).then((response) => {
+        if (response) {
+          // console.log(`Cache HIT for ${storeOptions.resourcesName}`);
+          return response.json().then((jsonResponse) => {
+            store[storeOptions.resourcesName] = jsonResponse[storeOptions.resourcesName];
+          }).finally(() => {
+            store.loading = false;
+            store.initialFetchDone = true;
+          });
+        }
+
+        // console.log(`Cache MISS for ${storeOptions.resourcesName}, fetching from API instead`);
+        return fetchCollectionFromApi(store);
+      });
+    });
+  };
 
   return defineStore(name, {
     state: () => ({
@@ -19,7 +58,14 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       ...dynamicState,
       ...storeOptions.state,
     }),
-    getters: { ...storeOptions.getters },
+    getters: {
+      ...storeOptions.getters,
+      lastUpdatedAt: () => {
+        const { updatedAtValues } = storeToRefs(useBrowserCacheStore());
+
+        return updatedAtValues.value[storeOptions.resourceName];
+      },
+    },
     actions: {
       openFormModal(id) {
         const modalStore = useModalStore();
@@ -61,15 +107,11 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       fetchCollection() {
-        this.loading = true;
-        return storeOptions
-          .api
-          .index(Object.assign(this.urlParams, { query: this.fetchParams }))
-          .then(response => this[storeOptions.resourcesName] = response[storeOptions.resourcesName])
-          .finally(() => {
-            this.loading = false;
-            this.initialFetchDone = true;
-          });
+        if (this.lastUpdatedAt && this.lastUpdatedAt < dayjs()) {
+          return fetchCollectionFromCache(this);
+        } else {
+          return fetchCollectionFromApi(this);
+        }
       },
 
       fetchSingle(id) {

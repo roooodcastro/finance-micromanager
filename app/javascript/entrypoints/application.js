@@ -15,6 +15,7 @@ import 'dayjs/locale/pt-br.js';
 import 'dayjs/locale/en-gb.js';
 
 import '~/utils/fontAwesome.js';
+import '~/utils/JsFromRoutesConfig.js';
 
 /* eslint-disable-next-line no-unused-vars */
 import * as bootstrap from 'bootstrap';
