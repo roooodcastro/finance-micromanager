@@ -27,3 +27,5 @@ export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
 export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-micromanager';
 
 export const BROWSER_CACHE_NAME = 'finance_micromanager_cache';
+export const LATEST_UPDATED_AT_VALUES_HEADER_NAME = 'Browser-Cache-Updated-At-Values';
+export const CACHED_TIMESTAMP_HEADER_NAME = 'Browser-Cache-Timestamp';

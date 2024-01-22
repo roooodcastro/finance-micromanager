@@ -5,15 +5,13 @@ import useNotificationStore from '~/stores/NotificationStore.js';
 import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import I18n from '~/utils/I18n.js';
-import { BROWSER_CACHE_NAME } from '~/utils/Constants.js';
+import { BROWSER_CACHE_NAME, CACHED_TIMESTAMP_HEADER_NAME } from '~/utils/Constants.js';
 
 export function defineBaseApiStore(name, storeOptions = {}) {
   const dynamicState = {};
   dynamicState[`${storeOptions.resourceName}ForFormModal`] = {};
 
   const fetchCollectionFromApi = (store) => {
-    // console.log(`Fetching ${storeOptions.resourcesName} from API`);
-
     store.loading = true;
     return storeOptions
       .api
@@ -26,22 +24,26 @@ export function defineBaseApiStore(name, storeOptions = {}) {
   };
 
   const fetchCollectionFromCache = (store) => {
-    // console.log(`Fetching ${storeOptions.resourcesName} from cache`);
     const path = storeOptions.api.index.path(Object.assign(store.urlParams, { query: store.fetchParams }));
 
     return caches.open(BROWSER_CACHE_NAME).then((cache) => {
       return cache.match(path).then((response) => {
         if (response) {
-          // console.log(`Cache HIT for ${storeOptions.resourcesName}`);
-          return response.json().then((jsonResponse) => {
-            store[storeOptions.resourcesName] = jsonResponse[storeOptions.resourcesName];
-          }).finally(() => {
-            store.loading = false;
-            store.initialFetchDone = true;
-          });
+          const cachedTimestamp = dayjs.unix(response.headers.get(CACHED_TIMESTAMP_HEADER_NAME));
+
+          if (cachedTimestamp >= store.latestUpdatedAt) {
+            return response.json().then((jsonResponse) => {
+              store[storeOptions.resourcesName] = jsonResponse[storeOptions.resourcesName];
+            }).finally(() => {
+              store.loading = false;
+              store.initialFetchDone = true;
+            });
+          } else {
+            cache.delete(path);
+            return fetchCollectionFromApi(store);
+          }
         }
 
-        // console.log(`Cache MISS for ${storeOptions.resourcesName}, fetching from API instead`);
         return fetchCollectionFromApi(store);
       });
     });
@@ -60,10 +62,10 @@ export function defineBaseApiStore(name, storeOptions = {}) {
     }),
     getters: {
       ...storeOptions.getters,
-      lastUpdatedAt: () => {
-        const { updatedAtValues } = storeToRefs(useBrowserCacheStore());
+      latestUpdatedAt: () => {
+        const { latestUpdatedAtValues } = storeToRefs(useBrowserCacheStore());
 
-        return updatedAtValues.value[storeOptions.resourceName];
+        return latestUpdatedAtValues.value[storeOptions.resourceName];
       },
     },
     actions: {
@@ -107,7 +109,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       fetchCollection() {
-        if (this.lastUpdatedAt && this.lastUpdatedAt < dayjs()) {
+        if (this.latestUpdatedAt) {
           return fetchCollectionFromCache(this);
         } else {
           return fetchCollectionFromApi(this);

@@ -10,6 +10,7 @@
     <%= tag(:meta, name: 'locale-file-path', content: asset_path("locales/#{I18n.locale}.json")) %>
     <%= tag(:meta, name: 'version', content: Version.version) %>
     <%= tag(:meta, name: 'deploy-timestamp', content: Version.deploy_timestamp) %>
+    <%= tag(:meta, name: 'browser-cache-updated-at-values', content: latest_updated_at_values) %>
 
     <link rel="icon" href="<%= vite_asset_url('images/favicon/favicon.ico') %>" sizes="32x32">
     <link rel="icon" href="<%= vite_asset_url('images/favicon/favicon.svg') %>" type="image/svg+xml">
