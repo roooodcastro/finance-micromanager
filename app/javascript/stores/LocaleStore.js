@@ -1,7 +1,6 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 import { locales as localesApi } from '~/api/all.js';
-
-const CACHE_NAME = 'finance_micromanager_cache';
+import { BROWSER_CACHE_NAME } from '~/utils/Constants.js';
 
 export default defineStore('locale', {
   state: () => ({
@@ -11,7 +10,7 @@ export default defineStore('locale', {
     async fetchCollection() {
       const localesPath = localesApi.index.path();
 
-      caches.open(CACHE_NAME).then((cache) => {
+      caches.open(BROWSER_CACHE_NAME).then((cache) => {
         return cache.match(localesPath).then((response) => {
           if (response) {
             return response.json().then(locales => this.locales = locales);
@@ -25,7 +24,7 @@ export default defineStore('locale', {
             return response.json().then(locales => this.locales = locales);
           });
         });
-      })
+      });
     },
   },
 });

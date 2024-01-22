@@ -1,12 +1,38 @@
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 
 import useNotificationStore from '~/stores/NotificationStore.js';
+import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import I18n from '~/utils/I18n.js';
+import { fetchFromCache } from '~/utils/BrowserCacheUtils.js';
 
 export function defineBaseApiStore(name, storeOptions = {}) {
   const dynamicState = {};
   dynamicState[`${storeOptions.resourceName}ForFormModal`] = {};
+
+  const fetchCollectionFromApi = (store) => {
+    store.loading = true;
+    return storeOptions
+      .api
+      .index(Object.assign(store.urlParams, { query: store.fetchParams }))
+      .then(response => store[storeOptions.resourcesName] = response[storeOptions.resourcesName])
+      .finally(() => {
+        store.loading = false;
+        store.initialFetchDone = true;
+      });
+  };
+
+  const fetchCollectionFromCache = (store) => {
+    const path = storeOptions.api.index.path(Object.assign(store.urlParams, { query: store.fetchParams }));
+
+    return fetchFromCache(path, store.latestUpdatedAt)
+      .then(data => store[storeOptions.resourcesName] = data[storeOptions.resourcesName])
+      .catch(() => fetchCollectionFromApi(store))
+      .finally(() => {
+        store.loading = false;
+        store.initialFetchDone = true;
+      });
+  };
 
   return defineStore(name, {
     state: () => ({
@@ -19,7 +45,14 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       ...dynamicState,
       ...storeOptions.state,
     }),
-    getters: { ...storeOptions.getters },
+    getters: {
+      ...storeOptions.getters,
+      latestUpdatedAt: () => {
+        const { latestUpdatedAtValues } = storeToRefs(useBrowserCacheStore());
+
+        return latestUpdatedAtValues.value[storeOptions.resourceName];
+      },
+    },
     actions: {
       openFormModal(id) {
         const modalStore = useModalStore();
@@ -61,15 +94,11 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       fetchCollection() {
-        this.loading = true;
-        return storeOptions
-          .api
-          .index(Object.assign(this.urlParams, { query: this.fetchParams }))
-          .then(response => this[storeOptions.resourcesName] = response[storeOptions.resourcesName])
-          .finally(() => {
-            this.loading = false;
-            this.initialFetchDone = true;
-          });
+        if (this.latestUpdatedAt) {
+          return fetchCollectionFromCache(this);
+        } else {
+          return fetchCollectionFromApi(this);
+        }
       },
 
       fetchSingle(id) {

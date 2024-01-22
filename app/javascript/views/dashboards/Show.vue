@@ -131,7 +131,7 @@ export default {
       });
     }
 
-    watch(() => transactions.value, fetchCategorySummaries);
+    watch(transactions, fetchCategorySummaries);
     fetchRecentTransactions();
 
     const handleDateRangeChange = () => {

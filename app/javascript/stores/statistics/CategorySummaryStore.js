@@ -1,8 +1,10 @@
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 
 import { statisticsCategorySummaries as categorySummariesApi } from '~/api/all.js';
+import { fetchFromCache } from '~/utils/BrowserCacheUtils.js';
+import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 
 export default defineStore('statistics_category_summary', {
   state: () => ({
@@ -14,6 +16,11 @@ export default defineStore('statistics_category_summary', {
     indexedSummaries: (state) => {
       return _.keyBy(state.categorySummaries, 'categoryId');
     },
+    latestUpdatedAt: () => {
+      const { latestUpdatedAtValues } = storeToRefs(useBrowserCacheStore());
+
+      return latestUpdatedAtValues.value.categorySummary;
+    },
   },
 
   actions: {
@@ -24,9 +31,15 @@ export default defineStore('statistics_category_summary', {
         endDate: dayjs(),
       };
 
-      categorySummariesApi
-        .index({ query: Object.assign(defaultOptions, options) })
-        .then(response => this.categorySummaries = response.categorySummaries)
+      const path = categorySummariesApi.index.path({ query: Object.assign(defaultOptions, options) });
+
+      return fetchFromCache(path, this.latestUpdatedAt)
+        .then(data => this.categorySummaries = data.categorySummaries)
+        .catch(() => {
+          categorySummariesApi
+            .index({ query: Object.assign(defaultOptions, options) })
+            .then(data => this.categorySummaries = data.categorySummaries)
+        })
         .finally(() => this.loading = false);
     },
   },

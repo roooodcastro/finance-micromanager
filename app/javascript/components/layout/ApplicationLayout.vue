@@ -33,6 +33,7 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 import useLocaleStore from '~/stores/LocaleStore.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
@@ -82,8 +83,10 @@ export default {
     const profileStore = useProfileStore();
     const dateRangeStore = useDateRangeStore();
     const transactionStore = useTransactionStore();
+    const browserCacheStore = useBrowserCacheStore();
     const floatingActionButtonStore = useFloatingActionButtonStore();
 
+    browserCacheStore.loadFromPageLoad();
     localeStore.fetchCollection();
 
     floatingActionButtonStore.registerSpeedDialEntry({
