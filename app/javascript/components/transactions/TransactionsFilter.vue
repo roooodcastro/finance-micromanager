@@ -106,8 +106,17 @@ export default {
     const walletStore = useWalletStore();
 
     const { fetchParams, daysToShow } = storeToRefs(transactionStore);
-    const { categoriesForSelect } = storeToRefs(categoryStore);
-    const { walletsForSelect } = storeToRefs(walletStore);
+    const { categories, categoriesForSelect } = storeToRefs(categoryStore);
+    const { activeWallets, walletsForSelect } = storeToRefs(walletStore);
+
+    if (!categories.value.length) {
+      categoryStore.fetchCollection();
+    }
+
+    if (!activeWallets.value.length) {
+      walletStore.fetchCollection();
+    }
+
 
     const handleDateFilterClick = (numberOfDays) => {
       if (fetchParams.value.daysToShow !== numberOfDays) {
