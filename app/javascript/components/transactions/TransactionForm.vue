@@ -5,7 +5,7 @@
     :form-id="TRANSACTION_FORM_ID"
     :modal-id="modalId"
     :loading="loading"
-    @show="updateTransactionDataWithDefaultValues"
+    @show="handleShow"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -157,14 +157,6 @@ export default {
 
     const showWalletField = computed(() => !!activeWallets.value.length);
 
-    if (!categories.value.length) {
-      categoryStore.fetchCollection();
-    }
-
-    if (!activeWallets.value.length) {
-      walletStore.fetchCollection();
-    }
-
     const isNewRecord = computed(() => !transaction.value.id);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
 
@@ -198,6 +190,18 @@ export default {
       updateTransactionDataWithDefaultValues();
     });
 
+    const handleShow = () => {
+      if (!categories.value.length) {
+        categoryStore.fetchCollection();
+      }
+
+      if (!activeWallets.value.length) {
+        walletStore.fetchCollection();
+      }
+
+      updateTransactionDataWithDefaultValues();
+    }
+
     const handleSubmit = (closeModal) => {
       loading.value = true;
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId', 'walletId'];
@@ -228,6 +232,7 @@ export default {
       modalId,
       showWalletField,
       handleSubmit,
+      handleShow,
       updateTransactionDataWithDefaultValues,
       TRANSACTION_FORM_ID,
     };

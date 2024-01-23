@@ -5,6 +5,7 @@
     :form-id="MASS_EDIT_TRANSACTION_FORM_ID"
     :modal-id="modalId"
     :loading="loading"
+    @show="handleShow"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -99,13 +100,15 @@ export default {
     const showWalletField = computed(() => !!activeWallets.value.length);
     const transactionData = computed(() => _.pick(transaction.value, transactionFields));
 
-    if (!categories.value.length) {
-      categoryStore.fetchCollection();
-    }
+    const handleShow = () => {
+      if (!categories.value.length) {
+        categoryStore.fetchCollection();
+      }
 
-    if (!activeWallets.value.length) {
-      walletStore.fetchCollection();
-    }
+      if (!activeWallets.value.length) {
+        walletStore.fetchCollection();
+      }
+    };
 
     onMounted(() => modalStore.registerModal(MASS_EDIT_TRANSACTION_FORM_ID));
 
@@ -127,6 +130,7 @@ export default {
       massEditTransactionIdsCount,
       modalId,
       showWalletField,
+      handleShow,
       handleSubmit,
       MASS_EDIT_TRANSACTION_FORM_ID,
     };
