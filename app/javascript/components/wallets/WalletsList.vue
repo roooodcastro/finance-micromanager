@@ -1,5 +1,5 @@
 <template>
-  <div class="list-group">
+  <div class="WalletsList list-group overflow-x-hidden">
     <template
       v-for="wallet in wallets"
       :key="`${wallet.id}_${wallet.updatedAt}`"
@@ -32,3 +32,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .WalletsList {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    width: calc(100% + 1rem);
+  }
+}
+</style>

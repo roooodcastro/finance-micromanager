@@ -93,7 +93,7 @@ pt-BR:
         generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
         no_records: Não há nada para exibir
         pagination: Paginação
-        per_page: 'Por Página:'
+        per_page: 'Exibir:'
         page_desc: 'Exibindo %{items} de %{total}'
         toast_title_success: Info
         toast_title_info: Info
@@ -417,5 +417,6 @@ pt-BR:
         edit: Editar
         destroy: Desabilitar
       list:
+        balance: Saldo
         disabled: Desabilitada
         reenable_label: Reabilitar

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AbstractAuthenticatedController < ApplicationController
-  include BrowserCacheHeader
-
   before_action :authenticate_user!
 
   inertia_share user: -> { camelize_props(current_user.as_json) }

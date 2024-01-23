@@ -7,16 +7,26 @@
       />
     </template>
     <template v-slot:item>
-      <div
-        class="d-flex align-items-center py-2 ps-2"
-        :class="{ 'fst-italic bg-danger-subtle': isDisabled, 'bg-light-subtle': !isDisabled }"
-      >
-        <span>
-          {{ wallet.name }}
-          <template v-if="isDisabled">
-            ({{ t('disabled') }})
-          </template>
-        </span>
+      <div class="d-flex align-items-center py-2 ps-2 bg-light-subtle">
+        <div class="d-flex flex-column min-width-0">
+          <span class="d-flex align-items-center gap-2">
+            <span
+              v-if="isDisabled"
+              class="badge text-bg-danger"
+            >
+              {{ t('disabled') }}
+            </span>
+
+            {{ wallet.name }}
+            <template v-if="isDisabled">
+              ({{ t('disabled') }})
+            </template>
+          </span>
+          <span class="fs-6 text-muted text-truncate">
+            {{ t('balance') }}:
+            {{ formatMoney(wallet.balance) }}
+          </span>
+        </div>
 
         <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
           <WalletActions :wallet="wallet" />
@@ -30,6 +40,7 @@
 import { computed } from 'vue';
 
 import I18n from '~/utils/I18n.js';
+import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import WalletActions from '~/components/wallets/WalletActions.vue';
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
@@ -53,6 +64,7 @@ export default {
 
     return {
       t,
+      formatMoney,
       isDisabled,
     };
   }

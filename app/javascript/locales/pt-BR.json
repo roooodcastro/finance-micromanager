@@ -757,7 +757,7 @@
           "no_records": "Não há nada para exibir",
           "page_desc": "Exibindo %{items} de %{total}",
           "pagination": "Paginação",
-          "per_page": "Por Página:",
+          "per_page": "Exibir:",
           "toast_title_danger": "Erro",
           "toast_title_info": "Info",
           "toast_title_success": "Info",
@@ -1106,6 +1106,7 @@
           "title": "Carteiras"
         },
         "list": {
+          "balance": "Saldo",
           "disabled": "Desabilitada",
           "reenable_label": "Reabilitar"
         }
