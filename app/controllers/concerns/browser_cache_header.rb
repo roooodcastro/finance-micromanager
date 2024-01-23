@@ -10,6 +10,8 @@ module BrowserCacheHeader
   end
 
   def latest_updated_at_values
+    return unless Current.profile
+
     %W[
       category=#{latest_category_updated_at.to_i}
       wallet=#{latest_wallet_updated_at.to_i}

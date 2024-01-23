@@ -6,7 +6,7 @@
       variant="success"
       icon="repeat"
       href="#"
-      :label="t('reenable_label')"
+      :label="compact ? '' : t('reenable_label')"
       :drawer="drawerMenu"
       :class="{ 'WalletActions__reenable-button': !drawerMenu }"
       @click="handleReenable"
@@ -16,17 +16,21 @@
     <EditButton
       small
       href="#"
+      :compact="compact"
       :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
       @click="handleEdit"
     />
+
+    <div class="vr mx-3 d-none d-lg-flex" />
 
     <DeleteButton
       small
       disable-label
       href="#"
+      :compact="compact"
       :class="{
         'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-        'ms-3': !drawerMenu,
+        'me-0 me-lg-3': !drawerMenu,
       }"
       @delete="handleDelete"
     />
@@ -56,6 +60,10 @@ export default {
       required: true,
     },
     drawerMenu: {
+      type: Boolean,
+      default: false,
+    },
+    compact: {
       type: Boolean,
       default: false,
     },

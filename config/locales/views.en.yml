@@ -93,7 +93,7 @@ en:
         generic_error: An unexpected error has occurred. Please reload the page and try again.
         no_records: "There's nothing to show"
         pagination: Pagination
-        per_page: 'Per Page:'
+        per_page: 'Show:'
         page_desc: 'Showing %{items} of %{total}'
         toast_title_success: Info
         toast_title_info: Info
@@ -413,5 +413,6 @@ en:
         destroy: Disable
         show_disabled: Show Disabled
       list:
+        balance: Balance
         disabled: Disabled
         reenable_label: Re-enable

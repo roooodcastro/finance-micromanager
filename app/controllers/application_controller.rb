@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include CamelizeableProps
   include Localizeable
   include StorePaginationOptions
+  include BrowserCacheHeader
 
   add_flash_types :success, :warning, :danger, :info
 

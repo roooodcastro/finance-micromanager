@@ -699,7 +699,7 @@
           "no_records": "There's nothing to show",
           "page_desc": "Showing %{items} of %{total}",
           "pagination": "Pagination",
-          "per_page": "Per Page:",
+          "per_page": "Show:",
           "toast_title_danger": "Error",
           "toast_title_info": "Info",
           "toast_title_success": "Info",
@@ -1045,6 +1045,7 @@
           "title": "Wallets"
         },
         "list": {
+          "balance": "Balance",
           "disabled": "Disabled",
           "reenable_label": "Re-enable"
         }
