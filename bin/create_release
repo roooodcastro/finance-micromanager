@@ -54,7 +54,8 @@ read -p "Are you sure? (Y/y) " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-  echo "Exiting"
+  echo "Aborted."
+  exit 0
 fi
 
 git checkout -b $branch_name
@@ -85,6 +86,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
   echo "Skipping image build."
   echo "Done."
+  exit 0
 fi
 
 bin/build
