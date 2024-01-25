@@ -18,6 +18,9 @@ class Profile < ApplicationRecord
   has_many :wallets, dependent: :restrict_with_exception
   has_many :reconciliations, dependent: :restrict_with_exception
   has_many :transaction_automations, dependent: :restrict_with_exception
+  # rubocop:disable Rails/InverseOf, Rails/HasManyOrHasOneDependent
+  has_many :finished_reconciliations, -> { finished.order(date: :desc) }, class_name: 'Reconciliation'
+  # rubocop:enable Rails/InverseOf, Rails/HasManyOrHasOneDependent
 
   has_many :shared_users, class_name: 'User', through: :profile_shares, source: :user
 

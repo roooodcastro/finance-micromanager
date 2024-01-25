@@ -36,7 +36,7 @@ class Reconciliation < ApplicationRecord
   end
 
   def previous_finished_reconciliation
-    profile.reconciliations.finished.where(date: (...date)).where.not(id:).order(date: :desc).first
+    profile.finished_reconciliations.select { |reconciliation| reconciliation.date < date }.first
   end
 
   def transactions

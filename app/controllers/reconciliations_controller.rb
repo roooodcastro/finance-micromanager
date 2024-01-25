@@ -9,7 +9,7 @@ class ReconciliationsController < AbstractAuthenticatedController
     reconciliations       = Current
                             .profile
                             .reconciliations
-                            .includes(:reconciliations_wallets)
+                            .includes(:reconciliations_wallets, profile: :finished_reconciliations)
                             .in_order_of(:status, %w[in_progress finished cancelled])
                             .order(date: :desc)
 
