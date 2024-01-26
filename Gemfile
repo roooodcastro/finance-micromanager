@@ -7,8 +7,8 @@ ruby '>= 3.2.0', '< 3.4.0'
 
 # Default Rails gems
 gem 'pg', '~> 1.1'
-gem 'puma', '~> 5.0'
-gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
+gem 'puma', '~> 6.0'
+gem 'rails', '~> 7.1.0'
 gem 'redis', '~> 4.0'
 
 # Frontend
