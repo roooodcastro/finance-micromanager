@@ -16,7 +16,11 @@
 </template>
 
 <script>
+import { watch } from 'vue';
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 
@@ -50,6 +54,10 @@ export default {
       icon: 'robot',
       callback: () => transactionAutomationStore.openFormModal(null),
     });
+
+    const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
+    watch(currentProfile, () => transactionAutomationStore.fetchCollection({ overrideCache: true }));
 
     transactionAutomationStore.loadCollectionFromProps(props.transactionAutomations);
 

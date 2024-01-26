@@ -117,6 +117,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { categories as categoriesApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
@@ -188,6 +189,10 @@ export default {
     } = storeToRefs(subcategoryStore);
     subcategoriesFromStore.value = props.category.subcategories;
     subcategoryCategoryId.value = props.category.id;
+
+    const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
+    watch(currentProfile, () => window.location.href = categoriesApi.index.path());
 
     watch(subcategoriesFromStore, () => { categoryStore.fetchSingle(props.category.id) });
     watch(transactions, () => { categoryStore.fetchSingle(props.category.id) });

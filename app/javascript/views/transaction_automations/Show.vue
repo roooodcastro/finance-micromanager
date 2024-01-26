@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -144,6 +144,7 @@ import {
   transactionAutomations as transactionAutomationsApi,
 } from '~/api/all.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
@@ -186,6 +187,10 @@ export default {
       icon: 'robot',
       callback: () => transactionAutomationStore.openFormModal(null),
     });
+
+    const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
+    watch(currentProfile, () => window.location.href = transactionAutomationsApi.index.path());
 
     // Load transaction automation from props
     const { transactionAutomation: transactionAutomationFromStore } = storeToRefs(transactionAutomationStore);

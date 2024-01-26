@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
