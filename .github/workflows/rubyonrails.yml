@@ -74,22 +74,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: [test, lint]
-    if: github.ref == 'refs/heads/main_disable'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.REGISTRY_HOSTNAME }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-      - name: Build and push
+      - name: Build
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: false
           platforms: linux/arm64
           file: deploy/docker/rails.Dockerfile
           tags: ${{ secrets.REGISTRY_HOSTNAME }}/finance_micromanager:latest

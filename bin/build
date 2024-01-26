@@ -15,5 +15,10 @@ docker buildx build --load --platform linux/arm64 \
   -t $DOCKER_REGISTRY/finance_micromanager:latest \
   -f deploy/docker/rails.Dockerfile .
 
+if [[ -n "$SKIP_DOCKER_PUSH" ]]; then
+  echo "Skipping docker push. Done."
+  exit 0
+fi
+
 docker push $DOCKER_REGISTRY/finance_micromanager:$version
 docker push $DOCKER_REGISTRY/finance_micromanager:latest
