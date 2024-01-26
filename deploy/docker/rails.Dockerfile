@@ -27,7 +27,7 @@ COPY . /finance_micromanager
 
 # Compile assets
 RUN mv .env.docker_development .env.production.local && \
-    RAILS_ENV=production bundle exec rails assets:precompile --trace && \
+    SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bundle exec rails assets:precompile --trace && \
     rm -rf /finance_micromanager/node_modules
 
 FROM ruby:3.2.2 as app

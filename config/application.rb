@@ -44,7 +44,7 @@ module FinanceMicromanager
     config.active_job.queue_adapter = :sidekiq
 
     config.action_mailer.delivery_method = :test
-    config.action_mailer.smtp_settings   = credentials.smtp.merge(
+    config.action_mailer.smtp_settings   = credentials.smtp&.merge(
       authentication:       'plain',
       enable_starttls_auto: true
     )
