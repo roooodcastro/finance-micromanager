@@ -74,6 +74,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: [test, lint]
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
