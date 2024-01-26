@@ -378,6 +378,7 @@
         },
         "odd": "deve ser ímpar",
         "other_than": "deve ser diferente de %{count}",
+        "password_too_long": "is too long",
         "present": "deve ficar em branco",
         "required": "é obrigatório(a)",
         "taken": "já está em uso",
@@ -434,6 +435,7 @@
         "format": {
           "delimiter": ".",
           "format": "%u %n",
+          "negative_format": "-%u%n",
           "precision": 2,
           "separator": ",",
           "significant": false,
@@ -491,7 +493,8 @@
             "kb": "KB",
             "mb": "MB",
             "pb": "PB",
-            "tb": "TB"
+            "tb": "TB",
+            "zb": "ZB"
           }
         }
       },
