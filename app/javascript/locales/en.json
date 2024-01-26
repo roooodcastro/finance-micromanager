@@ -939,6 +939,7 @@
           "date_label": "Date",
           "debit_label": "Spend",
           "edit_title": "Edit Transaction",
+          "locked_message": "This transaction is locked by a reconciliation and can only have its name and category changed.",
           "name_label": "Name",
           "new_title": "New Transaction",
           "optional": "Optional",

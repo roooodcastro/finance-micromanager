@@ -3,6 +3,7 @@
     <input
       type="hidden"
       :value="offValue"
+      :disabled="disabled"
     >
     <input
       :id="formHelper.fieldId(fieldName)"
@@ -16,6 +17,7 @@
       :value="onValue"
       :checked="onValue === modelValue"
       :class="inputCssClasses"
+      :disabled="disabled"
       @input="handleInput"
     >
   </div>
@@ -62,6 +64,10 @@ export default {
       type: String,
       default: 'On',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   emits: ['update:modelValue'],
@@ -87,8 +93,10 @@ export default {
 
 
     const handleInput = (ev) => {
-      setInputCssClasses();
-      emit('update:modelValue', ev.target.checked ? props.onValue : props.offValue);
+      if (!props.disabled) {
+        setInputCssClasses();
+        emit('update:modelValue', ev.target.checked ? props.onValue : props.offValue);
+      }
     };
 
     return {

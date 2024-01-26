@@ -289,6 +289,7 @@ en:
         optional: Optional
         submit: Submit
         cancel: Cancel
+        locked_message: This transaction is locked by a reconciliation and can only have its name and category changed.
       mass_edit_form:
         new_title: Bulk Edit Transactions
         edit_title: Bulk Edit Transactions

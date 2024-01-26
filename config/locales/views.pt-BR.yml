@@ -294,6 +294,8 @@ pt-BR:
         optional: Opcional
         submit: Salvar
         cancel: Cancelar
+        locked_message: >-
+          Esta transação está bloqueada por uma reconciliação e pode ter apenas seu nome e categoria alterados.
       mass_edit_form:
         new_title: Editar Transações em Massa
         edit_title: Editar Transações em Massa

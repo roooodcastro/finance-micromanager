@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="!lockedByReconciliation"
-    class="d-flex"
-  >
+  <div class="d-flex">
     <div class="vr mx-3 d-none d-lg-flex" />
 
     <EditButton
@@ -29,14 +26,9 @@
 </template>
 
 <script>
-import { computed } from 'vue';
-import { storeToRefs } from 'pinia';
-import dayjs from 'dayjs';
-
 import { transactions as transactionsApi } from '~/api/all.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
 import DeleteButton from '~/components/rails/DeleteButton.vue';
@@ -73,12 +65,6 @@ export default {
   setup(props) {
     const notificationStore = useNotificationStore();
     const transactionStore = useTransactionStore();
-    const profileStore = useProfileStore();
-
-    const { currentProfile } = storeToRefs(profileStore);
-    const lockedByReconciliation = computed(() => {
-      return dayjs(currentProfile.value.lastReconciliationDate) >= dayjs(props.transaction.transactionDate);
-    });
 
     const handleEdit = () => transactionStore.openFormModal(props.transaction.id);
 
@@ -90,7 +76,6 @@ export default {
     };
 
     return {
-      lockedByReconciliation,
       handleEdit,
       handleDelete,
     };

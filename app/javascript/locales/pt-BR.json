@@ -999,6 +999,7 @@
           "date_label": "Data",
           "debit_label": "Gasto",
           "edit_title": "Editar Transacão",
+          "locked_message": "Esta transação está bloqueada por uma reconciliação e pode ter apenas seu nome e categoria alterados.",
           "name_label": "Nome",
           "new_title": "Nova Transação",
           "optional": "Opcional",
