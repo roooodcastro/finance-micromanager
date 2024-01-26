@@ -15,6 +15,11 @@
         @submit.prevent="handleSubmit(closeModal)"
       >
         <template v-slot:default="{ formHelper }">
+          <WarningAlert
+            v-if="transaction.lockedByReconciliation"
+            :message="t('locked_message')"
+          />
+
           <FormInput
             v-model="transaction.name"
             field-name="name"
@@ -44,6 +49,7 @@
                 type="number"
                 class="form-control"
                 step="0.01"
+                :disabled="transaction.lockedByReconciliation"
                 required
               >
             </div>
@@ -59,6 +65,7 @@
               :on-label="t('credit_label')"
               :off-value="'debit'"
               :on-value="'credit'"
+              :disabled="transaction.lockedByReconciliation"
             />
           </div>
 
@@ -68,6 +75,7 @@
             :form-helper="formHelper"
             :label="t('date_label')"
             type="date"
+            :disabled="transaction.lockedByReconciliation"
             required
           />
 
@@ -98,6 +106,7 @@
               :id="formHelper.fieldId('wallet_id')"
               v-model="transaction.walletId"
               :name="formHelper.fieldName('wallet_id')"
+              :disabled="transaction.lockedByReconciliation"
             />
           </template>
         </template>
@@ -126,9 +135,12 @@ import FormModal from '~/components/forms/FormModal.vue';
 import ToggleSwitch from '~/components/ui/ToggleSwitch.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
+import dayjs from 'dayjs';
+import WarningAlert from '@/components/bootstrap/WarningAlert.vue';
 
 export default {
   components: {
+    WarningAlert,
     WalletsSelect,
     CategoriesSelect,
     FormInput,
@@ -182,6 +194,9 @@ export default {
 
       if (isNewRecord.value) {
         transaction.value.walletId = currentProfile.value.defaultWalletId;
+      } else {
+        const lastReconciliationDate = dayjs(currentProfile.value.lastReconciliationDate);
+        transaction.value.lockedByReconciliation = lastReconciliationDate >= dayjs(transaction.value.transactionDate);
       }
     };
 
