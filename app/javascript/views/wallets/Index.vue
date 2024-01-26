@@ -24,8 +24,12 @@
 </template>
 
 <script>
+import { watch } from 'vue';
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -33,7 +37,6 @@ import WalletsList from '~/components/wallets/WalletsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import WalletForm from '~/components/wallets/WalletForm.vue';
 import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
-import { storeToRefs } from 'pinia';
 
 export default {
   components: {
@@ -61,6 +64,10 @@ export default {
       icon: ['far', 'credit-card'],
       callback: () => walletStore.openFormModal(null),
     });
+
+    const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
+    watch(currentProfile, () => walletStore.fetchCollection({ overrideCache: true }));
 
     const { showDisabled }  = storeToRefs(walletStore);
 

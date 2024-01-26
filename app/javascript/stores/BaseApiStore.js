@@ -93,8 +93,8 @@ export function defineBaseApiStore(name, storeOptions = {}) {
         }
       },
 
-      fetchCollection() {
-        if (this.latestUpdatedAt) {
+      fetchCollection(options = {}) {
+        if (this.latestUpdatedAt && !options.overrideCache) {
           return fetchCollectionFromCache(this);
         } else {
           return fetchCollectionFromApi(this);

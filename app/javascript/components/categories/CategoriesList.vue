@@ -15,7 +15,6 @@
 import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import { categories as categoriesApi } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
@@ -35,12 +34,8 @@ export default {
 
     // Reload categories if profile has changed while this list is shown
     const profileStore = useProfileStore();
-    watch(
-      () => profileStore.currentProfile,
-      () => {
-        categoriesApi.index().then(response => categories.value = response.categories);
-      },
-    );
+    const { currentProfile } = storeToRefs(profileStore);
+    watch(currentProfile, () => categoryStore.fetchCollection({ overrideCache: true }));
 
     return {
       t: I18n.scopedTranslator('views.categories.index'),

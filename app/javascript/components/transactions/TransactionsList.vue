@@ -107,6 +107,8 @@ import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
 
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
 import Pagination from '~/components/rails/Pagination.vue';
@@ -140,7 +142,8 @@ export default {
 
   setup() {
     const paginationStore = usePaginationStore();
-    // Load transactions from props
+    const categoryStore = useCategoryStore();
+    const walletStore = useWalletStore();
     const transactionStore = useTransactionStore();
     const {
       loading,
@@ -156,9 +159,14 @@ export default {
 
     // Reload transactions if profile has changed while this page is open
     const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
     watch(
-      () => profileStore.currentProfile,
-      () => transactionStore.fetchCollection(),
+      currentProfile,
+      () => {
+        transactionStore.fetchCollection({ overrideCache: true });
+        categoryStore.fetchCollection({ overrideCache: true });
+        walletStore.fetchCollection({ overrideCache: true });
+      }
     );
 
     const loadingNextPage = ref(false);

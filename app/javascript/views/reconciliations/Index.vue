@@ -16,9 +16,13 @@
 </template>
 
 <script>
+import { watch } from 'vue';
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -50,6 +54,10 @@ export default {
 
     const reconciliationStore = useReconciliationStore();
     reconciliationStore.loadCollectionFromProps(props.reconciliations);
+
+    const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
+    watch(currentProfile, () => reconciliationStore.fetchCollection({ overrideCache: true }));
 
     const handleNew = () => reconciliationStore.openFormModal(null);
 
