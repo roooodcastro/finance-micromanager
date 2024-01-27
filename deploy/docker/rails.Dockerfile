@@ -1,4 +1,6 @@
-FROM ruby:3.2.2 as builder
+ARG RUBY_VERSION=3.2.2
+
+FROM ruby:$RUBY_VERSION as builder
 
 # Install build dependencies
 RUN apt update -qq &&\
@@ -15,9 +17,16 @@ RUN apt update -qq &&\
 # Copy setup files and install gems and yarn packages
 WORKDIR /finance_micromanager
 
-COPY Gemfile Gemfile.lock /finance_micromanager/
-COPY vendor/cache /finance_micromanager/vendor/cache
-RUN bundle config set deployment true && bundle install --local
+ENV RAILS_SERVE_STATIC_FILES="true" \
+    RAILS_ENV="production"
+
+COPY Gemfile Gemfile.lock ./
+COPY vendor/cache ./vendor/cache
+
+# Configure bundler and install gems from local cache
+RUN bundle config set deployment true && \
+    bundle config set without 'development test' && \
+    bundle install --local
 
 COPY package.json yarn.lock .env.docker_development /finance_micromanager/
 RUN yarn install --frozen-lockfile --prod --network-timeout 300000 && yarn cache clean

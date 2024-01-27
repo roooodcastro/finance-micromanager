@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 trap "echo; exit" INT
 
 # Load env variables from .env file
@@ -7,10 +8,20 @@ set -o allexport
 source .env.development.local
 set +o allexport
 
+# Get target architecture
+arch="${1:-linux/arm64}"
+
+echo "Building Docker image for platform $arch..."
+
 # Get current version number
 version=`cat VERSION`
 
-docker buildx build --load --platform linux/arm64 \
+# Read current Ruby version
+script_location=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
+ruby_version=$(cat $script_location/../.ruby-version | sed 's/ruby-//')
+
+docker buildx build --load --platform $arch \
+  --build-arg="RUBY_VERSION=$ruby_version" \
   -t $DOCKER_REGISTRY/finance_micromanager:$version \
   -t $DOCKER_REGISTRY/finance_micromanager:latest \
   -f deploy/docker/rails.Dockerfile .
