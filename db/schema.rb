@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_110614) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_27_155447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,6 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_110614) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "transaction_subcategory_id"
+    t.string "schedule_custom_rule", limit: 50
     t.index ["disabled_by_id"], name: "index_transaction_automations_on_disabled_by_id"
     t.index ["profile_id"], name: "index_transaction_automations_on_profile_id"
     t.index ["transaction_category_id"], name: "index_transaction_automations_on_transaction_category_id"

@@ -13,12 +13,25 @@ class TransactionAutomation < ApplicationRecord
   has_many :transactions, dependent: :nullify
 
   validates :schedule_type, :next_schedule_date, :transaction_name, :transaction_amount, presence: true
-  validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }
+  validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }, unless: :schedule_type_custom?
+  validates :schedule_interval, absence: true, if: :schedule_type_custom?
+  validates :schedule_custom_rule, inclusion: { in: -> { schedule_custom_rules } }, if: :schedule_type_custom?
+  validates :schedule_custom_rule, absence: true, unless: :schedule_type_custom?
 
-  enum schedule_type: { month: 'M', week: 'W', day: 'D' }
+  enum schedule_type: { month: 'M', week: 'W', day: 'D', custom: 'C' }, _prefix: :schedule_type
+
+  module ScheduleCustomRules
+    LAST_DAY_OF_MONTH           = 'last_day_of_month'
+    FIRST_BUSINESS_DAY_OF_MONTH = 'first_business_day_of_month'
+    LAST_BUSINESS_DAY_OF_MONTH  = 'last_business_day_of_month'
+  end
+
+  def self.schedule_custom_rules
+    ScheduleCustomRules.constants.map { |const| ScheduleCustomRules.const_get(const) }
+  end
 
   def as_json
-    super(except: %w[schedule_type]).merge(
+    super(except: %w[schedule_type transaction_amount_cents]).merge(
       schedule_type:           self.class.schedule_types[schedule_type],
       schedule_type_key:       schedule_type,
       transaction_amount:      transaction_amount.to_f,
@@ -35,7 +48,7 @@ class TransactionAutomation < ApplicationRecord
   def bump_next_schedule_date!
     return unless schedule_duration
 
-    update!(next_schedule_date: next_schedule_date + schedule_duration)
+    update!(next_schedule_date: next_schedule_date_after(next_schedule_date))
   end
 
   def transaction_attributes
@@ -54,6 +67,16 @@ class TransactionAutomation < ApplicationRecord
   end
 
   private
+
+  def next_schedule_date_after(schedule_date)
+    return schedule_date + schedule_duration unless schedule_type_custom?
+
+    schedule_custom_rule_object.next_schedule_date_after(schedule_date)
+  end
+
+  def schedule_custom_rule_object
+    @schedule_custom_rule_object ||= ::TransactionAutomations::ScheduleCustomRule.new(self)
+  end
 
   def schedule_duration
     return unless valid?
