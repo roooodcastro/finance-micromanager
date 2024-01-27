@@ -15,20 +15,11 @@ class TransactionAutomation < ApplicationRecord
   validates :schedule_type, :scheduled_date, :transaction_name, :transaction_amount, presence: true
   validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }, unless: :schedule_type_custom?
   validates :schedule_interval, absence: true, if: :schedule_type_custom?
-  validates :schedule_custom_rule, inclusion: { in: -> { schedule_custom_rules } }, if: :schedule_type_custom?
   validates :schedule_custom_rule, absence: true, unless: :schedule_type_custom?
+  validates :schedule_custom_rule, inclusion: { in: -> { TransactionAutomations::CustomRule.available_rules } },
+                                   if:        :schedule_type_custom?
 
   enum schedule_type: { month: 'M', week: 'W', day: 'D', custom: 'C' }, _prefix: :schedule_type
-
-  module ScheduleCustomRules
-    LAST_DAY_OF_MONTH           = 'last_day_of_month'
-    FIRST_BUSINESS_DAY_OF_MONTH = 'first_business_day_of_month'
-    LAST_BUSINESS_DAY_OF_MONTH  = 'last_business_day_of_month'
-  end
-
-  def self.schedule_custom_rules
-    ScheduleCustomRules.constants.map { |const| ScheduleCustomRules.const_get(const) }
-  end
 
   def as_json
     super(except: %w[schedule_type transaction_amount_cents]).merge(
@@ -46,7 +37,7 @@ class TransactionAutomation < ApplicationRecord
   end
 
   def bump_scheduled_date!
-    return unless schedule_duration
+    return unless next_scheduled_date(scheduled_date)
 
     update!(scheduled_date: next_scheduled_date(scheduled_date))
   end
@@ -68,7 +59,9 @@ class TransactionAutomation < ApplicationRecord
 
   private
 
-  def next_schedules_date(current_date)
+  def next_scheduled_date(current_date)
+    return if !schedule_type_custom? && !schedule_duration
+
     return current_date + schedule_duration unless schedule_type_custom?
 
     custom_rule.next_scheduled_date(current_date)
@@ -80,6 +73,7 @@ class TransactionAutomation < ApplicationRecord
 
   def schedule_duration
     return unless valid?
+    return if schedule_type_custom?
 
     ActiveSupport::Duration.parse("P#{schedule_interval}#{self.class.schedule_types[schedule_type]}")
   end
