@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module TransactionAutomation
-  class ScheduleCustomRule
+  class CustomRule
     attr_reader :transaction_automation
 
-    delegate :schedule_custom_rule, :next_schedule_date, to: :transaction_automation
+    delegate :schedule_custom_rule, :scheduled_date, to: :transaction_automation
 
     LAST_DAY_OF_MONTH           = 'last_day_of_month'
     FIRST_BUSINESS_DAY_OF_MONTH = 'first_business_day_of_month'

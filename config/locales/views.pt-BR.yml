@@ -355,7 +355,7 @@ pt-BR:
         no_next_run: -- Desabilitada --
         no_wallet: -- Não Especificada --
         schedule: Agendamento
-        next_schedule_date: Próxima execução
+        scheduled_date: Próxima execução
         last_schedule_date: Última execução
         transaction_name: Nome da Transação
         transaction_amount: Valor

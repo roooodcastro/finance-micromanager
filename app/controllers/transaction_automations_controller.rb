@@ -79,7 +79,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
       :transaction_transaction_automation_id,
       :schedule_type,
       :schedule_interval,
-      :next_schedule_date
+      :scheduled_date
     ).then { |permitted_params| process_category_id_param(permitted_params) }
   end
 

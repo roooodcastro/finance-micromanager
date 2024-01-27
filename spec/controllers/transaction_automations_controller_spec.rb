@@ -83,7 +83,7 @@ RSpec.describe TransactionAutomationsController do
         {
           schedule_type:           'W',
           schedule_interval:       '2',
-          next_schedule_date:      2.days.from_now.to_date,
+          scheduled_date:          2.days.from_now.to_date,
           transaction_name:        'Netflix',
           transaction_category_id: [category.id, subcategory.id].join('|'),
           transaction_wallet_id:   wallet.id,
@@ -104,7 +104,7 @@ RSpec.describe TransactionAutomationsController do
         {
           schedule_type:           'W',
           schedule_interval:       '2',
-          next_schedule_date:      2.days.from_now.to_date,
+          scheduled_date:          2.days.from_now.to_date,
           transaction_name:        'Netflix',
           transaction_category_id: nil,
           transaction_amount:      '-9.99'

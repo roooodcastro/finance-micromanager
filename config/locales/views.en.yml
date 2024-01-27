@@ -349,7 +349,7 @@ en:
         no_next_run: -- Disabled --
         no_wallet: -- Not Specified --
         schedule: Schedule
-        next_schedule_date: Next Run
+        scheduled_date: Next Run
         last_schedule_date: Last Run
         transaction_name: Transaction Name
         transaction_amount: Amount

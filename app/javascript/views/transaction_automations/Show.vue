@@ -100,10 +100,10 @@
               {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
             </dd>
             <dt class="col-6 col-md-4 my-1">
-              {{ t('next_schedule_date') }}
+              {{ t('scheduled_date') }}
             </dt>
             <dd class="col-6 col-md-8 my-1">
-              {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.nextScheduleDate) }}
+              {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
             </dd>
             <dt class="col-6 col-md-4 my-1">
               {{ t('last_schedule_date') }}

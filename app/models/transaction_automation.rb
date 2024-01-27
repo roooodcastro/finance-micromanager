@@ -12,7 +12,7 @@ class TransactionAutomation < ApplicationRecord
 
   has_many :transactions, dependent: :nullify
 
-  validates :schedule_type, :next_schedule_date, :transaction_name, :transaction_amount, presence: true
+  validates :schedule_type, :scheduled_date, :transaction_name, :transaction_amount, presence: true
   validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }, unless: :schedule_type_custom?
   validates :schedule_interval, absence: true, if: :schedule_type_custom?
   validates :schedule_custom_rule, inclusion: { in: -> { schedule_custom_rules } }, if: :schedule_type_custom?
@@ -45,17 +45,17 @@ class TransactionAutomation < ApplicationRecord
     profile&.currency || Money.default_currency
   end
 
-  def bump_next_schedule_date!
+  def bump_scheduled_date!
     return unless schedule_duration
 
-    update!(next_schedule_date: next_schedule_date_after(next_schedule_date))
+    update!(scheduled_date: next_scheduled_date(scheduled_date))
   end
 
   def transaction_attributes
     {
       name:                      transaction_name,
       amount:                    transaction_amount,
-      transaction_date:          next_schedule_date,
+      transaction_date:          scheduled_date,
       profile_id:                profile_id,
       category_id:               transaction_category_id,
       subcategory_id:            transaction_subcategory_id,
@@ -68,14 +68,14 @@ class TransactionAutomation < ApplicationRecord
 
   private
 
-  def next_schedule_date_after(schedule_date)
-    return schedule_date + schedule_duration unless schedule_type_custom?
+  def next_schedules_date(current_date)
+    return current_date + schedule_duration unless schedule_type_custom?
 
-    schedule_custom_rule_object.next_schedule_date_after(schedule_date)
+    custom_rule.next_scheduled_date(current_date)
   end
 
-  def schedule_custom_rule_object
-    @schedule_custom_rule_object ||= ::TransactionAutomations::ScheduleCustomRule.new(self)
+  def custom_rule
+    @custom_rule ||= ::TransactionAutomations::CustomRule.new(self)
   end
 
   def schedule_duration

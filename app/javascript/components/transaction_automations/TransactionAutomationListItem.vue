@@ -47,7 +47,7 @@
 
             <div class="fs-6 text-muted d-flex justify-content-between">
               <span>
-                {{ t('next_run_desc', { date: formatDate(transactionAutomation.nextScheduleDate) }) }}
+                {{ t('next_run_desc', { date: formatDate(transactionAutomation.scheduledDate) }) }}
               </span>
               <span>
                 {{ transactionAutomation.transactionWallet?.name }}

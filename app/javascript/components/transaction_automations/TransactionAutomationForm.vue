@@ -49,8 +49,8 @@
           </div>
 
           <FormInput
-            v-model="transactionAutomation.nextScheduleDate"
-            field-name="next_schedule_date"
+            v-model="transactionAutomation.scheduledDate"
+            field-name="scheduled_date"
             :form-helper="formHelper"
             :label="t('next_schedule_date_label')"
             type="date"
