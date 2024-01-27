@@ -17,4 +17,4 @@ test:
 
 production:
   <<: *default
-  database: finance_micromanager_production
+  database: <%= ENV.fetch('DATABASE_NAME', 'finance_micromanager_production') %>

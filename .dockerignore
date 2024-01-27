@@ -1,3 +1,21 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all default key files
+config/master.key
+config/credentials/*.key
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/storage/*
+
 .git
 .gitignore
 .idea
@@ -9,5 +27,6 @@ log
 tmp
 coverage
 public/vite
+public/assets
 
 .env.production.local
