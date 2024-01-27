@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 export function formatDate(date) {
-  return dayjs(date).format('L');
+  return dayjs.tz(date, 'utc').format('L');
 }
 
 export function formatDateTime(date) {
