@@ -32,6 +32,11 @@
           "name": "Nome"
         },
         "transaction_automation": {
+          "schedule_custom_rule": {
+            "first_business_day_of_month": "primeiro dia útil do mês",
+            "last_business_day_of_month": "último dia útil do mês",
+            "last_day_of_month": "último dia do mês"
+          },
           "schedule_types": {
             "day": "Dia(s)",
             "month": "Mês(es)",
@@ -921,10 +926,15 @@
         "form": {
           "cancel": "Cancelar",
           "credit_label": "Receita",
+          "custom_rule_first_business_day_of_month": "Primeiro dia útil do mês",
+          "custom_rule_last_business_day_of_month": "Último dia útil do mês",
+          "custom_rule_last_day_of_month": "Último dia do mês",
+          "custom_rule_tab_title": "Regra especial",
           "debit_label": "Gasto",
           "edit_title": "Editar Automação",
           "new_title": "Nova Automação",
           "next_schedule_date_label": "Criar próxima transação em",
+          "normal_rule_tab_title": "Regra padrão",
           "optional": "Opcional",
           "schedule_type_day": "Dia(s)",
           "schedule_type_interval_label": "Criar transações a cada",
@@ -947,7 +957,7 @@
           "disabled": "Desabilitada",
           "next_run_desc": "Próxima execução em %{date}",
           "reenable_label": "Reabilitar",
-          "schedule_desc": "Agendado a data %{interval}"
+          "schedule_desc": "Agendado a cada %{interval}"
         },
         "show": {
           "destroy": "Remover",

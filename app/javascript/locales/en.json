@@ -13,6 +13,11 @@
           "balance_amount_cents": "Balance"
         },
         "transaction_automation": {
+          "schedule_custom_rule": {
+            "first_business_day_of_month": "first business day of month",
+            "last_business_day_of_month": "last business day of month",
+            "last_day_of_month": "last day of month"
+          },
           "schedule_types": {
             "day": "Day",
             "month": "Month",
@@ -861,10 +866,15 @@
         "form": {
           "cancel": "Cancel",
           "credit_label": "Income",
+          "custom_rule_first_business_day_of_month": "First business day of month",
+          "custom_rule_last_business_day_of_month": "Last business day of month",
+          "custom_rule_last_day_of_month": "Last day of month",
+          "custom_rule_tab_title": "Custom Rule",
           "debit_label": "Spend",
           "edit_title": "Edit Automation",
           "new_title": "New Automation",
           "next_schedule_date_label": "Create next transaction on",
+          "normal_rule_tab_title": "Standard Rule",
           "optional": "Optional",
           "schedule_type_day": "Day(s)",
           "schedule_type_interval_label": "Create transactions every",

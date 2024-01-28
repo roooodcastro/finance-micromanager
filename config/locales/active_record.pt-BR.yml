@@ -37,6 +37,10 @@ pt-BR:
           month: Mês(es)
           week: Semana(s)
           day: Dia(s)
+        schedule_custom_rule:
+          last_day_of_month: último dia do mês
+          first_business_day_of_month: primeiro dia útil do mês
+          last_business_day_of_month: último dia útil do mês
       user:
         current_password: Senha atual
         locale: Idioma

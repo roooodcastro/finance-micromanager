@@ -16,6 +16,10 @@ en:
           month: Month
           week: Week
           day: Day
+        schedule_custom_rule:
+          last_day_of_month: last day of month
+          first_business_day_of_month: first business day of month
+          last_business_day_of_month: last business day of month
       user:
         locale: Language
     errors:

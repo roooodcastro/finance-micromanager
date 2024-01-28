@@ -95,9 +95,15 @@
               {{ t('schedule') }}
             </dt>
             <dd class="col-6 col-md-8 my-1">
-              {{ t('every') }}
-              {{ transactionAutomationFromStore.scheduleInterval }}
-              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
+              <template v-if="!isCustomRule">
+                {{ t('every') }}
+                {{ transactionAutomationFromStore.scheduleInterval }}
+                {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
+              </template>
+              <template v-else>
+                {{ t('every') }}
+                {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomationFromStore.scheduleCustomRule}`) }}
+              </template>
             </dd>
             <dt class="col-6 col-md-4 my-1">
               {{ t('scheduled_date') }}
@@ -203,6 +209,7 @@ export default {
     const isDisabled = computed(() => !!transactionAutomationFromStore.value.disabledAt);
     const isDebit = computed(() => transactionAutomationFromStore.value.transactionAmount < 0);
     const isCredit = computed(() => transactionAutomationFromStore.value.transactionAmount > 0);
+    const isCustomRule = computed(() => transactionAutomationFromStore.value.scheduleType === 'C');
 
     const handleEdit = () => transactionAutomationStore.openFormModal(props.transactionAutomation.id);
     const handleDisable = () => transactionAutomationStore.disable(props.transactionAutomation.id);
@@ -217,6 +224,7 @@ export default {
       isDisabled,
       isDebit,
       isCredit,
+      isCustomRule,
       categoryPath,
       formatMoney,
       formatDate,

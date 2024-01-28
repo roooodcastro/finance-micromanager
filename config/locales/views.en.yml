@@ -320,6 +320,8 @@ en:
         next_schedule_date_label: Create next transaction on
         credit_label: Income
         debit_label: Spend
+        normal_rule_tab_title: Standard Rule
+        custom_rule_tab_title: Custom Rule
         transaction_date_label: Date
         transaction_name_label: Name
         transaction_amount_label: Amount
@@ -329,6 +331,9 @@ en:
         schedule_type_month: Month(s)
         schedule_type_week: Week(s)
         schedule_type_day: Day(s)
+        custom_rule_last_day_of_month: Last day of month
+        custom_rule_first_business_day_of_month: First business day of month
+        custom_rule_last_business_day_of_month: Last business day of month
       index:
         title: Transaction Automations
         new: New Automation
