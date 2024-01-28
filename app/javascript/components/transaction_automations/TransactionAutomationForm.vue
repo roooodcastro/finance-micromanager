@@ -5,7 +5,7 @@
     :form-id="TRANSACTION_AUTOMATION_FORM_ID"
     :modal-id="modalId"
     :loading="loading"
-    @show="updateDataWithDefaultValues"
+    @show="handleShow"
   >
     <template v-slot:default="{ closeModal }">
       <RailsForm
@@ -20,37 +20,76 @@
             {{ t('sub_header_schedule') }}
           </h6>
 
-          <label
-            :for="formHelper.fieldId('schedule_interval')"
-            class="form-label"
-          >
-            {{ t('schedule_type_interval_label') }}
-          </label>
+          <nav class="nav nav-pills nav-justified mb-3">
+            <a
+              href="#"
+              class="nav-link text-center"
+              :class="{ active: !transactionAutomation.isCustomRule }"
+              @click="handleNormalTabClick"
+            >
+              {{ t('normal_rule_tab_title') }}
+            </a>
+            <a
+              href="#"
+              class="nav-link text-center"
+              :class="{ active: transactionAutomation.isCustomRule }"
+              @click="handleCustomTabClick"
+            >
+              {{ t('custom_rule_tab_title') }}
+            </a>
+          </nav>
 
-          <div class="TransactionAutomationForm__schedule-grid d-grid gap-2">
-            <FormInput
-              v-model="transactionAutomation.scheduleInterval"
-              field-name="schedule_interval"
-              :form-helper="formHelper"
-              type="number"
-              class="flex-grow-1"
-              min="1"
-              required
-            />
+          <div v-if="!transactionAutomation.isCustomRule">
+            <label
+              :for="formHelper.fieldId('schedule_interval')"
+              class="form-label"
+            >
+              {{ t('schedule_type_interval_label') }}
+            </label>
+
+            <div class="TransactionAutomationForm__schedule-grid d-grid gap-2">
+              <FormInput
+                v-model="transactionAutomation.scheduleInterval"
+                field-name="schedule_interval"
+                :form-helper="formHelper"
+                type="number"
+                class="flex-grow-1"
+                min="1"
+                required
+              />
+
+              <FormSelect
+                v-model="transactionAutomation.scheduleType"
+                :options="scheduleTypeOptions"
+                field-name="schedule_type"
+                :form-helper="formHelper"
+                class="flex-grow-1"
+                required
+              />
+            </div>
+          </div>
+
+          <div v-else>
+            <label
+              :for="formHelper.fieldId('schedule_custom_rule')"
+              class="form-label"
+            >
+              {{ t('schedule_type_interval_label') }}
+            </label>
 
             <FormSelect
-              v-model="transactionAutomation.scheduleType"
-              :options="scheduleTypeOptions"
-              field-name="schedule_type"
+              v-model="transactionAutomation.scheduleCustomRule"
+              :options="scheduleCustomRuleOptions"
+              field-name="schedule_custom_rule"
               :form-helper="formHelper"
-              class="flex-grow-1"
+              class="flex-grow-1 mb-3"
               required
             />
           </div>
 
           <FormInput
-            v-model="transactionAutomation.nextScheduleDate"
-            field-name="next_schedule_date"
+            v-model="transactionAutomation.scheduledDate"
+            field-name="scheduled_date"
             :form-helper="formHelper"
             :label="t('next_schedule_date_label')"
             type="date"
@@ -151,6 +190,8 @@ import { transactionAutomations as transactionAutomationsApi } from '~/api/all.j
 import useTransactionAutomationsStore from '~/stores/TransactionAutomationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
 import { TRANSACTION_AUTOMATION_FORM_ID } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -182,11 +223,21 @@ export default {
       { value: 'D', label: t('schedule_type_day') },
     ];
 
+    const scheduleCustomRuleOptions = [
+      { value: 'last_day_of_month', label: t('custom_rule_last_day_of_month') },
+      { value: 'first_business_day_of_month', label: t('custom_rule_first_business_day_of_month') },
+      { value: 'last_business_day_of_month', label: t('custom_rule_last_business_day_of_month') },
+    ]
+
     const modalStore = useModalStore();
     const profileStore = useProfileStore();
+    const categoryStore = useCategoryStore();
+    const walletStore = useWalletStore();
 
     const modalId = modalStore.modalId(TRANSACTION_AUTOMATION_FORM_ID);
 
+    const { categories } = storeToRefs(categoryStore);
+    const { activeWallets } = storeToRefs(walletStore);
     const { currentProfile } = storeToRefs(profileStore);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
 
@@ -217,6 +268,8 @@ export default {
         transactionAutomation.value.scheduleInterval = '1';
       }
 
+      transactionAutomation.value.isCustomRule = transactionAutomation.value.scheduleType === 'C';
+
       if (transactionAutomation.value.transactionAmount) {
         if (!transactionAutomation.value.originalAmount) {
           transactionAutomation.value.originalAmount = transactionAutomation.value.transactionAmount;
@@ -226,6 +279,29 @@ export default {
         transactionAutomation.value.transactionAmount = Math.abs(transactionAutomation.value.transactionAmount)
           .toFixed(2);
       }
+    };
+
+    const handleShow = () => {
+      if (!activeWallets.value.length) {
+        walletStore.fetchCollection();
+      }
+
+      if (!categories.value.length) {
+        categoryStore.fetchCollection();
+      }
+
+      updateDataWithDefaultValues();
+    };
+
+    const handleNormalTabClick = () => {
+      transactionAutomation.value.isCustomRule = false;
+      transactionAutomation.value.scheduleCustomRule = null;
+    };
+
+    const handleCustomTabClick = () => {
+      transactionAutomation.value.isCustomRule = true;
+      transactionAutomation.value.scheduleType = 'C';
+      transactionAutomation.value.scheduleInterval = null;
     };
 
     const handleSubmit = (closeModal) => {
@@ -260,10 +336,13 @@ export default {
       formAction,
       currencySymbol,
       scheduleTypeOptions,
+      scheduleCustomRuleOptions,
       transactionAutomation,
       modalId,
-      updateDataWithDefaultValues,
+      handleShow,
       handleSubmit,
+      handleNormalTabClick,
+      handleCustomTabClick,
       TRANSACTION_AUTOMATION_FORM_ID,
     };
   },

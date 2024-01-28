@@ -36,7 +36,10 @@
             </div>
 
             <div class="fs-6 mt-1 text-muted d-flex justify-content-between">
-              <span>
+              <span v-if="isCustomRule">
+                {{ t('schedule_desc', { interval: I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomation.scheduleCustomRule}`) }) }}
+              </span>
+              <span v-else>
                 {{ t('schedule_desc', { interval: transactionAutomation.scheduleInterval }) }}
                 {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomation.scheduleTypeKey}`) }}
               </span>
@@ -47,7 +50,7 @@
 
             <div class="fs-6 text-muted d-flex justify-content-between">
               <span>
-                {{ t('next_run_desc', { date: formatDate(transactionAutomation.nextScheduleDate) }) }}
+                {{ t('next_run_desc', { date: formatDate(transactionAutomation.scheduledDate) }) }}
               </span>
               <span>
                 {{ transactionAutomation.transactionWallet?.name }}
@@ -91,11 +94,12 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_automations.list');
 
-    const isDisabled = computed(() => !!props.transactionAutomation.disabledAt);
     const showTransactionAutomationPath = id => transactionAutomationsApi.show.path({ id });
 
+    const isDisabled = computed(() => !!props.transactionAutomation.disabledAt);
     const isDebit = computed(() => props.transactionAutomation.transactionAmount < 0);
     const isCredit = computed(() => props.transactionAutomation.transactionAmount > 0);
+    const isCustomRule = computed(() => props.transactionAutomation.scheduleType === 'C');
 
     return {
       I18n,
@@ -103,6 +107,7 @@ export default {
       isDisabled,
       isDebit,
       isCredit,
+      isCustomRule,
       showTransactionAutomationPath,
       formatDate,
       formatMoney,

@@ -10,7 +10,7 @@ FactoryBot.define do
 
     schedule_type { TransactionAutomation.schedule_types[:month] }
     schedule_interval { 1 }
-    next_schedule_date { Date.current }
+    scheduled_date { Date.current }
 
     trait :disabled do
       disabled_at { Time.current }

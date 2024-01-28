@@ -326,6 +326,8 @@ pt-BR:
         next_schedule_date_label: Criar próxima transação em
         credit_label: Receita
         debit_label: Gasto
+        normal_rule_tab_title: Regra padrão
+        custom_rule_tab_title: Regra especial
         transaction_date_label: Data
         transaction_name_label: Nome
         transaction_amount_label: Valor
@@ -335,13 +337,16 @@ pt-BR:
         schedule_type_month: Mês(es)
         schedule_type_week: Semana(s)
         schedule_type_day: Dia(s)
+        custom_rule_last_day_of_month: Último dia do mês
+        custom_rule_first_business_day_of_month: Primeiro dia útil do mês
+        custom_rule_last_business_day_of_month: Último dia útil do mês
       index:
         title: Automações de Transações
         new: Nova Automação
       list:
         disabled: Desabilitada
         reenable_label: Reabilitar
-        schedule_desc: 'Agendado a data %{interval}'
+        schedule_desc: 'Agendado a cada %{interval}'
         next_run_desc: 'Próxima execução em %{date}'
       show:
         title: Automação de Transação
@@ -355,7 +360,7 @@ pt-BR:
         no_next_run: -- Desabilitada --
         no_wallet: -- Não Especificada --
         schedule: Agendamento
-        next_schedule_date: Próxima execução
+        scheduled_date: Próxima execução
         last_schedule_date: Última execução
         transaction_name: Nome da Transação
         transaction_amount: Valor

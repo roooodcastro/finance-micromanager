@@ -12,13 +12,17 @@ class TransactionAutomation < ApplicationRecord
 
   has_many :transactions, dependent: :nullify
 
-  validates :schedule_type, :next_schedule_date, :transaction_name, :transaction_amount, presence: true
-  validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }
+  validates :schedule_type, :scheduled_date, :transaction_name, :transaction_amount, presence: true
+  validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }, unless: :schedule_type_custom?
+  validates :schedule_interval, absence: true, if: :schedule_type_custom?
+  validates :schedule_custom_rule, absence: true, unless: :schedule_type_custom?
+  validates :schedule_custom_rule, inclusion: { in: -> { TransactionAutomations::CustomRule.available_rules } },
+                                   if:        :schedule_type_custom?
 
-  enum schedule_type: { month: 'M', week: 'W', day: 'D' }
+  enum schedule_type: { month: 'M', week: 'W', day: 'D', custom: 'C' }, _prefix: :schedule_type
 
   def as_json
-    super(except: %w[schedule_type]).merge(
+    super(except: %w[schedule_type transaction_amount_cents]).merge(
       schedule_type:           self.class.schedule_types[schedule_type],
       schedule_type_key:       schedule_type,
       transaction_amount:      transaction_amount.to_f,
@@ -32,17 +36,17 @@ class TransactionAutomation < ApplicationRecord
     profile&.currency || Money.default_currency
   end
 
-  def bump_next_schedule_date!
-    return unless schedule_duration
+  def bump_scheduled_date!
+    return unless next_scheduled_date(scheduled_date)
 
-    update!(next_schedule_date: next_schedule_date + schedule_duration)
+    update!(scheduled_date: next_scheduled_date(scheduled_date))
   end
 
   def transaction_attributes
     {
       name:                      transaction_name,
       amount:                    transaction_amount,
-      transaction_date:          next_schedule_date,
+      transaction_date:          scheduled_date,
       profile_id:                profile_id,
       category_id:               transaction_category_id,
       subcategory_id:            transaction_subcategory_id,
@@ -55,8 +59,21 @@ class TransactionAutomation < ApplicationRecord
 
   private
 
+  def next_scheduled_date(current_date)
+    return if !schedule_type_custom? && !schedule_duration
+
+    return current_date + schedule_duration unless schedule_type_custom?
+
+    custom_rule.next_scheduled_date(current_date)
+  end
+
+  def custom_rule
+    @custom_rule ||= ::TransactionAutomations::CustomRule.new(self)
+  end
+
   def schedule_duration
     return unless valid?
+    return if schedule_type_custom?
 
     ActiveSupport::Duration.parse("P#{schedule_interval}#{self.class.schedule_types[schedule_type]}")
   end
