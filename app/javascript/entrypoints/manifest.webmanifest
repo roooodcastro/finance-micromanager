@@ -1,5 +1,5 @@
 {
-  "short_name": "FM",
+  "short_name": "FMM",
   "name": "Finance MicroManager",
   "description": "Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.",
   "icons": [
@@ -21,8 +21,14 @@
       "purpose": "maskable"
     }
   ],
+  "shortcuts": [
+    {
+      "name": "Create New Transaction",
+      "url": "/?new_transaction=true"
+    }
+  ],
   "start_url": "/",
-  "background_color": "#40EA80",
+  "background_color": "#EEEEFF",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#40EA80"

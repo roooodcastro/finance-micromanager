@@ -1,5 +1,5 @@
 {
-  "short_name": "FM",
+  "short_name": "FMM",
   "name": "<%= I18n.t('views.app_name') %>",
   "description": "<%= I18n.t('views.app_description') %>",
   "icons": [
@@ -21,8 +21,14 @@
       "purpose": "maskable"
     }
   ],
+  "shortcuts": [
+    {
+      "name": "<%= I18n.t('views.transactions.pwa_shortcut_label' ) %>",
+      "url": "/?new_transaction=true"
+    }
+  ],
   "start_url": "/",
-  "background_color": "#40EA80",
+  "background_color": "#EEEEFF",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#40EA80"

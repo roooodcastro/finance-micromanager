@@ -246,6 +246,7 @@ pt-BR:
         disabled: Desabilitada
         reenable_label: Reabilitar
     transactions:
+      pwa_shortcut_label: Criar nova Transação
       floating_button_label: Nova Transação
       index:
         title: Transações

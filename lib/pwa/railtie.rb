@@ -18,7 +18,7 @@ module Pwa
           compiled_template = Erubi::Engine.new(File.read(template_path), filename: template_path).src
           manifest          = ApplicationController.helpers.instance_eval(compiled_template)
 
-          Rails.root.write(TARGET_MANIFEST_PATH, manifest)
+          Rails.root.join(TARGET_MANIFEST_PATH).write(manifest)
         end
       end
     end

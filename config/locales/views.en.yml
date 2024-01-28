@@ -241,6 +241,7 @@ en:
         disabled: Disabled
         reenable_label: Re-enable
     transactions:
+      pwa_shortcut_label: Create New Transaction
       floating_button_label: New Transaction
       index:
         title: Transactions
