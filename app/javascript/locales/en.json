@@ -651,11 +651,11 @@
       "dashboard": {
         "show": {
           "average_spend": "Avg. Spend",
-          "end_balance": "End Balance",
+          "end_balance": "End Bal.",
           "money_in": "Money In",
           "money_saved": "Balance Diff",
           "spends": "Spends",
-          "start_balance": "Start Balance",
+          "start_balance": "Start Bal.",
           "sub_header_category_summary": "Categories Summary",
           "sub_header_day_chart": "Daily Totals",
           "sub_header_recent_transactions": "Recent Transactions",

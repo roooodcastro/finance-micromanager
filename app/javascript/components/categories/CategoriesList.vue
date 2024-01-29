@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <div class="CategoriesList list-group">
-      <template
-        v-for="category in categories"
-        :key="category.id"
-      >
-        <CategoryListItem :category="category" />
-      </template>
-    </div>
+  <NoRecordsFound v-if="!categories.length" />
+  <div
+    v-else
+    class="CategoriesList list-group"
+  >
+    <template
+      v-for="category in categories"
+      :key="category.id"
+    >
+      <CategoryListItem :category="category" />
+    </template>
   </div>
 </template>
 
@@ -20,10 +22,12 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 
 import CategoryListItem from '~/components/categories/CategoryListItem.vue';
+import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 
 export default {
   components: {
     CategoryListItem,
+    NoRecordsFound,
   },
 
   setup() {

@@ -55,8 +55,8 @@ pt-BR:
         spends: Gastos
         average_spend: Gasto Diário
         money_saved: Dif. Saldo
-        start_balance: Saldo Inicial
-        end_balance: Saldo Final
+        start_balance: 'S. Inicial'
+        end_balance: 'S. Final'
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
