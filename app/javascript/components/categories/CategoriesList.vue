@@ -35,7 +35,7 @@ export default {
     // Reload categories if profile has changed while this list is shown
     const profileStore = useProfileStore();
     const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => categoryStore.fetchCollection({ overrideCache: true }));
+    watch(currentProfile, () => categoryStore.fetchCollection());
 
     return {
       t: I18n.scopedTranslator('views.categories.index'),

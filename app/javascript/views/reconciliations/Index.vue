@@ -57,7 +57,7 @@ export default {
 
     const profileStore = useProfileStore();
     const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => reconciliationStore.fetchCollection({ overrideCache: true }));
+    watch(currentProfile, () => reconciliationStore.fetchCollection());
 
     const handleNew = () => reconciliationStore.openFormModal(null);
 

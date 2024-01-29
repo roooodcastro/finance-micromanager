@@ -29,3 +29,4 @@ export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-microman
 export const BROWSER_CACHE_NAME = 'finance_micromanager_cache';
 export const LATEST_UPDATED_AT_VALUES_HEADER_NAME = 'Browser-Cache-Updated-At-Values';
 export const CACHED_TIMESTAMP_HEADER_NAME = 'Browser-Cache-Timestamp';
+export const CURRENT_PROFILE_ID_HEADER_NAME = 'Current-Profile-Id';
