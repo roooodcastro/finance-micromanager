@@ -64,7 +64,7 @@ RSpec.describe Profile do
         shared:                   false,
         user_id:                  profile.user_id,
         user:                     expected_user_json,
-        currency_object:          { name: 'Euro', symbol: '€' },
+        currency_object:          { iso_code: 'EUR', name: 'Euro', symbol: '€' },
         last_reconciliation_date: nil,
         default_wallet_id:        nil
       }

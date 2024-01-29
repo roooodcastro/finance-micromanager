@@ -35,7 +35,7 @@ class Profile < ApplicationRecord
   validate :validate_currency_stays_the_same
 
   def as_json(*)
-    currency_as_json = currency_object.as_json(only: %w[name symbol])
+    currency_as_json = currency_object.as_json(only: %w[name symbol iso_code])
     super(except: %w[created_at updated_at], methods: :display_name)
       .merge(
         currency_object:          currency_as_json,
