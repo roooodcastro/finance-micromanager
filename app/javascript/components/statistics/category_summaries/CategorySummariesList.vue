@@ -3,9 +3,10 @@
     <div class="CategorySummariesList">
       <template
         v-for="category in categories"
-        :key="indexedSummaries[category.id].id"
+        :key="indexedSummaries[category.id]?.id"
       >
         <CategorySummaryListItem
+          v-if="!!indexedSummaries[category.id]"
           :summary="indexedSummaries[category.id]"
           :category="category"
         />

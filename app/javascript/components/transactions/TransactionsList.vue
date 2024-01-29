@@ -163,9 +163,9 @@ export default {
     watch(
       currentProfile,
       () => {
-        transactionStore.fetchCollection({ overrideCache: true });
-        categoryStore.fetchCollection({ overrideCache: true });
-        walletStore.fetchCollection({ overrideCache: true });
+        transactionStore.fetchCollection();
+        categoryStore.fetchCollection();
+        walletStore.fetchCollection();
       }
     );
 

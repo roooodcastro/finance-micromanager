@@ -67,7 +67,7 @@ export default {
 
     const profileStore = useProfileStore();
     const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => walletStore.fetchCollection({ overrideCache: true }));
+    watch(currentProfile, () => walletStore.fetchCollection());
 
     const { showDisabled }  = storeToRefs(walletStore);
 

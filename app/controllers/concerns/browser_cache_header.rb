@@ -25,6 +25,7 @@ module BrowserCacheHeader
   def set_browser_cache_headers
     return unless Current.profile
 
+    headers['CURRENT-PROFILE-ID']              = Current.profile.id
     headers['BROWSER-CACHE-TIMESTAMP']         = Time.current.to_i
     headers['BROWSER-CACHE-UPDATED-AT-VALUES'] = latest_updated_at_values
   end

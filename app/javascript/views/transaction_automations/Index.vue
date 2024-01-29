@@ -57,7 +57,7 @@ export default {
 
     const profileStore = useProfileStore();
     const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => transactionAutomationStore.fetchCollection({ overrideCache: true }));
+    watch(currentProfile, () => transactionAutomationStore.fetchCollection());
 
     transactionAutomationStore.loadCollectionFromProps(props.transactionAutomations);
 
