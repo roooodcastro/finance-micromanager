@@ -15,9 +15,9 @@ class TransactionStatisticsSerializer < ApplicationSerializer
 
   def daily_totals
     daily_totals_transactions = transactions
-                                .group(:transaction_date)
+                                .group(:transaction_date, :profile_id)
                                 .order(:transaction_date)
-                                .select(:transaction_date, 'sum(amount_cents) as amount_cents')
+                                .select(:transaction_date, :profile_id, 'sum(amount_cents) as amount_cents')
                                 .to_a
                                 .map { |t| { date: t.transaction_date, amount: t.amount.to_f } }
                                 .index_by { |transaction| transaction[:date] }

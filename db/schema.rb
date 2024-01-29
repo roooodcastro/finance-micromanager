@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_27_230538) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_29_161748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,7 +131,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_27_230538) do
     t.string "name", limit: 100, null: false
     t.string "raw_import_name", limit: 100
     t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "EUR", null: false
     t.date "transaction_date", null: false
     t.bigint "import_id"
     t.datetime "created_at", null: false
@@ -191,7 +190,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_27_230538) do
     t.uuid "profile_id", null: false
     t.string "name", limit: 50, null: false
     t.integer "balance_cents", default: 0, null: false
-    t.string "balance_currency", default: "EUR", null: false
     t.datetime "disabled_at"
     t.uuid "disabled_by_id"
     t.datetime "created_at", null: false
