@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center mt-3 text-muted">
+  <div class="text-center mt-3 text-muted border rounded p-3">
     {{ t('no_transactions') }}
     <FontAwesomeIcon :icon="['far', 'face-frown']" />
   </div>

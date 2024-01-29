@@ -1,5 +1,9 @@
 <template>
-  <div class="WalletsList list-group overflow-x-hidden">
+  <NoRecordsFound v-if="!wallets.length" />
+  <div
+    v-else
+    class="WalletsList list-group overflow-x-hidden"
+  >
     <template
       v-for="wallet in wallets"
       :key="`${wallet.id}_${wallet.updatedAt}`"
@@ -15,9 +19,11 @@ import { storeToRefs } from 'pinia';
 import useWalletStore from '~/stores/WalletStore.js';
 
 import WalletListItem from '~/components/wallets/WalletListItem.vue';
+import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 
 export default {
   components: {
+    NoRecordsFound,
     WalletListItem,
   },
 

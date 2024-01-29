@@ -1,6 +1,14 @@
 <template>
   <LoadingOverlay :loading="loading">
-    <div class="CategorySummariesList">
+    <NoRecordsFound
+      v-if="!categories.length"
+      class="m-3"
+    />
+
+    <div
+      v-else
+      class="CategorySummariesList"
+    >
       <template
         v-for="category in categories"
         :key="indexedSummaries[category.id]?.id"
@@ -23,11 +31,13 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 
 import CategorySummaryListItem from '~/components/statistics/category_summaries/CategorySummaryListItem.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
+import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 
 export default {
   components: {
-    LoadingOverlay,
     CategorySummaryListItem,
+    LoadingOverlay,
+    NoRecordsFound,
   },
 
   setup() {

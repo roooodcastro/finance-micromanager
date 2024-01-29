@@ -1,5 +1,9 @@
 <template>
-  <div class="list-group">
+  <NoRecordsFound v-if="!transactionAutomations.length" />
+  <div
+    v-else
+    class="list-group"
+  >
     <template
       v-for="transactionAutomation in transactionAutomations"
       :key="`${transactionAutomation.id}_${transactionAutomation.updatedAt}`"
@@ -15,9 +19,11 @@ import { storeToRefs } from 'pinia';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
 
 import TransactionAutomationListItem from '~/components/transaction_automations/TransactionAutomationListItem.vue';
+import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 
 export default {
   components: {
+    NoRecordsFound,
     TransactionAutomationListItem,
   },
 

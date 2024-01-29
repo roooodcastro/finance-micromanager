@@ -3,7 +3,7 @@
     <MassEditForm />
     <NoTransactionsPlaceholder
       v-if="initialFetchDone && !transactions.length"
-      :class="{ 'mb-3': cardBody }"
+      :class="{ 'm-3': cardBody }"
     />
 
     <template v-else>
