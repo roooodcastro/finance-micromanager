@@ -1,0 +1,35 @@
+{
+  "short_name": "FMM",
+  "name": "<%= I18n.t('views.app_name') %>",
+  "description": "<%= I18n.t('views.app_description') %>",
+  "icons": [
+    {
+      "src": "<%= vite_asset_path('images/favicon/favicon-192.png') %>",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "<%= vite_asset_path('images/favicon/favicon-512.png') %>",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "<%= vite_asset_path('images/favicon/favicon-512.png') %>",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "<%= I18n.t('views.transactions.pwa_shortcut_label') %>",
+      "url": "/?new_transaction=true2"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#EEEEFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#40EA80"
+}

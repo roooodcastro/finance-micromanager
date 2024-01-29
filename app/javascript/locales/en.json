@@ -603,6 +603,7 @@
       }
     },
     "views": {
+      "app_description": "Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.",
       "app_name": "Finance MicroManager",
       "categories": {
         "confirmation": {
@@ -986,6 +987,7 @@
           "submit": "Submit",
           "wallet_label": "Wallet"
         },
+        "pwa_shortcut_label": "Create New Transaction",
         "types": {
           "all_transactions": "All",
           "credit_transactions": "Income",

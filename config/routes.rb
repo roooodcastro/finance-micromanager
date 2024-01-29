@@ -75,5 +75,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/service_worker.js' => 'service_worker#service_worker'
+  get '/manifest.json' => 'service_worker#manifest'
+
   resource :health_check, only: :show
 end

@@ -1,0 +1,15 @@
+const onInstall = (event) => {
+  console.log('[Serviceworker]', "Installing!", event);
+}
+
+const onActivate = (event) => {
+  console.log('[Serviceworker]', "Activating!", event);
+}
+
+const onFetch = (event) => {
+  console.log('[Serviceworker]', "Fetching!", event);
+}
+
+self.addEventListener('install', onInstall);
+self.addEventListener('activate', onActivate);
+self.addEventListener('fetch', onFetch);
