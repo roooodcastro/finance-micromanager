@@ -3,7 +3,7 @@
 class Transaction < ApplicationRecord
   RECENT_TRANSACTIONS_COUNT = 10
 
-  monetize :amount_cents, disable_validation: true
+  monetize :amount_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
 
   attr_accessor :amount_type
 
@@ -29,6 +29,10 @@ class Transaction < ApplicationRecord
   scope :older_than, ->(date) { where(transaction_date: [..date]) }
   scope :newer_than, ->(date) { where(transaction_date: [date...]) }
   scope :sort_by_recent, -> { order(transaction_date: :desc, created_at: :desc) }
+
+  def currency
+    profile&.currency || Money.default_currency
+  end
 
   def as_json(*)
     super(except: %w[created_at updated_at])

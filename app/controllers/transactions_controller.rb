@@ -75,7 +75,7 @@ class TransactionsController < AbstractAuthenticatedController
     params
       .require(:transaction)
       .permit(:name, :amount, :transaction_date, :category_id, :amount_type, :wallet_id)
-      .merge(amount_currency: Current.profile.currency, created_by: current_user, updated_by: current_user)
+      .merge(created_by: current_user, updated_by: current_user)
       .then { |permitted_params| process_category_id_param(permitted_params) }
   end
 

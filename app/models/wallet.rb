@@ -3,13 +3,17 @@
 class Wallet < ApplicationRecord
   include Disableable
 
-  monetize :balance_cents, disable_validation: true
+  monetize :balance_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
 
   belongs_to :profile
 
   has_many :transactions, dependent: :restrict_with_exception
 
   validates :name, :balance, presence: true
+
+  def currency
+    profile&.currency || Money.default_currency
+  end
 
   def as_json(*)
     currency_as_json = balance.currency.as_json(only: %w[name symbol iso_code])
