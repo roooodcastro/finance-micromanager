@@ -16,6 +16,7 @@ import 'dayjs/locale/en-gb.js';
 
 import '~/utils/fontAwesome.js';
 import '~/utils/JsFromRoutesConfig.js';
+import { registerServiceWorker } from '~/pwa/registerWorker.js';
 
 /* eslint-disable-next-line no-unused-vars */
 import * as bootstrap from 'bootstrap';
@@ -27,6 +28,8 @@ const layouts = {
 };
 
 async function startApplication() {
+  registerServiceWorker();
+
   Csrf.refreshToken();
   await I18n.loadTranslations();
 
