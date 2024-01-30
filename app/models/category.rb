@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
+  include CacheLatestUpdatedAt
   include Disableable
 
   HEX_COLOR_REGEX       = /\A#[[0-9][a-f]]{6}\z/i

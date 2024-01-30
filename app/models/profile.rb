@@ -12,7 +12,7 @@ class Profile < ApplicationRecord
 
   has_many :transactions, dependent: :restrict_with_exception
   has_many :categories, dependent: :restrict_with_exception
-  has_many :subcategories, through: :categories
+  has_many :subcategories, through: :categories, source: :profile
   has_many :imports, dependent: :restrict_with_exception
   has_many :profile_shares, dependent: :restrict_with_exception
   has_many :wallets, dependent: :restrict_with_exception
