@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Transaction < ApplicationRecord
+  include CacheLatestUpdatedAt
+
   RECENT_TRANSACTIONS_COUNT = 10
 
   monetize :amount_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }

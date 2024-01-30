@@ -31,14 +31,11 @@ module BrowserCacheHeader
   end
 
   def latest_category_updated_at
-    @latest_category_updated_at ||= [
-      Current.profile.categories.maximum(:updated_at),
-      Current.profile.subcategories.maximum(:updated_at)
-    ].compact.max
+    @latest_category_updated_at ||= [Category.latest_updated_at, Subcategory.latest_updated_at].compact.max
   end
 
   def latest_wallet_updated_at
-    @latest_wallet_updated_at ||= Current.profile.wallets.maximum(:updated_at)
+    @latest_wallet_updated_at ||= Wallet.latest_updated_at
   end
 
   def latest_category_summary_updated_at
@@ -49,6 +46,6 @@ module BrowserCacheHeader
   end
 
   def latest_transaction_updated_at
-    @latest_transaction_updated_at ||= Current.profile.transactions.maximum(:updated_at)
+    @latest_transaction_updated_at ||= Transaction.latest_updated_at
   end
 end

@@ -80,6 +80,9 @@ Rails/SkipsModelValidations:
 RSpec/ExpectChange:
   EnforcedStyle: block
 
+RSpec/MessageSpies:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

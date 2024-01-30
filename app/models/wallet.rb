@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Wallet < ApplicationRecord
+  include CacheLatestUpdatedAt
   include Disableable
 
   monetize :balance_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
