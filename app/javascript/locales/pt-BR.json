@@ -788,6 +788,11 @@
           "wallets": "Carteiras"
         }
       },
+      "manifest": {
+        "screenshots": {
+          "login_page": "Página de Login"
+        }
+      },
       "profile_share_invites": {
         "index": {
           "accept": "Aceitar",

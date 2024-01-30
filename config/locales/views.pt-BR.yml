@@ -115,6 +115,9 @@ pt-BR:
         sign_in: Fazer Login
         sign_up: Criar Conta
         sign_out: Sair da Conta
+    manifest:
+      screenshots:
+        login_page: Página de Login
     profiles:
       index:
         title: Perfis

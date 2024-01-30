@@ -27,6 +27,22 @@
       "url": "/?new_transaction=true2"
     }
   ],
+  "screenshots": [
+    {
+      "src": "<%= vite_asset_path('images/screenshots/login_page_portrait.png') %>",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "<%= I18n.t('views.manifest.screenshots.login_page') %>"
+    },
+    {
+      "src": "<%= vite_asset_path('images/screenshots/login_page_landscape.png') %>",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "<%= I18n.t('views.manifest.screenshots.login_page') %>"
+    }
+  ],
   "start_url": "/",
   "background_color": "#EEEEFF",
   "display": "standalone",
