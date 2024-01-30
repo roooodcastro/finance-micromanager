@@ -115,6 +115,9 @@ en:
         sign_in: Sign In
         sign_up: Sign Up
         sign_out: Sign Out
+    manifest:
+      screenshots:
+        login_page: Login page
     profiles:
       index:
         title: Profiles
