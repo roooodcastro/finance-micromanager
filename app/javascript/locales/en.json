@@ -782,6 +782,7 @@
         }
       },
       "reconciliations": {
+        "floating_button_label": "New Reconciliation",
         "form": {
           "cancel": "Cancel",
           "date_label": "Date",

@@ -165,6 +165,7 @@ en:
         cancel: Cancel
         confirm: Send Invite
     reconciliations:
+      floating_button_label: New Reconciliation
       info_alert:
         message: 'There is a reconciliation in progress for %{date}. <a href="%{href}">Click here</a> to access it.'
       index:
