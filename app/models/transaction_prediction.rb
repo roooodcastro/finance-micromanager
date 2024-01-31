@@ -7,6 +7,7 @@ class TransactionPrediction < ApplicationRecord
   belongs_to :profile
 
   validates :name, :rules_json, presence: true
+  validate :validate_rules
 
   def rules
     return if rules_json.blank?
@@ -17,5 +18,13 @@ class TransactionPrediction < ApplicationRecord
   def rules_json=(value)
     super(value)
     @rules = nil
+  end
+
+  private
+
+  def validate_rules
+    return if rules_json.blank? || rules_json.valid?
+
+    errors.add(:rules_json, :invalid)
   end
 end
