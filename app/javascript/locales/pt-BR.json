@@ -840,6 +840,7 @@
         }
       },
       "reconciliations": {
+        "floating_button_label": "Nova Reconciliação",
         "form": {
           "cancel": "Cancelar",
           "date_label": "Data",
