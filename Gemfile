@@ -55,6 +55,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'brakeman', require: false
+  gem 'faker', require: false
   gem 'listen'
   gem 'overcommit', require: false
   gem 'rubocop', require: false
