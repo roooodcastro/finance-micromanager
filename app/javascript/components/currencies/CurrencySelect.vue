@@ -2,6 +2,8 @@
   <select
     v-bind="$attrs"
     class="form-select"
+    :value="modelValue ?? $attrs.value"
+    @change="handleChange"
   >
     <option />
     <option
@@ -19,12 +21,29 @@ import { ref } from 'vue';
 import { currencies } from '~/api/all.js';
 
 export default {
-  setup() {
+  props: {
+    modelValue: {
+      type: String,
+      default: null,
+    },
+  },
+
+  emits: ['update:modelValue', 'change'],
+
+  setup(_, { emit }) {
     let availableCurrencies = ref([]);
 
     currencies.index().then(response => availableCurrencies.value = response);
 
-    return { availableCurrencies };
+    const handleChange = (ev) => {
+      emit('update:modelValue', ev.target.value);
+      emit('change', ev.target.value);
+    };
+
+    return {
+      availableCurrencies,
+      handleChange,
+    };
   },
 };
 </script>

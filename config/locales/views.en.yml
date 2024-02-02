@@ -119,6 +119,7 @@ en:
       screenshots:
         login_page: Login page
     profiles:
+      floating_button_label: New Profile
       index:
         title: Profiles
         new: New Profile
@@ -130,6 +131,7 @@ en:
       form:
         new_title: New Profile
         edit_title: Edit Profile
+        cancel: Cancel
         name_label: Name
         currency_label: Choose Currency
         default_wallet_label: Choose Default Wallet

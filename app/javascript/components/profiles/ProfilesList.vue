@@ -1,7 +1,7 @@
 <template>
   <div class="ProfilesList">
     <ProfileListItem
-      v-for="profile in profilesFromStore"
+      v-for="profile in profiles"
       :key="profile.id"
       :profile="profile"
     />
@@ -21,22 +21,14 @@ export default {
     ProfileListItem,
   },
 
-  props: {
-    profiles: {
-      type: Array,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
     const profileStore = useProfileStore();
 
-    const { availableProfiles: profilesFromStore } = storeToRefs(profileStore);
-    profilesFromStore.value = props.profiles;
+    const { profiles } = storeToRefs(profileStore);
 
     return {
       t: I18n.scopedTranslator('views.profiles.index'),
-      profilesFromStore,
+      profiles,
     };
   },
 };

@@ -19,8 +19,8 @@ en:
 
   profiles:
     create:
-      success: 'Profile was successfully created.'
-      error: 'Profile "%{name}" could not be created: %{error}'
+      success: 'Profile "%{name}" was successfully created.'
+      error: 'Profile could not be created: %{error}'
     update:
       success: 'Profile "%{name}" was successfully updated.'
       error: 'Profile "%{name}" could not be updated: %{error}'

@@ -19,8 +19,8 @@ pt-BR:
 
   profiles:
     create:
-      success: 'Perfil criado com sucesso.'
-      error: 'Perfil "%{name}" não pode ser criado: %{error}'
+      success: 'Perfil "%{name}" criado com sucesso.'
+      error: 'Perfil não pode ser criado: %{error}'
     update:
       success: 'Perfil "%{name}" atualizado com sucesso.'
       error: 'Perfil "%{name}" não pode ser atualizado: %{error}'

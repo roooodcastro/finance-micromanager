@@ -3,9 +3,10 @@
     <PageHeader :title="t('title')">
       <template v-slot:actions>
         <DropdownMenuItem
-          :href="newProfilePath"
+          href="#"
           :label="t('new')"
           icon="plus"
+          @click="handleNew"
         />
       </template>
     </PageHeader>
@@ -14,13 +15,14 @@
 
     <ProfileShareInvitesList />
 
-    <ProfilesList :profiles="profiles" />
+    <ProfilesList />
   </div>
 </template>
 
 <script>
-import { profiles } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ProfilesList from '~/components/profiles/ProfilesList.vue';
@@ -44,12 +46,23 @@ export default {
     },
   },
 
-  setup() {
-    const newProfilePath = profiles.new.path();
+  setup(props) {
+    const profileStore = useProfileStore();
+    profileStore.loadCollectionFromProps(props.profiles);
+
+    const handleNew = () => profileStore.openFormModal(null);
+
+    const floatingActionButtonStore = useFloatingActionButtonStore();
+    floatingActionButtonStore.registerSpeedDialEntry({
+      label: I18n.t('views.profiles.floating_button_label'),
+      icon: 'wallet',
+      callback: handleNew,
+    });
+
 
     return {
-      newProfilePath,
       t: I18n.scopedTranslator('views.profiles.index'),
+      handleNew,
     };
   },
 };

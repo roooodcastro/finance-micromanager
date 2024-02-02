@@ -119,6 +119,7 @@ pt-BR:
       screenshots:
         login_page: Página de Login
     profiles:
+      floating_button_label: Novo Perfil
       index:
         title: Perfis
         new: Novo perfil
@@ -130,6 +131,7 @@ pt-BR:
       form:
         new_title: Novo Perfil
         edit_title: Editar Perfil
+        cancel: Cancelar
         name_label: Nome
         currency_label: Selecione a Moeda
         default_wallet_label: Selecione a Carteira Padrão

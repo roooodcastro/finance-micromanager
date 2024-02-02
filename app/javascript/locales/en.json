@@ -478,8 +478,8 @@
     },
     "profiles": {
       "create": {
-        "error": "Profile \"%{name}\" could not be created: %{error}",
-        "success": "Profile was successfully created."
+        "error": "Profile could not be created: %{error}",
+        "success": "Profile \"%{name}\" was successfully created."
       },
       "destroy": {
         "success": "Profile \"%{name}\" was successfully disabled."
@@ -761,8 +761,10 @@
         }
       },
       "profiles": {
+        "floating_button_label": "New Profile",
         "form": {
           "back": "Back",
+          "cancel": "Cancel",
           "currency_change_warning": "Currency cannot be changed after profile is created!",
           "currency_label": "Choose Currency",
           "default_wallet_label": "Choose Default Wallet",

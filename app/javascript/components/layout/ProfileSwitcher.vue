@@ -27,7 +27,7 @@
     </button>
     <ul class="dropdown-menu">
       <li
-        v-for="profile in availableProfiles"
+        v-for="profile in profiles"
         :key="profile.id"
       >
         <a
@@ -58,7 +58,8 @@
       <li>
         <a
           class="dropdown-item"
-          :href="newProfilePath"
+          href="#"
+          @click="handleNewProfile"
         >
           <FontAwesomeIcon
             class="ProfileSwitcher__currency-icon me-2 text-secondary"
@@ -78,7 +79,7 @@ import { storeToRefs } from 'pinia';
 
 import useProfileStore from '~/stores/ProfileStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
-import { profiles, currentProfiles } from '~/api/all.js';
+import { currentProfiles } from '~/api/all.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
 import I18n from '~/utils/I18n.js';
 
@@ -91,9 +92,8 @@ export default {
     const t = I18n.scopedTranslator('views.layout.profile_switcher');
 
     const profileStore = useProfileStore();
-    const { currentProfile, availableProfiles } = storeToRefs(profileStore);
+    const { currentProfile, profiles } = storeToRefs(profileStore);
     const dropdownOpened = ref(false);
-    const newProfilePath = profiles.new.path();
 
     const handleProfileChange = (profileId) => {
       currentProfiles
@@ -108,18 +108,19 @@ export default {
         });
     };
 
+    const handleNewProfile = () => profileStore.openFormModal(null);
     const handleDropDownClick = (ev) => {
       dropdownOpened.value = ev.target.classList.contains('show');
     };
 
     return {
-      availableProfiles,
+      profiles,
       currentProfile,
       dropdownOpened,
       faIconForCurrency,
       handleProfileChange,
       handleDropDownClick,
-      newProfilePath,
+      handleNewProfile,
       t,
     };
   },

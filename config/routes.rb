@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     resource :landing, only: :show
     resource :setting, only: %i[show update]
 
-    resources :profiles
+    resources :profiles, except: %i[new edit]
     resources :profile_share_invites_sent, except: %i[show new edit update]
     resources :profile_share_invites_received, only: %i[index update destroy]
     resources :categories, only: %i[index show create update destroy] do

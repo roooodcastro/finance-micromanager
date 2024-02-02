@@ -55,7 +55,6 @@ export default {
     const loading = ref(false);
 
     const modalStore = useModalStore();
-
     const modalId = modalStore.modalId(WALLET_FORM_ID);
 
     const walletStore = useWalletsStore();

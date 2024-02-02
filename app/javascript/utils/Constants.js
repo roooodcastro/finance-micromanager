@@ -2,6 +2,7 @@ export const CONFIRMATION_MODAL_ID = 'confirmationModal';
 export const PASSWORD_CHANGE_MODAL_ID = 'passwordChangeModal';
 
 export const CATEGORY_FORM_ID = 'categoryForm';
+export const PROFILE_FORM_ID = 'profileForm';
 export const RECONCILIATION_FORM_ID = 'reconciliationForm';
 export const SUBCATEGORY_FORM_ID = 'subcategoryForm';
 export const TRANSACTION_FORM_ID = 'transactionForm';
