@@ -814,6 +814,7 @@
       },
       "manifest": {
         "screenshots": {
+          "dashboard": "Página Inicial",
           "login_page": "Página de Login"
         }
       },

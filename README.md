@@ -26,11 +26,25 @@
 
 #### Transaction tracking
 
-*TODO*
+<div align="center">
+  <img src="app/javascript/images/screenshots/transactions_landscape.png" alt="Transactions page" height="450px">
+</div>
+
+Tracking your expenses is simple and effective. With the ability to categorize transactions and assign them to specific
+wallets, you can have precise control over your expenses. Categories allow you to separate and analyse spending habits
+and pinpoint areas for improvement, while wallets help you track money across different accounts or purposes.
 
 #### Categories and Subcategories
 
-*TODO*
+<div align="center">
+  <img src="app/javascript/images/screenshots/category_car_landscape.png" alt="Category page for car" height="450px">
+</div>
+
+Our category system is designed for flexibility and precision. You can categorise your expenses into broad categories
+like "Food" or "Transportation" and further break them down into subcategories like "Groceries" or "Dining Out". This
+granular approach allows you to optionally capture detailed insights into your spending habits, helping you understand
+where your money goes with clarity and accuracy. In the example above, a category "Car" is broken down into many
+subcategories, allowing you to know whether you're spending more money with fuel, parking, or that fancy new car wax.
 
 #### Profiles and Wallets
 
@@ -62,7 +76,10 @@
 
 ## Self-hosting
 
-*TODO*
+You can easily self-host Finance MicroManager! The project includes a Dockerfile and configuration files tailored to
+be hosted in a Kubernetes cluster.
+
+*Further instructions on this coming soon*
 
 ### Prerequisites
 

@@ -755,6 +755,7 @@
       },
       "manifest": {
         "screenshots": {
+          "dashboard": "Dashboard",
           "login_page": "Login page"
         }
       },

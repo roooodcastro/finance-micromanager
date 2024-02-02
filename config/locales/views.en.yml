@@ -119,6 +119,7 @@ en:
     manifest:
       screenshots:
         login_page: Login page
+        dashboard: Dashboard
     profiles:
       floating_button_label: New Profile
       index:
