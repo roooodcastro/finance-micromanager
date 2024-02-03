@@ -17,12 +17,21 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import useWalletStore from '~/stores/WalletStore.js';
 
 export default {
   props: {
+    wallets: {
+      type: Array,
+      default: () => [],
+    },
+    useWalletsFromProps: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: {
       type: String,
       default: null,
@@ -31,11 +40,12 @@ export default {
 
   emits: ['update:modelValue', 'change'],
 
-  setup(_props, { emit }) {
+  setup(props, { emit }) {
     const walletStore = useWalletStore();
-    const { activeWallets: options } = storeToRefs(walletStore);
+    const { activeWallets } = storeToRefs(walletStore);
+    const options = computed(() => props.useWalletsFromProps ? props.wallets : activeWallets.value);
 
-    if (!options.value.length) {
+    if (!props.useWalletsFromProps && !activeWallets.value.length) {
       walletStore.fetchCollection();
     }
 
