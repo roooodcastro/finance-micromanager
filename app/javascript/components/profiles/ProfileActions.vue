@@ -22,11 +22,12 @@
 
   <EditButton
     small
-    :href="editProfilePath(profile.id)"
+    href="#"
     :class="{
       'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu,
       'ms-3': !drawerMenu,
     }"
+    @click="handleEdit"
   />
 
   <DeleteButton
@@ -70,14 +71,13 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const profileStore = useProfileStore();
     const notificationStore = useNotificationStore();
 
-    const editProfilePath = (profileId) => profilesApi.edit.path({ id: profileId });
-
     const handleProfileShareInviteModalClick = profileId => profileStore.setProfileIdForInviteModal(profileId);
 
+    const handleEdit = () => profileStore.openFormModal(props.profile.id);
     const handleDelete = (id) => {
       profilesApi.destroy({ id }).then((response) => {
         notificationStore.notify(response.message, 'success');
@@ -86,10 +86,10 @@ export default {
     };
 
     return {
-      editProfilePath,
+      t: I18n.scopedTranslator('views.profiles.index'),
+      handleEdit,
       handleDelete,
       handleProfileShareInviteModalClick,
-      t: I18n.scopedTranslator('views.profiles.index'),
     };
   },
 };

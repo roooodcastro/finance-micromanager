@@ -51,7 +51,7 @@ export default {
     const handleReceivedInviteResponse = (profileShareInvite, accepted) => {
       if (accepted) {
         profileShareInviteStore.acceptPendingReceivedInvite(profileShareInvite).then(() => {
-          profileStore.fetchAvailableProfiles();
+          profileStore.fetchCollection();
           setTimeout(() => {
             profileShareInviteStore.removeProfileShareInviteReceived(profileShareInvite);
           }, RESPONSE_MESSAGE_TIMEOUT);

@@ -1,22 +1,24 @@
 <template>
-  <RailsForm
-    :action="formAction"
-    :method="formMethod"
-    resource="profile"
+  <FormModal
+    :t="t"
+    :record="profile"
+    :form-id="PROFILE_FORM_ID"
+    :modal-id="modalId"
+    :loading="loading"
   >
-    <template v-slot:default="{ formHelper }">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ formTitle }}
-          </h4>
-
-          <hr>
-
+    <template v-slot:default="{ closeModal }">
+      <RailsForm
+        :id="PROFILE_FORM_ID"
+        :action="formAction"
+        :method="formMethod"
+        resource="profile"
+        @submit.prevent="handleSubmit(closeModal)"
+      >
+        <template v-slot:default="{ formHelper }">
           <FormInput
+            v-model="profile.name"
             field-name="name"
             :form-helper="formHelper"
-            :value="profile.name"
             :label="t('name_label')"
             class="focus"
             maxlength="30"
@@ -35,8 +37,8 @@
 
           <CurrencySelect
             :id="formHelper.fieldId('currency')"
+            v-model="profile.currency"
             :name="formHelper.fieldName('currency')"
-            :value="profile.currency"
             :disabled="!isNewRecord"
             required
           />
@@ -51,41 +53,28 @@
 
             <WalletsSelect
               :id="formHelper.fieldId('default_wallet_id')"
-              :value="profile.defaultWalletId"
+              v-model="profile.defaultWalletId"
               :name="formHelper.fieldName('default_wallet_id')"
             />
           </template>
-        </div>
-
-        <div class="card-footer">
-          <div class="d-grid gap-2 d-md-flex">
-            <button
-              type="submit"
-              class="btn btn-primary flex-md-fill"
-            >
-              {{ t('submit') }}
-            </button>
-
-            <a
-              :href="listProfilesPath"
-              class="btn btn-outline-secondary flex-md-fill"
-            >
-              {{ t('back') }}
-            </a>
-          </div>
-        </div>
-      </div>
+        </template>
+      </RailsForm>
     </template>
-  </RailsForm>
+  </FormModal>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import { profiles as profilesApi } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
+import { PROFILE_FORM_ID } from '~/utils/Constants.js';
+import useModalStore from '~/stores/ModalStore.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
+import FormModal from '~/components/forms/FormModal.vue';
 import CurrencySelect from '~/components/currencies/CurrencySelect.vue';
 import FormInput from '~/components/rails/FormInput.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
@@ -93,40 +82,59 @@ import InfoAlert from '~/components/bootstrap/InfoAlert.vue';
 
 export default {
   components: {
-    InfoAlert,
     CurrencySelect,
     FormInput,
+    FormModal,
+    InfoAlert,
     RailsForm,
     WalletsSelect,
   },
 
-  props: {
-    profile: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
     const t = I18n.scopedTranslator('views.profiles.form');
 
-    const listProfilesPath = profilesApi.index.path();
+    const loading = ref(false);
 
-    const isNewRecord = computed(() => !props.profile.id);
+    const modalStore = useModalStore();
+    const modalId = modalStore.modalId(PROFILE_FORM_ID);
+
+    const profileStore = useProfileStore();
+    const { profileForFormModal: profile } = storeToRefs(profileStore);
+
+    const isNewRecord = computed(() => !profile.value.id);
     const formMethod = isNewRecord.value ? 'POST' : 'PATCH';
     const formAction = isNewRecord.value
       ? profilesApi.create.path()
-      : profilesApi.update.path({ id: props.profile.id });
+      : profilesApi.update.path({ id: profile.value.id });
 
-    const formTitle = isNewRecord.value ? t('new_title') : t('edit_title', { profile: props.profile.displayName });
+    const handleSubmit = (closeModal) => {
+      loading.value = true;
+
+      if (isNewRecord.value) {
+        profileStore
+          .create(profile.value)
+          .then(closeModal)
+          .catch(() => {})
+          .finally(() => loading.value = false);
+      } else {
+        profileStore
+          .update(profile.value.id, profile.value)
+          .then(closeModal)
+          .catch(() => {})
+          .finally(() => loading.value = false);
+      }
+    };
 
     return {
+      t,
+      loading,
+      modalId,
+      profile,
       formAction,
       formMethod,
-      formTitle,
       isNewRecord,
-      listProfilesPath,
-      t
+      handleSubmit,
+      PROFILE_FORM_ID,
     };
   },
 };

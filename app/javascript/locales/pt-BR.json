@@ -535,8 +535,8 @@
     },
     "profiles": {
       "create": {
-        "error": "Perfil \"%{name}\" não pode ser criado: %{error}",
-        "success": "Perfil criado com sucesso."
+        "error": "Perfil não pode ser criado: %{error}",
+        "success": "Perfil \"%{name}\" criado com sucesso."
       },
       "destroy": {
         "success": "Perfil \"%{name}\" desabilitado com sucesso."
@@ -819,8 +819,10 @@
         }
       },
       "profiles": {
+        "floating_button_label": "Novo Perfil",
         "form": {
           "back": "Voltar",
+          "cancel": "Cancelar",
           "currency_change_warning": "A moeda não pode ser alterada após criação do perfil!",
           "currency_label": "Selecione a Moeda",
           "default_wallet_label": "Selecione a Carteira Padrão",

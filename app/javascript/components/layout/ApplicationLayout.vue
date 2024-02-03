@@ -1,9 +1,6 @@
 <template>
   <div class="ApplicationLayout d-flex flex-column container-fluid px-0">
     <Navigation />
-    <VerticalMenuOffcanvas />
-    <ConfirmationModal />
-    <TransactionForm />
 
     <div class="d-flex container-fluid flex-grow-1 px-3">
       <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
@@ -20,6 +17,10 @@
     </div>
 
     <PageFooter />
+    <VerticalMenuOffcanvas />
+    <ConfirmationModal />
+    <TransactionForm />
+    <ProfileForm />
   </div>
 </template>
 
@@ -44,6 +45,7 @@ import VerticalMenuOffcanvas from '~/components/layout/VerticalMenuOffcanvas.vue
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
+import ProfileForm from '@/components/profiles/ProfileForm.vue';
 
 export default {
   components: {
@@ -51,6 +53,7 @@ export default {
     FloatingActionButton,
     Navigation,
     PageFooter,
+    ProfileForm,
     ToastNotifications,
     TransactionForm,
     VerticalMenu,
@@ -102,7 +105,7 @@ export default {
 
     if (props.availableProfiles) {
       /* eslint-disable-next-line vue/no-setup-props-destructure */
-      profileStore.availableProfiles = props.availableProfiles;
+      profileStore.profiles = props.availableProfiles;
     }
 
     if (props.user) {

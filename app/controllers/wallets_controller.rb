@@ -27,7 +27,6 @@ class WalletsController < AbstractAuthenticatedController
 
   def update
     if @wallet.update(wallet_params)
-
       render json: camelize_props(message: t('.success', name: @wallet.name))
     else
       render json: camelize_props(
