@@ -21,61 +21,29 @@ RSpec.describe ProfilesController do
     it 'renders the index component, returning all available profiles' do
       get :index
 
-      expect_inertia.to render_component('profiles/Index')
-                    .and include_camelized_props({ profiles: [user.default_profile, profile, shared_profile].as_json })
+      expect_inertia
+        .to render_component('profiles/Index')
+        .and include_camelized_props({ profiles: [user.default_profile, profile, shared_profile].as_json })
     end
   end
 
-  describe 'GET new', :inertia do
-    it 'renders the new component' do
-      get :new
-
-      expect_inertia.to render_component('profiles/New')
-                    .and include_camelized_props({ profile: Profile.new.as_json })
-    end
-  end
-
-  describe 'GET edit', :inertia do
-    let!(:profile) { create(:profile, user:) }
-
-    context 'for an profile owned by the user' do
-      it 'renders the edit component' do
-        get :edit, params: { id: profile.id }
-
-        expect_inertia.to render_component('profiles/Edit')
-                      .and include_camelized_props({ profile: profile.as_json })
-      end
-    end
-
-    context 'for an profile shared with the user' do
-      let!(:profile) do
-        new_profile = create(:profile)
-        create(:profile_share, profile: new_profile, user: user)
-        new_profile
-      end
-
-      it 'renders the edit component' do
-        get :edit, params: { id: profile.id }
-
-        expect_inertia.to render_component('profiles/Edit')
-                      .and include_camelized_props({ profile: profile.as_json })
-      end
-    end
-  end
-
-  describe 'POST create', :inertia do
+  describe 'POST create' do
     subject(:create_request) { post :create, params: }
 
     context 'when params are valid and name is blank' do
       let(:params) { { profile: { name: nil, currency: 'brl' } } }
 
+      let(:expected_json) do
+        CamelizeProps.call('message' => 'Profile "Brazilian Real" was successfully created.')
+      end
+
       it 'creates the new profile' do
         expect { create_request }.to change { Profile.count }.by(1)
 
-        new_profile = Profile.last
-        expect(response).to redirect_to(profiles_path)
+        expect(json_response).to eq(expected_json)
+
+        new_profile = Profile.find_by(currency: 'brl')
         expect(new_profile.name).to eq('')
-        expect(new_profile.currency).to eq('brl')
         expect(new_profile.user).to eq(user)
       end
     end
@@ -83,11 +51,16 @@ RSpec.describe ProfilesController do
     context 'when params are valid and name is present' do
       let(:params) { { profile: { name: 'Test', currency: 'brl' } } }
 
+      let(:expected_json) do
+        CamelizeProps.call('message' => 'Profile "Test" was successfully created.')
+      end
+
       it 'creates the new profile' do
         expect { create_request }.to change { Profile.count }.by(1)
 
-        new_profile = Profile.last
-        expect(response).to redirect_to(profiles_path)
+        expect(json_response).to eq(expected_json)
+
+        new_profile = Profile.find_by(name: 'Test')
         expect(new_profile.name).to eq('Test')
         expect(new_profile.currency).to eq('brl')
         expect(new_profile.user).to eq(user)
@@ -97,11 +70,11 @@ RSpec.describe ProfilesController do
     context 'when params are invalid' do
       let(:params) { { profile: { name: 'Test', status: nil } } }
 
+      let(:expected_json) { CamelizeProps.call('message' => 'Profile could not be created: Currency can\'t be blank') }
+
       it 'does not create a new profile' do
         expect { create_request }.not_to change { Profile.count }
-
-        expect_inertia.to render_component('profiles/New')
-        expect(inertia.props.dig(:profile, :name)).to eq 'Test'
+        expect(json_response).to eq(expected_json)
       end
     end
   end
@@ -114,10 +87,13 @@ RSpec.describe ProfilesController do
     context 'when params are valid and profile is owned by the user' do
       let(:params) { { id: profile.id, profile: { name: 'New Name' } } }
 
+      let(:expected_json) do
+        CamelizeProps.call('message' => 'Profile "New Name" was successfully updated.')
+      end
+
       it 'updates the profile' do
         expect { update_request }.not_to change { Profile.count }
-
-        expect(response).to redirect_to(profiles_path)
+        expect(json_response).to eq(expected_json)
         expect(profile.reload.name).to eq('New Name')
       end
     end
@@ -131,10 +107,13 @@ RSpec.describe ProfilesController do
 
       let(:params) { { id: profile.id, profile: { name: 'New Name' } } }
 
+      let(:expected_json) do
+        CamelizeProps.call('message' => 'Profile "New Name" was successfully updated.')
+      end
+
       it 'updates the profile' do
         expect { update_request }.not_to change { Profile.count }
-
-        expect(response).to redirect_to(profiles_path)
+        expect(json_response).to eq(expected_json)
         expect(profile.reload.name).to eq('New Name')
       end
     end
@@ -142,12 +121,15 @@ RSpec.describe ProfilesController do
     context 'when params are invalid' do
       let(:params) { { id: profile.id, profile: { currency: nil } } }
 
+      let(:expected_json) do
+        CamelizeProps.call('message' => 'Profile "" could not be updated: Currency can\'t be blank, Currency is ' \
+                                        'not included in the list')
+      end
+
       it 'does not update the profile' do
         expect { update_request }.not_to change { Profile.count }
 
-        expect_inertia.to render_component('profiles/Edit')
-        expect(inertia.props.dig(:profile, :name)).to be_nil
-        expect(inertia.props.dig(:profile, :currency)).to eq('')
+        expect(json_response).to eq(expected_json)
       end
     end
   end
@@ -165,7 +147,7 @@ RSpec.describe ProfilesController do
         .to('disabled')
 
       expect(json_response)
-        .to eq('profileId' => profile.id, 'message' => "Profile \"#{profile.display_name}\" was successfully disabled.")
+        .to eq('message' => "Profile \"#{profile.display_name}\" was successfully disabled.")
     end
   end
 end

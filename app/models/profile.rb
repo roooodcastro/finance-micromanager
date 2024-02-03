@@ -29,7 +29,8 @@ class Profile < ApplicationRecord
   enum status: { active: 'active', disabled: 'disabled' }
 
   validates :status, presence: true
-  validates :currency, presence: true, inclusion: { in: Money::Currency.map(&:id).map(&:to_s) }
+  validates :currency, presence: true
+  validates :currency, inclusion: { in: Money::Currency.map(&:id).map(&:to_s) }, allow_nil: true
   validates :name, length: { maximum: 30 }, allow_blank: true
 
   validate :validate_currency_stays_the_same
@@ -63,6 +64,7 @@ class Profile < ApplicationRecord
   private
 
   def validate_currency_stays_the_same
+    return if currency.blank?
     return unless persisted? && currency_changed?
 
     errors.add(:currency, :cannot_change_after_creation)
