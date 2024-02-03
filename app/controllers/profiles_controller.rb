@@ -6,7 +6,7 @@ class ProfilesController < AbstractAuthenticatedController
   def index
     profiles = current_user.available_profiles
     props    = camelize_props(
-      profiles:        profiles.as_json,
+      profiles:        profiles.map { |profile| profile.as_json(include_wallets: true) },
       current_profile: Current.profile.as_json
     )
 

@@ -35,7 +35,7 @@ class Profile < ApplicationRecord
 
   validate :validate_currency_stays_the_same
 
-  def as_json(*)
+  def as_json(include_wallets: false)
     currency_as_json = currency_object.as_json(only: %w[name symbol iso_code])
     super(except: %w[created_at updated_at], methods: :display_name)
       .merge(
@@ -45,6 +45,10 @@ class Profile < ApplicationRecord
         last_reconciliation_date: latest_reconciliation&.date,
         balance_amount:           balance_amount.to_f
       )
+      .then do |json|
+        json[:wallets] = wallets.map(&:as_json) if include_wallets
+        json
+      end
   end
 
   def currency_object

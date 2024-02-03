@@ -55,6 +55,8 @@
               :id="formHelper.fieldId('default_wallet_id')"
               v-model="profile.defaultWalletId"
               :name="formHelper.fieldName('default_wallet_id')"
+              :use-wallets-from-props="true"
+              :wallets="profile.wallets"
             />
           </template>
         </template>

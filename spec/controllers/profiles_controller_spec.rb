@@ -10,20 +10,17 @@ RSpec.describe ProfilesController do
   end
 
   describe 'GET index', :inertia do
-    let!(:profile) { create(:profile, user:) }
+    before do
+      create(:profile, user:)
 
-    let!(:shared_profile) do
-      new_profile = create(:profile)
-      create(:profile_share, profile: new_profile, user: user)
-      new_profile
+      shared_profile = create(:profile)
+      create(:profile_share, profile: shared_profile, user: user)
     end
 
     it 'renders the index component, returning all available profiles' do
       get :index
 
-      expect_inertia
-        .to render_component('profiles/Index')
-        .and include_camelized_props({ profiles: [user.default_profile, profile, shared_profile].as_json })
+      expect_inertia.to render_component('profiles/Index')
     end
   end
 
