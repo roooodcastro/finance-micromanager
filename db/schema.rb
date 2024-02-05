@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_29_161748) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_31_013255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -127,6 +127,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_161748) do
     t.index ["transaction_wallet_id"], name: "index_transaction_automations_on_transaction_wallet_id"
   end
 
+  create_table "transaction_predictions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.string "name", limit: 50, null: false
+    t.string "rules_json", limit: 2000, null: false
+    t.datetime "disabled_at"
+    t.uuid "disabled_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disabled_by_id"], name: "index_transaction_predictions_on_disabled_by_id"
+    t.index ["profile_id"], name: "index_transaction_predictions_on_profile_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "raw_import_name", limit: 100
@@ -218,6 +230,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_161748) do
   add_foreign_key "transaction_automations", "subcategories", column: "transaction_subcategory_id"
   add_foreign_key "transaction_automations", "users", column: "disabled_by_id"
   add_foreign_key "transaction_automations", "wallets", column: "transaction_wallet_id"
+  add_foreign_key "transaction_predictions", "profiles"
+  add_foreign_key "transaction_predictions", "users", column: "disabled_by_id"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "imports"
   add_foreign_key "transactions", "profiles"
