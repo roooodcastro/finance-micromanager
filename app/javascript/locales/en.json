@@ -931,6 +931,37 @@
           "transaction_wallet": "Wallet"
         }
       },
+      "transaction_predictions": {
+        "confirmation": {
+          "destroy": "Are you sure you want to destroy this transaction prediction? This action cannot be undone.",
+          "disable": "Are you sure you want to disable this transaction prediction?",
+          "reenable": "Are you sure you want to reenable this transaction prediction?"
+        },
+        "floating_button_label": "New Transaction Prediction",
+        "form": {
+          "cancel": "Cancel",
+          "edit_title": "Edit Transaction Prediction",
+          "new_title": "New Transaction Prediction",
+          "submit": "Save"
+        },
+        "index": {
+          "new": "New Transaction Prediction",
+          "title": "Transaction Predictions"
+        },
+        "list": {
+          "disabled": "Disabled",
+          "reenable_label": "Reenable"
+        },
+        "show": {
+          "destroy": "Delete",
+          "disable": "Disable",
+          "disabled_alert_message": "This transaction prediction is disabled, it will not work until it's enabled again.",
+          "disabled_alert_title": "Disabled",
+          "edit": "Edit",
+          "reenable": "Reenable",
+          "title": "Transaction Prediction"
+        }
+      },
       "transactions": {
         "filters": {
           "all_days": "All",

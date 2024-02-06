@@ -991,6 +991,37 @@
           "transaction_wallet": "Wallet"
         }
       },
+      "transaction_predictions": {
+        "confirmation": {
+          "destroy": "Tem certeza de que deseja remover este autopreenchimento? Esta ação não poderá ser desfeita.",
+          "disable": "Tem certeza de que deseja desabilitar este autopreenchimento?",
+          "reenable": "Tem certeza de que deseja reabilitar este autopreenchimento?"
+        },
+        "floating_button_label": "Novo Autopreenchimento de Transação",
+        "form": {
+          "cancel": "Cancelar",
+          "edit_title": "Editar Autopreenchimento",
+          "new_title": "Novo Autopreenchimento",
+          "submit": "Salvar"
+        },
+        "index": {
+          "new": "Novo Autopreenchimento de Transação",
+          "title": "Autopreenchimentos de Transações"
+        },
+        "list": {
+          "disabled": "Desabilitado",
+          "reenable_label": "Reabilitar"
+        },
+        "show": {
+          "destroy": "Remover",
+          "disable": "Desabilitar",
+          "disabled_alert_message": "Este autopreenchimento está desabilitado. Ele não funcionará até que seja habilitado novamente.",
+          "disabled_alert_title": "Desabilitado",
+          "edit": "Editar",
+          "reenable": "Reabilitar",
+          "title": "Autopreenchimento de Transação"
+        }
+      },
       "transactions": {
         "filters": {
           "all_days": "Tudo",

@@ -241,6 +241,7 @@ pt-BR:
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
         empty_default_profile_label: '-- Perfil padrão não informado --'
+
     subcategories:
       form:
         submit: Salvar
@@ -251,6 +252,7 @@ pt-BR:
       list:
         disabled: Desabilitada
         reenable_label: Reabilitar
+
     transactions:
       pwa_shortcut_label: Criar nova Transação
       floating_button_label: Nova Transação
@@ -377,6 +379,33 @@ pt-BR:
         disabled_alert_title: Desabilitada
         disabled_alert_message: >-
           Esta automação está desabilitada. Ela não será mais executada ou ter seu agendamento atualizado.
+
+    transaction_predictions:
+      floating_button_label: Novo Autopreenchimento de Transação
+      confirmation:
+        destroy: Tem certeza de que deseja remover este autopreenchimento? Esta ação não poderá ser desfeita.
+        disable: Tem certeza de que deseja desabilitar este autopreenchimento?
+        reenable: Tem certeza de que deseja reabilitar este autopreenchimento?
+      form:
+        submit: Salvar
+        cancel: Cancelar
+        new_title: Novo Autopreenchimento
+        edit_title: Editar Autopreenchimento
+      index:
+        title: Autopreenchimentos de Transações
+        new: Novo Autopreenchimento de Transação
+      list:
+        disabled: Desabilitado
+        reenable_label: Reabilitar
+      show:
+        title: Autopreenchimento de Transação
+        edit: Editar
+        disable: Desabilitar
+        reenable: Reabilitar
+        destroy: Remover
+        disabled_alert_title: Desabilitado
+        disabled_alert_message: >-
+          Este autopreenchimento está desabilitado. Ele não funcionará até que seja habilitado novamente.
 
     users:
       confirmations:

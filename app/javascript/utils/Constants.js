@@ -7,6 +7,7 @@ export const RECONCILIATION_FORM_ID = 'reconciliationForm';
 export const SUBCATEGORY_FORM_ID = 'subcategoryForm';
 export const TRANSACTION_FORM_ID = 'transactionForm';
 export const TRANSACTION_AUTOMATION_FORM_ID = 'transactionAutomationForm';
+export const TRANSACTION_PREDICTION_FORM_ID = 'transactionPredictionForm';
 export const MASS_EDIT_TRANSACTION_FORM_ID = 'massEditTransactionForm';
 export const WALLET_FORM_ID = 'walletForm';
 export const PASSWORD_CHANGE_FORM_ID = 'passwordChangeForm';
