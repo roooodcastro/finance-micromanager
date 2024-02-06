@@ -35,7 +35,12 @@ export default defineStore('modal', {
     registerModal(name) {
       if (!this.modals[name]) {
         const modalId = name.endsWith('Modal') ? name : this.modalId(name);
-        this.modals[name] = new BootstrapModal(`#${modalId}`);
+        if (document.querySelector(`#${modalId}`)) {
+          this.modals[name] = new BootstrapModal(`#${modalId}`);
+        } else {
+          /* eslint-disable-next-line no-console */
+          console.error(`DOM element for modal #${modalId} not found. Is the modal component loaded?`);
+        }
       }
     },
 
@@ -44,7 +49,9 @@ export default defineStore('modal', {
         this.registerModal(name);
       }
 
-      this.modals[name].show();
+      if (this.modals[name]) {
+        this.modals[name].show();
+      }
     },
 
     hide(name) {

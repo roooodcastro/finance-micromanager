@@ -5,7 +5,13 @@ FactoryBot.define do
     profile { association(:profile) }
 
     sequence(:name, 'Prediction AAA')
-    rules_json { '{}' }
+
+    rules_json do
+      {
+        conditions: [{ operator: 'contains', column: 'name', value: 'a' }],
+        action:     { action: 'fill', column: 'amount', value: '10' }
+      }.to_json
+    end
 
     trait :disabled do
       disabled_at { Time.current }

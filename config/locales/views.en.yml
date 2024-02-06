@@ -236,6 +236,7 @@ en:
         header_account_settings: Account Settings
         empty_first_name_label: '-- First name not set --'
         empty_last_name_label: '-- Last name not set --'
+
     subcategories:
       form:
         submit: Save
@@ -246,6 +247,7 @@ en:
       list:
         disabled: Disabled
         reenable_label: Re-enable
+
     transactions:
       pwa_shortcut_label: Create New Transaction
       floating_button_label: New Transaction
@@ -372,6 +374,32 @@ en:
         every: Every
         disabled_alert_title: Disabled
         disabled_alert_message: This automation is disabled. It will not run and its schedule will not be updated.
+
+    transaction_predictions:
+      floating_button_label: New Transaction Prediction
+      confirmation:
+        destroy: Are you sure you want to destroy this transaction prediction? This action cannot be undone.
+        disable: Are you sure you want to disable this transaction prediction?
+        reenable: Are you sure you want to reenable this transaction prediction?
+      form:
+        submit: Save
+        cancel: Cancel
+        new_title: New Transaction Prediction
+        edit_title: Edit Transaction Prediction
+      index:
+        title: Transaction Predictions
+        new: New Transaction Prediction
+      list:
+        disabled: Disabled
+        reenable_label: Reenable
+      show:
+        title: Transaction Prediction
+        edit: Edit
+        disable: Disable
+        reenable: Reenable
+        destroy: Delete
+        disabled_alert_title: Disabled
+        disabled_alert_message: "This transaction prediction is disabled, it will not work until it's enabled again."
 
     users:
       confirmations:

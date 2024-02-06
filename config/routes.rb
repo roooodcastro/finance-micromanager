@@ -61,6 +61,7 @@ Rails.application.routes.draw do
         patch :reenable
       end
     end
+    resources :transaction_predictions, only: %i[index]
     resources :wallets, only: %i[index create update destroy] do
       patch :reenable, on: :member
     end

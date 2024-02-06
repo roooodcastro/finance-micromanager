@@ -21,15 +21,15 @@ RSpec.describe TransactionPredictions::Rules do
         {
           conditions: [
             {
-              operator:     :contains,
-              source_field: 'name',
-              source_value: 'Tesco'
+              operator: :contains,
+              column:   'name',
+              value:    'Tesco'
             }
           ],
           action:     {
-            action:       'prefill',
-            target_field: 'category_id',
-            target_value: '047cf511-256c-45ca-a0d6-e8b4d589742c'
+            action: 'fill',
+            column: 'category_id',
+            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
           }
         }
       end

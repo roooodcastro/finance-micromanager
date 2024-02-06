@@ -4,6 +4,9 @@ module TransactionPredictions
   class Rules
     attr_reader :rules_json
 
+    OPERATORS = %w[contains equals].freeze
+    ACTIONS   = %w[fill].freeze
+
     # rubocop:disable Layout/HashAlignment
     JSON_SCHEMA = {
       type: 'object',
@@ -16,8 +19,8 @@ module TransactionPredictions
             type: 'object',
             properties: {
               operator: { type: 'string' },
-              source_field: { type: 'string' },
-              source_value: { type: 'string' }
+              column: { type: 'string' },
+              value: { type: 'string' }
             }
           }
         },
@@ -25,8 +28,8 @@ module TransactionPredictions
           type: 'object',
           properties: {
             action: { type: 'string' },
-            target_field: { type: 'string' },
-            target_value: { type: 'string' }
+            column: { type: 'string' },
+            value: { type: 'string' }
           }
         }
       }
