@@ -23,7 +23,7 @@ class TransactionPrediction < ApplicationRecord
   private
 
   def validate_rules
-    return if rules_json.blank? || rules_json.valid?
+    return if rules_json.blank? || rules.valid?
 
     errors.add(:rules_json, :invalid)
   end
