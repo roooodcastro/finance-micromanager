@@ -18,6 +18,8 @@
   </p>
 </div>
 
+<hr>
+
 ## About The Project
 
 ### Features
@@ -56,6 +58,7 @@
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![Font Awesome][fontawesome-shield]][fontawesome-url]
 
+<hr>
 
 ## Self-hosting
 
@@ -63,11 +66,19 @@
 
 ### Prerequisites
 
-*TODO*
+* PostgreSQL
+* Redis
 
 ### Installation
 
 *TODO*
+
+#### Credentials
+
+To configure credentials, copy the contents of `config/credentials/credentials.yml.example` into the corresponding
+environment's credentials file, and change the values accordingly.
+
+<hr>
 
 ## Roadmap
 
@@ -138,7 +149,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [build-status-url]: https://github.com/roooodcastro/finance-micromanager/actions
 [license-shield]: https://img.shields.io/github/license/roooodcastro/finance-micromanager.svg?style=flat-square
 [license-url]: https://github.com/roooodcastro/finance-micromanager/blob/master/LICENSE.txt
-[rails-shield]: https://img.shields.io/badge/Ruby%20on%20Rails%207.0-D30100?style=flat-square&logo=rubyonrails&logoColor=FFFFFF
+[rails-shield]: https://img.shields.io/badge/Ruby%20on%20Rails%207.1-D30100?style=flat-square&logo=rubyonrails&logoColor=FFFFFF
 [rails-url]: https://rubyonrails.org/
 [Vue.js]: https://img.shields.io/badge/Vue.js%203-35495E?style=flat-square&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
