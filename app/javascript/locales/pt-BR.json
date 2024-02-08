@@ -999,10 +999,27 @@
         },
         "floating_button_label": "Novo Autopreenchimento de Transação",
         "form": {
+          "amount_label": "Valor",
           "cancel": "Cancelar",
+          "category_id_label": "Categoria",
+          "contains_operator_label": "contém",
           "edit_title": "Editar Autopreenchimento",
+          "equals_operator_label": "é igual a",
+          "label_action_category": "-- Com a categoria --",
+          "label_action_wallet": "-- Com a carteira --",
+          "label_condition_category": "-- Categoria --",
+          "label_condition_wallet": "-- Carteira --",
+          "label_with": "com o valor",
+          "name_label": "Nome do Autopreenchimento",
           "new_title": "Novo Autopreenchimento",
-          "submit": "Salvar"
+          "select_placeholder_label": "-- Escolha --",
+          "sub_header_action": "Então preencha",
+          "sub_header_conditions": "Quando",
+          "submit": "Salvar",
+          "transaction_date_label": "Data da Transação",
+          "transaction_name_label": "Nome da Transação",
+          "value_label": "valor",
+          "wallet_id_label": "Carteira"
         },
         "index": {
           "new": "Novo Autopreenchimento de Transação",

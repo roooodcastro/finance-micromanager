@@ -5,7 +5,7 @@
         <DropdownMenuItem
           :label="t('new')"
           icon="plus"
-          @click="handleNew"
+          href="#"
         />
       </template>
     </PageHeader>
@@ -58,11 +58,8 @@ export default {
 
     transactionPredictionStore.loadCollectionFromProps(props.transactionPredictions);
 
-    const handleNew = () => transactionPredictionStore.openFormModal(null);
-
     return {
       t: I18n.scopedTranslator('views.transaction_predictions.index'),
-      handleNew,
     };
   },
 };

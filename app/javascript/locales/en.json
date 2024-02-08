@@ -939,10 +939,27 @@
         },
         "floating_button_label": "New Transaction Prediction",
         "form": {
+          "amount_label": "Amount",
           "cancel": "Cancel",
+          "category_id_label": "Category",
+          "contains_operator_label": "contains",
           "edit_title": "Edit Transaction Prediction",
+          "equals_operator_label": "equals",
+          "label_action_category": "-- With category --",
+          "label_action_wallet": "-- With wallet --",
+          "label_condition_category": "-- Category --",
+          "label_condition_wallet": "-- Wallet --",
+          "label_with": "with value",
+          "name_label": "Prediction Name",
           "new_title": "New Transaction Prediction",
-          "submit": "Save"
+          "select_placeholder_label": "-- Choose --",
+          "sub_header_action": "Then fill",
+          "sub_header_conditions": "When",
+          "submit": "Save",
+          "transaction_date_label": "Transaction Date",
+          "transaction_name_label": "Transaction Name",
+          "value_label": "value",
+          "wallet_id_label": "Wallet"
         },
         "index": {
           "new": "New Transaction Prediction",

@@ -386,6 +386,23 @@ en:
         cancel: Cancel
         new_title: New Transaction Prediction
         edit_title: Edit Transaction Prediction
+        name_label: Prediction Name
+        sub_header_conditions: When
+        sub_header_action: Then fill
+        label_with: with value
+        label_condition_category: '-- Category --'
+        label_condition_wallet: '-- Wallet --'
+        label_action_category: '-- With category --'
+        label_action_wallet: '-- With wallet --'
+        value_label: value
+        transaction_name_label: Transaction Name
+        transaction_date_label: Transaction Date
+        amount_label: Amount
+        category_id_label: Category
+        wallet_id_label: Wallet
+        select_placeholder_label: '-- Choose --'
+        contains_operator_label: contains
+        equals_operator_label: equals
       index:
         title: Transaction Predictions
         new: New Transaction Prediction

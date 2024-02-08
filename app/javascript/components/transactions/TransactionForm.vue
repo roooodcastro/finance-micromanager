@@ -119,6 +119,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
+import dayjs from 'dayjs';
 
 import { transactions as transactionsApi } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
@@ -135,8 +136,7 @@ import FormModal from '~/components/forms/FormModal.vue';
 import ToggleSwitch from '~/components/ui/ToggleSwitch.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
-import dayjs from 'dayjs';
-import WarningAlert from '@/components/bootstrap/WarningAlert.vue';
+import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 
 export default {
   components: {
