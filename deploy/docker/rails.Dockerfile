@@ -44,6 +44,7 @@ FROM ruby:3.2.2 as app
 # Install runtime dependencies
 RUN apt update -qq &&\
     apt install -y ca-certificates curl gnupg lsb-release &&\
+    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' &&\
     curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg &&\
     apt-get update &&\
     apt install -y postgresql-client
