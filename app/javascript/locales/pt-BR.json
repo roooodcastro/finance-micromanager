@@ -1015,6 +1015,7 @@
           "select_placeholder_label": "-- Escolha --",
           "sub_header_action": "Então preencha",
           "sub_header_conditions": "Quando",
+          "sub_header_edit_condition": "Editar Condição",
           "submit": "Salvar",
           "transaction_date_label": "Data da Transação",
           "transaction_name_label": "Nome da Transação",

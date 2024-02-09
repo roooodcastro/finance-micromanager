@@ -1,5 +1,7 @@
 export const CONFIRMATION_MODAL_ID = 'confirmationModal';
 export const PASSWORD_CHANGE_MODAL_ID = 'passwordChangeModal';
+export const TRANSACTION_PREDICTION_CONDITION_MODAL_ID = 'transactionPredictionConditionModal';
+export const TRANSACTION_PREDICTION_ACTION_MODAL_ID = 'transactionPredictionActionModal';
 
 export const CATEGORY_FORM_ID = 'categoryForm';
 export const PROFILE_FORM_ID = 'profileForm';

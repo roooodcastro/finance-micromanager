@@ -4,7 +4,14 @@ export const AVAILABLE_OPERATORS = [CONTAINS_OPERATOR, EQUALS_OPERATOR];
 
 export class RulesParser {
   constructor(rulesJson) {
-    this.rules = JSON.parse(rulesJson);
+    this.rules = JSON.parse(rulesJson ?? '{}');
+
+    if (!this.rules.conditions) {
+      this.rules.conditions = [];
+    }
+    if (!this.rules.actions) {
+      this.rules.actions = [];
+    }
   }
 
   get conditions() {
@@ -27,10 +34,26 @@ export class RulesParser {
     return JSON.stringify(this.rules);
   }
 
+  getConditionAt(index) {
+    return this.rules.conditions[index] ?? {};
+  }
+
+  setConditionAt(conditionIndex, condition) {
+    this.rules.conditions[conditionIndex] = condition;
+  }
+
   hasConditionsMatch(transaction) {
     return this.conditions.reduce((result, condition) => {
       return result && this.#hasConditionMatch(transaction, condition);
     }, true);
+  }
+
+  formattedValueFor(conditionOrAction) {
+    if (['category_id', 'wallet_id'].includes(conditionOrAction.column)) {
+      return conditionOrAction.value;
+    } else {
+      return conditionOrAction.value;
+    }
   }
 
   apply(transaction) {

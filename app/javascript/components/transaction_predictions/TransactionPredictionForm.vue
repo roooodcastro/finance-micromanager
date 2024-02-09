@@ -19,62 +19,9 @@
         {{ t('sub_header_conditions') }}
       </h5>
 
-      <div class="card card-body pb-0">
-        <div class="row gap-3 gap-lg-0">
-          <div class="col-12 col-lg-4 col-xl-5">
-            <FormSelect
-              v-model="condition.column"
-              field-name="condition_column"
-              :form-helper="formHelper"
-              :options="columnSelectOptions"
-              required
-              @change="handleConditionColumnChange"
-            />
-          </div>
 
-          <div class="col-12 col-lg-4 col-xl-2">
-            <FormSelect
-              v-model="condition.operator"
-              field-name="condition_operator"
-              :form-helper="formHelper"
-              :options="operatorSelectOptions"
-              class="mb-0 mb-lg-3"
-              required
-            />
-          </div>
-
-          <div class="col-12 col-lg-4 col-xl-5">
-            <CategoriesSelect
-              v-if="condition.column === 'category_id'"
-              :id="formHelper.fieldId('value_label')"
-              v-model="condition.value"
-              :name="formHelper.fieldName('condition_value')"
-              :placeholder="t('label_condition_category')"
-              class="mb-0 mb-lg-3"
-              required
-            />
-
-            <WalletsSelect
-              v-else-if="condition.column === 'wallet_id'"
-              :id="formHelper.fieldId('value_label')"
-              v-model="condition.value"
-              :name="formHelper.fieldName('condition_value')"
-              :placeholder="t('label_condition_wallet')"
-              class="mb-0 mb-lg-3"
-              required
-            />
-
-            <FormInput
-              v-else
-              v-model="condition.value"
-              field-name="condition_value"
-              :form-helper="formHelper"
-              :type="inputTypeFor(condition.column)"
-              :placeholder="t('value_label')"
-              required
-            />
-          </div>
-        </div>
+      <div class="card card-body flex-row align-items-center flex-wrap gap-2">
+        <TransactionPredictionCondition :condition-index="0" />
       </div>
 
       <h5 class="my-3">
@@ -127,6 +74,8 @@
       </div>
     </template>
   </RailsForm>
+
+  <TransactionPredictionConditionModal />
 </template>
 
 <script>
@@ -138,17 +87,22 @@ import I18n from '~/utils/I18n.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import useTransactionPredictionsStore from '~/stores/TransactionPredictionStore.js';
-import { TRANSACTION_PREDICTION_FORM_ID } from '~/utils/Constants.js';
-import { CONTAINS_OPERATOR, EQUALS_OPERATOR } from '~/lib/transaction_predictions/RulesParser.js';
+import {
+  TRANSACTION_PREDICTION_FORM_ID,
+} from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
 import FormSelect from '~/components/forms/FormSelect.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
+import TransactionPredictionConditionModal from '~/components/transaction_predictions/TransactionPredictionConditionModal.vue';
+import TransactionPredictionCondition from '~/components/transaction_predictions/TransactionPredictionCondition.vue';
 
 export default {
   components: {
+    TransactionPredictionCondition,
+    TransactionPredictionConditionModal,
     WalletsSelect,
     CategoriesSelect,
     FormSelect,
@@ -167,15 +121,8 @@ export default {
     const t = I18n.scopedTranslator('views.transaction_predictions.form');
 
     const loading = ref(false);
-    const condition = ref({});
     const action = ref({});
     const transactionPredictionRef = toRef(props, 'transactionPrediction');
-
-    const operatorSelectOptions = [
-      { label: t('select_placeholder_label'), value: '' },
-      { label: t('contains_operator_label'), value: CONTAINS_OPERATOR },
-      { label: t('equals_operator_label'), value: EQUALS_OPERATOR },
-    ];
 
     const columnSelectOptions = [
       { label: t('select_placeholder_label'), value: '' },
@@ -192,6 +139,11 @@ export default {
 
     const { categories } = storeToRefs(categoryStore);
     const { activeWallets } = storeToRefs(walletStore);
+    const {
+      transactionPrediction: transactionPredictionFromStore,
+    } = storeToRefs(transactionPredictionStore);
+
+    transactionPredictionFromStore.value = props.transactionPrediction;
 
     if (!categories.value.length) {
       categoryStore.fetchCollection();
@@ -226,15 +178,7 @@ export default {
       updateDataWithDefaultValues();
     });
 
-    const updateDataWithDefaultValues = () => {
-      if (isNewRecord.value) {
-        condition.value.operator = EQUALS_OPERATOR;
-      }
-    };
-
-    const handleConditionColumnChange = () => {
-      condition.value.value = '';
-    }
+    const updateDataWithDefaultValues = () => {};
 
     const handleSubmit = () => {
       loading.value = true;
@@ -257,16 +201,13 @@ export default {
     return {
       t,
       action,
-      condition,
       loading,
       formTitle,
       formMethod,
       formAction,
       transactionPredictionRef,
-      operatorSelectOptions,
       columnSelectOptions,
       inputTypeFor,
-      handleConditionColumnChange,
       handleSubmit,
       TRANSACTION_PREDICTION_FORM_ID,
     };

@@ -389,6 +389,7 @@ en:
         name_label: Prediction Name
         sub_header_conditions: When
         sub_header_action: Then fill
+        sub_header_edit_condition: Edit Condition
         label_with: with value
         label_condition_category: '-- Category --'
         label_condition_wallet: '-- Wallet --'

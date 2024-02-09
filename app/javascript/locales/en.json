@@ -955,6 +955,7 @@
           "select_placeholder_label": "-- Choose --",
           "sub_header_action": "Then fill",
           "sub_header_conditions": "When",
+          "sub_header_edit_condition": "Edit Condition",
           "submit": "Save",
           "transaction_date_label": "Transaction Date",
           "transaction_name_label": "Transaction Name",

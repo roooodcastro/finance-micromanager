@@ -394,6 +394,7 @@ pt-BR:
         name_label: Nome do Autopreenchimento
         sub_header_conditions: Quando
         sub_header_action: Então preencha
+        sub_header_edit_condition: Editar Condição
         label_with: com o valor
         label_condition_category: '-- Categoria --'
         label_condition_wallet: '-- Carteira --'
