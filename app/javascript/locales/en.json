@@ -26,6 +26,9 @@
           "transaction_category": "Category",
           "transaction_name": "Transaction Name"
         },
+        "transaction_prediction": {
+          "rules_json": "Prediction Rules"
+        },
         "user": {
           "locale": "Language"
         }
@@ -575,6 +578,16 @@
       "update": {
         "error": "Transaction Automation could not be updated: %{error}",
         "success": "Transaction Automation was successfully updated."
+      }
+    },
+    "transaction_predictions": {
+      "create": {
+        "error": "Transaction Prediction could not be created: %{error}",
+        "success": "Transaction Prediction \"%{name}\" was successfully created."
+      },
+      "update": {
+        "error": "Transaction Prediction could not be updated: %{error}",
+        "success": "Transaction Prediction \"%{name}\" was successfully updated."
       }
     },
     "transactions": {

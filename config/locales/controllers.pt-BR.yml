@@ -102,6 +102,14 @@ pt-BR:
     reenable:
       success: 'Automação de Transação reabilitada com sucesso.'
 
+  transaction_predictions:
+    create:
+      success: 'Autopreenchimento de Transação "%{name}" criado com sucesso.'
+      error: 'Autopreenchimento de Transação não pode ser criado: %{error}'
+    update:
+      success: 'Autopreenchimento de Transação "%{name}" atualizado com sucesso.'
+      error: 'Autopreenchimento de Transação não pode ser atualizado: %{error}'
+
   users:
     registrations:
       update:

@@ -45,6 +45,10 @@
           "transaction_category": "Categoria",
           "transaction_name": "Nome da Transação"
         },
+        "transaction_prediction": {
+          "name": "Nome",
+          "rules_json": "Regras de autopreenchimento"
+        },
         "user": {
           "current_password": "Senha atual",
           "locale": "Idioma",
@@ -632,6 +636,16 @@
       "update": {
         "error": "Automação de Transação não pode ser atualizada: %{error}",
         "success": "Automação de Transação atualizada com sucesso."
+      }
+    },
+    "transaction_predictions": {
+      "create": {
+        "error": "Autopreenchimento de Transação não pode ser criado: %{error}",
+        "success": "Autopreenchimento de Transação \"%{name}\" criado com sucesso."
+      },
+      "update": {
+        "error": "Autopreenchimento de Transação não pode ser atualizado: %{error}",
+        "success": "Autopreenchimento de Transação \"%{name}\" atualizado com sucesso."
       }
     },
     "transactions": {

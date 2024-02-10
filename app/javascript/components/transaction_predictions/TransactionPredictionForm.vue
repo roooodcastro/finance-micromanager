@@ -3,10 +3,16 @@
     :id="TRANSACTION_PREDICTION_FORM_ID"
     :action="formAction"
     :method="formMethod"
-    resource="transactionPrediction"
-    @submit.prevent="handleSubmit"
+    resource="transaction_prediction"
   >
     <template v-slot:default="{ formHelper }">
+      <input
+        v-model="transactionPredictionFromStore.rulesJson"
+        :id="formHelper.fieldId('rules_json')"
+        :name="formHelper.fieldName('rules_json')"
+        type="hidden"
+      >
+
       <FormInput
         v-model="transactionPredictionFromStore.name"
         field-name="name"
@@ -31,6 +37,22 @@
       <div class="card card-body flex-row align-items-center flex-wrap gap-2">
         <TransactionPredictionAction :action-index="0" />
       </div>
+
+      <hr>
+
+      <div class="d-grid d-md-block">
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          <FontAwesomeIcon
+            icon="floppy-disk"
+            class="me-lg-2"
+          />
+
+          {{ t('submit') }}
+        </button>
+      </div>
     </template>
   </RailsForm>
 
@@ -39,11 +61,12 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
-// import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
+import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import useTransactionPredictionsStore from '~/stores/TransactionPredictionStore.js';
@@ -60,6 +83,7 @@ import TransactionPredictionActionModal from '~/components/transaction_predictio
 
 export default {
   components: {
+    FontAwesomeIcon,
     FormInput,
     RailsForm,
     TransactionPredictionAction,
@@ -77,8 +101,6 @@ export default {
 
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_predictions.form');
-
-    const loading = ref(false);
 
     const categoryStore = useCategoryStore();
     const walletStore = useWalletStore();
@@ -102,38 +124,17 @@ export default {
     const formTitle = computed(() => isNewRecord.value ? t('new_title') : t('edit_title'));
     const formMethod = computed(() => isNewRecord.value ? 'POST' : 'PATCH');
     const formAction = computed(() => {
-      return '';
-      // return isNewRecord.value
-      //   ? transactionPredictionsApi.create.path()
-      //   : transactionPredictionsApi.update.path({ id: transactionPredictionFromStore.value.id });
+      return isNewRecord.value
+        ? transactionPredictionsApi.create.path()
+        : transactionPredictionsApi.update.path({ id: transactionPredictionFromStore.value.id });
     });
-
-    const handleSubmit = () => {
-      loading.value = true;
-
-      if (isNewRecord.value) {
-        transactionPredictionStore
-          .create(transactionPredictionFromStore.value)
-          .then(() => {})
-          .catch(() => {})
-          .finally(() => loading.value = false);
-      } else {
-        transactionPredictionStore
-          .update(transactionPredictionFromStore.value.id, transactionPredictionFromStore.value)
-          .then(() => {})
-          .catch(() => {})
-          .finally(() => loading.value = false);
-      }
-    };
 
     return {
       t,
-      loading,
       formTitle,
       formMethod,
       formAction,
       transactionPredictionFromStore,
-      handleSubmit,
       TRANSACTION_PREDICTION_FORM_ID,
     };
   },

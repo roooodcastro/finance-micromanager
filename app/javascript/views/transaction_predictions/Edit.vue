@@ -1,6 +1,6 @@
 <template>
   <PageHeader
-    :title="t('new_title')"
+    :title="t('edit_title')"
     :back-button-href="indexPath"
   />
 
@@ -29,7 +29,6 @@ export default {
 
   setup() {
     const t = I18n.scopedTranslator('views.transaction_predictions.form');
-
     const indexPath = transactionPredictionsApi.index.path();
 
     return {

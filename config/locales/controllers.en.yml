@@ -100,6 +100,14 @@ en:
     reenable:
       success: 'Transaction Automation was successfully re-enabled.'
 
+  transaction_predictions:
+    create:
+      success: 'Transaction Prediction "%{name}" was successfully created.'
+      error: 'Transaction Prediction could not be created: %{error}'
+    update:
+      success: 'Transaction Prediction "%{name}" was successfully updated.'
+      error: 'Transaction Prediction could not be updated: %{error}'
+
   users:
     registrations:
       update:

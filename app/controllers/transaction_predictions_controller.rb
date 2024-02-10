@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionPredictionsController < AbstractAuthenticatedController
-  before_action :set_transaction_prediction, only: %i[edit]
+  before_action :set_transaction_prediction, only: %i[edit update]
 
   def index
     transaction_predictions = Current.profile.transaction_predictions.active
@@ -20,12 +20,40 @@ class TransactionPredictionsController < AbstractAuthenticatedController
 
   def edit
     props = camelize_props(transaction_prediction: @transaction_prediction.as_json)
-    render inertia: 'transaction_predictions/New', props: props
+    render inertia: 'transaction_predictions/Edit', props: props
+  end
+
+  def create
+    transaction_prediction = Current.profile.transaction_predictions.new(transaction_prediction_params)
+
+    if transaction_prediction.save
+      flash[:success] = t('.success', name: transaction_prediction.name)
+      redirect_to transaction_predictions_path
+    else
+      flash.now[:error] = t('.error', error: transaction_prediction.errors.full_messages.join(', '))
+      props             = camelize_props(transaction_prediction: transaction_prediction.as_json)
+      render inertia: 'transaction_predictions/New', props: props
+    end
+  end
+
+  def update
+    if @transaction_prediction.update(transaction_prediction_params)
+      flash[:success] = t('.success', name: @transaction_prediction.name)
+      redirect_to transaction_predictions_path
+    else
+      flash.now[:error] = t('.error', error: @transaction_prediction.errors.full_messages.join(', '))
+      props             = camelize_props(transaction_prediction: @transaction_prediction.as_json)
+      render inertia: 'transaction_predictions/Edit', props: props
+    end
   end
 
   private
 
   def set_transaction_prediction
     @transaction_prediction = Current.profile.transaction_predictions.find(params[:id])
+  end
+
+  def transaction_prediction_params
+    params.require(:transaction_prediction).permit(:name, :rules_json)
   end
 end
