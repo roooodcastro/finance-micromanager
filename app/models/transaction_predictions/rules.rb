@@ -5,7 +5,6 @@ module TransactionPredictions
     attr_reader :rules_json
 
     OPERATORS = %w[contains equals].freeze
-    ACTIONS   = %w[fill].freeze
 
     # rubocop:disable Layout/HashAlignment
     JSON_SCHEMA = {
@@ -24,12 +23,16 @@ module TransactionPredictions
             }
           }
         },
-        action: {
-          type: 'object',
-          properties: {
-            action: { type: 'string' },
-            column: { type: 'string' },
-            value: { type: 'string' }
+        actions: {
+          type: 'array',
+          minItems: 1,
+          maxItems: 1,
+          items: {
+            type: 'object',
+            properties: {
+              column: { type: 'string' },
+              value: { type: 'string' }
+            }
           }
         }
       }

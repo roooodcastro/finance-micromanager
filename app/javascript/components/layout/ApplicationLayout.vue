@@ -45,7 +45,7 @@ import VerticalMenuOffcanvas from '~/components/layout/VerticalMenuOffcanvas.vue
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
-import ProfileForm from '@/components/profiles/ProfileForm.vue';
+import ProfileForm from '~/components/profiles/ProfileForm.vue';
 
 export default {
   components: {

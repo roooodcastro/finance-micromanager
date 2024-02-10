@@ -41,6 +41,9 @@ pt-BR:
           last_day_of_month: último dia do mês
           first_business_day_of_month: primeiro dia útil do mês
           last_business_day_of_month: último dia útil do mês
+      transaction_prediction:
+        name: Nome
+        rules_json: Regras de autopreenchimento
       user:
         current_password: Senha atual
         locale: Idioma

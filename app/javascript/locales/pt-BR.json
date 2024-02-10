@@ -45,6 +45,10 @@
           "transaction_category": "Categoria",
           "transaction_name": "Nome da Transação"
         },
+        "transaction_prediction": {
+          "name": "Nome",
+          "rules_json": "Regras de autopreenchimento"
+        },
         "user": {
           "current_password": "Senha atual",
           "locale": "Idioma",
@@ -634,6 +638,16 @@
         "success": "Automação de Transação atualizada com sucesso."
       }
     },
+    "transaction_predictions": {
+      "create": {
+        "error": "Autopreenchimento de Transação não pode ser criado: %{error}",
+        "success": "Autopreenchimento de Transação \"%{name}\" criado com sucesso."
+      },
+      "update": {
+        "error": "Autopreenchimento de Transação não pode ser atualizado: %{error}",
+        "success": "Autopreenchimento de Transação \"%{name}\" atualizado com sucesso."
+      }
+    },
     "transactions": {
       "create": {
         "error": "Transação não pode ser criada: %{error}",
@@ -999,10 +1013,29 @@
         },
         "floating_button_label": "Novo Autopreenchimento de Transação",
         "form": {
+          "amount_label": "Valor",
           "cancel": "Cancelar",
+          "category_id_label": "Categoria",
+          "contains_operator_label": "contém",
           "edit_title": "Editar Autopreenchimento",
+          "equals_operator_label": "é igual a",
+          "label_action_category": "-- Com a categoria --",
+          "label_action_wallet": "-- Com a carteira --",
+          "label_condition_category": "-- Categoria --",
+          "label_condition_wallet": "-- Carteira --",
+          "label_with": "com",
+          "name_label": "Nome do Autopreenchimento",
           "new_title": "Novo Autopreenchimento",
-          "submit": "Salvar"
+          "select_placeholder_label": "-- Escolha --",
+          "sub_header_action": "Então preencha",
+          "sub_header_conditions": "Quando",
+          "sub_header_edit_action": "Editar Ação",
+          "sub_header_edit_condition": "Editar Condição",
+          "submit": "Salvar",
+          "transaction_date_label": "Data da Transação",
+          "transaction_name_label": "Nome da Transação",
+          "value_label": "valor",
+          "wallet_id_label": "Carteira"
         },
         "index": {
           "new": "Novo Autopreenchimento de Transação",

@@ -5,7 +5,9 @@
     :value="modelValue ?? $attrs.value"
     @change="handleChange"
   >
-    <option />
+    <option value="">
+      {{ placeholder }}
+    </option>
     <option
       v-for="option in options"
       :key="option.id"
@@ -35,6 +37,10 @@ export default {
     modelValue: {
       type: String,
       default: null,
+    },
+    placeholder: {
+      type: String,
+      default: '',
     },
   },
 

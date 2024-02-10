@@ -9,7 +9,8 @@ RSpec.describe TransactionPredictions::Rules do
     context 'when json_rules is not valid JSON' do
       let(:rules_json) do
         {
-          conditions: []
+          conditions: [],
+          actions:    []
         }
       end
 
@@ -22,15 +23,16 @@ RSpec.describe TransactionPredictions::Rules do
           conditions: [
             {
               operator: :contains,
-              column:   'name',
+              column:   'transaction_name',
               value:    'Tesco'
             }
           ],
-          action:     {
-            action: 'fill',
-            column: 'category_id',
-            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
-          }
+          actions:    [
+            {
+              column: 'category_id',
+              value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
+            }
+          ]
         }
       end
 

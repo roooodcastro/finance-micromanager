@@ -5,7 +5,9 @@
     :value="modelValue ?? $attrs.value"
     @change="$emit('update:modelValue', $event.target.value)"
   >
-    <option />
+    <option value="">
+      {{ placeholder }}
+    </option>
     <option
       v-for="option in options(false)"
       :key="option.value"
@@ -26,6 +28,10 @@ export default {
     modelValue: {
       type: String,
       default: null,
+    },
+    placeholder: {
+      type: String,
+      default: '',
     },
   },
 

@@ -2,7 +2,7 @@
   <div>
     <label
       v-if="!!label"
-      :for="formHelper.fieldId(fieldName)"
+      :for="formHelper?.fieldId(fieldName)"
       class="form-label"
     >
       {{ label }}
@@ -10,8 +10,8 @@
 
     <select
       v-bind="$attrs"
-      :id="formHelper.fieldId(fieldName)"
-      :name="formHelper.fieldName(fieldName)"
+      :id="formHelper?.fieldId(fieldName)"
+      :name="formHelper?.fieldName(fieldName)"
       :value="modelValue ?? $attrs.value"
       class="form-select"
       @change="handleChange"
@@ -40,7 +40,7 @@ export default {
     },
     formHelper: {
       type: Object,
-      required: true,
+      default: null,
     },
     label: {
       type: String,

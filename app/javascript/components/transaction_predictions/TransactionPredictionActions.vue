@@ -16,9 +16,8 @@
     <EditButton
       small
       compact
-      href="#"
+      :href="editPath"
       :class="{ 'd-flex align-items-center justify-content-center bg-secondary text-white': drawerMenu }"
-      @click="handleEdit"
     />
 
     <div class="vr mx-3 d-none d-lg-flex" />
@@ -41,6 +40,7 @@
 import { computed } from 'vue';
 
 import I18n from '~/utils/I18n.js';
+import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 
 import EditButton from '~/components/rails/EditButton.vue';
@@ -68,19 +68,19 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_predictions.list');
     const transactionPredictionStore = useTransactionPredictionStore();
+    const editPath = transactionPredictionsApi.edit.path({ id: props.transactionPrediction.id });
 
     const isDisabled = computed(() => !!props.transactionPrediction.disabledAt);
 
-    const handleEdit = () => transactionPredictionStore.openFormModal(props.transactionPrediction.id);
     const handleDisable = () => transactionPredictionStore.disable(props.transactionPrediction.id);
     const handleReenable = () => transactionPredictionStore.reenable(props.transactionPrediction.id);
 
     return {
       t,
-      handleEdit,
+      editPath,
+      isDisabled,
       handleDisable,
       handleReenable,
-      isDisabled,
     };
   },
 };

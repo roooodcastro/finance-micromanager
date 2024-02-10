@@ -7,7 +7,7 @@
       <a
         v-for="(speedDialEntry, index) in speedDialEntries"
         :key="index"
-        href="#"
+        :href="speedDialEntry.href ?? '#'"
         class="FloatingActionButton__speed-dial-link d-flex rounded-pill btn btn-light shadow mb-3"
         :style="{ bottom: `${(speedDialEntries.length - index) * -4}rem` }"
         @click="handleSpeedDialClick(speedDialEntry.callback)"
@@ -63,7 +63,9 @@ export default {
 
     const handleSpeedDialClick = (callback) => {
       speedDialOpened.value = false;
-      callback();
+      if (callback) {
+        callback();
+      }
     }
 
     return {

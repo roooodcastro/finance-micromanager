@@ -5,7 +5,7 @@
         <DropdownMenuItem
           :label="t('new')"
           icon="plus"
-          @click="handleNew"
+          :href="newPath"
         />
       </template>
     </PageHeader>
@@ -22,6 +22,7 @@ import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -42,6 +43,8 @@ export default {
   },
 
   setup(props) {
+    const newPath = transactionPredictionsApi.new.path();
+
     const transactionPredictionStore = useTransactionPredictionStore();
     transactionPredictionStore.setActionName('index');
 
@@ -49,7 +52,7 @@ export default {
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.transaction_predictions.floating_button_label'),
       icon: 'wand-magic-sparkles',
-      callback: () => transactionPredictionStore.openFormModal(null),
+      href: newPath,
     });
 
     const profileStore = useProfileStore();
@@ -58,11 +61,9 @@ export default {
 
     transactionPredictionStore.loadCollectionFromProps(props.transactionPredictions);
 
-    const handleNew = () => transactionPredictionStore.openFormModal(null);
-
     return {
       t: I18n.scopedTranslator('views.transaction_predictions.index'),
-      handleNew,
+      newPath,
     };
   },
 };
