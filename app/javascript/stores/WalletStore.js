@@ -30,6 +30,10 @@ export default defineBaseApiStore('wallet', {
     },
   },
   actions: {
+    walletNameFor(walletId) {
+      return this.wallets.find(wallet => wallet.id === walletId)?.name;
+    },
+
     disable(id) {
       const notificationStore = useNotificationStore();
 

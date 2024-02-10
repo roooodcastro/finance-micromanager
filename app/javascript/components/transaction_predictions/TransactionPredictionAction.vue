@@ -1,8 +1,8 @@
 <template>
   <div class="border border-secondary rounded d-flex align-items-center">
     <span class="mx-3 my-2">
-      {{ condition.column ? t(`${condition.column}_label`) : '?' }}
-      {{ condition.operator ? t(`${condition.operator}_operator_label`) : '?' }}
+      {{ action.column ? t(`${action.column}_label`) : '?' }}
+      {{ t('label_with') }}
       {{ displayValue ? `"${displayValue}"` : '?' }}
     </span>
 
@@ -24,7 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import I18n from '~/utils/I18n.js';
 import useModalStore from '~/stores/ModalStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
-import { TRANSACTION_PREDICTION_CONDITION_MODAL_ID } from '~/utils/Constants.js';
+import { TRANSACTION_PREDICTION_ACTION_MODAL_ID } from '~/utils/Constants.js';
 import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 
 export default {
@@ -32,7 +32,7 @@ export default {
     FontAwesomeIcon,
   },
   props: {
-    conditionIndex: {
+    actionIndex: {
       type: Number,
       required: true,
     },
@@ -43,20 +43,20 @@ export default {
 
     const modalStore = useModalStore();
     const transactionPredictionStore = useTransactionPredictionStore();
-    const { transactionPrediction, currentConditionIndex } = storeToRefs(transactionPredictionStore);
+    const { transactionPrediction, currentActionIndex } = storeToRefs(transactionPredictionStore);
 
     const rulesParser = computed(() => new RulesParser(transactionPrediction.value.rulesJson));
-    const condition = computed(() => rulesParser.value.getConditionAt(props.conditionIndex));
-    const displayValue = computed(() => rulesParser.value.formattedValueFor(condition.value));
+    const action = computed(() => rulesParser.value.getActionAt(props.actionIndex));
+    const displayValue = computed(() => rulesParser.value.formattedValueFor(action.value));
 
     const handleEdit = () => {
-      currentConditionIndex.value = props.conditionIndex;
-      modalStore.show(TRANSACTION_PREDICTION_CONDITION_MODAL_ID);
+      currentActionIndex.value = props.actionIndex;
+      modalStore.show(TRANSACTION_PREDICTION_ACTION_MODAL_ID);
     }
 
     return {
       t,
-      condition,
+      action,
       displayValue,
       handleEdit,
     };

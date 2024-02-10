@@ -43,6 +43,17 @@ export default defineBaseApiStore('category', {
   },
 
   actions: {
+    categoryNameFor(rawCategoryId) {
+      const [categoryId, subcategoryId] = rawCategoryId.split('|');
+      const category = this.categories.find(category => category.id === categoryId);
+
+      if (subcategoryId) {
+        const subcategory = category.subcategories.find(subcategory => subcategory.id === subcategoryId);
+        return subcategory?.displayName;
+      } else {
+        return category?.name;
+      }
+    },
     fetchSingle(id) {
       this.loading = true;
       const dateRangeStore = useDateRangeStore();

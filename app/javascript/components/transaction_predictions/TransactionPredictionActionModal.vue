@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="TRANSACTION_PREDICTION_CONDITION_MODAL_ID"
+    :id="TRANSACTION_PREDICTION_ACTION_MODAL_ID"
     class="modal modal-lg"
     tabindex="-1"
     v-on="{ 'show.bs.modal': handleShow }"
@@ -9,50 +9,45 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            {{ t('sub_header_edit_condition') }}
+            {{ t('sub_header_edit_action') }}
           </h5>
         </div>
         <div class="modal-body">
           <form @submit.prevent="handleSave">
             <div class="row gap-2 gap-lg-0">
-              <div class="col-12 col-lg-4">
+              <div class="col-12 col-lg-5">
                 <FormSelect
-                  v-model="condition.column"
-                  field-name="condition_column"
+                  v-model="action.column"
+                  field-name="action_column"
                   :options="columnSelectOptions"
                   required
-                  @change="handleConditionColumnChange"
+                  @change="handleActionColumnChange"
                 />
               </div>
 
-              <div class="col-12 col-lg-4">
-                <FormSelect
-                  v-model="condition.operator"
-                  field-name="condition_operator"
-                  :options="operatorSelectOptions"
-                  required
-                />
+              <div class="col-12 col-lg-2 align-self-center text-center">
+                {{ t('label_with') }}
               </div>
 
-              <div class="col-12 col-lg-4">
+              <div class="col-12 col-lg-5">
                 <CategoriesSelect
-                  v-if="condition.column === 'category_id'"
-                  v-model="condition.value"
-                  :placeholder="t('label_condition_category')"
+                  v-if="action.column === 'category_id'"
+                  v-model="action.value"
+                  :placeholder="t('label_action_category')"
                   required
                 />
 
                 <WalletsSelect
-                  v-else-if="condition.column === 'wallet_id'"
-                  v-model="condition.value"
-                  :placeholder="t('label_condition_wallet')"
+                  v-else-if="action.column === 'wallet_id'"
+                  v-model="action.value"
+                  :placeholder="t('label_action_wallet')"
                   required
                 />
 
                 <input
                   v-else
-                  v-model="condition.value"
-                  :type="inputTypeFor(condition.column)"
+                  v-model="action.value"
+                  :type="inputTypeFor(action.column)"
                   :placeholder="t('value_label')"
                   class="form-control"
                   required
@@ -87,7 +82,7 @@ import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import { TRANSACTION_PREDICTION_CONDITION_MODAL_ID } from '~/utils/Constants.js';
+import { TRANSACTION_PREDICTION_ACTION_MODAL_ID } from '~/utils/Constants.js';
 import { CONTAINS_OPERATOR, EQUALS_OPERATOR, RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useModalStore from '~/stores/ModalStore.js';
@@ -123,9 +118,9 @@ export default {
 
     const modalStore = useModalStore();
     const transactionPredictionStore = useTransactionPredictionStore();
-    const { transactionPrediction, currentConditionIndex } = storeToRefs(transactionPredictionStore);
+    const { transactionPrediction, currentActionIndex } = storeToRefs(transactionPredictionStore);
 
-    const condition = ref({});
+    const action = ref({});
 
     const inputTypeFor = (column) => {
       if (column === 'transaction_date') {
@@ -137,47 +132,36 @@ export default {
       }
     };
 
-    const handleConditionColumnChange = () => {
-      condition.value.value = '';
-
-      if (condition.value.column === 'transaction_name') {
-        condition.value.operator = CONTAINS_OPERATOR;
-      } else {
-        condition.value.operator = EQUALS_OPERATOR;
-      }
+    const handleActionColumnChange = () => {
+      action.value.value = '';
     };
 
     const handleShow = () => {
-      condition.value = new RulesParser(transactionPrediction.value.rulesJson)
-        .getConditionAt(currentConditionIndex.value);
-
-      if (!condition.value.operator) {
-        condition.value.operator = EQUALS_OPERATOR;
-      }
+      action.value = new RulesParser(transactionPrediction.value.rulesJson).getActionAt(currentActionIndex.value);
     };
 
     const handleSave = () => {
-      if (condition.value.column && condition.value.operator && condition.value.value) {
+      if (action.value.column && action.value.value) {
         const rulesParser = new RulesParser(transactionPrediction.value.rulesJson);
-        rulesParser.setConditionAt(currentConditionIndex.value, condition.value);
+        rulesParser.setActionAt(currentActionIndex.value, action.value);
         transactionPrediction.value.rulesJson = rulesParser.toJson();
 
-        modalStore.hide(TRANSACTION_PREDICTION_CONDITION_MODAL_ID);
+        modalStore.hide(TRANSACTION_PREDICTION_ACTION_MODAL_ID);
       } else {
-        document.querySelector(`#${TRANSACTION_PREDICTION_CONDITION_MODAL_ID} form`).reportValidity();
+        document.querySelector(`#${TRANSACTION_PREDICTION_ACTION_MODAL_ID} form`).reportValidity();
       }
     };
 
     return {
       t,
-      condition,
+      action,
       operatorSelectOptions,
       columnSelectOptions,
       inputTypeFor,
       handleShow,
       handleSave,
-      handleConditionColumnChange,
-      TRANSACTION_PREDICTION_CONDITION_MODAL_ID,
+      handleActionColumnChange,
+      TRANSACTION_PREDICTION_ACTION_MODAL_ID,
     };
   },
 };

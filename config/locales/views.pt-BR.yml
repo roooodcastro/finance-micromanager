@@ -395,7 +395,8 @@ pt-BR:
         sub_header_conditions: Quando
         sub_header_action: Então preencha
         sub_header_edit_condition: Editar Condição
-        label_with: com o valor
+        sub_header_edit_action: Editar Ação
+        label_with: com
         label_condition_category: '-- Categoria --'
         label_condition_wallet: '-- Carteira --'
         label_action_category: '-- Com a categoria --'

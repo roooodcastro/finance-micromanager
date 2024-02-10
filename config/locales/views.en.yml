@@ -390,7 +390,8 @@ en:
         sub_header_conditions: When
         sub_header_action: Then fill
         sub_header_edit_condition: Edit Condition
-        label_with: with value
+        sub_header_edit_action: Edit Action
+        label_with: with
         label_condition_category: '-- Category --'
         label_condition_wallet: '-- Wallet --'
         label_action_category: '-- With category --'

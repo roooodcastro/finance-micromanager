@@ -1,3 +1,6 @@
+import useCategoryStore from '~/stores/CategoryStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
+
 export const CONTAINS_OPERATOR = 'contains';
 export const EQUALS_OPERATOR = 'equals';
 export const AVAILABLE_OPERATORS = [CONTAINS_OPERATOR, EQUALS_OPERATOR];
@@ -38,8 +41,16 @@ export class RulesParser {
     return this.rules.conditions[index] ?? {};
   }
 
-  setConditionAt(conditionIndex, condition) {
-    this.rules.conditions[conditionIndex] = condition;
+  setConditionAt(index, condition) {
+    this.rules.conditions[index] = condition;
+  }
+
+  getActionAt(index) {
+    return this.rules.actions[index] ?? {};
+  }
+
+  setActionAt(index, action) {
+    this.rules.actions[index] = action;
   }
 
   hasConditionsMatch(transaction) {
@@ -49,8 +60,12 @@ export class RulesParser {
   }
 
   formattedValueFor(conditionOrAction) {
-    if (['category_id', 'wallet_id'].includes(conditionOrAction.column)) {
-      return conditionOrAction.value;
+    if (conditionOrAction.column === 'category_id') {
+      const categoryStore = useCategoryStore();
+      return categoryStore.categoryNameFor(conditionOrAction.value);
+    } else if (conditionOrAction.column === 'wallet_id') {
+      const walletStore = useWalletStore();
+      return walletStore.walletNameFor(conditionOrAction.value);
     } else {
       return conditionOrAction.value;
     }

@@ -15,7 +15,7 @@ export default defineBaseApiStore('transactionPrediction', {
     transactionPredictions: [],
     transactionPrediction: null,
     currentConditionIndex: 0,
-    currentAction: {},
+    currentActionIndex: 0,
     fetchParams: {},
   },
 
