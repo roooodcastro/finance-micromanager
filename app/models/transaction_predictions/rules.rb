@@ -13,7 +13,7 @@ module TransactionPredictions
         conditions: {
           type: 'array',
           minItems: 1,
-          maxItems: 1,
+          maxItems: 10,
           items: {
             type: 'object',
             properties: {
@@ -26,7 +26,7 @@ module TransactionPredictions
         actions: {
           type: 'array',
           minItems: 1,
-          maxItems: 1,
+          maxItems: 10,
           items: {
             type: 'object',
             properties: {

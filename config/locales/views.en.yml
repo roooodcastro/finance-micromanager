@@ -391,6 +391,8 @@ en:
         sub_header_action: Then fill
         sub_header_edit_condition: Edit Condition
         sub_header_edit_action: Edit Action
+        label_and: AND
+        label_or: OR
         label_with: with
         label_condition_category: '-- Category --'
         label_condition_wallet: '-- Wallet --'
@@ -405,6 +407,8 @@ en:
         select_placeholder_label: '-- Choose --'
         contains_operator_label: contains
         equals_operator_label: equals
+        new_condition: Add Condition
+        new_action: Add Action
       index:
         title: Transaction Predictions
         new: New Transaction Prediction
