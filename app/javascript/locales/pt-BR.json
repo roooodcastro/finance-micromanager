@@ -643,6 +643,15 @@
         "error": "Autopreenchimento de Transação não pode ser criado: %{error}",
         "success": "Autopreenchimento de Transação \"%{name}\" criado com sucesso."
       },
+      "destroy": {
+        "success": "Autopreenchimento de Transação \"%{name}\" removido com sucesso."
+      },
+      "disable": {
+        "success": "Autopreenchimento de Transação \"%{name}\" desabilitado com sucesso."
+      },
+      "reenable": {
+        "success": "Autopreenchimento de Transação \"%{name}\" reabilitado com sucesso."
+      },
       "update": {
         "error": "Autopreenchimento de Transação não pode ser atualizado: %{error}",
         "success": "Autopreenchimento de Transação \"%{name}\" atualizado com sucesso."

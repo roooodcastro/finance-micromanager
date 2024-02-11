@@ -109,6 +109,12 @@ pt-BR:
     update:
       success: 'Autopreenchimento de Transação "%{name}" atualizado com sucesso.'
       error: 'Autopreenchimento de Transação não pode ser atualizado: %{error}'
+    destroy:
+      success: 'Autopreenchimento de Transação "%{name}" removido com sucesso.'
+    disable:
+      success: 'Autopreenchimento de Transação "%{name}" desabilitado com sucesso.'
+    reenable:
+      success: 'Autopreenchimento de Transação "%{name}" reabilitado com sucesso.'
 
   users:
     registrations:

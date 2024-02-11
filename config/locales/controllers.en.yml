@@ -107,6 +107,12 @@ en:
     update:
       success: 'Transaction Prediction "%{name}" was successfully updated.'
       error: 'Transaction Prediction could not be updated: %{error}'
+    destroy:
+      success: 'Transaction Prediction "%{name}" was successfully deleted.'
+    disable:
+      success: 'Transaction Prediction "%{name}" was successfully disabled.'
+    reenable:
+      success: 'Transaction Prediction "%{name}" was successfully re-enabled.'
 
   users:
     registrations:
