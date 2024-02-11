@@ -1,9 +1,9 @@
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import I18n from '~/utils/I18n.js';
 
 export const CONTAINS_OPERATOR = 'contains';
 export const EQUALS_OPERATOR = 'equals';
-export const AVAILABLE_OPERATORS = [CONTAINS_OPERATOR, EQUALS_OPERATOR];
 
 export class RulesParser {
   constructor(rulesJson) {
@@ -19,6 +19,31 @@ export class RulesParser {
 
   get conditions() {
     return this.rules.conditions;
+  }
+
+  get conditionsDescription() {
+    const t = I18n.scopedTranslator('views.transaction_predictions.form');
+
+    return this.rules.conditions.map((condition) => {
+      const column = condition.column ? t(`${condition.column}_label`) : '?';
+      const operator = condition.operator ? t(`${condition.operator}_operator_label`) : '?';
+      const displayValue = this.formattedValueFor(condition);
+      const value = displayValue ? `"${displayValue}"` : '?';
+
+      return `${column} ${operator} ${value}`;
+    }).join(`, ${t('label_or')} `);
+  }
+
+  get actionsDescription() {
+    const t = I18n.scopedTranslator('views.transaction_predictions.form');
+
+    return this.rules.actions.map((action) => {
+      const column = action.column ? t(`${action.column}_label`) : '?';
+      const displayValue = this.formattedValueFor(action);
+      const value = displayValue ? `"${displayValue}"` : '?';
+
+      return `${column} ${t('label_with')} ${value}`;
+    }).join(`, ${t('label_and')} `);
   }
 
   get actions() {

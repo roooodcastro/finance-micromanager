@@ -13,7 +13,7 @@
           :class="{ 'side-strip-danger': isDisabled, 'side-strip-primary': !isDisabled }"
           :href="showPath"
         >
-          <div class="flex-grow-1">
+          <div class="flex-grow-1 min-width-0">
             <div class="d-flex justify-content-between">
               <span class="d-flex align-items-center">
                 <span :class="{ 'text-muted': isDisabled }">
@@ -26,6 +26,16 @@
                   {{ t('disabled') }}
                 </span>
               </span>
+            </div>
+
+            <div class="fs-6 mt-1 text-muted text-truncate">
+              {{ t('label_when') }}
+              {{ rulesParser.conditionsDescription }}
+            </div>
+
+            <div class="fs-6 mt-1 text-muted text-truncate">
+              {{ t('label_then') }}
+              {{ rulesParser.actionsDescription }}
             </div>
           </div>
         </a>
@@ -40,11 +50,15 @@
 
 <script>
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
+import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 
 import TransactionPredictionActions from '~/components/transaction_predictions/TransactionPredictionActions.vue';
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
@@ -65,6 +79,22 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_predictions.list');
 
+    const categoryStore = useCategoryStore();
+    const walletStore = useWalletStore();
+
+    const { categories } = storeToRefs(categoryStore);
+    const { activeWallets } = storeToRefs(walletStore);
+
+    if (!categories.value.length) {
+      categoryStore.fetchCollection();
+    }
+
+    if (!activeWallets.value.length) {
+      walletStore.fetchCollection();
+    }
+
+    const rulesParser = computed(() => new RulesParser(props.transactionPrediction.rulesJson));
+
     const showPath = transactionPredictionsApi.show.path({ id: props.transactionPrediction.id });
     const isDisabled = computed(() => !!props.transactionPrediction.disabledAt);
     const isDebit = computed(() => props.transactionPrediction.transactionAmount < 0);
@@ -79,6 +109,7 @@ export default {
       isDebit,
       isCredit,
       isCustomRule,
+      rulesParser,
       formatDate,
       formatMoney,
     };
