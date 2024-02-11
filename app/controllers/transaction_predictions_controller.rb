@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionPredictionsController < AbstractAuthenticatedController
-  before_action :set_transaction_prediction, only: %i[edit update]
+  before_action :set_transaction_prediction, only: %i[show edit update]
 
   def index
     transaction_predictions = Current.profile.transaction_predictions.active
@@ -9,6 +9,15 @@ class TransactionPredictionsController < AbstractAuthenticatedController
 
     respond_to do |format|
       format.html { render inertia: 'transaction_predictions/Index', props: props }
+      format.json { render json: props }
+    end
+  end
+
+  def show
+    props = camelize_props(transaction_prediction: @transaction_prediction.as_json)
+
+    respond_to do |format|
+      format.html { render inertia: 'transaction_predictions/Show', props: props }
       format.json { render json: props }
     end
   end

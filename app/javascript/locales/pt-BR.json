@@ -1055,7 +1055,11 @@
           "disabled_alert_message": "Este autopreenchimento está desabilitado. Ele não funcionará até que seja habilitado novamente.",
           "disabled_alert_title": "Desabilitado",
           "edit": "Editar",
+          "label_with": "com",
           "reenable": "Reabilitar",
+          "sub_header_action": "Então preencha todos esses campos",
+          "sub_header_conditions": "Quando qualquer uma destas condições for verdadeira",
+          "sub_header_rules": "Regras de Autopreenchimento",
           "title": "Autopreenchimento de Transação"
         }
       },

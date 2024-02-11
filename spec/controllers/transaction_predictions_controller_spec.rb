@@ -44,7 +44,7 @@ RSpec.describe TransactionPredictionsController do
     end
   end
 
-  describe 'GET show', skip: 'not implemented' do
+  describe 'GET show' do
     subject(:show_request) { get :show, format: format, params: { id: transaction_prediction.id } }
 
     let!(:transaction_prediction) { create(:transaction_prediction, profile:) }

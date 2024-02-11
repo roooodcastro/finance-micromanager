@@ -392,10 +392,10 @@ pt-BR:
         new_title: Novo Autopreenchimento
         edit_title: Editar Autopreenchimento
         name_label: Nome do Autopreenchimento
-        sub_header_conditions: Quando
-        sub_header_action: Então preencha
         sub_header_edit_condition: Editar Condição
         sub_header_edit_action: Editar Ação
+        sub_header_conditions: Quando
+        sub_header_action: Então preencha
         label_and: E
         label_or: OU
         label_with: com
@@ -426,6 +426,10 @@ pt-BR:
         disable: Desabilitar
         reenable: Reabilitar
         destroy: Remover
+        sub_header_rules: Regras de Autopreenchimento
+        sub_header_conditions: Quando qualquer uma destas condições for verdadeira
+        sub_header_action: Então preencha todos esses campos
+        label_with: com
         disabled_alert_title: Desabilitado
         disabled_alert_message: >-
           Este autopreenchimento está desabilitado. Ele não funcionará até que seja habilitado novamente.

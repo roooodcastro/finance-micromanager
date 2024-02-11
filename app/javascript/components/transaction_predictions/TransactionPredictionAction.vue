@@ -7,6 +7,7 @@
     </span>
 
     <a
+      v-if="editable"
       href="#"
       class="btn btn-sm btn-secondary rounded-0 align-self-stretch d-flex align-items-center"
       @click="handleRemove"
@@ -33,6 +34,10 @@ export default {
     actionIndex: {
       type: Number,
       required: true,
+    },
+    editable: {
+      type: Boolean,
+      default: false,
     },
   },
 
