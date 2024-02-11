@@ -748,6 +748,7 @@
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
           "transaction_automations": "Transaction Automations",
+          "transaction_predictions": "Transaction Predictions",
           "transactions": "Transactions",
           "wallets": "Wallets"
         }

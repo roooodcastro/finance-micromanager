@@ -105,6 +105,7 @@ pt-BR:
         dashboard: Dashboard
         transactions: Transações
         transaction_automations: Automações de Transação
+        transaction_predictions: Autopreenchimentos
         reconciliations: Reconciliações
         current_profile: 'Perfil:'
         profiles: Perfis

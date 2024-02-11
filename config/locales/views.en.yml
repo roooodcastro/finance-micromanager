@@ -105,6 +105,7 @@ en:
         dashboard: Dashboard
         transactions: Transactions
         transaction_automations: Transaction Automations
+        transaction_predictions: Transaction Predictions
         reconciliations: Reconciliations
         current_profile: 'Profile:'
         profiles: Profiles
