@@ -3,7 +3,7 @@
     v-bind="$attrs"
     class="form-select"
     :value="modelValue ?? $attrs.value"
-    @change="$emit('update:modelValue', $event.target.value)"
+    @change="handleChange"
   >
     <option value="">
       {{ placeholder }}
@@ -35,13 +35,21 @@ export default {
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
 
-  setup() {
+  setup(_, { emit }) {
     const categoryStore = useCategoryStore();
     const { categoriesForSelect: options } = storeToRefs(categoryStore);
 
-    return { options };
+    const handleChange = (ev) => {
+      emit('update:modelValue', ev.target.value);
+      emit('change', ev.target.value);
+    };
+
+    return {
+      options,
+      handleChange,
+    };
   },
 };
 </script>

@@ -19,6 +19,10 @@ export default defineBaseApiStore('transactionPrediction', {
     fetchParams: {},
   },
 
+  getters: {
+    activeTransactionPredictions: state => state.transactionPredictions.filter(prediction => !prediction.disabledAt),
+  },
+
   actions: {
     destroy(id) {
       const notificationStore = useNotificationStore();

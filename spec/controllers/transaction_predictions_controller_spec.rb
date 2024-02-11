@@ -108,7 +108,7 @@ RSpec.describe TransactionPredictionsController do
             conditions: [
               {
                 operator: :contains,
-                column:   'transaction_name',
+                column:   'name',
                 value:    'Tesco'
               }
             ],
@@ -139,7 +139,7 @@ RSpec.describe TransactionPredictionsController do
             conditions: [
               {
                 operator: :contains,
-                column:   'transaction_name',
+                column:   'name',
                 value:    'Tesco'
               }
             ],

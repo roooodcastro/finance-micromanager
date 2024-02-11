@@ -8,7 +8,7 @@ FactoryBot.define do
 
     rules_json do
       {
-        conditions: [{ operator: 'contains', column: 'transaction_name', value: 'a' }],
+        conditions: [{ operator: 'contains', column: 'name', value: 'a' }],
         actions:    [{ column: 'amount', value: '10' }]
       }.to_json
     end

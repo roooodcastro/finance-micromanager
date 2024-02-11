@@ -391,7 +391,7 @@ pt-BR:
         cancel: Cancelar
         new_title: Novo Autopreenchimento
         edit_title: Editar Autopreenchimento
-        name_label: Nome do Autopreenchimento
+        prediction_name_label: Nome do Autopreenchimento
         sub_header_edit_condition: Editar Condição
         sub_header_edit_action: Editar Ação
         sub_header_conditions: Quando
@@ -404,7 +404,7 @@ pt-BR:
         label_action_category: '-- Com a categoria --'
         label_action_wallet: '-- Com a carteira --'
         value_label: valor
-        transaction_name_label: Nome da Transação
+        name_label: Nome da Transação
         transaction_date_label: Data da Transação
         amount_label: Valor
         category_id_label: Categoria

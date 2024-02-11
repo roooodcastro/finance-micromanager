@@ -23,7 +23,7 @@ RSpec.describe TransactionPredictions::Rules do
           conditions: [
             {
               operator: :contains,
-              column:   'transaction_name',
+              column:   'name',
               value:    'Tesco'
             }
           ],

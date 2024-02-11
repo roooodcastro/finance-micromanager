@@ -109,7 +109,7 @@ export default {
 
     const columnSelectOptions = [
       { label: t('select_placeholder_label'), value: '' },
-      { label: t('transaction_name_label'), value: 'transaction_name' },
+      { label: t('name_label'), value: 'name' },
       { label: t('transaction_date_label'), value: 'transaction_date' },
       { label: t('amount_label'), value: 'amount' },
       { label: t('category_id_label'), value: 'category_id' },

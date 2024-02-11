@@ -386,7 +386,7 @@ en:
         cancel: Cancel
         new_title: New Transaction Prediction
         edit_title: Edit Transaction Prediction
-        name_label: Prediction Name
+        prediction_name_label: Prediction Name
         sub_header_edit_condition: Edit Condition
         sub_header_edit_action: Edit Action
         sub_header_conditions: When
@@ -399,7 +399,7 @@ en:
         label_action_category: '-- With category --'
         label_action_wallet: '-- With wallet --'
         value_label: value
-        transaction_name_label: Transaction Name
+        name_label: Transaction Name
         transaction_date_label: Transaction Date
         amount_label: Amount
         category_id_label: Category
