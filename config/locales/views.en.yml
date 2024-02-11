@@ -415,6 +415,8 @@ en:
       list:
         disabled: Disabled
         reenable_label: Reenable
+        label_when: When
+        label_then: Then fill
       show:
         title: Transaction Prediction
         edit: Edit

@@ -420,6 +420,8 @@ pt-BR:
       list:
         disabled: Desabilitado
         reenable_label: Reabilitar
+        label_when: Quando
+        label_then: Então preencha
       show:
         title: Autopreenchimento de Transação
         edit: Editar

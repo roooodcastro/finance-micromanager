@@ -995,6 +995,8 @@
         },
         "list": {
           "disabled": "Disabled",
+          "label_then": "Then fill",
+          "label_when": "When",
           "reenable_label": "Reenable"
         },
         "show": {
