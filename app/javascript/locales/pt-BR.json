@@ -807,6 +807,7 @@
           "sign_out": "Sair da Conta",
           "sign_up": "Criar Conta",
           "transaction_automations": "Automações de Transação",
+          "transaction_predictions": "Autopreenchimentos",
           "transactions": "Transações",
           "wallets": "Carteiras"
         }
