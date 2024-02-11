@@ -7,17 +7,20 @@
   >
     <template v-slot:default="{ formHelper }">
       <input
-        v-model="transactionPredictionFromStore.rulesJson"
         :id="formHelper.fieldId('rules_json')"
+        v-model="transactionPredictionFromStore.rulesJson"
         :name="formHelper.fieldName('rules_json')"
         type="hidden"
       >
+
+      <h5 class="my-3">
+        {{ t('name_label') }}
+      </h5>
 
       <FormInput
         v-model="transactionPredictionFromStore.name"
         field-name="name"
         :form-helper="formHelper"
-        :label="t('name_label')"
         required
       />
 
@@ -26,16 +29,50 @@
       </h5>
 
 
-      <div class="card card-body flex-row align-items-center flex-wrap gap-2">
-        <TransactionPredictionCondition :condition-index="0" />
+      <div class="card card-body">
+        <div class="d-flex flex-row align-items-center flex-wrap gap-2">
+          <div
+            v-for="(_, index) in rulesParser.conditions.length"
+            :key="`condition-${index}`"
+            class="d-flex align-items-center gap-2"
+          >
+            <span v-if="index > 0">{{ t('label_or') }}</span>
+            <TransactionPredictionCondition :condition-index="index" />
+          </div>
+        </div>
+
+        <a
+          href="#"
+          class="mt-3"
+          @click="handleNewCondition"
+        >
+          {{ t('new_condition') }}
+        </a>
       </div>
 
       <h5 class="my-3">
         {{ t('sub_header_action') }}
       </h5>
 
-      <div class="card card-body flex-row align-items-center flex-wrap gap-2">
-        <TransactionPredictionAction :action-index="0" />
+      <div class="card card-body">
+        <div class="d-flex flex-row align-items-center flex-wrap gap-2">
+          <div
+            v-for="(_, index) in rulesParser.actions.length"
+            :key="`action-${index}`"
+            class="d-flex align-items-center gap-2"
+          >
+            <span v-if="index > 0">{{ t('label_and') }}</span>
+            <TransactionPredictionAction :action-index="index" />
+          </div>
+        </div>
+
+        <a
+          href="#"
+          class="mt-3"
+          @click="handleNewAction"
+        >
+          {{ t('new_action') }}
+        </a>
       </div>
 
       <hr>
@@ -70,7 +107,11 @@ import { transactionPredictions as transactionPredictionsApi } from '~/api/all.j
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import useTransactionPredictionsStore from '~/stores/TransactionPredictionStore.js';
+import useModalStore from '~/stores/ModalStore.js';
+import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 import {
+  TRANSACTION_PREDICTION_CONDITION_MODAL_ID,
+  TRANSACTION_PREDICTION_ACTION_MODAL_ID,
   TRANSACTION_PREDICTION_FORM_ID,
 } from '~/utils/Constants.js';
 
@@ -102,15 +143,22 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_predictions.form');
 
+    const modalStore = useModalStore();
     const categoryStore = useCategoryStore();
     const walletStore = useWalletStore();
     const transactionPredictionStore = useTransactionPredictionsStore();
 
     const { categories } = storeToRefs(categoryStore);
     const { activeWallets } = storeToRefs(walletStore);
-    const { transactionPrediction: transactionPredictionFromStore } = storeToRefs(transactionPredictionStore);
+    const {
+      transactionPrediction: transactionPredictionFromStore,
+      currentConditionIndex,
+      currentActionIndex,
+    } = storeToRefs(transactionPredictionStore);
 
     transactionPredictionFromStore.value = props.transactionPrediction;
+
+    const rulesParser = computed(() => new RulesParser(transactionPredictionFromStore.value.rulesJson));
 
     if (!categories.value.length) {
       categoryStore.fetchCollection();
@@ -129,12 +177,25 @@ export default {
         : transactionPredictionsApi.update.path({ id: transactionPredictionFromStore.value.id });
     });
 
+    const handleNewCondition = () => {
+      currentConditionIndex.value = rulesParser.value.conditions.length;
+      modalStore.show(TRANSACTION_PREDICTION_CONDITION_MODAL_ID);
+    };
+
+    const handleNewAction = () => {
+      currentActionIndex.value = rulesParser.value.actions.length;
+      modalStore.show(TRANSACTION_PREDICTION_ACTION_MODAL_ID);
+    };
+
     return {
       t,
+      rulesParser,
       formTitle,
       formMethod,
       formAction,
       transactionPredictionFromStore,
+      handleNewCondition,
+      handleNewAction,
       TRANSACTION_PREDICTION_FORM_ID,
     };
   },

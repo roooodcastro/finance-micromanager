@@ -47,7 +47,7 @@ export default defineBaseApiStore('category', {
       const [categoryId, subcategoryId] = rawCategoryId.split('|');
       const category = this.categories.find(category => category.id === categoryId);
 
-      if (subcategoryId) {
+      if (category && subcategoryId) {
         const subcategory = category.subcategories.find(subcategory => subcategory.id === subcategoryId);
         return subcategory?.displayName;
       } else {

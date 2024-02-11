@@ -21,16 +21,16 @@ export class RulesParser {
     return this.rules.conditions;
   }
 
-  get action() {
-    return this.rules.action;
+  get actions() {
+    return this.rules.actions;
   }
 
   set conditions(conditions) {
     this.rules.conditions = conditions;
   }
 
-  set action(action) {
-    this.rules.action = action;
+  set actions(actions) {
+    this.rules.actions = actions;
   }
 
   toJson() {
@@ -43,6 +43,14 @@ export class RulesParser {
 
   setConditionAt(index, condition) {
     this.rules.conditions[index] = condition;
+  }
+
+  deleteConditionAt(index) {
+    this.rules.conditions.splice(index, 1);
+  }
+
+  deleteActionAt(index) {
+    this.rules.actions.splice(index, 1);
   }
 
   getActionAt(index) {
