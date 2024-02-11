@@ -37,7 +37,10 @@
             class="d-flex align-items-center gap-2"
           >
             <span v-if="index > 0">{{ t('label_or') }}</span>
-            <TransactionPredictionCondition :condition-index="index" />
+            <TransactionPredictionCondition
+              :condition-index="index"
+              editable
+            />
           </div>
         </div>
 
@@ -62,7 +65,10 @@
             class="d-flex align-items-center gap-2"
           >
             <span v-if="index > 0">{{ t('label_and') }}</span>
-            <TransactionPredictionAction :action-index="index" />
+            <TransactionPredictionAction
+              :action-index="index"
+              editable
+            />
           </div>
         </div>
 

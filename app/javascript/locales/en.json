@@ -994,7 +994,11 @@
           "disabled_alert_message": "This transaction prediction is disabled, it will not work until it's enabled again.",
           "disabled_alert_title": "Disabled",
           "edit": "Edit",
+          "label_with": "with",
           "reenable": "Reenable",
+          "sub_header_action": "Then fill all these fields",
+          "sub_header_conditions": "When any of these conditions are true",
+          "sub_header_rules": "Prediction Rules",
           "title": "Transaction Prediction"
         }
       },

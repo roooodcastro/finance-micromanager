@@ -11,7 +11,7 @@
         <a
           class="text-decoration-none text-body list-group-item-action d-flex align-items-center p-2 ps-4 min-width-0 side-strip"
           :class="{ 'side-strip-danger': isDisabled, 'side-strip-primary': !isDisabled }"
-          href="#"
+          :href="showPath"
         >
           <div class="flex-grow-1">
             <div class="d-flex justify-content-between">
@@ -44,7 +44,7 @@ import { computed } from 'vue';
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
-// import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
+import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 
 import TransactionPredictionActions from '~/components/transaction_predictions/TransactionPredictionActions.vue';
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
@@ -65,8 +65,7 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_predictions.list');
 
-    // const showTransactionPredictionPath = id => transactionPredictionsApi.show.path({ id });
-
+    const showPath = transactionPredictionsApi.show.path({ id: props.transactionPrediction.id });
     const isDisabled = computed(() => !!props.transactionPrediction.disabledAt);
     const isDebit = computed(() => props.transactionPrediction.transactionAmount < 0);
     const isCredit = computed(() => props.transactionPrediction.transactionAmount > 0);
@@ -75,6 +74,7 @@ export default {
     return {
       I18n,
       t,
+      showPath,
       isDisabled,
       isDebit,
       isCredit,

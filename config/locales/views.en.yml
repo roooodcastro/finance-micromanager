@@ -387,10 +387,10 @@ en:
         new_title: New Transaction Prediction
         edit_title: Edit Transaction Prediction
         name_label: Prediction Name
-        sub_header_conditions: When
-        sub_header_action: Then fill
         sub_header_edit_condition: Edit Condition
         sub_header_edit_action: Edit Action
+        sub_header_conditions: When
+        sub_header_action: Then fill
         label_and: AND
         label_or: OR
         label_with: with
@@ -421,6 +421,10 @@ en:
         disable: Disable
         reenable: Reenable
         destroy: Delete
+        sub_header_rules: Prediction Rules
+        sub_header_conditions: When any of these conditions are true
+        sub_header_action: Then fill all these fields
+        label_with: with
         disabled_alert_title: Disabled
         disabled_alert_message: "This transaction prediction is disabled, it will not work until it's enabled again."
 
