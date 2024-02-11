@@ -2,7 +2,7 @@
   <a
     v-bind="$attrs"
     class="text-danger"
-    @click="openModal"
+    @click="handleClick"
   >
     <FontAwesomeIcon
       :icon="disableLabel ? 'ban' : ['far', 'trash-can']"
@@ -37,6 +37,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    askConfirmation: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   emits: ['delete'],
@@ -47,16 +51,20 @@ export default {
     const modalStore = useModalStore();
 
     const confirmationMessage = props.disableLabel ? t('disable_confirmation') : t('delete_confirmation');
-    const openModal = () => {
-      modalStore
-        .showConfirmationDialog({ message: confirmationMessage })
-        .then(() => emit('delete'))
-        .catch(() => {});
+    const handleClick = () => {
+      if (props.askConfirmation) {
+        modalStore
+          .showConfirmationDialog({ message: confirmationMessage })
+          .then(() => emit('delete'))
+          .catch(() => {});
+      } else {
+        emit('delete');
+      }
     };
 
     return {
       t,
-      openModal,
+      handleClick,
     };
   },
 };

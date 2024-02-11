@@ -38,6 +38,7 @@
       'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
       'ms-3': !drawerMenu,
     }"
+    ask-confirmation
     @delete="handleDelete(profile.id)"
   />
 </template>

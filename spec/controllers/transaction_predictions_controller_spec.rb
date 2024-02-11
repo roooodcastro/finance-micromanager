@@ -194,13 +194,16 @@ RSpec.describe TransactionPredictionsController do
     end
   end
 
-  describe 'DELETE destroy', :travel_to_now, skip: 'not implemented' do
+  describe 'DELETE destroy', :travel_to_now do
     subject(:destroy_request) do
       delete :destroy, params: { id: transaction_prediction.id }
     end
 
-    let!(:transaction_prediction) { create(:transaction_prediction, profile: profile, disabled_at: nil) }
-    let(:expected_json) { { 'message' => 'Transaction Prediction was successfully deleted.' } }
+    let!(:transaction_prediction) do
+      create(:transaction_prediction, profile: profile, disabled_at: nil, name: 'Test')
+    end
+
+    let(:expected_json) { { 'message' => 'Transaction Prediction "Test" was successfully deleted.' } }
 
     it 'disables the transaction prediction and renders json' do
       expect { destroy_request }.to change { TransactionPrediction.count }.by(-1)
@@ -208,13 +211,16 @@ RSpec.describe TransactionPredictionsController do
     end
   end
 
-  describe 'DELETE disable', :travel_to_now, skip: 'not implemented' do
+  describe 'DELETE disable', :travel_to_now do
     subject(:disable_request) do
       delete :disable, params: { id: transaction_prediction.id }
     end
 
-    let(:transaction_prediction) { create(:transaction_prediction, profile: profile, disabled_at: nil) }
-    let(:expected_json) { { 'message' => 'Transaction Prediction was successfully disabled.' } }
+    let!(:transaction_prediction) do
+      create(:transaction_prediction, profile: profile, disabled_at: nil, name: 'Test')
+    end
+
+    let(:expected_json) { { 'message' => 'Transaction Prediction "Test" was successfully disabled.' } }
 
     it 'disables the transaction prediction and renders json' do
       expect { disable_request }.to change { transaction_prediction.reload.disabled_at }.to(Time.current)
@@ -222,13 +228,16 @@ RSpec.describe TransactionPredictionsController do
     end
   end
 
-  describe 'PATCH reenable', :travel_to_now, skip: 'not implemented' do
+  describe 'PATCH reenable', :travel_to_now do
     subject(:reenable_request) do
       patch :reenable, params: { id: transaction_prediction.id }
     end
 
-    let(:transaction_prediction) { create(:transaction_prediction, profile: profile, disabled_at: Time.current) }
-    let(:expected_json) { { 'message' => 'Transaction Prediction was successfully re-enabled.' } }
+    let!(:transaction_prediction) do
+      create(:transaction_prediction, profile: profile, disabled_at: Time.current, name: 'Test')
+    end
+
+    let(:expected_json) { { 'message' => 'Transaction Prediction "Test" was successfully re-enabled.' } }
 
     it 'reenables the transaction prediction and renders json' do
       expect { reenable_request }.to change { transaction_prediction.reload.disabled_at }.to(nil)

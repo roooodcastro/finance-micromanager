@@ -20,6 +20,7 @@
         'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
         'me-0 me-lg-3': !drawerMenu,
       }"
+      ask-confirmation
       @delete="handleDelete(transaction.id)"
     />
   </div>

@@ -59,6 +59,7 @@
           v-for="(_, index) in rulesParser.conditions.length"
           :key="`condition-${index}`"
           :condition-index="index"
+          :disabled="isDisabled"
           class="w-100"
         />
       </div>
@@ -72,6 +73,7 @@
           v-for="(_, index) in rulesParser.actions.length"
           :key="`action-${index}`"
           :action-index="index"
+          :disabled="isDisabled"
           class="w-100"
         />
       </div>

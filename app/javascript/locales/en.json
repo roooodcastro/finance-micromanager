@@ -585,6 +585,15 @@
         "error": "Transaction Prediction could not be created: %{error}",
         "success": "Transaction Prediction \"%{name}\" was successfully created."
       },
+      "destroy": {
+        "success": "Transaction Prediction \"%{name}\" was successfully deleted."
+      },
+      "disable": {
+        "success": "Transaction Prediction \"%{name}\" was successfully disabled."
+      },
+      "reenable": {
+        "success": "Transaction Prediction \"%{name}\" was successfully re-enabled."
+      },
       "update": {
         "error": "Transaction Prediction could not be updated: %{error}",
         "success": "Transaction Prediction \"%{name}\" was successfully updated."

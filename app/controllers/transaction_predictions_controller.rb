@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class TransactionPredictionsController < AbstractAuthenticatedController
-  before_action :set_transaction_prediction, only: %i[show edit update]
+  before_action :set_transaction_prediction, only: %i[show edit update disable reenable destroy]
 
   def index
-    transaction_predictions = Current.profile.transaction_predictions.active
+    transaction_predictions = Current.profile.transaction_predictions
     props                   = camelize_props(transaction_predictions: transaction_predictions.as_json)
 
     respond_to do |format|
@@ -54,6 +54,24 @@ class TransactionPredictionsController < AbstractAuthenticatedController
       props             = camelize_props(transaction_prediction: @transaction_prediction.as_json)
       render inertia: 'transaction_predictions/Edit', props: props
     end
+  end
+
+  def destroy
+    @transaction_prediction.destroy!
+
+    render json: camelize_props(message: t('.success', name: @transaction_prediction.name))
+  end
+
+  def disable
+    @transaction_prediction.disable!
+
+    render json: camelize_props(message: t('.success', name: @transaction_prediction.name))
+  end
+
+  def reenable
+    @transaction_prediction.enable!
+
+    render json: camelize_props(message: t('.success', name: @transaction_prediction.name))
   end
 
   private

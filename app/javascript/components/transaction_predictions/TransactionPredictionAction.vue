@@ -1,6 +1,9 @@
 <template>
   <div class="border border-secondary rounded d-flex align-items-center">
-    <span class="mx-3 my-2">
+    <span
+      class="mx-3 my-2"
+      :class="{ 'text-muted text-decoration-line-through': disabled }"
+    >
       {{ action.column ? t(`${action.column}_label`) : '?' }}
       {{ t('label_with') }}
       {{ displayValue ? `"${displayValue}"` : '?' }}
@@ -36,6 +39,10 @@ export default {
       required: true,
     },
     editable: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
