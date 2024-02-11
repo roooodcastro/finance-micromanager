@@ -27,6 +27,7 @@
             :label="t('name_label')"
             class="focus"
             required
+            @input="handleInput"
           />
 
           <label
@@ -51,6 +52,7 @@
                 step="0.01"
                 :disabled="transaction.lockedByReconciliation"
                 required
+                @input="handleInput"
               >
             </div>
 
@@ -77,6 +79,7 @@
             type="date"
             :disabled="transaction.lockedByReconciliation"
             required
+            @input="handleInput"
           />
 
           <label
@@ -91,6 +94,7 @@
             v-model="transaction.categoryId"
             :name="formHelper.fieldName('category_id')"
             required
+            @change="handleInput"
           />
 
           <template v-if="showWalletField">
@@ -107,6 +111,7 @@
               v-model="transaction.walletId"
               :name="formHelper.fieldName('wallet_id')"
               :disabled="transaction.lockedByReconciliation"
+              @change="handleInput"
             />
           </template>
         </template>
@@ -126,9 +131,11 @@ import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
 import { TRANSACTION_FORM_ID } from '~/utils/Constants.js';
+import { RulesProcessor } from '~/lib/transaction_predictions/RulesProcessor.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
@@ -159,12 +166,14 @@ export default {
     const transactionStore = useTransactionStore();
     const modalStore = useModalStore();
     const walletStore = useWalletStore();
+    const transactionPredictionStore = useTransactionPredictionStore();
 
     const modalId = modalStore.modalId(TRANSACTION_FORM_ID);
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
     const { activeWallets } = storeToRefs(walletStore);
+    const { transactionPredictions } = storeToRefs(transactionPredictionStore);
     const { transactionForFormModal: transaction, defaultTransactionDate } = storeToRefs(transactionStore);
 
     const showWalletField = computed(() => !!activeWallets.value.length);
@@ -214,6 +223,10 @@ export default {
         walletStore.fetchCollection();
       }
 
+      if (!transactionPredictions.value.length) {
+        transactionPredictionStore.fetchCollection();
+      }
+
       updateTransactionDataWithDefaultValues();
     }
 
@@ -237,6 +250,12 @@ export default {
       }
     };
 
+    const handleInput = () => {
+      if (isNewRecord.value) {
+        transaction.value = new RulesProcessor(transaction.value).processTransaction();
+      }
+    };
+
     return {
       t,
       loading,
@@ -248,6 +267,7 @@ export default {
       showWalletField,
       handleSubmit,
       handleShow,
+      handleInput,
       updateTransactionDataWithDefaultValues,
       TRANSACTION_FORM_ID,
     };

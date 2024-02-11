@@ -14,7 +14,7 @@
       >
 
       <h5 class="my-3">
-        {{ t('name_label') }}
+        {{ t('prediction_name_label') }}
       </h5>
 
       <FormInput
@@ -112,7 +112,7 @@ import I18n from '~/utils/I18n.js';
 import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
-import useTransactionPredictionsStore from '~/stores/TransactionPredictionStore.js';
+import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 import {
@@ -152,7 +152,7 @@ export default {
     const modalStore = useModalStore();
     const categoryStore = useCategoryStore();
     const walletStore = useWalletStore();
-    const transactionPredictionStore = useTransactionPredictionsStore();
+    const transactionPredictionStore = useTransactionPredictionStore();
 
     const { categories } = storeToRefs(categoryStore);
     const { activeWallets } = storeToRefs(walletStore);
