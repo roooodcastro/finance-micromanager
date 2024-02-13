@@ -58,11 +58,24 @@ subcategories, allowing you to know whether you're spending more money with fuel
 
 *TODO*
 
-#### Honourable mentions:
+#### Transaction Predictions
+
+*TODO*
+
+#### Other noteworthy features
 
 - Support for English and Brazilian Portuguese languages
 - Mobile-first responsive layout
-- Nice charts in dashboard with insights of your finances for the selected month
+- PWA support
+
+<hr>
+
+## Self-hosting
+
+You can self-host Finance MicroManager! The project includes a Dockerfile and configuration files tailored to
+be hosted in a Kubernetes cluster, but you can also configure your own deployment and host the project anywhere.
+
+*Further details on this coming soon*
 
 ### Built With
 
@@ -71,15 +84,6 @@ subcategories, allowing you to know whether you're spending more money with fuel
 * [![Vue][Vue.js]][Vue-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![Font Awesome][fontawesome-shield]][fontawesome-url]
-
-<hr>
-
-## Self-hosting
-
-You can easily self-host Finance MicroManager! The project includes a Dockerfile and configuration files tailored to
-be hosted in a Kubernetes cluster.
-
-*Further instructions on this coming soon*
 
 ### Prerequisites
 
@@ -99,43 +103,27 @@ environment's credentials file, and change the values accordingly.
 
 ## Roadmap
 
-**This list is not prioritised, and does not follow any particular order.**
+**This list is non-exhaustive, and does not follow any particular order.**
 
-- [ ] Landing page showcasing the project
-- [ ] Dark Mode
-- [ ] Better insights and statistics in category and wallet page
-- [ ] Admin area
-- [ ] New user onboarding/walkthrough
-- [ ] Authorization management
-- [ ] User can easily undo destructive actions
-- [ ] Comprehensive transaction search
-- [ ] Allow for more complex transaction automation schedules
-  - [ ] "first/last day of month"
-  - [ ] "first/last business day of month" - will require integration with calendar and new user settings
-- [ ] Transaction Predictions (form automations to speed up the creation of transactions)
-- [ ] Splitting transactions into multiple sub-transactions of different categories
-- [ ] Autocomplete transaction names when creating transactions
+- [x] Allow for more complex transaction automation schedules
+- [x] Transaction Predictions (form automations to speed up the creation of transactions)
 - [ ] Batch importing of transactions
-- [ ] New Transaction types:
-  - [ ] Balance transfer between wallets
-  - [ ] Balance transfer between profiles (with currency conversion support)
-- [ ] Credit card support (allow users to create transactions that will only be paid in the future)
-- [ ] Suggest common categories when creating a new profile
-- [ ] Allow the user to translate categories and subcategories
-  - [ ] Provide "library" of common category names and translations
-- [ ] User can specify icons for categories
-- [ ] Categories can be manually ordered
-- [ ] User can define monthly budgets for each category/subcategory
-- [ ] 50/30/20 rule tracking and insights
-- [ ] Allow user to choose different period types (week, quarter, year instead of just month)
-- [ ] Keyboard shortcuts
-- [ ] Omniauth
-- [ ] Notifications and notification centre
-  - [ ] Native notifications
-- [ ] User can add avatar photo
-- [ ] Use ActiveCable to stream all changes to the frontend
-- [ ] Decouple backend from frontend and convert frontend into SPA
-- [ ] Service Worker for adding basic PWA support
+- [ ] Better insights and statistics in category and wallet page
+- [ ] Authorization management
+- [ ] Admin area
+- [ ] Splitting transactions into multiple sub-transactions of different categories
+- [ ] New Transaction types (transfer between wallets, credit card transactions, etc)
+- [ ] Suggest default categories when creating a new profile
+- [ ] Category/Subcategory translation support
+- [ ] Budgeting support
+- [ ] 50/30/20 (needs/wants/savings) rule tracking and insights
+- [ ] Support more period types other than just month (week, fortnight, quarter, year)
+- [ ] Omniauth authentication
+- [ ] Multi factor authentication
+- [ ] Notification centre
+- [ ] Dark Mode
+- [ ] Profile photo support
+- [ ] Stream changes to frontend with ActiveCable
 
 The issue and feature tracking is still not in a public platform, but it will eventually be moved to GitHub Issues.
 
