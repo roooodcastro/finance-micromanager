@@ -31,13 +31,13 @@ import AnnotationPlugin from 'chartjs-plugin-annotation';
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
+import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 
 import { Bar as BarChart } from 'vue-chartjs';
 import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
 
 const CHART_X_MAX = 1000;
 const CHART_X_MIN = -1000;
-const ONE_THOUSAND = 1000;
 const MONEY_IN_COLOR = '#268c4d80';
 const SPENDS_COLOR = '#d9534f80';
 
@@ -77,13 +77,7 @@ export default {
       };
     });
 
-    const yAxisTickFormatter = (label) => {
-      if (Math.abs(label) >= ONE_THOUSAND) {
-        return `${formatMoney(label / ONE_THOUSAND, null, false)}k`;
-      } else {
-        return formatMoney(label, null, false);
-      }
-    };
+    const xAxisMinRotation = isMediaBreakpointDown('sm') ? 90 : 0;
 
     const chartOptions = {
       animation: {
@@ -93,13 +87,11 @@ export default {
       layout: {
         padding: 0,
       },
+      categoryPercentage: 1.0,
+      barPercentage: 1.0,
       plugins: {
         datalabels: {
-          align: 'end',
-          offset: 0,
-          clamp: true,
-          formatter: value => value.toFixed(),
-          display: 'auto',
+          display: false,
         },
         tooltip: {
           callbacks: {
@@ -111,20 +103,24 @@ export default {
       scales: {
         x: {
           grid: {
-            display: false,
+            color: '#00000010',
           },
           ticks: {
             callback: function(label) {
               return dayjs(this.getLabelForValue(label)).date();
-            }
+            },
+            autoSkipPadding: 0,
+            maxRotation: 90,
+            minRotation: xAxisMinRotation,
           },
         },
         y: {
           ticks: {
-            callback: yAxisTickFormatter,
+            callback: label => formatMoney(label, null, false),
           },
           min: CHART_X_MIN,
           max: CHART_X_MAX,
+          padding: 0,
         },
       },
     };

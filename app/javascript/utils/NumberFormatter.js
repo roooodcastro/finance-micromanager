@@ -21,5 +21,5 @@ export function formatMoney(amount, currency = null, includeCents = true) {
     maximumFractionDigits: fractionDigits,
   };
 
-  return Intl.NumberFormat(locale, formatOptions).format(amount);
+  return Intl.NumberFormat(locale, formatOptions).format(amount).replace(/\s/, '');
 }
