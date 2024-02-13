@@ -119,6 +119,7 @@ pt-BR:
     manifest:
       screenshots:
         login_page: Página de Login
+        dashboard: Página Inicial
     profiles:
       floating_button_label: Novo Perfil
       index:
