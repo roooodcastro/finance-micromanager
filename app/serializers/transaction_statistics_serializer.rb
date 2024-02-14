@@ -14,15 +14,28 @@ class TransactionStatisticsSerializer < ApplicationSerializer
   private
 
   def daily_totals
-    daily_totals_transactions = transactions
-                                .group(:transaction_date, :profile_id)
-                                .order(:transaction_date)
-                                .select(:transaction_date, :profile_id, 'sum(amount_cents) as amount_cents')
-                                .to_a
-                                .map { |t| { date: t.transaction_date, amount: t.amount.to_f } }
-                                .index_by { |transaction| transaction[:date] }
+    base_scope          = transactions
+                          .group(:transaction_date, :profile_id)
+                          .order(:transaction_date)
+                          .select(:transaction_date, :profile_id, 'sum(amount_cents) as amount_cents')
 
-    days_in_period.map { |day| { date: day, amount: daily_totals_transactions.dig(day, :amount) || 0 } }
+    daily_totals_spends = format_daily_totals_transactions(base_scope.where('amount_cents < 0'))
+    daily_totals_income = format_daily_totals_transactions(base_scope.where('amount_cents > 0'))
+
+    days_in_period.map do |day|
+      {
+        date:   day,
+        spends: daily_totals_spends.dig(day, :amount) || 0,
+        income: daily_totals_income.dig(day, :amount) || 0
+      }
+    end
+  end
+
+  def format_daily_totals_transactions(transactions)
+    transactions
+      .to_a
+      .map { |t| { date: t.transaction_date, amount: t.amount.to_f } }
+      .index_by { |transaction| transaction[:date] }
   end
 
   def spends

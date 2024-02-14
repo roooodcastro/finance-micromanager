@@ -738,7 +738,6 @@
           "spends": "Gastos",
           "start_balance": "S. Inicial",
           "sub_header_category_summary": "Resumo das Categorias",
-          "sub_header_day_chart": "Totais Diários",
           "sub_header_recent_transactions": "Transações Recentes",
           "sub_header_transactions_summary": "Resumo",
           "title": "Dashboard"
@@ -935,6 +934,18 @@
           "reset_form_button": "Desfazer",
           "save_button": "Salvar Alterações",
           "title": "Minha conta"
+        }
+      },
+      "statistics": {
+        "daily_totals_chart": {
+          "display_options_label": "Opções de visualização",
+          "mode_both": "Both Spends and Income",
+          "mode_combined": "Combine Spends and Income",
+          "mode_income": "Only Income Transactions",
+          "mode_modal_title": "Mudar modo do gráfico",
+          "mode_spends": "Only Spend Transactions",
+          "options_aria_label": "Opções para gráfico de totais diários",
+          "title": "Totais Diários"
         }
       },
       "subcategories": {
