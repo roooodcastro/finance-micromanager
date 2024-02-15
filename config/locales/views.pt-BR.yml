@@ -49,7 +49,6 @@ pt-BR:
         title: Dashboard
         sub_header_recent_transactions: Transações Recentes
         sub_header_category_summary: Resumo das Categorias
-        sub_header_day_chart: Totais Diários
         sub_header_transactions_summary: Resumo
         money_in: Receita
         spends: Gastos
@@ -243,6 +242,13 @@ pt-BR:
         empty_first_name_label: '-- Nome não informado --'
         empty_last_name_label:  '-- Sobrenome não informado --'
         empty_default_profile_label: '-- Perfil padrão não informado --'
+
+    statistics:
+      daily_totals_chart:
+        title: Totais Diários
+        options_aria_label: Opções para gráfico de totais diários
+        display_options_label: Opções de visualização
+        mode_modal_title: Mudar modo do gráfico
 
     subcategories:
       form:

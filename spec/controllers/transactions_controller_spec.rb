@@ -31,9 +31,9 @@ RSpec.describe TransactionsController do
             spends:      0,
             moneyIn:     20,
             dailyTotals: [
-              { date: 2.days.ago.to_date, amount: 0 },
-              { date: 1.day.ago.to_date, amount: 10 },
-              { date: Date.current, amount: 10 }
+              { date: 2.days.ago.to_date, spends: 0, income: 0 },
+              { date: 1.day.ago.to_date, spends: 0, income: 10 },
+              { date: Date.current, spends: 0, income: 10 }
             ]
           )
         }

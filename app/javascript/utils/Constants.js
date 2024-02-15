@@ -2,6 +2,7 @@ export const CONFIRMATION_MODAL_ID = 'confirmationModal';
 export const PASSWORD_CHANGE_MODAL_ID = 'passwordChangeModal';
 export const TRANSACTION_PREDICTION_CONDITION_MODAL_ID = 'transactionPredictionConditionModal';
 export const TRANSACTION_PREDICTION_ACTION_MODAL_ID = 'transactionPredictionActionModal';
+export const DAILY_TOTALS_CHART_MODE_MODAL_ID = 'dailyTotalsChartModeModal';
 
 export const CATEGORY_FORM_ID = 'categoryForm';
 export const PROFILE_FORM_ID = 'profileForm';
@@ -27,6 +28,7 @@ export const VARIANTS_FOR_RECONCILIATION_STATUSES = {
 
 export const COLLAPSED_CARDS_COOKIE_NAME = 'collapsed-cards';
 export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
+export const DISPLAY_OPTIONS_COOKIE_NAME = 'display-options';
 
 export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-micromanager';
 

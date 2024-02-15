@@ -679,7 +679,6 @@
           "spends": "Spends",
           "start_balance": "Start Bal.",
           "sub_header_category_summary": "Categories Summary",
-          "sub_header_day_chart": "Daily Totals",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_transactions_summary": "Summary",
           "title": "Dashboard"
@@ -874,6 +873,18 @@
           "reset_form_button": "Reset",
           "save_button": "Save Changes",
           "title": "My Account"
+        }
+      },
+      "statistics": {
+        "daily_totals_chart": {
+          "display_options_label": "Display Options",
+          "mode_both": "Both Spends and Income",
+          "mode_combined": "Combine Spends and Income",
+          "mode_income": "Only Income Transactions",
+          "mode_modal_title": "Change Chart Mode",
+          "mode_spends": "Only Spend Transactions",
+          "options_aria_label": "Options for Daily Totals Chart",
+          "title": "Daily Totals"
         }
       },
       "subcategories": {

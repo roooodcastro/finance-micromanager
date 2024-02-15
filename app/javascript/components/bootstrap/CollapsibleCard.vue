@@ -4,22 +4,24 @@
       class="CollapsibleCard__card-header card-header"
       :class="{ 'border-bottom-0': isCollapsed }"
     >
-      <h5 class="m-0">
-        <a
-          data-bs-toggle="collapse"
-          class="d-block text-dark text-decoration-none"
-          :class="{ 'collapsed': isInitiallyCollapsed }"
-          :href="`#${id}`"
-        >
-          <FontAwesomeIcon icon="chevron-down" />
-          {{ title }}
-        </a>
-      </h5>
+      <div :class="headerClass">
+        <h5 class="m-0">
+          <a
+            data-bs-toggle="collapse"
+            class="d-block text-dark text-decoration-none"
+            :class="{ 'collapsed': isInitiallyCollapsed }"
+            :href="`#${id}`"
+          >
+            <FontAwesomeIcon icon="chevron-down" />
+            {{ title }}
+          </a>
+        </h5>
 
-      <slot
-        v-if="!isCollapsed"
-        name="header"
-      />
+        <slot
+          v-if="!isCollapsed"
+          name="header"
+        />
+      </div>
     </div>
     <template v-if="noBody">
       <LoadingOverlay
@@ -79,6 +81,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    headerClass: {
+      type: String,
+      default: '',
+    }
   },
 
   setup(props) {
