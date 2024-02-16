@@ -11,11 +11,11 @@
     >
       <template
         v-for="category in categories"
-        :key="indexedSummaries[category.id]?.id"
+        :key="`${category.id}-${rangeKey}`"
       >
         <CategorySummaryListItem
           v-if="!!indexedSummaries[category.id]"
-          :summary="indexedSummaries[category.id]"
+          :summaries="indexedSummaries[category.id]"
           :category="category"
         />
       </template>
@@ -28,6 +28,7 @@ import { storeToRefs } from 'pinia';
 
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 import CategorySummaryListItem from '~/components/statistics/category_summaries/CategorySummaryListItem.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
@@ -42,13 +43,16 @@ export default {
 
   setup() {
     const categoryStore = useCategoryStore();
+    const dateRangeStore = useDateRangeStore();
     const categorySummaryStore = useStatisticsCategorySummaryStore();
 
     const { categories } = storeToRefs(categoryStore);
+    const { rangeKey } = storeToRefs(dateRangeStore);
     const { indexedSummaries, loading } = storeToRefs(categorySummaryStore);
 
     return {
       loading,
+      rangeKey,
       categories,
       indexedSummaries,
     };

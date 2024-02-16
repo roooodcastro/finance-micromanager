@@ -17,16 +17,20 @@ module Statistics
       <<~SQL.squish
         SELECT
           c.id AS category_id,
+          t.subcategory_id AS subcategory_id,
           c.profile_id,
           w.currency AS currency_name,
           SUM(CASE WHEN t.amount_cents > 0 THEN t.amount_cents ELSE 0 END) AS credit_sum_cents,
           SUM(CASE WHEN t.amount_cents < 0 THEN t.amount_cents ELSE 0 END) AS debit_sum_cents
         FROM categories AS c
         INNER JOIN profiles AS w ON w.id = c.profile_id
-        LEFT JOIN transactions AS t ON t.category_id = c.id #{start_date_condition} #{end_date_condition}
+        LEFT JOIN subcategories AS sc ON c.id = sc.category_id
+        LEFT JOIN transactions AS t
+          ON t.category_id = c.id AND (t.subcategory_id = sc.id OR t.subcategory_id IS NULL)
+          #{start_date_condition} #{end_date_condition}
         WHERE c.profile_id = @profile_id
         #{category_ids_condition}
-        GROUP BY c.id, c.profile_id, w.currency
+        GROUP BY c.id, t.subcategory_id, c.profile_id, w.currency
         ORDER BY c.name
       SQL
     end
