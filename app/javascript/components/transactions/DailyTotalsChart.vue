@@ -96,27 +96,32 @@ export default {
       AnnotationPlugin
     );
 
+    const dailyTotalsUntilToday = computed(() => {
+      const today = dayjs().tz('utc').utc();
+      return statistics.value.dailyTotals?.filter(total => dayjs.tz(total.date, 'utc') < today) || [];
+    });
+
     const chartData = computed(() => {
       let datasets = [];
 
       const onlySpendsDataset = {
-        data: statistics.value.dailyTotals?.map(total => total.spends * -1) || [],
+        data: dailyTotalsUntilToday.value.map(total => total.spends * -1) || [],
         backgroundColor: SPENDS_COLOR,
       };
 
       const spendsDataset = {
-        data: statistics.value.dailyTotals?.map(total => total.spends) || [],
+        data: dailyTotalsUntilToday.value.map(total => total.spends) || [],
         backgroundColor: SPENDS_COLOR,
       };
 
       const incomeDataset = {
-        data: statistics.value.dailyTotals?.map(total => total.income) || [],
+        data: dailyTotalsUntilToday.value.map(total => total.income) || [],
         backgroundColor: MONEY_IN_COLOR,
       };
 
       if (chartMode.value === 'combined') {
         datasets = [{
-          data: statistics.value.dailyTotals?.map(total => total.spends + total.income) || [],
+          data: dailyTotalsUntilToday.value.map(total => total.spends + total.income) || [],
           backgroundColor: statistics.value.dailyTotals?.map((total) => {
             return total.income + total.spends > 0 ? MONEY_IN_COLOR : SPENDS_COLOR;
           }) || [],
