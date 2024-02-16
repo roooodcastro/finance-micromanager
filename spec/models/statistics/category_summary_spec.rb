@@ -2,10 +2,11 @@
 
 RSpec.describe Statistics::CategorySummary do
   let(:category_summary) do
-    described_class.new(category_id:, profile_id:, currency_name:, credit_sum_cents:, debit_sum_cents:)
+    described_class.new(category_id:, profile_id:, currency_name:, credit_sum_cents:, debit_sum_cents:, subcategory_id:)
   end
 
   let(:category_id) { SecureRandom.uuid }
+  let(:subcategory_id) { SecureRandom.uuid }
   let(:profile_id) { SecureRandom.uuid }
   let(:currency_name) { 'brl' }
   let(:credit_sum_cents) { 499 }
@@ -66,13 +67,14 @@ RSpec.describe Statistics::CategorySummary do
 
     let(:expected_json) do
       {
-        id:            expected_id,
-        credit_sum:    4.99,
-        debit_sum:     -7125.5,
-        currency:      'brl',
-        currency_code: 'BRL',
-        category_id:   category_id,
-        profile_id:    profile_id
+        id:             expected_id,
+        credit_sum:     4.99,
+        debit_sum:      -7125.5,
+        currency:       'brl',
+        currency_code:  'BRL',
+        category_id:    category_id,
+        profile_id:     profile_id,
+        subcategory_id: subcategory_id
       }
     end
 

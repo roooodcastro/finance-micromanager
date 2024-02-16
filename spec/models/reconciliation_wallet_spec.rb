@@ -53,6 +53,21 @@ RSpec.describe ReconciliationWallet do
     end
   end
 
+  describe '.as_json' do
+    subject { reconciliation_wallet.as_json }
+
+    let(:expected_json) do
+      {
+        id:                reconciliation_wallet.id,
+        reconciliation_id: reconciliation_wallet.reconciliation_id,
+        wallet_id:         reconciliation_wallet.wallet_id,
+        balance_amount:    reconciliation_wallet.balance_amount.to_f
+      }
+    end
+
+    it { is_expected.to eq(expected_json) }
+  end
+
   describe '.currency' do
     subject(:currency) { reconciliation_wallet.currency }
 
