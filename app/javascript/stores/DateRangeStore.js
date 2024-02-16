@@ -13,6 +13,12 @@ export default defineStore('dateRange', {
     endDate: (state) => dayjs(state.startDate).tz('utc').utc().endOf(state.type),
     startMonth: (state) => state.startDate.format('MMMM'),
     startYear: (state) => state.startDate.year(),
+    rangeKey: (state) => {
+      const startDateKey = state.startDate.format('YYYYMMDD');
+      const endDate = dayjs(state.startDate).tz('utc').utc().endOf(state.type);
+      const endDateKey = endDate.format('YYYYMMDD');
+      return [startDateKey, endDateKey].join('-');
+    }
   },
 
   actions: {

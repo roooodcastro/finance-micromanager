@@ -1,10 +1,10 @@
 import { defineStore, storeToRefs } from 'pinia';
 import _ from 'lodash';
-import dayjs from 'dayjs';
 
 import { statisticsCategorySummaries as categorySummariesApi } from '~/api/all.js';
 import { fetchFromCache } from '~/utils/BrowserCacheUtils.js';
 import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 export default defineStore('statistics_category_summary', {
   state: () => ({
@@ -13,9 +13,7 @@ export default defineStore('statistics_category_summary', {
   }),
 
   getters: {
-    indexedSummaries: (state) => {
-      return _.keyBy(state.categorySummaries, 'categoryId');
-    },
+    indexedSummaries: state => _.groupBy(state.categorySummaries, 'categoryId'),
     latestUpdatedAt: () => {
       const { latestUpdatedAtValues } = storeToRefs(useBrowserCacheStore());
 
@@ -26,9 +24,11 @@ export default defineStore('statistics_category_summary', {
   actions: {
     fetchCollection(options) {
       this.loading = true;
+      const dateRangeStore = useDateRangeStore();
+      const { startDate, endDate } = storeToRefs(dateRangeStore);
       const defaultOptions = {
-        startDate: dayjs().startOf('month'),
-        endDate: dayjs(),
+        startDate: startDate.value,
+        endDate: endDate.value,
       };
 
       const path = categorySummariesApi.index.path({ query: Object.assign(defaultOptions, options) });

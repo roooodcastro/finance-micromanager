@@ -4,7 +4,7 @@ module Statistics
   class CategorySummary
     include ActiveModel::Model
 
-    attr_accessor :category_id, :profile_id, :currency_name, :credit_sum_cents, :debit_sum_cents
+    attr_accessor :category_id, :subcategory_id, :profile_id, :currency_name, :credit_sum_cents, :debit_sum_cents
 
     def credit_sum
       credit_money.to_f
@@ -24,13 +24,14 @@ module Statistics
 
     def as_json
       {
-        id:            SecureRandom.uuid,
-        credit_sum:    credit_sum,
-        debit_sum:     debit_sum,
-        currency:      currency_name,
-        currency_code: currency.iso_code,
-        category_id:   category_id,
-        profile_id:    profile_id
+        id:             SecureRandom.uuid,
+        credit_sum:     credit_sum,
+        debit_sum:      debit_sum,
+        currency:       currency_name,
+        currency_code:  currency.iso_code,
+        category_id:    category_id,
+        subcategory_id: subcategory_id,
+        profile_id:     profile_id
       }
     end
 

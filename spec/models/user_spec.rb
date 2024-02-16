@@ -35,6 +35,28 @@ RSpec.describe User do
     end
   end
 
+  describe '.User#validate_email_in_allow_list' do
+    before { allow(Rails.application.credentials).to receive(:user_email_allowlist).and_return(allowlist) }
+
+    context 'when allowlist is empty' do
+      let(:allowlist) { [] }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when email is in allow list' do
+      let(:allowlist) { [user.email] }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when email is not in allow list' do
+      let(:allowlist) { ['example@email.com'] }
+
+      it { is_expected.not_to be_valid }
+    end
+  end
+
   describe '#set_default_profile' do
     subject(:user_save) { user.save }
 
