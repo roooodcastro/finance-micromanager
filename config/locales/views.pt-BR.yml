@@ -312,6 +312,7 @@ pt-BR:
         name_label: Nome
         optional: Opcional
         submit: Salvar
+        submit_and_continue: Salvar e continuar
         cancel: Cancelar
         locked_message: >-
           Esta transação está bloqueada por uma reconciliação e pode ter apenas seu nome e categoria alterados.

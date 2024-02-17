@@ -310,7 +310,8 @@ en:
         date_label: Date
         name_label: Name
         optional: Optional
-        submit: Submit
+        submit: Create
+        submit_and_continue: Create & Add Next
         cancel: Cancel
         locked_message: This transaction is locked by a reconciliation and can only have its name and category changed.
       mass_edit_form:
