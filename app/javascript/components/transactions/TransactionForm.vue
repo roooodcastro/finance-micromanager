@@ -12,7 +12,7 @@
         :id="TRANSACTION_FORM_ID"
         method="POST"
         resource="transaction"
-        @submit.prevent="handleSubmit(closeModal)"
+        @submit.prevent="handleSubmit(closeModal, false)"
       >
         <template v-slot:default="{ formHelper }">
           <WarningAlert
@@ -117,6 +117,34 @@
         </template>
       </RailsForm>
     </template>
+
+    <template v-slot:footer="{ closeModal }">
+      <button
+        type="submit"
+        :form="TRANSACTION_FORM_ID"
+        class="btn btn-outline-primary"
+        @click.prevent="handleSubmit(closeModal, true)"
+      >
+        <FontAwesomeIcon
+          icon="floppy-disk"
+          class="me-2"
+        />
+
+        {{ t('submit_and_continue') }}
+      </button>
+      <button
+        type="submit"
+        :form="TRANSACTION_FORM_ID"
+        class="btn btn-primary"
+      >
+        <FontAwesomeIcon
+          icon="floppy-disk"
+          class="me-lg-2"
+        />
+
+        {{ t('submit') }}
+      </button>
+    </template>
   </FormModal>
 </template>
 
@@ -125,6 +153,7 @@ import { ref, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 import dayjs from 'dayjs';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { transactions as transactionsApi } from '~/api/all.js';
 import I18n from '~/utils/I18n.js';
@@ -150,6 +179,7 @@ export default {
     WarningAlert,
     WalletsSelect,
     CategoriesSelect,
+    FontAwesomeIcon,
     FormInput,
     FormModal,
     RailsForm,
@@ -230,21 +260,28 @@ export default {
       updateTransactionDataWithDefaultValues();
     }
 
-    const handleSubmit = (closeModal) => {
+    const handleSubmit = (closeModal, keepOpen) => {
       loading.value = true;
       const transactionFields = ['name', 'amount', 'transactionDate', 'amountType', 'categoryId', 'walletId'];
       const transactionData = _.pick(transaction.value, transactionFields);
 
+      const resetForm = () => {
+        transactionStore.openFormModal(null);
+        updateTransactionDataWithDefaultValues();
+      };
+
+      const successCallback = keepOpen ? resetForm : closeModal;
+
       if (isNewRecord.value) {
         transactionStore
           .create(transactionData)
-          .then(closeModal)
+          .then(successCallback)
           .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         transactionStore
           .update(transaction.value.id, transactionData)
-          .then(closeModal)
+          .then(successCallback)
           .catch(() => {})
           .finally(() => loading.value = false);
       }

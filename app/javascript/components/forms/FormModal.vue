@@ -25,30 +25,37 @@
           <slot :close-modal="closeModal" />
         </div>
         <div class="FormModal__footer d-grid d-lg-flex gap-2 modal-footer">
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            data-bs-dismiss="modal"
-          >
-            <FontAwesomeIcon
-              :icon="['far', 'circle-xmark']"
-              class="me-2"
-            />
+          <template v-if="!$slots.footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              <FontAwesomeIcon
+                :icon="['far', 'circle-xmark']"
+                class="me-2"
+              />
 
-            {{ t('cancel') }}
-          </button>
-          <button
-            type="submit"
-            :form="formId"
-            class="btn btn-primary"
-          >
-            <FontAwesomeIcon
-              icon="floppy-disk"
-              class="me-lg-2"
-            />
+              {{ t('cancel') }}
+            </button>
+            <button
+              type="submit"
+              :form="formId"
+              class="btn btn-primary"
+            >
+              <FontAwesomeIcon
+                icon="floppy-disk"
+                class="me-lg-2"
+              />
 
-            {{ t('submit') }}
-          </button>
+              {{ t('submit') }}
+            </button>
+          </template>
+
+          <slot
+            name="footer"
+            :close-modal="closeModal"
+          />
         </div>
       </LoadingOverlay>
     </div>
@@ -123,6 +130,6 @@ export default {
 
 <style lang="scss" scoped>
 .FormModal__footer {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(max-content, 1fr));
 }
 </style>

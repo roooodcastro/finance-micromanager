@@ -1119,6 +1119,7 @@
           "new_title": "Nova Transação",
           "optional": "Opcional",
           "submit": "Salvar",
+          "submit_and_continue": "Salvar e continuar",
           "wallet_label": "Carteira"
         },
         "index": {
