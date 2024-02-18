@@ -1,5 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu class="mx-2 mx-lg-0 list-group-item p-0">
+  <ListItemDrawerContextMenu class="list-group-item overflow-hidden p-0">
     <template v-slot:actions>
       <ReconciliationActions
         :reconciliation="reconciliation"

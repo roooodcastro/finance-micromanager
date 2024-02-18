@@ -1,106 +1,108 @@
 <template>
-  <RailsForm
-    :id="TRANSACTION_PREDICTION_FORM_ID"
-    :action="formAction"
-    :method="formMethod"
-    resource="transaction_prediction"
-  >
-    <template v-slot:default="{ formHelper }">
-      <input
-        :id="formHelper.fieldId('rules_json')"
-        v-model="transactionPredictionFromStore.rulesJson"
-        :name="formHelper.fieldName('rules_json')"
-        type="hidden"
-      >
+  <div>
+    <RailsForm
+      :id="TRANSACTION_PREDICTION_FORM_ID"
+      :action="formAction"
+      :method="formMethod"
+      resource="transaction_prediction"
+    >
+      <template v-slot:default="{ formHelper }">
+        <input
+          :id="formHelper.fieldId('rules_json')"
+          v-model="transactionPredictionFromStore.rulesJson"
+          :name="formHelper.fieldName('rules_json')"
+          type="hidden"
+        >
 
-      <h5 class="my-3">
-        {{ t('prediction_name_label') }}
-      </h5>
+        <h5 class="my-3">
+          {{ t('prediction_name_label') }}
+        </h5>
 
-      <FormInput
-        v-model="transactionPredictionFromStore.name"
-        field-name="name"
-        :form-helper="formHelper"
-        required
-      />
+        <FormInput
+          v-model="transactionPredictionFromStore.name"
+          field-name="name"
+          :form-helper="formHelper"
+          required
+        />
 
-      <h5 class="my-3">
-        {{ t('sub_header_conditions') }}
-      </h5>
+        <h5 class="my-3">
+          {{ t('sub_header_conditions') }}
+        </h5>
 
 
-      <div class="card card-body">
-        <div class="d-flex flex-row align-items-center flex-wrap gap-2">
-          <div
-            v-for="(_, index) in rulesParser.conditions.length"
-            :key="`condition-${index}`"
-            class="d-flex align-items-center gap-2"
-          >
-            <span v-if="index > 0">{{ t('label_or') }}</span>
-            <TransactionPredictionCondition
-              :condition-index="index"
-              editable
-            />
+        <div class="card card-body">
+          <div class="d-flex flex-row align-items-center flex-wrap gap-2">
+            <div
+              v-for="(_, index) in rulesParser.conditions.length"
+              :key="`condition-${index}`"
+              class="d-flex align-items-center gap-2"
+            >
+              <span v-if="index > 0">{{ t('label_or') }}</span>
+              <TransactionPredictionCondition
+                :condition-index="index"
+                editable
+              />
+            </div>
           </div>
+
+          <a
+            href="#"
+            class="mt-3"
+            @click="handleNewCondition"
+          >
+            {{ t('new_condition') }}
+          </a>
         </div>
 
-        <a
-          href="#"
-          class="mt-3"
-          @click="handleNewCondition"
-        >
-          {{ t('new_condition') }}
-        </a>
-      </div>
+        <h5 class="my-3">
+          {{ t('sub_header_action') }}
+        </h5>
 
-      <h5 class="my-3">
-        {{ t('sub_header_action') }}
-      </h5>
-
-      <div class="card card-body">
-        <div class="d-flex flex-row align-items-center flex-wrap gap-2">
-          <div
-            v-for="(_, index) in rulesParser.actions.length"
-            :key="`action-${index}`"
-            class="d-flex align-items-center gap-2"
-          >
-            <span v-if="index > 0">{{ t('label_and') }}</span>
-            <TransactionPredictionAction
-              :action-index="index"
-              editable
-            />
+        <div class="card card-body">
+          <div class="d-flex flex-row align-items-center flex-wrap gap-2">
+            <div
+              v-for="(_, index) in rulesParser.actions.length"
+              :key="`action-${index}`"
+              class="d-flex align-items-center gap-2"
+            >
+              <span v-if="index > 0">{{ t('label_and') }}</span>
+              <TransactionPredictionAction
+                :action-index="index"
+                editable
+              />
+            </div>
           </div>
+
+          <a
+            href="#"
+            class="mt-3"
+            @click="handleNewAction"
+          >
+            {{ t('new_action') }}
+          </a>
         </div>
 
-        <a
-          href="#"
-          class="mt-3"
-          @click="handleNewAction"
-        >
-          {{ t('new_action') }}
-        </a>
-      </div>
+        <hr>
 
-      <hr>
+        <div class="d-grid d-md-block">
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            <FontAwesomeIcon
+              icon="floppy-disk"
+              class="me-lg-2"
+            />
 
-      <div class="d-grid d-md-block">
-        <button
-          type="submit"
-          class="btn btn-primary"
-        >
-          <FontAwesomeIcon
-            icon="floppy-disk"
-            class="me-lg-2"
-          />
+            {{ t('submit') }}
+          </button>
+        </div>
+      </template>
+    </RailsForm>
 
-          {{ t('submit') }}
-        </button>
-      </div>
-    </template>
-  </RailsForm>
-
-  <TransactionPredictionConditionModal />
-  <TransactionPredictionActionModal />
+    <TransactionPredictionConditionModal />
+    <TransactionPredictionActionModal />
+  </div>
 </template>
 
 <script>

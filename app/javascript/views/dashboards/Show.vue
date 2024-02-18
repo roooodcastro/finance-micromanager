@@ -5,7 +5,7 @@
     <InProgressReconciliationInfoAlert :reconciliation="inProgressReconciliation" />
 
     <DateRangeSelector
-      class="mb-3"
+      class="mb-3 mx-1 mx-lg-0"
       @change="handleDateRangeChange"
     />
 
@@ -146,3 +146,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .card {
+    border-radius: 0 !important;
+  }
+}
+</style>

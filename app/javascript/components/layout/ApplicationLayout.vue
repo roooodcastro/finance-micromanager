@@ -2,10 +2,10 @@
   <div class="ApplicationLayout d-flex flex-column container-fluid px-0">
     <Navigation />
 
-    <div class="d-flex container-fluid flex-grow-1 px-3">
+    <div class="d-flex container-fluid flex-grow-1 px-0 px-lg-3">
       <VerticalMenu class="d-none d-xxl-block flex-shrink-0 me-3" />
 
-      <div class="my-3 flex-grow-1 min-width-0 d-flex flex-column">
+      <div class="mb-3 my-lg-3 flex-grow-1 min-width-0 d-flex flex-column">
         <ToastNotifications />
 
         <div class="min-width-0 flex-grow-1">

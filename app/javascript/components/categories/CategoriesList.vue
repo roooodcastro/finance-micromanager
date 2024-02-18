@@ -58,12 +58,4 @@ export default {
   width: 2em;
   height: 2em;
 }
-
-@include media-breakpoint-down(md) {
-  .CategoriesList {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    width: calc(100% + 2rem);
-  }
-}
 </style>

@@ -102,10 +102,9 @@ export default {
 
 @include media-breakpoint-down(md) {
   .PageHeader {
-    background-color: $light-bg-subtle;
-    margin: -1rem -1rem 1.5rem -1rem;
+    background-color: $page-header-color;
+    border-bottom: $border-width $border-style $border-color;
     padding: .5rem;
-    box-shadow: var(--bs-box-shadow);
     min-height: 4rem;
   }
 }

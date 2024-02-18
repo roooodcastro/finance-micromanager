@@ -1,5 +1,5 @@
 <template>
-  <div class="FloatingActionButton position-sticky end-0 bottom-0 py-3">
+  <div class="FloatingActionButton position-sticky end-0 bottom-0 py-3 pe-3">
     <div
       class="FloatingActionButton__speed-dial"
       :class="{ show: speedDialOpened }"

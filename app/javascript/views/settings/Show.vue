@@ -22,6 +22,7 @@
     :action="updatePath"
     method="PATCH"
     resource="user"
+    class="mx-1 mx-lg-0"
   >
     <template v-slot:default="{ formHelper }">
       <h4 class="mt-5">
@@ -29,7 +30,7 @@
       </h4>
       <hr class="mb-4">
 
-      <div class="d-grid gap-3 SettingsShow__form-grid">
+      <div class="d-grid gap-3 SettingsShow__form-grid mx-2 mx-lg-0">
         <FormInput
           v-model="userForForm.firstName"
           :label="t('first_name')"
@@ -84,7 +85,7 @@
       </h4>
       <hr class="mb-4">
 
-      <div class="d-grid gap-3 SettingsShow__form-grid">
+      <div class="d-grid gap-3 SettingsShow__form-grid mx-2 mx-lg-0">
         <div class="mb-3">
           <label
             :for="formHelper.fieldId('default_profile_id')"
@@ -116,9 +117,9 @@
 
 
       <div>
-        <hr class="mt-5 mb-4">
+        <hr class="mt-3 mt-lg-5 mb-4">
 
-        <div class="d-grid d-lg-flex gap-2 SettingsShow__buttons-grid">
+        <div class="d-grid d-lg-flex gap-2 SettingsShow__buttons-grid mx-2 mx-lg-0">
           <button
             type="submit"
             class="btn btn-primary"

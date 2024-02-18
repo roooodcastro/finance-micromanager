@@ -216,12 +216,9 @@ th {
   .row {
     --bs-gutter-x: 1rem;
   }
-}
 
-@include media-breakpoint-down(md) {
-  .row > * {
-    padding-left: 0;
-    padding-right: 0;
+  .list-group-item:last-child, .list-group-item:first-child {
+    border-radius: 0;
   }
 }
 

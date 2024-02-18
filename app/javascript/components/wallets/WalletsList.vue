@@ -38,15 +38,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../stylesheets/variables';
-
-@include media-breakpoint-down(md) {
-  .WalletsList {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    width: calc(100% + 1rem);
-  }
-}
-</style>
