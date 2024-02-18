@@ -392,6 +392,19 @@
         "update": "Update %{model}"
       }
     },
+    "import_names": {
+      "create": {
+        "error": "Import Name could not be created: %{error}",
+        "success": "Import Name was successfully created."
+      },
+      "destroy": {
+        "success": "Import Name was successfully removed."
+      },
+      "update": {
+        "error": "Import Name could not be updated: %{error}",
+        "success": "Import Name was successfully updated."
+      }
+    },
     "locale_name": "English",
     "number": {
       "currency": {
@@ -691,6 +704,27 @@
         "sign_in": "Sign In",
         "sign_up": "Sign Up",
         "unlock_instructions": "Didn't receive unlock instructions?"
+      },
+      "import_names": {
+        "confirmation": {
+          "destroy": "Are you sure you want to destroy this import name? This action cannot be undone."
+        },
+        "floating_button_label": "New Import Name",
+        "form": {
+          "cancel": "Cancel",
+          "edit_title": "Edit Import Name",
+          "import_name_label": "Name from import",
+          "new_title": "New Import Name",
+          "submit": "Create",
+          "transaction_name_label": "Name for transaction"
+        },
+        "index": {
+          "new": "New Import Name",
+          "title": "Import Names"
+        },
+        "list": {
+          "name_description": "Import \"%{import_name}\" as \"%{transaction_name}\""
+        }
       },
       "landing": {
         "title": "Landing"

@@ -63,8 +63,27 @@ en:
       forgot_password: Forgot your password?
       unlock_instructions: Didn't receive unlock instructions?
       confirmation_instructions: Didn't receive confirmation instructions?
+
+    import_names:
+      floating_button_label: New Import Name
+      confirmation:
+        destroy: Are you sure you want to destroy this import name? This action cannot be undone.
+      form:
+        submit: Create
+        cancel: Cancel
+        new_title: New Import Name
+        edit_title: Edit Import Name
+        import_name_label: Name from import
+        transaction_name_label: Name for transaction
+      index:
+        title: Import Names
+        new: New Import Name
+      list:
+        name_description: "Import \"%{import_name}\" as \"%{transaction_name}\""
+
     landing:
       title: Landing
+
     layout:
       forms:
         all: All

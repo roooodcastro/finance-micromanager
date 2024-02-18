@@ -63,8 +63,27 @@ pt-BR:
       forgot_password: Esqueceu sua senha?
       unlock_instructions: Não recebeu email de desbloqueio?
       confirmation_instructions: Não recebeu email de confirmação?
+
+    import_names:
+      floating_button_label: Novo Nome de Importação
+      confirmation:
+        destroy: Tem certeza de que deseja remover este nome de importação? Esta ação não poderá ser desfeita.
+      form:
+        submit: Salvar
+        cancel: Cancelar
+        new_title: Novo Nome de Importação
+        edit_title: Editar Nome de Importação
+        import_name_label: Nome vindo da importação
+        transaction_name_label: Nome para a transação
+      index:
+        title: Nomes de Importação
+        new: Novo Nome de Importação
+      list:
+        name_description: "Importar \"%{import_name}\" como \"%{transaction_name}\""
+
     landing:
       title: Página Inicial
+
     layout:
       forms:
         all: Tudo

@@ -438,6 +438,19 @@
         "update": "Atualizar %{model}"
       }
     },
+    "import_names": {
+      "create": {
+        "error": "Nome de Importação não pode ser criado: %{error}",
+        "success": "Nome de Importação criado com sucesso."
+      },
+      "destroy": {
+        "success": "Nome de Importação removido com sucesso."
+      },
+      "update": {
+        "error": "Nome de Importação não pode ser atualizado: %{error}",
+        "success": "Nome de Importação atualizado com sucesso."
+      }
+    },
     "locale_name": "Português",
     "number": {
       "currency": {
@@ -750,6 +763,27 @@
         "sign_in": "Fazer Login",
         "sign_up": "Registrar",
         "unlock_instructions": "Não recebeu email de desbloqueio?"
+      },
+      "import_names": {
+        "confirmation": {
+          "destroy": "Tem certeza de que deseja remover este nome de importação? Esta ação não poderá ser desfeita."
+        },
+        "floating_button_label": "Novo Nome de Importação",
+        "form": {
+          "cancel": "Cancelar",
+          "edit_title": "Editar Nome de Importação",
+          "import_name_label": "Nome vindo da importação",
+          "new_title": "Novo Nome de Importação",
+          "submit": "Salvar",
+          "transaction_name_label": "Nome para a transação"
+        },
+        "index": {
+          "new": "Novo Nome de Importação",
+          "title": "Nomes de Importação"
+        },
+        "list": {
+          "name_description": "Importar \"%{import_name}\" como \"%{transaction_name}\""
+        }
       },
       "landing": {
         "title": "Página Inicial"
