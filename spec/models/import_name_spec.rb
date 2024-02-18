@@ -9,12 +9,18 @@ RSpec.describe ImportName do
     it { is_expected.to be_valid }
   end
 
-  describe '.as_json' do
+  describe '.as_json', :travel_to_now do
     subject { import_name.as_json }
 
     let(:import_name) { create(:import_name, import_name: 'import', transaction_name: 'transaction') }
     let(:expected_json) do
-      { id: import_name.id, import_name: 'import', transaction_name: 'transaction', profile_id: import_name.profile_id }
+      {
+        id:               import_name.id,
+        import_name:      'import',
+        transaction_name: 'transaction',
+        profile_id:       import_name.profile_id,
+        updated_at:       Time.current
+      }
     end
 
     it { is_expected.to eq(expected_json.stringify_keys) }
