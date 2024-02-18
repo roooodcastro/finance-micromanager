@@ -19,7 +19,7 @@ RSpec.describe ImportName do
         import_name:      'import',
         transaction_name: 'transaction',
         profile_id:       import_name.profile_id,
-        updated_at:       Time.current
+        updated_at:       Time.current.as_json
       }
     end
 
