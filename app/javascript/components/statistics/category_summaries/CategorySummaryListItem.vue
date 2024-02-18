@@ -9,7 +9,7 @@
         <span class="py-2">
           <FontAwesomeIcon
             v-if="category.subcategories.length > 0"
-            icon="circle-plus"
+            :icon="expanded ? 'circle-minus' : 'circle-plus'"
             class="text-muted"
             @click="handleSubcategoryTogglerClick"
           />
