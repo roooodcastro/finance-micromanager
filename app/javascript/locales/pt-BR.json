@@ -438,6 +438,19 @@
         "update": "Atualizar %{model}"
       }
     },
+    "import_names": {
+      "create": {
+        "error": "Nome de Importação não pode ser criado: %{error}",
+        "success": "Nome de Importação criado com sucesso."
+      },
+      "destroy": {
+        "success": "Nome de Importação removido com sucesso."
+      },
+      "update": {
+        "error": "Nome de Importação não pode ser atualizado: %{error}",
+        "success": "Nome de Importação atualizado com sucesso."
+      }
+    },
     "locale_name": "Português",
     "number": {
       "currency": {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_31_013255) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_18_135133) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_013255) do
     t.uuid "disabled_by_id"
     t.index ["disabled_by_id"], name: "index_categories_on_disabled_by_id"
     t.index ["profile_id"], name: "index_categories_on_profile_id"
+  end
+
+  create_table "import_names", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "profile_id", null: false
+    t.string "import_name", null: false
+    t.string "transaction_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id", "import_name"], name: "index_import_names_on_profile_id_and_import_name", unique: true
+    t.index ["profile_id"], name: "index_import_names_on_profile_id"
   end
 
   create_table "imports", force: :cascade do |t|
@@ -212,6 +222,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_013255) do
 
   add_foreign_key "categories", "profiles"
   add_foreign_key "categories", "users", column: "disabled_by_id"
+  add_foreign_key "import_names", "profiles"
   add_foreign_key "imports", "profiles"
   add_foreign_key "profile_share_invites", "profiles"
   add_foreign_key "profile_share_invites", "users", column: "profile_owner_id"

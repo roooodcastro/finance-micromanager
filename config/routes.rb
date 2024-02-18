@@ -51,6 +51,9 @@ Rails.application.routes.draw do
     end
     resources :currencies, only: %i[index]
     resources :current_profiles, only: %i[create]
+
+    resources :import_names, only: %i[index create update destroy]
+
     resources :locales, only: %i[index]
     resources :transactions, except: %i[show new edit] do
       patch :update_all, on: :collection

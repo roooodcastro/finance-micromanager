@@ -392,6 +392,19 @@
         "update": "Update %{model}"
       }
     },
+    "import_names": {
+      "create": {
+        "error": "Import Name could not be created: %{error}",
+        "success": "Import Name was successfully created."
+      },
+      "destroy": {
+        "success": "Import Name was successfully removed."
+      },
+      "update": {
+        "error": "Import Name could not be updated: %{error}",
+        "success": "Import Name was successfully updated."
+      }
+    },
     "locale_name": "English",
     "number": {
       "currency": {

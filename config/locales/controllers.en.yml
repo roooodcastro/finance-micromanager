@@ -17,6 +17,16 @@ en:
     create:
       error: 'Profile was not found.'
 
+  import_names:
+    create:
+      success: 'Import Name was successfully created.'
+      error: 'Import Name could not be created: %{error}'
+    update:
+      success: 'Import Name was successfully updated.'
+      error: 'Import Name could not be updated: %{error}'
+    destroy:
+      success: 'Import Name was successfully removed.'
+
   profiles:
     create:
       success: 'Profile "%{name}" was successfully created.'
