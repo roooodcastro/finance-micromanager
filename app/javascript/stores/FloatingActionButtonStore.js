@@ -10,7 +10,9 @@ export default defineStore('floatingActionButton', {
      * { label: String, icon: [String, Array], callback: Function, href: String }
      */
     registerSpeedDialEntry(config) {
-      this.speedDialEntries.push(config);
+      if (!this.speedDialEntries.map(entry => entry.label).includes(config.label)) {
+        this.speedDialEntries.push(config);
+      }
     },
   },
 });
