@@ -1,5 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu class="mx-2 mx-lg-0">
+  <ListItemDrawerContextMenu>
     <template v-slot:actions>
       <ProfileActions
         :profile="profile"

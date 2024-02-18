@@ -28,10 +28,7 @@
       disable-label
       href="#"
       :compact="compact"
-      :class="{
-        'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu,
-        'me-0 me-lg-3': !drawerMenu,
-      }"
+      :class="{ 'd-flex align-items-center justify-content-center bg-danger text-white': drawerMenu }"
       ask-confirmation
       @delete="handleDelete"
     />

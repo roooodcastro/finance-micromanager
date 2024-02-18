@@ -1,5 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu class="list-group-item p-0">
+  <ListItemDrawerContextMenu class="list-group-item overflow-hidden p-0">
     <template v-slot:actions>
       <WalletActions
         :wallet="wallet"
@@ -7,7 +7,7 @@
       />
     </template>
     <template v-slot:item>
-      <div class="d-flex align-items-center py-2 ps-2 bg-light-subtle">
+      <div class="d-flex align-items-center p-2 bg-light-subtle">
         <div class="d-flex flex-column min-width-0">
           <span class="d-flex align-items-center gap-2">
             <span

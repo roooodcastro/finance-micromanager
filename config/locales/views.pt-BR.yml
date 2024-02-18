@@ -228,7 +228,7 @@ pt-BR:
       show:
         title: Minha conta
         edit_button: Editar perfil
-        save_button: Salvar Alterações
+        save_button: Salvar
         reset_form_button: Desfazer
         change_password_button: Trocar a Senha
         first_name: Nome

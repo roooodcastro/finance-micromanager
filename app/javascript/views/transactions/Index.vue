@@ -16,7 +16,10 @@
     </PageHeader>
 
     <div class="d-flex justify-content-between gap-2 mb-3">
-      <TransactionsFilter show-date-range />
+      <TransactionsFilter
+        show-date-range
+        class="mx-1 mx-lg-0"
+      />
 
       <Pagination
         compact

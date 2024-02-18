@@ -33,15 +33,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../stylesheets/variables';
-
-@include media-breakpoint-down(md) {
-  .ProfilesList {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    width: calc(100% + 2rem);
-  }
-}
-</style>

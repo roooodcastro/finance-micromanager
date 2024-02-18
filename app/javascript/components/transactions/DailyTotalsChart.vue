@@ -271,6 +271,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .card {
+    border-radius: 0 !important;
+  }
+}
+
 .DailyTotalsChart {
   height: 15rem;
 }

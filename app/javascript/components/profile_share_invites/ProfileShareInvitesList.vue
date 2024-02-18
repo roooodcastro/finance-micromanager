@@ -5,7 +5,7 @@
         v-for="invite in profileShareInvitesReceived"
         :key="`${invite.id}_received_${invite.status}`"
         :profile-share-invite="invite"
-        class="overflow-hidden"
+        class="overflow-hidden mx-1 mx-lg-0"
         @accepted="handleReceivedInviteResponse(invite, true)"
         @rejected="handleReceivedInviteResponse(invite, false)"
       />
@@ -16,7 +16,7 @@
         v-for="invite in profileShareInvitesSent"
         :key="`${invite.id}_sent_${invite.status}`"
         :profile-share-invite="invite"
-        class="overflow-hidden"
+        class="overflow-hidden mx-1 mx-lg-0"
         @cancelled="handleSentInviteCancellation(invite)"
       />
     </SlideUpTransition>

@@ -4,7 +4,10 @@
     :back-button-href="indexPath"
   />
 
-  <TransactionPredictionForm :transaction-prediction="transactionPrediction" />
+  <TransactionPredictionForm
+    :transaction-prediction="transactionPrediction"
+    class="mx-2 mx-lg-0"
+  />
 </template>
 
 <script>

@@ -79,7 +79,6 @@
             :key="transaction.id"
             :transaction="transaction"
             :compact="compact"
-            :class="{ 'mx-2 mx-lg-0': !cardBody }"
             :mass-edit-mode="massEditMode"
             :mass-edit-selected="massEditTransactionIds[transaction.id]"
             @mass-edit-toggle="handleMassEditToggle"
@@ -210,15 +209,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../stylesheets/variables';
-
-@include media-breakpoint-down(md) {
-  .TransactionsList {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    width: calc(100% + 2rem);
-  }
-}
-</style>
