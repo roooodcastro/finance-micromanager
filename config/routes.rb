@@ -52,6 +52,9 @@ Rails.application.routes.draw do
     resources :currencies, only: %i[index]
     resources :current_profiles, only: %i[create]
 
+    namespace :imports do
+      resource :setting, only: %i[show]
+    end
     resources :import_names, only: %i[index create update destroy]
 
     resources :locales, only: %i[index]

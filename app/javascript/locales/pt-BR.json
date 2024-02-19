@@ -785,6 +785,17 @@
           "name_description": "Importar \"%{import_name}\" como \"%{transaction_name}\""
         }
       },
+      "imports": {
+        "settings": {
+          "show": {
+            "import_name_info_text": "Nomes de Importação são \"traduções\" dos nomes de transação originais da fonte de importação para um nome de transação no Finance MicroManager. Eles são úteis pois muitos nomes, especialmente vindos de transações de cartões de débito ou crédito têm nomes obscuros como por exemplo \"CNC SSP UK LTD\". Isso na verdade veio do Burger King, mas seria quase impossível saber ou lembrar disso apenas olhando o nome original. Nomes de Importação podem ser usados para fazer essa tradução automaticamente e facilitar sua vida.",
+            "import_names_menu_aria_label": "Opções de Nomes de Importação",
+            "new_import_name": "Novo Nome de Importação",
+            "sub_header_import_name": "Nomes de Importação (%{count})",
+            "title": "Configurações de Importação"
+          }
+        }
+      },
       "landing": {
         "title": "Página Inicial"
       },

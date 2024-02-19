@@ -1,5 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu class="list-group-item p-0 overflow-hidden">
+  <ListItemDrawerContextMenu class="ImportNameListItem overflow-hidden border-top border-bottom">
     <template v-slot:actions>
       <ImportNameActions
         :import-name="importName"
@@ -8,11 +8,11 @@
     </template>
     <template v-slot:item>
       <div class="d-flex align-items-center bg-light-subtle">
-        <div class="d-flex align-items-center p-2 ps-4 min-width-0 gap-2">
+        <div class="d-flex align-items-center p-2 ps-3 min-width-0 gap-2">
           {{ t('name_description', { import_name: importName.importName, transaction_name: importName.transactionName }) }}
         </div>
 
-        <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
+        <div class="d-none d-lg-flex ms-auto flex-shrink-0">
           <ImportNameActions :import-name="importName" />
         </div>
       </div>
@@ -48,3 +48,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.ImportNameListItem:not(:first-child) {
+  border-top: none !important;
+}
+</style>
