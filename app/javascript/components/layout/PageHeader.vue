@@ -6,7 +6,7 @@
   >
     <h1
       v-if="title || $slots.default"
-      class="PageHeader__h1 d-flex align-items-center mb-0 mb-lg-2"
+      class="PageHeader__h1 d-flex align-items-center mb-0 mb-lg-2 text-break"
     >
       <a
         v-if="backButtonHref"

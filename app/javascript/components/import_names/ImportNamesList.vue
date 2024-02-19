@@ -1,8 +1,11 @@
 <template>
-  <NoRecordsFound v-if="!importNames.length" />
+  <NoRecordsFound
+    v-if="!importNames.length"
+    class="m-3"
+  />
   <div
     v-else
-    class="list-group"
+    class="ImportNamesList"
   >
     <template
       v-for="importName in importNames"
