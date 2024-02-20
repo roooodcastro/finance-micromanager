@@ -17,6 +17,11 @@ pt-BR:
     create:
       error: 'Perfil não encontrado.'
 
+  imports:
+    create:
+      success: 'Arquivo enviado com sucesso, importação iniciada.'
+      error: 'Importação não pode ser iniciada: %{error}'
+
   import_names:
     create:
       success: 'Nome de Importação criado com sucesso.'

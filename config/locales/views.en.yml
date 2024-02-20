@@ -65,6 +65,20 @@ en:
       confirmation_instructions: Didn't receive confirmation instructions?
 
     imports:
+      floating_button_label: Import Transactions
+      form:
+        submit: Upload
+        cancel: Cancel
+        new_title: Import Transactions
+        edit_title: Import Transactions
+        source_label: Source Bank
+        wallet_id_label: Target Wallet
+        source_n26_label: N26
+        source_ptsb_label: PTSB
+        source_revolut_label: Revolut
+      index:
+        title: Transaction Imports
+        new: Import Transactions
       settings:
         show:
           title: Import Settings

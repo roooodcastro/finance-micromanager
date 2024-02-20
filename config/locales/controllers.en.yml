@@ -17,6 +17,11 @@ en:
     create:
       error: 'Profile was not found.'
 
+  imports:
+    create:
+      success: 'File was successfully uploaded, import started.'
+      error: 'Import could not be started: %{error}'
+
   import_names:
     create:
       success: 'Import Name was successfully created.'

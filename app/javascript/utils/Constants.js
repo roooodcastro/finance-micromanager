@@ -5,6 +5,7 @@ export const TRANSACTION_PREDICTION_ACTION_MODAL_ID = 'transactionPredictionActi
 export const DAILY_TOTALS_CHART_MODE_MODAL_ID = 'dailyTotalsChartModeModal';
 
 export const CATEGORY_FORM_ID = 'categoryForm';
+export const IMPORT_FORM_ID = 'importForm';
 export const IMPORT_NAME_FORM_ID = 'importNameForm';
 export const PROFILE_FORM_ID = 'profileForm';
 export const RECONCILIATION_FORM_ID = 'reconciliationForm';
