@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     namespace :imports do
       resource :setting, only: %i[show]
     end
+
+    resources :imports, only: %i[index create]
     resources :import_names, only: %i[index create update destroy]
 
     resources :locales, only: %i[index]

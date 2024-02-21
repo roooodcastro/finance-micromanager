@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_18_135133) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_022532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,7 +42,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_135133) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "profile_id", null: false
+    t.string "status", default: "in_progress", null: false
+    t.uuid "wallet_id"
     t.index ["profile_id"], name: "index_imports_on_profile_id"
+    t.index ["wallet_id"], name: "index_imports_on_wallet_id"
   end
 
   create_table "profile_share_invites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -224,6 +227,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_135133) do
   add_foreign_key "categories", "users", column: "disabled_by_id"
   add_foreign_key "import_names", "profiles"
   add_foreign_key "imports", "profiles"
+  add_foreign_key "imports", "wallets"
   add_foreign_key "profile_share_invites", "profiles"
   add_foreign_key "profile_share_invites", "users", column: "profile_owner_id"
   add_foreign_key "profile_shares", "profiles"

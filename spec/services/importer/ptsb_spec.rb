@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Importer::PTSB, type: :service do
-  let(:importer) { described_class.new(file_name) }
+  let(:importer) { described_class.new(file_name, wallet) }
   let(:file_name) { 'spec/fixtures/importer/ptsb.xls' }
+  let(:wallet) { create(:wallet) }
 
   describe '#parse' do
     subject { importer.parse }

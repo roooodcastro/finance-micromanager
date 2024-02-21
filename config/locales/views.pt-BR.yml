@@ -65,6 +65,20 @@ pt-BR:
       confirmation_instructions: Não recebeu email de confirmação?
 
     imports:
+      floating_button_label: Importar Transações
+      form:
+        submit: Enviar
+        cancel: Cancelar
+        new_title: Importar Transações
+        edit_title: Importar Transações
+        source_label: Banco de Origem
+        wallet_id_label: Carteira Alvo
+        source_n26_label: N26
+        source_ptsb_label: PTSB
+        source_revolut_label: Revolut
+      index:
+        title: Importações de Transações
+        new: Importar Transações
       settings:
         show:
           title: Configurações de Importação

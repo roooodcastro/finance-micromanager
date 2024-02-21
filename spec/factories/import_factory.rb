@@ -2,6 +2,11 @@
 
 FactoryBot.define do
   factory :import do
+    source { 'ptsb' }
+
+    profile
+    wallet
+
     trait :ptsb do
       source { 'ptsb' }
     end
