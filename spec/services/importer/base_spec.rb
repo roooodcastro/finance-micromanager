@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Importer::Base, type: :service do
-  let(:importer) { described_class.new(file_name) }
+  let(:importer) { described_class.new(file_name, wallet) }
   let(:file_name) { 'statement.csv' }
   let(:profile) { create(:profile) }
+  let(:wallet) { create(:wallet) }
   let(:user) { profile.user }
 
   before do

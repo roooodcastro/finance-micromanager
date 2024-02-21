@@ -2,10 +2,11 @@
 
 module Importer
   class Base
-    attr_reader :file_name
+    attr_reader :file_name, :wallet
 
-    def initialize(file_name)
+    def initialize(file_name, wallet)
       @file_name = file_name
+      @wallet    = wallet
     end
 
     def import!
@@ -13,7 +14,7 @@ module Importer
       return if parsed_transactions.empty?
 
       ActiveRecord::Base.transaction do
-        import = Import.create!(source: source, profile: Current.profile)
+        import = Import.create!(source: source, profile: Current.profile, wallet: wallet)
         parsed_transactions.each { |transaction| transaction.update!(import:) }
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback
@@ -42,7 +43,8 @@ module Importer
         profile:          Current.profile,
         created_by:       Current.user,
         updated_by:       Current.user,
-        category:         category || transaction_category(raw_import_name)
+        category:         category || transaction_category(raw_import_name),
+        wallet:           wallet
       )
     end
 
