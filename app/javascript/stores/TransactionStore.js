@@ -8,6 +8,7 @@ import useNotificationStore from '~/stores/NotificationStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { transactions as transactionsApi } from '~/api/all.js';
+import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 
 import {
   DEBIT_TRANSACTION,
@@ -53,6 +54,14 @@ export default defineBaseApiStore('transaction', {
       const { startDate, endDate } = storeToRefs(dateRangeStore);
       const keepTransactions = options.keepTransactions;
       delete options.keepTransactions;
+
+      /*
+        This means that it's a mobile layout (with infinite scrolling), and this is nota fetch from
+        infinite scrolling, so we must reset the page back to 1 otherwise we'll end up with missing transactions.
+       */
+      if (!keepTransactions && isMediaBreakpointDown('md')) {
+        pagination.value.page = 1;
+      }
 
       return transactionsApi
         .index({ query: Object.assign({ startDate: startDate.value, endDate: endDate.value }, this.fetchParams, pagination.value) })
