@@ -12,10 +12,21 @@
         :id="IMPORT_FORM_ID"
         :action="formAction"
         method="POST"
-        resource="importObject"
+        resource="import"
         @submit.prevent="handleSubmit(closeModal)"
+        enctype="multipart/form-data"
       >
         <template v-slot:default="{ formHelper }">
+          <FormInput
+            ref="sourceFileInput"
+            v-model="importObject.sourceFile"
+            :form-helper="formHelper"
+            field-name="source_file"
+            :label="t('source_file_label')"
+            type="file"
+            accept=".csv,.xls,.xlsx"
+          />
+
           <label
             :for="formHelper.fieldId('wallet_id')"
             class="form-label"
@@ -67,18 +78,21 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
 import FormSelect from '~/components/forms/FormSelect.vue';
+import FormInput from '~/components/rails/FormInput.vue';
 
 export default {
   components: {
-    FormSelect,
-    WalletsSelect,
+    FormInput,
     FormModal,
+    FormSelect,
     RailsForm,
+    WalletsSelect,
   },
 
   setup() {
     const t = I18n.scopedTranslator('views.imports.form');
 
+    const sourceFileInput = ref(null);
     const loading = ref(false);
     const sourceOptions = [
       { label: t('source_n26_label'), value: 'n26' },
@@ -109,8 +123,10 @@ export default {
     const handleSubmit = (closeModal) => {
       loading.value = true;
 
+      const file = sourceFileInput.value.$el.querySelector('input').files[0];
+
       importStore
-        .create(importObject.value)
+        .create({ ...importObject.value, sourceFile: file })
         .then(closeModal)
         .catch(() => {})
         .finally(() => loading.value = false);
@@ -120,6 +136,7 @@ export default {
       t,
       sourceOptions,
       loading,
+      sourceFileInput,
       formAction,
       importObject,
       modalId,

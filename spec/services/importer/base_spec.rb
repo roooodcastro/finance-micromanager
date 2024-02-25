@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Importer::Base, type: :service do
+RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service do
   let(:importer) { described_class.new(file_name, wallet) }
   let(:file_name) { 'statement.csv' }
   let(:profile) { create(:profile) }

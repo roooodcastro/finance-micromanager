@@ -71,6 +71,7 @@ en:
         cancel: Cancel
         new_title: Import Transactions
         edit_title: Import Transactions
+        source_file_label: Transaction File to Import
         source_label: Source Bank
         wallet_id_label: Target Wallet
         source_n26_label: N26

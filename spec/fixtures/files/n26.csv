@@ -1,0 +1,4 @@
+"Date","Payee","Wallet number","Transaction type","Payment reference","Amount (EUR)","Amount (Foreign Currency)","Type Foreign Currency","Exchange Rate"
+"2023-04-07","NETFLIX.COM","","MasterCard Payment","-","-20","-55.9","EUR","1.0"
+"2023-04-12","From Test Space to Main Wallet","","Income","From Test Space to Main Wallet","100.0","","",""
+"2023-04-13","WWW.ALIEXPRESS.COM","","MasterCard Payment","-","-9.99","-9.99","EUR","1.0"

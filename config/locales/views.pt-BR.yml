@@ -71,6 +71,7 @@ pt-BR:
         cancel: Cancelar
         new_title: Importar Transações
         edit_title: Importar Transações
+        source_file_label: Arquivo de Transações para Importar
         source_label: Banco de Origem
         wallet_id_label: Carteira Alvo
         source_n26_label: N26

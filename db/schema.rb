@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_023057) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_23_180641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_023057) do
     t.index ["profile_id"], name: "index_import_names_on_profile_id"
   end
 
-  create_table "imports", force: :cascade do |t|
+  create_table "imports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "source", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -185,7 +185,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_023057) do
     t.string "raw_import_name", limit: 100
     t.integer "amount_cents", default: 0, null: false
     t.date "transaction_date", null: false
-    t.bigint "import_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "profile_id", null: false
@@ -195,6 +194,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_023057) do
     t.uuid "subcategory_id"
     t.uuid "wallet_id"
     t.uuid "transaction_automation_id"
+    t.uuid "import_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["created_by_id"], name: "index_transactions_on_created_by_id"

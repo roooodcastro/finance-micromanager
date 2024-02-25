@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Import < ApplicationRecord
+  MAX_UPLOAD_FILE_SIZE = 10.megabytes
+
+  has_one_attached :source_file, dependent: :destroy
+
   belongs_to :profile
   belongs_to :wallet
 
@@ -10,4 +14,6 @@ class Import < ApplicationRecord
   enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
 
   validates :source, presence: true
+  validates :source_file, attached: true, content_type: %w[text/csv application/csv application/xls],
+            size: { less_than: MAX_UPLOAD_FILE_SIZE }
 end
