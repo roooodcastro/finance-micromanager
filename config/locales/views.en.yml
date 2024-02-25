@@ -80,6 +80,11 @@ en:
       index:
         title: Transaction Imports
         new: Import Transactions
+      list:
+        desc_in_progress: 'In Progress, started on %{start_date}'
+        desc_cancelled: 'Cancelled on %{date}'
+        desc_finished: 'Completed on %{date}'
+        import_desc: 'Import "%{file_name}" from %{source} into wallet'
       settings:
         show:
           title: Import Settings

@@ -6,6 +6,18 @@
           "color": "Cor",
           "name": "Nome"
         },
+        "import": {
+          "sources": {
+            "n26": "N26",
+            "ptsb": "PTSB",
+            "revolut": "Revolut"
+          },
+          "statuses": {
+            "cancelled": "Cancelada",
+            "finished": "Concluída",
+            "in_progress": "Em Andamento"
+          }
+        },
         "profile": {
           "currency": "Moeda",
           "name": "Nome"
@@ -832,6 +844,12 @@
         "index": {
           "new": "Importar Transações",
           "title": "Importações de Transações"
+        },
+        "list": {
+          "desc_cancelled": "Cancelada em %{date}",
+          "desc_finished": "Concluída em %{date}",
+          "desc_in_progress": "Em andamento, iniciada em %{start_date}",
+          "import_desc": "Importar \"%{file_name}\" de %{source} para a carteira"
         },
         "settings": {
           "show": {

@@ -2,6 +2,18 @@
   "en": {
     "activerecord": {
       "attributes": {
+        "import": {
+          "sources": {
+            "n26": "N26",
+            "ptsb": "PTSB",
+            "revolut": "Revolut"
+          },
+          "statuses": {
+            "cancelled": "Cancelled",
+            "finished": "Completed",
+            "in_progress": "In Progress"
+          }
+        },
         "reconciliation": {
           "statuses": {
             "cancelled": "Cancelled",
@@ -773,6 +785,12 @@
         "index": {
           "new": "Import Transactions",
           "title": "Transaction Imports"
+        },
+        "list": {
+          "desc_cancelled": "Cancelled on %{date}",
+          "desc_finished": "Completed on %{date}",
+          "desc_in_progress": "In Progress, started on %{start_date}",
+          "import_desc": "Import \"%{file_name}\" from %{source} into wallet"
         },
         "settings": {
           "show": {

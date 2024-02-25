@@ -66,7 +66,7 @@ export default {
       formatDate,
       formatDateTime,
       showPath,
-      sideStripVariant
+      sideStripVariant,
     };
   }
 };

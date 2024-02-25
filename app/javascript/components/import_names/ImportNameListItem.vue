@@ -1,5 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu class="ImportNameListItem overflow-hidden border-top border-bottom">
+  <ListItemDrawerContextMenu class="ImportNameListItem list-group-item overflow-hidden p-0">
     <template v-slot:actions>
       <ImportNameActions
         :import-name="importName"
