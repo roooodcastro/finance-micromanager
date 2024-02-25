@@ -792,6 +792,9 @@
           "desc_in_progress": "In Progress, started on %{start_date}",
           "import_desc": "Import \"%{file_name}\" from %{source} into wallet"
         },
+        "preview": {
+          "title": "Preview Import"
+        },
         "settings": {
           "show": {
             "import_name_info_text": "Import names are \"translations\" for the original transaction names from the import source to a transaction name in Finance MicroManager. These are useful as many names, particularly from card transactions have non descriptive names such as \"CNC SSP UK LTD\". This is actually from Burger King, but it would be almost impossible to know or remember where a particular spend came from just by looking at the original name. Import names can be used to automatically perform this translation and make things easier.",
@@ -800,6 +803,9 @@
             "sub_header_import_name": "Import Names (%{count})",
             "title": "Import Settings"
           }
+        },
+        "show": {
+          "title": "Import"
         }
       },
       "landing": {

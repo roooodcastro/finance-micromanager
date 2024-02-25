@@ -85,6 +85,10 @@ pt-BR:
         desc_cancelled: 'Cancelada em %{date}'
         desc_finished: 'Concluída em %{date}'
         import_desc: 'Importar "%{file_name}" de %{source} para a carteira'
+      preview:
+        title: Prévia da Importação
+      show:
+        title: Importação
       settings:
         show:
           title: Configurações de Importação

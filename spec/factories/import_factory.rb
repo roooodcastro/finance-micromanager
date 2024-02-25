@@ -15,5 +15,17 @@ FactoryBot.define do
     trait :n26 do
       source { 'n26' }
     end
+
+    trait :in_progress do
+      status { :in_progress }
+    end
+
+    trait :cancelled do
+      status { :cancelled }
+    end
+
+    trait :finished do
+      status { :finished }
+    end
   end
 end

@@ -44,6 +44,49 @@ RSpec.describe ImportsController do
     end
   end
 
+  describe 'GET show', :inertia, :travel_to_now do
+    subject(:show_request) { get :show, params: { id: import.id } }
+
+    before { show_request }
+
+    context 'when the import is in progress' do
+      let!(:import) { create(:import, :in_progress, profile:) }
+
+      let(:expected_props) do
+        {
+          'importObject' => CamelizeProps.call(import.as_json)
+        }
+      end
+
+      it 'renders the preview component' do
+        expect_inertia.to render_component('imports/Preview')
+        expect(inertia.props.deep_stringify_keys).to include(expected_props)
+      end
+    end
+
+    context 'when the import is finished' do
+      let!(:import) { create(:import, :finished, profile:) }
+
+      let(:expected_props) { { 'importObject' => CamelizeProps.call(import.as_json) } }
+
+      it 'renders the show component' do
+        expect_inertia.to render_component('imports/Show')
+        expect(inertia.props.deep_stringify_keys).to include(expected_props)
+      end
+    end
+
+    context 'when the import is cancelled' do
+      let!(:import) { create(:import, :cancelled, profile:) }
+
+      let(:expected_props) { { 'importObject' => CamelizeProps.call(import.as_json) } }
+
+      it 'renders the show component' do
+        expect_inertia.to render_component('imports/Show')
+        expect(inertia.props.deep_stringify_keys).to include(expected_props)
+      end
+    end
+  end
+
   describe 'POST create' do
     subject(:create_request) { post :create, params: { import: params } }
 
