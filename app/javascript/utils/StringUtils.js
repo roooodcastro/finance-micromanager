@@ -4,7 +4,7 @@ import _ from 'lodash';
  * Converts a string that is in camelCase to dash-case.
  */
 export function dasherize(camelCaseString) {
-  return camelCaseString.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase()
+  return camelCaseString.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
 /*

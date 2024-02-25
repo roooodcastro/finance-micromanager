@@ -9,7 +9,7 @@ RSpec.describe ImportsController do
     session[:current_profile_id] = profile.id
   end
 
-  describe 'GET index' do
+  describe 'GET index', :travel_to_now do
     subject(:index_request) { get :index, format: }
 
     let!(:import_a) { create(:import, profile:) }
@@ -47,11 +47,12 @@ RSpec.describe ImportsController do
   describe 'POST create' do
     subject(:create_request) { post :create, params: { import: params } }
 
+    let(:source_file) { fixture_file_upload('n26.csv', 'text/csv') }
     let(:source) { Import.sources.values.sample }
     let(:wallet) { create(:wallet, profile:) }
 
     context 'when parameters are present and valid for an import' do
-      let(:params) { { source: source, wallet_id: wallet.id } }
+      let(:params) { { source_file: source_file, source: source, wallet_id: wallet.id } }
 
       let(:expected_json) { { 'message' => 'File was successfully uploaded, import started.' } }
 
@@ -62,7 +63,7 @@ RSpec.describe ImportsController do
     end
 
     context 'when the import cannot be created' do
-      let(:params) { { source: source, wallet_id: nil } }
+      let(:params) { { source_file: source_file, source: source, wallet_id: nil } }
 
       let(:expected_json) do
         { 'message' => 'Import could not be started: Wallet must exist' }

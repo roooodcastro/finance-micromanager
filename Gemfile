@@ -21,6 +21,7 @@ gem 'sprockets-rails'
 gem 'turbo-rails'
 gem 'vite_rails'
 
+gem 'active_storage_validations'
 gem 'aws-sdk-s3'
 gem 'connection_pool'
 gem 'devise'

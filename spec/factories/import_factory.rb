@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :import do
+    source_file { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/n26.csv'), 'text/csv') }
     source { 'ptsb' }
 
     profile

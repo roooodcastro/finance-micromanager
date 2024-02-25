@@ -26,6 +26,6 @@ class ImportsController < AbstractAuthenticatedController
   private
 
   def import_params
-    params.require(:import).permit(:source, :wallet_id, :file)
+    params.require(:import).permit(:source, :wallet_id, :source_file)
   end
 end
