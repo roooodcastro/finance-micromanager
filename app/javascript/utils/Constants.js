@@ -28,6 +28,12 @@ export const VARIANTS_FOR_RECONCILIATION_STATUSES = {
   cancelled: 'danger',
 };
 
+export const VARIANTS_FOR_IMPORT_STATUSES = {
+  in_progress: 'secondary',
+  finished: 'success',
+  cancelled: 'danger',
+};
+
 export const COLLAPSED_CARDS_COOKIE_NAME = 'collapsed-cards';
 export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
 export const DISPLAY_OPTIONS_COOKIE_NAME = 'display-options';

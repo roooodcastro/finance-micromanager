@@ -2,6 +2,15 @@
 en:
   activerecord:
     attributes:
+      import:
+        sources:
+          ptsb: PTSB
+          n26: N26
+          revolut: Revolut
+        statuses:
+          in_progress: In Progress
+          finished: Completed
+          cancelled: Cancelled
       reconciliation:
         statuses:
           in_progress: In Progress

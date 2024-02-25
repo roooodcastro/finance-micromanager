@@ -12,6 +12,15 @@ pt-BR:
       category:
         name: Nome
         color: Cor
+      import:
+        sources:
+          ptsb: PTSB
+          n26: N26
+          revolut: Revolut
+        statuses:
+          in_progress: Em Andamento
+          finished: Concluída
+          cancelled: Cancelada
       profile:
         name: Nome
         currency: Moeda

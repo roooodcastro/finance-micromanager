@@ -80,6 +80,11 @@ pt-BR:
       index:
         title: Importações de Transações
         new: Importar Transações
+      list:
+        desc_in_progress: 'Em andamento, iniciada em %{start_date}'
+        desc_cancelled: 'Cancelada em %{date}'
+        desc_finished: 'Concluída em %{date}'
+        import_desc: 'Importar "%{file_name}" de %{source} para a carteira'
       settings:
         show:
           title: Configurações de Importação

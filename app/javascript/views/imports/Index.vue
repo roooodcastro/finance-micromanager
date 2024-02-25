@@ -10,6 +10,8 @@
       </template>
     </PageHeader>
 
+    <ImportsList />
+
     <ImportForm />
   </div>
 </template>
@@ -26,11 +28,13 @@ import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js'
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import ImportForm from '~/components/imports/ImportForm.vue';
+import ImportsList from '~/components/imports/ImportsList.vue';
 
 export default {
   components: {
     DropdownMenuItem,
     ImportForm,
+    ImportsList,
     PageHeader,
   },
 

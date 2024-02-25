@@ -5,7 +5,7 @@
   />
   <div
     v-else
-    class="ImportNamesList"
+    class="list-group"
   >
     <template
       v-for="importName in importNames"
