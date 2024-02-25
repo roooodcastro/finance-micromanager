@@ -53,7 +53,7 @@ export default {
   },
 
   props: {
-    wallet: {
+    record: {
       type: Object,
       required: true,
     },
@@ -71,11 +71,11 @@ export default {
     const t = I18n.scopedTranslator('views.wallets.list');
     const walletStore = useWalletStore();
 
-    const isDisabled = computed(() => !!props.wallet.disabledAt);
+    const isDisabled = computed(() => !!props.record.disabledAt);
 
-    const handleEdit = () => walletStore.openFormModal(props.wallet.id);
-    const handleDelete = () => walletStore.disable(props.wallet.id);
-    const handleReenable = () => walletStore.reenable(props.wallet.id);
+    const handleEdit = () => walletStore.openFormModal(props.record.id);
+    const handleDelete = () => walletStore.disable(props.record.id);
+    const handleReenable = () => walletStore.reenable(props.record.id);
 
     return {
       t,

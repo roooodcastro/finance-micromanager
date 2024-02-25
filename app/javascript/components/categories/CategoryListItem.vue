@@ -1,66 +1,47 @@
 <template>
-  <ListItemDrawerContextMenu class="list-group-item overflow-hidden p-0">
-    <template v-slot:actions>
-      <CategoryActions
-        :category="category"
-        drawer-menu
+  <ListItem
+    :record="category"
+    :actions-component="CategoryActions"
+    :item-container-class="category.system ? 'bg-light' : 'bg-light-subtle'"
+  >
+    <a
+      class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
+      :href="showCategoryPath(category.id)"
+    >
+      <span
+        class="CategoriesList__color-indicator rounded-circle me-3 flex-shrink-0"
+        :style="{ backgroundColor: category.color }"
       />
-    </template>
-    <template v-slot:item>
-      <div
-        class="CategoryListItem d-flex align-items-center"
-        :class="{
-          'bg-light-subtle': !category.system,
-          'bg-light': category.system,
-        }"
-      >
-        <a
-          class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
-          :href="showCategoryPath(category.id)"
-        >
+      <div class="d-flex flex-column min-width-0">
+        <span class="d-flex align-items-center gap-2">
           <span
-            class="CategoriesList__color-indicator rounded-circle me-3 flex-shrink-0"
-            :style="{ backgroundColor: category.color }"
-          />
-          <div class="d-flex flex-column min-width-0">
-            <span class="d-flex align-items-center gap-2">
-              <span
-                v-if="isDisabled"
-                class="badge text-bg-danger"
-              >
-                {{ t('disabled') }}
-              </span>
+            v-if="isDisabled"
+            class="badge text-bg-danger"
+          >
+            {{ t('disabled') }}
+          </span>
 
-              {{ category.name }}
-            </span>
-            <span class="fs-6 text-muted text-truncate">
-              {{ subcategoriesNames }}
-            </span>
-          </div>
-        </a>
-
-        <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
-          <CategoryActions :category="category" />
-        </div>
+          {{ category.name }}
+        </span>
+        <span class="fs-6 text-muted text-truncate">
+          {{ subcategoriesNames }}
+        </span>
       </div>
-    </template>
-  </ListItemDrawerContextMenu>
+    </a>
+  </ListItem>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, markRaw } from 'vue';
 
 import I18n from '~/utils/I18n.js';
 import { categories as categoriesApi } from '~/api/all.js';
 
 import CategoryActions from '~/components/categories/CategoryActions.vue';
-import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
+import ListItem from '~/components/ui/ListItem.vue';
 
 export default {
-  components: {
-    CategoryActions,
-    ListItemDrawerContextMenu,
-  },
+  components: { ListItem },
 
   props: {
     category: {
@@ -70,6 +51,7 @@ export default {
   },
 
   setup(props) {
+    markRaw(CategoryActions);
     const t = I18n.scopedTranslator('views.categories.index');
 
     const showCategoryPath = (categoryId) => categoriesApi.show.path({ id: categoryId });
@@ -85,6 +67,7 @@ export default {
       showCategoryPath,
       isDisabled,
       subcategoriesNames,
+      CategoryActions,
     };
   }
 };
@@ -92,10 +75,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
-
-.CategoryListItem:not(:first-child) {
-  margin-top: -1px;
-}
 
 .CategoriesList__color-indicator {
   border: 1px solid $table-border-color;

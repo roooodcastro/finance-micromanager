@@ -52,10 +52,7 @@
         </div>
       </div>
 
-      <InfiniteScrolling
-        :class="{ 'TransactionsList': !cardBody }"
-        @scroll="handleInfiniteScrolling"
-      >
+      <InfiniteScrolling @scroll="handleInfiniteScrolling">
         <template v-if="!initialFetchDone">
           <TransactionListItemPlaceholder
             v-for="n in 5"

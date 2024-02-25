@@ -1,5 +1,5 @@
 <template>
-  <template v-if="reconciliation.status === 'in_progress'">
+  <template v-if="record.status === 'in_progress'">
     <div
       v-if="!buttons"
       class="vr mx-3 d-none d-lg-flex"
@@ -62,7 +62,7 @@ export default {
   },
 
   props: {
-    reconciliation: {
+    record: {
       type: Object,
       required: true,
     },
@@ -93,7 +93,7 @@ export default {
     const handleCancel = () => {
       modalStore
         .showConfirmationDialog({ message: t('confirm_cancel_message') })
-        .then(() => reconciliationStore.cancel(props.reconciliation.id))
+        .then(() => reconciliationStore.cancel(props.record.id))
         .catch(() => {});
     };
 
@@ -101,12 +101,12 @@ export default {
       const message = differenceSum.value === 0
         ? t('confirm_finish_message')
         : t('confirm_finish_message_with_balance', {
-          date: formatDate(props.reconciliation.date),
+          date: formatDate(props.record.date),
           amount: formatMoney(differenceSum.value),
         });
       modalStore
         .showConfirmationDialog({ message })
-        .then(() => reconciliationStore.finish(props.reconciliation.id))
+        .then(() => reconciliationStore.finish(props.record.id))
         .catch(() => {});
     };
 

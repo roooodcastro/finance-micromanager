@@ -55,7 +55,7 @@ export default {
   },
 
   props: {
-    transactionAutomation: {
+    record: {
       type: Object,
       required: true,
     },
@@ -69,11 +69,11 @@ export default {
     const t = I18n.scopedTranslator('views.transaction_automations.list');
     const transactionAutomationStore = useTransactionAutomationStore();
 
-    const isDisabled = computed(() => !!props.transactionAutomation.disabledAt);
+    const isDisabled = computed(() => !!props.record.disabledAt);
 
-    const handleEdit = () => transactionAutomationStore.openFormModal(props.transactionAutomation.id);
-    const handleDisable = () => transactionAutomationStore.disable(props.transactionAutomation.id);
-    const handleReenable = () => transactionAutomationStore.reenable(props.transactionAutomation.id);
+    const handleEdit = () => transactionAutomationStore.openFormModal(props.record.id);
+    const handleDisable = () => transactionAutomationStore.disable(props.record.id);
+    const handleReenable = () => transactionAutomationStore.reenable(props.record.id);
 
     return {
       t,

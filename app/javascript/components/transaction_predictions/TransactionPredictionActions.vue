@@ -55,7 +55,7 @@ export default {
   },
 
   props: {
-    transactionPrediction: {
+    record: {
       type: Object,
       required: true,
     },
@@ -68,12 +68,12 @@ export default {
   setup(props) {
     const t = I18n.scopedTranslator('views.transaction_predictions.list');
     const transactionPredictionStore = useTransactionPredictionStore();
-    const editPath = transactionPredictionsApi.edit.path({ id: props.transactionPrediction.id });
+    const editPath = transactionPredictionsApi.edit.path({ id: props.record.id });
 
-    const isDisabled = computed(() => !!props.transactionPrediction.disabledAt);
+    const isDisabled = computed(() => !!props.record.disabledAt);
 
-    const handleDisable = () => transactionPredictionStore.disable(props.transactionPrediction.id);
-    const handleReenable = () => transactionPredictionStore.reenable(props.transactionPrediction.id);
+    const handleDisable = () => transactionPredictionStore.disable(props.record.id);
+    const handleReenable = () => transactionPredictionStore.reenable(props.record.id);
 
     return {
       t,

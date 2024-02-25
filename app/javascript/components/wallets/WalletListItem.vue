@@ -1,55 +1,41 @@
 <template>
-  <ListItemDrawerContextMenu class="list-group-item overflow-hidden p-0">
-    <template v-slot:actions>
-      <WalletActions
-        :wallet="wallet"
-        drawer-menu
-      />
-    </template>
-    <template v-slot:item>
-      <div class="d-flex align-items-center p-2 bg-light-subtle">
-        <div class="d-flex flex-column min-width-0">
-          <span class="d-flex align-items-center gap-2">
-            <span
-              v-if="isDisabled"
-              class="badge text-bg-danger"
-            >
-              {{ t('disabled') }}
-            </span>
+  <ListItem
+    :record="wallet"
+    :actions-component="WalletActions"
+  >
+    <div class="d-flex flex-column min-width-0 p-2">
+      <span class="d-flex align-items-center gap-2">
+        <span
+          v-if="isDisabled"
+          class="badge text-bg-danger"
+        >
+          {{ t('disabled') }}
+        </span>
 
-            {{ wallet.name }}
-            <template v-if="isDisabled">
-              ({{ t('disabled') }})
-            </template>
-          </span>
-          <span class="fs-6 text-muted text-truncate">
-            {{ t('balance') }}:
-            {{ formatMoney(wallet.balance) }}
-          </span>
-        </div>
-
-        <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
-          <WalletActions :wallet="wallet" />
-        </div>
-      </div>
-    </template>
-  </ListItemDrawerContextMenu>
+        {{ wallet.name }}
+        <template v-if="isDisabled">
+          ({{ t('disabled') }})
+        </template>
+      </span>
+      <span class="fs-6 text-muted text-truncate">
+        {{ t('balance') }}:
+        {{ formatMoney(wallet.balance) }}
+      </span>
+    </div>
+  </ListItem>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, markRaw } from 'vue';
 
 import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import WalletActions from '~/components/wallets/WalletActions.vue';
-import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
+import ListItem from '~/components/ui/ListItem.vue';
 
 export default {
-  components: {
-    ListItemDrawerContextMenu,
-    WalletActions,
-  },
+  components: { ListItem },
 
   props: {
     wallet: {
@@ -59,6 +45,7 @@ export default {
   },
 
   setup(props) {
+    markRaw(WalletActions);
     const t = I18n.scopedTranslator('views.wallets.list');
     const isDisabled = computed(() => !!props.wallet.disabledAt);
 
@@ -66,6 +53,7 @@ export default {
       t,
       formatMoney,
       isDisabled,
+      WalletActions,
     };
   }
 };

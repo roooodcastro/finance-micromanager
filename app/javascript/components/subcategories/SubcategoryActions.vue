@@ -58,11 +58,7 @@ export default {
   },
 
   props: {
-    category: {
-      type: Object,
-      required: true,
-    },
-    subcategory: {
+    record: {
       type: Object,
       required: true,
     },
@@ -76,15 +72,20 @@ export default {
     const t = I18n.scopedTranslator('views.subcategories.list');
     const subcategoryStore = useSubcategoryStore();
 
-    const isCategoryDisabled = computed(() => !!props.category.disabledAt);
-    const isDisabled = computed(() => !!props.subcategory.disabledAt);
+    const category = props.record.category;
+    const subcategory = props.record.subcategory;
 
-    const handleEdit = () => subcategoryStore.openFormModal(props.subcategory.id);
-    const handleDelete = () => subcategoryStore.disable(props.category.id, props.subcategory.id);
-    const handleReenable = () => subcategoryStore.reenable(props.subcategory.id);
+    const isCategoryDisabled = computed(() => !!category.disabledAt);
+    const isDisabled = computed(() => !!subcategory.disabledAt);
+
+    const handleEdit = () => subcategoryStore.openFormModal(subcategory.id);
+    const handleDelete = () => subcategoryStore.disable(category.id, subcategory.id);
+    const handleReenable = () => subcategoryStore.reenable(subcategory.id);
 
     return {
       t,
+      category,
+      subcategory,
       handleEdit,
       handleDelete,
       handleReenable,
