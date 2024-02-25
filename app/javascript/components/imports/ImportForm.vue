@@ -7,58 +7,56 @@
     :loading="loading"
     @show="handleShow"
   >
-    <template v-slot:default="{ closeModal }">
-      <RailsForm
-        :id="IMPORT_FORM_ID"
-        :action="formAction"
-        method="POST"
-        resource="import"
-        @submit.prevent="handleSubmit(closeModal)"
-        enctype="multipart/form-data"
-      >
-        <template v-slot:default="{ formHelper }">
-          <FormInput
-            ref="sourceFileInput"
-            v-model="importObject.sourceFile"
-            :form-helper="formHelper"
-            field-name="source_file"
-            :label="t('source_file_label')"
-            type="file"
-            accept=".csv,.xls,.xlsx"
-          />
+    <RailsForm
+      :id="IMPORT_FORM_ID"
+      :action="formAction"
+      method="POST"
+      resource="import"
+      enctype="multipart/form-data"
+      @submit.prevent="handleSubmit"
+    >
+      <template v-slot:default="{ formHelper }">
+        <FormInput
+          ref="sourceFileInput"
+          v-model="importObject.sourceFile"
+          :form-helper="formHelper"
+          field-name="source_file"
+          :label="t('source_file_label')"
+          type="file"
+          accept=".csv,.xls,.xlsx"
+        />
 
-          <label
-            :for="formHelper.fieldId('wallet_id')"
-            class="form-label"
-          >
-            {{ t('wallet_id_label') }}
-          </label>
+        <label
+          :for="formHelper.fieldId('wallet_id')"
+          class="form-label"
+        >
+          {{ t('wallet_id_label') }}
+        </label>
 
-          <WalletsSelect
-            :id="formHelper.fieldId('wallet_id')"
-            v-model="importObject.walletId"
-            :name="formHelper.fieldName('wallet_id')"
-            class="mb-3"
-            required
-          />
+        <WalletsSelect
+          :id="formHelper.fieldId('wallet_id')"
+          v-model="importObject.walletId"
+          :name="formHelper.fieldName('wallet_id')"
+          class="mb-3"
+          required
+        />
 
-          <label
-            :for="formHelper.fieldId('source')"
-            class="form-label"
-          >
-            {{ t('source_label') }}
-          </label>
+        <label
+          :for="formHelper.fieldId('source')"
+          class="form-label"
+        >
+          {{ t('source_label') }}
+        </label>
 
-          <FormSelect
-            v-model="importObject.source"
-            :options="sourceOptions"
-            field-name="source"
-            :form-helper="formHelper"
-            required
-          />
-        </template>
-      </RailsForm>
-    </template>
+        <FormSelect
+          v-model="importObject.source"
+          :options="sourceOptions"
+          field-name="source"
+          :form-helper="formHelper"
+          required
+        />
+      </template>
+    </RailsForm>
   </FormModal>
 </template>
 
@@ -120,16 +118,15 @@ export default {
       }
     };
 
-    const handleSubmit = (closeModal) => {
+    const handleSubmit = () => {
       loading.value = true;
 
       const file = sourceFileInput.value.$el.querySelector('input').files[0];
 
       importStore
         .create({ ...importObject.value, sourceFile: file })
-        .then(closeModal)
-        .catch(() => {})
-        .finally(() => loading.value = false);
+        .then(() => window.location.href = importsApi.index.path())
+        .catch(() => loading.value = false)
     };
 
     return {

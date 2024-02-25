@@ -85,6 +85,10 @@ en:
         desc_cancelled: 'Cancelled on %{date}'
         desc_finished: 'Completed on %{date}'
         import_desc: 'Import "%{file_name}" from %{source} into wallet'
+      preview:
+        title: Preview Import
+      show:
+        title: Import
       settings:
         show:
           title: Import Settings
