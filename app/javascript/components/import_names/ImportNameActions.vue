@@ -37,7 +37,7 @@ export default {
   },
 
   props: {
-    importName: {
+    record: {
       type: Object,
       required: true,
     },
@@ -51,8 +51,8 @@ export default {
     const t = I18n.scopedTranslator('views.import_names.list');
     const importNameStore = useImportNameStore();
 
-    const handleEdit = () => importNameStore.openFormModal(props.importName.id);
-    const handleDelete = () => importNameStore.destroy(props.importName.id);
+    const handleEdit = () => importNameStore.openFormModal(props.record.id);
+    const handleDelete = () => importNameStore.destroy(props.record.id);
 
     return {
       t,

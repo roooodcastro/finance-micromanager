@@ -1,55 +1,44 @@
 <template>
-  <ListItemDrawerContextMenu class="list-group-item p-0 overflow-hidden">
-    <template v-slot:actions>
-      <TransactionPredictionActions
-        :transaction-prediction="transactionPrediction"
-        drawer-menu
-      />
-    </template>
-    <template v-slot:item>
-      <div class="d-flex align-items-center bg-light-subtle">
-        <a
-          class="text-decoration-none text-body list-group-item-action d-flex align-items-center p-2 ps-4 min-width-0 side-strip"
-          :class="{ 'side-strip-danger': isDisabled, 'side-strip-primary': !isDisabled }"
-          :href="showPath"
-        >
-          <div class="flex-grow-1 min-width-0">
-            <div class="d-flex justify-content-between">
-              <span class="d-flex align-items-center">
-                <span :class="{ 'text-muted': isDisabled }">
-                  {{ transactionPrediction.name }}
-                </span>
-                <span
-                  v-if="isDisabled"
-                  class="badge text-bg-danger ms-2"
-                >
-                  {{ t('disabled') }}
-                </span>
-              </span>
-            </div>
+  <ListItem
+    :record="transactionPrediction"
+    :actions-component="TransactionPredictionActions"
+  >
+    <a
+      class="text-decoration-none text-body list-group-item-action d-flex align-items-center p-2 ps-4 min-width-0 side-strip"
+      :class="{ 'side-strip-danger': isDisabled, 'side-strip-primary': !isDisabled }"
+      :href="showPath"
+    >
+      <div class="flex-grow-1 min-width-0">
+        <div class="d-flex justify-content-between">
+          <span class="d-flex align-items-center">
+            <span :class="{ 'text-muted': isDisabled }">
+              {{ transactionPrediction.name }}
+            </span>
+            <span
+              v-if="isDisabled"
+              class="badge text-bg-danger ms-2"
+            >
+              {{ t('disabled') }}
+            </span>
+          </span>
+        </div>
 
-            <div class="fs-6 mt-1 text-muted text-truncate">
-              {{ t('label_when') }}
-              {{ rulesParser.conditionsDescription }}
-            </div>
+        <div class="fs-6 mt-1 text-muted text-truncate">
+          {{ t('label_when') }}
+          {{ rulesParser.conditionsDescription }}
+        </div>
 
-            <div class="fs-6 mt-1 text-muted text-truncate">
-              {{ t('label_then') }}
-              {{ rulesParser.actionsDescription }}
-            </div>
-          </div>
-        </a>
-
-        <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
-          <TransactionPredictionActions :transaction-prediction="transactionPrediction" />
+        <div class="fs-6 mt-1 text-muted text-truncate">
+          {{ t('label_then') }}
+          {{ rulesParser.actionsDescription }}
         </div>
       </div>
-    </template>
-  </ListItemDrawerContextMenu>
+    </a>
+  </ListItem>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, markRaw } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -61,13 +50,10 @@ import useWalletStore from '~/stores/WalletStore.js';
 import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 
 import TransactionPredictionActions from '~/components/transaction_predictions/TransactionPredictionActions.vue';
-import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
+import ListItem from '~/components/ui/ListItem.vue';
 
 export default {
-  components: {
-    ListItemDrawerContextMenu,
-    TransactionPredictionActions,
-  },
+  components: { ListItem },
 
   props: {
     transactionPrediction: {
@@ -77,6 +63,7 @@ export default {
   },
 
   setup(props) {
+    markRaw(TransactionPredictionActions);
     const t = I18n.scopedTranslator('views.transaction_predictions.list');
 
     const categoryStore = useCategoryStore();
@@ -112,6 +99,7 @@ export default {
       rulesParser,
       formatDate,
       formatMoney,
+      TransactionPredictionActions,
     };
   }
 };

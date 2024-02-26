@@ -9,7 +9,7 @@
     href="#"
     data-bs-toggle="modal"
     data-bs-target="#profileShareInviteModal"
-    @click="handleProfileShareInviteModalClick(profile.id)"
+    @click="handleProfileShareInviteModalClick(record.id)"
   >
     <FontAwesomeIcon
       icon="share-nodes"
@@ -39,7 +39,7 @@
       'ms-3': !drawerMenu,
     }"
     ask-confirmation
-    @delete="handleDelete(profile.id)"
+    @delete="handleDelete(record.id)"
   />
 </template>
 
@@ -62,7 +62,7 @@ export default {
   },
 
   props: {
-    profile: {
+    record: {
       type: Object,
       required: true,
     },
@@ -78,7 +78,7 @@ export default {
 
     const handleProfileShareInviteModalClick = profileId => profileStore.setProfileIdForInviteModal(profileId);
 
-    const handleEdit = () => profileStore.openFormModal(props.profile.id);
+    const handleEdit = () => profileStore.openFormModal(props.record.id);
     const handleDelete = (id) => {
       profilesApi.destroy({ id }).then((response) => {
         notificationStore.notify(response.message, 'success');

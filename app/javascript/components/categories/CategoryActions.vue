@@ -1,5 +1,5 @@
 <template>
-  <template v-if="!category.system">
+  <template v-if="!record.system">
     <div class="vr mx-3 d-none d-lg-flex" />
 
     <EditButton
@@ -53,7 +53,7 @@ export default {
   },
 
   props: {
-    category: {
+    record: {
       type: Object,
       required: true,
     },
@@ -66,11 +66,11 @@ export default {
   setup(props) {
     const categoryStore = useCategoryStore();
 
-    const isDisabled = computed(() => !!props.category.disabledAt);
+    const isDisabled = computed(() => !!props.record.disabledAt);
 
-    const handleEdit = () => categoryStore.openFormModal(props.category.id);
-    const handleDelete = () => categoryStore.disable(props.category.id);
-    const handleReenable = () => categoryStore.reenable(props.category.id);
+    const handleEdit = () => categoryStore.openFormModal(props.record.id);
+    const handleDelete = () => categoryStore.disable(props.record.id);
+    const handleReenable = () => categoryStore.reenable(props.record.id);
 
     return {
       t: I18n.scopedTranslator('views.categories.index'),

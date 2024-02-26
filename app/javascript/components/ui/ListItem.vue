@@ -1,0 +1,69 @@
+<template>
+  <ListItemDrawerContextMenu
+    class="list-group-item overflow-hidden p-0"
+    :class="{ 'ListItem__card-body border-start-0 border-end-0': cardBody }"
+  >
+    <template v-slot:actions>
+      <component
+        :is="actionsComponent"
+        :record="record"
+        drawer-menu
+      />
+    </template>
+    <template v-slot:item>
+      <div :class="`ListItem d-flex justify-content-between align-items-center ${itemContainerClass}`">
+        <slot />
+
+        <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
+          <component
+            :is="actionsComponent"
+            :record="record"
+          />
+        </div>
+      </div>
+    </template>
+  </ListItemDrawerContextMenu>
+</template>
+
+<script>
+import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
+
+export default {
+  components: {
+    ListItemDrawerContextMenu,
+  },
+
+  props: {
+    actionsComponent: {
+      type: Object,
+      required: true,
+    },
+    record: {
+      type: Object,
+      required: true,
+    },
+    itemContainerClass: {
+      type: String,
+      default: 'bg-light-subtle'
+    },
+    cardBody: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.ListItem:not(:first-child) {
+  margin-top: -1px;
+}
+
+.ListItem__card-body:first-child {
+  border-top: none !important;
+}
+
+.ListItem__card-body:last-child {
+  border-bottom: none !important;
+}
+</style>

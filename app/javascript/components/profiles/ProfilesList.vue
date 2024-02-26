@@ -1,5 +1,5 @@
 <template>
-  <div class="ProfilesList">
+  <div class="ProfilesList list-group">
     <ProfileListItem
       v-for="profile in profiles"
       :key="profile.id"
