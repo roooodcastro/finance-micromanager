@@ -5,7 +5,7 @@ module Importer
     FIRST_TRANSACTION_ROW = 1
 
     def parse
-      rows = read_file.then(&method(:filter_non_transaction_rows))
+      rows = CSV.parse(read_source_file).then(&method(:filter_non_transaction_rows))
       rows.map do |row|
         raw_name = build_full_transaction_name(row)
         name     = row[1]
@@ -20,10 +20,6 @@ module Importer
 
     def filter_non_transaction_rows(rows)
       rows[FIRST_TRANSACTION_ROW..]
-    end
-
-    def read_file
-      CSV.read(Rails.root.join(file_name))
     end
 
     def build_full_transaction_name(row)

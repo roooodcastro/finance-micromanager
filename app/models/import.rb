@@ -14,8 +14,10 @@ class Import < ApplicationRecord
   enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
 
   validates :source, presence: true
-  validates :source_file, attached: true, content_type: %w[text/csv application/csv application/xls],
-            size: { less_than: MAX_UPLOAD_FILE_SIZE }
+  validates :source_file,
+            attached:     true,
+            content_type: %w[text/csv application/csv application/xls application/vnd.ms-excel],
+            size:         { less_than: MAX_UPLOAD_FILE_SIZE }
 
   def as_json
     super.merge(wallet: wallet.as_json, file_name: source_file.blob&.filename.to_s)

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Importer::N26, type: :service do
-  let(:importer) { described_class.new(file_name, wallet) }
-  let(:file_name) { 'spec/fixtures/importer/n26.csv' }
-  let(:wallet) { create(:wallet) }
+  let(:importer) { described_class.new(import) }
+  let(:import) { create(:import, :n26) }
 
   describe '#parse' do
     subject { importer.parse }
