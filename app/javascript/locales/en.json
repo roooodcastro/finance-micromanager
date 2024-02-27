@@ -904,6 +904,8 @@
           "current_profile": "Profile:",
           "dashboard": "Dashboard",
           "imports": "Transaction Imports",
+          "imports_list": "List Imports",
+          "imports_settings": "Configure Imports",
           "profile": "My Profile",
           "profiles": "Profiles",
           "reconciliations": "Reconciliations",
@@ -911,9 +913,10 @@
           "sign_in": "Sign In",
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
-          "transaction_automations": "Transaction Automations",
-          "transaction_predictions": "Transaction Autofills",
           "transactions": "Transactions",
+          "transactions_automations": "Automations",
+          "transactions_list": "List Transactions",
+          "transactions_predictions": "Predictions",
           "wallets": "Wallets"
         }
       },

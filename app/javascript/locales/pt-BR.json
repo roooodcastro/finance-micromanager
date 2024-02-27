@@ -972,6 +972,8 @@
           "current_profile": "Perfil:",
           "dashboard": "Dashboard",
           "imports": "Importação de Transações",
+          "imports_list": "Listar Importações",
+          "imports_settings": "Configurar Importações",
           "profile": "Meu Perfil",
           "profiles": "Perfis",
           "reconciliations": "Reconciliações",
@@ -979,9 +981,10 @@
           "sign_in": "Fazer Login",
           "sign_out": "Sair da Conta",
           "sign_up": "Criar Conta",
-          "transaction_automations": "Automações de Transação",
-          "transaction_predictions": "Autopreenchimentos",
           "transactions": "Transações",
+          "transactions_automations": "Automações",
+          "transactions_list": "Listar Transações",
+          "transactions_predictions": "Autopreenchimentos",
           "wallets": "Carteiras"
         }
       },

@@ -5,6 +5,7 @@ import {
   dashboards as dashboardsApi,
   profiles as profilesApi,
   imports as importsApi,
+  importsSettings as importsSettingsApi,
   reconciliations as reconciliationsApi,
   settings as settingsApi,
   transactionAutomations as transactionAutomationsApi,
@@ -19,6 +20,8 @@ import {
   ICON_CATEGORIES,
   ICON_DASHBOARD,
   ICON_IMPORTS,
+  ICON_IMPORT_LIST,
+  ICON_IMPORT_SETTINGS,
   ICON_PROFILES,
   ICON_RECONCILIATIONS,
   ICON_SETTINGS,
@@ -26,6 +29,7 @@ import {
   ICON_SIGN_OUT,
   ICON_SIGN_UP,
   ICON_TRANSACTION_AUTOMATIONS,
+  ICON_TRANSACTION_LIST,
   ICON_TRANSACTION_PREDICTIONS,
   ICON_TRANSACTIONS,
   ICON_WALLETS,
@@ -37,18 +41,28 @@ import useUserStore from '~/stores/UserStore.js';
 const buildMenuItem = (options) => {
   return Object.assign(options, {
     label: I18n.t(`views.layout.vertical_menu.${options.key}`),
-    active: isMenuItemActive(options.path),
+    active: isMenuItemActive(options),
+    expanded: isMenuItemExpanded(options),
+    hasSubMenu: options.subItems && options.subItems.length > 0,
   });
 };
 
-const isMenuItemActive = (path) => {
+const isMenuItemExpanded = (menuItem) => {
+  if (menuItem.subItems && menuItem.subItems.length > 0) {
+    return menuItem.subItems.some(subItem => isMenuItemActive(subItem));
+  }
+  return false;
+}
+
+const isMenuItemActive = (options) => {
+  const itemPath = options.path;
   const currentPath = window.location.pathname;
 
-  if (currentPath === '/' && path === '/') {
+  if (currentPath === '/' && itemPath === '/') {
     return true;
   }
 
-  return path !== '/' && currentPath.includes(path);
+  return itemPath !== '/' && currentPath.includes(itemPath);
 };
 
 export const buildVerticalMenuItems = () => {
@@ -59,11 +73,26 @@ export const buildVerticalMenuItems = () => {
     return {
       top: [
         buildMenuItem({ key: 'dashboard', path: dashboardsApi.show.path(), icon: ICON_DASHBOARD }),
-        buildMenuItem({ key: 'transactions', path: transactionsApi.index.path(), icon: ICON_TRANSACTIONS }),
-        buildMenuItem({ key: 'transaction_automations', path: transactionAutomationsApi.index.path(), icon: ICON_TRANSACTION_AUTOMATIONS }),
-        buildMenuItem({ key: 'transaction_predictions', path: transactionPredictionsApi.index.path(), icon: ICON_TRANSACTION_PREDICTIONS }),
+        buildMenuItem({
+          key: 'transactions',
+          path: '#collapse_transactions',
+          icon: ICON_TRANSACTIONS,
+          subItems: [
+            buildMenuItem({ key: 'transactions_list', path: transactionsApi.index.path(), icon: ICON_TRANSACTION_LIST }),
+            buildMenuItem({ key: 'transactions_automations', path: transactionAutomationsApi.index.path(), icon: ICON_TRANSACTION_AUTOMATIONS }),
+            buildMenuItem({ key: 'transactions_predictions', path: transactionPredictionsApi.index.path(), icon: ICON_TRANSACTION_PREDICTIONS }),
+          ]
+        }),
         buildMenuItem({ key: 'reconciliations', path: reconciliationsApi.index.path(), icon: ICON_RECONCILIATIONS }),
-        buildMenuItem({ key: 'imports', path: importsApi.index.path(), icon: ICON_IMPORTS }),
+        buildMenuItem({
+          key: 'imports',
+          path: '#collapse_imports',
+          icon: ICON_IMPORTS,
+          subItems: [
+            buildMenuItem({ key: 'imports_list', path: importsApi.index.path(), icon: ICON_IMPORT_LIST }),
+            buildMenuItem({ key: 'imports_settings', path: importsSettingsApi.show.path(), icon: ICON_IMPORT_SETTINGS }),
+          ]
+        }),
         buildMenuItem({ key: 'categories', path: categoriesApi.index.path(), icon: ICON_CATEGORIES }),
         buildMenuItem({ key: 'wallets', path: walletsApi.index.path(), icon: ICON_WALLETS }),
         buildMenuItem({ key: 'profiles', path: profilesApi.index.path(), icon: ICON_PROFILES }),
