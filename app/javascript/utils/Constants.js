@@ -69,6 +69,7 @@ export const ICON_TRANSACTION_AUTOMATIONS = 'robot';
 export const ICON_TRANSACTION_PREDICTIONS = 'wand-magic-sparkles';
 export const ICON_RECONCILIATIONS = 'scale-balanced';
 export const ICON_CATEGORIES = ['far', 'folder'];
+export const ICON_IMPORTS = 'cloud-arrow-up';
 export const ICON_WALLETS = ['far', 'credit-card'];
 export const ICON_PROFILES = 'wallet';
 export const ICON_SETTINGS = 'sliders';

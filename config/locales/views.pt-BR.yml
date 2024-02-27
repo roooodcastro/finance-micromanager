@@ -184,6 +184,7 @@ pt-BR:
         toast_title_danger: Erro
       vertical_menu:
         dashboard: Dashboard
+        imports: Importação de Transações
         transactions: Transações
         transaction_automations: Automações de Transação
         transaction_predictions: Autopreenchimentos

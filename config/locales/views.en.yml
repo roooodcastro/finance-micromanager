@@ -182,6 +182,7 @@ en:
         toast_title_danger: Error
       vertical_menu:
         dashboard: Dashboard
+        imports: Transaction Imports
         transactions: Transactions
         transaction_automations: Transaction Automations
         transaction_predictions: Transaction Autofills

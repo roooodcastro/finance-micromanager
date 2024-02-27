@@ -51,35 +51,14 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import {
-  categories as categoriesApi,
-  dashboards as dashboardsApi,
-  profiles as profilesApi,
-  reconciliations as reconciliationsApi,
-  settings as settingsApi,
-  transactionAutomations as transactionAutomationsApi,
-  transactionPredictions as transactionPredictionsApi,
-  transactions as transactionsApi,
-  usersSessions as userSessionsApi,
-  usersRegistrations as usersRegistrationsApi,
-  wallets as walletsApi,
-} from '~/api/all.js';
-import I18n from '~/utils/I18n.js';
-
 import useUserStore from '~/stores/UserStore.js';
+import { buildVerticalMenuItems } from '~/utils/VerticalMenu.js';
 
 import MenuProfileSection from '~/components/layout/MenuProfileSection.vue';
-import {
-  ICON_CATEGORIES, ICON_DASHBOARD,
-  ICON_PROFILES, ICON_RECONCILIATIONS,
-  ICON_SETTINGS,
-  ICON_SIGN_IN,
-  ICON_SIGN_OUT,
-  ICON_SIGN_UP, ICON_TRANSACTION_AUTOMATIONS, ICON_TRANSACTION_PREDICTIONS, ICON_TRANSACTIONS,
-  ICON_WALLETS,
-} from '~/utils/Constants.js';
 
 export default {
   components: {
@@ -95,52 +74,11 @@ export default {
   },
 
   setup() {
-    const t = I18n.scopedTranslator('views.layout.vertical_menu');
     const userStore = useUserStore();
-    const isUserLoggedIn = userStore.isUserLoggedIn;
-    let menuItems;
-
-    if (userStore.isUserLoggedIn) {
-      menuItems = {
-        top: [
-          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: ICON_DASHBOARD },
-          { label: t('transactions'), path: transactionsApi.index.path(), icon: ICON_TRANSACTIONS },
-          { label: t('transaction_automations'), path: transactionAutomationsApi.index.path(), icon: ICON_TRANSACTION_AUTOMATIONS },
-          { label: t('transaction_predictions'), path: transactionPredictionsApi.index.path(), icon: ICON_TRANSACTION_PREDICTIONS },
-          { label: t('reconciliations'), path: reconciliationsApi.index.path(), icon: ICON_RECONCILIATIONS },
-          { label: t('categories'), path: categoriesApi.index.path(), icon: ICON_CATEGORIES },
-          { label: t('wallets'), path: walletsApi.index.path(), icon: ICON_WALLETS },
-          { label: t('profiles'), path: profilesApi.index.path(), icon: ICON_PROFILES },
-          { label: t('settings'), path: settingsApi.show.path(), icon: ICON_SETTINGS },
-        ],
-        bottom: [
-          { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: ICON_SIGN_OUT, method: 'DELETE' },
-        ],
-      };
-    } else {
-      menuItems = {
-        top: [],
-        bottom: [
-          { label: t('sign_in'), path: userSessionsApi.new.path(), icon: ICON_SIGN_IN },
-          { label: t('sign_up'), path: usersRegistrationsApi.new.path(), icon: ICON_SIGN_UP },
-        ],
-      };
-    }
-
-    const setActiveMenuItem = (menuItem) => {
-      const currentPath = window.location.pathname;
-      const menuPath = menuItem.path;
-
-      if ((menuPath !== '/' && currentPath.includes(menuPath)) || (currentPath === '/' && menuPath === '/')) {
-        menuItem['active'] = true;
-      }
-    };
-
-    menuItems.top.forEach(setActiveMenuItem);
-    menuItems.bottom.forEach(setActiveMenuItem);
+    const isUserLoggedIn = computed(() => userStore.isUserLoggedIn);
+    const menuItems = buildVerticalMenuItems();
 
     return {
-      t,
       menuItems,
       isUserLoggedIn,
     };
