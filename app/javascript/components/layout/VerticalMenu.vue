@@ -51,24 +51,12 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import {
-  categories as categoriesApi,
-  dashboards as dashboardsApi,
-  profiles as profilesApi,
-  reconciliations as reconciliationsApi,
-  settings as settingsApi,
-  transactionAutomations as transactionAutomationsApi,
-  transactionPredictions as transactionPredictionsApi,
-  transactions as transactionsApi,
-  usersSessions as userSessionsApi,
-  usersRegistrations as usersRegistrationsApi,
-  wallets as walletsApi,
-} from '~/api/all.js';
-import I18n from '~/utils/I18n.js';
-
 import useUserStore from '~/stores/UserStore.js';
+import { buildVerticalMenuItems } from '~/utils/VerticalMenu.js';
 
 import MenuProfileSection from '~/components/layout/MenuProfileSection.vue';
 
@@ -86,52 +74,11 @@ export default {
   },
 
   setup() {
-    const t = I18n.scopedTranslator('views.layout.vertical_menu');
     const userStore = useUserStore();
-    const isUserLoggedIn = userStore.isUserLoggedIn;
-    let menuItems;
-
-    if (userStore.isUserLoggedIn) {
-      menuItems = {
-        top: [
-          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'home' },
-          { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
-          { label: t('transaction_automations'), path: transactionAutomationsApi.index.path(), icon: 'robot' },
-          { label: t('transaction_predictions'), path: transactionPredictionsApi.index.path(), icon: 'wand-magic-sparkles' },
-          { label: t('reconciliations'), path: reconciliationsApi.index.path(), icon: 'scale-balanced' },
-          { label: t('categories'), path: categoriesApi.index.path(), icon: ['far', 'folder'] },
-          { label: t('wallets'), path: walletsApi.index.path(), icon: ['far', 'credit-card'] },
-          { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
-          { label: t('settings'), path: settingsApi.show.path(), icon: 'sliders' },
-        ],
-        bottom: [
-          { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
-        ],
-      };
-    } else {
-      menuItems = {
-        top: [],
-        bottom: [
-          { label: t('sign_in'), path: userSessionsApi.new.path(), icon: 'right-to-bracket' },
-          { label: t('sign_up'), path: usersRegistrationsApi.new.path(), icon: 'user-plus' },
-        ],
-      };
-    }
-
-    const setActiveMenuItem = (menuItem) => {
-      const currentPath = window.location.pathname;
-      const menuPath = menuItem.path;
-
-      if ((menuPath !== '/' && currentPath.includes(menuPath)) || (currentPath === '/' && menuPath === '/')) {
-        menuItem['active'] = true;
-      }
-    };
-
-    menuItems.top.forEach(setActiveMenuItem);
-    menuItems.bottom.forEach(setActiveMenuItem);
+    const isUserLoggedIn = computed(() => userStore.isUserLoggedIn);
+    const menuItems = buildVerticalMenuItems();
 
     return {
-      t,
       menuItems,
       isUserLoggedIn,
     };
