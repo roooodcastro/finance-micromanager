@@ -1,5 +1,5 @@
 <template>
-  <div class="SubcategoriesList list-group overflow-hidden">
+  <div class="SubcategoriesList list-group list-group-flush overflow-hidden">
     <template
       v-for="subcategory in subcategories"
       :key="`${subcategory.id}_${subcategory.updatedAt}`"
