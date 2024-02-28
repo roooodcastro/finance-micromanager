@@ -10,10 +10,17 @@ FactoryBot.define do
 
     trait :ptsb do
       source { 'ptsb' }
+      source_file do
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/ptsb.xls'),
+                                     'application/vnd.ms-excel')
+      end
     end
 
     trait :n26 do
       source { 'n26' }
+      source_file do
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/n26.csv'), 'text/csv')
+      end
     end
 
     trait :in_progress do

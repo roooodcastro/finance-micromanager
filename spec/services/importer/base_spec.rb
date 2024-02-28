@@ -1,19 +1,71 @@
 # frozen_string_literal: true
 
-RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service do
-  let(:importer) { described_class.new(file_name, wallet) }
-  let(:file_name) { 'statement.csv' }
+RSpec.describe Importer::Base, type: :service do
+  let(:importer) { described_class.new(import) }
   let(:profile) { create(:profile) }
   let(:wallet) { create(:wallet) }
   let(:user) { profile.user }
+  let(:import) { create(:import, profile:, wallet:) }
 
   before do
     Current.profile = profile
     Current.user    = user
   end
 
-  describe '#import!' do
-    subject(:import) { importer.import! }
+  describe 'self.importer_for' do
+    subject(:importer_for) { described_class.importer_for(import) }
+
+    let(:import) { build(:import, source:, profile:) }
+
+    context 'when passing an import for PTSB' do
+      let(:source) { :ptsb }
+
+      it { is_expected.to be_an_instance_of(Importer::PTSB) }
+    end
+
+    context 'when passing an import for N26' do
+      let(:source) { :n26 }
+
+      it { is_expected.to be_an_instance_of(Importer::N26) }
+    end
+
+    context 'when passing an import for an unsupported source' do
+      let(:source) { :ptsb }
+
+      before { allow(import).to receive(:source).and_return('unsupported') }
+
+      it 'raises an error' do
+        expect { importer_for }.to raise_error(ArgumentError, 'Import source unknown: unsupported')
+      end
+    end
+  end
+
+  describe '.generate_preview', :travel_to_now do
+    subject { importer.generate_preview }
+
+    let(:parsed_transactions) do
+      [
+        ['Raw 1', 'Test 1', 1.day.ago, -4.99],
+        ['Raw 2', 'Test 2', Date.current, 2]
+      ]
+    end
+
+    let(:expected_preview_data) do
+      [
+        { raw_import_name: 'Raw 1', name: 'Test 1', transaction_date: 1.day.ago, amount: -4.99, wallet_id: wallet.id },
+        { raw_import_name: 'Raw 2', name: 'Test 2', transaction_date: Date.current, amount: 2, wallet_id: wallet.id }
+      ]
+    end
+
+    before do
+      allow(importer).to receive(:parse).and_return(parsed_transactions)
+    end
+
+    it { is_expected.to eq expected_preview_data }
+  end
+
+  describe '#import!', skip: 'refactor' do
+    subject(:import!) { importer.import! }
 
     before do
       allow(importer).to receive_messages(source: :n26, parse: parsed_transactions)
@@ -28,7 +80,7 @@ RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service
       end
 
       it 'saves the transactions and link them to a new Import record' do
-        expect { import }
+        expect { import! }
           .to change { Transaction.count }
           .by(2)
           .and change { Import.count }
@@ -36,7 +88,7 @@ RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service
       end
 
       it 'creates the first transaction correctly' do
-        import
+        import!
         t1 = Transaction.first
 
         expect(t1.name).to eq 'Test 1'
@@ -47,7 +99,7 @@ RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service
       end
 
       it 'creates the second transaction correctly' do
-        import
+        import!
         t2 = Transaction.last
 
         expect(t2.name).to eq 'Test 2'
@@ -67,7 +119,7 @@ RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service
       end
 
       it 'does not save anything' do
-        expect { import }
+        expect { import! }
           .to not_change { Transaction.count }
           .and not_change { Import.count }
       end
@@ -84,11 +136,11 @@ RSpec.describe Importer::Base, skip: 'Need to rewrite importers', type: :service
       end
 
       it 'does not insert the same transaction again' do
-        expect { import }.not_to change { Transaction.count }
+        expect { import! }.not_to change { Transaction.count }
       end
 
       it 'does not insert an Import record since no transactions were imported' do
-        expect { import }.not_to change { Import.count }
+        expect { import! }.not_to change { Import.count }
       end
     end
   end

@@ -2,11 +2,33 @@
 
 module Importer
   class Base
-    attr_reader :file_name, :wallet
+    attr_reader :import
 
-    def initialize(file_name, wallet)
-      @file_name = file_name
-      @wallet    = wallet
+    IMPORTER_CLASSES = {
+      ptsb: ::Importer::PTSB,
+      n26:  ::Importer::N26
+    }.freeze
+
+    def self.importer_for(import)
+      raise ArgumentError, "Import source unknown: #{import.source}" unless IMPORTER_CLASSES[import.source.to_sym]
+
+      IMPORTER_CLASSES[import.source.to_sym].new(import)
+    end
+
+    def initialize(import)
+      @import = import
+    end
+
+    def generate_preview
+      parse.compact.map do |row|
+        {
+          raw_import_name:  row[0],
+          name:             row[1],
+          transaction_date: row[2],
+          amount:           row[3],
+          wallet_id:        import.wallet.id
+        }
+      end
     end
 
     def import!
@@ -54,6 +76,10 @@ module Importer
 
     def temporary_category
       @temporary_category ||= Category.temporary_category_for(Current.profile)
+    end
+
+    def read_source_file
+      @read_source_file ||= import.source_file.open(&:read)
     end
 
     def source

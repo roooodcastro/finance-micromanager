@@ -26,7 +26,7 @@ module Importer
     end
 
     def read_file
-      Roo::Excel.new(Rails.root.join(file_name)).entries
+      import.source_file.open { |f| Roo::Excel.new(f) }.entries
     end
 
     # The date in a PTSB transaction sometimes refers to the date it was processed, not the original transaction date.
