@@ -30,7 +30,7 @@ en:
           first_business_day_of_month: first business day of month
           last_business_day_of_month: last business day of month
       transaction_prediction:
-        rules_json: Prediction Rules
+        rules_json: Autofill Rules
       user:
         locale: Language
     errors:
