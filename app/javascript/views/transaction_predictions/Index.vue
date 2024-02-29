@@ -23,6 +23,7 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
+import { ICON_TRANSACTION_PREDICTIONS } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -51,7 +52,7 @@ export default {
     const floatingActionButtonStore = useFloatingActionButtonStore();
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.transaction_predictions.floating_button_label'),
-      icon: 'wand-magic-sparkles',
+      icon: ICON_TRANSACTION_PREDICTIONS,
       href: newPath,
     });
 

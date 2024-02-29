@@ -36,6 +36,7 @@ import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 import useLocaleStore from '~/stores/LocaleStore.js';
+import { ICON_TRANSACTIONS } from '~/utils/Constants.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 import Navigation from '~/components/layout/Navigation.vue';
@@ -94,7 +95,7 @@ export default {
 
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.transactions.floating_button_label'),
-      icon: 'list',
+      icon: ICON_TRANSACTIONS,
       callback: () => transactionStore.openFormModal(null),
     });
 

@@ -23,6 +23,7 @@
 import I18n from '~/utils/I18n.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
+import { ICON_PROFILES } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ProfilesList from '~/components/profiles/ProfilesList.vue';
@@ -55,7 +56,7 @@ export default {
     const floatingActionButtonStore = useFloatingActionButtonStore();
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.profiles.floating_button_label'),
-      icon: 'wallet',
+      icon: ICON_PROFILES,
       callback: handleNew,
     });
 

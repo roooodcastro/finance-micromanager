@@ -24,6 +24,7 @@ import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import { ICON_RECONCILIATIONS } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -59,7 +60,7 @@ export default {
     const floatingActionButtonStore = useFloatingActionButtonStore();
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.reconciliations.floating_button_label'),
-      icon: 'scale-balanced',
+      icon: ICON_RECONCILIATIONS,
       callback: () => reconciliationStore.openFormModal(null),
     });
 

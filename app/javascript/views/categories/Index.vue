@@ -34,7 +34,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
-import { CATEGORY_OPTIONS_COOKIE_NAME } from '~/utils/Constants.js';
+import { CATEGORY_OPTIONS_COOKIE_NAME, ICON_CATEGORIES } from '~/utils/Constants.js';
 import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -67,7 +67,7 @@ export default {
     const floatingActionButtonStore = useFloatingActionButtonStore();
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.categories.floating_button_label'),
-      icon: ['far', 'folder'],
+      icon: ICON_CATEGORIES,
       callback: () => categoryStore.openFormModal(null),
     });
 
