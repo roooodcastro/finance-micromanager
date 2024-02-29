@@ -9,8 +9,7 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema[7.1].define(version: 2024_02_23_180641) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_29_012155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,13 +112,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_180641) do
 
   create_table "reconciliations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "profile_id", null: false
-    t.bigint "balance_correction_transaction_id"
     t.date "date", null: false
     t.string "status", limit: 20, null: false
     t.integer "difference_amount_cents", default: 0, null: false
     t.integer "final_balance_amount_cents", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "balance_correction_transaction_id"
     t.index ["balance_correction_transaction_id"], name: "index_reconciliations_on_balance_correction_transaction_id"
     t.index ["date"], name: "index_reconciliations_on_date"
     t.index ["profile_id"], name: "index_reconciliations_on_profile_id"
@@ -180,7 +179,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_180641) do
     t.index ["profile_id"], name: "index_transaction_predictions_on_profile_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "raw_import_name", limit: 100
     t.integer "amount_cents", default: 0, null: false
