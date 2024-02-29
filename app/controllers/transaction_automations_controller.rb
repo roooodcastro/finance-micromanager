@@ -4,9 +4,13 @@ class TransactionAutomationsController < AbstractAuthenticatedController
   before_action :set_transaction_automation, only: %i[show update destroy disable reenable]
 
   def index
-    transaction_automations = Current.profile.transaction_automations
-                                     .includes(:transaction_category, :transaction_subcategory, :transaction_wallet)
-    props                   = camelize_props(transaction_automations: transaction_automations.as_json)
+    automations = Current
+                  .profile
+                  .transaction_automations
+                  .includes(:transaction_category, :transaction_subcategory, :transaction_wallet)
+                  .order(:scheduled_date)
+
+    props       = camelize_props(transaction_automations: automations.as_json)
 
     respond_to do |format|
       format.html { render inertia: 'transaction_automations/Index', props: props }
