@@ -121,6 +121,7 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import { ICON_CATEGORIES } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
@@ -166,7 +167,7 @@ export default {
 
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.categories.floating_button_label'),
-      icon: ['far', 'folder'],
+      icon: ICON_CATEGORIES,
       callback: () => categoryStore.openFormModal(null),
     });
 

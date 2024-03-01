@@ -71,6 +71,15 @@ import I18n from '~/utils/I18n.js';
 import useUserStore from '~/stores/UserStore.js';
 
 import MenuProfileSection from '~/components/layout/MenuProfileSection.vue';
+import {
+  ICON_CATEGORIES, ICON_DASHBOARD,
+  ICON_PROFILES, ICON_RECONCILIATIONS,
+  ICON_SETTINGS,
+  ICON_SIGN_IN,
+  ICON_SIGN_OUT,
+  ICON_SIGN_UP, ICON_TRANSACTION_AUTOMATIONS, ICON_TRANSACTION_PREDICTIONS, ICON_TRANSACTIONS,
+  ICON_WALLETS,
+} from '~/utils/Constants.js';
 
 export default {
   components: {
@@ -94,26 +103,26 @@ export default {
     if (userStore.isUserLoggedIn) {
       menuItems = {
         top: [
-          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: 'home' },
-          { label: t('transactions'), path: transactionsApi.index.path(), icon: 'list' },
-          { label: t('transaction_automations'), path: transactionAutomationsApi.index.path(), icon: 'robot' },
-          { label: t('transaction_predictions'), path: transactionPredictionsApi.index.path(), icon: 'wand-magic-sparkles' },
-          { label: t('reconciliations'), path: reconciliationsApi.index.path(), icon: 'scale-balanced' },
-          { label: t('categories'), path: categoriesApi.index.path(), icon: ['far', 'folder'] },
-          { label: t('wallets'), path: walletsApi.index.path(), icon: ['far', 'credit-card'] },
-          { label: t('profiles'), path: profilesApi.index.path(), icon: 'wallet' },
-          { label: t('settings'), path: settingsApi.show.path(), icon: 'sliders' },
+          { label: t('dashboard'), path: dashboardsApi.show.path(), icon: ICON_DASHBOARD },
+          { label: t('transactions'), path: transactionsApi.index.path(), icon: ICON_TRANSACTIONS },
+          { label: t('transaction_automations'), path: transactionAutomationsApi.index.path(), icon: ICON_TRANSACTION_AUTOMATIONS },
+          { label: t('transaction_predictions'), path: transactionPredictionsApi.index.path(), icon: ICON_TRANSACTION_PREDICTIONS },
+          { label: t('reconciliations'), path: reconciliationsApi.index.path(), icon: ICON_RECONCILIATIONS },
+          { label: t('categories'), path: categoriesApi.index.path(), icon: ICON_CATEGORIES },
+          { label: t('wallets'), path: walletsApi.index.path(), icon: ICON_WALLETS },
+          { label: t('profiles'), path: profilesApi.index.path(), icon: ICON_PROFILES },
+          { label: t('settings'), path: settingsApi.show.path(), icon: ICON_SETTINGS },
         ],
         bottom: [
-          { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: 'right-from-bracket', method: 'DELETE' },
+          { label: t('sign_out'), path: userSessionsApi.destroy.path(), icon: ICON_SIGN_OUT, method: 'DELETE' },
         ],
       };
     } else {
       menuItems = {
         top: [],
         bottom: [
-          { label: t('sign_in'), path: userSessionsApi.new.path(), icon: 'right-to-bracket' },
-          { label: t('sign_up'), path: usersRegistrationsApi.new.path(), icon: 'user-plus' },
+          { label: t('sign_in'), path: userSessionsApi.new.path(), icon: ICON_SIGN_IN },
+          { label: t('sign_up'), path: usersRegistrationsApi.new.path(), icon: ICON_SIGN_UP },
         ],
       };
     }

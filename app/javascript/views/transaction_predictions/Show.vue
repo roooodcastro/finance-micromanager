@@ -99,6 +99,7 @@ import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import TransactionPredictionAction from '~/components/transaction_predictions/TransactionPredictionAction.vue';
 import TransactionPredictionCondition from '~/components/transaction_predictions/TransactionPredictionCondition.vue';
+import { ICON_TRANSACTION_PREDICTIONS } from '~/utils/Constants.js';
 
 export default {
   components: {
@@ -141,7 +142,7 @@ export default {
     const floatingActionButtonStore = useFloatingActionButtonStore();
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.transaction_predictions.floating_button_label'),
-      icon: 'wand-magic-sparkles',
+      icon: ICON_TRANSACTION_PREDICTIONS,
       href: newPath,
     });
 
