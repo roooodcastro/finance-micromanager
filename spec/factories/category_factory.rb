@@ -6,6 +6,10 @@ FactoryBot.define do
     color { '#808080' }
     profile
 
+    trait :enabled do
+      disabled_at { nil }
+    end
+
     trait :disabled do
       disabled_at { Time.current }
     end

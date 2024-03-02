@@ -6,6 +6,10 @@ FactoryBot.define do
     balance { 0 }
     profile
 
+    trait :enabled do
+      disabled_at { nil }
+    end
+
     trait :disabled do
       disabled_at { Time.current }
       disabled_by { association(:user) }

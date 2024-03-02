@@ -25,6 +25,8 @@ class Transaction < ApplicationRecord
 
   validates :name, :transaction_date, :amount, presence: true
   validate :validate_cannot_alter_prior_to_reconciliation
+  validate :validate_category_is_enabled
+  validate :validate_wallet_is_enabled
 
   scope :exclude_debits, -> { where('amount_cents > 0') }
   scope :exclude_credits, -> { where('amount_cents < 0') }
@@ -91,5 +93,19 @@ class Transaction < ApplicationRecord
 
   def update_balances!(operation)
     ::Transactions::UpdateAssociatedBalances.call(self, operation)
+  end
+
+  def validate_category_is_enabled
+    return unless changes[:category_id]
+    return if category.blank? || category.enabled?
+
+    errors.add(:category_id, :must_be_enabled)
+  end
+
+  def validate_wallet_is_enabled
+    return unless changes[:wallet_id]
+    return if wallet.blank? || wallet.enabled?
+
+    errors.add(:wallet_id, :must_be_enabled)
   end
 end

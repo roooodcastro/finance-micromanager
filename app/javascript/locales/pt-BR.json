@@ -43,6 +43,13 @@
         "subcategory": {
           "name": "Nome"
         },
+        "transaction": {
+          "category": "Categoria",
+          "category_id": "Categoria",
+          "name": "Nome",
+          "wallet": "Carteira",
+          "wallet_id": "Carteira"
+        },
         "transaction_automation": {
           "schedule_custom_rule": {
             "first_business_day_of_month": "primeiro dia útil do mês",
@@ -55,7 +62,10 @@
             "week": "Semana(s)"
           },
           "transaction_category": "Categoria",
-          "transaction_name": "Nome da Transação"
+          "transaction_category_id": "Categoria",
+          "transaction_name": "Nome da Transação",
+          "transaction_wallet": "Carteira",
+          "transaction_wallet_id": "Carteira"
         },
         "transaction_prediction": {
           "name": "Nome",
@@ -127,6 +137,28 @@
             "attributes": {
               "base": {
                 "cannot_alter_prior_to_reconciliation": "Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última reconciliação"
+              },
+              "category_id": {
+                "must_be_enabled": "must be enabled"
+              },
+              "wallet_id": {
+                "must_be_enabled": "must be enabled"
+              }
+            },
+            "category_id": {
+              "must_be_enabled": "deve estar habilitada"
+            },
+            "wallet_id": {
+              "must_be_enabled": "deve estar habilitada"
+            }
+          },
+          "transaction_automation": {
+            "attributes": {
+              "transaction_category_id": {
+                "must_be_enabled": "deve estar habilitada"
+              },
+              "transaction_wallet_id": {
+                "must_be_enabled": "deve estar habilitada"
               }
             }
           },

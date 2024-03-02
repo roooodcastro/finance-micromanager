@@ -19,6 +19,9 @@ class TransactionAutomation < ApplicationRecord
   validates :schedule_custom_rule, inclusion: { in: -> { TransactionAutomations::CustomRule.available_rules } },
                                    if:        :schedule_type_custom?
 
+  validate :validate_category_is_enabled
+  validate :validate_wallet_is_enabled
+
   enum schedule_type: { month: 'M', week: 'W', day: 'D', custom: 'C' }, _prefix: :schedule_type
 
   def as_json
@@ -76,5 +79,19 @@ class TransactionAutomation < ApplicationRecord
     return if schedule_type_custom?
 
     ActiveSupport::Duration.parse("P#{schedule_interval}#{self.class.schedule_types[schedule_type]}")
+  end
+
+  def validate_category_is_enabled
+    return unless changes[:transaction_category_id]
+    return if transaction_category.blank? || transaction_category.enabled?
+
+    errors.add(:transaction_category_id, :must_be_enabled)
+  end
+
+  def validate_wallet_is_enabled
+    return unless changes[:transaction_wallet_id]
+    return if transaction_wallet.blank? || transaction_wallet.enabled?
+
+    errors.add(:transaction_wallet_id, :must_be_enabled)
   end
 end

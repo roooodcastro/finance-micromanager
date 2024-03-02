@@ -24,6 +24,10 @@
         "reconciliation_wallet": {
           "balance_amount_cents": "Balance"
         },
+        "transaction": {
+          "category_id": "Category",
+          "wallet_id": "Wallet"
+        },
         "transaction_automation": {
           "schedule_custom_rule": {
             "first_business_day_of_month": "first business day of month",
@@ -36,7 +40,10 @@
             "week": "Week"
           },
           "transaction_category": "Category",
-          "transaction_name": "Transaction Name"
+          "transaction_category_id": "Category",
+          "transaction_name": "Transaction Name",
+          "transaction_wallet": "Wallet",
+          "transaction_wallet_id": "Wallet"
         },
         "transaction_prediction": {
           "rules_json": "Autofill Rules"
@@ -100,6 +107,22 @@
             "attributes": {
               "base": {
                 "cannot_alter_prior_to_reconciliation": "Cannot create, edit, or delete any transactions prior to %{date}, the date of the latest reconciliation"
+              },
+              "category_id": {
+                "must_be_enabled": "must be enabled"
+              },
+              "wallet_id": {
+                "must_be_enabled": "must be enabled"
+              }
+            }
+          },
+          "transaction_automation": {
+            "attributes": {
+              "transaction_category_id": {
+                "must_be_enabled": "must be enabled"
+              },
+              "transaction_wallet_id": {
+                "must_be_enabled": "must be enabled"
               }
             }
           },

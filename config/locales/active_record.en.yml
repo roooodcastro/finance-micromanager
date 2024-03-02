@@ -18,8 +18,14 @@ en:
           cancelled: Cancelled
       reconciliation_wallet:
         balance_amount_cents: Balance
+      transaction:
+        category_id: Category
+        wallet_id: Wallet
       transaction_automation:
         transaction_category: Category
+        transaction_category_id: Category
+        transaction_wallet: Wallet
+        transaction_wallet_id: Wallet
         transaction_name: Transaction Name
         schedule_types:
           month: Month
@@ -68,11 +74,24 @@ en:
           attributes:
             balance_amount_cents:
               cannot_change_on_completed_reconciliation: cannot be changed after reconciliation is finished or cancelled
+
         transaction:
           attributes:
             base:
               cannot_alter_prior_to_reconciliation: >-
                 Cannot create, edit, or delete any transactions prior to %{date}, the date of the latest reconciliation
+            category_id:
+              must_be_enabled: must be enabled
+            wallet_id:
+              must_be_enabled: must be enabled
+
+        transaction_automation:
+          attributes:
+            transaction_category_id:
+              must_be_enabled: must be enabled
+            transaction_wallet_id:
+              must_be_enabled: must be enabled
+
         user:
           attributes:
             base:
