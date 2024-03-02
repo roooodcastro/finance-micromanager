@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ImportName < ApplicationRecord
+  include CacheLatestUpdatedAt
+
   belongs_to :profile
 
   validates :import_name, :transaction_name, presence: true
