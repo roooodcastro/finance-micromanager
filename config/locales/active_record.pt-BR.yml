@@ -39,6 +39,12 @@ pt-BR:
         balance_amount_cents: Saldo
       subcategory:
         name: Nome
+      transaction:
+        category_id: Categoria
+        category: Categoria
+        name: Nome
+        wallet_id: Carteira
+        wallet: Carteira
       transaction_automation:
         transaction_category: Categoria
         transaction_name: Nome da Transação
@@ -100,6 +106,10 @@ pt-BR:
               cannot_alter_prior_to_reconciliation: >-
                 Não é possível criar, alterar ou deletar nenhuma transação anterior a %{date}, data da última
                 reconciliação
+          category_id:
+            must_be_enabled: deve estar habilitada
+          wallet_id:
+            must_be_enabled: deve estar habilitada
 
         user:
           attributes:

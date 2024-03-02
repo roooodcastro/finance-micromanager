@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Transaction do
+  let(:profile) { create(:profile) }
+
   describe 'validate reconciliation date' do
     subject(:errors) do
       transaction.valid?
       transaction.errors[:base]
     end
-
-    let(:profile) { create(:profile) }
 
     before do
       create(:reconciliation, :finished, profile: profile, date: 2.days.ago)
@@ -92,6 +92,158 @@ RSpec.describe Transaction do
         let(:transaction_date) { 4.days.ago }
 
         it { is_expected.to be_present }
+      end
+    end
+  end
+
+  describe 'validate_category_is_enabled' do
+    subject(:errors) do
+      transaction.valid?
+      transaction.errors[:category_id]
+    end
+
+    context 'when creating a transaction' do
+      let(:transaction) { build(:transaction, profile:, category:) }
+
+      context 'when the category is nil' do
+        let(:category) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the category is enabled' do
+        let(:category) { create(:category, :enabled, profile:) }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the category is disabled' do
+        let(:category) { create(:category, :disabled, profile:) }
+
+        it { is_expected.to eq ['must be enabled'] }
+      end
+    end
+
+    context 'when updating a transaction where the category is not changed' do
+      let(:transaction) { create(:transaction, profile:, category:) }
+      let(:category) { create(:category, :enabled, profile:) }
+
+      before { transaction.name = 'Other name' }
+
+      context 'when the category is enabled' do
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the category is disabled' do
+        before do
+          allow(Current).to receive(:user).and_return(profile.user)
+          category.disable!
+        end
+
+        it { is_expected.to be_empty }
+      end
+    end
+
+    context 'when updating a transaction where the category is changed' do
+      let(:transaction) { create(:transaction, profile: profile, category: enabled_category) }
+      let(:enabled_category) { create(:category, :enabled, profile:) }
+      let(:enabled_category2) { create(:category, :enabled, profile:) }
+      let(:disabled_category) { create(:category, :disabled, profile:) }
+
+      before { transaction.category = new_category }
+
+      context 'when the category is nil' do
+        let(:new_category) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the category is enabled' do
+        let(:new_category) { enabled_category2 }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the category is disabled' do
+        let(:new_category) { disabled_category }
+
+        it { is_expected.to eq ['must be enabled'] }
+      end
+    end
+  end
+
+  describe 'validate_wallet_is_enabled' do
+    subject(:errors) do
+      transaction.valid?
+      transaction.errors[:wallet_id]
+    end
+
+    context 'when creating a transaction' do
+      let(:transaction) { build(:transaction, profile:, wallet:) }
+
+      context 'when the wallet is nil' do
+        let(:wallet) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the wallet is enabled' do
+        let(:wallet) { create(:wallet, :enabled, profile:) }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the category is disabled' do
+        let(:wallet) { create(:wallet, :disabled, profile:) }
+
+        it { is_expected.to eq ['must be enabled'] }
+      end
+    end
+
+    context 'when updating a transaction where the wallet is not changed' do
+      let(:transaction) { create(:transaction, profile:, wallet:) }
+      let(:wallet) { create(:wallet, :enabled, profile:) }
+
+      before { transaction.name = 'Other name' }
+
+      context 'when the wallet is enabled' do
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the wallet is disabled' do
+        before do
+          allow(Current).to receive(:user).and_return(profile.user)
+          wallet.disable!
+        end
+
+        it { is_expected.to be_empty }
+      end
+    end
+
+    context 'when updating a transaction where the wallet is changed' do
+      let(:transaction) { create(:transaction, profile: profile, wallet: enabled_wallet) }
+      let(:enabled_wallet) { create(:wallet, :enabled, profile:) }
+      let(:enabled_wallet2) { create(:wallet, :enabled, profile:) }
+      let(:disabled_wallet) { create(:wallet, :disabled, profile:) }
+
+      before { transaction.wallet = new_wallet }
+
+      context 'when the wallet is nil' do
+        let(:new_wallet) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the wallet is enabled' do
+        let(:new_wallet) { enabled_wallet2 }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'when the wallet is disabled' do
+        let(:new_wallet) { disabled_wallet }
+
+        it { is_expected.to eq ['must be enabled'] }
       end
     end
   end
