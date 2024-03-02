@@ -36,6 +36,7 @@ export default defineBaseApiStore('transaction', {
       excludeCredits: false,
       updateDateRange: true,
       includeStatistics: false,
+      searchString: '',
     },
   },
   getters: {

@@ -18,6 +18,7 @@
     <div class="d-flex justify-content-between gap-2 mb-3">
       <TransactionsFilter
         show-date-range
+        show-search
         class="mx-1 mx-lg-0"
       />
 

@@ -1153,6 +1153,7 @@
           "ninety_days": "90 days",
           "only_income": "Only Income",
           "only_spends": "Only Spends",
+          "search_label": "Search Transactions",
           "seven_days": "7 days",
           "thirty_days": "30 days",
           "transaction_type": "Transaction Type",
