@@ -39,7 +39,7 @@
           "transaction_name": "Transaction Name"
         },
         "transaction_prediction": {
-          "rules_json": "Prediction Rules"
+          "rules_json": "Autofill Rules"
         },
         "user": {
           "locale": "Language"
@@ -637,21 +637,21 @@
     },
     "transaction_predictions": {
       "create": {
-        "error": "Transaction Prediction could not be created: %{error}",
-        "success": "Transaction Prediction \"%{name}\" was successfully created."
+        "error": "Transaction Autofill could not be created: %{error}",
+        "success": "Transaction Autofill \"%{name}\" was successfully created."
       },
       "destroy": {
-        "success": "Transaction Prediction \"%{name}\" was successfully deleted."
+        "success": "Transaction Autofill \"%{name}\" was successfully deleted."
       },
       "disable": {
-        "success": "Transaction Prediction \"%{name}\" was successfully disabled."
+        "success": "Transaction Autofill \"%{name}\" was successfully disabled."
       },
       "reenable": {
-        "success": "Transaction Prediction \"%{name}\" was successfully re-enabled."
+        "success": "Transaction Autofill \"%{name}\" was successfully re-enabled."
       },
       "update": {
-        "error": "Transaction Prediction could not be updated: %{error}",
-        "success": "Transaction Prediction \"%{name}\" was successfully updated."
+        "error": "Transaction Autofill could not be updated: %{error}",
+        "success": "Transaction Autofill \"%{name}\" was successfully updated."
       }
     },
     "transactions": {
@@ -863,7 +863,7 @@
           "sign_out": "Sign Out",
           "sign_up": "Sign Up",
           "transaction_automations": "Transaction Automations",
-          "transaction_predictions": "Transaction Predictions",
+          "transaction_predictions": "Transaction Autofills",
           "transactions": "Transactions",
           "wallets": "Wallets"
         }
@@ -1084,17 +1084,17 @@
       },
       "transaction_predictions": {
         "confirmation": {
-          "destroy": "Are you sure you want to destroy this transaction prediction? This action cannot be undone.",
-          "disable": "Are you sure you want to disable this transaction prediction?",
-          "reenable": "Are you sure you want to reenable this transaction prediction?"
+          "destroy": "Are you sure you want to destroy this transaction autofill? This action cannot be undone.",
+          "disable": "Are you sure you want to disable this transaction autofill?",
+          "reenable": "Are you sure you want to reenable this transaction autofill?"
         },
-        "floating_button_label": "New Transaction Prediction",
+        "floating_button_label": "New Transaction Autofill",
         "form": {
           "amount_label": "Amount",
           "cancel": "Cancel",
           "category_id_label": "Category",
           "contains_operator_label": "contains",
-          "edit_title": "Edit Transaction Prediction",
+          "edit_title": "Edit Transaction Autofill",
           "equals_operator_label": "equals",
           "label_action_category": "-- With category --",
           "label_action_wallet": "-- With wallet --",
@@ -1106,8 +1106,8 @@
           "name_label": "Transaction Name",
           "new_action": "Add Action",
           "new_condition": "Add Condition",
-          "new_title": "New Transaction Prediction",
-          "prediction_name_label": "Prediction Name",
+          "new_title": "New Transaction Autofill",
+          "prediction_name_label": "Autofill Name",
           "select_placeholder_label": "-- Choose --",
           "sub_header_action": "Then fill",
           "sub_header_conditions": "When",
@@ -1119,8 +1119,8 @@
           "wallet_id_label": "Wallet"
         },
         "index": {
-          "new": "New Transaction Prediction",
-          "title": "Transaction Predictions"
+          "new": "New Transaction Autofill",
+          "title": "Transaction Autofills"
         },
         "list": {
           "disabled": "Disabled",
@@ -1131,15 +1131,15 @@
         "show": {
           "destroy": "Delete",
           "disable": "Disable",
-          "disabled_alert_message": "This transaction prediction is disabled, it will not work until it's enabled again.",
+          "disabled_alert_message": "This transaction autofill is disabled, it will not work until it's enabled again.",
           "disabled_alert_title": "Disabled",
           "edit": "Edit",
           "label_with": "with",
           "reenable": "Reenable",
           "sub_header_action": "Then fill all these fields",
           "sub_header_conditions": "When any of these conditions are true",
-          "sub_header_rules": "Prediction Rules",
-          "title": "Transaction Prediction"
+          "sub_header_rules": "Autofill Rules",
+          "title": "Transaction Autofill"
         }
       },
       "transactions": {

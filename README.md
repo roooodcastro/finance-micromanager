@@ -58,7 +58,7 @@ subcategories, allowing you to know whether you're spending more money with fuel
 
 *TODO*
 
-#### Transaction Predictions
+#### Transaction Autofill
 
 *TODO*
 
@@ -106,7 +106,7 @@ environment's credentials file, and change the values accordingly.
 **This list is non-exhaustive, and does not follow any particular order.**
 
 - [x] Allow for more complex transaction automation schedules
-- [x] Transaction Predictions (form automations to speed up the creation of transactions)
+- [x] Transaction Autofill (create autofill rules to speed up the creation of transactions)
 - [ ] Batch importing of transactions
 - [ ] Better insights and statistics in category and wallet page
 - [ ] Authorization management

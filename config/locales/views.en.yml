@@ -161,7 +161,7 @@ en:
         dashboard: Dashboard
         transactions: Transactions
         transaction_automations: Transaction Automations
-        transaction_predictions: Transaction Predictions
+        transaction_predictions: Transaction Autofills
         reconciliations: Reconciliations
         current_profile: 'Profile:'
         profiles: Profiles
@@ -447,17 +447,17 @@ en:
         disabled_alert_message: This automation is disabled. It will not run and its schedule will not be updated.
 
     transaction_predictions:
-      floating_button_label: New Transaction Prediction
+      floating_button_label: New Transaction Autofill
       confirmation:
-        destroy: Are you sure you want to destroy this transaction prediction? This action cannot be undone.
-        disable: Are you sure you want to disable this transaction prediction?
-        reenable: Are you sure you want to reenable this transaction prediction?
+        destroy: Are you sure you want to destroy this transaction autofill? This action cannot be undone.
+        disable: Are you sure you want to disable this transaction autofill?
+        reenable: Are you sure you want to reenable this transaction autofill?
       form:
         submit: Save
         cancel: Cancel
-        new_title: New Transaction Prediction
-        edit_title: Edit Transaction Prediction
-        prediction_name_label: Prediction Name
+        new_title: New Transaction Autofill
+        edit_title: Edit Transaction Autofill
+        prediction_name_label: Autofill Name
         sub_header_edit_condition: Edit Condition
         sub_header_edit_action: Edit Action
         sub_header_conditions: When
@@ -481,25 +481,25 @@ en:
         new_condition: Add Condition
         new_action: Add Action
       index:
-        title: Transaction Predictions
-        new: New Transaction Prediction
+        title: Transaction Autofills
+        new: New Transaction Autofill
       list:
         disabled: Disabled
         reenable_label: Reenable
         label_when: When
         label_then: Then fill
       show:
-        title: Transaction Prediction
+        title: Transaction Autofill
         edit: Edit
         disable: Disable
         reenable: Reenable
         destroy: Delete
-        sub_header_rules: Prediction Rules
+        sub_header_rules: Autofill Rules
         sub_header_conditions: When any of these conditions are true
         sub_header_action: Then fill all these fields
         label_with: with
         disabled_alert_title: Disabled
-        disabled_alert_message: "This transaction prediction is disabled, it will not work until it's enabled again."
+        disabled_alert_message: "This transaction autofill is disabled, it will not work until it's enabled again."
 
     users:
       confirmations:
