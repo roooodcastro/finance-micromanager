@@ -122,7 +122,7 @@ RSpec.describe TransactionPredictionsController do
         }
       end
 
-      let(:expected_flash) { 'Transaction Prediction "Tesco to Groceries" was successfully created.' }
+      let(:expected_flash) { 'Transaction Autofill "Tesco to Groceries" was successfully created.' }
 
       it 'creates a new transaction_prediction and redirects to index' do
         expect { create_request }.to change { TransactionPrediction.count }.by(1)
@@ -148,7 +148,7 @@ RSpec.describe TransactionPredictionsController do
         }
       end
 
-      let(:expected_flash) { 'Transaction Prediction could not be created: Prediction Rules is invalid' }
+      let(:expected_flash) { 'Transaction Autofill could not be created: Autofill Rules is invalid' }
 
       it 'does not create a new transaction prediction and renders new' do
         expect { create_request }.to not_change { TransactionPrediction.count }
@@ -172,7 +172,7 @@ RSpec.describe TransactionPredictionsController do
         }
       end
 
-      let(:expected_flash) { 'Transaction Prediction "Tesco to Subscriptions" was successfully updated.' }
+      let(:expected_flash) { 'Transaction Autofill "Tesco to Subscriptions" was successfully updated.' }
 
       it 'updates the transaction prediction and redirects to index' do
         expect { update_request }.to change { transaction_prediction.reload.name }.to('Tesco to Subscriptions')
@@ -184,7 +184,7 @@ RSpec.describe TransactionPredictionsController do
     context 'when the transaction prediction cannot be updated', :inertia do
       let(:params) { { name: nil } }
 
-      let(:expected_flash) { 'Transaction Prediction could not be updated: Name can\'t be blank' }
+      let(:expected_flash) { 'Transaction Autofill could not be updated: Name can\'t be blank' }
 
       it 'does not update the transaction prediction and renders edit form' do
         expect { update_request }.to not_change { transaction_prediction.reload.name }
@@ -203,7 +203,7 @@ RSpec.describe TransactionPredictionsController do
       create(:transaction_prediction, profile: profile, disabled_at: nil, name: 'Test')
     end
 
-    let(:expected_json) { { 'message' => 'Transaction Prediction "Test" was successfully deleted.' } }
+    let(:expected_json) { { 'message' => 'Transaction Autofill "Test" was successfully deleted.' } }
 
     it 'disables the transaction prediction and renders json' do
       expect { destroy_request }.to change { TransactionPrediction.count }.by(-1)
@@ -220,7 +220,7 @@ RSpec.describe TransactionPredictionsController do
       create(:transaction_prediction, profile: profile, disabled_at: nil, name: 'Test')
     end
 
-    let(:expected_json) { { 'message' => 'Transaction Prediction "Test" was successfully disabled.' } }
+    let(:expected_json) { { 'message' => 'Transaction Autofill "Test" was successfully disabled.' } }
 
     it 'disables the transaction prediction and renders json' do
       expect { disable_request }.to change { transaction_prediction.reload.disabled_at }.to(Time.current)
@@ -237,7 +237,7 @@ RSpec.describe TransactionPredictionsController do
       create(:transaction_prediction, profile: profile, disabled_at: Time.current, name: 'Test')
     end
 
-    let(:expected_json) { { 'message' => 'Transaction Prediction "Test" was successfully re-enabled.' } }
+    let(:expected_json) { { 'message' => 'Transaction Autofill "Test" was successfully re-enabled.' } }
 
     it 'reenables the transaction prediction and renders json' do
       expect { reenable_request }.to change { transaction_prediction.reload.disabled_at }.to(nil)
