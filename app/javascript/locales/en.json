@@ -40,7 +40,10 @@
             "week": "Week"
           },
           "transaction_category": "Category",
-          "transaction_name": "Transaction Name"
+          "transaction_category_id": "Category",
+          "transaction_name": "Transaction Name",
+          "transaction_wallet": "Wallet",
+          "transaction_wallet_id": "Wallet"
         },
         "transaction_prediction": {
           "rules_json": "Autofill Rules"
@@ -109,6 +112,16 @@
                 "must_be_enabled": "must be enabled"
               },
               "wallet_id": {
+                "must_be_enabled": "must be enabled"
+              }
+            }
+          },
+          "transaction_automation": {
+            "attributes": {
+              "transaction_category_id": {
+                "must_be_enabled": "must be enabled"
+              },
+              "transaction_wallet_id": {
                 "must_be_enabled": "must be enabled"
               }
             }

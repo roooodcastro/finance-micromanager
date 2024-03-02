@@ -47,7 +47,10 @@ pt-BR:
         wallet: Carteira
       transaction_automation:
         transaction_category: Categoria
+        transaction_category_id: Categoria
         transaction_name: Nome da Transação
+        transaction_wallet: Carteira
+        transaction_wallet_id: Carteira
         schedule_types:
           month: Mês(es)
           week: Semana(s)
@@ -110,6 +113,13 @@ pt-BR:
             must_be_enabled: deve estar habilitada
           wallet_id:
             must_be_enabled: deve estar habilitada
+
+        transaction_automation:
+          attributes:
+            transaction_category_id:
+              must_be_enabled: deve estar habilitada
+            transaction_wallet_id:
+              must_be_enabled: deve estar habilitada
 
         user:
           attributes:

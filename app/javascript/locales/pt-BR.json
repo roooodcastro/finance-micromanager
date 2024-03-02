@@ -62,7 +62,10 @@
             "week": "Semana(s)"
           },
           "transaction_category": "Categoria",
-          "transaction_name": "Nome da Transação"
+          "transaction_category_id": "Categoria",
+          "transaction_name": "Nome da Transação",
+          "transaction_wallet": "Carteira",
+          "transaction_wallet_id": "Carteira"
         },
         "transaction_prediction": {
           "name": "Nome",
@@ -147,6 +150,16 @@
             },
             "wallet_id": {
               "must_be_enabled": "deve estar habilitada"
+            }
+          },
+          "transaction_automation": {
+            "attributes": {
+              "transaction_category_id": {
+                "must_be_enabled": "deve estar habilitada"
+              },
+              "transaction_wallet_id": {
+                "must_be_enabled": "deve estar habilitada"
+              }
             }
           },
           "user": {

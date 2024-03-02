@@ -23,6 +23,9 @@ en:
         wallet_id: Wallet
       transaction_automation:
         transaction_category: Category
+        transaction_category_id: Category
+        transaction_wallet: Wallet
+        transaction_wallet_id: Wallet
         transaction_name: Transaction Name
         schedule_types:
           month: Month
@@ -81,6 +84,14 @@ en:
               must_be_enabled: must be enabled
             wallet_id:
               must_be_enabled: must be enabled
+
+        transaction_automation:
+          attributes:
+            transaction_category_id:
+              must_be_enabled: must be enabled
+            transaction_wallet_id:
+              must_be_enabled: must be enabled
+
         user:
           attributes:
             base:
