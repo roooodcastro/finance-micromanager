@@ -14,10 +14,11 @@ module BrowserCacheHeader
 
     %W[
       category=#{latest_category_updated_at.to_i}
-      wallet=#{latest_wallet_updated_at.to_i}
       categorySummary=#{latest_category_summary_updated_at.to_i}
+      importName=#{latest_import_name_updated_at.to_i}
       transaction=#{latest_transaction_updated_at.to_i}
       transactionPrediction=#{latest_transaction_prediction_updated_at.to_i}
+      wallet=#{latest_wallet_updated_at.to_i}
     ].join(', ')
   end
 
@@ -52,5 +53,9 @@ module BrowserCacheHeader
 
   def latest_transaction_prediction_updated_at
     @latest_transaction_prediction_updated_at ||= TransactionPrediction.latest_updated_at
+  end
+
+  def latest_import_name_updated_at
+    @latest_import_name_updated_at ||= ImportName.latest_updated_at
   end
 end
