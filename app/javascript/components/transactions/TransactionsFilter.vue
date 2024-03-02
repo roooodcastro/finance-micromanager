@@ -1,77 +1,88 @@
 <template>
-  <div class="dropdown d-flex gap-3 flex-wrap flex-lg-nowrap">
-    <MultipleSelect
-      v-model="selectedCategoryIds"
-      class="flex-grow-1 flex-lg-grow-0"
-      select-class="minimalist-secondary-select"
-      :options="categoriesForSelect(true)"
-      :placeholder="t('category_filter')"
-      :selection-label-one="t('category')"
-      :selection-label-many="t('categories')"
-      @change="handleCategoryChange"
-    />
-
-    <MultipleSelect
-      v-model="selectedWalletIds"
-      class="flex-grow-1 flex-lg-grow-0"
-      select-class="minimalist-secondary-select"
-      :options="walletsForSelect"
-      :placeholder="t('wallet_filter')"
-      :selection-label-one="t('wallet')"
-      :selection-label-many="t('wallets')"
-      @change="handleWalletChange"
-    />
-
-    <select
-      class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0"
-      @change="handleTransactionTypeChange"
-    >
-      <option value="0">
-        {{ t('all_transaction_types') }}
-      </option>
-      <option value="-1">
-        {{ t('only_spends') }}
-      </option>
-      <option value="1">
-        {{ t('only_income') }}
-      </option>
-    </select>
-
+  <div>
     <div
-      v-if="showDateRange"
-      class="TransactionsFilter__date-range btn-group d-flex bg-white flex-shrink-0 flex-grow-1 flex-lg-grow-0"
+      v-if="showSearch"
+      class="mb-3 mx-1 mx-lg-0"
     >
-      <button
-        class="btn btn-sm btn-outline-secondary"
-        :class="{ active: daysToShow === 7 }"
-        @click="handleDateFilterClick(7)"
-      >
-        {{ t('seven_days') }}
-      </button>
+      <SearchField
+        v-model="fetchParams.searchString"
+        @input="handleSearchInput"
+      />
+    </div>
+    <div class="dropdown d-flex gap-3 flex-wrap flex-lg-nowrap">
+      <MultipleSelect
+        v-model="selectedCategoryIds"
+        class="flex-grow-1 flex-lg-grow-0"
+        select-class="minimalist-secondary-select"
+        :options="categoriesForSelect(true)"
+        :placeholder="t('category_filter')"
+        :selection-label-one="t('category')"
+        :selection-label-many="t('categories')"
+        @change="handleCategoryChange"
+      />
 
-      <button
-        class="btn btn-sm btn-outline-secondary"
-        :class="{ active: daysToShow === 30 }"
-        @click="handleDateFilterClick(30)"
-      >
-        {{ t('thirty_days') }}
-      </button>
+      <MultipleSelect
+        v-model="selectedWalletIds"
+        class="flex-grow-1 flex-lg-grow-0"
+        select-class="minimalist-secondary-select"
+        :options="walletsForSelect"
+        :placeholder="t('wallet_filter')"
+        :selection-label-one="t('wallet')"
+        :selection-label-many="t('wallets')"
+        @change="handleWalletChange"
+      />
 
-      <button
-        class="btn btn-sm btn-outline-secondary"
-        :class="{ active: daysToShow === 90 }"
-        @click="handleDateFilterClick(90)"
+      <select
+        class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0"
+        @change="handleTransactionTypeChange"
       >
-        {{ t('ninety_days') }}
-      </button>
+        <option value="0">
+          {{ t('all_transaction_types') }}
+        </option>
+        <option value="-1">
+          {{ t('only_spends') }}
+        </option>
+        <option value="1">
+          {{ t('only_income') }}
+        </option>
+      </select>
 
-      <button
-        class="btn btn-sm btn-outline-secondary"
-        :class="{ active: daysToShow === 0 }"
-        @click="handleDateFilterClick(0)"
+      <div
+        v-if="showDateRange"
+        class="TransactionsFilter__date-range btn-group d-flex bg-white flex-shrink-0 flex-grow-1 flex-lg-grow-0"
       >
-        {{ t('all_days') }}
-      </button>
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          :class="{ active: daysToShow === 7 }"
+          @click="handleDateFilterClick(7)"
+        >
+          {{ t('seven_days') }}
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          :class="{ active: daysToShow === 30 }"
+          @click="handleDateFilterClick(30)"
+        >
+          {{ t('thirty_days') }}
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          :class="{ active: daysToShow === 90 }"
+          @click="handleDateFilterClick(90)"
+        >
+          {{ t('ninety_days') }}
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          :class="{ active: daysToShow === 0 }"
+          @click="handleDateFilterClick(0)"
+        >
+          {{ t('all_days') }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -87,14 +98,20 @@ import useWalletStore from '~/stores/WalletStore.js';
 import { setQueryParam } from '~/utils/QueryStringUtils.js';
 
 import MultipleSelect from '~/components/forms/MultipleSelect.vue';
+import SearchField from '~/components/transactions/SearchField.vue';
 
 export default {
   components: {
     MultipleSelect,
+    SearchField,
   },
 
   props: {
     showDateRange: {
+      type: Boolean,
+      default: false,
+    },
+    showSearch: {
       type: Boolean,
       default: false,
     },
@@ -153,6 +170,8 @@ export default {
       transactionStore.fetchCollection();
     };
 
+    const handleSearchInput = () => transactionStore.fetchCollection();
+
     const selectedCategoryIds = ref('');
     const selectedWalletIds = ref('');
 
@@ -162,10 +181,12 @@ export default {
       categoriesForSelect,
       walletsForSelect,
       daysToShow,
+      fetchParams,
       handleCategoryChange,
       handleWalletChange,
       handleDateFilterClick,
       handleTransactionTypeChange,
+      handleSearchInput,
       t: I18n.scopedTranslator('views.transactions.filters'),
     };
   },

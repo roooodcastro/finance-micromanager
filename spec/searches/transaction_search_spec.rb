@@ -17,6 +17,25 @@ RSpec.describe TransactionSearch, type: :search do
       it { is_expected.to contain_exactly(transaction_a) }
     end
 
+    context 'when search_string is specified' do
+      let(:query_params) { { search_string: } }
+
+      let!(:found_transaction) { create(:transaction, name: 'Super') }
+      let!(:not_found_transaction) { create(:transaction, name: 'Other') }
+
+      context 'and it is blank' do
+        let(:search_string) { '' }
+
+        it { is_expected.to contain_exactly(found_transaction, not_found_transaction) }
+      end
+
+      context 'and it is present' do
+        let(:search_string) { 'Su' }
+
+        it { is_expected.to contain_exactly(found_transaction) }
+      end
+    end
+
     context 'when exclude_debits is specified' do
       let(:query_params) { { exclude_debits: } }
       let!(:money_in_transaction) { create(:transaction, amount: 10) }

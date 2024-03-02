@@ -356,6 +356,7 @@ en:
         wallets: Wallets
         category_filter: Category
         wallet_filter: Wallet
+        search_label: Search Transactions
       form:
         new_title: New Transaction
         edit_title: Edit Transaction

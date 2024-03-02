@@ -9,6 +9,7 @@ class TransactionSearch
   end
 
   def search
+    search_search_string
     search_exclude_debits
     search_exclude_credits
     search_days_to_show
@@ -19,6 +20,13 @@ class TransactionSearch
     search_transaction_automation_id
 
     relation
+  end
+
+  def search_search_string
+    return self if query_params[:search_string].blank?
+
+    @relation = relation.like(:name, "%#{query_params[:search_string]}%")
+    self
   end
 
   def search_date_range_only

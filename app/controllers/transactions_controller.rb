@@ -100,7 +100,7 @@ class TransactionsController < AbstractAuthenticatedController
   def search_params
     params
       .permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date category_ids wallet_ids
-                 transaction_automation_id])
+                 transaction_automation_id search_string])
       .to_h
       .symbolize_keys
   end

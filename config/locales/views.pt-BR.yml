@@ -357,6 +357,7 @@ pt-BR:
         wallets: Carteiras
         category_filter: Categoria
         wallet_filter: Carteira
+        search_label: Buscar Transações
       form:
         new_title: Nova Transação
         edit_title: Editar Transacão
