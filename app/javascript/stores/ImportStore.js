@@ -16,10 +16,14 @@ export default defineBaseApiStore('import', {
   state: {
     imports: [],
     import: null,
+    previewData: [],
     fetchParams: {},
   },
 
   actions: {
+    loadPreviewDataFromProps(previewData) {
+      this.previewData = previewData;
+    },
     create(record, options = {}) {
       const notificationStore = useNotificationStore();
 

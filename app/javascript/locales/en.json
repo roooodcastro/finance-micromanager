@@ -816,6 +816,10 @@
           "import_desc": "Import \"%{file_name}\" from %{source} into wallet"
         },
         "preview": {
+          "date_label": "Date",
+          "income_label": "Income",
+          "name_label": "Name",
+          "spends_label": "Spend",
           "title": "Preview Import"
         },
         "settings": {
