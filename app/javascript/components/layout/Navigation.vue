@@ -1,6 +1,6 @@
 <template>
   <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-1 py-lg-2">
-    <div class="container-xxl">
+    <div class="container-fluid">
       <a
         class="navbar-brand"
         :href="dashboardPath"
