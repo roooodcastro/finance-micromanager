@@ -9,6 +9,11 @@ module Importer
       n26:  ::Importer::N26
     }.freeze
 
+    def self.generate_preview(import)
+      importer = importer_for(import)
+      importer.generate_preview
+    end
+
     def self.importer_for(import)
       raise ArgumentError, "Import source unknown: #{import.source}" unless IMPORTER_CLASSES[import.source.to_sym]
 
