@@ -1,89 +1,62 @@
 <template>
-  <ListItem :record="transaction">
-    <RailsForm
-      resource="transaction"
-    >
-      <template v-slot:default="{ formHelper }">
-        <div class="d-flex align-items-center p-2">
-          <FormInput
-            v-model="transaction.name"
-            :form-helper="formHelper"
-            label="Name"
-            :field-name="name"
-            no-margin
-          />
+  <tr>
+    <td>
+      <input
+        :value="transaction.name"
+        class="form-control"
+        required
+      >
+    </td>
 
-          <div>
-            <label
-              :for="formHelper.fieldId('amount')"
-              class="form-label"
-            >
-              {{ t('amount_label') }}
-            </label>
+    <td class="width-15rem">
+      <div class="input-group">
+        <span class="input-group-text px-3">
+          {{ currencySymbol }}
+        </span>
 
-            <div class="d-flex">
-              <div class="input-group mb-3">
-              <span class="input-group-text">
-                {{ currencySymbol }}
-              </span>
+        <input
+          :value="transaction.amount"
+          type="number"
+          class="form-control px-3 fw-bold"
+          :class="{ 'text-debit': isSpend, 'text-credit': isIncome }"
+          step="0.01"
+          required
+        >
+      </div>
+    </td>
 
-                <input
-                  :id="formHelper.fieldId('amount')"
-                  v-model="transaction.amount"
-                  :name="formHelper.fieldName('amount')"
-                  type="number"
-                  class="form-control"
-                  step="0.01"
-                  :disabled="transaction.lockedByReconciliation"
-                  required
-                  @input="handleInput"
-                >
-              </div>
+    <td class="width-10rem">
+      <input
+        :value="transaction.transactionDate"
+        class="form-control px-3"
+        type="date"
+        required
+      >
+    </td>
 
-              <ToggleSwitch
-                v-model="transaction.amountType"
-                field-name="amount_type"
-                :form-helper="formHelper"
-                class="ms-2"
-                input-off-classes="text-danger-emphasis bg-danger-subtle border-danger-subtle"
-                input-on-classes="text-success-emphasis bg-success-subtle border-success-subtle"
-                :off-label="t('spends_label')"
-                :on-label="t('income_label')"
-                :off-value="'debit'"
-                :on-value="'credit'"
-                :disabled="transaction.lockedByReconciliation"
-              />
-            </div>
-          </div>
+    <td>
+      <CategoriesSelect
+        :value="transaction.categoryId"
+        required
+      />
+    </td>
 
-          <FormInput
-            v-model="transaction.transactionDate"
-            :form-helper="formHelper"
-            label="Date"
-            :field-name="transaction_date"
-            type="date"
-            no-margin
-          />
-        </div>
-      </template>
-    </RailsForm>
-  </ListItem>
+    <td />
+  </tr>
 </template>
 
 <script>
-import I18n from '~/utils/I18n.js';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 
-import ListItem from '~/components/ui/ListItem.vue';
-import RailsForm from '~/components/rails/RailsForm.vue';
-import FormInput from '@/components/rails/FormInput.vue';
-import ToggleSwitch from '@/components/ui/ToggleSwitch.vue';
+import I18n from '~/utils/I18n.js';
+import useProfileStore from '~/stores/ProfileStore.js';
+
+import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 
 export default {
   components: {
-    ToggleSwitch,
-    FormInput,
-    ListItem,
-    RailsForm,
+    CategoriesSelect,
   },
 
   props: {
@@ -93,11 +66,20 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const t = I18n.scopedTranslator('views.imports.preview');
+
+    const profileStore = useProfileStore();
+    const { currentProfile } = storeToRefs(profileStore);
+    const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
+    const isSpend = computed(() => props.transaction.amount < 0);
+    const isIncome = computed(() => props.transaction.amount > 0);
 
     return {
       t,
+      currencySymbol,
+      isSpend,
+      isIncome,
     };
   },
 };

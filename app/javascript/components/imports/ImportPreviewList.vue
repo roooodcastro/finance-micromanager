@@ -3,23 +3,35 @@
     v-if="!previewData.length"
     class="m-3"
   />
-  <div
+  <table
     v-else
-    class="list-group"
+    class="table table-sm"
   >
-    <template
-      v-for="transaction in previewData"
-      :key="`${transaction.rawName}_${transaction.transactionDate}`"
-    >
-      <ImportPreviewListItem :transaction="transaction" />
-    </template>
-  </div>
+    <thead>
+      <tr>
+        <th>{{ t('name_label') }}</th>
+        <th>{{ t('amount_label') }}</th>
+        <th>{{ t('date_label') }}</th>
+        <th>{{ t('category_label') }}</th>
+        <th>{{ t('actions_label') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <template
+        v-for="transaction in previewData"
+        :key="`${transaction.rawName}_${transaction.transactionDate}`"
+      >
+        <ImportPreviewListItem :transaction="transaction" />
+      </template>
+    </tbody>
+  </table>
 </template>
 
 <script>
 import { storeToRefs } from 'pinia';
 
 import useImportStore from '~/stores/ImportStore.js';
+import I18n from '~/utils/I18n.js';
 
 import ImportPreviewListItem from '~/components/imports/ImportPreviewListItem.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
@@ -31,10 +43,13 @@ export default {
   },
 
   setup() {
+    const t = I18n.scopedTranslator('views.imports.preview');
+
     const importStore = useImportStore();
     const { previewData } = storeToRefs(importStore);
 
     return {
+      t,
       previewData,
     };
   },
