@@ -87,6 +87,11 @@ pt-BR:
         import_desc: 'Importar "%{file_name}" de %{source} para a carteira'
       preview:
         title: Prévia da Importação
+        name_label: Nome
+        amount_label: Valor
+        date_label: Data
+        category_label: Categoria
+        actions_label: Ações
       show:
         title: Importação
       settings:

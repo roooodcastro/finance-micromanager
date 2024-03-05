@@ -816,10 +816,11 @@
           "import_desc": "Import \"%{file_name}\" from %{source} into wallet"
         },
         "preview": {
+          "actions_label": "Actions",
+          "amount_label": "Amount",
+          "category_label": "Category",
           "date_label": "Date",
-          "income_label": "Income",
           "name_label": "Name",
-          "spends_label": "Spend",
           "title": "Preview Import"
         },
         "settings": {

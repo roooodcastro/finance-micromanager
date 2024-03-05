@@ -87,10 +87,11 @@ en:
         import_desc: 'Import "%{file_name}" from %{source} into wallet'
       preview:
         title: Preview Import
-        income_label: Income
-        spends_label: Spend
-        date_label: Date
         name_label: Name
+        amount_label: Amount
+        date_label: Date
+        category_label: Category
+        actions_label: Actions
       show:
         title: Import
       settings:

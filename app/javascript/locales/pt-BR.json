@@ -884,10 +884,11 @@
           "import_desc": "Importar \"%{file_name}\" de %{source} para a carteira"
         },
         "preview": {
-          "date_label": "Date",
-          "income_label": "Income",
-          "name_label": "Name",
-          "spends_label": "Spend",
+          "actions_label": "Ações",
+          "amount_label": "Valor",
+          "category_label": "Categoria",
+          "date_label": "Data",
+          "name_label": "Nome",
           "title": "Prévia da Importação"
         },
         "settings": {
