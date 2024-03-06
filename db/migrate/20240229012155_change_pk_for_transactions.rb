@@ -23,6 +23,6 @@ class ChangePkForTransactions < ActiveRecord::Migration[7.1]
 
     execute 'ALTER TABLE transactions ADD PRIMARY KEY (id);'
 
-    add_reference :reconciliations, :balance_correction_transaction, index: true, foreign_key: { to_table: :transactions }, type: :uuid
+    add_foreign_key :reconciliations, :transactions, column: :balance_correction_transaction_id
   end
 end
