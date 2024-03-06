@@ -18,7 +18,6 @@ class ChangePkForTransactions < ActiveRecord::Migration[7.1]
     end
 
     change_table :reconciliations do |t|
-      t.remove :balance_correction_transaction_id
       t.rename :balance_correction_transaction_uuid, :balance_correction_transaction_id
     end
 
