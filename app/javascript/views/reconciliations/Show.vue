@@ -23,7 +23,7 @@
         </div>
         <div class="card-body d-flex gap-2 justify-content-evenly">
           <ReconciliationActions
-            :reconciliation="reconciliationFromStore"
+            :record="reconciliationFromStore"
             buttons
             show-finish
           />

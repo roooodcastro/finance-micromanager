@@ -5,7 +5,7 @@
     :item-container-class="`bg-light-subtle side-strip ${sideStripVariant}`"
   >
     <a
-      class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
+      class="text-decoration-none list-group-item-action d-flex align-items-center p-2 ps-4 min-width-0"
       :href="showPath"
     >
       <div class="d-flex flex-column min-width-0">
