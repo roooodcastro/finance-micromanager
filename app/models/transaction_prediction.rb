@@ -16,7 +16,7 @@ class TransactionPrediction < ApplicationRecord
   end
 
   def rules_json=(value)
-    super(value)
+    super
     @rules = nil
   end
 
