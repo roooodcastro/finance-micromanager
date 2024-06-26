@@ -62,6 +62,7 @@ group :development do
   gem 'listen'
   gem 'overcommit', require: false
   gem 'rubocop', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'spring'

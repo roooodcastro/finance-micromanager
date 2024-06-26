@@ -7,6 +7,10 @@ RSpec.describe Importer::PTSB, type: :service do
   describe '#parse' do
     subject { importer.parse }
 
+    around do |example|
+      travel_to(Time.zone.parse('2023-12-31')) { example.run }
+    end
+
     let(:expected_transactions) do
       [
         ['CNC TESCO STORES 03/05 1', 'CNC TESCO STORES', Date.parse('2023-05-03'), -15.25],
