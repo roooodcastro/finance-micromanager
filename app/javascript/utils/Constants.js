@@ -38,6 +38,12 @@ export const VARIANTS_FOR_IMPORT_STATUSES = {
   cancelled: 'danger',
 };
 
+export const VARIANTS_FOR_IMPORT_ACTIONS = {
+  import: 'primary',
+  skip: 'danger',
+  match: 'secondary'
+}
+
 /*
  * Cookies
  */
@@ -77,3 +83,12 @@ export const CREDIT_TRANSACTION = 'credit';
 export const ALL_TRANSACTIONS = 'all';
 export const PAGINATION_PER_PAGE_OPTIONS = [10, 25, 50, 100];
 export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-micromanager';
+
+/*
+ * Imports
+ */
+export const IMPORT_ACTIONS = [
+  { id: 'import', labelI18nKey: 'views.imports.action_labels.import' },
+  { id: 'skip', labelI18nKey: 'views.imports.action_labels.skip' },
+  { id: 'match', labelI18nKey: 'views.imports.action_labels.match' },
+];

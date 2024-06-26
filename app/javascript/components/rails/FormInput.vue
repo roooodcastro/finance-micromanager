@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3">
+  <div :class="{ 'mb-3': !noMargin }">
     <label
       v-if="!!label"
       :for="formHelper.fieldId(fieldName)"
@@ -62,6 +62,10 @@ export default {
     modelValue: {
       type: [String, Number],
       default: null,
+    },
+    noMargin: {
+      type: Boolean,
+      default: false,
     },
   },
 

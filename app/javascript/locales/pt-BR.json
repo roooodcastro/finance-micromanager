@@ -860,6 +860,11 @@
         }
       },
       "imports": {
+        "action_labels": {
+          "import": "Importar",
+          "match": "Combinar",
+          "skip": "Ignorar"
+        },
         "floating_button_label": "Importar Transações",
         "form": {
           "cancel": "Cancelar",
@@ -884,6 +889,12 @@
           "import_desc": "Importar \"%{file_name}\" de %{source} para a carteira"
         },
         "preview": {
+          "actions_label": "Ação",
+          "amount_label": "Valor",
+          "category_label": "Categoria",
+          "category_placeholder": "-- Categoria --",
+          "date_label": "Data",
+          "name_label": "Nome",
           "title": "Prévia da Importação"
         },
         "settings": {

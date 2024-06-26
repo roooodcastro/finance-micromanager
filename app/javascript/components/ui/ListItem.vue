@@ -5,6 +5,7 @@
   >
     <template v-slot:actions>
       <component
+        v-if="actionsComponent"
         :is="actionsComponent"
         :record="record"
         drawer-menu
@@ -16,6 +17,7 @@
 
         <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
           <component
+            v-if="actionsComponent"
             :is="actionsComponent"
             :record="record"
           />
@@ -36,7 +38,7 @@ export default {
   props: {
     actionsComponent: {
       type: Object,
-      required: true,
+      default: null,
     },
     record: {
       type: Object,

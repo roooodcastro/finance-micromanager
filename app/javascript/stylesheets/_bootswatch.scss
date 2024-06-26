@@ -187,11 +187,11 @@ th {
 }
 
 .text-credit {
-  color: $mintgreen-700;
+  color: $mintgreen-700 !important;
 }
 
 .text-debit {
-  color: shade-color($red, 10%);
+  color: shade-color($red, 10%) !important;
 }
 
 .min-width-0 {
@@ -205,11 +205,25 @@ th {
 .width-10rem {
   width: 10rem;
 }
+
+.width-12rem {
+  width: 12rem;
+}
+
 .width-15rem {
   width: 15rem;
 }
+
 .width-20rem {
   width: 20rem;
+}
+
+input.input-no-arrows {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 @include media-breakpoint-down(md) {

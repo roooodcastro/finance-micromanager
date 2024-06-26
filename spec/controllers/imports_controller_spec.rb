@@ -50,7 +50,7 @@ RSpec.describe ImportsController do
     before { show_request }
 
     context 'when the import is in progress' do
-      let!(:import) { create(:import, :in_progress, profile:) }
+      let!(:import) { create(:import, :ptsb, :in_progress, profile:) }
 
       let(:expected_props) do
         {
@@ -65,7 +65,7 @@ RSpec.describe ImportsController do
     end
 
     context 'when the import is finished' do
-      let!(:import) { create(:import, :finished, profile:) }
+      let!(:import) { create(:import, :ptsb, :finished, profile:) }
 
       let(:expected_props) { { 'importObject' => CamelizeProps.call(import.as_json) } }
 
@@ -76,7 +76,7 @@ RSpec.describe ImportsController do
     end
 
     context 'when the import is cancelled' do
-      let!(:import) { create(:import, :cancelled, profile:) }
+      let!(:import) { create(:import, :ptsb, :cancelled, profile:) }
 
       let(:expected_props) { { 'importObject' => CamelizeProps.call(import.as_json) } }
 

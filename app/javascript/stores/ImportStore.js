@@ -16,10 +16,14 @@ export default defineBaseApiStore('import', {
   state: {
     imports: [],
     import: null,
+    previewData: [],
     fetchParams: {},
   },
 
   actions: {
+    loadPreviewDataFromProps(previewData) {
+      this.previewData = previewData;
+    },
     create(record, options = {}) {
       const notificationStore = useNotificationStore();
 
@@ -66,6 +70,15 @@ export default defineBaseApiStore('import', {
       });
 
       return returnPromise;
+    },
+    updatePreviewData(transactionId, data) {
+      this.previewData.forEach((transaction) => {
+        if (transaction.id !== transactionId) {
+          return;
+        }
+
+        Object.assign(transaction, data);
+      });
     },
   },
 });

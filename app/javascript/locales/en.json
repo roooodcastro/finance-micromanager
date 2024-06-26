@@ -792,6 +792,11 @@
         }
       },
       "imports": {
+        "action_labels": {
+          "import": "Import",
+          "match": "Match",
+          "skip": "Skip"
+        },
         "floating_button_label": "Import Transactions",
         "form": {
           "cancel": "Cancel",
@@ -816,6 +821,12 @@
           "import_desc": "Import \"%{file_name}\" from %{source} into wallet"
         },
         "preview": {
+          "actions_label": "Action",
+          "amount_label": "Amount",
+          "category_label": "Category",
+          "category_placeholder": "-- Category --",
+          "date_label": "Date",
+          "name_label": "Name",
           "title": "Preview Import"
         },
         "settings": {

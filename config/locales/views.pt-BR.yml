@@ -4,6 +4,7 @@ pt-BR:
     app_name: Finance MicroManager
     app_description: >-
       Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.
+
     categories:
       floating_button_label: Nova Categoria
       confirmation:
@@ -44,6 +45,7 @@ pt-BR:
         disabled_category_warning: >-
           Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos
           serão mantidos.
+
     dashboard:
       show:
         title: Dashboard
@@ -65,6 +67,10 @@ pt-BR:
       confirmation_instructions: Não recebeu email de confirmação?
 
     imports:
+      action_labels:
+        import: Importar
+        skip: Ignorar
+        match: Combinar
       floating_button_label: Importar Transações
       form:
         submit: Enviar
@@ -87,6 +93,12 @@ pt-BR:
         import_desc: 'Importar "%{file_name}" de %{source} para a carteira'
       preview:
         title: Prévia da Importação
+        name_label: Nome
+        amount_label: Valor
+        date_label: Data
+        category_label: Categoria
+        category_placeholder: -- Categoria --
+        actions_label: Ação
       show:
         title: Importação
       settings:

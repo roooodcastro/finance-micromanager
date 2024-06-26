@@ -13,13 +13,10 @@ class ImportsController < AbstractAuthenticatedController
   end
 
   def show
-    props = camelize_props(import_object: @import.as_json)
+    return render_preview if @import.in_progress?
 
-    if @import.in_progress?
-      render inertia: 'imports/Preview', props: props
-    else
-      render inertia: 'imports/Show', props: props
-    end
+    props = camelize_props(import_object: @import.as_json)
+    render inertia: 'imports/Show', props: props
   end
 
   def create
@@ -42,5 +39,10 @@ class ImportsController < AbstractAuthenticatedController
 
   def import_params
     params.require(:import).permit(:source, :wallet_id, :source_file)
+  end
+
+  def render_preview
+    props = camelize_props(import_object: @import.as_json, preview_data: Importer::Base.generate_preview(@import))
+    render inertia: 'imports/Preview', props: props
   end
 end

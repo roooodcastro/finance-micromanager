@@ -9,6 +9,11 @@ module Importer
       n26:  ::Importer::N26
     }.freeze
 
+    def self.generate_preview(import)
+      importer = importer_for(import)
+      importer.generate_preview
+    end
+
     def self.importer_for(import)
       raise ArgumentError, "Import source unknown: #{import.source}" unless IMPORTER_CLASSES[import.source.to_sym]
 
@@ -22,11 +27,13 @@ module Importer
     def generate_preview
       parse.compact.map do |row|
         {
+          id:               calculate_transaction_id(row),
           raw_import_name:  row[0],
           name:             row[1],
           transaction_date: row[2],
           amount:           row[3],
-          wallet_id:        import.wallet.id
+          wallet_id:        import.wallet.id,
+          action_id:        action_id_for(row)
         }
       end
     end
@@ -80,6 +87,14 @@ module Importer
 
     def read_source_file
       @read_source_file ||= import.source_file.open(&:read)
+    end
+
+    def calculate_transaction_id(row)
+      Digest::UUID.uuid_from_hash(Digest::SHA1, Digest::UUID::DNS_NAMESPACE, row.join('-'))
+    end
+
+    def action_id_for(_row)
+      :import
     end
 
     def source

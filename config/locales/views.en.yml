@@ -65,6 +65,10 @@ en:
       confirmation_instructions: Didn't receive confirmation instructions?
 
     imports:
+      action_labels:
+        import: Import
+        skip: Skip
+        match: Match
       floating_button_label: Import Transactions
       form:
         submit: Upload
@@ -87,6 +91,12 @@ en:
         import_desc: 'Import "%{file_name}" from %{source} into wallet'
       preview:
         title: Preview Import
+        name_label: Name
+        amount_label: Amount
+        date_label: Date
+        category_label: Category
+        category_placeholder: -- Category --
+        actions_label: Action
       show:
         title: Import
       settings:
