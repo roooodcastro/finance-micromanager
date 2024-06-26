@@ -10,7 +10,9 @@
     <thead>
       <tr>
         <th>{{ t('name_label') }}</th>
-        <th>{{ t('amount_label') }}</th>
+        <th class="text-end">
+          {{ t('amount_label') }}
+        </th>
         <th>{{ t('date_label') }}</th>
         <th>{{ t('category_label') }}</th>
         <th>{{ t('actions_label') }}</th>

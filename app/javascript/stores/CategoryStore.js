@@ -44,6 +44,10 @@ export default defineBaseApiStore('category', {
 
   actions: {
     categoryNameFor(rawCategoryId) {
+      if (!rawCategoryId) {
+        return null;
+      }
+
       const [categoryId, subcategoryId] = rawCategoryId.split('|');
       const category = this.categories.find(category => category.id === categoryId);
 

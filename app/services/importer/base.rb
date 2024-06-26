@@ -27,6 +27,7 @@ module Importer
     def generate_preview
       parse.compact.map do |row|
         {
+          id:               calculate_transaction_id(row),
           raw_import_name:  row[0],
           name:             row[1],
           transaction_date: row[2],
@@ -85,6 +86,10 @@ module Importer
 
     def read_source_file
       @read_source_file ||= import.source_file.open(&:read)
+    end
+
+    def calculate_transaction_id(row)
+      Digest::UUID.uuid_from_hash(Digest::SHA1, Digest::UUID::DNS_NAMESPACE, row.join('-'))
     end
 
     def source

@@ -65,6 +65,10 @@ en:
       confirmation_instructions: Didn't receive confirmation instructions?
 
     imports:
+      action_labels:
+        import: Import
+        skip: Skip
+        match: Match
       floating_button_label: Import Transactions
       form:
         submit: Upload
@@ -91,7 +95,8 @@ en:
         amount_label: Amount
         date_label: Date
         category_label: Category
-        actions_label: Actions
+        category_placeholder: -- Category --
+        actions_label: Action
       show:
         title: Import
       settings:

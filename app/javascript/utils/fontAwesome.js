@@ -2,6 +2,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
   faArrowDownAZ,
+  faArrowRight,
   faAt,
   faBan,
   faBars,
@@ -73,6 +74,7 @@ import {
 
 library.add(
   faArrowDownAZ,
+  faArrowRight,
   faAt,
   faBan,
   faBars,
