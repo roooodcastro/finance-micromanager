@@ -32,7 +32,8 @@ module Importer
           name:             row[1],
           transaction_date: row[2],
           amount:           row[3],
-          wallet_id:        import.wallet.id
+          wallet_id:        import.wallet.id,
+          action_id:        action_id_for(row)
         }
       end
     end
@@ -90,6 +91,10 @@ module Importer
 
     def calculate_transaction_id(row)
       Digest::UUID.uuid_from_hash(Digest::SHA1, Digest::UUID::DNS_NAMESPACE, row.join('-'))
+    end
+
+    def action_id_for(_row)
+      :import
     end
 
     def source
