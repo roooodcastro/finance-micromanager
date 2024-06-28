@@ -43,32 +43,39 @@ RSpec.describe Importer::Base, type: :service do
   describe '.generate_preview', :travel_to_now do
     subject { importer.generate_preview }
 
+    let(:id1) { SecureRandom.uuid }
+    let(:id2) { SecureRandom.uuid }
+
     let(:parsed_transactions) do
       [
-        ['Raw 1', 'Test 1', '2024-06-26', -4.99],
-        ['Raw 2', 'Test 2', '2024-06-28', 2]
+        { id: id1, import_name: 'Raw 1', transaction_name: 'Test 1', transaction_date: '2024-06-26', amount: -4.99 },
+        { id: id2, import_name: 'Raw 2', transaction_name: 'Test 2', transaction_date: '2024-06-28', amount: 2 }
       ]
     end
+
+    let!(:matched_transaction) { create(:transaction, import_preview_id: id2) }
 
     let(:expected_preview_data) do
       [
         {
-          id:               '0fb00c36-cfde-5024-bd0f-d0cb4ac8c0f6',
+          id:               id1,
           raw_import_name:  'Raw 1',
           name:             'Test 1',
           transaction_date: '2024-06-26',
           amount:           -4.99,
           wallet_id:        wallet.id,
-          action_id:        :import
+          action_id:        :import,
+          matches:          []
         },
         {
-          id:               '891eb336-2935-5cdd-9f22-b5421f9c4446',
+          id:               id2,
           raw_import_name:  'Raw 2',
           name:             'Test 2',
           transaction_date: '2024-06-28',
           amount:           2,
           wallet_id:        wallet.id,
-          action_id:        :import
+          action_id:        :match,
+          matches:          [matched_transaction.as_json]
         }
       ]
     end

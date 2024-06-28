@@ -87,8 +87,11 @@ export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-microman
 /*
  * Imports
  */
+export const IMPORT_ACTION_IMPORT = 'import';
+export const IMPORT_ACTION_SKIP = 'skip';
+export const IMPORT_ACTION_MATCH = 'match';
 export const IMPORT_ACTIONS = [
-  { id: 'import', labelI18nKey: 'views.imports.action_labels.import' },
-  { id: 'skip', labelI18nKey: 'views.imports.action_labels.skip' },
-  { id: 'match', labelI18nKey: 'views.imports.action_labels.match' },
+  { id: IMPORT_ACTION_IMPORT, labelI18nKey: 'views.imports.action_labels.import' },
+  { id: IMPORT_ACTION_SKIP, labelI18nKey: 'views.imports.action_labels.skip' },
+  { id: IMPORT_ACTION_MATCH, labelI18nKey: 'views.imports.action_labels.match' },
 ];
