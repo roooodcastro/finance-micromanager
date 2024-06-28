@@ -25,15 +25,21 @@ module Importer
     end
 
     def generate_preview
-      parse.compact.map do |row|
+      parsed_rows            = parse.compact
+      transactions_by_row_id = Transaction
+                               .where(import_preview_id: parsed_rows.pluck(:id))
+                               .group_by(&:import_preview_id)
+
+      parsed_rows.map do |row|
         {
-          id:               calculate_transaction_id(row),
-          raw_import_name:  row[0],
-          name:             row[1],
-          transaction_date: row[2],
-          amount:           row[3],
+          id:               row[:id],
+          raw_import_name:  row[:import_name],
+          name:             row[:transaction_name],
+          transaction_date: row[:transaction_date],
+          amount:           row[:amount],
           wallet_id:        import.wallet.id,
-          action_id:        action_id_for(row)
+          action_id:        action_id_for(row, transactions_by_row_id),
+          matches:          (transactions_by_row_id[row[:id]] || []).as_json
         }
       end
     end
@@ -93,7 +99,9 @@ module Importer
       Digest::UUID.uuid_from_hash(Digest::SHA1, Digest::UUID::DNS_NAMESPACE, row.join('-'))
     end
 
-    def action_id_for(_row)
+    def action_id_for(row, transactions_by_row_id)
+      return :match if transactions_by_row_id[row[:id]].present?
+
       :import
     end
 

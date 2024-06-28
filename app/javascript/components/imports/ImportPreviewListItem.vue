@@ -5,6 +5,7 @@
     <td class="align-middle ps-3">
       <input
         :value="transaction.name"
+        :disabled="!isEditable"
         class="form-control"
         required
         @change="handleNameChange(transaction.id, $event)"
@@ -21,6 +22,7 @@
     <td class="width-10rem align-middle">
       <input
         :value="transaction.transactionDate"
+        :disabled="!isEditable"
         class="form-control px-3"
         type="date"
         required
@@ -32,6 +34,7 @@
       <CategoriesSelect
         :value="transaction.categoryId"
         :placeholder="t('category_placeholder')"
+        :disabled="!isEditable"
         required
         @change="handleCategoryChange(transaction.id, $event)"
       />
@@ -40,6 +43,7 @@
     <td class="align-middle">
       <ImportActionsSelect
         :value="transaction.actionId"
+        :allow-match="!!transaction.matches"
         required
         @change="handleActionChange(transaction.id, $event)"
       />
@@ -48,7 +52,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -57,7 +61,7 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useImportStore from '~/stores/ImportStore.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
-import { VARIANTS_FOR_IMPORT_ACTIONS } from '~/utils/Constants.js';
+import { VARIANTS_FOR_IMPORT_ACTIONS, IMPORT_ACTION_MATCH } from '~/utils/Constants.js';
 
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import ImportActionsSelect from '~/components/imports/ImportActionsSelect.vue';
@@ -85,6 +89,7 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
 
+    const isEditable = computed(() => props.transaction.actionId !== IMPORT_ACTION_MATCH);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
     const isSpend = computed(() => props.transaction.amount < 0);
     const isIncome = computed(() => props.transaction.amount > 0);
@@ -108,13 +113,33 @@ export default {
 
     const handleActionChange = (transactionId, actionId) => {
       importStore.updatePreviewData(transactionId, { actionId });
+
+      if (actionId === IMPORT_ACTION_MATCH) {
+        handleMatchTransactionChange(transactionId, 0);
+      }
     };
+
+    const handleMatchTransactionChange = (importPreviewTransactionId, matchTransactionIndex) => {
+      const matchTransaction = props.transaction.matches[matchTransactionIndex];
+      importStore.updatePreviewData(importPreviewTransactionId, {
+        name: matchTransaction.name,
+        transactionDate: matchTransaction.transactionDate,
+        categoryId: matchTransaction.categoryId,
+      });
+    };
+
+    onMounted(() => {
+      if (props.transaction.actionId === IMPORT_ACTION_MATCH) {
+        handleMatchTransactionChange(props.transaction.id, 0);
+      }
+    });
 
     return {
       t,
       currencySymbol,
       isSpend,
       isIncome,
+      isEditable,
       categoryNameFor,
       importActionVariants: VARIANTS_FOR_IMPORT_ACTIONS,
       formatDate,

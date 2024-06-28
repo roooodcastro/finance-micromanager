@@ -123,3 +123,6 @@ RSpec/NestedGroups:
 
 RSpec/ContextWording:
   Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false

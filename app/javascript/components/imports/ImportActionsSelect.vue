@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 import { IMPORT_ACTIONS } from '~/utils/Constants.js';
 import I18n from '~/utils/I18n.js';
 
@@ -25,11 +27,16 @@ export default {
       type: String,
       default: null,
     },
+    allowMatch: {
+      type: Boolean,
+      required: true,
+    },
   },
 
   emits: ['update:modelValue', 'change'],
 
-  setup(_props, { emit }) {
+  setup(props, { emit }) {
+    const allowedActions = _.reject(IMPORT_ACTIONS, action => action.id === 'match' && !props.allowMatch);
     const handleChange = (ev) => {
       emit('update:modelValue', ev.target.value);
       emit('change', ev.target.value);
@@ -37,7 +44,7 @@ export default {
 
     return {
       t: I18n.scopedTranslator(''),
-      actions: IMPORT_ACTIONS,
+      actions: allowedActions,
       handleChange,
     };
   },

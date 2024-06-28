@@ -9,13 +9,14 @@ module Importer
 
     def parse
       rows = read_file.then(&method(:filter_non_transaction_rows))
-      rows.map do |row|
-        raw_name = row[2]
-        name     = row[2].scan(TRANSACTION_NAME_REGEX).join(' ')
-        date     = extract_date(row)
-        amount   = row[3].to_f - row[4].to_f
+      rows.each_with_index.map do |row, index|
+        import_name      = row[2]
+        transaction_name = row[2].scan(TRANSACTION_NAME_REGEX).join(' ')
+        transaction_date = extract_date(row)
+        amount           = row[3].to_f - row[4].to_f
+        id               = calculate_transaction_id([index, import_name, transaction_name, transaction_date, amount])
 
-        [raw_name, name, date, amount]
+        { id:, import_name:, transaction_name:, transaction_date:, amount: }
       end
     end
 

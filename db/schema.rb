@@ -9,7 +9,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_012155) do
+
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_205017) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,7 +120,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_012155) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "balance_correction_transaction_id"
-    t.index ["balance_correction_transaction_id"], name: "index_reconciliations_on_balance_correction_transaction_id"
     t.index ["date"], name: "index_reconciliations_on_date"
     t.index ["profile_id"], name: "index_reconciliations_on_profile_id"
   end
@@ -194,10 +194,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_012155) do
     t.uuid "wallet_id"
     t.uuid "transaction_automation_id"
     t.uuid "import_id"
+    t.uuid "import_preview_id"
     t.index ["amount_cents"], name: "index_transactions_on_amount_cents"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["created_by_id"], name: "index_transactions_on_created_by_id"
     t.index ["import_id"], name: "index_transactions_on_import_id"
+    t.index ["import_preview_id"], name: "index_transactions_on_import_preview_id"
     t.index ["name"], name: "index_transactions_on_name"
     t.index ["profile_id"], name: "index_transactions_on_profile_id"
     t.index ["subcategory_id"], name: "index_transactions_on_subcategory_id"
@@ -264,7 +266,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_012155) do
   add_foreign_key "profiles", "users"
   add_foreign_key "profiles", "wallets", column: "default_wallet_id"
   add_foreign_key "reconciliations", "profiles"
-  add_foreign_key "reconciliations", "transactions", column: "balance_correction_transaction_id"
   add_foreign_key "reconciliations_wallets", "reconciliations"
   add_foreign_key "reconciliations_wallets", "wallets"
   add_foreign_key "subcategories", "categories"
