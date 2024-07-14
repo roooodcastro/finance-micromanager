@@ -17,11 +17,13 @@ export default defineBaseApiStore('import', {
     imports: [],
     import: null,
     previewData: [],
+    originalPreviewData: [],
     fetchParams: {},
   },
 
   actions: {
     loadPreviewDataFromProps(previewData) {
+      this.originalPreviewData = previewData;
       this.previewData = previewData;
     },
     create(record, options = {}) {

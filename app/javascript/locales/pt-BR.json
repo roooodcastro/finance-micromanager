@@ -891,9 +891,11 @@
         "preview": {
           "actions_label": "Ação",
           "amount_label": "Valor",
+          "blocked_label": "Impossível Importar",
           "category_label": "Categoria",
           "category_placeholder": "-- Categoria --",
           "date_label": "Data",
+          "import_block_reconciliation_reason": "Não é possível importar pois data é anterior à última reconciliação",
           "name_label": "Nome",
           "title": "Prévia da Importação"
         },
@@ -908,6 +910,18 @@
         },
         "show": {
           "title": "Importação"
+        },
+        "summary": {
+          "date_range_label": "Datas Encontradas",
+          "stats_block_label": "Bloqueadas",
+          "stats_import_label": "Importando",
+          "stats_match_label": "Combinando",
+          "stats_skip_label": "Ignorando",
+          "stats_title": "Estatísticas",
+          "summary_title": "Resumo da Importação",
+          "target_wallet_label": "Carteira Alvo",
+          "total_count_label": "Total de Transações",
+          "valid_count_label": "Transações Válidas"
         }
       },
       "landing": {

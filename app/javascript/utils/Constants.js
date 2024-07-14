@@ -40,8 +40,9 @@ export const VARIANTS_FOR_IMPORT_STATUSES = {
 
 export const VARIANTS_FOR_IMPORT_ACTIONS = {
   import: 'primary',
-  skip: 'danger',
-  match: 'secondary'
+  skip: 'light',
+  block: 'danger',
+  match: 'secondary',
 }
 
 /*
@@ -90,8 +91,10 @@ export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-microman
 export const IMPORT_ACTION_IMPORT = 'import';
 export const IMPORT_ACTION_SKIP = 'skip';
 export const IMPORT_ACTION_MATCH = 'match';
+export const IMPORT_ACTION_BLOCK = 'block';
 export const IMPORT_ACTIONS = [
-  { id: IMPORT_ACTION_IMPORT, labelI18nKey: 'views.imports.action_labels.import' },
-  { id: IMPORT_ACTION_SKIP, labelI18nKey: 'views.imports.action_labels.skip' },
-  { id: IMPORT_ACTION_MATCH, labelI18nKey: 'views.imports.action_labels.match' },
+  { id: IMPORT_ACTION_IMPORT, labelI18nKey: 'views.imports.action_labels.import', icon: 'plus' },
+  { id: IMPORT_ACTION_MATCH, labelI18nKey: 'views.imports.action_labels.match', icon: 'link' },
+  { id: IMPORT_ACTION_SKIP, labelI18nKey: 'views.imports.action_labels.skip', icon: 'scissors' },
+  { id: IMPORT_ACTION_BLOCK, labelI18nKey: 'views.imports.action_labels.block', icon: 'ban' },
 ];

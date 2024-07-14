@@ -4,6 +4,8 @@
     :back-button-href="importsPath"
   />
 
+  <ImportPreviewSummary :import-object="importObject" />
+
   <ImportPreviewList />
 </template>
 
@@ -14,10 +16,12 @@ import useImportStore from '~/stores/ImportStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ImportPreviewList from '~/components/imports/ImportPreviewList.vue';
+import ImportPreviewSummary from '~/components/imports/ImportPreviewSummary.vue';
 
 export default {
   components: {
     ImportPreviewList,
+    ImportPreviewSummary,
     PageHeader,
   },
 

@@ -34,7 +34,7 @@ class ImportsController < AbstractAuthenticatedController
   private
 
   def set_import
-    @import = Current.profile.imports.find(params[:id])
+    @import = Current.profile.imports.includes(:profile).find(params[:id])
   end
 
   def import_params
@@ -42,7 +42,8 @@ class ImportsController < AbstractAuthenticatedController
   end
 
   def render_preview
-    props = camelize_props(import_object: @import.as_json, preview_data: Importer::Base.generate_preview(@import))
+    props = camelize_props(import_object: @import.as_json,
+                           preview_data:  TransactionImports::BaseParser.generate_preview(@import))
     render inertia: 'imports/Preview', props: props
   end
 end

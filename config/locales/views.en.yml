@@ -97,6 +97,8 @@ en:
         category_label: Category
         category_placeholder: -- Category --
         actions_label: Action
+        blocked_label: Cannot Import
+        import_block_reconciliation_reason: Cannot import because date is prior to latest reconciliation
       show:
         title: Import
       settings:
@@ -111,6 +113,17 @@ en:
             transactions have non descriptive names such as "CNC SSP UK LTD". This is actually from Burger King, but
             it would be almost impossible to know or remember where a particular spend came from just by looking at the
             original name. Import names can be used to automatically perform this translation and make things easier.
+      summary:
+        summary_title: Import Summary
+        stats_title: Stats
+        target_wallet_label: Target Wallet
+        total_count_label: Total Transactions
+        valid_count_label: Valid Transactions
+        date_range_label: Dates Found
+        stats_import_label: Importing
+        stats_match_label: Matching
+        stats_skip_label: Skipping
+        stats_block_label: Blocked
 
     import_names:
       floating_button_label: New Import Name

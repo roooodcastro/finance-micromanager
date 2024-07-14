@@ -21,7 +21,7 @@
     <tbody>
       <template
         v-for="transaction in previewData"
-        :key="`${transaction.rawName}_${transaction.transactionDate}`"
+        :key="`${transaction.originalTransactionName}_${transaction.transactionDate}`"
       >
         <ImportPreviewListItem :transaction="transaction" />
       </template>
