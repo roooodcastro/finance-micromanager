@@ -124,7 +124,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_205017) do
     t.index ["profile_id"], name: "index_reconciliations_on_profile_id"
   end
 
-  create_table "reconciliations_wallets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "reconciliations_wallets", force: :cascade do |t|
     t.uuid "reconciliation_id", null: false
     t.uuid "wallet_id", null: false
     t.integer "balance_amount_cents", default: 0, null: false
@@ -266,6 +266,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_205017) do
   add_foreign_key "profiles", "users"
   add_foreign_key "profiles", "wallets", column: "default_wallet_id"
   add_foreign_key "reconciliations", "profiles"
+  add_foreign_key "reconciliations", "transactions", column: "balance_correction_transaction_id"
   add_foreign_key "reconciliations_wallets", "reconciliations"
   add_foreign_key "reconciliations_wallets", "wallets"
   add_foreign_key "subcategories", "categories"

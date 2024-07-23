@@ -36,7 +36,13 @@ export default {
   emits: ['update:modelValue', 'change'],
 
   setup(props, { emit }) {
-    const allowedActions = _.reject(IMPORT_ACTIONS, action => action.id === 'match' && !props.allowMatch);
+    const allowedActions = _.reject(IMPORT_ACTIONS, (action) => {
+      const rejectMatch = action.id === 'match' && !props.allowMatch;
+      const rejectBlock = action.id === 'block';
+
+      return rejectMatch || rejectBlock;
+    });
+
     const handleChange = (ev) => {
       emit('update:modelValue', ev.target.value);
       emit('change', ev.target.value);

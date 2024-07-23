@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Importer::Base, type: :service do
-  let(:importer) { described_class.new(import) }
+RSpec.describe TransactionImports::BaseParser, type: :service do
+  let(:parser) { described_class.new(import) }
   let(:profile) { create(:profile) }
   let(:wallet) { create(:wallet) }
   let(:user) { profile.user }
@@ -12,21 +12,21 @@ RSpec.describe Importer::Base, type: :service do
     Current.user    = user
   end
 
-  describe 'self.importer_for' do
-    subject(:importer_for) { described_class.importer_for(import) }
+  describe 'self.parser_for' do
+    subject(:parser_for) { described_class.parser_for(import) }
 
     let(:import) { build(:import, source:, profile:) }
 
     context 'when passing an import for PTSB' do
       let(:source) { :ptsb }
 
-      it { is_expected.to be_an_instance_of(Importer::PTSB) }
+      it { is_expected.to be_an_instance_of(TransactionImports::Parsers::PTSB) }
     end
 
     context 'when passing an import for N26' do
       let(:source) { :n26 }
 
-      it { is_expected.to be_an_instance_of(Importer::N26) }
+      it { is_expected.to be_an_instance_of(TransactionImports::Parsers::N26) }
     end
 
     context 'when passing an import for an unsupported source' do
@@ -35,63 +35,76 @@ RSpec.describe Importer::Base, type: :service do
       before { allow(import).to receive(:source).and_return('unsupported') }
 
       it 'raises an error' do
-        expect { importer_for }.to raise_error(ArgumentError, 'Import source unknown: unsupported')
+        expect { parser_for }.to raise_error(ArgumentError, 'Import source unknown: unsupported')
       end
     end
   end
 
   describe '.generate_preview', :travel_to_now do
-    subject { importer.generate_preview }
-
-    let(:id1) { SecureRandom.uuid }
-    let(:id2) { SecureRandom.uuid }
+    subject { parser.generate_preview }
 
     let(:parsed_transactions) do
       [
-        { id: id1, import_name: 'Raw 1', transaction_name: 'Test 1', transaction_date: '2024-06-26', amount: -4.99 },
-        { id: id2, import_name: 'Raw 2', transaction_name: 'Test 2', transaction_date: '2024-06-28', amount: 2 }
+        TransactionImports::ImportTransaction.new(original_import_name: 'Raw 1', name: 'Test 1', amount: -4.99,
+                                                  transaction_date: Date.parse('2024-06-26'), wallet_id: wallet.id),
+        TransactionImports::ImportTransaction.new(original_import_name: 'Raw 2', name: 'Test 2', amount: 2,
+                                                  transaction_date: Date.parse('2024-06-28'), wallet_id: wallet.id),
+        TransactionImports::ImportTransaction.new(original_import_name: 'Raw 3', name: 'Test 3', amount: -3,
+                                                  transaction_date: Date.parse('2024-06-19'), wallet_id: wallet.id)
       ]
     end
 
-    let!(:matched_transaction) { create(:transaction, import_preview_id: id2) }
+    let!(:matched_transaction) { create(:transaction, name: 'Test 2', amount: 2, profile: profile) }
 
     let(:expected_preview_data) do
       [
         {
-          id:               id1,
-          raw_import_name:  'Raw 1',
-          name:             'Test 1',
-          transaction_date: '2024-06-26',
-          amount:           -4.99,
-          wallet_id:        wallet.id,
-          action_id:        :import,
-          matches:          []
+          id:                   '59c7ee34-04aa-5bd6-a72c-de812bdd128f',
+          original_import_name: 'Raw 1',
+          name:                 'Test 1',
+          transaction_date:     '2024-06-26',
+          amount:               -4.99,
+          wallet_id:            wallet.id,
+          action_id:            :import,
+          matches:              []
         },
         {
-          id:               id2,
-          raw_import_name:  'Raw 2',
-          name:             'Test 2',
-          transaction_date: '2024-06-28',
-          amount:           2,
-          wallet_id:        wallet.id,
-          action_id:        :match,
-          matches:          [matched_transaction.as_json]
+          id:                   '58462647-b77f-5276-a9c7-7cc529e2c583',
+          original_import_name: 'Raw 2',
+          name:                 'Test 2',
+          transaction_date:     '2024-06-28',
+          amount:               2,
+          wallet_id:            wallet.id,
+          action_id:            :match,
+          matches:              [{ transaction: matched_transaction.as_json, match_score: 2 }]
+        },
+        {
+          id:                   '4d3c5190-3081-52f2-852e-a829a8e2f199',
+          original_import_name: 'Raw 3',
+          name:                 'Test 3',
+          transaction_date:     '2024-06-19',
+          amount:               -3,
+          wallet_id:            wallet.id,
+          action_id:            :block,
+          matches:              []
         }
       ]
     end
 
     before do
-      allow(importer).to receive(:parse).and_return(parsed_transactions)
+      create(:reconciliation, :finished, profile: profile, date: '2024-06-24')
+      profile.reload
+      allow(parser).to receive(:parse).and_return(parsed_transactions)
     end
 
-    it { is_expected.to eq expected_preview_data }
+    it { is_expected.to eq expected_preview_data.as_json }
   end
 
   describe '#import!', skip: 'refactor' do
-    subject(:import!) { importer.import! }
+    subject(:import!) { parser.import! }
 
     before do
-      allow(importer).to receive_messages(source: :n26, parse: parsed_transactions)
+      allow(parser).to receive_messages(source: :n26, parse: parsed_transactions)
     end
 
     context 'when there are no issues' do

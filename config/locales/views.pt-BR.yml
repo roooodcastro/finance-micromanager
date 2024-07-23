@@ -99,6 +99,8 @@ pt-BR:
         category_label: Categoria
         category_placeholder: -- Categoria --
         actions_label: Ação
+        blocked_label: Impossível Importar
+        import_block_reconciliation_reason: Não é possível importar pois data é anterior à última reconciliação
       show:
         title: Importação
       settings:
@@ -113,6 +115,17 @@ pt-BR:
             cartões de débito ou crédito têm nomes obscuros como por exemplo "CNC SSP UK LTD". Isso na verdade veio do
             Burger King, mas seria quase impossível saber ou lembrar disso apenas olhando o nome original. Nomes de
             Importação podem ser usados para fazer essa tradução automaticamente e facilitar sua vida.
+      summary:
+        summary_title: Resumo da Importação
+        stats_title: Estatísticas
+        target_wallet_label: Carteira Alvo
+        total_count_label: Total de Transações
+        valid_count_label: Transações Válidas
+        date_range_label: Datas Encontradas
+        stats_import_label: Importando
+        stats_match_label: Combinando
+        stats_skip_label: Ignorando
+        stats_block_label: Bloqueadas
 
     import_names:
       floating_button_label: Novo Nome de Importação

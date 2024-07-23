@@ -823,9 +823,11 @@
         "preview": {
           "actions_label": "Action",
           "amount_label": "Amount",
+          "blocked_label": "Cannot Import",
           "category_label": "Category",
           "category_placeholder": "-- Category --",
           "date_label": "Date",
+          "import_block_reconciliation_reason": "Cannot import because date is prior to latest reconciliation",
           "name_label": "Name",
           "title": "Preview Import"
         },
@@ -840,6 +842,18 @@
         },
         "show": {
           "title": "Import"
+        },
+        "summary": {
+          "date_range_label": "Dates Found",
+          "stats_block_label": "Blocked",
+          "stats_import_label": "Importing",
+          "stats_match_label": "Matching",
+          "stats_skip_label": "Skipping",
+          "stats_title": "Stats",
+          "summary_title": "Import Summary",
+          "target_wallet_label": "Target Wallet",
+          "total_count_label": "Total Transactions",
+          "valid_count_label": "Valid Transactions"
         }
       },
       "landing": {

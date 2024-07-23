@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe Importer::N26, type: :service do
-  let(:importer) { described_class.new(import) }
+RSpec.describe TransactionImports::Parsers::N26, type: :service do
+  let(:parser) { described_class.new(import) }
   let(:import) { create(:import, :n26) }
 
   describe '#parse' do
-    subject { importer.parse }
+    subject { parser.parse }
 
     let(:expected_transactions) do
       [

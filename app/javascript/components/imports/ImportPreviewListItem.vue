@@ -3,13 +3,36 @@
     :class="`table-${importActionVariants[transaction.actionId]} side-strip side-strip-${importActionVariants[transaction.actionId]}`"
   >
     <td class="align-middle ps-3">
-      <input
-        :value="transaction.name"
-        :disabled="!isEditable"
-        class="form-control"
-        required
-        @change="handleNameChange(transaction.id, $event)"
+      <div
+        v-if="!isBlocked"
+        class="d-flex align-items-center"
       >
+        <a
+          v-if="isMatch && transaction.matches.length > 1"
+          href="#"
+          class="btn btn-context-action rounded-circle me-2"
+        >
+          <FontAwesomeIcon
+            icon="list-ol"
+            size="lg"
+          />
+        </a>
+
+        <input
+          v-if="!isBlocked"
+          :value="transaction.name"
+          class="form-control"
+          required
+          @change="handleNameChange(transaction.id, $event)"
+        >
+      </div>
+      <div
+        v-else
+        class="d-flex align-items-center"
+      >
+        <BlockedTransactionTooltip :message="t('import_block_reconciliation_reason')" />
+        {{ transaction.name }}
+      </div>
     </td>
 
     <td
@@ -22,7 +45,7 @@
     <td class="width-10rem align-middle">
       <input
         :value="transaction.transactionDate"
-        :disabled="!isEditable"
+        :disabled="!isEditable && !isDateEditable"
         class="form-control px-3"
         type="date"
         required
@@ -32,6 +55,7 @@
 
     <td class="align-middle">
       <CategoriesSelect
+        v-if="!isBlocked"
         :value="transaction.categoryId"
         :placeholder="t('category_placeholder')"
         :disabled="!isEditable"
@@ -42,11 +66,16 @@
 
     <td class="align-middle">
       <ImportActionsSelect
+        v-if="!isBlocked"
         :value="transaction.actionId"
-        :allow-match="!!transaction.matches"
+        :allow-match="!!transaction.matches.length"
+        :disabled="isBlocked"
         required
         @change="handleActionChange(transaction.id, $event)"
       />
+      <template v-else>
+        {{ t('blocked_label') }}
+      </template>
     </td>
   </tr>
 </template>
@@ -54,6 +83,7 @@
 <script>
 import { computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
@@ -61,14 +91,22 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useImportStore from '~/stores/ImportStore.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
-import { VARIANTS_FOR_IMPORT_ACTIONS, IMPORT_ACTION_MATCH } from '~/utils/Constants.js';
+import {
+  VARIANTS_FOR_IMPORT_ACTIONS,
+  IMPORT_ACTION_IMPORT,
+  IMPORT_ACTION_BLOCK,
+  IMPORT_ACTION_MATCH
+} from '~/utils/Constants.js';
 
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import ImportActionsSelect from '~/components/imports/ImportActionsSelect.vue';
+import BlockedTransactionTooltip from '~/components/imports/BlockedTransactionTooltip.vue';
 
 export default {
   components: {
+    BlockedTransactionTooltip,
     CategoriesSelect,
+    FontAwesomeIcon,
     ImportActionsSelect,
   },
 
@@ -89,7 +127,10 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
 
-    const isEditable = computed(() => props.transaction.actionId !== IMPORT_ACTION_MATCH);
+    const isEditable = computed(() => props.transaction.actionId === IMPORT_ACTION_IMPORT);
+    const isDateEditable = computed(() => props.transaction.actionId === IMPORT_ACTION_BLOCK);
+    const isBlocked = computed(() => props.transaction.actionId === IMPORT_ACTION_BLOCK);
+    const isMatch = computed(() => props.transaction.actionId === IMPORT_ACTION_MATCH);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
     const isSpend = computed(() => props.transaction.amount < 0);
     const isIncome = computed(() => props.transaction.amount > 0);
@@ -120,7 +161,7 @@ export default {
     };
 
     const handleMatchTransactionChange = (importPreviewTransactionId, matchTransactionIndex) => {
-      const matchTransaction = props.transaction.matches[matchTransactionIndex];
+      const matchTransaction = props.transaction.matches[matchTransactionIndex].transaction;
       importStore.updatePreviewData(importPreviewTransactionId, {
         name: matchTransaction.name,
         transactionDate: matchTransaction.transactionDate,
@@ -140,6 +181,9 @@ export default {
       isSpend,
       isIncome,
       isEditable,
+      isDateEditable,
+      isBlocked,
+      isMatch,
       categoryNameFor,
       importActionVariants: VARIANTS_FOR_IMPORT_ACTIONS,
       formatDate,

@@ -18,7 +18,7 @@ class Wallet < ApplicationRecord
 
   def as_json(*)
     currency_as_json = balance.currency.as_json(only: %w[name symbol iso_code])
-    super.merge(balance: balance.to_f, currency: currency_as_json)
+    super.merge('balance' => balance.to_f, 'currency' => currency_as_json)
   end
 
   private

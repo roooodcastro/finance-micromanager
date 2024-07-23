@@ -42,8 +42,8 @@ class Category < ApplicationRecord
 
   def as_json(include_subcategories: true)
     json = super.merge(
-      system: system?,
-      name:   display_name
+      'system' => system?,
+      'name'   => display_name
     )
 
     json = json.merge(subcategories: active_subcategories.as_json) if include_subcategories

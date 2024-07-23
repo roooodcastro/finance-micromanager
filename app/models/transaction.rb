@@ -41,11 +41,11 @@ class Transaction < ApplicationRecord
   def as_json(*)
     super(except: %w[created_at updated_at])
       .merge(
-        name:        display_name,
-        amount:      amount.to_f,
-        subcategory: subcategory.as_json,
-        wallet:      wallet.as_json,
-        category:    category.as_json(include_subcategories: false)
+        'name'        => display_name,
+        'amount'      => amount.to_f,
+        'subcategory' => subcategory.as_json,
+        'wallet'      => wallet.as_json,
+        'category'    => category.as_json(include_subcategories: false)
       )
   end
 
