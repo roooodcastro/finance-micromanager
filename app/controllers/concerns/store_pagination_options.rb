@@ -3,9 +3,9 @@
 module StorePaginationOptions
   extend ActiveSupport::Concern
 
-  COOKIE_NAME_ITEMS = 'PAGE_ITEMS'
+  COOKIE_NAME_LIMIT = 'PAGE_ITEMS'
 
-  def current_pagination_items
-    @current_pagination_items ||= cookies[COOKIE_NAME_ITEMS] = params[:items] || cookies[COOKIE_NAME_ITEMS]
+  def current_pagination_limit
+    @current_pagination_limit ||= cookies[COOKIE_NAME_LIMIT] = params[:limit] || cookies[COOKIE_NAME_LIMIT]
   end
 end

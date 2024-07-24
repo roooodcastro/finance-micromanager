@@ -10,7 +10,7 @@ export default defineStore('pagination', {
       this.pagination = Object.assign(this.pagination, options);
     },
     setPerPage(perPage) {
-      this.pagination.items = perPage;
+      this.pagination.limit = perPage;
     },
     setPage(page) {
       this.pagination.page = page;

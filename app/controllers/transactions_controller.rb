@@ -14,7 +14,7 @@ class TransactionsController < AbstractAuthenticatedController
                    .order(transaction_date: :desc, created_at: :desc)
                    .includes(:category, :subcategory, :wallet)
 
-    pagy, transactions = pagy(transactions, items: current_pagination_items)
+    pagy, transactions = pagy(transactions, limit: current_pagination_limit)
     props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
     props[:statistics] = statistics if params[:include_statistics]
 
