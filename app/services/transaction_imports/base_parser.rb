@@ -96,6 +96,14 @@ module TransactionImports
       import.profile.latest_reconciliation.date.to_date + 1.day
     end
 
+    def process_import_names(name)
+      import_names.find { |import_name| import_name.import_name == name }&.transaction_name || name
+    end
+
+    def import_names
+      @import_names ||= import.profile.import_names.to_a
+    end
+
     def read_source_file
       @read_source_file ||= import.source_file.open(&:read)
     end

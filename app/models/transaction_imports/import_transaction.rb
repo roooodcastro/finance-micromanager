@@ -53,7 +53,7 @@ module TransactionImports
     end
 
     def ==(other)
-      id == other&.id && action_id == other&.action_id
+      id == other&.id && action_id == other&.action_id && name == other&.name
     end
 
     def match_score_for(transaction)
