@@ -7,10 +7,6 @@ RSpec.describe TransactionImports::Parsers::PTSB, type: :service do
   describe '#parse' do
     subject { parser.parse }
 
-    around do |example|
-      travel_to(Time.zone.parse('2023-12-31')) { example.run }
-    end
-
     let(:expected_transactions) do
       [
         TransactionImports::ImportTransaction.new(
@@ -47,7 +43,7 @@ RSpec.describe TransactionImports::Parsers::PTSB, type: :service do
         ),
         TransactionImports::ImportTransaction.new(
           original_import_name: 'Apr Cash Earned',
-          name:                 'Apr Cash Earned',
+          name:                 'PTSB Cashback',
           transaction_date:     Date.parse('2023-05-02'),
           amount:               5.00,
           import_file_index:    4,
@@ -55,13 +51,22 @@ RSpec.describe TransactionImports::Parsers::PTSB, type: :service do
         ),
         TransactionImports::ImportTransaction.new(
           original_import_name: 'PTSB VISA         123456',
-          name:                 'PTSB VISA',
+          name:                 'Credit Card',
           transaction_date:     Date.parse('2023-04-24'),
           amount:               -2.0,
           import_file_index:    5,
           wallet_id:            import.wallet.id
         )
       ]
+    end
+
+    around do |example|
+      travel_to(Time.zone.parse('2023-12-31')) { example.run }
+    end
+
+    before do
+      create(:import_name, import_name: 'Apr Cash Earned', transaction_name: 'PTSB Cashback', profile: import.profile)
+      create(:import_name, import_name: 'PTSB VISA', transaction_name: 'Credit Card', profile: import.profile)
     end
 
     it { is_expected.to eq expected_transactions }
