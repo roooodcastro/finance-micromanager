@@ -13,7 +13,7 @@ class ReconciliationsController < AbstractAuthenticatedController
                             .in_order_of(:status, %w[in_progress finished cancelled])
                             .order(date: :desc)
 
-    pagy, reconciliations = pagy(reconciliations, items: current_pagination_items)
+    pagy, reconciliations = pagy(reconciliations, limit: current_pagination_limit)
     props                 = camelize_props(reconciliations: reconciliations.as_json, pagination: pagy_metadata(pagy))
 
     respond_to do |format|

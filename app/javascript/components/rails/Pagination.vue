@@ -11,7 +11,7 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {{ pagination.items }}
+        {{ pagination.limit }}
       </button>
       <ul class="dropdown-menu">
         <li
@@ -37,7 +37,7 @@
     </div>
 
     <nav
-      v-if="pagination.count && pagination.count > pagination.items"
+      v-if="pagination.count && pagination.count > pagination.limit"
       class="ms-3 flex-shrink-0"
       :aria-label="t('pagination')"
     >
