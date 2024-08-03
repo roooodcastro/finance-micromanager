@@ -1,8 +1,5 @@
 <template>
-  <ListItemDrawerContextMenu
-    class="list-group-item overflow-hidden p-0"
-    :class="{ 'ListItem__card-body border-start-0 border-end-0': cardBody }"
-  >
+  <ListItemDrawerContextMenu class="list-group-item overflow-hidden p-0">
     <template v-slot:actions>
       <component
         v-if="actionsComponent"
@@ -46,11 +43,7 @@ export default {
     },
     itemContainerClass: {
       type: String,
-      default: 'bg-light-subtle'
-    },
-    cardBody: {
-      type: Boolean,
-      default: false,
+      default: 'bg-light-subtle',
     },
   },
 };

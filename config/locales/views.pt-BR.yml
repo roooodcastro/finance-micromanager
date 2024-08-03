@@ -184,9 +184,13 @@ pt-BR:
         toast_title_danger: Erro
       vertical_menu:
         dashboard: Dashboard
+        imports: Importação de Transações
+        imports_list: Listar Importações
+        imports_settings: Configurar Importações
         transactions: Transações
-        transaction_automations: Automações de Transação
-        transaction_predictions: Autopreenchimentos
+        transactions_list: Listar Transações
+        transactions_automations: Automações
+        transactions_predictions: Autopreenchimentos
         reconciliations: Reconciliações
         current_profile: 'Perfil:'
         profiles: Perfis

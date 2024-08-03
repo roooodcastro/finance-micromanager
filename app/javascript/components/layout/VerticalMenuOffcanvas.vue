@@ -1,7 +1,7 @@
 <template>
   <HorizontalSwipe
     id="verticalMenu"
-    class="VerticalMenuOffCanvas offcanvas offcanvas-start"
+    class="VerticalMenuOffCanvas offcanvas offcanvas-start overflow-y-hidden"
     aria-labelledby="mainMenuLabel"
     :min-translation="minTranslation"
     :max-translation="0"
