@@ -30,7 +30,7 @@ class TransactionsController < AbstractAuthenticatedController
     if transaction.save
       render json: camelize_props(message: t('.success'))
     else
-      render json:   camelize_props(message: t('.error', error: transaction.errors.full_messages.join(', '))),
+      render json:   camelize_props(message: t('.error', error: transaction.error_messages)),
              status: :unprocessable_entity
     end
   end
@@ -39,7 +39,7 @@ class TransactionsController < AbstractAuthenticatedController
     if @transaction.update(transaction_params.except(:created_by))
       render json: camelize_props(message: t('.success'))
     else
-      render json:   camelize_props(message: t('.error', error: @transaction.errors.full_messages.join(', '))),
+      render json:   camelize_props(message: t('.error', error: @transaction.error_messages)),
              status: :unprocessable_entity
     end
   end
@@ -89,8 +89,9 @@ class TransactionsController < AbstractAuthenticatedController
   def process_category_id_param(permitted_params)
     return permitted_params unless permitted_params[:category_id]
 
-    permitted_params[:subcategory_id] = permitted_params[:category_id].split('|')[1]
-    permitted_params[:category_id]    = permitted_params[:category_id].split('|')[0]
+    permitted_params[:category_id], permitted_params[:subcategory_id] = Category.split_compose_category_id(
+      permitted_params[:category_id]
+    )
 
     permitted_params.delete(:category_id) if Category.find_by(id: permitted_params[:category_id])&.system?
 

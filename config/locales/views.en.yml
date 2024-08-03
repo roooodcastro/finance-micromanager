@@ -99,6 +99,8 @@ en:
         actions_label: Action
         blocked_label: Cannot Import
         import_block_reconciliation_reason: Cannot import because date is prior to latest reconciliation
+        submit_button: Import Transactions
+        cancel_button: Cancel
       show:
         title: Import
       settings:

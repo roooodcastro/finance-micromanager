@@ -892,11 +892,13 @@
           "actions_label": "Ação",
           "amount_label": "Valor",
           "blocked_label": "Impossível Importar",
+          "cancel_button": "Cancelar",
           "category_label": "Categoria",
           "category_placeholder": "-- Categoria --",
           "date_label": "Data",
           "import_block_reconciliation_reason": "Não é possível importar pois data é anterior à última reconciliação",
           "name_label": "Nome",
+          "submit_button": "Importar Transações",
           "title": "Prévia da Importação"
         },
         "settings": {

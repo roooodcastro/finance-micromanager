@@ -824,11 +824,13 @@
           "actions_label": "Action",
           "amount_label": "Amount",
           "blocked_label": "Cannot Import",
+          "cancel_button": "Cancel",
           "category_label": "Category",
           "category_placeholder": "-- Category --",
           "date_label": "Date",
           "import_block_reconciliation_reason": "Cannot import because date is prior to latest reconciliation",
           "name_label": "Name",
+          "submit_button": "Import Transactions",
           "title": "Preview Import"
         },
         "settings": {

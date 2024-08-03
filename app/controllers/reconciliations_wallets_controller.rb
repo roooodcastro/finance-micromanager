@@ -12,7 +12,7 @@ class ReconciliationsWalletsController < AbstractAuthenticatedController
     if @reconciliation_wallet.update(reconciliation_wallet_params)
       render json: {}
     else
-      render json:   { message: t('.error', error: @reconciliation_wallet.errors.full_messages.join(', ')) },
+      render json:   { message: t('.error', error: @reconciliation_wallet.error_messages) },
              status: :unprocessable_entity
     end
   end

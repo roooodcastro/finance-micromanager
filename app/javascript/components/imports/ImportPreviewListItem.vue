@@ -20,6 +20,7 @@
 
         <input
           v-if="!isBlocked"
+          :name="`transactions[${transaction.id}][name]`"
           :value="transaction.name"
           class="form-control"
           required
@@ -46,6 +47,7 @@
       <input
         :value="transaction.transactionDate"
         :disabled="!isEditable && !isDateEditable"
+        :name="`transactions[${transaction.id}][transaction_date]`"
         class="form-control px-3"
         type="date"
         required
@@ -58,22 +60,33 @@
         v-if="!isBlocked"
         :value="transaction.categoryId"
         :placeholder="t('category_placeholder')"
+        :name="`transactions[${transaction.id}][category_id]`"
         :disabled="!isEditable"
-        required
         @change="handleCategoryChange(transaction.id, $event)"
       />
     </td>
 
     <td class="align-middle">
+      <input
+        type="hidden"
+        :name="`transactions[${transaction.id}][match_transaction_id]`"
+        :value="transaction.matchId"
+      >
       <ImportActionsSelect
         v-if="!isBlocked"
         :value="transaction.actionId"
         :allow-match="!!transaction.matches.length"
+        :name="`transactions[${transaction.id}][action_id]`"
         :disabled="isBlocked"
         required
         @change="handleActionChange(transaction.id, $event)"
       />
       <template v-else>
+        <input
+          type="hidden"
+          :name="`transactions[${transaction.id}][action_id]`"
+          :value="transaction.actionId"
+        >
         {{ t('blocked_label') }}
       </template>
     </td>
@@ -166,6 +179,7 @@ export default {
         name: matchTransaction.name,
         transactionDate: matchTransaction.transactionDate,
         categoryId: matchTransaction.categoryId,
+        matchId: matchTransaction.id,
       });
     };
 

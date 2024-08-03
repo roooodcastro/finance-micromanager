@@ -40,6 +40,14 @@ class Category < ApplicationRecord
     create!(profile: profile, name: TEMPORARY_NAME, color: SYSTEM_CATEGORY_COLOR, category_type: :system)
   end
 
+  # Splits category ID that's composed with a subcategory ID, like for example "1234|5678"
+  def self.split_compose_category_id(compose_category_id)
+    return [nil, nil] if compose_category_id.blank?
+
+    category_id, subcategory_id = compose_category_id.split('|')
+    [category_id, subcategory_id]
+  end
+
   def as_json(include_subcategories: true)
     json = super.merge(
       'system' => system?,

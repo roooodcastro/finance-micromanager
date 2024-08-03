@@ -5,7 +5,7 @@ module TransactionImports
     include ActiveModel::Model
 
     attr_accessor :import_file_index, :original_import_name, :name, :transaction_date, :amount, :category_id,
-                  :wallet_id, :action_id, :matches
+                  :wallet_id, :action_id, :matches, :match_transaction_id
 
     # Maximum difference in days between two dates so they can be considered to have a half match
     DATE_MATCH_DAYS_THRESHOLD = 7
@@ -32,6 +32,25 @@ module TransactionImports
       end
     end
 
+    def attributes_for_transaction
+      {
+        profile:           Current.profile,
+        name:              name,
+        raw_import_name:   original_import_name,
+        transaction_date:  transaction_date,
+        amount:            amount,
+        category_id:       Category.split_compose_category_id(category_id).first,
+        subcategory_id:    Category.split_compose_category_id(category_id).second,
+        wallet_id:         wallet_id,
+        import_preview_id: id,
+        updated_by:        Current.user
+      }
+    end
+
+    def skip_or_block?
+      %i[skip block].include?(action_id.to_s.to_sym)
+    end
+
     def find_matches(transactions)
       @matches = transactions.each_with_object([]) do |transaction, result|
         match_score = match_score_for(transaction)
@@ -53,7 +72,7 @@ module TransactionImports
     end
 
     def ==(other)
-      id == other&.id && action_id == other&.action_id && name == other&.name
+      id == other&.id && action_id == other&.action_id && name == other&.name && category_id == other&.category_id
     end
 
     def match_score_for(transaction)

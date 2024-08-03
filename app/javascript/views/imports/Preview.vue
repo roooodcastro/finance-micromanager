@@ -6,7 +6,11 @@
 
   <ImportPreviewSummary :import-object="importObject" />
 
-  <ImportPreviewList />
+  <ImportPreviewForm :import-object="importObject">
+    <ImportPreviewList />
+
+    <ImportPreviewActions />
+  </ImportPreviewForm>
 </template>
 
 <script>
@@ -15,11 +19,15 @@ import { imports as importsApi } from '~/api/all.js';
 import useImportStore from '~/stores/ImportStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
+import ImportPreviewForm from '~/components/imports/ImportPreviewForm.vue';
 import ImportPreviewList from '~/components/imports/ImportPreviewList.vue';
 import ImportPreviewSummary from '~/components/imports/ImportPreviewSummary.vue';
+import ImportPreviewActions from '~/components/imports/ImportPreviewActions.vue';
 
 export default {
   components: {
+    ImportPreviewActions,
+    ImportPreviewForm,
     ImportPreviewList,
     ImportPreviewSummary,
     PageHeader,

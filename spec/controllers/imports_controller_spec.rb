@@ -118,4 +118,220 @@ RSpec.describe ImportsController do
       end
     end
   end
+
+  describe 'PATCH update', :aggregate_errors do
+    subject(:update_request) { patch :update, params: { id: import.id, transactions: transactions } }
+
+    let(:import) { create(:import, :ptsb, :in_progress, profile:) }
+    let(:category) { create(:category, profile:) }
+    let(:subcategory) { create(:subcategory, category:) }
+
+    before do
+      allow(Current).to receive_messages(user:, profile:)
+    end
+
+    context 'when a transaction is to be imported' do
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'import',
+            match_transaction_id: nil,
+            category_id:          [category.id, subcategory.id].join('|')
+          }
+        }
+      end
+
+      it 'imports the transaction and marks the import as complete' do
+        expect { update_request }
+          .to change { Transaction.count }
+          .by(1)
+          .and change { import.reload.status }
+          .to('finished')
+
+        new_transaction = Transaction.last
+        expect(new_transaction.name).to eq('Tesco')
+        expect(new_transaction.raw_import_name).to eq('CNC TESCO STORES 03/05 1')
+        expect(new_transaction.amount.to_f).to eq(-15.25)
+        expect(new_transaction.transaction_date).to eq(Date.parse('2023-05-03'))
+        expect(new_transaction.category_id).to eq(category.id)
+        expect(new_transaction.subcategory_id).to eq(subcategory.id)
+        expect(new_transaction.created_by).to eq(user)
+        expect(new_transaction.updated_by).to eq(user)
+        expect(new_transaction.import_id).to eq(import.id)
+        expect(new_transaction.import_preview_id).to eq('5863bc62-aa3b-5e47-b9ce-cfa9da69126a')
+        expect(new_transaction.wallet).to eq(import.wallet)
+        expect(new_transaction.profile).to eq(profile)
+      end
+    end
+
+    context 'when a transaction is to be skipped' do
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'skip',
+            match_transaction_id: nil,
+            category_id:          [category.id, subcategory.id].join('|')
+          }
+        }
+      end
+
+      it 'does not import the transaction and marks the import as complete' do
+        expect { update_request }
+          .to not_change { Transaction.count }
+          .and change { import.reload.status }
+          .to('finished')
+      end
+    end
+
+    context 'when a transaction is to be matched' do
+      let!(:existing_transaction) { create(:transaction, profile: profile, wallet: import.wallet) }
+
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'match',
+            match_transaction_id: existing_transaction.id,
+            category_id:          existing_transaction.category_id
+          }
+        }
+      end
+
+      it 'updates the existing transaction and marks the import as complete' do
+        expect { update_request }
+          .to not_change { Transaction.count }
+          .and change { import.reload.status }
+          .to('finished')
+
+        expect(existing_transaction.reload.name).to eq('Tesco')
+        expect(existing_transaction.raw_import_name).to eq('CNC TESCO STORES 03/05 1')
+        expect(existing_transaction.amount.to_f).to eq(-15.25)
+        expect(existing_transaction.transaction_date).to eq(Date.parse('2023-05-03'))
+        expect(existing_transaction.updated_by).to eq(user)
+        expect(existing_transaction.import_id).to eq(import.id)
+        expect(existing_transaction.import_preview_id).to eq('5863bc62-aa3b-5e47-b9ce-cfa9da69126a')
+        expect(existing_transaction.wallet).to eq(import.wallet)
+        expect(existing_transaction.profile).to eq(profile)
+      end
+    end
+
+    context 'when a transaction is to be blocked' do
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'block',
+            match_transaction_id: nil,
+            category_id:          [category.id, subcategory.id].join('|')
+          }
+        }
+      end
+
+      it 'does not import the transaction and marks the import as complete' do
+        expect { update_request }
+          .to not_change { Transaction.count }
+          .and change { import.reload.status }
+          .to('finished')
+      end
+    end
+
+    context 'when the transaction to be imported is invalid' do
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'import',
+            match_transaction_id: nil,
+            category_id:          nil
+          }
+        }
+      end
+
+      it 'does not import the transaction' do
+        expect { update_request }
+          .to not_change { Transaction.count }
+          .and change { import.reload.status }
+          .to('finished')
+
+        # TODO: test for error message in props
+      end
+    end
+
+    context 'when transaction to be imported is older than last reconciliation date' do
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'import',
+            match_transaction_id: nil,
+            category_id:          [category.id, subcategory.id].join('|')
+          }
+        }
+      end
+
+      before do
+        create(:reconciliation, :finished, profile: profile, date: '2024-01-01')
+        profile.reload
+      end
+
+      it 'does not import the transaction' do
+        expect { update_request }
+          .to not_change { Transaction.count }
+          .and change { import.reload.status }
+          .to('finished')
+
+        # TODO: test for error message in props
+      end
+    end
+
+    context 'when an unexpected error occurs' do
+      let(:transactions) do
+        {
+          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
+            name:                 'Tesco',
+            original_import_name: 'CNC TESCO STORES 03/05 1',
+            amount:               -15.25,
+            transaction_date:     '2023-05-03',
+            action_id:            'import',
+            match_transaction_id: nil,
+            category_id:          [category.id, subcategory.id].join('|')
+          }
+        }
+      end
+
+      before do
+        allow(TransactionImports::ImportActions::ImportTransaction)
+          .to receive(:execute!)
+          .and_raise(ActiveRecord::ActiveRecordError)
+      end
+
+      it 'does not import the transaction and does not update the import entity' do
+        expect { update_request }
+          .to not_change { Transaction.count }
+          .and not_change { import.reload.status }
+
+        # TODO: test for error message in props
+      end
+    end
+  end
 end

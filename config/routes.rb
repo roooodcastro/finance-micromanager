@@ -56,7 +56,7 @@ Rails.application.routes.draw do
       resource :setting, only: %i[show]
     end
 
-    resources :imports, only: %i[index show create]
+    resources :imports, only: %i[index show create update]
     resources :import_names, only: %i[index create update destroy]
 
     resources :locales, only: %i[index]

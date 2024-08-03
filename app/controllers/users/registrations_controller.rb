@@ -47,7 +47,7 @@ module Users
       else
         clean_up_passwords resource
         set_minimum_password_length
-        flash[:danger] = t('.error', error: resource.errors.full_messages.join(', '))
+        flash[:danger] = t('.error', error: resource.error_messages)
       end
 
       redirect_to setting_path

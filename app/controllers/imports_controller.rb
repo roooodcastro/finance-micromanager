@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImportsController < AbstractAuthenticatedController
-  before_action :set_import, only: %i[show]
+  before_action :set_import, only: %i[show update]
   def index
     imports = Current.profile.imports.order(created_at: :desc)
     props   = camelize_props(imports: imports.as_json)
@@ -31,6 +31,14 @@ class ImportsController < AbstractAuthenticatedController
     end
   end
 
+  def update
+    importer = TransactionImports::Importer.new(@import)
+    importer.import!(update_import_params.to_h)
+
+    # props = camelize_props(importer.statistics_recorder.as_json)
+    # render inertia: 'imports/results', props: props
+  end
+
   private
 
   def set_import
@@ -39,6 +47,14 @@ class ImportsController < AbstractAuthenticatedController
 
   def import_params
     params.require(:import).permit(:source, :wallet_id, :source_file)
+  end
+
+  def update_import_params
+    transaction_ids   = params[:transactions].keys
+    permit_attributes = transaction_ids.map do |id|
+      { id => %i[name original_import_name amount transaction_date action_id category_id match_transaction_id] }
+    end
+    params.require(:transactions).permit(permit_attributes)
   end
 
   def render_preview
