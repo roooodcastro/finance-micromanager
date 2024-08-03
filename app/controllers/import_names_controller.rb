@@ -19,7 +19,7 @@ class ImportNamesController < AbstractAuthenticatedController
     if import_name.save
       render json: camelize_props(message: t('.success'))
     else
-      error = import_name.errors.full_messages.join(', ')
+      error = import_name.error_messages
       render json:   camelize_props(message: t('.error', error:)),
              status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class ImportNamesController < AbstractAuthenticatedController
 
       render json: camelize_props(message: t('.success'))
     else
-      error = @import_name.errors.full_messages.join(', ')
+      error = @import_name.error_messages
       render json:   camelize_props(message: t('.error', error:)),
              status: :unprocessable_entity
     end

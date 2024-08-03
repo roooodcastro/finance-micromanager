@@ -44,7 +44,7 @@ class ReconciliationsController < AbstractAuthenticatedController
 
       render json: camelize_props(reconciliation: @reconciliation.as_json, message: message('.success'))
     else
-      render json:   { message: message('.error', error: @reconciliation.errors.full_messages.join(', ')) },
+      render json:   { message: message('.error', error: @reconciliation.error_messages) },
              status: :unprocessable_entity
     end
   end
@@ -53,7 +53,7 @@ class ReconciliationsController < AbstractAuthenticatedController
     if @reconciliation.update(reconciliation_params)
       render json: { message: message('.success') }
     else
-      render json:   { message: message('.error', error: @reconciliation.errors.full_messages.join(', ')) },
+      render json:   { message: message('.error', error: @reconciliation.error_messages) },
              status: :unprocessable_entity
     end
   end
@@ -71,7 +71,7 @@ class ReconciliationsController < AbstractAuthenticatedController
 
       render json: { message: }
     else
-      render json:   { message: message('.error', error: @reconciliation.errors.full_messages.join(', ')) },
+      render json:   { message: message('.error', error: @reconciliation.error_messages) },
              status: :unprocessable_entity
     end
   end
@@ -81,7 +81,7 @@ class ReconciliationsController < AbstractAuthenticatedController
     if @reconciliation.update(status: :cancelled)
       render json: { message: message('.success') }
     else
-      render json:   { message: message('.error', error: @reconciliation.errors.full_messages.join(', ')) },
+      render json:   { message: message('.error', error: @reconciliation.error_messages) },
              status: :unprocessable_entity
     end
   end

@@ -26,7 +26,7 @@ class ProfilesController < AbstractAuthenticatedController
     if profile.save
       render json: camelize_props(message: t('.success', name: profile.display_name))
     else
-      render json:   camelize_props(message: t('.error', error: profile.errors.full_messages.join(', '))),
+      render json:   camelize_props(message: t('.error', error: profile.error_messages)),
              status: :unprocessable_entity
     end
   end
@@ -36,7 +36,7 @@ class ProfilesController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success', name: @profile.name))
     else
       render json: camelize_props(
-        message: t('.error', name: @profile.display_name, error: @profile.errors.full_messages.join(', '))
+        message: t('.error', name: @profile.display_name, error: @profile.error_messages)
       ), status: :unprocessable_entity
     end
   end

@@ -32,7 +32,7 @@ class CategoriesController < AbstractAuthenticatedController
     if category.save
       render json: camelize_props(message: t('.success', name: category.name))
     else
-      render json:   camelize_props(message: t('.error', error: category.errors.full_messages.join(', '))),
+      render json:   camelize_props(message: t('.error', error: category.error_messages)),
              status: :unprocessable_entity
     end
   end
@@ -43,7 +43,7 @@ class CategoriesController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success', name: @category.name))
     else
       render json: camelize_props(
-        message: t('.error', name: @category.name_was, error: @category.errors.full_messages.join(', '))
+        message: t('.error', name: @category.name_was, error: @category.error_messages)
       ), status: :unprocessable_entity
     end
   end

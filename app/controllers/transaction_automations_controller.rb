@@ -33,7 +33,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
     if transaction_automation.save
       render json: camelize_props(message: t('.success'))
     else
-      error = transaction_automation.errors.full_messages.join(', ')
+      error = transaction_automation.error_messages
       render json:   camelize_props(message: t('.error', error:)),
              status: :unprocessable_entity
     end
@@ -44,7 +44,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
 
       render json: camelize_props(message: t('.success'))
     else
-      error = @transaction_automation.errors.full_messages.join(', ')
+      error = @transaction_automation.error_messages
       render json:   camelize_props(message: t('.error', error:)),
              status: :unprocessable_entity
     end
@@ -91,8 +91,10 @@ class TransactionAutomationsController < AbstractAuthenticatedController
   def process_category_id_param(permitted_params)
     return permitted_params unless permitted_params[:transaction_category_id]
 
-    permitted_params[:transaction_subcategory_id] = permitted_params[:transaction_category_id].split('|')[1]
-    permitted_params[:transaction_category_id]    = permitted_params[:transaction_category_id].split('|')[0]
+    permitted_params[:transaction_category_id]    =
+      Category.split_compose_category_id(permitted_params[:transaction_category_id]).first
+    permitted_params[:transaction_subcategory_id] =
+      Category.split_compose_category_id(permitted_params[:transaction_category_id]).second
 
     if Category.find_by(id: permitted_params[:transaction_category_id])&.system?
       permitted_params.delete(:transaction_category_id)

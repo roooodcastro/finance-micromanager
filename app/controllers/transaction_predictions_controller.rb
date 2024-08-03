@@ -39,7 +39,7 @@ class TransactionPredictionsController < AbstractAuthenticatedController
       flash[:success] = t('.success', name: transaction_prediction.name)
       redirect_to transaction_predictions_path
     else
-      flash.now[:error] = t('.error', error: transaction_prediction.errors.full_messages.join(', '))
+      flash.now[:error] = t('.error', error: transaction_prediction.error_messages)
       props             = camelize_props(transaction_prediction: transaction_prediction.as_json)
       render inertia: 'transaction_predictions/New', props: props
     end
@@ -50,7 +50,7 @@ class TransactionPredictionsController < AbstractAuthenticatedController
       flash[:success] = t('.success', name: @transaction_prediction.name)
       redirect_to transaction_predictions_path
     else
-      flash.now[:error] = t('.error', error: @transaction_prediction.errors.full_messages.join(', '))
+      flash.now[:error] = t('.error', error: @transaction_prediction.error_messages)
       props             = camelize_props(transaction_prediction: @transaction_prediction.as_json)
       render inertia: 'transaction_predictions/Edit', props: props
     end

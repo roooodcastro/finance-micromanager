@@ -112,10 +112,10 @@ class TransactionSearch
     category_ids     = category_ids_raw.map do |id_raw|
       next if id_raw.include?('|')
 
-      id_raw.split('|')[0]
+      Category.split_compose_category_id(id_raw).first
     end.compact
 
-    subcategory_ids = category_ids_raw.map { |id_raw| id_raw.split('|')[1] }.compact
+    subcategory_ids = category_ids_raw.map { |id_raw| Category.split_compose_category_id(id_raw).second }.compact
 
     [category_ids, subcategory_ids]
   end
