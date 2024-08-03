@@ -133,7 +133,7 @@ export default {
 .VerticalMenu__desktop {
   background-color: $gray-300;
   flex-grow: 1;
-  height: min(100vh, 100%);
+  height: calc(100vh - $main-navbar-height);
   margin-left: -1rem;
   max-width: 25rem;
   min-width: 20rem;
