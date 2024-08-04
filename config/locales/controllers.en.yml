@@ -21,6 +21,8 @@ en:
     create:
       success: 'File was successfully uploaded, import started.'
       error: 'Import could not be started: %{error}'
+    update:
+      success: 'Import was successfully processed.'
 
   import_names:
     create:

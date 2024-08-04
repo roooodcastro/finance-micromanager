@@ -468,6 +468,9 @@
       "create": {
         "error": "Import could not be started: %{error}",
         "success": "File was successfully uploaded, import started."
+      },
+      "update": {
+        "success": "Import was successfully processed."
       }
     },
     "locale_name": "English",
@@ -797,6 +800,12 @@
           "match": "Match",
           "skip": "Skip"
         },
+        "errors": {
+          "cannot_find_transaction_to_match": "Cannot find matched transaction",
+          "invalid_transaction_to_import": "Invalid transaction: %{error}",
+          "reason_label": "Reason",
+          "unknown_action_id": "Unknown import action"
+        },
         "floating_button_label": "Import Transactions",
         "form": {
           "cancel": "Cancel",
@@ -833,6 +842,12 @@
           "submit_button": "Import Transactions",
           "title": "Preview Import"
         },
+        "results": {
+          "error_transactions_header": "Transactions which could not be imported (%{count})",
+          "imported_transactions_header": "Imported transactions (%{count})",
+          "matched_transactions_header": "Matched transactions (%{count})",
+          "title": "Import Results"
+        },
         "settings": {
           "show": {
             "import_name_info_text": "Import names are \"translations\" for the original transaction names from the import source to a transaction name in Finance MicroManager. These are useful as many names, particularly from card transactions have non descriptive names such as \"CNC SSP UK LTD\". This is actually from Burger King, but it would be almost impossible to know or remember where a particular spend came from just by looking at the original name. Import names can be used to automatically perform this translation and make things easier.",
@@ -843,10 +858,12 @@
           }
         },
         "show": {
+          "imported_transactions_header": "Imported transactions (%{count})",
           "title": "Import"
         },
         "summary": {
           "date_range_label": "Dates Found",
+          "file_name_label": "File Name",
           "stats_block_label": "Blocked",
           "stats_import_label": "Importing",
           "stats_match_label": "Matching",

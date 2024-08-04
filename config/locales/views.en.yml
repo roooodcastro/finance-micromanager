@@ -69,6 +69,11 @@ en:
         import: Import
         skip: Skip
         match: Match
+      errors:
+        reason_label: Reason
+        invalid_transaction_to_import: "Invalid transaction: %{error}"
+        unknown_action_id: Unknown import action
+        cannot_find_transaction_to_match: Cannot find matched transaction
       floating_button_label: Import Transactions
       form:
         submit: Upload
@@ -101,8 +106,14 @@ en:
         import_block_reconciliation_reason: Cannot import because date is prior to latest reconciliation
         submit_button: Import Transactions
         cancel_button: Cancel
+      results:
+        title: Import Results
+        imported_transactions_header: "Imported transactions (%{count})"
+        matched_transactions_header: "Matched transactions (%{count})"
+        error_transactions_header: "Transactions which could not be imported (%{count})"
       show:
         title: Import
+        imported_transactions_header: "Imported transactions (%{count})"
       settings:
         show:
           title: Import Settings
@@ -126,6 +137,7 @@ en:
         stats_match_label: Matching
         stats_skip_label: Skipping
         stats_block_label: Blocked
+        file_name_label: File Name
 
     import_names:
       floating_button_label: New Import Name
