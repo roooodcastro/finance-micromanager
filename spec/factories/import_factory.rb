@@ -23,6 +23,13 @@ FactoryBot.define do
       end
     end
 
+    trait :revolut do
+      source { 'revolut' }
+      source_file do
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/revolut.csv'), 'text/csv')
+      end
+    end
+
     trait :in_progress do
       status { :in_progress }
     end

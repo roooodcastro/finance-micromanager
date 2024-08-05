@@ -95,7 +95,7 @@ export default {
     const sourceOptions = [
       { label: t('source_n26_label'), value: 'n26' },
       { label: t('source_ptsb_label'), value: 'ptsb' },
-      // { label: t('source_revolut_label'), value: 'revolut' },
+      { label: t('source_revolut_label'), value: 'revolut' },
     ]
 
     const modalStore = useModalStore();
