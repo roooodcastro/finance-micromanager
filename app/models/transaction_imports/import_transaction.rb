@@ -3,6 +3,7 @@
 module TransactionImports
   class ImportTransaction
     include ActiveModel::Model
+    include Comparable
 
     attr_accessor :import_file_index, :original_import_name, :name, :transaction_date, :amount, :category_id,
                   :wallet_id, :action_id, :matches, :match_transaction_id
@@ -73,6 +74,15 @@ module TransactionImports
 
     def ==(other)
       id == other&.id && action_id == other&.action_id && name == other&.name && category_id == other&.category_id
+    end
+
+    def <=>(other)
+      return 0 if transaction_date.blank? || other.transaction_date.blank?
+
+      return -1 if other.transaction_date > transaction_date
+      return 1 if other.transaction_date < transaction_date
+
+      0
     end
 
     def match_score_for(transaction)

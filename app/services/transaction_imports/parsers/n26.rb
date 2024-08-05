@@ -6,18 +6,25 @@ module TransactionImports
       FIRST_TRANSACTION_ROW = 1
 
       def parse
-        rows = CSV.parse(read_source_file).then(&method(:filter_non_transaction_rows))
-        rows.map do |row|
-          raw_name = build_full_transaction_name(row)
-          name     = row[1]
-          date     = Date.parse(row[0])
-          amount   = row[5].to_f
+        rows = read_file.then(&method(:filter_non_transaction_rows))
+        rows.each_with_index.map do |row, import_file_index|
+          original_import_name = build_full_transaction_name(row)
+          name                 = process_import_names(original_import_name)
+          transaction_date     = Date.parse(row[0])
+          amount               = row[5].to_f
+          wallet_id            = import.wallet.id
 
-          [raw_name, name, date, amount]
+          TransactionImports::ImportTransaction.new(
+            original_import_name:, name:, transaction_date:, amount:, import_file_index:, wallet_id:
+          )
         end
       end
 
       private
+
+      def read_file
+        CSV.parse(read_source_file)
+      end
 
       def filter_non_transaction_rows(rows)
         rows[FIRST_TRANSACTION_ROW..]

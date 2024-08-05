@@ -25,7 +25,7 @@ module TransactionImports
     end
 
     def generate_preview
-      import_transactions = parse.compact
+      import_transactions = parse.compact.sort.reverse
       import_transactions.each do |import_transaction|
         import_transaction.find_matches(transactions_to_match)
         import_transaction.revert_to_default_action(minimum_transaction_date)

@@ -32,7 +32,7 @@ module TransactionImports
     private
 
     def parsed_import_transactions
-      @parsed_import_transactions ||= parser.parse
+      @parsed_import_transactions ||= parser.parse.sort
     end
 
     def import_transactions_to_import(preview_transaction_attributes)

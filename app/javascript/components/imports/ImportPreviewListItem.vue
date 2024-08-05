@@ -62,6 +62,7 @@
         :placeholder="t('category_placeholder')"
         :name="`transactions[${transaction.id}][category_id]`"
         :disabled="!isEditable"
+        required
         @change="handleCategoryChange(transaction.id, $event)"
       />
     </td>
