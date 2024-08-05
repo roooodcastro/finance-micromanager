@@ -25,6 +25,8 @@ module TransactionImports
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback
       end
+
+      import.reload.finished?
     end
 
     private

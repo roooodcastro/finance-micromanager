@@ -4,9 +4,17 @@ module TransactionImports
   module ImportActions
     class ImportTransaction < TransactionImports::ImportActions::Base
       def execute
-        transaction = Current.profile.transactions.new(
-          import_transaction.attributes_for_transaction.merge(created_by: Current.user, import_id: import.id)
+        transaction = Transaction.new(
+          import_transaction.attributes_for_transaction.merge(
+            created_by: Current.user,
+            import_id:  import.id,
+            profile:    Current.profile
+          )
         )
+
+        # transaction = Current.profile.transactions.new(
+        #   import_transaction.attributes_for_transaction.merge(created_by: Current.user, import_id: import.id)
+        # )
 
         return record_error(:invalid_transaction_to_import, error: transaction.error_messages) unless transaction.valid?
 

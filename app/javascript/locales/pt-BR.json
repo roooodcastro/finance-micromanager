@@ -523,6 +523,10 @@
       "create": {
         "error": "Importação não pode ser iniciada: %{error}",
         "success": "Arquivo enviado com sucesso, importação iniciada."
+      },
+      "update": {
+        "error": "Importação não pode ser processada. Por favor tente novamente.",
+        "success": "Importação processada com sucesso."
       }
     },
     "locale_name": "Português",
@@ -865,6 +869,12 @@
           "match": "Combinar",
           "skip": "Ignorar"
         },
+        "errors": {
+          "cannot_find_transaction_to_match": "Transação a combinar não encontrada",
+          "invalid_transaction_to_import": "Transação inválida: %{error}",
+          "reason_label": "Motivo",
+          "unknown_action_id": "Ação de importação desconhecida"
+        },
         "floating_button_label": "Importar Transações",
         "form": {
           "cancel": "Cancelar",
@@ -901,6 +911,12 @@
           "submit_button": "Importar Transações",
           "title": "Prévia da Importação"
         },
+        "results": {
+          "error_transactions_header": "Transações que não puderam ser importadas (%{count})",
+          "imported_transactions_header": "Transações importadas (%{count})",
+          "matched_transactions_header": "Transações combinadas (%{count})",
+          "title": "Resultados da Importação"
+        },
         "settings": {
           "show": {
             "import_name_info_text": "Nomes de Importação são \"traduções\" dos nomes de transação originais da fonte de importação para um nome de transação no Finance MicroManager. Eles são úteis pois muitos nomes, especialmente vindos de transações de cartões de débito ou crédito têm nomes obscuros como por exemplo \"CNC SSP UK LTD\". Isso na verdade veio do Burger King, mas seria quase impossível saber ou lembrar disso apenas olhando o nome original. Nomes de Importação podem ser usados para fazer essa tradução automaticamente e facilitar sua vida.",
@@ -911,10 +927,12 @@
           }
         },
         "show": {
+          "imported_transactions_header": "Transações importadas (%{count})",
           "title": "Importação"
         },
         "summary": {
           "date_range_label": "Datas Encontradas",
+          "file_name_label": "Nome do Arquivo",
           "stats_block_label": "Bloqueadas",
           "stats_import_label": "Importando",
           "stats_match_label": "Combinando",

@@ -21,6 +21,9 @@ pt-BR:
     create:
       success: 'Arquivo enviado com sucesso, importação iniciada.'
       error: 'Importação não pode ser iniciada: %{error}'
+    update:
+      success: 'Importação processada com sucesso.'
+      error: 'Importação não pode ser processada. Por favor tente novamente.'
 
   import_names:
     create:

@@ -71,6 +71,11 @@ pt-BR:
         import: Importar
         skip: Ignorar
         match: Combinar
+      errors:
+        reason_label: Motivo
+        invalid_transaction_to_import: "Transação inválida: %{error}"
+        unknown_action_id: Ação de importação desconhecida
+        cannot_find_transaction_to_match: Transação a combinar não encontrada
       floating_button_label: Importar Transações
       form:
         submit: Enviar
@@ -103,8 +108,14 @@ pt-BR:
         import_block_reconciliation_reason: Não é possível importar pois data é anterior à última reconciliação
         submit_button: Importar Transações
         cancel_button: Cancelar
+      results:
+        title: Resultados da Importação
+        imported_transactions_header: "Transações importadas (%{count})"
+        matched_transactions_header: "Transações combinadas (%{count})"
+        error_transactions_header: "Transações que não puderam ser importadas (%{count})"
       show:
         title: Importação
+        imported_transactions_header: "Transações importadas (%{count})"
       settings:
         show:
           title: Configurações de Importação
@@ -128,6 +139,7 @@ pt-BR:
         stats_match_label: Combinando
         stats_skip_label: Ignorando
         stats_block_label: Bloqueadas
+        file_name_label: Nome do Arquivo
 
     import_names:
       floating_button_label: Novo Nome de Importação

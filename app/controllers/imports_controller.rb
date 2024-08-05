@@ -15,7 +15,10 @@ class ImportsController < AbstractAuthenticatedController
   def show
     return render_preview if @import.in_progress?
 
-    props = camelize_props(import_object: @import.as_json)
+    props = camelize_props(
+      import_object:         @import.as_json,
+      imported_transactions: @import.transactions.includes(:category, :subcategory, :wallet).as_json
+    )
     render inertia: 'imports/Show', props: props
   end
 
@@ -33,10 +36,16 @@ class ImportsController < AbstractAuthenticatedController
 
   def update
     importer = TransactionImports::Importer.new(@import)
-    importer.import!(update_import_params.to_h)
+    success  = importer.import!(update_import_params.to_h)
 
-    # props = camelize_props(importer.statistics_recorder.as_json)
-    # render inertia: 'imports/results', props: props
+    if success
+      flash[:success] = t('.success')
+      props           = camelize_props(importer.statistics_recorder.as_json.merge(import_object: @import.as_json))
+      render inertia: 'imports/Results', props: props
+    else
+      flash[:error] = t('.error')
+      redirect_to import_path(@import.id)
+    end
   end
 
   private
