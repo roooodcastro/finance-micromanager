@@ -61,16 +61,6 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
     let(:expected_preview_data) do
       [
         {
-          id:                   '59c7ee34-04aa-5bd6-a72c-de812bdd128f',
-          original_import_name: 'Raw 1',
-          name:                 'Test 1',
-          transaction_date:     '2024-06-26',
-          amount:               -4.99,
-          wallet_id:            wallet.id,
-          action_id:            :import,
-          matches:              []
-        },
-        {
           id:                   '58462647-b77f-5276-a9c7-7cc529e2c583',
           original_import_name: 'Raw 2',
           name:                 'Test 2',
@@ -79,6 +69,16 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
           wallet_id:            wallet.id,
           action_id:            :match,
           matches:              [{ transaction: matched_transaction.as_json, match_score: 2 }]
+        },
+        {
+          id:                   '59c7ee34-04aa-5bd6-a72c-de812bdd128f',
+          original_import_name: 'Raw 1',
+          name:                 'Test 1',
+          transaction_date:     '2024-06-26',
+          amount:               -4.99,
+          wallet_id:            wallet.id,
+          action_id:            :import,
+          matches:              []
         },
         {
           id:                   '4d3c5190-3081-52f2-852e-a829a8e2f199',
