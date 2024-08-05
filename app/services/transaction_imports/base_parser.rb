@@ -5,8 +5,9 @@ module TransactionImports
     attr_reader :import
 
     PARSER_CLASSES = {
-      ptsb: ::TransactionImports::Parsers::PTSB,
-      n26:  ::TransactionImports::Parsers::N26
+      ptsb:    ::TransactionImports::Parsers::PTSB,
+      n26:     ::TransactionImports::Parsers::N26,
+      revolut: ::TransactionImports::Parsers::Revolut
     }.freeze
 
     def self.generate_preview(import)

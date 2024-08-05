@@ -1,0 +1,4 @@
+Type,Product,Started Date,Completed Date,Description,Amount,Fee,Currency,State,Balance
+TRANSFER,Current,2024-07-30 07:17:02,2024-07-30 07:17:02,From My Friend,10.00,0.00,EUR,COMPLETED,0
+CARD_PAYMENT,Current,2024-07-26 21:08,2024-07-27 06:18,Supermarket,-25.6,0,EUR,COMPLETED,0
+CARD_PAYMENT,Current,2024-07-26 21:08,2024-07-27 06:18,Car Parking,-2.0,0,EUR,FAILED,0

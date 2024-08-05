@@ -29,6 +29,12 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
       it { is_expected.to be_an_instance_of(TransactionImports::Parsers::N26) }
     end
 
+    context 'when passing an import for Revolut' do
+      let(:source) { :revolut }
+
+      it { is_expected.to be_an_instance_of(TransactionImports::Parsers::Revolut) }
+    end
+
     context 'when passing an import for an unsupported source' do
       let(:source) { :ptsb }
 
