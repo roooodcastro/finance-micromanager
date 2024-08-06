@@ -61,7 +61,7 @@ class ImportsController < AbstractAuthenticatedController
   def update_import_params
     transaction_ids   = params[:transactions].keys
     permit_attributes = transaction_ids.map do |id|
-      { id => %i[name original_import_name amount transaction_date action_id category_id match_transaction_id] }
+      { id => %i[name transaction_date action_id category_id match_transaction_id] }
     end
     params.require(:transactions).permit(permit_attributes)
   end

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 module TransactionPredictions
-  class Rules
+  class RulesValidator
     attr_reader :rules_json
 
-    OPERATORS = %w[contains equals].freeze
+    OPERATOR_CONTAINS = 'contains'
+    OPERATOR_EQUALS   = 'equals'
+    OPERATORS         = [OPERATOR_CONTAINS, OPERATOR_EQUALS].freeze
 
     # rubocop:disable Layout/HashAlignment
     JSON_SCHEMA = {
