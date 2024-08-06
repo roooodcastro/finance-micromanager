@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe TransactionPredictions::Rules do
+RSpec.describe TransactionPredictions::RulesValidator do
   let(:rules) { described_class.new(rules_json.to_json) }
 
   describe '.valid?' do

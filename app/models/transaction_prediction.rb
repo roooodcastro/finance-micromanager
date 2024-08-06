@@ -12,7 +12,7 @@ class TransactionPrediction < ApplicationRecord
   def rules
     return if rules_json.blank?
 
-    @rules ||= TransactionPredictions::Rules.new(rules_json)
+    @rules ||= TransactionPredictions::RulesValidator.new(rules_json)
   end
 
   def rules_json=(value)

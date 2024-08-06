@@ -26,11 +26,15 @@ module TransactionImports
     end
 
     def generate_preview
-      import_transactions = parse.compact.sort.reverse
+      import_transactions               = parse.compact.sort.reverse
+      transaction_predictions_processor = TransactionPredictions::RulesProcessor.new(import.profile)
+
       import_transactions.each do |import_transaction|
         import_transaction.find_matches(transactions_to_match)
         import_transaction.revert_to_default_action(minimum_transaction_date)
+        transaction_predictions_processor.process_transaction(import_transaction, %w[name category_id])
       end
+
       import_transactions.map(&:as_json)
     end
 

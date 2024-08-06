@@ -84,7 +84,8 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
           amount:               -4.99,
           wallet_id:            wallet.id,
           action_id:            :import,
-          matches:              []
+          matches:              [],
+          category_id:          '047cf511-256c-45ca-a0d6-e8b4d589742c'
         },
         {
           id:                   '4d3c5190-3081-52f2-852e-a829a8e2f199',
@@ -99,8 +100,31 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
       ]
     end
 
+    let(:transaction_prediction_rules_json) do
+      {
+        conditions: [
+          {
+            operator: :contains,
+            column:   'name',
+            value:    'Test 1'
+          }
+        ],
+        actions:    [
+          {
+            column: 'category_id',
+            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
+          },
+          {
+            column: 'wallet_id',
+            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
+          }
+        ]
+      }
+    end
+
     before do
       create(:reconciliation, :finished, profile: profile, date: '2024-06-24')
+      create(:transaction_prediction, profile: profile, rules_json: transaction_prediction_rules_json.to_json)
       profile.reload
       allow(parser).to receive(:parse).and_return(parsed_transactions)
     end

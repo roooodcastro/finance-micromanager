@@ -9,7 +9,7 @@ RSpec.describe TransactionPrediction do
     context 'when rules_json is present' do
       let(:rules_json) { { conditions: [] }.to_json }
 
-      it { is_expected.to be_an_instance_of(TransactionPredictions::Rules) }
+      it { is_expected.to be_an_instance_of(TransactionPredictions::RulesValidator) }
     end
 
     context 'when rules_json is absent' do
