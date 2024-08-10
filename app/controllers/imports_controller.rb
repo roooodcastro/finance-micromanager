@@ -26,7 +26,7 @@ class ImportsController < AbstractAuthenticatedController
     import = Current.profile.imports.new(import_params)
 
     if import.save
-      render json: camelize_props(message: t('.success'))
+      render json: camelize_props(message: t('.success'), import_id: import.id)
     else
       error = import.errors.full_messages.join(', ')
       render json:   camelize_props(message: t('.error', error:)),

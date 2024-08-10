@@ -97,10 +97,12 @@ RSpec.describe ImportsController do
     context 'when parameters are present and valid for an import' do
       let(:params) { { source_file: source_file, source: source, wallet_id: wallet.id } }
 
-      let(:expected_json) { { 'message' => 'File was successfully uploaded, import started.' } }
-
       it 'creates a new import and renders json' do
         expect { create_request }.to change { Import.count }.by(1)
+        expected_json = {
+          'message'  => 'File was successfully uploaded, import started.',
+          'importId' => Import.last.id
+        }
         expect(json_response).to eq(CamelizeProps.call(expected_json))
       end
     end

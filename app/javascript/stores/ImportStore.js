@@ -73,6 +73,7 @@ export default defineBaseApiStore('import', {
 
       return returnPromise;
     },
+
     updatePreviewData(transactionId, data) {
       this.previewData.forEach((transaction) => {
         if (transaction.id !== transactionId) {

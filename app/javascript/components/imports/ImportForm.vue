@@ -125,7 +125,7 @@ export default {
 
       importStore
         .create({ ...importObject.value, sourceFile: file })
-        .then(() => window.location.href = importsApi.index.path())
+        .then((response) => window.location.href = importsApi.show.path({ id: response.importId }))
         .catch(() => loading.value = false)
     };
 
