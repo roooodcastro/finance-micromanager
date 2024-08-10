@@ -59,7 +59,7 @@ RSpec.describe TransactionPredictions::RulesProcessor do
     end
 
     context 'when the transaction satisfies the prediction rule equals condition' do
-      let(:transaction_name) { 'SpecificName' }
+      let(:transaction_name) { 'SpEcIficNaMe' }
 
       it 'changes the category_id and wallet_id of the transaction' do
         expect { process_transaction }
@@ -71,7 +71,7 @@ RSpec.describe TransactionPredictions::RulesProcessor do
     end
 
     context 'when the transaction satisfies the prediction rule contains condition' do
-      let(:transaction_name) { 'GenericName' }
+      let(:transaction_name) { 'GeNeRiCNaMe' }
 
       it 'changes the category_id and wallet_id of the transaction' do
         expect { process_transaction }
