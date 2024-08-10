@@ -24,7 +24,7 @@
           :value="transaction.name"
           class="form-control"
           required
-          @change="handleNameChange(transaction.id, $event)"
+          @input="handleNameChange(transaction.id, $event)"
         >
       </div>
       <div
@@ -103,6 +103,8 @@ import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useImportStore from '~/stores/ImportStore.js';
+import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
+import { RulesProcessor } from '~/lib/transaction_predictions/RulesProcessor.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import {
@@ -137,9 +139,12 @@ export default {
     const importStore = useImportStore();
     const profileStore = useProfileStore();
     const categoryStore = useCategoryStore();
+    const transactionPredictionStore = useTransactionPredictionStore();
+
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
+    const { transactionPredictions } = storeToRefs(transactionPredictionStore);
 
     const isEditable = computed(() => props.transaction.actionId === IMPORT_ACTION_IMPORT);
     const isDateEditable = computed(() => props.transaction.actionId === IMPORT_ACTION_BLOCK);
@@ -154,16 +159,27 @@ export default {
       categoryStore.fetchCollection();
     }
 
+    const processTransactionPredictions = () => {
+      const transaction = {...importStore.getPreviewData(props.transaction.id)};
+      if (transaction.actionId === IMPORT_ACTION_IMPORT) {
+        const result = new RulesProcessor(transaction).processTransaction();
+        importStore.updatePreviewData(props.transaction.id, { transactionDate: result.transactionDate, categoryId: result.categoryId });
+      }
+    };
+
     const handleNameChange = (transactionId, event) => {
       importStore.updatePreviewData(transactionId, { name: event.target.value });
+      processTransactionPredictions();
     };
 
     const handleDateChange = (transactionId, event) => {
       importStore.updatePreviewData(transactionId, { transactionDate: event.target.value });
+      processTransactionPredictions();
     };
 
     const handleCategoryChange = (transactionId, categoryId) => {
       importStore.updatePreviewData(transactionId, { categoryId });
+      processTransactionPredictions();
     };
 
     const handleActionChange = (transactionId, actionId) => {
@@ -187,6 +203,10 @@ export default {
     onMounted(() => {
       if (props.transaction.actionId === IMPORT_ACTION_MATCH) {
         handleMatchTransactionChange(props.transaction.id, 0);
+      }
+
+      if (!transactionPredictions.value.length) {
+        transactionPredictionStore.fetchCollection();
       }
     });
 

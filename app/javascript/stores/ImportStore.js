@@ -21,6 +21,12 @@ export default defineBaseApiStore('import', {
     fetchParams: {},
   },
 
+  getters: {
+    getPreviewData: (state) => {
+      return transactionId => state.previewData.find(transaction => transaction.id === transactionId);
+    },
+  },
+
   actions: {
     loadPreviewDataFromProps(previewData) {
       this.originalPreviewData = previewData;
