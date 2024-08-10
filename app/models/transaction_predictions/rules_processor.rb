@@ -25,12 +25,12 @@ module TransactionPredictions
 
     def satisfy_conditions?(transaction, conditions_hash)
       conditions_results = conditions_hash.map do |condition|
-        field_value = transaction.public_send(condition[:column])
+        field_value = transaction.public_send(condition[:column]).downcase
 
         if condition[:operator] == TransactionPredictions::RulesValidator::OPERATOR_CONTAINS
-          field_value.include?(condition[:value])
+          field_value.include?(condition[:value].downcase)
         elsif condition[:operator] == TransactionPredictions::RulesValidator::OPERATOR_EQUALS
-          field_value == condition[:value]
+          field_value == condition[:value].downcase
         end
       end
 

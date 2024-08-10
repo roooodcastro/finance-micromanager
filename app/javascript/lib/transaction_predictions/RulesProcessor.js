@@ -19,9 +19,9 @@ export class RulesProcessor {
       const conditionResults = rulesParser.conditions.map((condition) => {
         const columnName = _.camelCase(condition.column);
         if (condition.operator === CONTAINS_OPERATOR) {
-          return this.transaction[columnName]?.includes(condition.value);
+          return this.transaction[columnName]?.toLowerCase()?.includes(condition.value?.toLowerCase());
         } else if (condition.operator === EQUALS_OPERATOR) {
-          return this.transaction[columnName]?.toString() === condition.value.toString();
+          return this.transaction[columnName]?.toString().toLowerCase() === condition.value.toString().toLowerCase();
         }
         return false;
       });
