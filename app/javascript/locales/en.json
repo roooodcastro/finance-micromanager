@@ -469,7 +469,12 @@
         "error": "Import could not be started: %{error}",
         "success": "File was successfully uploaded, import started."
       },
+      "destroy": {
+        "already_finished": "Cannot cancel this import because it has already been finished.",
+        "success": "Import was successfully cancelled."
+      },
       "update": {
+        "error": "Import could not be processed. Please try again.",
         "success": "Import was successfully processed."
       }
     },

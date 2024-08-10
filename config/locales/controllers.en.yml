@@ -23,6 +23,10 @@ en:
       error: 'Import could not be started: %{error}'
     update:
       success: 'Import was successfully processed.'
+      error: 'Import could not be processed. Please try again.'
+    destroy:
+      success: 'Import was successfully cancelled.'
+      already_finished: 'Cannot cancel this import because it has already been finished.'
 
   import_names:
     create:

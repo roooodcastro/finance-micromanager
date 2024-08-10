@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImportsController < AbstractAuthenticatedController
-  before_action :set_import, only: %i[show update]
+  before_action :set_import, only: %i[show update destroy]
   def index
     imports = Current.profile.imports.order(created_at: :desc)
     props   = camelize_props(imports: imports.as_json)
@@ -46,6 +46,16 @@ class ImportsController < AbstractAuthenticatedController
       flash[:error] = t('.error')
       redirect_to import_path(@import.id)
     end
+  end
+
+  def destroy
+    if @import.finished?
+      return render json: camelize_props(message: t('.already_finished')), status: :unprocessable_entity
+    end
+
+    @import.cancelled!
+
+    render json: camelize_props(message: t('.success'))
   end
 
   private
