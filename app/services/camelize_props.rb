@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-class CamelizeProps
+class CamelizeProps < ApplicationService
   attr_reader :props, :options
 
-  def self.call(props, options = {})
-    new(props, options).call
-  end
-
-  def initialize(props, options)
+  def initialize(props, options = {})
     @props   = props
     @options = options
   end

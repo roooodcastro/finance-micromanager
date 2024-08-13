@@ -873,6 +873,9 @@
           "match": "Combinar",
           "skip": "Ignorar"
         },
+        "confirmation": {
+          "cancel": "Tem certeza de que deseja cancelar esta importação? Esta ação não poderá ser desfeita."
+        },
         "errors": {
           "cannot_find_transaction_to_match": "Transação a combinar não encontrada",
           "invalid_transaction_to_import": "Transação inválida: %{error}",

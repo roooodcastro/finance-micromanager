@@ -13,7 +13,7 @@ class Import < ApplicationRecord
   enum source: { ptsb: 'ptsb', n26: 'n26', revolut: 'revolut', sheets: 'sheets' }
   enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
 
-  validates :source, presence: true
+  validates :source, presence: true, unless: :cancelled?
   validates :source_file,
             attached:     true,
             content_type: %w[text/csv application/csv application/xls application/vnd.ms-excel],

@@ -50,12 +50,13 @@ class ImportsController < AbstractAuthenticatedController
 
   def destroy
     if @import.finished?
-      return render json: camelize_props(message: t('.already_finished')), status: :unprocessable_entity
+      flash[:error] = t('.already_finished')
+    else
+      TransactionImports::CancelImport.call(@import)
+      flash[:success] = t('.success')
     end
 
-    @import.cancelled!
-
-    render json: camelize_props(message: t('.success'))
+    redirect_to @import
   end
 
   private

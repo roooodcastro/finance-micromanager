@@ -4,10 +4,6 @@ module Transactions
   class SyncProfileAndWalletBalances < ApplicationService
     attr_reader :profile
 
-    def self.call(profile:)
-      new(profile:).call
-    end
-
     def initialize(profile:)
       super()
       @profile = profile

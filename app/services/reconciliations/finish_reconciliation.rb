@@ -6,10 +6,6 @@ module Reconciliations
 
     delegate :profile, to: :reconciliation
 
-    def self.call(reconciliation)
-      new(reconciliation).call
-    end
-
     def initialize(reconciliation)
       super()
       @reconciliation = reconciliation

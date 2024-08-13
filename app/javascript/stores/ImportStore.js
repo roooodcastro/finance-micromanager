@@ -1,10 +1,11 @@
+import { _ } from 'lodash';
+
+import I18n from '~/utils/I18n.js';
+import Csrf from '~/utils/Csrf.js';
 import { imports as importsApi } from '~/api/all.js';
 import { IMPORT_FORM_ID } from '~/utils/Constants.js';
-import I18n from '~/utils/I18n.js';
-import useNotificationStore from '~/stores/NotificationStore.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
-import Csrf from '~/utils/Csrf.js';
-import { _ } from 'lodash';
+import useNotificationStore from '~/stores/NotificationStore.js';
 
 
 export default defineBaseApiStore('import', {
@@ -22,10 +23,12 @@ export default defineBaseApiStore('import', {
   },
 
   actions: {
-    loadPreviewDataFromProps(previewData) {
+    loadPreviewDataFromProps(importObject, previewData) {
       this.originalPreviewData = previewData;
       this.previewData = previewData;
+      this.import = importObject;
     },
+
     create(record, options = {}) {
       const notificationStore = useNotificationStore();
 
@@ -73,6 +76,7 @@ export default defineBaseApiStore('import', {
 
       return returnPromise;
     },
+
     updatePreviewData(transactionId, data) {
       this.previewData.forEach((transaction) => {
         if (transaction.id !== transactionId) {

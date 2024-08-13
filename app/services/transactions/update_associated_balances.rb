@@ -4,10 +4,6 @@ module Transactions
   class UpdateAssociatedBalances < ApplicationService
     attr_reader :transaction, :operation
 
-    def self.call(transaction, operation)
-      new(transaction, operation).call
-    end
-
     def initialize(transaction, operation)
       super()
       @transaction = transaction

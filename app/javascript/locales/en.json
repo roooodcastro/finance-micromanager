@@ -805,6 +805,9 @@
           "match": "Match",
           "skip": "Skip"
         },
+        "confirmation": {
+          "cancel": "Are you sure you want to cancel this import? This action cannot be undone."
+        },
         "errors": {
           "cannot_find_transaction_to_match": "Cannot find matched transaction",
           "invalid_transaction_to_import": "Invalid transaction: %{error}",
