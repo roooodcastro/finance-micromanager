@@ -71,6 +71,8 @@ pt-BR:
         import: Importar
         skip: Ignorar
         match: Combinar
+      confirmation:
+        cancel: Tem certeza de que deseja cancelar esta importação? Esta ação não poderá ser desfeita.
       errors:
         reason_label: Motivo
         invalid_transaction_to_import: "Transação inválida: %{error}"

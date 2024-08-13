@@ -49,7 +49,7 @@ export default {
     const importsPath = importsApi.index.path();
 
     const importStore = useImportStore();
-    importStore.loadPreviewDataFromProps(props.previewData);
+    importStore.loadPreviewDataFromProps(props.importObject, props.previewData);
 
     return {
       t,

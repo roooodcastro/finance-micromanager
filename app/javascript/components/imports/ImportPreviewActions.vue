@@ -10,30 +10,59 @@
       {{ t('submit_button') }}
     </button>
 
-    <a
-      href="#"
-      class="btn btn-outline-secondary"
+    <RailsForm
+      method="DELETE"
+      :action="destroyPath"
+      @submit.prevent="submitCancelForm"
     >
-      <FontAwesomeIcon icon="ban" />
-      {{ t('cancel_button') }}
-    </a>
+      <button
+        type="submit"
+        class="btn btn-outline-secondary"
+      >
+        <FontAwesomeIcon icon="ban" />
+        {{ t('cancel_button') }}
+      </button>
+    </RailsForm>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
+import { imports as importsApi } from '~/api/all.js';
+import useImportStore from '~/stores/ImportStore.js';
+import useModalStore from '~/stores/ModalStore.js';
+
+import RailsForm from '~/components/rails/RailsForm.vue';
 
 export default {
   components: {
     FontAwesomeIcon,
+    RailsForm,
   },
 
   setup() {
     const t = I18n.scopedTranslator('views.imports.preview');
 
-    return { t };
+    const importStore = useImportStore();
+    const modalStore = useModalStore();
+    const { import: importObject } = storeToRefs(importStore);
+
+    const destroyPath = importsApi.destroy.path({ id: importObject.value.id });
+
+    const submitCancelForm = (event) => {
+      modalStore
+        .showConfirmationDialog({ message: I18n.t('views.imports.confirmation.cancel') })
+        .then(() => event.target.submit());
+    };
+
+    return {
+      t,
+      destroyPath,
+      submitCancelForm,
+    };
   },
 };
 </script>

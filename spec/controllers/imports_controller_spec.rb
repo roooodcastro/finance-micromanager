@@ -336,4 +336,28 @@ RSpec.describe ImportsController do
       end
     end
   end
+
+  describe 'DELETE destroy', :aggregate_errors do
+    subject(:destroy_request) { delete :destroy, params: { id: import.id } }
+
+    context 'when the import is in progress' do
+      let!(:import) { create(:import, :ptsb, profile:) }
+
+      it 'sets the import status as cancelled' do
+        expect { destroy_request }.to change { import.reload.status }.to('cancelled')
+        expect(flash[:success]).to eq('Import was successfully cancelled.')
+        expect(response).to redirect_to(import_path(import.id))
+      end
+    end
+
+    context 'when the import is already finished' do
+      let!(:import) { create(:import, :finished, :ptsb, profile:) }
+
+      it 'does not change the status' do
+        expect { destroy_request }.not_to change { import.reload.status }
+        expect(flash[:error]).to eq('Cannot cancel this import because it has already been finished.')
+        expect(response).to redirect_to(import_path(import.id))
+      end
+    end
+  end
 end

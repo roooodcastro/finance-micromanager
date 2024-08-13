@@ -24,6 +24,9 @@ pt-BR:
     update:
       success: 'Importação processada com sucesso.'
       error: 'Importação não pode ser processada. Por favor tente novamente.'
+    destroy:
+      success: 'Importação cancelada com sucesso.'
+      already_finished: 'Não foi possível cancelar esta importação pois ela já foi concluída.'
 
   import_names:
     create:
