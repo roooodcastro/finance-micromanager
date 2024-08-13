@@ -14,8 +14,7 @@
         :key="`${category.id}-${rangeKey}`"
       >
         <CategorySummaryListItem
-          v-if="!!indexedSummaries[category.id]"
-          :summaries="indexedSummaries[category.id]"
+          :summaries="indexedSummaries[category.id] ?? []"
           :category="category"
         />
       </template>

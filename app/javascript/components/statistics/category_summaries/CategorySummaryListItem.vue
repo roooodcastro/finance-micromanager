@@ -94,10 +94,12 @@ export default {
 
     const showCategoryPath = (categoryId) => categoriesApi.show.path({ id: categoryId });
 
-    const mainCategorySummary = computed(() => props.summaries.filter(summary => !summary.subcategoryId)[0]);
+    const mainCategorySummary = computed(() => props.summaries.filter(summary => !summary.subcategoryId)?.at(0));
     const subcategorySummaries = computed(() => props.summaries.filter(summary => summary.subcategoryId));
     const totalSum = computed(() => _.sumBy(props.summaries, summary => summary.debitSum + summary.creditSum));
-    const rootCategorySum = computed(() => mainCategorySummary.value.debitSum + mainCategorySummary.value.creditSum);
+    const rootCategorySum = computed(() => {
+      return mainCategorySummary.value ? mainCategorySummary.value.debitSum + mainCategorySummary.value.creditSum : 0;
+    });
 
     const summarySumFor = (subcategory) => {
       const summary = props.summaries.find(summary => summary.subcategoryId === subcategory.id);
