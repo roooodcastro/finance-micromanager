@@ -88,10 +88,15 @@ module TransactionImports
     end
 
     def match_score_for(transaction)
-      return DOUBLE_IMPORT_MATCH_SCORE if transaction.import_id.present? && transaction.import_id != import.id
       return EXACT_MATCH_SCORE if id == transaction.import_preview_id
 
-      name_match_score(transaction) + date_match_score(transaction) + amount_match_score(transaction)
+      match_score = name_match_score(transaction) + date_match_score(transaction) + amount_match_score(transaction)
+
+      if match_score >= MATCH_SCORE_THRESHOLD && transaction.import_id.present? && transaction.import_id != import.id
+        return DOUBLE_IMPORT_MATCH_SCORE
+      end
+
+      match_score
     end
 
     private
