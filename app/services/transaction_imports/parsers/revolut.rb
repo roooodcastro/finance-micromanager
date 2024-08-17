@@ -19,7 +19,7 @@ module TransactionImports
           wallet_id            = import.wallet.id
 
           result << TransactionImports::ImportTransaction.new(
-            original_import_name:, name:, transaction_date:, amount:, import_file_index:, wallet_id:
+            import:, original_import_name:, name:, transaction_date:, amount:, import_file_index:, wallet_id:
           )
         end
       end

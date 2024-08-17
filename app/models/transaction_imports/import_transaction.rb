@@ -5,7 +5,7 @@ module TransactionImports
     include ActiveModel::Model
     include Comparable
 
-    attr_accessor :import_file_index, :original_import_name, :name, :transaction_date, :amount, :category_id,
+    attr_accessor :import, :import_file_index, :original_import_name, :name, :transaction_date, :amount, :category_id,
                   :wallet_id, :action_id, :matches, :match_transaction_id
 
     # Maximum difference in days between two dates so they can be considered to have a half match
@@ -15,7 +15,8 @@ module TransactionImports
     # Minimum match score so that a transaction can be considered to match with this import transaction
     MATCH_SCORE_THRESHOLD     = 1.5
 
-    EXACT_MATCH_SCORE = 5
+    DOUBLE_IMPORT_MATCH_SCORE = -1
+    EXACT_MATCH_SCORE         = 5
 
     def initialize(*)
       super
@@ -54,7 +55,8 @@ module TransactionImports
 
     def find_matches(transactions)
       @matches = transactions.each_with_object([]) do |transaction, result|
-        match_score = match_score_for(transaction)
+        match_score    = match_score_for(transaction)
+        self.action_id = :skip if match_score == DOUBLE_IMPORT_MATCH_SCORE
         next if match_score < MATCH_SCORE_THRESHOLD
 
         result << { transaction:, match_score: }
@@ -62,14 +64,14 @@ module TransactionImports
 
       @matches.sort_by! { |match| -match[:match_score] }
 
-      self.action_id = :match if matches.present?
+      self.action_id = :match if matches.present? && action_id != :skip
     end
 
     def revert_to_default_action(minimum_date)
       return self.action_id = :block if minimum_date && transaction_date < minimum_date
       return self.action_id = :match if matches.present?
 
-      self.action_id = :import
+      self.action_id = :import unless action_id == :skip
     end
 
     def ==(other)
@@ -86,6 +88,7 @@ module TransactionImports
     end
 
     def match_score_for(transaction)
+      return DOUBLE_IMPORT_MATCH_SCORE if transaction.import_id.present? && transaction.import_id != import.id
       return EXACT_MATCH_SCORE if id == transaction.import_preview_id
 
       name_match_score(transaction) + date_match_score(transaction) + amount_match_score(transaction)
