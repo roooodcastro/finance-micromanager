@@ -4,8 +4,11 @@ RSpec.describe TransactionImports::ImportTransaction do
   describe '#new' do
     subject(:import_transaction) { described_class.new(transaction_attributes) }
 
+    let(:import) { create(:import) }
+
     let(:transaction_attributes) do
       {
+        import:               import,
         original_import_name: 'abc',
         transaction_date:     '2024-07-23',
         import_file_index:    42,
@@ -25,8 +28,11 @@ RSpec.describe TransactionImports::ImportTransaction do
       import_transaction.matches
     end
 
+    let(:import) { create(:import) }
+
     let(:import_transaction) do
-      described_class.new(name: 'Supermarket', amount: 5.00, transaction_date: '2024-06-22', import_file_index: 2)
+      described_class.new(import: import, name: 'Supermarket', amount: 5.00,
+                          transaction_date: '2024-06-22', import_file_index: 2)
     end
 
     context 'when there are no matches' do
@@ -96,6 +102,21 @@ RSpec.describe TransactionImports::ImportTransaction do
                                 { transaction: high_matched_transaction, match_score: 2 },
                                 { transaction: low_matched_transaction, match_score: 1.5 }
                               ])
+      end
+    end
+
+    context 'when a transaction matches with a transaction from another import' do
+      let(:transactions) { [matched_transaction] }
+      let(:other_import) { create(:import) }
+      let!(:matched_transaction) do
+        create(:transaction, name: 'Supermarket', transaction_date: '2024-06-20', import: other_import)
+      end
+
+      it { is_expected.to eq([]) }
+
+      it 'sets the action_id to skip' do
+        matches
+        expect(import_transaction.action_id).to eq(:skip)
       end
     end
   end
