@@ -9,6 +9,8 @@ class Import < ApplicationRecord
   belongs_to :wallet
 
   has_many :transactions, dependent: :restrict_with_exception
+  has_many :import_transactions, class_name: 'TransactionImports::ImportTransaction',
+                                 dependent:  :restrict_with_exception
 
   enum source: { ptsb: 'ptsb', n26: 'n26', revolut: 'revolut', sheets: 'sheets' }
   enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
