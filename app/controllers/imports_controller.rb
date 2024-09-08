@@ -70,9 +70,16 @@ class ImportsController < AbstractAuthenticatedController
   end
 
   def render_preview
+    import_transactions = TransactionImports::ImportTransaction
+                          .where(import: @import)
+                          .includes(:wallet, :category, :subcategory)
+                          .order(transaction_date: :desc, name: :asc)
+    TransactionImports::TransactionsMatcher.call(@import, import_transactions)
+    TransactionImports::DefaultActionSetter.call(@import, import_transactions)
+
     props = camelize_props(
       import_object:       @import.as_json,
-      import_transactions: TransactionImports::ImportTransaction.where(import: @import).as_json
+      import_transactions: import_transactions.as_json
     )
     render inertia: 'imports/Preview', props: props
   end

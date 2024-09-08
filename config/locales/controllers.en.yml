@@ -27,6 +27,10 @@ en:
     destroy:
       success: 'Import was successfully cancelled.'
       already_finished: 'Cannot cancel this import because it has already been finished.'
+    import_transactions:
+      update:
+        success: 'Saved'
+        error: 'Preview transaction could not be updated: %{error}'
 
   import_names:
     create:

@@ -11,10 +11,12 @@ module TransactionImports
 
     def call
       import_transactions.each do |import_transaction|
+        previous_action           = import_transaction.action
         import_transaction.action = action_for(import_transaction)
         next unless import_transaction.match?
 
         import_transaction.match_transaction = top_match_for(import_transaction)[:transaction]
+        import_transaction.save if previous_action == TransactionImports::ImportTransaction.actions[:import]
       end
 
       import_transactions
@@ -23,6 +25,7 @@ module TransactionImports
     private
 
     def action_for(import_transaction)
+      return :skip if import_transaction.skip?
       return :block if minimum_transaction_date && import_transaction.transaction_date < minimum_transaction_date
 
       top_match = top_match_for(import_transaction)

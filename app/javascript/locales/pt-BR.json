@@ -528,6 +528,12 @@
         "already_finished": "Não foi possível cancelar esta importação pois ela já foi concluída.",
         "success": "Importação cancelada com sucesso."
       },
+      "import_transactions": {
+        "update": {
+          "error": "Prévia da transação não pode ser atualizada: %{error}",
+          "success": "Salvo"
+        }
+      },
       "update": {
         "error": "Importação não pode ser processada. Por favor tente novamente.",
         "success": "Importação processada com sucesso."

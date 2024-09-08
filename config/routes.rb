@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
     namespace :imports do
       resource :setting, only: %i[show]
+      resources :import_transactions, only: %i[update]
     end
 
     resources :imports, only: %i[index show create update destroy]
@@ -63,18 +64,21 @@ Rails.application.routes.draw do
     resources :transactions, except: %i[show new edit] do
       patch :update_all, on: :collection
     end
+
     resources :transaction_automations, only: %i[index show create update destroy] do
       member do
         delete :disable
         patch :reenable
       end
     end
+
     resources :transaction_predictions, only: %i[index show new edit create update destroy] do
       member do
         delete :disable
         patch :reenable
       end
     end
+
     resources :wallets, only: %i[index create update destroy] do
       patch :reenable, on: :member
     end

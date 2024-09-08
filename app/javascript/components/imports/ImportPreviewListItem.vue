@@ -1,6 +1,6 @@
 <template>
   <tr
-    :class="`table-${importActionVariants[transaction.actionId]} side-strip side-strip-${importActionVariants[transaction.actionId]}`"
+    :class="`table-${importActionVariants[transaction.action]} side-strip side-strip-${importActionVariants[transaction.action]}`"
   >
     <td class="align-middle ps-3">
       <div
@@ -24,7 +24,7 @@
           :value="transaction.name"
           class="form-control"
           required
-          @input="handleNameChange(transaction.id, $event)"
+          @change="handleNameChange(transaction.id, $event)"
         >
       </div>
       <div
@@ -58,7 +58,7 @@
     <td class="align-middle">
       <CategoriesSelect
         v-if="!isBlocked"
-        :value="transaction.categoryId"
+        :value="[transaction.categoryId, transaction.subcategoryId].filter(x => x).join('|')"
         :placeholder="t('category_placeholder')"
         :name="`transactions[${transaction.id}][category_id]`"
         :disabled="!isEditable"
@@ -75,9 +75,9 @@
       >
       <ImportActionsSelect
         v-if="!isBlocked"
-        :value="transaction.actionId"
+        :value="transaction.action"
         :allow-match="!!transaction.matches.length"
-        :name="`transactions[${transaction.id}][action_id]`"
+        :name="`transactions[${transaction.id}][action]`"
         :disabled="isBlocked"
         required
         @change="handleActionChange(transaction.id, $event)"
@@ -85,8 +85,8 @@
       <template v-else>
         <input
           type="hidden"
-          :name="`transactions[${transaction.id}][action_id]`"
-          :value="transaction.actionId"
+          :name="`transactions[${transaction.id}][action]`"
+          :value="transaction.action"
         >
         {{ t('blocked_label') }}
       </template>
@@ -145,11 +145,12 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
     const { transactionPredictions } = storeToRefs(transactionPredictionStore);
+    const { importTransactions } = storeToRefs(importStore);
 
-    const isEditable = computed(() => props.transaction.actionId === IMPORT_ACTION_IMPORT);
-    const isDateEditable = computed(() => props.transaction.actionId === IMPORT_ACTION_BLOCK);
-    const isBlocked = computed(() => props.transaction.actionId === IMPORT_ACTION_BLOCK);
-    const isMatch = computed(() => props.transaction.actionId === IMPORT_ACTION_MATCH);
+    const isEditable = computed(() => props.transaction.action === IMPORT_ACTION_IMPORT);
+    const isDateEditable = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
+    const isBlocked = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
+    const isMatch = computed(() => props.transaction.action === IMPORT_ACTION_MATCH);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
     const isSpend = computed(() => props.transaction.amount < 0);
     const isIncome = computed(() => props.transaction.amount > 0);
@@ -160,49 +161,55 @@ export default {
     }
 
     const processTransactionPredictions = () => {
-      const transaction = {...importStore.getPreviewData(props.transaction.id)};
-      if (transaction.actionId === IMPORT_ACTION_IMPORT) {
-        const result = new RulesProcessor(transaction).processTransaction();
-        importStore.updatePreviewData(props.transaction.id, { transactionDate: result.transactionDate, categoryId: result.categoryId });
+      const transaction = importTransactions.value.find(importTransaction => importTransaction.id === props.transaction.id);
+      if (transaction.action === IMPORT_ACTION_IMPORT) {
+        const result = new RulesProcessor({...transaction}).processTransaction();
+        if (!transaction.categoryId && !!result.categoryId) {
+          importStore.updateImportTransaction({ id: props.transaction.id, categoryId: result.categoryId });
+        }
       }
     };
 
     const handleNameChange = (transactionId, event) => {
-      importStore.updatePreviewData(transactionId, { name: event.target.value });
-      processTransactionPredictions();
+      importStore
+        .updateImportTransaction({ id: transactionId, name: event.target.value })
+        .then(processTransactionPredictions);
     };
 
     const handleDateChange = (transactionId, event) => {
-      importStore.updatePreviewData(transactionId, { transactionDate: event.target.value });
-      processTransactionPredictions();
+      importStore
+        .updateImportTransaction({ id: transactionId, transactionDate: event.target.value })
+        .then(processTransactionPredictions);
     };
 
     const handleCategoryChange = (transactionId, categoryId) => {
-      importStore.updatePreviewData(transactionId, { categoryId });
-      processTransactionPredictions();
+      importStore.updateImportTransaction({ id: transactionId, categoryId }).then(processTransactionPredictions);
     };
 
-    const handleActionChange = (transactionId, actionId) => {
-      importStore.updatePreviewData(transactionId, { actionId });
+    const handleActionChange = (transactionId, action) => {
+      importStore.updateImportTransaction({ id: transactionId, action }).then(() => {
+        processTransactionPredictions();
 
-      if (actionId === IMPORT_ACTION_MATCH) {
-        handleMatchTransactionChange(transactionId, 0);
-      }
+        if (action === IMPORT_ACTION_MATCH) {
+          handleMatchTransactionChange(transactionId, 0);
+        }
+      });
     };
 
     const handleMatchTransactionChange = (importPreviewTransactionId, matchTransactionIndex) => {
       const matchTransaction = props.transaction.matches[matchTransactionIndex].transaction;
-      importStore.updatePreviewData(importPreviewTransactionId, {
+      importStore.updateImportTransaction({
+        id: importPreviewTransactionId,
         name: matchTransaction.name,
         transactionDate: matchTransaction.transactionDate,
-        categoryId: matchTransaction.categoryId,
+        categoryId: [matchTransaction.categoryId, matchTransaction.subcategoryId].filter(x => x).join('|'),
         matchId: matchTransaction.id,
       });
     };
 
     onMounted(() => {
-      if (props.transaction.actionId === IMPORT_ACTION_MATCH) {
-        handleMatchTransactionChange(props.transaction.id, 0);
+      if (props.transaction.action === IMPORT_ACTION_MATCH) {
+        // handleMatchTransactionChange(props.transaction.id, 0);
       }
 
       if (!transactionPredictions.value.length) {

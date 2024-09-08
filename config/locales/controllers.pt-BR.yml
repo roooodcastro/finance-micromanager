@@ -27,6 +27,10 @@ pt-BR:
     destroy:
       success: 'Importação cancelada com sucesso.'
       already_finished: 'Não foi possível cancelar esta importação pois ela já foi concluída.'
+    import_transactions:
+      update:
+        success: 'Salvo'
+        error: 'Prévia da transação não pode ser atualizada: %{error}'
 
   import_names:
     create:

@@ -32,14 +32,10 @@ module TransactionImports
     private
 
     def filtered_import_transactions
-      import.import_transactions.select { |import_transaction| !import_transaction.skip? && !import_transaction.block? }
-    end
-
-    def sanitize_transaction_attributes(attributes)
-      attributes[:transaction_date] = Date.parse(attributes[:transaction_date]) if attributes[:transaction_date]
-      attributes[:action_id]        = attributes[:action_id].to_sym if attributes[:action_id].present?
-
-      attributes.slice(:name, :transaction_date, :action_id, :match_transaction_id, :category_id)
+      import
+        .import_transactions
+        .includes({ wallet: :profile }, :category, :subcategory)
+        .select { |import_transaction| !import_transaction.skip? && !import_transaction.block? }
     end
 
     def import_transaction!(import_transaction)

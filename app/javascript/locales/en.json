@@ -473,6 +473,12 @@
         "already_finished": "Cannot cancel this import because it has already been finished.",
         "success": "Import was successfully cancelled."
       },
+      "import_transactions": {
+        "update": {
+          "error": "Preview transaction could not be updated: %{error}",
+          "success": "Saved"
+        }
+      },
       "update": {
         "error": "Import could not be processed. Please try again.",
         "success": "Import was successfully processed."

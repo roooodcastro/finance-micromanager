@@ -27,7 +27,6 @@ class ImportNamesController < AbstractAuthenticatedController
 
   def update
     if @import_name.update(import_name_params)
-
       render json: camelize_props(message: t('.success'))
     else
       error = @import_name.error_messages

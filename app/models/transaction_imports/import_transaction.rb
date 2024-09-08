@@ -20,6 +20,17 @@ module TransactionImports
       import&.profile&.currency || Money.default_currency
     end
 
+    def as_json(*)
+      super(except: %w[created_at updated_at])
+        .merge(
+          'amount'      => amount.to_f,
+          'subcategory' => subcategory.as_json,
+          'wallet'      => wallet.as_json,
+          'category'    => category.as_json(include_subcategories: false),
+          'matches'     => matches
+        )
+    end
+
     def attributes_for_transaction
       {
         profile:           Current.profile,
@@ -27,9 +38,9 @@ module TransactionImports
         raw_import_name:   original_import_name,
         transaction_date:  transaction_date,
         amount:            amount,
-        category_id:       category_id,
-        subcategory_id:    subcategory_id,
-        wallet_id:         wallet_id,
+        category:          category,
+        subcategory:       subcategory,
+        wallet:            wallet,
         import_preview_id: id,
         updated_by:        Current.user
       }

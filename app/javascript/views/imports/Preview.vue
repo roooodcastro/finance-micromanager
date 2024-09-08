@@ -38,7 +38,7 @@ export default {
       type: Object,
       required: true,
     },
-    previewData: {
+    importTransactions: {
       type: Array,
       required: true,
     },
@@ -49,7 +49,7 @@ export default {
     const importsPath = importsApi.index.path();
 
     const importStore = useImportStore();
-    importStore.loadPreviewDataFromProps(props.importObject, props.previewData);
+    importStore.loadImportTransactionsFromProps(props.importObject, props.importTransactions);
 
     return {
       t,
