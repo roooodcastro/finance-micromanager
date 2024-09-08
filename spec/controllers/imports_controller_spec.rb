@@ -50,14 +50,14 @@ RSpec.describe ImportsController do
 
     context 'when the import is in progress' do
       let!(:import) { create(:import, :ptsb, :in_progress, profile:) }
-      let!(:import_transaction1) { create(:import_transaction, import:) }
-      let!(:import_transaction2) { create(:import_transaction, import:) }
+      let!(:import_transaction1) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
+      let!(:import_transaction2) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
 
       let(:expected_props) do
-        {
-          import_object:       CamelizeProps.call(import.as_json),
-          import_Transactions: [import_transaction1, import_transaction2].as_json
-        }
+        CamelizeProps.call(
+          import_object:       import.as_json,
+          import_transactions: [import_transaction1, import_transaction2].as_json
+        )
       end
 
       it 'renders the preview component' do
