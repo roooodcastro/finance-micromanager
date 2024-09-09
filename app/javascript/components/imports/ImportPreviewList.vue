@@ -1,6 +1,6 @@
 <template>
   <NoRecordsFound
-    v-if="!previewData.length"
+    v-if="!importTransactions.length"
     class="m-3"
   />
   <table
@@ -20,7 +20,7 @@
     </thead>
     <tbody>
       <template
-        v-for="transaction in previewData"
+        v-for="transaction in importTransactions"
         :key="transaction.id"
       >
         <ImportPreviewListItem :transaction="transaction" />
@@ -48,11 +48,11 @@ export default {
     const t = I18n.scopedTranslator('views.imports.preview');
 
     const importStore = useImportStore();
-    const { previewData } = storeToRefs(importStore);
+    const { importTransactions } = storeToRefs(importStore);
 
     return {
       t,
-      previewData,
+      importTransactions,
     };
   },
 };

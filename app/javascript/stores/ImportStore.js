@@ -2,7 +2,7 @@ import { _ } from 'lodash';
 
 import I18n from '~/utils/I18n.js';
 import Csrf from '~/utils/Csrf.js';
-import { imports as importsApi } from '~/api/all.js';
+import { imports as importsApi, importsImportTransactions as importTransactionsApi } from '~/api/all.js';
 import { IMPORT_FORM_ID } from '~/utils/Constants.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
@@ -17,21 +17,19 @@ export default defineBaseApiStore('import', {
   state: {
     imports: [],
     import: null,
-    previewData: [],
-    originalPreviewData: [],
+    importTransactions: [],
     fetchParams: {},
   },
 
   getters: {
-    getPreviewData: (state) => {
-      return transactionId => state.previewData.find(transaction => transaction.id === transactionId);
+    getImportTransaction: (state) => {
+      return id => state.importTransactions.find(transaction => transaction.id === id);
     },
   },
 
   actions: {
-    loadPreviewDataFromProps(importObject, previewData) {
-      this.originalPreviewData = previewData;
-      this.previewData = previewData;
+    loadImportTransactionsFromProps(importObject, importTransactions) {
+      this.importTransactions = importTransactions;
       this.import = importObject;
     },
 
@@ -83,14 +81,34 @@ export default defineBaseApiStore('import', {
       return returnPromise;
     },
 
-    updatePreviewData(transactionId, data) {
-      this.previewData.forEach((transaction) => {
-        if (transaction.id !== transactionId) {
-          return;
-        }
+    updateImportTransaction(importTransaction) {
+      const notificationStore = useNotificationStore();
 
-        Object.assign(transaction, data);
+      let responseResolve;
+      let responseReject;
+      const returnPromise = new Promise((resolve, reject) => {
+        responseResolve = resolve;
+        responseReject = reject;
       });
+
+      importTransactionsApi
+        .update({ params: { id: importTransaction.id }, data: { import_transaction: importTransaction } })
+        .then((response) => {
+          // console.log(response.message); TODO: give visual feedback that this happened
+          this.importTransactions = this.importTransactions.map((importTransaction) => {
+            if (importTransaction.id === response.importTransaction.id) {
+              return response.importTransaction;
+            } else {
+              return importTransaction;
+            }
+          });
+          responseResolve();
+        }).catch((error) => {
+          notificationStore.notify(error.body.message, 'danger');
+          responseReject(error);
+        });
+
+      return returnPromise;
     },
   },
 });

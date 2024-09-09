@@ -7,6 +7,7 @@ RSpec.describe ImportsController do
   before do
     sign_in user
     session[:current_profile_id] = profile.id
+    allow(Current).to receive_messages(profile:)
   end
 
   describe 'GET index', :travel_to_now do
@@ -47,20 +48,22 @@ RSpec.describe ImportsController do
   describe 'GET show', :inertia, :travel_to_now do
     subject(:show_request) { get :show, params: { id: import.id } }
 
-    before { show_request }
-
     context 'when the import is in progress' do
       let!(:import) { create(:import, :ptsb, :in_progress, profile:) }
+      let!(:import_transaction1) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
+      let!(:import_transaction2) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
 
       let(:expected_props) do
-        {
-          'importObject' => CamelizeProps.call(import.as_json)
-        }
+        CamelizeProps.call(
+          import_object:       import.as_json,
+          import_transactions: [import_transaction1, import_transaction2].as_json
+        )
       end
 
       it 'renders the preview component' do
+        show_request
         expect_inertia.to render_component('imports/Preview')
-        expect(inertia.props.deep_stringify_keys).to include(expected_props)
+        expect(inertia.props.deep_stringify_keys).to include(CamelizeProps.call(expected_props))
       end
     end
 
@@ -70,6 +73,7 @@ RSpec.describe ImportsController do
       let(:expected_props) { { 'importObject' => CamelizeProps.call(import.as_json) } }
 
       it 'renders the show component' do
+        show_request
         expect_inertia.to render_component('imports/Show')
         expect(inertia.props.deep_stringify_keys).to include(expected_props)
       end
@@ -81,6 +85,7 @@ RSpec.describe ImportsController do
       let(:expected_props) { { 'importObject' => CamelizeProps.call(import.as_json) } }
 
       it 'renders the show component' do
+        show_request
         expect_inertia.to render_component('imports/Show')
         expect(inertia.props.deep_stringify_keys).to include(expected_props)
       end
@@ -91,7 +96,7 @@ RSpec.describe ImportsController do
     subject(:create_request) { post :create, params: { import: params } }
 
     let(:source_file) { fixture_file_upload('n26.csv', 'text/csv') }
-    let(:source) { Import.sources.values.sample }
+    let(:source) { Import.sources[:n26] }
     let(:wallet) { create(:wallet, profile:) }
 
     context 'when parameters are present and valid for an import' do
@@ -122,7 +127,7 @@ RSpec.describe ImportsController do
   end
 
   describe 'PATCH update', :aggregate_errors do
-    subject(:update_request) { patch :update, params: { id: import.id, transactions: transactions } }
+    subject(:update_request) { patch :update, params: { id: import.id } }
 
     let(:import) { create(:import, :ptsb, :in_progress, profile:) }
     let(:category) { create(:category, profile:) }
@@ -133,18 +138,19 @@ RSpec.describe ImportsController do
     end
 
     context 'when a transaction is to be imported' do
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'import',
-            match_transaction_id: nil,
-            category_id:          [category.id, subcategory.id].join('|')
-          }
-        }
+      let!(:import_transaction) do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               :import,
+          category:             category,
+          subcategory:          subcategory
+        )
       end
 
       it 'imports the transaction and marks the import as complete' do
@@ -164,25 +170,26 @@ RSpec.describe ImportsController do
         expect(new_transaction.created_by).to eq(user)
         expect(new_transaction.updated_by).to eq(user)
         expect(new_transaction.import_id).to eq(import.id)
-        expect(new_transaction.import_preview_id).to eq('5863bc62-aa3b-5e47-b9ce-cfa9da69126a')
+        expect(new_transaction.import_preview_id).to eq(import_transaction.id)
         expect(new_transaction.wallet).to eq(import.wallet)
         expect(new_transaction.profile).to eq(profile)
       end
     end
 
     context 'when a transaction is to be skipped' do
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'skip',
-            match_transaction_id: nil,
-            category_id:          [category.id, subcategory.id].join('|')
-          }
-        }
+      before do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'skip',
+          category:             category,
+          subcategory:          subcategory
+        )
       end
 
       it 'does not import the transaction and marks the import as complete' do
@@ -196,18 +203,19 @@ RSpec.describe ImportsController do
     context 'when a transaction is to be matched' do
       let!(:existing_transaction) { create(:transaction, profile: profile, wallet: import.wallet) }
 
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'match',
-            match_transaction_id: existing_transaction.id,
-            category_id:          existing_transaction.category_id
-          }
-        }
+      let!(:import_transaction) do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'match',
+          match_transaction_id: existing_transaction.id,
+          category_id:          existing_transaction.category_id
+        )
       end
 
       it 'updates the existing transaction and marks the import as complete' do
@@ -222,25 +230,26 @@ RSpec.describe ImportsController do
         expect(existing_transaction.transaction_date).to eq(Date.parse('2023-05-03'))
         expect(existing_transaction.updated_by).to eq(user)
         expect(existing_transaction.import_id).to eq(import.id)
-        expect(existing_transaction.import_preview_id).to eq('5863bc62-aa3b-5e47-b9ce-cfa9da69126a')
+        expect(existing_transaction.import_preview_id).to eq(import_transaction.id)
         expect(existing_transaction.wallet).to eq(import.wallet)
         expect(existing_transaction.profile).to eq(profile)
       end
     end
 
     context 'when a transaction is to be blocked' do
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'block',
-            match_transaction_id: nil,
-            category_id:          [category.id, subcategory.id].join('|')
-          }
-        }
+      before do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'block',
+          category:             category,
+          subcategory:          subcategory
+        )
       end
 
       it 'does not import the transaction and marks the import as complete' do
@@ -252,18 +261,18 @@ RSpec.describe ImportsController do
     end
 
     context 'when the transaction to be imported is invalid' do
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'import',
-            match_transaction_id: nil,
-            category_id:          nil
-          }
-        }
+      before do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'import',
+          category_id:          nil
+        )
       end
 
       it 'does not import the transaction' do
@@ -271,27 +280,24 @@ RSpec.describe ImportsController do
           .to not_change { Transaction.count }
           .and change { import.reload.status }
           .to('finished')
-
-        # TODO: test for error message in props
       end
     end
 
     context 'when transaction to be imported is older than last reconciliation date' do
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'import',
-            match_transaction_id: nil,
-            category_id:          [category.id, subcategory.id].join('|')
-          }
-        }
-      end
-
       before do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'import',
+          category:             category,
+          subcategory:          subcategory
+        )
+
         create(:reconciliation, :finished, profile: profile, date: '2024-01-01')
         profile.reload
       end
@@ -301,27 +307,24 @@ RSpec.describe ImportsController do
           .to not_change { Transaction.count }
           .and change { import.reload.status }
           .to('finished')
-
-        # TODO: test for error message in props
       end
     end
 
     context 'when an unexpected error occurs' do
-      let(:transactions) do
-        {
-          '5863bc62-aa3b-5e47-b9ce-cfa9da69126a' => {
-            name:                 'Tesco',
-            original_import_name: 'CNC TESCO STORES 03/05 1',
-            amount:               -15.25,
-            transaction_date:     '2023-05-03',
-            action_id:            'import',
-            match_transaction_id: nil,
-            category_id:          [category.id, subcategory.id].join('|')
-          }
-        }
-      end
-
       before do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'import',
+          category:             category,
+          subcategory:          subcategory
+        )
+
         allow(TransactionImports::ImportActions::ImportTransaction)
           .to receive(:execute!)
           .and_raise(ActiveRecord::ActiveRecordError)
@@ -331,8 +334,6 @@ RSpec.describe ImportsController do
         expect { update_request }
           .to not_change { Transaction.count }
           .and not_change { import.reload.status }
-
-        # TODO: test for error message in props
       end
     end
   end

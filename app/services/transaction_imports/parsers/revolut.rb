@@ -7,19 +7,19 @@ module TransactionImports
       COMPLETED_STATE       = 'COMPLETED'
       TYPE_TRANSFER         = 'TRANSFER'
 
-      def parse
+      def parse_file
         rows = read_file.then(&method(:filter_non_transaction_rows))
-        rows.each_with_index.with_object([]) do |(row, import_file_index), result|
+        rows.each_with_object([]) do |row, result|
           next unless row[8] == COMPLETED_STATE
 
           original_import_name = [row[0], row[4]].join(' ')
           name                 = parse_transaction_name(row)
           transaction_date     = Date.parse(row[2])
           amount               = row[5].to_f
-          wallet_id            = import.wallet.id
+          wallet               = import.wallet
 
           result << TransactionImports::ImportTransaction.new(
-            import:, original_import_name:, name:, transaction_date:, amount:, import_file_index:, wallet_id:
+            import:, original_import_name:, name:, transaction_date:, amount:, wallet:
           )
         end
       end

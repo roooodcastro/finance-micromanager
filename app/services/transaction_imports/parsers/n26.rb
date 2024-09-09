@@ -5,17 +5,17 @@ module TransactionImports
     class N26 < BaseParser
       FIRST_TRANSACTION_ROW = 1
 
-      def parse
+      def parse_file
         rows = read_file.then(&method(:filter_non_transaction_rows))
-        rows.each_with_index.map do |row, import_file_index|
+        rows.map do |row|
           original_import_name = build_full_transaction_name(row)
           name                 = process_import_names(original_import_name)
           transaction_date     = Date.parse(row[0])
           amount               = row[5].to_f
-          wallet_id            = import.wallet.id
+          wallet               = import.wallet
 
           TransactionImports::ImportTransaction.new(
-            import:, original_import_name:, name:, transaction_date:, amount:, import_file_index:, wallet_id:
+            import:, original_import_name:, name:, transaction_date:, amount:, wallet:
           )
         end
       end

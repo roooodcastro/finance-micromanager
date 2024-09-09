@@ -16,7 +16,12 @@ module TransactionPredictions
         rules[:actions].map do |action|
           next if allowed_columns.present? && allowed_columns.exclude?(action[:column])
 
-          transaction.public_send("#{action[:column]}=", action[:value])
+          if action[:column] == 'category_id'
+            transaction.category_id    = Category.split_compose_category_id(action[:value]).first
+            transaction.subcategory_id = Category.split_compose_category_id(action[:value]).second
+          else
+            transaction.public_send("#{action[:column]}=", action[:value])
+          end
         end
       end
     end

@@ -46,89 +46,150 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
     end
   end
 
-  describe '.generate_preview', :travel_to_now do
-    subject { parser.generate_preview }
+  describe '#parse!', :aggregate_failures do
+    subject(:parse!) { parser.parse! }
 
-    let(:parsed_transactions) do
+    let(:import_transactions) do
       [
-        TransactionImports::ImportTransaction.new(original_import_name: 'Raw 1', name: 'Test 1', amount: -4.99,
-                                                  transaction_date: Date.parse('2024-06-26'), wallet_id: wallet.id),
-        TransactionImports::ImportTransaction.new(original_import_name: 'Raw 2', name: 'Test 2', amount: 2,
-                                                  transaction_date: Date.parse('2024-06-28'), wallet_id: wallet.id),
-        TransactionImports::ImportTransaction.new(original_import_name: 'Raw 3', name: 'Test 3', amount: -3,
-                                                  transaction_date: Date.parse('2024-06-19'), wallet_id: wallet.id)
+        TransactionImports::ImportTransaction.new(
+          original_import_name: 'Raw 1', name: 'Test 1', amount: -4.99,
+          transaction_date: '2024-08-16', wallet: wallet, import: import
+        ),
+        TransactionImports::ImportTransaction.new(
+          original_import_name: 'Raw 2', name: 'Test 2', amount: -33.00,
+          transaction_date: '2024-08-15', wallet: wallet, import: import
+        ),
+        TransactionImports::ImportTransaction.new(
+          original_import_name: 'Raw 3', name: 'Test 3', amount: 2.00,
+          transaction_date: '2024-08-14', wallet: wallet, import: import
+        )
       ]
     end
 
-    let!(:matched_transaction) do
-      create(:transaction, name: 'Test 2', amount: 2, profile: profile, wallet: import.wallet)
+    before { allow(parser).to receive(:parse_file).and_return(import_transactions) }
+
+    context 'when no further processing is needed' do
+      it 'saves the transaction_imports' do
+        expect { parse! }.to change { TransactionImports::ImportTransaction.count }.by(3)
+        expect(import_transactions[0]).to be_persisted
+        expect(import_transactions[0].action).to eq('import')
+        expect(import_transactions[1]).to be_persisted
+        expect(import_transactions[1].action).to eq('import')
+        expect(import_transactions[2]).to be_persisted
+        expect(import_transactions[2].action).to eq('import')
+      end
     end
 
-    let(:expected_preview_data) do
-      [
+    context 'when there are transaction matches' do
+      let!(:matching_transaction1) do
+        create(:transaction, profile: profile, wallet: wallet, transaction_date: '2024-08-15', amount: -33)
+      end
+
+      let!(:matching_transaction2) do
+        create(:transaction, profile: profile, wallet: wallet, transaction_date: '2024-08-14', amount: 2,
+          import: create(:import))
+      end
+
+      it 'saves the transaction_imports and assign correct attributes' do
+        expect { parse! }.to change { TransactionImports::ImportTransaction.count }.by(3)
+
+        # No match
+        expect(import_transactions[0]).to be_persisted
+        expect(import_transactions[0].action).to eq('import')
+
+        # Valid match
+        expect(import_transactions[1]).to be_persisted
+        expect(import_transactions[1].action).to eq('match')
+        expect(import_transactions[1].match_transaction).to eq(matching_transaction1)
+
+        # Matching an already imported transaction - skip and don't match
+        expect(import_transactions[2]).to be_persisted
+        expect(import_transactions[2].action).to eq('skip')
+        expect(import_transactions[2].match_transaction).not_to eq(matching_transaction2)
+      end
+    end
+
+    context 'when the transaction is from before the last reconciliation date' do
+      before do
+        create(:reconciliation, :finished, profile: profile, date: '2024-08-20')
+        profile.reload
+      end
+
+      it 'saves the transaction_imports and assign action to all as blocked' do
+        expect { parse! }.to change { TransactionImports::ImportTransaction.count }.by(3)
+        expect(import_transactions[0]).to be_persisted
+        expect(import_transactions[0].action).to eq('block')
+        expect(import_transactions[1]).to be_persisted
+        expect(import_transactions[1].action).to eq('block')
+        expect(import_transactions[2]).to be_persisted
+        expect(import_transactions[2].action).to eq('block')
+      end
+    end
+
+    context 'when some transaction predictions apply' do
+      let(:rules_json) do
         {
-          id:                   '58462647-b77f-5276-a9c7-7cc529e2c583',
-          original_import_name: 'Raw 2',
-          name:                 'Test 2',
-          transaction_date:     '2024-06-28',
-          amount:               2,
-          wallet_id:            wallet.id,
-          action_id:            :match,
-          matches:              [{ transaction: matched_transaction.as_json, match_score: 2 }]
-        },
-        {
-          id:                   '59c7ee34-04aa-5bd6-a72c-de812bdd128f',
-          original_import_name: 'Raw 1',
-          name:                 'Test 1',
-          transaction_date:     '2024-06-26',
-          amount:               -4.99,
-          wallet_id:            wallet.id,
-          action_id:            :import,
-          matches:              [],
-          category_id:          '047cf511-256c-45ca-a0d6-e8b4d589742c'
-        },
-        {
-          id:                   '4d3c5190-3081-52f2-852e-a829a8e2f199',
-          original_import_name: 'Raw 3',
-          name:                 'Test 3',
-          transaction_date:     '2024-06-19',
-          amount:               -3,
-          wallet_id:            wallet.id,
-          action_id:            :block,
-          matches:              []
+          conditions: [
+            {
+              operator: :equals,
+              column:   'name',
+              value:    'Test 2'
+            }
+          ],
+          actions:    [
+            {
+              column: 'category_id',
+              value:  [category.id, subcategory.id].join('|')
+            },
+            {
+              column: 'wallet_id',
+              value:  other_wallet.id
+            }
+          ]
         }
-      ]
+      end
+
+      let(:category) { create(:category, profile:) }
+      let(:subcategory) { create(:subcategory, category:) }
+      let(:other_wallet) { create(:wallet, profile:) }
+
+      before { create(:transaction_prediction, profile: profile, rules_json: rules_json.to_json) }
+
+      it 'saves the transaction_imports and assigns category to some' do
+        expect { parse! }.to change { TransactionImports::ImportTransaction.count }.by(3)
+        expect(import_transactions[0]).to be_persisted
+        expect(import_transactions[0].category).to be_nil
+        expect(import_transactions[0].wallet).to eq(wallet)
+        expect(import_transactions[1]).to be_persisted
+        expect(import_transactions[1].category).to eq(category)
+        expect(import_transactions[1].subcategory).to eq(subcategory)
+        expect(import_transactions[1].wallet).to eq(wallet)
+        expect(import_transactions[2]).to be_persisted
+        expect(import_transactions[2].category).to be_nil
+        expect(import_transactions[2].wallet).to eq(wallet)
+      end
     end
 
-    let(:transaction_prediction_rules_json) do
-      {
-        conditions: [
-          {
-            operator: :contains,
-            column:   'name',
-            value:    'Test 1'
-          }
-        ],
-        actions:    [
-          {
-            column: 'category_id',
-            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
-          },
-          {
-            column: 'wallet_id',
-            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
-          }
+    context 'when there is an error saving something' do
+      let(:import_transactions) do
+        [
+          TransactionImports::ImportTransaction.new(
+            original_import_name: 'Raw 1', name: 'Test 1', amount: -4.99,
+            transaction_date: '2024-08-16', wallet: wallet, import: import
+          ),
+          TransactionImports::ImportTransaction.new(
+            original_import_name: 'Raw 2', name: 'Test 2', amount: -33.00,
+            transaction_date: '2024-08-15', wallet: wallet, import: import
+          ),
+          TransactionImports::ImportTransaction.new(
+            original_import_name: nil, name: nil, amount: nil, transaction_date: nil, wallet: nil, import: nil
+          )
         ]
-      }
-    end
+      end
 
-    before do
-      create(:reconciliation, :finished, profile: profile, date: '2024-06-24')
-      create(:transaction_prediction, profile: profile, rules_json: transaction_prediction_rules_json.to_json)
-      profile.reload
-      allow(parser).to receive(:parse).and_return(parsed_transactions)
+      it 'does not save anything' do
+        expect { parse! }.to not_change { TransactionImports::ImportTransaction.count }
+      end
     end
-
-    it { is_expected.to eq expected_preview_data.as_json }
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_205017) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_23_210349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_205017) do
     t.datetime "updated_at", null: false
     t.index ["profile_id", "import_name"], name: "index_import_names_on_profile_id_and_import_name", unique: true
     t.index ["profile_id"], name: "index_import_names_on_profile_id"
+  end
+
+  create_table "import_transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "import_id", null: false
+    t.uuid "wallet_id", null: false
+    t.uuid "category_id"
+    t.uuid "match_transaction_id"
+    t.string "original_import_name", limit: 100, null: false
+    t.string "name", limit: 100, null: false
+    t.string "action", limit: 10, default: "import", null: false
+    t.date "transaction_date", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "EUR", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "subcategory_id"
+    t.index ["category_id"], name: "index_import_transactions_on_category_id"
+    t.index ["import_id"], name: "index_import_transactions_on_import_id"
+    t.index ["match_transaction_id"], name: "index_import_transactions_on_match_transaction_id"
+    t.index ["subcategory_id"], name: "index_import_transactions_on_subcategory_id"
+    t.index ["wallet_id"], name: "index_import_transactions_on_wallet_id"
   end
 
   create_table "imports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -257,6 +278,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_205017) do
   add_foreign_key "categories", "profiles"
   add_foreign_key "categories", "users", column: "disabled_by_id"
   add_foreign_key "import_names", "profiles"
+  add_foreign_key "import_transactions", "categories"
+  add_foreign_key "import_transactions", "imports"
+  add_foreign_key "import_transactions", "subcategories"
+  add_foreign_key "import_transactions", "transactions", column: "match_transaction_id"
+  add_foreign_key "import_transactions", "wallets"
   add_foreign_key "imports", "profiles"
   add_foreign_key "imports", "wallets"
   add_foreign_key "profile_share_invites", "profiles"

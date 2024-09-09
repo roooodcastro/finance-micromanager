@@ -32,7 +32,7 @@ RSpec.describe TransactionPredictions::RulesProcessor do
         actions:    [
           {
             column: 'category_id',
-            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c'
+            value:  '047cf511-256c-45ca-a0d6-e8b4d589742c|b6161da3-4898-4149-8176-53d151e98750'
           },
           {
             column: 'wallet_id',
@@ -65,6 +65,8 @@ RSpec.describe TransactionPredictions::RulesProcessor do
         expect { process_transaction }
           .to change { transaction.category_id }
           .to('047cf511-256c-45ca-a0d6-e8b4d589742c')
+          .and change { transaction.subcategory_id }
+          .to('b6161da3-4898-4149-8176-53d151e98750')
           .and change { transaction.wallet_id }
           .to('59c7ee34-04aa-5bd6-a72c-de812bdd128f')
       end
@@ -77,6 +79,8 @@ RSpec.describe TransactionPredictions::RulesProcessor do
         expect { process_transaction }
           .to change { transaction.category_id }
           .to('047cf511-256c-45ca-a0d6-e8b4d589742c')
+          .and change { transaction.subcategory_id }
+          .to('b6161da3-4898-4149-8176-53d151e98750')
           .and change { transaction.wallet_id }
           .to('59c7ee34-04aa-5bd6-a72c-de812bdd128f')
       end
@@ -90,6 +94,8 @@ RSpec.describe TransactionPredictions::RulesProcessor do
         expect { process_transaction }
           .to change { transaction.category_id }
           .to('047cf511-256c-45ca-a0d6-e8b4d589742c')
+          .and change { transaction.subcategory_id }
+          .to('b6161da3-4898-4149-8176-53d151e98750')
           .and not_change { transaction.wallet_id }
       end
     end

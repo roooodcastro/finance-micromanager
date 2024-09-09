@@ -11,6 +11,7 @@ module TransactionImports
     def call
       ActiveRecord::Base.transaction do
         import.cancelled!
+        import.import_transactions.destroy_all
         import.source_file.purge
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback

@@ -91,24 +91,24 @@ export default {
     const t = I18n.scopedTranslator('views.imports.summary');
 
     const importStore = useImportStore();
-    const { previewData } = storeToRefs(importStore);
+    const { importTransactions } = storeToRefs(importStore);
 
-    const transactionCount = computed(() => previewData.value.length);
+    const transactionCount = computed(() => importTransactions.value.length);
     const validTransactionCount = computed(() => {
-      return previewData.value.filter(transaction => transaction.actionId !== IMPORT_ACTION_BLOCK).length
+      return importTransactions.value.filter(transaction => transaction.action !== IMPORT_ACTION_BLOCK).length
     });
     const minDateFound = computed(() => {
-      return _.minBy(previewData.value, transaction => transaction.transactionDate)?.transactionDate
+      return _.minBy(importTransactions.value, transaction => transaction.transactionDate)?.transactionDate
     });
     const maxDateFound = computed(() => {
-      return _.maxBy(previewData.value, transaction => transaction.transactionDate)?.transactionDate
+      return _.maxBy(importTransactions.value, transaction => transaction.transactionDate)?.transactionDate
     });
 
     const actionsStatsData = computed(() => {
       return IMPORT_ACTIONS.map((importActionData) => {
         return {
           id: importActionData.id,
-          count: previewData.value.filter(transaction => transaction.actionId === importActionData.id).length,
+          count: importTransactions.value.filter(transaction => transaction.action === importActionData.id).length,
           icon: importActionData.icon,
           label: t(`stats_${importActionData.id}_label`),
           variant: VARIANTS_FOR_IMPORT_ACTIONS[importActionData.id],

@@ -93,7 +93,9 @@ class TransactionsController < AbstractAuthenticatedController
       permitted_params[:category_id]
     )
 
-    permitted_params.delete(:category_id) if Category.find_by(id: permitted_params[:category_id])&.system?
+    if Category.exists?(id: permitted_params[:category_id], category_type: :system)
+      permitted_params.delete(:category_id)
+    end
 
     permitted_params
   end

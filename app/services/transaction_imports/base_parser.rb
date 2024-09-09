@@ -5,15 +5,10 @@ module TransactionImports
     attr_reader :import
 
     PARSER_CLASSES = {
-      ptsb:    ::TransactionImports::Parsers::PTSB,
-      n26:     ::TransactionImports::Parsers::N26,
-      revolut: ::TransactionImports::Parsers::Revolut
+      ptsb:    TransactionImports::Parsers::PTSB,
+      n26:     TransactionImports::Parsers::N26,
+      revolut: TransactionImports::Parsers::Revolut
     }.freeze
-
-    def self.generate_preview(import)
-      parser = parser_for(import)
-      parser.generate_preview
-    end
 
     def self.parser_for(import)
       raise ArgumentError, "Import source unknown: #{import.source}" unless PARSER_CLASSES[import.source.to_sym]
@@ -25,44 +20,48 @@ module TransactionImports
       @import = import
     end
 
-    def generate_preview
-      import_transactions               = parse.compact.sort.reverse
-      transaction_predictions_processor = TransactionPredictions::RulesProcessor.new(import.profile)
+    def parse!
+      transaction_imports = parse_file
+                            .then(&method(:find_transaction_matches))
+                            .then(&method(:set_default_action))
+                            .then(&method(:process_transaction_predictions))
 
-      import_transactions.each do |import_transaction|
-        import_transaction.find_matches(transactions_to_match)
-        import_transaction.revert_to_default_action(minimum_transaction_date)
-        transaction_predictions_processor.process_transaction(import_transaction, %w[name category_id])
+      ActiveRecord::Base.transaction do
+        transaction_imports.each(&:save!)
+      rescue ActiveRecord::ActiveRecordError => e
+        NewRelic::Agent.notice_error(e)
+        raise ActiveRecord::Rollback
       end
 
-      import_transactions.map(&:as_json)
+      transaction_imports
     end
 
-    def parse
+    def parse_file
       raise NotImplementedError
-    end
-
-    # All "active" transactions for the profile, meaning all the transactions after the latest reconciliation date
-    def transactions_to_match
-      @transactions_to_match ||= import
-                                 .profile
-                                 .transactions
-                                 .includes(:category, :subcategory, wallet: :profile)
-                                 .newer_than(minimum_transaction_date)
-                                 .where(wallet: import.wallet)
-                                 .to_a
     end
 
     private
 
-    def minimum_transaction_date
-      return unless import.profile.latest_reconciliation
-
-      import.profile.latest_reconciliation.date.to_date + 1.day
-    end
-
     def process_import_names(name)
       import_names.find { |import_name| import_name.import_name == name }&.transaction_name || name
+    end
+
+    def find_transaction_matches(import_transactions)
+      TransactionImports::TransactionsMatcher.call(import, import_transactions)
+    end
+
+    def set_default_action(import_transactions) # rubocop:disable Naming/AccessorMethodName
+      TransactionImports::DefaultActionSetter.call(import, import_transactions)
+    end
+
+    def process_transaction_predictions(import_transactions)
+      transaction_predictions_processor = TransactionPredictions::RulesProcessor.new(import.profile)
+
+      import_transactions.each do |import_transaction|
+        transaction_predictions_processor.process_transaction(import_transaction, %w[name category_id])
+      end
+
+      import_transactions
     end
 
     def import_names
