@@ -23,7 +23,7 @@
           field-name="source_file"
           :label="t('source_file_label')"
           type="file"
-          accept=".csv,.xls,.xlsx"
+          accept=".csv,.xls,.xlsx,.pdf"
         />
 
         <label
