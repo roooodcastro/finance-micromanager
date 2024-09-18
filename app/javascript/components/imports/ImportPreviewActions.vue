@@ -2,6 +2,13 @@
   <div
     class="d-flex mt-3 align-items-center justify-content-center sticky-bottom bg-white p-3 gap-3 shadow"
   >
+    <div class="text-muted me-3">
+      <FontAwesomeIcon
+        :icon="previewSaveStateIcon"
+        :spin="isSavingPreview"
+      />
+      {{ t(previewSaveState) }}
+    </div>
     <button
       type="submit"
       class="btn btn-primary"
@@ -27,6 +34,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { storeToRefs } from 'pinia';
 
@@ -34,6 +42,7 @@ import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
 import useImportStore from '~/stores/ImportStore.js';
 import useModalStore from '~/stores/ModalStore.js';
+import { IMPORT_PREVIEW_SAVE_STATES } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
 
@@ -48,7 +57,16 @@ export default {
 
     const importStore = useImportStore();
     const modalStore = useModalStore();
-    const { import: importObject } = storeToRefs(importStore);
+    const { import: importObject, previewSaveState } = storeToRefs(importStore);
+
+    const previewSaveStateIcons = {
+      [IMPORT_PREVIEW_SAVE_STATES.saved]: ['far', 'floppy-disk'],
+      [IMPORT_PREVIEW_SAVE_STATES.saving]: 'spinner',
+      [IMPORT_PREVIEW_SAVE_STATES.error]: ['far', 'circle-xmark'],
+    };
+
+    const previewSaveStateIcon = computed(() => previewSaveStateIcons[previewSaveState.value]);
+    const isSavingPreview = computed(() => previewSaveState === IMPORT_PREVIEW_SAVE_STATES.saving);
 
     const destroyPath = importsApi.destroy.path({ id: importObject.value.id });
 
@@ -61,6 +79,9 @@ export default {
     return {
       t,
       destroyPath,
+      isSavingPreview,
+      previewSaveState,
+      previewSaveStateIcon,
       submitCancelForm,
     };
   },

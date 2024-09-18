@@ -3,10 +3,9 @@ import { _ } from 'lodash';
 import I18n from '~/utils/I18n.js';
 import Csrf from '~/utils/Csrf.js';
 import { imports as importsApi, importsImportTransactions as importTransactionsApi } from '~/api/all.js';
-import { IMPORT_FORM_ID } from '~/utils/Constants.js';
+import { IMPORT_FORM_ID, IMPORT_PREVIEW_SAVE_STATES } from '~/utils/Constants.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
-
 
 export default defineBaseApiStore('import', {
   resourceName: 'import',
@@ -19,6 +18,7 @@ export default defineBaseApiStore('import', {
     import: null,
     importTransactions: [],
     fetchParams: {},
+    previewSaveState: IMPORT_PREVIEW_SAVE_STATES.saved,
   },
 
   getters: {
@@ -83,6 +83,7 @@ export default defineBaseApiStore('import', {
 
     updateImportTransaction(importTransaction) {
       const notificationStore = useNotificationStore();
+      this.previewSaveState = IMPORT_PREVIEW_SAVE_STATES.saving;
 
       let responseResolve;
       let responseReject;
@@ -94,7 +95,6 @@ export default defineBaseApiStore('import', {
       importTransactionsApi
         .update({ params: { id: importTransaction.id }, data: { import_transaction: importTransaction } })
         .then((response) => {
-          // console.log(response.message); TODO: give visual feedback that this happened
           this.importTransactions = this.importTransactions.map((importTransaction) => {
             if (importTransaction.id === response.importTransaction.id) {
               return response.importTransaction;
@@ -102,9 +102,11 @@ export default defineBaseApiStore('import', {
               return importTransaction;
             }
           });
+          this.previewSaveState = IMPORT_PREVIEW_SAVE_STATES.saved;
           responseResolve();
         }).catch((error) => {
           notificationStore.notify(error.body.message, 'danger');
+          this.previewSaveState = IMPORT_PREVIEW_SAVE_STATES.error;
           responseReject(error);
         });
 

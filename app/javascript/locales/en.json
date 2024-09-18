@@ -851,8 +851,11 @@
           "category_label": "Category",
           "category_placeholder": "-- Category --",
           "date_label": "Date",
+          "error": "Could not save",
           "import_block_reconciliation_reason": "Cannot import because date is prior to latest reconciliation",
           "name_label": "Name",
+          "saved": "Saved",
+          "saving": "Saving…",
           "submit_button": "Import Transactions",
           "title": "Preview Import"
         },
