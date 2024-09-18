@@ -3,30 +3,36 @@
     :class="`table-${importActionVariants[transaction.action]} side-strip side-strip-${importActionVariants[transaction.action]}`"
   >
     <td class="align-middle ps-3">
-      <div
-        v-if="!isBlocked"
-        class="d-flex align-items-center"
-      >
-        <a
-          v-if="isMatch && transaction.matches.length > 1"
-          href="#"
-          class="btn btn-context-action rounded-circle me-2"
-        >
-          <FontAwesomeIcon
-            icon="list-ol"
-            size="lg"
-          />
-        </a>
+      <template v-if="!isBlocked">
+        <div class="d-flex align-items-center">
+          <a
+            v-if="isMatch && transaction.matches.length > 1"
+            href="#"
+            class="btn btn-context-action rounded-circle me-2"
+          >
+            <FontAwesomeIcon
+              icon="list-ol"
+              size="lg"
+            />
+          </a>
 
-        <input
-          v-if="!isBlocked"
-          :name="`transactions[${transaction.id}][name]`"
-          :value="transaction.name"
-          class="form-control"
-          required
-          @change="handleNameChange(transaction.id, $event)"
+          <input
+            v-if="!isBlocked"
+            :name="`transactions[${transaction.id}][name]`"
+            :value="transaction.name"
+            class="form-control"
+            required
+            @change="handleNameChange(transaction.id, $event)"
+          >
+        </div>
+
+        <div
+          v-if="transaction.name !== transaction.originalImportName"
+          class="px-3 pt-3"
         >
-      </div>
+          {{ t('original_name_label') }} {{ `"${transaction.originalImportName}"` }}
+        </div>
+      </template>
       <div
         v-else
         class="d-flex align-items-center"
@@ -37,13 +43,13 @@
     </td>
 
     <td
-      class="width-12rem align-middle text-end"
+      class="width-12rem text-end py-4"
       :class="{ 'text-debit': isSpend, 'text-credit': isIncome }"
     >
       {{ formatMoney(transaction.amount) }}
     </td>
 
-    <td class="width-10rem align-middle">
+    <td class="width-10rem">
       <input
         :value="transaction.transactionDate"
         :disabled="!isEditable && !isDateEditable"
@@ -55,7 +61,7 @@
       >
     </td>
 
-    <td class="align-middle">
+    <td>
       <CategoriesSelect
         v-if="!isBlocked"
         :value="[transaction.categoryId, transaction.subcategoryId].filter(x => x).join('|')"
@@ -67,7 +73,7 @@
       />
     </td>
 
-    <td class="align-middle">
+    <td>
       <input
         type="hidden"
         :name="`transactions[${transaction.id}][match_transaction_id]`"

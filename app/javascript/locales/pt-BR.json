@@ -922,6 +922,7 @@
           "error": "Erro ao salvar",
           "import_block_reconciliation_reason": "Não é possível importar pois data é anterior à última reconciliação",
           "name_label": "Nome",
+          "original_name_label": "Nome original:",
           "saved": "Salvo",
           "saving": "Salvando…",
           "submit_button": "Importar Transações",
