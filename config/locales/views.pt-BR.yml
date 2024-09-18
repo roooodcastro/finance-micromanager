@@ -110,6 +110,9 @@ pt-BR:
         import_block_reconciliation_reason: Não é possível importar pois data é anterior à última reconciliação
         submit_button: Importar Transações
         cancel_button: Cancelar
+        saved: Salvo
+        saving: Salvando…
+        error: Erro ao salvar
       results:
         title: Resultados da Importação
         imported_transactions_header: "Transações importadas (%{count})"

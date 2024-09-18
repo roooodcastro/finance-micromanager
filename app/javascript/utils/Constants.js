@@ -102,3 +102,8 @@ export const IMPORT_ACTIONS = [
   { id: IMPORT_ACTION_SKIP, labelI18nKey: 'views.imports.action_labels.skip', icon: 'scissors' },
   { id: IMPORT_ACTION_BLOCK, labelI18nKey: 'views.imports.action_labels.block', icon: 'ban' },
 ];
+export const IMPORT_PREVIEW_SAVE_STATES = {
+  saved: 'saved',
+  saving: 'saving',
+  error: 'error',
+};

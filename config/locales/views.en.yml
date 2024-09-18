@@ -108,6 +108,9 @@ en:
         import_block_reconciliation_reason: Cannot import because date is prior to latest reconciliation
         submit_button: Import Transactions
         cancel_button: Cancel
+        saved: Saved
+        saving: Saving…
+        error: Could not save
       results:
         title: Import Results
         imported_transactions_header: "Imported transactions (%{count})"
