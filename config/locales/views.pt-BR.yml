@@ -100,6 +100,7 @@ pt-BR:
         import_desc: 'Importar "%{file_name}" de %{source} para a carteira'
       preview:
         title: Prévia da Importação
+        original_name_label: "Nome original:"
         name_label: Nome
         amount_label: Valor
         date_label: Data

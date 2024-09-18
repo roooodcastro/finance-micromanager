@@ -98,6 +98,7 @@ en:
         import_desc: 'Import "%{file_name}" from %{source} into wallet'
       preview:
         title: Preview Import
+        original_name_label: "Original name:"
         name_label: Name
         amount_label: Amount
         date_label: Date

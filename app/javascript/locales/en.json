@@ -854,6 +854,7 @@
           "error": "Could not save",
           "import_block_reconciliation_reason": "Cannot import because date is prior to latest reconciliation",
           "name_label": "Name",
+          "original_name_label": "Original name:",
           "saved": "Saved",
           "saving": "Saving…",
           "submit_button": "Import Transactions",
