@@ -20,7 +20,10 @@ RSpec.describe ImportNamesController do
         'importNames' => array_including(
           CamelizeProps.call(import_name_a.as_json),
           CamelizeProps.call(import_name_b.as_json)
-        )
+        ),
+        'pagination'  => {
+          'count' => 2, 'from' => 1, 'to' => 2, 'limit' => 25, 'page' => 1, 'pages' => 1, 'series' => ['1']
+        }
       }
     end
 

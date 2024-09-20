@@ -239,7 +239,7 @@ RSpec.describe TransactionsController do
       let(:params) do
         {
           transaction_ids: transaction_ids,
-          transaction:     { name: 'New Name', category_id: [category_a.id, subcategory.id].join('|') }
+          transaction:     { name: 'New Name', category_id: subcategory.compose_category_id }
         }
       end
 

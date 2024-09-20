@@ -24,6 +24,7 @@ import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import usePaginationStore from '~/stores/PaginationStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -43,6 +44,10 @@ export default {
       type: Array,
       required: true,
     },
+    pagination: {
+      type: Object,
+      required: true,
+    },
   },
 
   setup(props) {
@@ -60,12 +65,17 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     watch(currentProfile, () => importNameStore.fetchCollection());
 
+    const paginationStore = usePaginationStore();
+    const { pagination: paginationFromStore } = storeToRefs(paginationStore);
+    paginationFromStore.value = props.pagination;
+
     importNameStore.loadCollectionFromProps(props.importNames);
 
     const handleNew = () => importNameStore.openFormModal(null);
 
     return {
       t: I18n.scopedTranslator('views.import_names.index'),
+      paginationFromStore,
       handleNew,
     };
   },

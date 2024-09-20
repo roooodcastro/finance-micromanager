@@ -23,4 +23,8 @@ class Subcategory < ApplicationRecord
   def display_name
     "#{category.display_name}/#{name}"
   end
+
+  def compose_category_id
+    [category_id, id].join('|')
+  end
 end
