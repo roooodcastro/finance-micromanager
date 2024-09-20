@@ -139,7 +139,7 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
           actions:    [
             {
               column: 'category_id',
-              value:  [category.id, subcategory.id].join('|')
+              value:  subcategory.compose_category_id
             },
             {
               column: 'wallet_id',

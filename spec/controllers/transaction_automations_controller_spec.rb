@@ -85,7 +85,7 @@ RSpec.describe TransactionAutomationsController do
           schedule_interval:       '2',
           scheduled_date:          2.days.from_now.to_date,
           transaction_name:        'Netflix',
-          transaction_category_id: [category.id, subcategory.id].join('|'),
+          transaction_category_id: subcategory.compose_category_id,
           transaction_wallet_id:   wallet.id,
           transaction_amount:      '-9.99'
         }
@@ -106,7 +106,7 @@ RSpec.describe TransactionAutomationsController do
           schedule_custom_rule:    'last_day_of_month',
           scheduled_date:          Date.current.end_of_month,
           transaction_name:        'Netflix',
-          transaction_category_id: [category.id, subcategory.id].join('|'),
+          transaction_category_id: subcategory.compose_category_id,
           transaction_wallet_id:   wallet.id,
           transaction_amount:      '-9.99'
         }

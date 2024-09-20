@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class ImportNamesController < AbstractAuthenticatedController
+  include Pagy::Backend
+
   before_action :set_import_name, only: %i[update destroy]
 
   def index
-    import_names = Current.profile.import_names.order(:import_name)
-    props        = camelize_props(import_names: import_names.as_json)
+    import_names       = Current.profile.import_names.order(:import_name)
+    pagy, import_names = pagy(import_names, limit: current_pagination_limit)
+    props              = camelize_props(import_names: import_names.as_json, pagination: pagy_metadata(pagy))
 
     respond_to do |format|
       format.html { render inertia: 'import_names/Index', props: props }
