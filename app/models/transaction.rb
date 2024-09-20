@@ -78,7 +78,7 @@ class Transaction < ApplicationRecord
   def validate_cannot_alter_prior_to_reconciliation
     return unless transaction_date && profile.latest_reconciliation
     return if transaction_date_after_latest_reconciliation?
-    return if changes.except(*%w[name category_id]).blank?
+    return if changes.except(*%w[name category_id subcategory_id updated_by_id]).blank?
 
     errors.add(:base, :cannot_alter_prior_to_reconciliation, date: I18n.l(profile.latest_reconciliation.date))
   end
