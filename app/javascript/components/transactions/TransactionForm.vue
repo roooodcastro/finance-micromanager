@@ -120,6 +120,7 @@
 
     <template v-slot:footer="{ closeModal }">
       <button
+        v-if="!transaction.id"
         type="submit"
         :form="TRANSACTION_FORM_ID"
         class="btn btn-outline-primary"
