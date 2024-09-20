@@ -67,6 +67,10 @@ export default defineBaseApiStore('transaction', {
       return transactionsApi
         .index({ query: Object.assign({ startDate: startDate.value, endDate: endDate.value }, this.fetchParams, pagination.value) })
         .then((response) => {
+          response.transactions.forEach((transaction) => {
+            transaction.categoryId = [transaction.categoryId, transaction.subcategoryId].filter(x => x).join('|');
+          });
+
           keepTransactions
             ? this.transactions.push(...response.transactions)
             : this.transactions = response.transactions;
