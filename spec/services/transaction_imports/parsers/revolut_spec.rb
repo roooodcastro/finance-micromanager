@@ -11,7 +11,7 @@ RSpec.describe TransactionImports::Parsers::Revolut, type: :service do
       [
         TransactionImports::ImportTransaction.new(
           import:               import,
-          original_import_name: 'TRANSFER From My Friend',
+          original_import_name: 'Transfer from My Friend',
           name:                 'Transfer from My Friend',
           transaction_date:     Date.parse('2024-07-30'),
           amount:               10.0,
@@ -19,7 +19,7 @@ RSpec.describe TransactionImports::Parsers::Revolut, type: :service do
         ),
         TransactionImports::ImportTransaction.new(
           import:               import,
-          original_import_name: 'CARD_PAYMENT Supermarket',
+          original_import_name: 'Supermarket',
           name:                 'Supermarket',
           transaction_date:     Date.parse('2024-07-26'),
           amount:               -25.6,

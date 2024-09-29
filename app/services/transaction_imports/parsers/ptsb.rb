@@ -11,8 +11,8 @@ module TransactionImports
       def parse_file
         rows = read_file.then(&method(:filter_non_transaction_rows))
         rows.map do |row|
-          original_import_name = row[2]
-          name                 = process_import_names(row[2].scan(TRANSACTION_NAME_REGEX).join(' '))
+          original_import_name = row[2].scan(TRANSACTION_NAME_REGEX).join(' ')
+          name                 = row[2].scan(TRANSACTION_NAME_REGEX).join(' ')
           transaction_date     = extract_date(row)
           amount               = row[3].to_f - row[4].to_f
           wallet               = import.wallet

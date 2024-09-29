@@ -12,8 +12,8 @@ module TransactionImports
         rows.each_with_object([]) do |row, result|
           next unless row[8] == COMPLETED_STATE
 
-          original_import_name = [row[0], row[4]].join(' ')
-          name                 = parse_transaction_name(row)
+          original_import_name = parse_transaction_name(row)
+          name                 = original_import_name
           transaction_date     = Date.parse(row[2])
           amount               = row[5].to_f
           wallet               = import.wallet

@@ -54,7 +54,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
     },
     actions: {
-      openFormModal(id) {
+      openFormModal(id, record = null) {
         const modalStore = useModalStore();
         this.idForFormModal = id ?? crypto.randomUUID();
 
@@ -64,6 +64,8 @@ export function defineBaseApiStore(name, storeOptions = {}) {
         if (existingRecord) {
           // Clone the object so it doesn't affect the list before it's actually updated
           this[`${storeOptions.resourceName}ForFormModal`] = { ...existingRecord };
+        } else if (record) {
+          this[`${storeOptions.resourceName}ForFormModal`] = { ...record };
         } else {
           this[`${storeOptions.resourceName}ForFormModal`] = { _id: this.idForFormModal };
         }

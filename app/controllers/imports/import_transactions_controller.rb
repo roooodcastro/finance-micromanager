@@ -6,8 +6,8 @@ module Imports
 
     def update
       if @import_transaction.update(update_params)
-        TransactionImports::TransactionsMatcher.call(@import_transaction.import, [@import_transaction])
-        TransactionImports::DefaultActionSetter.call(@import_transaction.import, [@import_transaction])
+        TransactionImports::ImportTransactionProcessors::BaseProcessor
+          .run_pipeline(@import_transaction.import, [@import_transaction])
 
         render json: camelize_props(message: t('.success'), import_transaction: @import_transaction.as_json)
       else

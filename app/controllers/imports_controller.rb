@@ -74,8 +74,8 @@ class ImportsController < AbstractAuthenticatedController
                           .where(import: @import)
                           .includes(:wallet, :category, :subcategory)
                           .order(transaction_date: :desc, name: :asc)
-    TransactionImports::TransactionsMatcher.call(@import, import_transactions)
-    TransactionImports::DefaultActionSetter.call(@import, import_transactions)
+
+    TransactionImports::ImportTransactionProcessors::BaseProcessor.run_pipeline(@import, import_transactions)
 
     props = camelize_props(
       import_object:       @import.as_json,

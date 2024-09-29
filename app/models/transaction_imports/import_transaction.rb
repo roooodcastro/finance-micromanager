@@ -2,7 +2,7 @@
 
 module TransactionImports
   class ImportTransaction < ApplicationRecord
-    attr_accessor :matches
+    attr_accessor :matches, :import_name_object
 
     monetize :amount_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
 
@@ -27,7 +27,8 @@ module TransactionImports
           'subcategory' => subcategory.as_json,
           'wallet'      => wallet.as_json,
           'category'    => category.as_json(include_subcategories: false),
-          'matches'     => matches
+          'matches'     => matches,
+          'import_name' => import_name_object
         )
     end
 

@@ -28,9 +28,19 @@
 
         <div
           v-if="transaction.name !== transaction.originalImportName"
-          class="px-3 pt-3"
+          class="d-flex gap-3 align-items-center px-3 pt-3"
         >
           {{ t('original_name_label') }} {{ `"${transaction.originalImportName}"` }}
+
+          <a
+            v-if="allowImportNameCreation"
+            href="#"
+            class="btn btn-sm btn-outline-dark py-0"
+            @click="handleCreateImportName"
+          >
+            <FontAwesomeIcon :icon="['far', 'floppy-disk']" />
+            {{ t('create_import_name_label') }}
+          </a>
         </div>
       </template>
       <div
@@ -109,7 +119,7 @@ import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useImportStore from '~/stores/ImportStore.js';
-import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
+import useImportNameStore from '~/stores/ImportNameStore.js';
 import { RulesProcessor } from '~/lib/transaction_predictions/RulesProcessor.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
@@ -143,15 +153,14 @@ export default {
     const t = I18n.scopedTranslator('views.imports.preview');
 
     const importStore = useImportStore();
+    const importNameStore = useImportNameStore();
     const profileStore = useProfileStore();
     const categoryStore = useCategoryStore();
-    const transactionPredictionStore = useTransactionPredictionStore();
-
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
-    const { transactionPredictions } = storeToRefs(transactionPredictionStore);
     const { importTransactions } = storeToRefs(importStore);
+    const { importNames, loading: loadingImportNames } = storeToRefs(importNameStore);
 
     const isEditable = computed(() => props.transaction.action === IMPORT_ACTION_IMPORT);
     const isDateEditable = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
@@ -161,6 +170,11 @@ export default {
     const isSpend = computed(() => props.transaction.amount < 0);
     const isIncome = computed(() => props.transaction.amount > 0);
     const categoryNameFor = categoryStore.categoryNameFor;
+
+    const allowImportNameCreation = computed(() => {
+      const importNameExists = importNames.value.some(importName => importName.importName === props.transaction.originalImportName);
+      return !loadingImportNames.value && !importNameExists;
+    });
 
     if (!categories.value.length) {
       categoryStore.fetchCollection();
@@ -213,13 +227,16 @@ export default {
       });
     };
 
+    const handleCreateImportName = () => {
+      importNameStore.openFormModal(null, {
+        importName: props.transaction.originalImportName,
+        transactionName: props.transaction.name
+      });
+    };
+
     onMounted(() => {
       if (props.transaction.action === IMPORT_ACTION_MATCH) {
         // handleMatchTransactionChange(props.transaction.id, 0);
-      }
-
-      if (!transactionPredictions.value.length) {
-        transactionPredictionStore.fetchCollection();
       }
     });
 
@@ -236,10 +253,12 @@ export default {
       importActionVariants: VARIANTS_FOR_IMPORT_ACTIONS,
       formatDate,
       formatMoney,
+      allowImportNameCreation,
       handleActionChange,
       handleCategoryChange,
       handleNameChange,
       handleDateChange,
+      handleCreateImportName,
     };
   },
 };
