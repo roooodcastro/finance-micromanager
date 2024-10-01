@@ -22,6 +22,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
 import useImportStore from '~/stores/ImportStore.js';
+import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 
@@ -47,10 +48,6 @@ export default {
       type: Object,
       required: true,
     },
-    importTransactions: {
-      type: Array,
-      required: true,
-    },
   },
 
   setup(props) {
@@ -58,17 +55,25 @@ export default {
     const importsPath = importsApi.index.path();
 
     const importStore = useImportStore();
+    const importTransactionStore = useImportTransactionStore();
     const importNameStore = useImportNameStore();
     const transactionPredictionStore = useTransactionPredictionStore();
 
-    importStore.loadImportTransactionsFromProps(props.importObject, props.importTransactions);
+    importStore.loadImportFromProps(props.importObject);
 
-    const { importNames } = storeToRefs(importNameStore);
+    const { importNames, fetchParams: importNameFetchParams } = storeToRefs(importNameStore);
+    const { importTransactions, urlParams: importTransactionUrlParams } = storeToRefs(importTransactionStore);
     const { transactionPredictions } = storeToRefs(transactionPredictionStore);
 
     onMounted(() => {
       if (!importNames.value.length) {
+        importNameFetchParams.value.fetchAll = true;
         importNameStore.fetchCollection();
+      }
+
+      if (!importTransactions.value.length) {
+        importTransactionUrlParams.value.importId = props.importObject.id;
+        importTransactionStore.fetchCollection();
       }
 
       if (!transactionPredictions.value.length) {
@@ -76,11 +81,9 @@ export default {
       }
     });
 
-    // TODO: fetchCollection below is not refreshing the form table
-    // create index endpoint for import_transactions, create importTransactionStore, fetchCollection from there instead
     watch(importNames, (_, oldImportNames) => {
       if (oldImportNames.length) {
-        importStore.fetchCollection();
+        importTransactionStore.fetchCollection();
       }
     });
 

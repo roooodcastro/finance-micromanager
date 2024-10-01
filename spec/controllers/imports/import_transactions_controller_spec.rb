@@ -9,6 +9,25 @@ RSpec.describe Imports::ImportTransactionsController do
     allow(Current).to receive_messages(user:, profile:)
   end
 
+  describe 'GET index', :aggregate_failures do
+    subject(:index_request) { get :index, params: { import_id: import.id } }
+
+    let(:import) { create(:import, :in_progress, profile:) }
+
+    let!(:import_transaction1) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
+    let!(:import_transaction2) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
+
+    before { create(:import_transaction, import: create(:import)) }
+
+    it 'returns the import_transactions of that import' do
+      index_request
+
+      expect(json_response).to match(
+        CamelizeProps.call(import_transactions: [import_transaction1, import_transaction2].as_json)
+      )
+    end
+  end
+
   describe 'PATCH update', :aggregate_failures do
     subject(:update_request) { patch :update, params: }
 
@@ -19,6 +38,7 @@ RSpec.describe Imports::ImportTransactionsController do
       let(:params) do
         {
           id:                 import_transaction.id,
+          import_id:          import.id,
           import_transaction: { name: 'New Name', category_id: subcategory.compose_category_id }
         }
       end
@@ -46,6 +66,7 @@ RSpec.describe Imports::ImportTransactionsController do
       let(:params) do
         {
           id:                 import_transaction.id,
+          import_id:          import.id,
           import_transaction: { name: 'New Name', category_id: category.id }
         }
       end
@@ -66,7 +87,7 @@ RSpec.describe Imports::ImportTransactionsController do
     end
 
     context 'when params are invalid' do
-      let(:params) { { id: import_transaction.id, import_transaction: { name: nil } } }
+      let(:params) { { id: import_transaction.id, import_id: import.id, import_transaction: { name: nil } } }
 
       let(:expected_json) { { 'message' => "Preview transaction could not be updated: Name can't be blank" } }
 

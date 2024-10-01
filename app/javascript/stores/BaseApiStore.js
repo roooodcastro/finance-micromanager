@@ -164,10 +164,11 @@ export function defineBaseApiStore(name, storeOptions = {}) {
 
         const data = {};
         data[storeOptions.resourceName] = record;
+        const idParam = !!id && (typeof id === 'object') ? id : { id };
 
         storeOptions
           .api
-          .update({ params: Object.assign(this.urlParams, { id }), data })
+          .update({ params: Object.assign(this.urlParams, idParam), data })
           .then((response) => {
             this.fetch(id, options);
             notificationStore.notify(response.message, 'success');

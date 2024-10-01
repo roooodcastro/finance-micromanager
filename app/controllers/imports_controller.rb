@@ -3,7 +3,7 @@
 class ImportsController < AbstractAuthenticatedController
   before_action :set_import, only: %i[show update destroy]
   def index
-    imports = Current.profile.imports.order(created_at: :desc)
+    imports = Current.profile.imports.includes(:profile, :wallet).order(created_at: :desc)
     props   = camelize_props(imports: imports.as_json)
 
     respond_to do |format|
@@ -70,17 +70,8 @@ class ImportsController < AbstractAuthenticatedController
   end
 
   def render_preview
-    import_transactions = TransactionImports::ImportTransaction
-                          .where(import: @import)
-                          .includes(:wallet, :category, :subcategory)
-                          .order(transaction_date: :desc, name: :asc)
+    props = camelize_props(import_object: @import.as_json)
 
-    TransactionImports::ImportTransactionProcessors::BaseProcessor.run_pipeline(@import, import_transactions)
-
-    props = camelize_props(
-      import_object:       @import.as_json,
-      import_transactions: import_transactions.as_json
-    )
     render inertia: 'imports/Preview', props: props
   end
 end

@@ -2,7 +2,18 @@
 
 module Imports
   class ImportTransactionsController < AbstractAuthenticatedController
+    before_action :set_import
     before_action :set_import_transaction, only: %i[update]
+
+    def index
+      import_transactions = @import.import_transactions
+                                   .includes(:wallet, :category, :subcategory)
+                                   .order(transaction_date: :desc, original_import_name: :asc)
+
+      TransactionImports::ImportTransactionProcessors::BaseProcessor.run_pipeline(@import, import_transactions)
+
+      render json: camelize_props(import_transactions: import_transactions.as_json)
+    end
 
     def update
       if @import_transaction.update(update_params)
@@ -19,8 +30,12 @@ module Imports
 
     private
 
+    def set_import
+      @import = Current.profile.imports.find(params[:import_id])
+    end
+
     def set_import_transaction
-      @import_transaction = TransactionImports::ImportTransaction.find(params[:id])
+      @import_transaction = @import.import_transactions.find(params[:id])
     end
 
     def update_params

@@ -70,7 +70,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import BCard from '~/components/bootstrap/BCard.vue';
 
 import I18n from '~/utils/I18n.js';
-import useImportStore from '~/stores/ImportStore.js';
+import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { IMPORT_ACTIONS, VARIANTS_FOR_IMPORT_ACTIONS, IMPORT_ACTION_BLOCK } from '~/utils/Constants.js';
 
@@ -90,8 +90,8 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.imports.summary');
 
-    const importStore = useImportStore();
-    const { importTransactions } = storeToRefs(importStore);
+    const importTransactionStore = useImportTransactionStore();
+    const { importTransactions } = storeToRefs(importTransactionStore);
 
     const transactionCount = computed(() => importTransactions.value.length);
     const validTransactionCount = computed(() => {

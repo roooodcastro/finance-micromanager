@@ -32,7 +32,7 @@
 <script>
 import { storeToRefs } from 'pinia';
 
-import useImportStore from '~/stores/ImportStore.js';
+import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import I18n from '~/utils/I18n.js';
 
 import ImportPreviewListItem from '~/components/imports/ImportPreviewListItem.vue';
@@ -47,8 +47,8 @@ export default {
   setup() {
     const t = I18n.scopedTranslator('views.imports.preview');
 
-    const importStore = useImportStore();
-    const { importTransactions } = storeToRefs(importStore);
+    const importTransactionStore = useImportTransactionStore();
+    const { importTransactions } = storeToRefs(importTransactionStore);
 
     return {
       t,
