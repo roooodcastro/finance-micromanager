@@ -66,7 +66,7 @@ module TransactionImports
         rows = read_csv_file.then(&method(:filter_non_transaction_rows))
         rows.map do |row|
           original_import_name = build_full_transaction_name(row)
-          name                 = process_import_names(original_import_name)
+          name                 = original_import_name
           transaction_date     = Date.parse(row[0])
           amount               = row[5].to_f
           wallet               = import.wallet
@@ -82,7 +82,7 @@ module TransactionImports
 
         transaction_rows.map do |row|
           original_import_name = row[0].strip
-          name                 = process_import_names(original_import_name)
+          name                 = original_import_name
           transaction_date     = Date.parse(row[5])
           amount               = row[2].sub(',', '.').to_f
           wallet               = import.wallet

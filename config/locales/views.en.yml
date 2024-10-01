@@ -112,6 +112,7 @@ en:
         saved: Saved
         saving: Saving…
         error: Could not save
+        create_import_name_label: Save Import Name
       results:
         title: Import Results
         imported_transactions_header: "Imported transactions (%{count})"

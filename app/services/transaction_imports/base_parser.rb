@@ -22,8 +22,7 @@ module TransactionImports
 
     def parse!
       transaction_imports = parse_file
-                            .then(&method(:find_transaction_matches))
-                            .then(&method(:set_default_action))
+                            .then(&method(:run_import_transaction_pipeline))
                             .then(&method(:process_transaction_predictions))
 
       ActiveRecord::Base.transaction do
@@ -42,16 +41,11 @@ module TransactionImports
 
     private
 
-    def process_import_names(name)
-      import_names.find { |import_name| import_name.import_name == name }&.transaction_name || name
-    end
+    def run_import_transaction_pipeline(import_transactions)
+      TransactionImports::ImportTransactionProcessors::BaseProcessor
+        .run_pipeline(import, import_transactions, save: false)
 
-    def find_transaction_matches(import_transactions)
-      TransactionImports::TransactionsMatcher.call(import, import_transactions)
-    end
-
-    def set_default_action(import_transactions) # rubocop:disable Naming/AccessorMethodName
-      TransactionImports::DefaultActionSetter.call(import, import_transactions)
+      import_transactions
     end
 
     def process_transaction_predictions(import_transactions)
@@ -62,10 +56,6 @@ module TransactionImports
       end
 
       import_transactions
-    end
-
-    def import_names
-      @import_names ||= import.profile.import_names.to_a
     end
 
     def read_source_file

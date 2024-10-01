@@ -114,6 +114,7 @@ pt-BR:
         saved: Salvo
         saving: Salvando…
         error: Erro ao salvar
+        create_import_name_label: Salvar Nome de Importação
       results:
         title: Resultados da Importação
         imported_transactions_header: "Transações importadas (%{count})"

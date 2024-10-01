@@ -918,6 +918,7 @@
           "cancel_button": "Cancelar",
           "category_label": "Categoria",
           "category_placeholder": "-- Categoria --",
+          "create_import_name_label": "Salvar Nome de Importação",
           "date_label": "Data",
           "error": "Erro ao salvar",
           "import_block_reconciliation_reason": "Não é possível importar pois data é anterior à última reconciliação",

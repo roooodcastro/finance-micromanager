@@ -28,9 +28,19 @@
 
         <div
           v-if="transaction.name !== transaction.originalImportName"
-          class="px-3 pt-3"
+          class="d-flex gap-3 align-items-center px-3 pt-3"
         >
           {{ t('original_name_label') }} {{ `"${transaction.originalImportName}"` }}
+
+          <a
+            v-if="allowImportNameCreation"
+            href="#"
+            class="btn btn-sm btn-outline-dark py-0"
+            @click="handleCreateImportName"
+          >
+            <FontAwesomeIcon :icon="['far', 'floppy-disk']" />
+            {{ t('create_import_name_label') }}
+          </a>
         </div>
       </template>
       <div
@@ -101,7 +111,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -109,7 +119,8 @@ import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useImportStore from '~/stores/ImportStore.js';
-import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
+import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
+import useImportNameStore from '~/stores/ImportNameStore.js';
 import { RulesProcessor } from '~/lib/transaction_predictions/RulesProcessor.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
@@ -143,15 +154,16 @@ export default {
     const t = I18n.scopedTranslator('views.imports.preview');
 
     const importStore = useImportStore();
+    const importTransactionStore = useImportTransactionStore();
+    const importNameStore = useImportNameStore();
     const profileStore = useProfileStore();
     const categoryStore = useCategoryStore();
-    const transactionPredictionStore = useTransactionPredictionStore();
-
 
     const { currentProfile } = storeToRefs(profileStore);
     const { categories } = storeToRefs(categoryStore);
-    const { transactionPredictions } = storeToRefs(transactionPredictionStore);
-    const { importTransactions } = storeToRefs(importStore);
+    const { import: importObject } = storeToRefs(importStore);
+    const { importTransactions } = storeToRefs(importTransactionStore);
+    const { importNames, loading: loadingImportNames } = storeToRefs(importNameStore);
 
     const isEditable = computed(() => props.transaction.action === IMPORT_ACTION_IMPORT);
     const isDateEditable = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
@@ -162,6 +174,11 @@ export default {
     const isIncome = computed(() => props.transaction.amount > 0);
     const categoryNameFor = categoryStore.categoryNameFor;
 
+    const allowImportNameCreation = computed(() => {
+      const importNameExists = importNames.value.some(importName => importName.importName === props.transaction.originalImportName);
+      return !loadingImportNames.value && !importNameExists;
+    });
+
     if (!categories.value.length) {
       categoryStore.fetchCollection();
     }
@@ -171,29 +188,34 @@ export default {
       if (transaction.action === IMPORT_ACTION_IMPORT) {
         const result = new RulesProcessor({...transaction}).processTransaction();
         if (!transaction.categoryId && !!result.categoryId) {
-          importStore.updateImportTransaction({ id: props.transaction.id, categoryId: result.categoryId });
+          importTransactionStore
+            .update(props.transaction.id, { id: props.transaction.id, categoryId: result.categoryId });
         }
       }
     };
 
     const handleNameChange = (transactionId, event) => {
-      importStore
-        .updateImportTransaction({ id: transactionId, name: event.target.value })
+      const idParam = { importId: importObject.value.id, id: transactionId };
+
+      importTransactionStore
+        .update(idParam, { id: transactionId, name: event.target.value })
         .then(processTransactionPredictions);
     };
 
     const handleDateChange = (transactionId, event) => {
-      importStore
-        .updateImportTransaction({ id: transactionId, transactionDate: event.target.value })
+      importTransactionStore
+        .update(transactionId, { id: transactionId, transactionDate: event.target.value })
         .then(processTransactionPredictions);
     };
 
     const handleCategoryChange = (transactionId, categoryId) => {
-      importStore.updateImportTransaction({ id: transactionId, categoryId }).then(processTransactionPredictions);
+      importTransactionStore
+        .update(transactionId, { id: transactionId, categoryId })
+        .then(processTransactionPredictions);
     };
 
     const handleActionChange = (transactionId, action) => {
-      importStore.updateImportTransaction({ id: transactionId, action }).then(() => {
+      importTransactionStore.update(transactionId, { id: transactionId, action }).then(() => {
         processTransactionPredictions();
 
         if (action === IMPORT_ACTION_MATCH) {
@@ -204,7 +226,7 @@ export default {
 
     const handleMatchTransactionChange = (importPreviewTransactionId, matchTransactionIndex) => {
       const matchTransaction = props.transaction.matches[matchTransactionIndex].transaction;
-      importStore.updateImportTransaction({
+      importTransactionStore.update(importPreviewTransactionId, {
         id: importPreviewTransactionId,
         name: matchTransaction.name,
         transactionDate: matchTransaction.transactionDate,
@@ -213,15 +235,12 @@ export default {
       });
     };
 
-    onMounted(() => {
-      if (props.transaction.action === IMPORT_ACTION_MATCH) {
-        // handleMatchTransactionChange(props.transaction.id, 0);
-      }
-
-      if (!transactionPredictions.value.length) {
-        transactionPredictionStore.fetchCollection();
-      }
-    });
+    const handleCreateImportName = () => {
+      importNameStore.openFormModal(null, {
+        importName: props.transaction.originalImportName,
+        transactionName: props.transaction.name
+      });
+    };
 
     return {
       t,
@@ -236,10 +255,12 @@ export default {
       importActionVariants: VARIANTS_FOR_IMPORT_ACTIONS,
       formatDate,
       formatMoney,
+      allowImportNameCreation,
       handleActionChange,
       handleCategoryChange,
       handleNameChange,
       handleDateChange,
+      handleCreateImportName,
     };
   },
 };

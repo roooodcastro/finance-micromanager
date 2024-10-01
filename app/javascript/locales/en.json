@@ -850,6 +850,7 @@
           "cancel_button": "Cancel",
           "category_label": "Category",
           "category_placeholder": "-- Category --",
+          "create_import_name_label": "Save Import Name",
           "date_label": "Date",
           "error": "Could not save",
           "import_block_reconciliation_reason": "Cannot import because date is prior to latest reconciliation",

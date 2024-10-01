@@ -54,10 +54,14 @@ Rails.application.routes.draw do
 
     namespace :imports do
       resource :setting, only: %i[show]
-      resources :import_transactions, only: %i[update]
     end
 
-    resources :imports, only: %i[index show create update destroy]
+    resources :imports, only: %i[index show create update destroy] do
+      namespace :imports do
+        resources :import_transactions, only: %i[index update]
+      end
+    end
+
     resources :import_names, only: %i[index create update destroy]
 
     resources :locales, only: %i[index]
