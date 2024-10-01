@@ -16,12 +16,6 @@
         {{ importObject.wallet.name }}
       </dd>
       <dt class="col-6 col-md-4 my-1">
-        {{ t('date_range_label') }}
-      </dt>
-      <dd class="col-6 col-md-8 my-1">
-        {{ `${formatDate(minDateFound)} - ${formatDate(maxDateFound)}` }}
-      </dd>
-      <dt class="col-6 col-md-4 my-1">
         {{ t('total_count_label') }}
       </dt>
       <dd class="col-6 col-md-8 my-1">
@@ -32,7 +26,6 @@
 </template>
 
 <script>
-import { computed } from 'vue';
 import _ from 'lodash';
 
 import BCard from '~/components/bootstrap/BCard.vue';
@@ -50,28 +43,17 @@ export default {
       type: Object,
       required: true,
     },
-    importedTransactions: {
-      type: Object,
+    transactionCount: {
+      type: Number,
       required: true,
     },
   },
 
-  setup(props) {
+  setup() {
     const t = I18n.scopedTranslator('views.imports.summary');
-
-    const transactionCount = computed(() => props.importedTransactions.length);
-    const minDateFound = computed(() => {
-      return _.minBy(props.importedTransactions, transaction => transaction.transactionDate)?.transactionDate
-    });
-    const maxDateFound = computed(() => {
-      return _.maxBy(props.importedTransactions, transaction => transaction.transactionDate)?.transactionDate
-    });
 
     return {
       t,
-      transactionCount,
-      minDateFound,
-      maxDateFound,
       formatDate,
     };
   },
