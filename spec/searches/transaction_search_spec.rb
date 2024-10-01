@@ -216,5 +216,32 @@ RSpec.describe TransactionSearch, type: :search do
         it { is_expected.to contain_exactly(transaction_b) }
       end
     end
+
+    context 'when import_id is specified' do
+      let(:query_params) { { import_id: } }
+      let(:import1) { create(:import) }
+      let(:import2) { create(:import) }
+
+      let!(:transaction_a) { create(:transaction) }
+      let!(:transaction_b) { create(:transaction, import: import1) }
+
+      context 'and it is empty' do
+        let(:import_id) { nil }
+
+        it { is_expected.to contain_exactly(transaction_a, transaction_b) }
+      end
+
+      context 'and it has an ID but there are no transactions from that import' do
+        let(:import_id) { import2.id }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'and it has an ID and there are transactions from that import' do
+        let(:import_id) { import1.id }
+
+        it { is_expected.to contain_exactly(transaction_b) }
+      end
+    end
   end
 end

@@ -18,6 +18,7 @@ class TransactionSearch
     search_category_ids
     search_wallet_ids
     search_transaction_automation_id
+    search_import_id
 
     relation
   end
@@ -104,6 +105,13 @@ class TransactionSearch
     return self if !query_params.key?(:transaction_automation_id) || query_params[:transaction_automation_id].blank?
 
     @relation = relation.where(transaction_automation_id: query_params[:transaction_automation_id])
+    self
+  end
+
+  def search_import_id
+    return self if !query_params.key?(:import_id) || query_params[:import_id].blank?
+
+    @relation = relation.where(import_id: query_params[:import_id])
     self
   end
 
