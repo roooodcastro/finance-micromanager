@@ -18,6 +18,8 @@
 
           <input
             v-if="!isBlocked"
+            data-transaction-input="name"
+            :data-row="index"
             :name="`transactions[${transaction.id}][name]`"
             :value="transaction.name"
             class="form-control"
@@ -61,6 +63,8 @@
 
     <td class="width-10rem">
       <input
+        data-transaction-input="date"
+        :data-row="index"
         :value="transaction.transactionDate"
         :disabled="!isEditable && !isDateEditable"
         :name="`transactions[${transaction.id}][transaction_date]`"
@@ -74,6 +78,8 @@
     <td>
       <CategoriesSelect
         v-if="!isBlocked"
+        data-transaction-input="category"
+        :data-row="index"
         :value="[transaction.categoryId, transaction.subcategoryId].filter(x => x).join('|')"
         :placeholder="t('category_placeholder')"
         :name="`transactions[${transaction.id}][category_id]`"
@@ -91,6 +97,8 @@
       >
       <ImportActionsSelect
         v-if="!isBlocked"
+        data-transaction-input="action"
+        :data-row="index"
         :value="transaction.action"
         :allow-match="!!transaction.matches.length"
         :name="`transactions[${transaction.id}][action]`"
@@ -146,6 +154,10 @@ export default {
   props: {
     transaction: {
       type: Object,
+      required: true,
+    },
+    index: {
+      type: Number,
       required: true,
     },
   },

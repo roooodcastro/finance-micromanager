@@ -18,6 +18,7 @@
 <script>
 import { onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
+import hotkeys from 'hotkeys-js';
 
 import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
@@ -25,6 +26,11 @@ import useImportStore from '~/stores/ImportStore.js';
 import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
+
+import {
+  IMPORT_ACTION_IMPORT,
+  IMPORT_ACTION_SKIP,
+} from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ImportPreviewForm from '~/components/imports/ImportPreviewForm.vue';
@@ -64,6 +70,26 @@ export default {
     const { importNames, fetchParams: importNameFetchParams } = storeToRefs(importNameStore);
     const { importTransactions, urlParams: importTransactionUrlParams } = storeToRefs(importTransactionStore);
     const { transactionPredictions } = storeToRefs(transactionPredictionStore);
+
+    // Shortcuts
+    hotkeys('alt+,,alt+.,alt+i,alt+x', (_, handler) => {
+      // Move to transaction below
+      if (handler.key === 'alt+.') {
+        importTransactionStore.moveCursorFromShortcut(1);
+      }
+      // Move to transaction above
+      if (handler.key === 'alt+,') {
+        importTransactionStore.moveCursorFromShortcut(-1);
+      }
+      // Set current transaction to import
+      if (handler.key === 'alt+i') {
+        importTransactionStore.setActionFromShortcut(IMPORT_ACTION_IMPORT);
+      }
+      // Set current transaction to ignore
+      if (handler.key === 'alt+x') {
+        importTransactionStore.setActionFromShortcut(IMPORT_ACTION_SKIP);
+      }
+    });
 
     onMounted(() => {
       if (!importNames.value.length) {
