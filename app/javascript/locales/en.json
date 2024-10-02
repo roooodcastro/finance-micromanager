@@ -912,6 +912,8 @@
         },
         "modals": {
           "shortcut_help": {
+            "date_range_next": "Switch to next month",
+            "date_range_prev": "Switch to previous month",
             "help": "Show this shortcut list",
             "import_preview_import": "Set transaction to be imported",
             "import_preview_next": "Move cursor to next transaction",

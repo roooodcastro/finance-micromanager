@@ -59,6 +59,7 @@ export default {
       label: I18n.t('views.import_names.floating_button_label'),
       icon: 'right-left',
       callback: () => importNameStore.openFormModal(null),
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const profileStore = useProfileStore();

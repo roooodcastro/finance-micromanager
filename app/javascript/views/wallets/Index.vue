@@ -64,6 +64,7 @@ export default {
       label: I18n.t('views.wallets.floating_button_label'),
       icon: ICON_WALLETS,
       callback: () => walletStore.openFormModal(null),
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const profileStore = useProfileStore();

@@ -980,6 +980,8 @@
         },
         "modals": {
           "shortcut_help": {
+            "date_range_next": "Voltar ao mês anterior",
+            "date_range_prev": "Avançar para o próximo mês",
             "help": "Abrir esta lista de atalhos",
             "import_preview_import": "Marcar transação para importar",
             "import_preview_next": "Mover cursor para transação anterior",

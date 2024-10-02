@@ -54,6 +54,7 @@ export default {
       label: I18n.t('views.imports.floating_button_label'),
       icon: 'cloud-arrow-up',
       callback: () => importStore.openFormModal(null),
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const profileStore = useProfileStore();

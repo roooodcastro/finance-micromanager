@@ -144,6 +144,7 @@ export default {
       label: I18n.t('views.transaction_predictions.floating_button_label'),
       icon: ICON_TRANSACTION_PREDICTIONS,
       href: newPath,
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const profileStore = useProfileStore();

@@ -45,6 +45,7 @@
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useShortcutStore from '~/stores/ShortcutStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -56,8 +57,10 @@ export default {
   emits: ['change'],
 
   setup(_, { emit }) {
-    const monthInput = ref(null);
+    const shortcutStore = useShortcutStore();
     const dateRangeStore = useDateRangeStore();
+
+    const monthInput = ref(null);
     const { maxDate, startDate, startMonth: month, startYear: year, nextEnabled } = storeToRefs(dateRangeStore);
 
     const handlePrev = () => {
@@ -68,6 +71,10 @@ export default {
       dateRangeStore.next();
       emit('change');
     }
+
+    shortcutStore.registerShortcut('alt+,', 'date_range_prev', ['alt', '<'], handlePrev);
+    shortcutStore.registerShortcut('alt+.', 'date_range_next', ['alt', '>'], handleNext);
+
     const handlePickerOpen = () => monthInput.value.showPicker();
     const handlePickerChange = (ev) => {
       dateRangeStore.setStartDate(ev.target.value);
