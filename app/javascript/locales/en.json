@@ -910,6 +910,16 @@
           "none": "None",
           "unspecified": "Unspecified"
         },
+        "modals": {
+          "shortcut_help": {
+            "help": "Show this shortcut list",
+            "import_preview_import": "Set transaction to be imported",
+            "import_preview_next": "Move cursor to next transaction",
+            "import_preview_prev": "Move cursor to previous transaction",
+            "import_preview_skip": "Set transaction to be ignored",
+            "title": "Keyboard Shortcuts"
+          }
+        },
         "page_header": {
           "action_toggle_label": "Actions"
         },

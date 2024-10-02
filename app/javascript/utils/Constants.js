@@ -6,6 +6,7 @@ export const PASSWORD_CHANGE_MODAL_ID = 'passwordChangeModal';
 export const TRANSACTION_PREDICTION_CONDITION_MODAL_ID = 'transactionPredictionConditionModal';
 export const TRANSACTION_PREDICTION_ACTION_MODAL_ID = 'transactionPredictionActionModal';
 export const DAILY_TOTALS_CHART_MODE_MODAL_ID = 'dailyTotalsChartModeModal';
+export const SHORTCUTS_HELP_MODAL_ID = 'shortcutsHelpModal';
 
 /*
  * Form IDs

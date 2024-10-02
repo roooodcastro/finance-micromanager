@@ -222,6 +222,14 @@ pt-BR:
         sign_in: Fazer Login
         sign_up: Criar Conta
         sign_out: Sair da Conta
+      modals:
+        shortcut_help:
+          title: Atalhos de Teclado
+          help: Abrir esta lista de atalhos
+          import_preview_prev: Mover cursor para próxima transação
+          import_preview_next: Mover cursor para transação anterior
+          import_preview_import: Marcar transação para importar
+          import_preview_skip: Marcar transação para ignorar
     manifest:
       screenshots:
         login_page: Página de Login
