@@ -18,7 +18,6 @@
 <script>
 import { onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import hotkeys from 'hotkeys-js';
 
 import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
@@ -26,6 +25,7 @@ import useImportStore from '~/stores/ImportStore.js';
 import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
+import useShortcutStore from '~/stores/ShortcutStore.js';
 
 import {
   IMPORT_ACTION_IMPORT,
@@ -61,8 +61,9 @@ export default {
     const importsPath = importsApi.index.path();
 
     const importStore = useImportStore();
-    const importTransactionStore = useImportTransactionStore();
+    const shortcutStore = useShortcutStore();
     const importNameStore = useImportNameStore();
+    const importTransactionStore = useImportTransactionStore();
     const transactionPredictionStore = useTransactionPredictionStore();
 
     importStore.loadImportFromProps(props.importObject);
@@ -72,24 +73,10 @@ export default {
     const { transactionPredictions } = storeToRefs(transactionPredictionStore);
 
     // Shortcuts
-    hotkeys('alt+,,alt+.,alt+i,alt+x', (_, handler) => {
-      // Move to transaction below
-      if (handler.key === 'alt+.') {
-        importTransactionStore.moveCursorFromShortcut(1);
-      }
-      // Move to transaction above
-      if (handler.key === 'alt+,') {
-        importTransactionStore.moveCursorFromShortcut(-1);
-      }
-      // Set current transaction to import
-      if (handler.key === 'alt+i') {
-        importTransactionStore.setActionFromShortcut(IMPORT_ACTION_IMPORT);
-      }
-      // Set current transaction to ignore
-      if (handler.key === 'alt+x') {
-        importTransactionStore.setActionFromShortcut(IMPORT_ACTION_SKIP);
-      }
-    });
+    shortcutStore.registerShortcut('alt+,', 'import_preview_prev', ['alt', '<'], () => importTransactionStore.moveCursorFromShortcut(-1));
+    shortcutStore.registerShortcut('alt+.', 'import_preview_next', ['alt', '>'], () => importTransactionStore.moveCursorFromShortcut(1));
+    shortcutStore.registerShortcut('alt+i', 'import_preview_import', ['alt', 'i'], () => importTransactionStore.setActionFromShortcut(IMPORT_ACTION_IMPORT));
+    shortcutStore.registerShortcut('alt+x', 'import_preview_skip', ['alt', 'x'], () => importTransactionStore.setActionFromShortcut(IMPORT_ACTION_SKIP));
 
     onMounted(() => {
       if (!importNames.value.length) {

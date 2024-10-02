@@ -220,6 +220,14 @@ en:
         sign_in: Sign In
         sign_up: Sign Up
         sign_out: Sign Out
+      modals:
+        shortcut_help:
+          title: Keyboard Shortcuts
+          help: Show this shortcut list
+          import_preview_prev: Move cursor to previous transaction
+          import_preview_next: Move cursor to next transaction
+          import_preview_import: Set transaction to be imported
+          import_preview_skip: Set transaction to be ignored
     manifest:
       screenshots:
         login_page: Login page

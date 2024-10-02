@@ -978,6 +978,16 @@
           "none": "Nenhum",
           "unspecified": "Não especificado"
         },
+        "modals": {
+          "shortcut_help": {
+            "help": "Abrir esta lista de atalhos",
+            "import_preview_import": "Marcar transação para importar",
+            "import_preview_next": "Mover cursor para transação anterior",
+            "import_preview_prev": "Mover cursor para próxima transação",
+            "import_preview_skip": "Marcar transação para ignorar",
+            "title": "Atalhos de Teclado"
+          }
+        },
         "page_header": {
           "action_toggle_label": "Ações"
         },

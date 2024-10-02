@@ -19,6 +19,7 @@
     <PageFooter />
     <VerticalMenuOffcanvas />
     <ConfirmationModal />
+    <ShortcutHelpModal />
     <TransactionForm />
     <ProfileForm />
   </div>
@@ -36,7 +37,9 @@ import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import useBrowserCacheStore from '~/stores/BrowserCacheStore.js';
 import useLocaleStore from '~/stores/LocaleStore.js';
-import { ICON_TRANSACTIONS } from '~/utils/Constants.js';
+import useModalStore from '~/stores/ModalStore.js';
+import useShortcutStore from '~/stores/ShortcutStore.js';
+import { ICON_TRANSACTIONS, SHORTCUTS_HELP_MODAL_ID } from '~/utils/Constants.js';
 
 import ToastNotifications from '~/components/layout/ToastNotifications.vue';
 import Navigation from '~/components/layout/Navigation.vue';
@@ -47,6 +50,7 @@ import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
 import ProfileForm from '~/components/profiles/ProfileForm.vue';
+import ShortcutHelpModal from '~/components/ui/ShortcutHelpModal.vue';
 
 export default {
   components: {
@@ -55,6 +59,7 @@ export default {
     Navigation,
     PageFooter,
     ProfileForm,
+    ShortcutHelpModal,
     ToastNotifications,
     TransactionForm,
     VerticalMenu,
@@ -83,7 +88,9 @@ export default {
     },
   },
   setup(props) {
+    const modalStore = useModalStore();
     const localeStore = useLocaleStore();
+    const shortcutStore = useShortcutStore();
     const profileStore = useProfileStore();
     const dateRangeStore = useDateRangeStore();
     const transactionStore = useTransactionStore();
@@ -123,6 +130,14 @@ export default {
     if (props.dateRange.startDate) {
       dateRangeStore.setFromProps(props.dateRange);
     }
+
+    shortcutStore.registerShortcut('shift+/', 'help', ['?'], (event) => {
+      const targetTagName = (event.target || event.srcElement).tagName;
+      // Do not trigger when focused element is an editable input
+      if (!/^(INPUT|TEXTAREA|SELECT)$/.test(targetTagName)) {
+        modalStore.show(SHORTCUTS_HELP_MODAL_ID);
+      }
+    });
 
     onMounted(() => {
       const queryParams = getQueryParams();
