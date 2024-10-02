@@ -230,6 +230,8 @@ pt-BR:
           import_preview_next: Mover cursor para transação anterior
           import_preview_import: Marcar transação para importar
           import_preview_skip: Marcar transação para ignorar
+          date_range_prev: Avançar para o próximo mês
+          date_range_next: Voltar ao mês anterior
     manifest:
       screenshots:
         login_page: Página de Login

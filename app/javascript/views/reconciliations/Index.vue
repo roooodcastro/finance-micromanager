@@ -62,6 +62,7 @@ export default {
       label: I18n.t('views.reconciliations.floating_button_label'),
       icon: ICON_RECONCILIATIONS,
       callback: () => reconciliationStore.openFormModal(null),
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const profileStore = useProfileStore();

@@ -100,10 +100,19 @@ export default {
     browserCacheStore.loadFromPageLoad();
     localeStore.fetchCollection();
 
+    shortcutStore.registerShortcut('shift+/', 'help', ['?'], (event) => {
+      const targetTagName = (event.target || event.srcElement).tagName;
+      // Do not trigger when focused element is an editable input
+      if (!/^(INPUT|TEXTAREA|SELECT)$/.test(targetTagName)) {
+        modalStore.show(SHORTCUTS_HELP_MODAL_ID);
+      }
+    });
+
     floatingActionButtonStore.registerSpeedDialEntry({
       label: I18n.t('views.transactions.floating_button_label'),
       icon: ICON_TRANSACTIONS,
       callback: () => transactionStore.openFormModal(null),
+      shortcut: { keys: 'alt+t', keyLabels: ['alt', 't'] },
     });
 
     if (props.currentProfile) {
@@ -130,14 +139,6 @@ export default {
     if (props.dateRange.startDate) {
       dateRangeStore.setFromProps(props.dateRange);
     }
-
-    shortcutStore.registerShortcut('shift+/', 'help', ['?'], (event) => {
-      const targetTagName = (event.target || event.srcElement).tagName;
-      // Do not trigger when focused element is an editable input
-      if (!/^(INPUT|TEXTAREA|SELECT)$/.test(targetTagName)) {
-        modalStore.show(SHORTCUTS_HELP_MODAL_ID);
-      }
-    });
 
     onMounted(() => {
       const queryParams = getQueryParams();

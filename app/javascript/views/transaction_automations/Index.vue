@@ -54,6 +54,7 @@ export default {
       label: I18n.t('views.transaction_automations.floating_button_label'),
       icon: ICON_TRANSACTION_AUTOMATIONS,
       callback: () => transactionAutomationStore.openFormModal(null),
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const profileStore = useProfileStore();

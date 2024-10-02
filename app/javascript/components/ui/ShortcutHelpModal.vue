@@ -18,14 +18,14 @@
               :key="keys"
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              <span>{{ t(shortcut.label) }}</span>
+              <span>{{ t(shortcut.label, { defaultValue: shortcut.label }) }}</span>
               <span class="d-flex align-items-center gap-2 fs-4 font-monospace">
                 <span
-                  v-for="key_label in shortcut.keyLabels"
-                  :key="`${keys}_${key_label}`"
+                  v-for="keyLabel in shortcut.keyLabels"
+                  :key="`${keys}_${keyLabel}`"
                   class="badge bg-dark"
                 >
-                  {{ key_label }}
+                  {{ keyLabel }}
                 </span>
               </span>
             </li>

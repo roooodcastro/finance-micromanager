@@ -58,6 +58,7 @@ export default {
       label: I18n.t('views.profiles.floating_button_label'),
       icon: ICON_PROFILES,
       callback: handleNew,
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
 

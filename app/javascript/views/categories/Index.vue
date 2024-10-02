@@ -69,6 +69,7 @@ export default {
       label: I18n.t('views.categories.floating_button_label'),
       icon: ICON_CATEGORIES,
       callback: () => categoryStore.openFormModal(null),
+      shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
     const initialShowDisabled = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'sd');
