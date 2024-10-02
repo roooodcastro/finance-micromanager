@@ -2,6 +2,7 @@ import { createApp, h } from 'vue'
 import { createPinia } from 'pinia';
 import { createInertiaApp } from '@inertiajs/vue3';
 import axios from 'axios';
+import hotkeys from 'hotkeys-js';
 import ApplicationLayout from '../components/layout/ApplicationLayout.vue';
 import LoginLayout from '../components/layout/LoginLayout.vue';
 import Csrf from '~/utils/Csrf.js';
@@ -41,6 +42,9 @@ async function startApplication() {
   dayjs.extend(timezone);
 
   axios.defaults.headers.common['X-CSRF-Token'] = Csrf.getToken();
+
+  // Allow shortcuts to be called everywhere, including input elements
+  hotkeys.filter = () => true;
 
   if (!window._rails_loaded) {
     Rails.start();

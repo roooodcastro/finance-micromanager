@@ -20,10 +20,13 @@
     </thead>
     <tbody>
       <template
-        v-for="transaction in importTransactions"
+        v-for="(transaction, index) in importTransactions"
         :key="transaction.id"
       >
-        <ImportPreviewListItem :transaction="transaction" />
+        <ImportPreviewListItem
+          :index="index"
+          :transaction="transaction"
+        />
       </template>
     </tbody>
   </table>

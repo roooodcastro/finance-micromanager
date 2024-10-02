@@ -27,6 +27,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "dayjs": "^1.11.10",
     "esbuild": "^0.17.18",
+    "hotkeys-js": "^3.13.7",
     "i18n-js": "^4.2.3",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
