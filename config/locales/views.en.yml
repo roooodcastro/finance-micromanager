@@ -4,6 +4,7 @@ en:
     app_name: Finance MicroManager
     app_description: >-
       Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.
+
     categories:
       floating_button_label: New Category
       confirmation:
@@ -44,12 +45,13 @@ en:
         disabled_category_warning: >-
           This category is disabled. It cannot be edited or used for new transactions. Historical data will remain
           accessible.
+
     dashboard:
       show:
         title: Dashboard
         sub_header_recent_transactions: Recent Transactions
-        sub_header_category_summary: Categories Summary
-        sub_header_transactions_summary: Summary
+        sub_header_category_summary: Categories
+        sub_header_transactions_summary: Position
         money_in: Money In
         spends: Spends
         average_spend: Avg. Spend

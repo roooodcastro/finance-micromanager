@@ -1,5 +1,5 @@
 <template>
-  <CollapsibleCard
+  <BCard
     id="transactions_summary"
     :title="t('sub_header_transactions_summary')"
     :loading="loading && initialFetchDone"
@@ -81,7 +81,7 @@
         <StartEndBalancesChart />
       </div>
     </div>
-  </CollapsibleCard>
+  </BCard>
 </template>
 
 <script>
@@ -92,13 +92,13 @@ import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 
-import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 import StartEndBalancesChart from '~/components/transactions/StartEndBalancesChart.vue';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
 export default {
   components: {
-    CollapsibleCard,
+    BCard,
     StartEndBalancesChart,
   },
 

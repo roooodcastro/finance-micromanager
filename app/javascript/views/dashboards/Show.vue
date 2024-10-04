@@ -10,41 +10,38 @@
     />
 
     <div class="row">
-      <div class="col">
-        <DailyTotalsChart class="mb-3" />
+      <div class="col-12 col-lg-6">
+        <TransactionsSummary />
+      </div>
+      <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+        <DailyTotalsChart />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-12 col-lg-6">
-        <TransactionsSummary />
-
-        <CollapsibleCard
+        <BCard
           id="dashboard_show_category_summary"
           :title="t('sub_header_category_summary')"
-          class="mt-3"
           no-body
         >
           <CategorySummariesList />
-        </CollapsibleCard>
+        </BCard>
       </div>
 
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
-        <CollapsibleCard
+        <BCard
           id="dashboard_show_recent_transactions"
           :title="t('sub_header_recent_transactions')"
           no-body
         >
-          <template v-slot:header>
-            <TransactionTypeTabs class="pb-2" />
-          </template>
-          <template v-slot:default>
-            <TransactionsList
-              compact
-              card-body
-            />
-          </template>
-        </CollapsibleCard>
+          <TransactionTypeTabs class="mx-3 mb-3" />
+
+          <TransactionsList
+            compact
+            card-body
+          />
+        </BCard>
       </div>
     </div>
   </div>
@@ -67,14 +64,14 @@ import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
-import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 import DailyTotalsChart from '~/components/transactions/DailyTotalsChart.vue';
 import TransactionsSummary from '~/components/dashboard/TransactionsSummary.vue';
 
 export default {
   components: {
+    BCard,
     CategorySummariesList,
-    CollapsibleCard,
     DailyTotalsChart,
     DateRangeSelector,
     InProgressReconciliationInfoAlert,

@@ -770,9 +770,9 @@
           "money_saved": "Balance Diff",
           "spends": "Spends",
           "start_balance": "Start Bal.",
-          "sub_header_category_summary": "Categories Summary",
+          "sub_header_category_summary": "Categories",
           "sub_header_recent_transactions": "Recent Transactions",
-          "sub_header_transactions_summary": "Summary",
+          "sub_header_transactions_summary": "Position",
           "title": "Dashboard"
         }
       },

@@ -126,6 +126,10 @@ $input-btn-padding-y-lg:      2rem !default;
 $input-btn-padding-x-lg:      2rem !default;
 $btn-font-weight:             600 !default;
 
+// Cards
+
+$card-title-spacer-y: 1rem;
+
 // Forms
 
 $input-line-height:                     1.5 !default;
@@ -133,7 +137,7 @@ $input-bg:                              $gray-200 !default;
 $input-disabled-bg:                     $gray-300 !default;
 $input-group-addon-bg:                  $gray-300 !default;
 
-// Navbar
+// Navbar & Navs & Tabs
 
 $navbar-padding-y:                  1.5rem !default;
 $navbar-dark-hover-color:           $white !default;
@@ -146,6 +150,9 @@ $navbar-dark-hover-color:           rgba($white, 1) !default;
 $navbar-dark-active-color:          $white !default;
 $navbar-dark-disabled-color:        rgba($white, .6) !default;
 $navbar-dark-toggler-border-color:  rgba($white, .1) !default;
+
+$nav-link-color:                    $gray-700;
+$nav-link-hover-color:              $gray-800;
 
 // Pagination
 

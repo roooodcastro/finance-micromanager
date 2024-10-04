@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CollapsibleCard
+    <BCard
       id="dashboard_show_day_chart"
       :loading="loading"
       :title="t('title')"
@@ -27,7 +27,7 @@
           class="DailyTotalsChart py-2"
         />
       </template>
-    </CollapsibleCard>
+    </BCard>
 
     <DailyTotalsChartModeModal @change="handleModeChange" />
   </div>
@@ -57,7 +57,7 @@ import { DAILY_TOTALS_CHART_MODE_MODAL_ID, DISPLAY_OPTIONS_COOKIE_NAME } from '~
 import { getValueFromJsonCookie } from '~/utils/CookieUtils.js';
 
 import { Bar as BarChart } from 'vue-chartjs';
-import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 import DropdownMenu from '~/components/ui/DropdownMenu.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import DailyTotalsChartModeModal from '~/components/statistics/DailyTotalsChartModeModal.vue';
@@ -70,7 +70,7 @@ const SPENDS_COLOR = '#d9534f80';
 export default {
   components: {
     BarChart,
-    CollapsibleCard,
+    BCard,
     DailyTotalsChartModeModal,
     DropdownMenu,
     DropdownMenuItem,

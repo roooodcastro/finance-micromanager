@@ -1,23 +1,22 @@
 <template>
-  <div class="card overflow-hidden">
-    <div
-      v-if="title || $slots.header"
-      class="card-header"
-    >
-      <h5
-        v-if="title"
-        class="m-0"
+  <div class="card overflow-hidden h-100">
+    <div class="card-body">
+      <div
+        v-if="title || $slots.header"
+        class="d-flex justify-content-between align-items-center"
       >
-        {{ title }}
-      </h5>
-      <slot name="header" />
-    </div>
-    <slot v-if="noBody" />
-    <div
-      v-else
-      class="card-body"
-    >
-      <slot />
+        <h4
+          v-if="title"
+          class="card-title"
+        >
+          {{ title }}
+        </h4>
+        <slot name="header" />
+      </div>
+
+      <div :class="{ 'BCard__no-body': noBody }">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
@@ -44,5 +43,9 @@ export default {
   .card {
     border-radius: 0 !important;
   }
+}
+
+.BCard__no-body {
+  margin: 0 -1rem -1rem -1rem;
 }
 </style>

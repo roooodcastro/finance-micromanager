@@ -50,8 +50,8 @@ pt-BR:
       show:
         title: Dashboard
         sub_header_recent_transactions: Transações Recentes
-        sub_header_category_summary: Resumo das Categorias
-        sub_header_transactions_summary: Resumo
+        sub_header_category_summary: Categorias
+        sub_header_transactions_summary: Posição
         money_in: Receita
         spends: Gastos
         average_spend: Gasto Diário
