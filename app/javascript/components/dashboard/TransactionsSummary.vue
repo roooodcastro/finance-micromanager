@@ -10,7 +10,7 @@
       class="row"
     >
       <div class="col-12 col-md-8 col-lg-12 col-xl-8">
-        <div class="card bg-light border-0">
+        <div class="card bg-white border-0">
           <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
             <div class="placeholder-glow pb-2">
               <h5>{{ t('money_in') }}</h5>

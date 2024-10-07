@@ -15,7 +15,7 @@
       <div
         class="TransactionListItem d-flex align-items-center border border-start-0 pe-2"
         :class="{
-          'bg-light-subtle bg-hover-light': !massEditSelected,
+          'bg-white bg-hover-light': !massEditSelected,
           'bg-primary-subtle': massEditSelected,
         }"
         @click="handleClick"

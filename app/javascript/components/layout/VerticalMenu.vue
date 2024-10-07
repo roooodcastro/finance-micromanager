@@ -68,7 +68,7 @@
       </div>
 
       <div class="list-group">
-        <hr>
+        <hr class="mx-3">
 
         <a
           v-for="menuItem in menuItems.bottom"

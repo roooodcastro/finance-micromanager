@@ -5,14 +5,14 @@
     :item-container-class="category.system ? 'bg-light' : 'bg-white'"
   >
     <a
-      class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
+      class="text-decoration-none list-group-item-action d-flex align-items-stretch pe-2 min-width-0"
       :href="showCategoryPath(category.id)"
     >
-      <span
-        class="CategoriesList__color-indicator rounded-circle me-3 flex-shrink-0"
+      <div
+        class="CategoriesList__color-indicator me-2"
         :style="{ backgroundColor: category.color }"
       />
-      <div class="d-flex flex-column min-width-0">
+      <div class="d-flex flex-column min-width-0 py-2 ps-2">
         <span class="d-flex align-items-center gap-2">
           <span
             v-if="isDisabled"
@@ -74,12 +74,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../stylesheets/variables';
-
 .CategoriesList__color-indicator {
-  border: 1px solid $table-border-color;
   display: inline-block;
-  width: 2em;
-  height: 2em;
+  width: 0.5em;
 }
 </style>
