@@ -1,32 +1,21 @@
 <template>
-  <div class="card overflow-hidden">
-    <div class="card-header">
-      <h5 class="m-0">
-        {{ t('sub_header_wallets') }}
-      </h5>
-    </div>
-    <div class="card-body table-responsive-md p-0">
+  <BCard
+    :title="t('sub_header_wallets')"
+    no-body
+  >
+    <div class="table-responsive-md">
       <table class="table table-sm table-hover mb-0">
         <thead>
           <tr>
-            <th
-              class="bg-light align-middle text-nowrap"
-              style="width: 50%"
-            >
+            <th class="bg-light align-middle text-nowrap">
               {{ t('table_header_wallet_name') }}
             </th>
-            <th
-              class="bg-light text-end text-nowrap"
-              style="width: 25%"
-            >
+            <th class="bg-light text-end text-nowrap d-none d-md-table-cell">
               {{ t('table_header_calculated_balance') }}
 
               <InfoTooltip :message="t('calculated_balance_info_text')" />
             </th>
-            <th
-              class="bg-light text-end text-nowrap"
-              style="width: 25%"
-            >
+            <th class="bg-light text-end text-nowrap">
               {{ t('table_header_real_balance') }}
 
               <InfoTooltip :message="t('real_balance_info_text')" />
@@ -46,8 +35,11 @@
           >
             <td class="text-nowrap bg-warning-subtle">
               {{ t('unspecified') }}
+              <div class="d-block d-md-none fw-bold">
+                {{ formatMoney(walletBalances['']) }}
+              </div>
             </td>
-            <td class="text-end fw-bold bg-warning-subtle">
+            <td class="text-end fw-bold bg-warning-subtle d-none d-md-table-cell">
               {{ formatMoney(walletBalances['']) }}
             </td>
             <td class="text-center bg-warning-subtle">
@@ -60,8 +52,11 @@
           <tr>
             <td class="text-nowrap fw-bold bg-light">
               {{ t('total') }}
+              <div class="d-block d-md-none fw-bold">
+                {{ formatMoney(walletBalancesSum) }}
+              </div>
             </td>
-            <td class="text-end fw-bold bg-light">
+            <td class="text-end fw-bold bg-light d-none d-md-table-cell">
               {{ formatMoney(walletBalancesSum) }}
             </td>
             <td class="text-end fw-bold bg-light">
@@ -71,7 +66,7 @@
         </tfoot>
       </table>
     </div>
-  </div>
+  </BCard>
 </template>
 
 <script>
@@ -84,11 +79,13 @@ import useReconciliationStore from '~/stores/ReconciliationStore.js';
 
 import InfoTooltip from '~/components/bootstrap/InfoTooltip.vue';
 import ReconciliationWalletItem from '~/components/reconciliations/ReconciliationWalletItem.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    ReconciliationWalletItem,
+    BCard,
     InfoTooltip,
+    ReconciliationWalletItem,
   },
 
   setup() {

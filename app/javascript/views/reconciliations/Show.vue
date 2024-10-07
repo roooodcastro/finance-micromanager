@@ -7,77 +7,67 @@
 
   <div class="row">
     <div class="col-12 col-lg-6">
-      <ReconciliationSummary />
-      <ReconciliationWallets class="mt-3" />
-    </div>
-
-    <div class="col-12 col-lg-6 mt-3 mt-lg-0">
-      <div
+      <BCard
         v-if="reconciliationFromStore.status === 'in_progress'"
-        class="card mb-3"
+        class="mb-3"
       >
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="m-0 ">
-            {{ t('sub_header_actions') }}
-          </h5>
-        </div>
-        <div class="card-body d-flex gap-2 justify-content-evenly">
+        <div class="d-flex gap-2 justify-content-evenly">
           <ReconciliationActions
             :record="reconciliationFromStore"
             buttons
             show-finish
           />
         </div>
-      </div>
+      </BCard>
 
-      <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="m-0 ">
-            {{ t('sub_header_transactions') }}
-            <span class="fs-6 d-block mt-2">
-              {{ transactionPeriodMessage }}
-            </span>
-          </h5>
+      <ReconciliationSummary />
+      <ReconciliationWallets class="mt-3" />
+    </div>
 
-          <div class="d-flex">
-            <DropdownMenu
-              toggle-icon="gear"
-              :toggle-label="t('subcategories_options')"
-              class="ms-1"
-            >
-              <DropdownMenuItem
-                :label="t('new_transaction')"
-                icon="plus"
-                @click="handleNewTransaction"
-              />
+    <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+      <BCard
+        :title="t('sub_header_transactions')"
+        :sub-title="transactionPeriodMessage"
+        no-body
+      >
+        <template v-slot:header>
+          <DropdownMenu
+            toggle-icon="gear"
+            :toggle-label="t('subcategories_options')"
+            class="ms-1"
+          >
+            <DropdownMenuItem
+              :label="t('new_transaction')"
+              icon="plus"
+              @click="handleNewTransaction"
+            />
 
-              <DropdownMenuItem
-                v-if="!massEditMode"
-                :label="t('enter_mass_edit_transactions')"
-                icon="pen-to-square"
-                @click="handleEnterMassEditTransactions"
-              />
+            <DropdownMenuItem
+              v-if="!massEditMode"
+              :label="t('enter_mass_edit_transactions')"
+              icon="pen-to-square"
+              @click="handleEnterMassEditTransactions"
+            />
 
-              <DropdownMenuItem
-                v-else
-                :label="t('cancel_mass_edit_transactions')"
-                icon="xmark"
-                @click="handleCancelMassEditTransactions"
-              />
-            </DropdownMenu>
-          </div>
-        </div>
+            <DropdownMenuItem
+              v-else
+              :label="t('cancel_mass_edit_transactions')"
+              icon="xmark"
+              @click="handleCancelMassEditTransactions"
+            />
+          </DropdownMenu>
+        </template>
 
-        <div class="card-body p-0 d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center">
           <TransactionsFilter class="m-2" />
 
           <TransactionsList
             compact
             card-body
-            class="mb-3 w-100"
+            class="w-100"
           />
         </div>
-      </div>
+      </BCard>
     </div>
   </div>
 </template>
@@ -103,13 +93,15 @@ import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenu from '~/components/ui/DropdownMenu.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import ReconciliationActions from '~/components/reconciliations/ReconciliationActions.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    ReconciliationActions,
+    BCard,
     DropdownMenuItem,
     DropdownMenu,
     PageHeader,
+    ReconciliationActions,
     ReconciliationSummary,
     ReconciliationWallets,
     TransactionsFilter,

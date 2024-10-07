@@ -1,5 +1,8 @@
 <template>
-  <div class="card overflow-hidden h-100">
+  <div
+    class="card"
+    :class="{ 'h-100': fullHeight }"
+  >
     <div class="card-body">
       <div
         v-if="title || $slots.header"
@@ -10,6 +13,12 @@
           class="card-title m-0"
         >
           {{ title }}
+          <span
+            v-if="subTitle"
+            class="fs-6 d-block mt-2"
+          >
+            {{ subTitle }}
+          </span>
         </h4>
         <slot name="header" />
       </div>
@@ -28,7 +37,15 @@ export default {
       type: String,
       default: null,
     },
+    subTitle: {
+      type: String,
+      default: null,
+    },
     noBody: {
+      type: Boolean,
+      default: false,
+    },
+    fullHeight: {
       type: Boolean,
       default: false,
     },

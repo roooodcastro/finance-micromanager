@@ -7,6 +7,7 @@
       header-class="d-flex align-items-center justify-content-between"
       class="position-relative"
       no-body
+      full-height
     >
       <template v-slot:header>
         <DropdownMenu

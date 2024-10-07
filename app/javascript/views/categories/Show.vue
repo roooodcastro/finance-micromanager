@@ -57,15 +57,13 @@
         :loading="loadingCategory"
       />
 
-      <div
+      <BCard
         v-if="subcategoriesFromStore.length"
-        class="card mt-3"
+        :title="t('sub_header_subcategories')"
+        class="mt-3"
+        no-body
       >
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="m-0">
-            {{ t('sub_header_subcategories') }}
-          </h5>
-
+        <template v-slot:header>
           <DropdownMenu
             v-if="!isDisabled"
             toggle-icon="gear"
@@ -85,24 +83,23 @@
               @click="handleShowDisabledSubcategories"
             />
           </DropdownMenu>
-        </div>
+        </template>
 
         <SubcategoriesList :subcategories="categoryFromStore.subcategories" />
-      </div>
+      </BCard>
     </div>
 
     <div class="col-12 col-xl-6">
-      <div class="card mt-3 mt-xl-0">
-        <div class="card-header">
-          <h5 class="m-0">
-            {{ t('sub_header_recent_transactions') }}
-          </h5>
-        </div>
+      <BCard
+        :title="t('sub_header_recent_transactions')"
+        class="mt-3 mt-xl-0"
+        no-body
+      >
         <TransactionsList
           compact
           card-body
         />
-      </div>
+      </BCard>
     </div>
   </div>
 
@@ -134,10 +131,11 @@ import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue'
 import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import CategoryForm from '~/components/categories/CategoryForm.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    WarningAlert,
+    BCard,
     CategoryForm,
     CategorySummary,
     DateRangeSelector,
@@ -148,6 +146,7 @@ export default {
     SubcategoriesList,
     SubcategoryForm,
     TransactionsList,
+    WarningAlert,
   },
 
   props: {

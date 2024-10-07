@@ -336,8 +336,8 @@ pt-BR:
           Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde
           o início, caso esta seja a primeira reconciliação.
         real_balance_info_text: >-
-          Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito
-          contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.
+          O saldo real deve refletir o valor contabilizado da carteira ao final do dia da reconciliação. Isso significa
+          contar dinheiro em espécie, ou verificar o saldo de uma conta bancária, por exemplo.
         unspecified_balance_cannot_be_edited: >-
           Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de
           concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser

@@ -3,6 +3,7 @@
     id="transactions_summary"
     :title="t('sub_header_transactions_summary')"
     :loading="loading && initialFetchDone"
+    full-height
   >
     <div
       v-if="!initialFetchDone"

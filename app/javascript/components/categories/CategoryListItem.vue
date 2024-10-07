@@ -2,7 +2,7 @@
   <ListItem
     :record="category"
     :actions-component="CategoryActions"
-    :item-container-class="category.system ? 'bg-light' : 'bg-light-subtle'"
+    :item-container-class="category.system ? 'bg-light' : 'bg-white'"
   >
     <a
       class="text-decoration-none list-group-item-action d-flex align-items-center p-2 min-width-0"
