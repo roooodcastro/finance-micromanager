@@ -48,7 +48,7 @@ en:
 
     dashboard:
       show:
-        title: Dashboard
+        title: "Welcome, %{name}"
         sub_header_recent_transactions: Recent Transactions
         sub_header_category_summary: Categories
         sub_header_transactions_summary: Position
@@ -58,6 +58,7 @@ en:
         money_saved: Balance Diff
         start_balance: Start Bal.
         end_balance: End Bal.
+        from_last_month_label: vs last month
     devise:
       alternative_links: 'Or, you can also:'
       sign_in: Sign In

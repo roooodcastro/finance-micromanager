@@ -42,8 +42,6 @@ import { computed, markRaw } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import { formatDate } from '~/utils/DateUtils.js';
-import { formatMoney } from '~/utils/NumberFormatter.js';
 import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
@@ -97,8 +95,6 @@ export default {
       isCredit,
       isCustomRule,
       rulesParser,
-      formatDate,
-      formatMoney,
       TransactionPredictionActions,
     };
   }

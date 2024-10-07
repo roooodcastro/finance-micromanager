@@ -766,6 +766,7 @@
         "show": {
           "average_spend": "Avg. Spend",
           "end_balance": "End Bal.",
+          "from_last_month_label": "vs last month",
           "money_in": "Money In",
           "money_saved": "Balance Diff",
           "spends": "Spends",
@@ -773,7 +774,7 @@
           "sub_header_category_summary": "Categories",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_transactions_summary": "Position",
-          "title": "Dashboard"
+          "title": "Welcome, %{name}"
         }
       },
       "devise": {

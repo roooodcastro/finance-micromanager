@@ -5,6 +5,7 @@
       :loading="loading"
       :title="t('title')"
       header-class="d-flex align-items-center justify-content-between"
+      class="position-relative"
       no-body
     >
       <template v-slot:header>
@@ -184,7 +185,7 @@ export default {
           },
           y: {
             ticks: {
-              callback: label => formatMoney(label, null, false),
+              callback: label => formatMoney(label, { includeCents: false }),
             },
             min: ['income', 'spends'].includes(chartMode.value) ? 0 : CHART_X_MIN,
             max: CHART_X_MAX,

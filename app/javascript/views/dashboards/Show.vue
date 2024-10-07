@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="t('title')" />
+    <PageHeader :title="t('title', { name: user.displayName })" />
 
     <InProgressReconciliationInfoAlert :reconciliation="inProgressReconciliation" />
 
@@ -10,10 +10,10 @@
     />
 
     <div class="row">
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-md-5 col-lg-4 col-xl-3">
         <TransactionsSummary />
       </div>
-      <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+      <div class="col-12 col-md-7 col-lg-8 col-xl-9 mt-3 mt-md-0">
         <DailyTotalsChart />
       </div>
     </div>
@@ -56,6 +56,7 @@ import useTransactionStore from '~/stores/TransactionStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useUserStore from '~/stores/UserStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -102,11 +103,13 @@ export default {
     const paginationStore = usePaginationStore();
     const transactionStore = useTransactionStore();
     const categorySummaryStore = useStatisticsCategorySummaryStore();
+    const userStore = useUserStore();
 
     const { categories: categoriesFromStore } = storeToRefs(categoryStore);
     const { categorySummaries: categorySummariesFromStore } = storeToRefs(categorySummaryStore);
     const { transactions } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
+    const { user } = storeToRefs(userStore);
 
     categoriesFromStore.value = props.categories;
     categorySummariesFromStore.value = props.categorySummaries;
@@ -138,6 +141,7 @@ export default {
     return {
       t: I18n.scopedTranslator('views.dashboard.show'),
       transactions,
+      user,
       handleDateRangeChange,
     };
   },

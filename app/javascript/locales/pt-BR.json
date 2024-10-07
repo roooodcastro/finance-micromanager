@@ -834,6 +834,7 @@
         "show": {
           "average_spend": "Gasto Diário",
           "end_balance": "S. Final",
+          "from_last_month_label": "vs mês passado",
           "money_in": "Receita",
           "money_saved": "Dif. Saldo",
           "spends": "Gastos",
@@ -841,7 +842,7 @@
           "sub_header_category_summary": "Categorias",
           "sub_header_recent_transactions": "Transações Recentes",
           "sub_header_transactions_summary": "Posição",
-          "title": "Dashboard"
+          "title": "Bem vindo, %{name}"
         }
       },
       "devise": {

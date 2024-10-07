@@ -3,11 +3,11 @@
     <div class="card-body">
       <div
         v-if="title || $slots.header"
-        class="d-flex justify-content-between align-items-center"
+        class="d-flex justify-content-between align-items-center mb-3"
       >
         <h4
           v-if="title"
-          class="card-title"
+          class="card-title m-0"
         >
           {{ title }}
         </h4>

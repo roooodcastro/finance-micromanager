@@ -48,7 +48,7 @@ pt-BR:
 
     dashboard:
       show:
-        title: Dashboard
+        title: "Bem vindo, %{name}"
         sub_header_recent_transactions: Transações Recentes
         sub_header_category_summary: Categorias
         sub_header_transactions_summary: Posição
@@ -58,6 +58,7 @@ pt-BR:
         money_saved: Dif. Saldo
         start_balance: 'S. Inicial'
         end_balance: 'S. Final'
+        from_last_month_label: vs mês passado
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
