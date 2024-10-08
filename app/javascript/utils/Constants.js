@@ -49,7 +49,6 @@ export const VARIANTS_FOR_IMPORT_ACTIONS = {
 /*
  * Cookies
  */
-export const COLLAPSED_CARDS_COOKIE_NAME = 'collapsed-cards';
 export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
 export const DISPLAY_OPTIONS_COOKIE_NAME = 'display-options';
 
