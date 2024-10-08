@@ -4,7 +4,10 @@
     :back-button-href="importsPath"
   />
 
-  <ImportPreviewSummary :import-object="importObject" />
+  <ImportPreviewSummary
+    :import-object="importObject"
+    class="mb-3"
+  />
 
   <ImportPreviewForm :import-object="importObject">
     <ImportPreviewList />

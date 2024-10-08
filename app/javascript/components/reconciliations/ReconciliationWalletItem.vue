@@ -2,8 +2,11 @@
   <tr class="align-middle">
     <td class="text-nowrap">
       {{ wallet.name }}
+      <div class="d-block d-md-none fw-bold">
+        {{ formatMoney(walletBalance ?? 0) }}
+      </div>
     </td>
-    <td class="text-end fw-bold text-nowrap">
+    <td class="text-end fw-bold text-nowrap d-none d-md-table-cell">
       {{ formatMoney(walletBalance ?? 0) }}
     </td>
     <td>

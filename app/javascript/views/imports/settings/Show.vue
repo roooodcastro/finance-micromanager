@@ -2,24 +2,21 @@
   <div>
     <PageHeader :title="t('title')" />
 
-    <BCard no-body>
+    <BCard
+      :title="t('sub_header_import_name', { count: importNames.length })"
+      no-body
+    >
       <template v-slot:header>
-        <div class="d-flex justify-content-between align-items-center">
-          <h5 class="m-0">
-            {{ t('sub_header_import_name', { count: importNames.length }) }}
-          </h5>
-
-          <DropdownMenu
-            toggle-icon="gear"
-            :toggle-label="t('import_names_menu_aria_label')"
-          >
-            <DropdownMenuItem
-              :label="t('new_import_name')"
-              icon="plus"
-              @click="handleNewImportName"
-            />
-          </DropdownMenu>
-        </div>
+        <DropdownMenu
+          toggle-icon="gear"
+          :toggle-label="t('import_names_menu_aria_label')"
+        >
+          <DropdownMenuItem
+            :label="t('new_import_name')"
+            icon="plus"
+            @click="handleNewImportName"
+          />
+        </DropdownMenu>
       </template>
 
       <InfoAlert

@@ -2,8 +2,8 @@
   <ListItemDrawerContextMenu class="list-group-item overflow-hidden p-0">
     <template v-slot:actions>
       <component
-        v-if="actionsComponent"
         :is="actionsComponent"
+        v-if="actionsComponent"
         :record="record"
         drawer-menu
       />
@@ -14,8 +14,8 @@
 
         <div class="d-none d-lg-flex ms-auto pe-2 flex-shrink-0">
           <component
-            v-if="actionsComponent"
             :is="actionsComponent"
+            v-if="actionsComponent"
             :record="record"
           />
         </div>
@@ -43,7 +43,7 @@ export default {
     },
     itemContainerClass: {
       type: String,
-      default: 'bg-light-subtle',
+      default: 'bg-white',
     },
   },
 };

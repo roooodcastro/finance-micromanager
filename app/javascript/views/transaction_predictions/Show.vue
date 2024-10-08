@@ -42,43 +42,35 @@
     :message="t('disabled_alert_message')"
   />
 
-  <div class="card">
-    <div class="card-header">
-      <h5 class="m-0">
-        {{ t('sub_header_rules') }}
-      </h5>
+  <BCard :title="t('sub_header_rules')">
+    <h5 class="mt-5 mb-3">
+      {{ t('sub_header_conditions') }}
+    </h5>
+
+    <div class="d-flex flex-row align-items-center flex-wrap gap-2">
+      <TransactionPredictionCondition
+        v-for="(_, index) in rulesParser.conditions.length"
+        :key="`condition-${index}`"
+        :condition-index="index"
+        :disabled="isDisabled"
+        class="w-100"
+      />
     </div>
-    <div class="card-body">
-      <h5 class="my-3">
-        {{ t('sub_header_conditions') }}
-      </h5>
 
+    <h5 class="mt-5 mb-3">
+      {{ t('sub_header_action') }}
+    </h5>
 
-      <div class="d-flex flex-row align-items-center flex-wrap gap-2">
-        <TransactionPredictionCondition
-          v-for="(_, index) in rulesParser.conditions.length"
-          :key="`condition-${index}`"
-          :condition-index="index"
-          :disabled="isDisabled"
-          class="w-100"
-        />
-      </div>
-
-      <h5 class="mt-5 mb-3">
-        {{ t('sub_header_action') }}
-      </h5>
-
-      <div class="d-flex flex-row align-items-center flex-wrap gap-2">
-        <TransactionPredictionAction
-          v-for="(_, index) in rulesParser.actions.length"
-          :key="`action-${index}`"
-          :action-index="index"
-          :disabled="isDisabled"
-          class="w-100"
-        />
-      </div>
+    <div class="d-flex flex-row align-items-center flex-wrap gap-2">
+      <TransactionPredictionAction
+        v-for="(_, index) in rulesParser.actions.length"
+        :key="`action-${index}`"
+        :action-index="index"
+        :disabled="isDisabled"
+        class="w-100"
+      />
     </div>
-  </div>
+  </BCard>
 </template>
 
 <script>
@@ -93,16 +85,18 @@ import useWalletStore from '~/stores/WalletStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
+import { ICON_TRANSACTION_PREDICTIONS } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import TransactionPredictionAction from '~/components/transaction_predictions/TransactionPredictionAction.vue';
 import TransactionPredictionCondition from '~/components/transaction_predictions/TransactionPredictionCondition.vue';
-import { ICON_TRANSACTION_PREDICTIONS } from '~/utils/Constants.js';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
+    BCard,
     DropdownMenuItem,
     PageHeader,
     TransactionPredictionAction,

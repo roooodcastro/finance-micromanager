@@ -1,7 +1,7 @@
 <template>
   <div class="ImportListItem list-group-item overflow-hidden p-0">
     <div
-      class="d-flex align-items-center bg-light-subtle side-strip ps-2"
+      class="d-flex align-items-center side-strip ps-2"
       :class="sideStripVariant"
     >
       <a

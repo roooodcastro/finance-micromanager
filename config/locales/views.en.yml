@@ -4,6 +4,7 @@ en:
     app_name: Finance MicroManager
     app_description: >-
       Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.
+
     categories:
       floating_button_label: New Category
       confirmation:
@@ -44,18 +45,20 @@ en:
         disabled_category_warning: >-
           This category is disabled. It cannot be edited or used for new transactions. Historical data will remain
           accessible.
+
     dashboard:
       show:
-        title: Dashboard
+        title: "Welcome, %{name}"
         sub_header_recent_transactions: Recent Transactions
-        sub_header_category_summary: Categories Summary
-        sub_header_transactions_summary: Summary
+        sub_header_category_summary: Categories
+        sub_header_transactions_summary: Position
         money_in: Money In
         spends: Spends
         average_spend: Avg. Spend
         money_saved: Balance Diff
         start_balance: Start Bal.
         end_balance: End Bal.
+        from_last_month_label: vs last month
     devise:
       alternative_links: 'Or, you can also:'
       sign_in: Sign In
@@ -554,7 +557,7 @@ en:
         destroy: Delete
         sub_header_rules: Autofill Rules
         sub_header_conditions: When any of these conditions are true
-        sub_header_action: Then fill all these fields
+        sub_header_action: Then fill in these fields
         label_with: with
         disabled_alert_title: Disabled
         disabled_alert_message: "This transaction autofill is disabled, it will not work until it's enabled again."

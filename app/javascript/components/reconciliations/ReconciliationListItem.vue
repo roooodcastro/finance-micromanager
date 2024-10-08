@@ -2,7 +2,7 @@
   <ListItem
     :record="reconciliation"
     :actions-component="ReconciliationActions"
-    :item-container-class="`bg-light-subtle side-strip ${sideStripVariant}`"
+    :item-container-class="`side-strip ${sideStripVariant} bg-white`"
   >
     <a
       class="text-decoration-none list-group-item-action d-flex align-items-center p-2 ps-4 min-width-0"

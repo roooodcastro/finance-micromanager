@@ -834,14 +834,15 @@
         "show": {
           "average_spend": "Gasto Diário",
           "end_balance": "S. Final",
+          "from_last_month_label": "vs mês passado",
           "money_in": "Receita",
           "money_saved": "Dif. Saldo",
           "spends": "Gastos",
           "start_balance": "S. Inicial",
-          "sub_header_category_summary": "Resumo das Categorias",
+          "sub_header_category_summary": "Categorias",
           "sub_header_recent_transactions": "Transações Recentes",
-          "sub_header_transactions_summary": "Resumo",
-          "title": "Dashboard"
+          "sub_header_transactions_summary": "Posição",
+          "title": "Bem vindo, %{name}"
         }
       },
       "devise": {
@@ -1127,7 +1128,7 @@
           "enter_mass_edit_transactions": "Edição em Massa",
           "new_transaction": "Nova Transação",
           "real_balance": "Real",
-          "real_balance_info_text": "Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.",
+          "real_balance_info_text": "O saldo real deve refletir o valor contabilizado da carteira ao final do dia da reconciliação. Isso significa contar dinheiro em espécie, ou verificar o saldo de uma conta bancária, por exemplo.",
           "status": "Status",
           "sub_header_actions": "Ações",
           "sub_header_balances": "Saldo Geral",
@@ -1308,7 +1309,7 @@
           "edit": "Editar",
           "label_with": "com",
           "reenable": "Reabilitar",
-          "sub_header_action": "Então preencha todos esses campos",
+          "sub_header_action": "Então preencha esses campos",
           "sub_header_conditions": "Quando qualquer uma destas condições for verdadeira",
           "sub_header_rules": "Regras de Autopreenchimento",
           "title": "Autopreenchimento de Transação"

@@ -24,12 +24,17 @@
 
       <Pagination
         compact
-        class="d-none d-lg-flex"
+        class="d-none d-lg-flex align-self-end"
         @change="handlePageChange"
       />
     </div>
 
-    <TransactionsList :transactions="transactions" />
+    <BCard no-body>
+      <TransactionsList
+        :transactions="transactions"
+        card-body
+      />
+    </BCard>
   </div>
 </template>
 
@@ -39,16 +44,18 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { getQueryParams } from '~/utils/QueryStringUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import usePaginationStore from '~/stores/PaginationStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TransactionsFilter from '~/components/transactions/TransactionsFilter.vue';
 import Pagination from '~/components/rails/Pagination.vue';
-import usePaginationStore from '~/stores/PaginationStore.js';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
+    BCard,
     DropdownMenuItem,
     PageHeader,
     Pagination,

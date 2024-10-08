@@ -5,7 +5,9 @@
       :class="{ 'text-muted text-decoration-line-through': disabled }"
     >
       {{ condition.column ? t(`${condition.column}_label`) : '?' }}
-      {{ condition.operator ? t(`${condition.operator}_operator_label`) : '?' }}
+      <span class="fw-bold">
+        {{ condition.operator ? t(`${condition.operator}_operator_label`) : '?' }}
+      </span>
       {{ displayValue ? `"${displayValue}"` : '?' }}
     </span>
 

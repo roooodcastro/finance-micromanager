@@ -48,16 +48,17 @@ pt-BR:
 
     dashboard:
       show:
-        title: Dashboard
+        title: "Bem vindo, %{name}"
         sub_header_recent_transactions: Transações Recentes
-        sub_header_category_summary: Resumo das Categorias
-        sub_header_transactions_summary: Resumo
+        sub_header_category_summary: Categorias
+        sub_header_transactions_summary: Posição
         money_in: Receita
         spends: Gastos
         average_spend: Gasto Diário
         money_saved: Dif. Saldo
         start_balance: 'S. Inicial'
         end_balance: 'S. Final'
+        from_last_month_label: vs mês passado
     devise:
       alternative_links: 'Ou, você também pode:'
       sign_in: Fazer Login
@@ -335,8 +336,8 @@ pt-BR:
           Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde
           o início, caso esta seja a primeira reconciliação.
         real_balance_info_text: >-
-          Isso deve refletir o saldo real da carteira ao final do dia da reconciliação. Isso geralmente é feito
-          contando o dinheiro em espécie, ou verificando o saldo de uma conta bancária, por exemplo.
+          O saldo real deve refletir o valor contabilizado da carteira ao final do dia da reconciliação. Isso significa
+          contar dinheiro em espécie, ou verificar o saldo de uma conta bancária, por exemplo.
         unspecified_balance_cannot_be_edited: >-
           Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de
           concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser
@@ -557,7 +558,7 @@ pt-BR:
         destroy: Remover
         sub_header_rules: Regras de Autopreenchimento
         sub_header_conditions: Quando qualquer uma destas condições for verdadeira
-        sub_header_action: Então preencha todos esses campos
+        sub_header_action: Então preencha esses campos
         label_with: com
         disabled_alert_title: Desabilitado
         disabled_alert_message: >-

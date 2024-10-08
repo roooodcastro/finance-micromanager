@@ -1,13 +1,12 @@
 <template>
-  <div class="card">
-    <div class="card-header">
-      <h5 class="m-0 d-flex justify-content-between align-items-center">
-        <span>
-          {{ t('sub_header_balances') }}
-        </span>
-        <ReconciliationStatusBadge :reconciliation="reconciliation" />
-      </h5>
-    </div>
+  <BCard
+    :title="t('sub_header_balances')"
+    no-body
+  >
+    <template v-slot:header>
+      <ReconciliationStatusBadge :reconciliation="reconciliation" />
+    </template>
+
     <div class="card-body p-2 p-lg-3">
       <div class="ReconciliationSummary__balances d-flex align-items-center justify-content-evenly fs-5">
         <span class="text-center">
@@ -41,12 +40,13 @@
         </span>
       </div>
     </div>
-  </div>
+  </BCard>
 </template>
 
 <script>
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
@@ -54,10 +54,11 @@ import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import { VARIANTS_FOR_RECONCILIATION_STATUSES } from '~/utils/Constants.js';
 
 import ReconciliationStatusBadge from '~/components/reconciliations/ReconciliationStatusBadge.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
+    BCard,
     FontAwesomeIcon,
     ReconciliationStatusBadge
   },

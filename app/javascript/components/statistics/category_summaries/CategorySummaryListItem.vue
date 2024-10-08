@@ -1,5 +1,5 @@
 <template>
-  <div class="list-group-item bg-light-subtle border-bottom bg-hover-light">
+  <div class="list-group-item border-bottom bg-hover-light">
     <div class="row align-items-center">
       <div class="col-7 col-md-9 col-lg-8 col-xl-9 d-flex align-items-stretch text-decoration-none text-body">
         <span

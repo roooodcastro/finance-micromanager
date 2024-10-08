@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="t('title')" />
+    <PageHeader :title="t('title', { name: user.displayName })" />
 
     <InProgressReconciliationInfoAlert :reconciliation="inProgressReconciliation" />
 
@@ -10,41 +10,38 @@
     />
 
     <div class="row">
-      <div class="col">
-        <DailyTotalsChart class="mb-3" />
+      <div class="col-12 col-md-5 col-lg-4 col-xl-3">
+        <TransactionsSummary />
+      </div>
+      <div class="col-12 col-md-7 col-lg-8 col-xl-9 mt-3 mt-md-0">
+        <DailyTotalsChart />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-12 col-lg-6">
-        <TransactionsSummary />
-
-        <CollapsibleCard
+        <BCard
           id="dashboard_show_category_summary"
           :title="t('sub_header_category_summary')"
-          class="mt-3"
           no-body
         >
           <CategorySummariesList />
-        </CollapsibleCard>
+        </BCard>
       </div>
 
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
-        <CollapsibleCard
+        <BCard
           id="dashboard_show_recent_transactions"
           :title="t('sub_header_recent_transactions')"
           no-body
         >
-          <template v-slot:header>
-            <TransactionTypeTabs class="pb-2" />
-          </template>
-          <template v-slot:default>
-            <TransactionsList
-              compact
-              card-body
-            />
-          </template>
-        </CollapsibleCard>
+          <TransactionTypeTabs class="mx-3 mb-3" />
+
+          <TransactionsList
+            compact
+            card-body
+          />
+        </BCard>
       </div>
     </div>
   </div>
@@ -59,6 +56,7 @@ import useTransactionStore from '~/stores/TransactionStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useUserStore from '~/stores/UserStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -67,14 +65,14 @@ import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
-import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 import DailyTotalsChart from '~/components/transactions/DailyTotalsChart.vue';
 import TransactionsSummary from '~/components/dashboard/TransactionsSummary.vue';
 
 export default {
   components: {
+    BCard,
     CategorySummariesList,
-    CollapsibleCard,
     DailyTotalsChart,
     DateRangeSelector,
     InProgressReconciliationInfoAlert,
@@ -105,11 +103,13 @@ export default {
     const paginationStore = usePaginationStore();
     const transactionStore = useTransactionStore();
     const categorySummaryStore = useStatisticsCategorySummaryStore();
+    const userStore = useUserStore();
 
     const { categories: categoriesFromStore } = storeToRefs(categoryStore);
     const { categorySummaries: categorySummariesFromStore } = storeToRefs(categorySummaryStore);
     const { transactions } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
+    const { user } = storeToRefs(userStore);
 
     categoriesFromStore.value = props.categories;
     categorySummariesFromStore.value = props.categorySummaries;
@@ -141,6 +141,7 @@ export default {
     return {
       t: I18n.scopedTranslator('views.dashboard.show'),
       transactions,
+      user,
       handleDateRangeChange,
     };
   },

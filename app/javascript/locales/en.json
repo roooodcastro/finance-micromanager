@@ -766,14 +766,15 @@
         "show": {
           "average_spend": "Avg. Spend",
           "end_balance": "End Bal.",
+          "from_last_month_label": "vs last month",
           "money_in": "Money In",
           "money_saved": "Balance Diff",
           "spends": "Spends",
           "start_balance": "Start Bal.",
-          "sub_header_category_summary": "Categories Summary",
+          "sub_header_category_summary": "Categories",
           "sub_header_recent_transactions": "Recent Transactions",
-          "sub_header_transactions_summary": "Summary",
-          "title": "Dashboard"
+          "sub_header_transactions_summary": "Position",
+          "title": "Welcome, %{name}"
         }
       },
       "devise": {
@@ -1238,7 +1239,7 @@
           "edit": "Edit",
           "label_with": "with",
           "reenable": "Reenable",
-          "sub_header_action": "Then fill all these fields",
+          "sub_header_action": "Then fill in these fields",
           "sub_header_conditions": "When any of these conditions are true",
           "sub_header_rules": "Autofill Rules",
           "title": "Transaction Autofill"

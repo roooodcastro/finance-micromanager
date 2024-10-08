@@ -1,47 +1,44 @@
 <template>
-  <div class="card">
-    <div class="card-header">
-      <h5 class="m-0">
-        {{ t('sub_header_summary') }}
-      </h5>
-    </div>
+  <BCard :title="t('sub_header_summary')">
     <LoadingOverlay
       :loading="loading"
-      class="CategorySummary__card-body card-body d-grid gap-2 p-2"
+      class="CategorySummary__card-body p-2"
     >
-      <div class="card bg-success-subtle text-success-emphasis border-0">
-        <div class="card-body">
-          <h5 class="card-title">
+      <div class="row">
+        <div class="col-6">
+          <h5 class="m-0">
             {{ t('money_in') }}
           </h5>
-
-          <span class="fs-1">
+          <span class="fs-3 fw-bold text-credit">
             {{ category.summary.creditAmount }}
           </span>
         </div>
-      </div>
 
-      <div class="card bg-danger-subtle text-danger-emphasis border-0">
-        <div class="card-body">
-          <h5 class="card-title">
+        <div class="col-6">
+          <h5 class="m-0">
             {{ t('expenses') }}
           </h5>
-
-          <span class="fs-1">
+          <span class="fs-3 fw-bold text-debit">
             {{ category.summary.debitAmount }}
           </span>
         </div>
       </div>
     </LoadingOverlay>
-  </div>
+  </BCard>
 </template>
 
 <script>
 import I18n from '~/utils/I18n.js';
+
+import BCard from '~/components/bootstrap/BCard.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
-  components: { LoadingOverlay },
+  components: {
+    BCard,
+    LoadingOverlay,
+  },
+
   props: {
     category: {
       type: Object,
@@ -58,10 +55,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.CategorySummary__card-body {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-flow: column;
-}
-</style>

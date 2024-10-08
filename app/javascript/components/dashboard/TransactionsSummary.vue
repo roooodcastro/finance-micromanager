@@ -1,87 +1,78 @@
 <template>
-  <CollapsibleCard
+  <BCard
     id="transactions_summary"
     :title="t('sub_header_transactions_summary')"
     :loading="loading && initialFetchDone"
+    full-height
   >
-    <div
-      v-if="!initialFetchDone"
-      class="row"
-    >
-      <div class="col-12 col-md-8 col-lg-12 col-xl-8">
-        <div class="card bg-light border-0">
-          <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('money_in') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('spends') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('money_saved') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('average_spend') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      v-else
-      class="row"
-    >
-      <div class="col-12 col-md-8 col-lg-12 col-xl-8">
-        <div class="card bg-light border-0">
-          <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
-            <div class="text-credit">
-              <h5>{{ t('money_in') }}</h5>
-
-              <span class="fs-3">
-                {{ formatMoney(statistics.moneyIn) }}
-              </span>
-            </div>
-
-            <div class="text-debit">
-              <h5>{{ t('spends') }}</h5>
-
-              <span class="fs-3">
-                {{ formatMoney(statistics.spends * -1) }}
-              </span>
-            </div>
-
-            <div :class="{ 'text-credit': moneySaved >= 0, 'text-debit': moneySaved < 0 }">
-              <h5>{{ t('money_saved') }}</h5>
-
-              <span class="fs-3">
-                {{ formatMoney(moneySaved) }}
-              </span>
-            </div>
-
-            <div class="text-debit">
-              <h5>{{ t('average_spend') }}</h5>
-
-              <span class="fs-3">
-                {{ formatMoney(averageSpend) }}
-              </span>
-            </div>
+    <template v-if="!initialFetchDone">
+      <div class="row">
+        <div class="col placeholder-glow">
+          <span class="placeholder col-6 fs-3" />
+          <div>
+            <span class="placeholder col-6 fs-3 mt-1" />
           </div>
         </div>
       </div>
 
-      <div class="col-12 col-md-4 col-lg-12 col-xl-4">
-        <StartEndBalancesChart />
+      <div class="row mt-5">
+        <div class="placeholder-glow col-6">
+          <h5 class="m-0">
+            {{ t('money_in') }}
+          </h5>
+          <span class="placeholder col-6 fs-3" />
+        </div>
+
+        <div class="placeholder-glow col-6">
+          <h5 class="m-0">
+            {{ t('spends') }}
+          </h5>
+          <span class="placeholder col-6 fs-3" />
+        </div>
       </div>
-    </div>
-  </CollapsibleCard>
+    </template>
+
+    <template v-else>
+      <div class="row">
+        <div class="col">
+          <span class="fs-1 fw-bold">
+            {{ formatMoney(endBalance) }}
+          </span>
+          <div class="fs-5 d-flex gap-2 lh-1">
+            <span
+              class="fw-bold"
+              :class="{ 'text-credit': balanceDiff >= 0, 'text-debit': balanceDiff < 0 }"
+            >
+              {{ formatMoney(balanceDiff, { signDisplay: 'always' }) }}
+            </span>
+            <span class="text-muted">
+              {{ t('from_last_month_label') }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-6">
+          <h5 class="m-0">
+            {{ t('money_in') }}
+          </h5>
+          <span class="fs-3 fw-bold text-credit">
+            {{ formatMoney(statistics.moneyIn) }}
+          </span>
+        </div>
+
+        <div class="col-6">
+          <h5 class="m-0">
+            {{ t('spends') }}
+          </h5>
+          <span class="fs-3 fw-bold text-debit">
+            {{ formatMoney(statistics.spends * -1) }}
+          </span>
+        </div>
+      </div>
+    </template>
+  </BCard>
 </template>
 
 <script>
@@ -90,51 +81,35 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import useDateRangeStore from '~/stores/DateRangeStore.js';
 
-import CollapsibleCard from '~/components/bootstrap/CollapsibleCard.vue';
-import StartEndBalancesChart from '~/components/transactions/StartEndBalancesChart.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
 export default {
   components: {
-    CollapsibleCard,
-    StartEndBalancesChart,
+    BCard,
   },
 
   setup() {
     const t = I18n.scopedTranslator('views.dashboard.show');
 
-    const dateRangeStore = useDateRangeStore();
     const transactionStore = useTransactionStore();
     const { statistics, loading, initialFetchDone } = storeToRefs(transactionStore);
-    const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     const startBalance = computed(() => statistics.value.startBalance);
     const endBalance = computed(() => statistics.value.endBalance);
-    const moneySaved = computed(() => statistics.value.moneyIn + statistics.value.spends);
-    const averageSpend = computed(() => {
-      const numberOfDays = Math.round(endDate.value.diff(startDate.value, 'day', true));
-      return (statistics.value.spends / numberOfDays) * -1;
-    });
+    const balanceDiff = computed(() => endBalance.value - startBalance.value);
 
     return {
       t,
       loading,
       initialFetchDone,
       statistics,
-      moneySaved,
-      averageSpend,
       startBalance,
       endBalance,
+      balanceDiff,
       formatMoney,
     };
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.TransactionsSummary__grid {
-  grid-template-columns: repeat(2, 1fr);
-}
-</style>

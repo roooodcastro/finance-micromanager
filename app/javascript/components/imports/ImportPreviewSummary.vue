@@ -3,6 +3,7 @@
     <div class="col col-lg-6">
       <BCard
         :title="t('summary_title')"
+        full-height
       >
         <dl class="row mb-0">
           <dt class="col-6 col-md-4 my-1">
@@ -35,6 +36,7 @@
     <div class="col col-lg-6">
       <BCard
         :title="t('stats_title')"
+        full-height
       >
         <div class="row">
           <div

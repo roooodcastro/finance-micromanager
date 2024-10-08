@@ -3,7 +3,7 @@
     :record="{ category, subcategory }"
     :actions-component="SubcategoryActions"
   >
-    <div class="d-flex justify-content-between flex-grow-1 p-2 pe-0">
+    <div class="d-flex justify-content-between flex-grow-1 p-2">
       <div :class="{ 'text-muted': isDisabled }">
         {{ subcategory.name }}
 
