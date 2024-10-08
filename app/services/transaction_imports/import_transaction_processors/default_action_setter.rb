@@ -5,12 +5,10 @@ module TransactionImports
     class DefaultActionSetter < BaseProcessor
       def call
         import_transactions.each do |import_transaction|
-          # previous_action           = import_transaction.action
           import_transaction.action = action_for(import_transaction)
           next unless import_transaction.match?
 
-          import_transaction.match_transaction = top_match_for(import_transaction)[:transaction]
-          # import_transaction.save if previous_action == TransactionImports::ImportTransaction.actions[:import]
+          import_transaction.assign_match_transaction(top_match_for(import_transaction)[:transaction])
         end
 
         import_transactions

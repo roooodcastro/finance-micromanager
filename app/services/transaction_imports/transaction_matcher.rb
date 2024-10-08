@@ -11,8 +11,6 @@ module TransactionImports
     # Minimum match score so that a transaction can be considered to match with this import transaction
     MATCH_SCORE_THRESHOLD     = 1.5
 
-    DOUBLE_IMPORT_MATCH_SCORE = -1
-
     def initialize(import_transaction, transactions)
       @import_transaction = import_transaction
       @transactions       = transactions
