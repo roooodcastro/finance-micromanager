@@ -3,7 +3,7 @@
     <input
       id="transactionSearch"
       name="transactionSearch"
-      class="form-control form-control-sm"
+      class="form-control form-control-sm bg-white"
       :placeholder="t('search_label')"
       :value="modelValue ?? $attrs.value"
       @input="handleInput"

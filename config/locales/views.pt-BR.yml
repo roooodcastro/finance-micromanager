@@ -558,7 +558,7 @@ pt-BR:
         destroy: Remover
         sub_header_rules: Regras de Autopreenchimento
         sub_header_conditions: Quando qualquer uma destas condições for verdadeira
-        sub_header_action: Então preencha todos esses campos
+        sub_header_action: Então preencha esses campos
         label_with: com
         disabled_alert_title: Desabilitado
         disabled_alert_message: >-

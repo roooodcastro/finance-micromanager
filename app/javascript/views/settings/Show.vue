@@ -25,96 +25,98 @@
     class="mx-1 mx-lg-0"
   >
     <template v-slot:default="{ formHelper }">
-      <h4 class="mt-5">
-        {{ t('header_profile_settings') }}
-      </h4>
-      <hr class="mb-4">
+      <div class="row mt-5">
+        <div class="col-12 col-xl-6">
+          <BCard :title="t('header_profile_settings')">
+            <div class="d-grid gap-3 SettingsShow__form-grid mx-2 mx-lg-0">
+              <FormInput
+                v-model="userForForm.firstName"
+                :label="t('first_name')"
+                :form-helper="formHelper"
+                field-name="first_name"
+                autocomplete="given-name"
+                :placeholder="t('empty_first_name_label')"
+                class="rounded"
+              />
 
-      <div class="d-grid gap-3 SettingsShow__form-grid mx-2 mx-lg-0">
-        <FormInput
-          v-model="userForForm.firstName"
-          :label="t('first_name')"
-          :form-helper="formHelper"
-          field-name="first_name"
-          autocomplete="given-name"
-          :placeholder="t('empty_first_name_label')"
-          class="rounded"
-        />
+              <FormInput
+                v-model="userForForm.lastName"
+                :label="t('last_name')"
+                :form-helper="formHelper"
+                field-name="last_name"
+                autocomplete="family-name"
+                :placeholder="t('empty_last_name_label')"
+                class="rounded"
+              />
 
-        <FormInput
-          v-model="userForForm.lastName"
-          :label="t('last_name')"
-          :form-helper="formHelper"
-          field-name="last_name"
-          autocomplete="family-name"
-          :placeholder="t('empty_last_name_label')"
-          class="rounded"
-        />
+              <FormInput
+                v-model="userForForm.email"
+                :label="t('email')"
+                :form-helper="formHelper"
+                field-name="email"
+                type="email"
+                autocomplete="email"
+                class="rounded"
+              />
 
-        <FormInput
-          v-model="userForForm.email"
-          :label="t('email')"
-          :form-helper="formHelper"
-          field-name="email"
-          type="email"
-          autocomplete="email"
-          class="rounded"
-        />
+              <div>
+                <label
+                  :for="formHelper.fieldId('password')"
+                  class="form-label d-block"
+                >
+                  {{ t('password') }}
+                </label>
 
-        <div>
-          <label
-            :for="formHelper.fieldId('password')"
-            class="form-label d-block"
+                <a
+                  :id="formHelper.fieldId('password')"
+                  href="#"
+                  class="d-block d-lg-inline-block btn btn-secondary"
+                  @click="handleChangePassword"
+                >
+                  {{ t('change_password_button') }}
+                </a>
+              </div>
+            </div>
+          </BCard>
+        </div>
+
+        <div class="col-12 col-xl-6 mt-3 mt-xl-0">
+          <BCard
+            :title="t('header_account_settings')"
+            full-height
           >
-            {{ t('password') }}
-          </label>
+            <div class="d-grid gap-3 SettingsShow__form-grid mx-2 mx-lg-0">
+              <div class="mb-3">
+                <label
+                  :for="formHelper.fieldId('default_profile_id')"
+                  class="form-label"
+                >
+                  {{ t('default_profile') }}
+                </label>
+                <ProfilesSelect
+                  :id="formHelper.fieldId('default_profile_id')"
+                  v-model="userForForm.defaultProfileId"
+                  :name="formHelper.fieldName('default_profile_id')"
+                />
+              </div>
 
-          <a
-            :id="formHelper.fieldId('password')"
-            href="#"
-            class="d-block d-lg-inline-block btn btn-secondary"
-            @click="handleChangePassword"
-          >
-            {{ t('change_password_button') }}
-          </a>
+              <div class="mb-3">
+                <label
+                  :for="formHelper.fieldId('locale')"
+                  class="form-label"
+                >
+                  {{ t('locale') }}
+                </label>
+                <LocalesSelect
+                  :id="formHelper.fieldId('locale')"
+                  v-model="userForForm.locale"
+                  :name="formHelper.fieldName('locale')"
+                />
+              </div>
+            </div>
+          </BCard>
         </div>
       </div>
-
-      <h4 class="mt-5">
-        {{ t('header_account_settings') }}
-      </h4>
-      <hr class="mb-4">
-
-      <div class="d-grid gap-3 SettingsShow__form-grid mx-2 mx-lg-0">
-        <div class="mb-3">
-          <label
-            :for="formHelper.fieldId('default_profile_id')"
-            class="form-label"
-          >
-            {{ t('default_profile') }}
-          </label>
-          <ProfilesSelect
-            :id="formHelper.fieldId('default_profile_id')"
-            v-model="userForForm.defaultProfileId"
-            :name="formHelper.fieldName('default_profile_id')"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label
-            :for="formHelper.fieldId('locale')"
-            class="form-label"
-          >
-            {{ t('locale') }}
-          </label>
-          <LocalesSelect
-            :id="formHelper.fieldId('locale')"
-            v-model="userForForm.locale"
-            :name="formHelper.fieldName('locale')"
-          />
-        </div>
-      </div>
-
 
       <div>
         <hr class="mt-3 mt-lg-5 mb-4">
@@ -173,12 +175,14 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import ProfilesSelect from '~/components/profiles/ProfilesSelect.vue';
 import PasswordChangeModal from '~/components/user/PasswordChangeModal.vue';
 import LocalesSelect from '~/components/forms/LocalesSelect.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    LocalesSelect,
+    BCard,
     FormInput,
     FontAwesomeIcon,
+    LocalesSelect,
     PageHeader,
     PasswordChangeModal,
     ProfilesSelect,

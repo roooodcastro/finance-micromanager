@@ -12,7 +12,7 @@
     <div class="dropdown d-flex gap-3 flex-wrap flex-lg-nowrap">
       <MultipleSelect
         v-model="selectedCategoryIds"
-        class="flex-grow-1 flex-lg-grow-0"
+        class="flex-grow-1 flex-lg-grow-0 bg-white"
         select-class="minimalist-secondary-select"
         :options="categoriesForSelect(true)"
         :placeholder="t('category_filter')"
@@ -23,7 +23,7 @@
 
       <MultipleSelect
         v-model="selectedWalletIds"
-        class="flex-grow-1 flex-lg-grow-0"
+        class="flex-grow-1 flex-lg-grow-0 bg-white"
         select-class="minimalist-secondary-select"
         :options="walletsForSelect"
         :placeholder="t('wallet_filter')"
@@ -33,7 +33,7 @@
       />
 
       <select
-        class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0"
+        class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0 bg-white"
         @change="handleTransactionTypeChange"
       >
         <option value="0">

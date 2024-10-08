@@ -1309,7 +1309,7 @@
           "edit": "Editar",
           "label_with": "com",
           "reenable": "Reabilitar",
-          "sub_header_action": "Então preencha todos esses campos",
+          "sub_header_action": "Então preencha esses campos",
           "sub_header_conditions": "Quando qualquer uma destas condições for verdadeira",
           "sub_header_rules": "Regras de Autopreenchimento",
           "title": "Autopreenchimento de Transação"

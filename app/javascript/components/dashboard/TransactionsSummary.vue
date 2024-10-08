@@ -5,82 +5,73 @@
     :loading="loading && initialFetchDone"
     full-height
   >
-    <div
-      v-if="!initialFetchDone"
-      class="row"
-    >
-      <div class="col-12 col-md-8 col-lg-12 col-xl-8">
-        <div class="card bg-white border-0">
-          <div class="TransactionsSummary__grid card-body d-grid text-center gap-3">
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('money_in') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('spends') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('money_saved') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
-
-            <div class="placeholder-glow pb-2">
-              <h5>{{ t('average_spend') }}</h5>
-              <span class="placeholder col-6 fs-2" />
-            </div>
+    <template v-if="!initialFetchDone">
+      <div class="row">
+        <div class="col placeholder-glow">
+          <span class="placeholder col-6 fs-3" />
+          <div>
+            <span class="placeholder col-6 fs-3 mt-1" />
           </div>
         </div>
       </div>
-    </div>
 
-    <div
-      v-else
-      class="row"
-    >
-      <div class="col-12">
-        <div class="row">
-          <div class="col">
-            <span class="fs-1 fw-bold">
-              {{ formatMoney(endBalance) }}
-            </span>
-            <div class="fs-5 d-flex gap-2 lh-1">
-              <span
-                class="fw-bold"
-                :class="{ 'text-credit': balanceDiff >= 0, 'text-debit': balanceDiff < 0 }"
-              >
-                {{ formatMoney(balanceDiff, { signDisplay: 'always' }) }}
-              </span>
-              <span class="text-muted">
-                {{ t('from_last_month_label') }}
-              </span>
-            </div>
-          </div>
+      <div class="row mt-5">
+        <div class="placeholder-glow col-6">
+          <h5 class="m-0">
+            {{ t('money_in') }}
+          </h5>
+          <span class="placeholder col-6 fs-3" />
         </div>
 
-        <div class="row mt-5">
-          <div class="col-6">
-            <h5 class="m-0">
-              {{ t('money_in') }}
-            </h5>
-            <span class="fs-3 fw-bold text-credit">
-              {{ formatMoney(statistics.moneyIn) }}
-            </span>
-          </div>
+        <div class="placeholder-glow col-6">
+          <h5 class="m-0">
+            {{ t('spends') }}
+          </h5>
+          <span class="placeholder col-6 fs-3" />
+        </div>
+      </div>
+    </template>
 
-          <div class="col-6">
-            <h5 class="m-0">
-              {{ t('spends') }}
-            </h5>
-            <span class="fs-3 fw-bold text-debit">
-              {{ formatMoney(statistics.spends * -1) }}
+    <template v-else>
+      <div class="row">
+        <div class="col">
+          <span class="fs-1 fw-bold">
+            {{ formatMoney(endBalance) }}
+          </span>
+          <div class="fs-5 d-flex gap-2 lh-1">
+            <span
+              class="fw-bold"
+              :class="{ 'text-credit': balanceDiff >= 0, 'text-debit': balanceDiff < 0 }"
+            >
+              {{ formatMoney(balanceDiff, { signDisplay: 'always' }) }}
+            </span>
+            <span class="text-muted">
+              {{ t('from_last_month_label') }}
             </span>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="row mt-5">
+        <div class="col-6">
+          <h5 class="m-0">
+            {{ t('money_in') }}
+          </h5>
+          <span class="fs-3 fw-bold text-credit">
+            {{ formatMoney(statistics.moneyIn) }}
+          </span>
+        </div>
+
+        <div class="col-6">
+          <h5 class="m-0">
+            {{ t('spends') }}
+          </h5>
+          <span class="fs-3 fw-bold text-debit">
+            {{ formatMoney(statistics.spends * -1) }}
+          </span>
+        </div>
+      </div>
+    </template>
   </BCard>
 </template>
 

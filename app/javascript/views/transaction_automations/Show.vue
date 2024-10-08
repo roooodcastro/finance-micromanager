@@ -44,96 +44,87 @@
 
   <div class="row">
     <div class="col-12 col-xl-6">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="m-0">
-            {{ t('sub_header_summary') }}
-          </h5>
-        </div>
-        <div class="card-body">
-          <dl class="row">
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('transaction_name') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
-              {{ transactionAutomation.transactionName }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('transaction_amount') }}
-            </dt>
-            <dd
-              class="col-6 col-md-8 my-1 fw-bold"
-              :class="{ 'text-muted': isDisabled, 'text-credit': isCredit && !isDisabled, 'text-debit': isDebit && !isDisabled }"
-            >
-              {{ formatMoney(transactionAutomationFromStore.transactionAmount) }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('transaction_category') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
-              <a :href="categoryPath(transactionAutomationFromStore.transactionCategoryId)">
-                {{ transactionAutomationFromStore.transactionSubcategory?.displayName ?? transactionAutomationFromStore.transactionCategory.name }}
-              </a>
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('transaction_wallet') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
-              <template v-if="transactionAutomationFromStore.transactionWallet">
-                {{ transactionAutomationFromStore.transactionWallet.name }}
-              </template>
-              <template v-else>
-                {{ t('no_wallet') }}
-              </template>
-            </dd>
-          </dl>
+      <BCard :title="t('sub_header_summary')">
+        <dl class="row">
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('transaction_name') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            {{ transactionAutomation.transactionName }}
+          </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('transaction_amount') }}
+          </dt>
+          <dd
+            class="col-6 col-md-8 my-1 fw-bold"
+            :class="{ 'text-muted': isDisabled, 'text-credit': isCredit && !isDisabled, 'text-debit': isDebit && !isDisabled }"
+          >
+            {{ formatMoney(transactionAutomationFromStore.transactionAmount) }}
+          </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('transaction_category') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            <a :href="categoryPath(transactionAutomationFromStore.transactionCategoryId)">
+              {{ transactionAutomationFromStore.transactionSubcategory?.displayName ?? transactionAutomationFromStore.transactionCategory.name }}
+            </a>
+          </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('transaction_wallet') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            <template v-if="transactionAutomationFromStore.transactionWallet">
+              {{ transactionAutomationFromStore.transactionWallet.name }}
+            </template>
+            <template v-else>
+              {{ t('no_wallet') }}
+            </template>
+          </dd>
+        </dl>
 
-          <hr class="my-3">
+        <hr class="my-3">
 
-          <dl class="row">
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('schedule') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
-              <template v-if="!isCustomRule">
-                {{ t('every') }}
-                {{ transactionAutomationFromStore.scheduleInterval }}
-                {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
-              </template>
-              <template v-else>
-                {{ t('every') }}
-                {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomationFromStore.scheduleCustomRule}`) }}
-              </template>
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('scheduled_date') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
-              {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('last_schedule_date') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
-              {{ transactionAutomationFromStore.lastScheduleDate ? formatDate(transactionAutomationFromStore.lastScheduleDate) : t('no_last_run') }}
-            </dd>
-          </dl>
-        </div>
-      </div>
+        <dl class="row">
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('schedule') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            <template v-if="!isCustomRule">
+              {{ t('every') }}
+              {{ transactionAutomationFromStore.scheduleInterval }}
+              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
+            </template>
+            <template v-else>
+              {{ t('every') }}
+              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomationFromStore.scheduleCustomRule}`) }}
+            </template>
+          </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('scheduled_date') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
+          </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('last_schedule_date') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            {{ transactionAutomationFromStore.lastScheduleDate ? formatDate(transactionAutomationFromStore.lastScheduleDate) : t('no_last_run') }}
+          </dd>
+        </dl>
+      </BCard>
     </div>
 
-    <div class="col-12 col-xl-6">
-      <div class="card mt-3 mt-xl-0">
-        <div class="card-header">
-          <h5 class="m-0">
-            {{ t('sub_header_transactions') }}
-          </h5>
-        </div>
+    <div class="col-12 col-xl-6 mt-3 mt-xl-0">
+      <BCard
+        :title="t('sub_header_transactions')"
+        no-body
+      >
         <TransactionsList
           compact
           card-body
         />
-      </div>
+      </BCard>
     </div>
   </div>
 
@@ -162,9 +153,11 @@ import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TransactionAutomationForm from '~/components/transaction_automations/TransactionAutomationForm.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
+    BCard,
     DropdownMenuItem,
     PageHeader,
     TransactionAutomationForm,
