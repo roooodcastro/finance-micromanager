@@ -46,5 +46,21 @@ module TransactionImports
         updated_by:        Current.user
       }
     end
+
+    def assign_match_transaction(transaction_to_match)
+      self.match_transaction = transaction_to_match
+
+      if transaction_to_match
+        self.name             = transaction_to_match.name
+        self.transaction_date = transaction_to_match.transaction_date
+        self.amount           = transaction_to_match.amount
+        self.category         = transaction_to_match.category
+        self.subcategory      = transaction_to_match.subcategory
+      else
+        self.name        = original_import_name
+        self.category    = nil
+        self.subcategory = nil
+      end
+    end
   end
 end
