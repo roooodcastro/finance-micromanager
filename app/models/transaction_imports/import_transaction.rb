@@ -14,7 +14,7 @@ module TransactionImports
     belongs_to :subcategory, optional: true
     belongs_to :match_transaction, class_name: 'Transaction', optional: true
 
-    enum action: { import: 'import', skip: 'skip', match: 'match', block: 'block' }, _default: 'import'
+    enum action: { import: 'import', skip: 'skip', match: 'match', block: 'block' }, _default: nil
 
     def currency
       import&.profile&.currency || Money.default_currency
@@ -27,7 +27,7 @@ module TransactionImports
           'subcategory' => subcategory.as_json,
           'wallet'      => wallet.as_json,
           'category'    => category.as_json(include_subcategories: false),
-          'matches'     => matches,
+          'matches'     => matches.as_json,
           'import_name' => import_name_object
         )
     end
