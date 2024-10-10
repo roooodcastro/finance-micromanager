@@ -57,6 +57,7 @@ module TransactionImports
         self.category         = transaction_to_match.category
         self.subcategory      = transaction_to_match.subcategory
       else
+        self.action      = 'import'
         self.name        = original_import_name
         self.category    = nil
         self.subcategory = nil
