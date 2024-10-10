@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -59,8 +60,10 @@ export default {
     const { transactions } = storeToRefs(transactionStore);
     const { pagination } = storeToRefs(paginationStore);
 
-    transactionStore.setFetchParams({ importId: props.importObject.id, daysToShow: 0 });
-    transactionStore.fetchCollection();
+    onMounted(() => {
+      transactionStore.setFetchParams({ importId: props.importObject.id, daysToShow: 0, startDate: null, endDate: null });
+      transactionStore.fetchCollection();
+    });
 
     return {
       t,
