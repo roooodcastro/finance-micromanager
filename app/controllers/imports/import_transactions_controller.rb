@@ -16,10 +16,11 @@ module Imports
     end
 
     def update
-      if @import_transaction.update(update_params)
-        TransactionImports::ImportTransactionProcessors::BaseProcessor
-          .run_pipeline(@import_transaction.import, [@import_transaction])
+      @import_transaction.assign_attributes(update_params)
+      TransactionImports::ImportTransactionProcessors::BaseProcessor
+        .run_pipeline(@import_transaction.import, [@import_transaction])
 
+      if @import_transaction.valid?
         render json: camelize_props(message: t('.success'), import_transaction: @import_transaction.as_json)
       else
         error = @import_transaction.error_messages

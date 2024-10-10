@@ -18,6 +18,9 @@ class Transaction < ApplicationRecord
   belongs_to :subcategory, optional: true
   belongs_to :wallet, optional: true
 
+  has_one :import_transaction, class_name: 'TransactionImports::ImportTransaction', inverse_of: :match_transaction,
+    dependent: :restrict_with_exception
+
   before_validation :process_amount_type
   before_save -> { update_balances!(:save) }
   before_destroy :check_reconciliation_date_before_destroy, prepend: true
