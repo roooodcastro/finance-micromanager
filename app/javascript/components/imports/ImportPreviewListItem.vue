@@ -100,7 +100,7 @@
         data-transaction-input="action"
         :data-row="index"
         :value="transaction.action"
-        :allow-match="!!transaction.matches.length"
+        :allow-match="allowMatch"
         :name="`transactions[${transaction.id}][action]`"
         :disabled="isBlocked"
         required
@@ -181,6 +181,7 @@ export default {
     const isDateEditable = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
     const isBlocked = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
     const isMatch = computed(() => props.transaction.action === IMPORT_ACTION_MATCH);
+    const allowMatch = computed(() => props.transaction.matches.length > 0);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
     const isSpend = computed(() => props.transaction.amount < 0);
     const isIncome = computed(() => props.transaction.amount > 0);
@@ -268,6 +269,7 @@ export default {
       formatDate,
       formatMoney,
       allowImportNameCreation,
+      allowMatch,
       handleActionChange,
       handleCategoryChange,
       handleNameChange,

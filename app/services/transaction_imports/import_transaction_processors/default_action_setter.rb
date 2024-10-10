@@ -17,8 +17,8 @@ module TransactionImports
       private
 
       def action_for(import_transaction)
-        return :skip if import_transaction.skip?
         return :block if minimum_transaction_date && import_transaction.transaction_date < minimum_transaction_date
+        return import_transaction.action if import_transaction.action.present?
 
         top_match = top_match_for(import_transaction)
         return :import unless top_match

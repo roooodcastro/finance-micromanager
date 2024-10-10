@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import _ from 'lodash';
 
 import { IMPORT_ACTIONS } from '~/utils/Constants.js';
@@ -36,11 +37,13 @@ export default {
   emits: ['update:modelValue', 'change'],
 
   setup(props, { emit }) {
-    const allowedActions = _.reject(IMPORT_ACTIONS, (action) => {
-      const rejectMatch = action.id === 'match' && !props.allowMatch;
-      const rejectBlock = action.id === 'block';
+    const allowedActions = computed(() => {
+      return _.reject(IMPORT_ACTIONS, (action) => {
+        const rejectMatch = action.id === 'match' && !props.allowMatch;
+        const rejectBlock = action.id === 'block';
 
-      return rejectMatch || rejectBlock;
+        return rejectMatch || rejectBlock;
+      });
     });
 
     const handleChange = (ev) => {

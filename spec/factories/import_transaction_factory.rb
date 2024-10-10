@@ -6,6 +6,7 @@ FactoryBot.define do
     sequence(:name, 'Transaction AAA')
     amount { 10.00 }
     transaction_date { Time.current }
+    action { 'import' }
 
     import
     wallet
