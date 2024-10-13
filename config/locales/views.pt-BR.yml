@@ -46,6 +46,15 @@ pt-BR:
           Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos
           serão mantidos.
 
+    components:
+      transaction_automations_list:
+        name_label: Nome da Transação
+        category_label: Categoria
+        wallet_label: Carteira
+        schedule_label: Agendamento
+        next_run_label: Próxima Execução
+        amount_label: Valor
+
     dashboard:
       show:
         title: "Bem vindo, %{name}"

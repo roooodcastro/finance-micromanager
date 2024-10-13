@@ -762,6 +762,16 @@
           "title": "Category"
         }
       },
+      "components": {
+        "transaction_automations_list": {
+          "amount_label": "Amount",
+          "category_label": "Category",
+          "name_label": "Transaction Name",
+          "next_run_label": "Next Run",
+          "schedule_label": "Schedule",
+          "wallet_label": "Wallet"
+        }
+      },
       "dashboard": {
         "show": {
           "average_spend": "Avg. Spend",

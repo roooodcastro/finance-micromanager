@@ -830,6 +830,16 @@
           "title": "Categoria"
         }
       },
+      "components": {
+        "transaction_automations_list": {
+          "amount_label": "Valor",
+          "category_label": "Categoria",
+          "name_label": "Nome da Transação",
+          "next_run_label": "Próxima Execução",
+          "schedule_label": "Agendamento",
+          "wallet_label": "Carteira"
+        }
+      },
       "dashboard": {
         "show": {
           "average_spend": "Gasto Diário",

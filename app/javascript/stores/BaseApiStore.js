@@ -74,6 +74,13 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       loadCollectionFromProps(records) {
+        records.forEach((record) => {
+          const showPageHref = storeOptions.api.show?.path({ id: record.id });
+          if (showPageHref) {
+            record.href = showPageHref;
+          }
+        });
+
         this[storeOptions.resourcesName] = records;
         this.initialFetchDone = true;
       },

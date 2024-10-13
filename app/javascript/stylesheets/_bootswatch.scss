@@ -17,7 +17,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;6
 html, body, #app {
   height: 100%;
   overflow-x: hidden;
-  background-color: $gray-100;
+  background-color: $background-color;
 }
 
 // Navbar
@@ -154,7 +154,7 @@ th {
     top: 0;
     bottom: 0;
     left: 0;
-    width: 0.5em;
+    width: $side-strip-width;
   }
 }
 

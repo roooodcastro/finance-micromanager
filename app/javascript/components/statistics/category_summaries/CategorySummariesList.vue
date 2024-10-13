@@ -5,10 +5,7 @@
       class="m-3"
     />
 
-    <div
-      v-else
-      class="CategorySummariesList"
-    >
+    <div v-else>
       <template
         v-for="category in categories"
         :key="`${category.id}-${rangeKey}`"

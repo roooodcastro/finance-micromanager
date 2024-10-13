@@ -6,7 +6,7 @@
     <div class="card-body">
       <div
         v-if="title || $slots.header"
-        class="d-flex justify-content-between align-items-center mb-3"
+        class="BCard__title d-flex justify-content-between align-items-center"
       >
         <h4
           v-if="title"
@@ -63,6 +63,10 @@ export default {
 }
 
 .BCard__no-body {
-  margin: 0 -1rem -1rem -1rem;
+  margin: -1rem;
+}
+
+.BCard__title {
+  margin-bottom: 2rem;
 }
 </style>

@@ -172,6 +172,11 @@ $offcanvas-transition-duration:     .3s !default;
 $main-navbar-height: 4rem;
 $page-footer-height: 12rem;
 
-// Colors
+
+// Custom theme variables
 
 $page-header-color: $light-bg-subtle;
+$background-color: $gray-100;
+$foreground-color: $white;
+
+$side-strip-width: 0.5rem;
