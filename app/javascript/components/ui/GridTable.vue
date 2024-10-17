@@ -6,12 +6,12 @@
     <div class="GridRow GridRow__header">
       <div class="GridRow__left">
         <div
-          v-for="header in leftHeaders"
-          :key="header.name"
-          :class="{ 'text-end': header.align === 'right' }"
+          v-for="(column, index) in leftColumns"
+          :key="`header_left_${index}`"
+          :class="{ 'text-end': column.align === 'right' }"
         >
           <h5
-            v-for="(label, index) in headerLabels(header)"
+            v-for="(label, index) in headerLabels(column)"
             :key="`header_left_label_${index}`"
             class="d-block m-0"
           >
@@ -22,12 +22,12 @@
 
       <div class="GridRow__right">
         <div
-          v-for="header in rightHeaders"
-          :key="header.name"
-          :class="{ 'text-end': header.align === 'right' }"
+          v-for="(column, index) in rightColumns"
+          :key="`header_right_${index}`"
+          :class="{ 'text-end': column.align === 'right' }"
         >
           <h5
-            v-for="(label, index) in headerLabels(header)"
+            v-for="(label, index) in headerLabels(column)"
             :key="`header_right_label_${index}`"
             class="d-block m-0"
           >
@@ -41,15 +41,13 @@
       v-for="row in rows"
       :key="row.id"
     >
-      <component
-        :is="!!row.href ? 'a' : 'div'"
-        :href="row.href"
-        class="GridRow"
-        :class="{ 'text-decoration-none link-dark': !!row.href }"
-        :style="gridRowStyle(row)"
+      <GridTableRow
+        :row="row"
+        :actions="actions"
+        :side-strip-color="sideStripColor"
       >
         <slot :row="row" />
-      </component>
+      </GridTableRow>
     </template>
   </div>
 </template>
@@ -57,46 +55,90 @@
 <script>
 import { computed } from 'vue';
 
+import GridTableRow from '~/components/ui/GridTableRow.vue';
+
 export default {
+  components: {
+    GridTableRow,
+  },
+
   props: {
-    headers: {
+    /*
+     * Columns specification. The number of entries here determines the number of columns the table will have.
+     * If actions is specificied, an extra column will be added to the table to hold the actions when in desktop view.
+     * Each entry has the following specification:
+     *
+     * {
+     *   label: Label for the column, displayed in the header for the user. Required.
+     *   side: Can be either 'left'or 'right'. Indicates the side of the table in which the column will be rendered
+     *         when in mobile view. Required.
+     *   align: Text align option. Can be 'left', 'center', or 'right'. Optional.
+     *   gridSize: the CSS Grid value for the column when specifying the grid-template-columns property. Optional.
+     * }
+     */
+    columns: {
       type: Array,
       required: true,
     },
+    /*
+     * Data for the table. Has no specific format, as each entry will be passed as a slot variable when rendering.
+     */
     rows: {
       type: Array,
       required: true,
     },
+    /*
+     * Defines the actions for each row. These will be displayed either in a drawer context menu in mobile view, or in
+     * the far right side of the table. Each entry has the following specification:
+     *
+     * {
+     *   label: Label text for the action. Displayed only in desktop view when present. Optional.
+     *   icon: Name of the FontAwesome icon to be displayed. Required.
+     *   variant: Bootstrap variant name to colour the action. Required.
+     *   show: Function that accepts the row as parameter, used to determine if this action should be displayed or not.
+     *         Optional, action will always be displayed if not present.
+     *   href: Path or URL to redirect the user when clicked. Optional.
+     *   callback: Function that accepts the row as parameter, will be called when the action is clicked. When both
+     *             href and callback options are specified, both will be called. Optional.
+     * }
+     */
+    actions: {
+      type: Array,
+      default: () => [],
+    },
+    /*
+     * Optional function that returns the colour for the side strip of a specific data row. The function will be called
+     * passing the row object as parameter. The return value should be a CSS colour value to be used as the side strip,
+     * or null if no side strip should be shown.
+     */
+    sideStripColor: {
+      type: Function,
+      default: () => {},
+    },
   },
 
   setup(props) {
-    const numColumns = computed(() => props.headers.length);
-    const midGridColumn = computed(() => Math.floor(numColumns.value / 2) + 1);
+    const actionColumn = { label: '', side: 'right', gridSize: 'max-content' };
+    const allColumns = computed(() => props.columns.concat(props.actions.length ? [actionColumn] : []));
+    const leftColumns = computed(() => allColumns.value.filter(column => column.side === 'left'));
+    const rightColumns = computed(() => allColumns.value.filter(column => column.side === 'right'));
+
+    const midGridColumn = computed(() => leftColumns.value.length + 1);
     const gridTableStyle = computed(() => {
       return {
-        'grid-template-columns': props.headers.map(header => (header.gridSize ?? 'auto')).join(' '),
+        'grid-template-columns': allColumns.value.map(column => (column.gridSize ?? 'auto')).join(' '),
         '--grid-table-left-grid-column': [1, midGridColumn.value].join(' / '),
         '--grid-table-right-grid-column': [midGridColumn.value, -1].join(' / '),
+        '--grid-row-content-grid-end': props.actions.length ? -2 : -1,
       };
     });
 
-    const gridRowStyle = (row) => {
-      return {
-        '--grid-table-row-side-strip-color': row.sideStripColor ?? 'transparent',
-        'padding-left': row.sideStripColor ? '1.5rem' : '1rem',
-      };
-    };
-
-    const leftHeaders = computed(() => props.headers.filter(header => header.side === 'left'));
-    const rightHeaders = computed(() => props.headers.filter(header => header.side === 'right'));
-
-    const headerLabels = (header => header.label.split('\n'));
+    const headerLabels = (column => column.label.split('\n'));
 
     return {
       gridTableStyle,
-      gridRowStyle,
-      leftHeaders,
-      rightHeaders,
+      leftColumns,
+      rightColumns,
       headerLabels,
     };
   }
@@ -112,27 +154,88 @@ export default {
   display: grid;
   grid-template-columns: auto auto auto auto;
   align-items: center;
+  --grid-row-padding-left: 1rem;
 }
 
 .GridRow {
+  align-items: center;
   background-color: $foreground-color;
   border-top: 1px solid $border-color;
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
-  padding: map-get($spacers, 2) map-get($spacers, 3);
   position: relative;
+  z-index: 0;
+
+  .GridRow__content .GridRow__left, .GridRow__content .GridRow__right {
+    background-color: $foreground-color;
+  }
 
   &:first-child {
     border-top: none;
   }
 }
 
+// Hover effect for rows that are links
 a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
-  background-color: rgba(map-get($theme-colors, 'dark'), 0.05);
+  background-color: transparent !important;
+
+  .GridRow__content > * {
+    background-color: transparent !important;
+  }
 }
 
-.GridRow:not(.GridRow__header)::before {
+// Grid positioning for left and right sides
+.GridRow__left, .GridRow__right {
+  align-items: center;
+  display: grid;
+  grid-template-columns: subgrid;
+
+  > div {
+    padding: 0 map-get($spacers, 2);
+
+    &:first-child, &:last-child {
+      padding-left: 0;
+    }
+  }
+}
+
+.GridRow__left {
+  grid-column: var(--grid-table-left-grid-column);
+  padding: map-get($spacers, 2) 0 map-get($spacers, 2) var(--grid-row-padding-left);
+}
+
+.GridRow__right {
+  grid-column: var(--grid-table-right-grid-column);
+  padding: map-get($spacers, 2) map-get($spacers, 3) map-get($spacers, 2) 0;
+}
+
+// Header row
+.GridRow__header {
+  font-weight: bold;
+  background-color: transparent;
+  color: $text-muted;
+
+  span {
+    white-space: pre;
+  }
+
+  > .GridRow__left > div > h5:not(:first-child), > .GridRow__right > div > h5:not(:first-child) {
+    font-size: $h6-font-size;
+    margin-top: map-get($spacers, 1) !important;
+  }
+}
+
+// Data rows
+.GridRow__content {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / var(--grid-row-content-grid-end);
+  position: relative;
+}
+
+// Side Strip
+.GridRow__content::before {
   content: '';
   position: absolute;
   left: 0;
@@ -142,64 +245,92 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
   background-color: var(--grid-table-row-side-strip-color);
 }
 
+// Rounded corners for first data row
 .GridRow:nth-child(2) {
-  border-top-left-radius: $border-radius;
-  border-top-right-radius: $border-radius;
-  &::before {
-    border-top-left-radius: $border-radius;
+  border-radius: $border-radius $border-radius 0 0;
+
+  .GridRow__content {
+    border-radius: $border-radius $border-radius 0 0;
+
+    &::before {
+      border-top-left-radius: $border-radius;
+    }
+
+    .GridRow__left {
+      border-top-left-radius: $border-radius;
+    }
+
+    .GridRow__right {
+      border-top-right-radius: $border-radius;
+    }
   }
 }
 
+// Rouded corners for last data row
 .GridRow:last-child {
-  border-bottom-left-radius: $border-radius;
-  border-bottom-right-radius: $border-radius;
-  &::before {
-    border-bottom-left-radius: $border-radius;
+  border-radius: 0 0 $border-radius $border-radius;
+
+  .GridRow__content {
+    border-radius: 0 0 $border-radius $border-radius;
+
+    &::before {
+      border-bottom-left-radius: $border-radius;
+    }
+
+    .GridRow__left {
+      border-bottom-left-radius: $border-radius;
+    }
+
+    .GridRow__right {
+      border-bottom-right-radius: $border-radius;
+    }
   }
 }
 
-.GridRow__left, .GridRow__right {
+// Actions section
+.GridRow__actions {
+  grid-column: -1 / -1;
+  display: flex;
+  justify-content: end;
+  align-self: stretch;
   align-items: center;
-  display: grid;
-  grid-template-columns: subgrid;
-}
 
-.GridRow__left {
-  grid-column: var(--grid-table-left-grid-column);
-}
+  > a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 map-get($spacers, 3);
+    position: relative;
+    z-index: 0;
 
-.GridRow__right {
-  grid-column: var(--grid-table-right-grid-column);
-}
+    &:hover::before, &:active::before, &:focus::before, &:hover::after, &:active::after, &:focus::after {
+      content: '';
+      background-color: $white;
+      border-radius: $border-radius;
+      position: absolute;
+      left: map-get($spacers, 1);
+      right: map-get($spacers, 1);
+      top: map-get($spacers, 1);
+      bottom: map-get($spacers, 1);
+      z-index: -1;
+    }
 
-.GridRow__left > div, .GridRow__right > div {
-  padding: 0 map-get($spacers, 2);
+    &:hover::after, &:active::after, &:focus::after {
+      background-color: var(--grid-table-action-bg-color);
+      opacity: 0.25;
+    }
 
-  &:first-child {
-      padding-left: 0;
+    &:first-child {
+      margin-left: 0;
     }
 
     &:last-child {
-      padding-right: 0;
+      margin-right: 0;
     }
+  }
 }
 
-.GridRow__header {
-  font-weight: bold;
-  background-color: transparent;
-  color: $text-muted;
-}
-
-.GridRow__header > .GridRow__left > div > h5:not(:first-child),
-.GridRow__header > .GridRow__right > div > h5:not(:first-child) {
-  font-size: $h6-font-size;
-  margin-top: map-get($spacers, 1) !important;
-}
-
-.GridRow__header span {
-  white-space: pre;
-}
-
+// Mobile view
 @include media-breakpoint-down(lg) {
   .GridRow__left > *, .GridRow__right > * {
     grid-column: 1 / -1;
@@ -213,10 +344,15 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
     margin-top: map-get($spacers, 1) !important;
   }
 
-  .GridRow:not(.GridRow__header) > .GridRow__left > div:not(:first-child),
-  .GridRow:not(.GridRow__header) > .GridRow__right > div:not(:first-child) {
+  .GridRow:not(.GridRow__header) .GridRow__left > div:not(:first-child),
+  .GridRow:not(.GridRow__header) .GridRow__right > div:not(:first-child) {
     color: $text-muted;
     font-size: $h6-font-size;
+  }
+
+  .GridRow__content {
+    grid-column-end: -1;
+    position: relative;
   }
 
   .GridRow__left > div {
@@ -227,6 +363,30 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
   .GridRow__right > div {
     text-align: right;
     padding-right: 0;
+  }
+
+  .GridRow__actions {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: -1;
+
+    > a {
+      aspect-ratio: 1;
+      background-color: var(--grid-table-action-bg-color);
+      color: $white !important;
+      padding: 0 map-get($spacers, 4);
+      justify-content: center;
+    }
+  }
+
+  .GridRow:nth-child(2) > .GridRow__actions > a:last-child {
+    border-top-right-radius: $border-radius;
+  }
+
+  .GridRow:last-child > .GridRow__actions > a:last-child {
+    border-bottom-right-radius: $border-radius;
   }
 }
 </style>

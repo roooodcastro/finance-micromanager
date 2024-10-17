@@ -6,8 +6,10 @@
     class="p-2"
   >
     <GridTable
+      :columns="tableColumns"
       :rows="transactionAutomations"
-      :headers="tableHeaders"
+      :actions="tableActions"
+      :side-strip-color="sideStripColorFunction"
     >
       <template v-slot:default="{ row }">
         <TransactionAutomationGridItem
@@ -15,15 +17,6 @@
         />
       </template>
     </GridTable>
-
-    <div class="list-group">
-      <template
-        v-for="transactionAutomation in transactionAutomations"
-        :key="`${transactionAutomation.id}_${transactionAutomation.updatedAt}`"
-      >
-        <TransactionAutomationListItem :transaction-automation="transactionAutomation" />
-      </template>
-    </div>
   </BCard>
 </template>
 
@@ -33,7 +26,6 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
 
-import TransactionAutomationListItem from '~/components/transaction_automations/TransactionAutomationListItem.vue';
 import TransactionAutomationGridItem from '~/components/transaction_automations/TransactionAutomationGridItem.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import GridTable from '~/components/ui/GridTable.vue';
@@ -45,7 +37,6 @@ export default {
     GridTable,
     NoRecordsFound,
     TransactionAutomationGridItem,
-    TransactionAutomationListItem,
   },
 
   setup() {
@@ -55,21 +46,35 @@ export default {
 
     const { transactionAutomations } = storeToRefs(transactionAutomationStore);
 
-    const tableHeaders = [
+    const handleEditAction = row => transactionAutomationStore.openFormModal(row.id);
+    const handleDisableAction = row => transactionAutomationStore.disable(row.id);
+    const handleReenableAction = row => transactionAutomationStore.reenable(row.id);
+    const isEnabled = row => !row.disabledAt;
+    const isDisabled = row => !!row.disabledAt;
+
+    const tableActions = [
+      { label: t('edit'), icon: 'pen-to-square', callback: handleEditAction, variant: 'secondary', show: isEnabled },
+      { label: t('disable'), icon: 'ban', callback: handleDisableAction, variant: 'danger', show: isEnabled },
+      { label: t('reenable'), icon: 'repeat', callback: handleReenableAction, variant: 'success', show: isDisabled },
+    ];
+
+    const tableColumns = [
       { name: 'name', label: t('name_label'), side: 'left' },
       { name: 'category', label: `${t('category_label')}\n${t('wallet_label')}`, side: 'left' },
       { name: 'schedule', label: `${t('schedule_label')}\n${t('next_run_label')}`, side: 'right' },
       { name: 'amount', label: t('amount_label'), side: 'right', align: 'right' },
     ];
 
-    transactionAutomations.value.forEach((transactionAutomation) => {
-      const isDisabled = !!transactionAutomation.disabledAt;
-      transactionAutomation.sideStripColor = isDisabled ? 'var(--bs-danger)' : 'var(--bs-primary)';
-    });
+    const sideStripColorFunction = (row) => {
+      const isDisabled = !!row.disabledAt;
+      return isDisabled ? 'var(--bs-danger)' : 'var(--bs-primary)';
+    }
 
     return {
       transactionAutomations,
-      tableHeaders,
+      tableColumns,
+      tableActions,
+      sideStripColorFunction,
     };
   },
 };

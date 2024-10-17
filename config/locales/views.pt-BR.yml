@@ -54,6 +54,9 @@ pt-BR:
         schedule_label: Agendamento
         next_run_label: Próxima Execução
         amount_label: Valor
+        edit: Editar
+        disable: Desabilitar
+        reenable: Reabilitar
 
     dashboard:
       show:

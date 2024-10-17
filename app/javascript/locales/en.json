@@ -766,8 +766,11 @@
         "transaction_automations_list": {
           "amount_label": "Amount",
           "category_label": "Category",
+          "disable": "Disable",
+          "edit": "Edit",
           "name_label": "Transaction Name",
           "next_run_label": "Next Run",
+          "reenable": "Re-enable",
           "schedule_label": "Schedule",
           "wallet_label": "Wallet"
         }

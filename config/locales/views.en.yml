@@ -54,6 +54,9 @@ en:
         schedule_label: Schedule
         next_run_label: Next Run
         amount_label: Amount
+        edit: Edit
+        disable: Disable
+        reenable: Re-enable
 
     dashboard:
       show:
