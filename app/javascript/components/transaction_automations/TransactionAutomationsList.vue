@@ -11,10 +11,8 @@
       :actions="tableActions"
       :side-strip-color="sideStripColorFunction"
     >
-      <template v-slot:default="{ row }">
-        <TransactionAutomationGridItem
-          :transaction-automation="row"
-        />
+      <template v-slot:default="{ row: transactionAutomation }">
+        <TransactionAutomationTableRow :transaction-automation="transactionAutomation" />
       </template>
     </GridTable>
   </BCard>
@@ -26,7 +24,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
 
-import TransactionAutomationGridItem from '~/components/transaction_automations/TransactionAutomationGridItem.vue';
+import TransactionAutomationTableRow from '~/components/transaction_automations/TransactionAutomationTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import GridTable from '~/components/ui/GridTable.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
@@ -36,7 +34,7 @@ export default {
     BCard,
     GridTable,
     NoRecordsFound,
-    TransactionAutomationGridItem,
+    TransactionAutomationTableRow,
   },
 
   setup() {
@@ -59,10 +57,10 @@ export default {
     ];
 
     const tableColumns = [
-      { name: 'name', label: t('name_label'), side: 'left' },
-      { name: 'category', label: `${t('category_label')}\n${t('wallet_label')}`, side: 'left' },
-      { name: 'schedule', label: `${t('schedule_label')}\n${t('next_run_label')}`, side: 'right' },
-      { name: 'amount', label: t('amount_label'), side: 'right', align: 'right' },
+      { label: t('name_label'), side: 'left' },
+      { label: `${t('category_label')}\n${t('wallet_label')}`, side: 'left' },
+      { label: `${t('schedule_label')}\n${t('next_run_label')}`, side: 'right' },
+      { label: t('amount_label'), side: 'right', align: 'right' },
     ];
 
     const sideStripColorFunction = (row) => {

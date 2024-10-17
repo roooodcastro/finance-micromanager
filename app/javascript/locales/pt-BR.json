@@ -841,6 +841,13 @@
           "reenable": "Reabilitar",
           "schedule_label": "Agendamento",
           "wallet_label": "Carteira"
+        },
+        "wallets_list": {
+          "balance_label": "Saldo",
+          "disable": "Desabilitar",
+          "edit": "Editar",
+          "name_label": "Nome",
+          "reenable": "Reabilitar"
         }
       },
       "dashboard": {

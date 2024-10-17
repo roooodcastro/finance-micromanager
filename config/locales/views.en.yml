@@ -57,6 +57,12 @@ en:
         edit: Edit
         disable: Disable
         reenable: Re-enable
+      wallets_list:
+        edit: Edit
+        disable: Disable
+        reenable: Re-enable
+        name_label: Name
+        balance_label: Balance
 
     dashboard:
       show:
@@ -628,7 +634,3 @@ en:
         edit: Edit
         destroy: Disable
         show_disabled: Show Disabled
-      list:
-        balance: Balance
-        disabled: Disabled
-        reenable_label: Re-enable

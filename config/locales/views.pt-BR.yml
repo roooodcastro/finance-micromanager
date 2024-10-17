@@ -57,6 +57,12 @@ pt-BR:
         edit: Editar
         disable: Desabilitar
         reenable: Reabilitar
+      wallets_list:
+        edit: Editar
+        disable: Desabilitar
+        reenable: Reabilitar
+        name_label: Nome
+        balance_label: Saldo
 
     dashboard:
       show:

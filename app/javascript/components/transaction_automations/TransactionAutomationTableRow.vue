@@ -52,13 +52,11 @@
 </template>
 
 <script>
-import { computed, markRaw } from 'vue';
+import { computed } from 'vue';
 
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
-
-import TransactionAutomationActions from '~/components/transaction_automations/TransactionAutomationActions.vue';
 
 export default {
   props: {
@@ -69,7 +67,6 @@ export default {
   },
 
   setup(props) {
-    markRaw(TransactionAutomationActions);
     const t = I18n.scopedTranslator('views.transaction_automations.list');
 
     const isDisabled = computed(() => !!props.transactionAutomation.disabledAt);
@@ -86,7 +83,6 @@ export default {
       isCustomRule,
       formatDate,
       formatMoney,
-      TransactionAutomationActions,
     };
   }
 };

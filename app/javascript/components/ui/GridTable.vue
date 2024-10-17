@@ -118,10 +118,10 @@ export default {
   },
 
   setup(props) {
-    const actionColumn = { label: '', side: 'right', gridSize: 'max-content' };
+    const actionColumn = { name: 'action', label: '', side: 'right', gridSize: 'max-content' };
     const allColumns = computed(() => props.columns.concat(props.actions.length ? [actionColumn] : []));
     const leftColumns = computed(() => allColumns.value.filter(column => column.side === 'left'));
-    const rightColumns = computed(() => allColumns.value.filter(column => column.side === 'right'));
+    const rightColumns = computed(() => allColumns.value.filter(column => column.side === 'right' && column.name !== 'action'));
 
     const midGridColumn = computed(() => leftColumns.value.length + 1);
     const gridTableStyle = computed(() => {
@@ -194,8 +194,11 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
   > div {
     padding: 0 map-get($spacers, 2);
 
-    &:first-child, &:last-child {
+    &:first-child {
       padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
     }
   }
 }
@@ -223,6 +226,10 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
   > .GridRow__left > div > h5:not(:first-child), > .GridRow__right > div > h5:not(:first-child) {
     font-size: $h6-font-size;
     margin-top: map-get($spacers, 1) !important;
+  }
+
+  .GridRow__right > div:last-child {
+    margin-right: 1rem;
   }
 }
 
@@ -296,8 +303,9 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
   align-items: center;
 
   > a {
-    height: 100%;
+    cursor: pointer;
     display: flex;
+    height: 100%;
     align-items: center;
     padding: 0 map-get($spacers, 3);
     position: relative;

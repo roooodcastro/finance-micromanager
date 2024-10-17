@@ -773,6 +773,13 @@
           "reenable": "Re-enable",
           "schedule_label": "Schedule",
           "wallet_label": "Wallet"
+        },
+        "wallets_list": {
+          "balance_label": "Balance",
+          "disable": "Disable",
+          "edit": "Edit",
+          "name_label": "Name",
+          "reenable": "Re-enable"
         }
       },
       "dashboard": {
@@ -1396,11 +1403,6 @@
           "new": "New Wallet",
           "show_disabled": "Show Disabled",
           "title": "Wallets"
-        },
-        "list": {
-          "balance": "Balance",
-          "disabled": "Disabled",
-          "reenable_label": "Re-enable"
         }
       }
     },
