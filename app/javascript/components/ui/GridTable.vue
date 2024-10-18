@@ -367,6 +367,10 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
     margin-top: map-get($spacers, 1) !important;
   }
 
+  .GridRow__header > .GridRow__right > div:last-child {
+    margin-right: 0;
+  }
+
   .GridRow:not(.GridRow__header) .GridRow__left > div:not(:first-child),
   .GridRow:not(.GridRow__header) .GridRow__right > div:not(:first-child) {
     color: $text-muted;

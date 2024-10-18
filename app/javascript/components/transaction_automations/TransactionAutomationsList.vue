@@ -61,7 +61,7 @@ export default {
     const sideStripColorFunction = (row) => {
       const isDisabled = !!row.disabledAt;
       return isDisabled ? 'var(--bs-danger)' : 'var(--bs-primary)';
-    }
+    };
 
     return {
       transactionAutomations,

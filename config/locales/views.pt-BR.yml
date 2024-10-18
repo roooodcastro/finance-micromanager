@@ -52,6 +52,11 @@ pt-BR:
         system: Sistema
         name_label: Nome
         subcategories_label: Subcategorias
+      reconciliations_list:
+        name_label: Data
+        status_label: Status
+        balance_diff_label: Divergência
+        cancel_action: Cancelar
       transaction_automations_list:
         name_label: Nome da Transação
         category_label: Categoria
