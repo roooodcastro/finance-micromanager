@@ -4,14 +4,19 @@ class CategoriesController < AbstractAuthenticatedController
   before_action :set_category, only: %i[show update destroy reenable]
 
   def index
-    initial_relation = Current.profile.categories.includes(:active_subcategories).order({ category_type: :desc }, :name)
-    categories       = CategorySearch.new(initial_relation, search_params).search
-
-    props = camelize_props(categories: categories.as_json)
-
     respond_to do |format|
-      format.html { render inertia: 'categories/Index', props: props }
-      format.json { render json: props }
+      format.html { render inertia: 'categories/Index' }
+      format.json do
+        initial_relation = Current
+                           .profile
+                           .categories
+                           .includes(:active_subcategories)
+                           .order({ category_type: :desc }, :name)
+
+        categories = CategorySearch.new(initial_relation, search_params).search
+
+        render json: camelize_props(categories: categories.as_json)
+      end
     end
   end
 

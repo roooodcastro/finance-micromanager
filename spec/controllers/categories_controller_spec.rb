@@ -21,7 +21,6 @@ RSpec.describe CategoriesController do
         index_request
 
         expect_inertia.to render_component('categories/Index')
-                      .and include_props({ categories: [CamelizeProps.call(category.as_json)] })
       end
     end
 

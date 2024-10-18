@@ -47,6 +47,11 @@ pt-BR:
           serão mantidos.
 
     components:
+      categories_list:
+        disabled: Desabilitada
+        system: Sistema
+        name_label: Nome
+        subcategories_label: Subcategorias
       transaction_automations_list:
         name_label: Nome da Transação
         category_label: Categoria
@@ -54,13 +59,7 @@ pt-BR:
         schedule_label: Agendamento
         next_run_label: Próxima Execução
         amount_label: Valor
-        edit: Editar
-        disable: Desabilitar
-        reenable: Reabilitar
       wallets_list:
-        edit: Editar
-        disable: Desabilitar
-        reenable: Reabilitar
         name_label: Nome
         balance_label: Saldo
 
@@ -197,7 +196,11 @@ pt-BR:
         unspecified: Não especificado
       footer:
         version: Versão
-        copyright_notice: '© 2023 Rodrigo Castro'
+        copyright_notice: '© 2024 Rodrigo Castro'
+      grid_table:
+        edit_action_label: Editar
+        disable_action_label: Desabilitar
+        reenable_action_label: Reabilitar
       page_header:
         action_toggle_label: Ações
       profile_switcher:

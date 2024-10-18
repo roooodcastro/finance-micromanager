@@ -22,6 +22,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useWalletStore from '~/stores/WalletStore.js';
+import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtils.js';
 
 import WalletTableRow from '~/components/wallets/WalletTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
@@ -43,16 +44,10 @@ export default {
 
     const { wallets } = storeToRefs(walletStore);
 
-    const handleEditAction = row => walletStore.openFormModal(row.id);
-    const handleDisableAction = row => walletStore.disable(row.id);
-    const handleReenableAction = row => walletStore.reenable(row.id);
-    const isEnabled = row => !row.disabledAt;
-    const isDisabled = row => !!row.disabledAt;
-
     const walletActions = [
-      { label: t('edit'), icon: 'pen-to-square', callback: handleEditAction, variant: 'secondary', show: isEnabled },
-      { label: t('disable'), icon: 'ban', callback: handleDisableAction, variant: 'danger', show: isEnabled },
-      { label: t('reenable'), icon: 'repeat', callback: handleReenableAction, variant: 'success', show: isDisabled },
+      editAction(walletStore),
+      disableAction(walletStore),
+      reenableAction(walletStore),
     ];
 
     const walletColumns = [

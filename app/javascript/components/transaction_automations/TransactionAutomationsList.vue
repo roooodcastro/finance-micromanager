@@ -23,6 +23,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
+import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtils.js';
 
 import TransactionAutomationTableRow from '~/components/transaction_automations/TransactionAutomationTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
@@ -44,16 +45,10 @@ export default {
 
     const { transactionAutomations } = storeToRefs(transactionAutomationStore);
 
-    const handleEditAction = row => transactionAutomationStore.openFormModal(row.id);
-    const handleDisableAction = row => transactionAutomationStore.disable(row.id);
-    const handleReenableAction = row => transactionAutomationStore.reenable(row.id);
-    const isEnabled = row => !row.disabledAt;
-    const isDisabled = row => !!row.disabledAt;
-
     const tableActions = [
-      { label: t('edit'), icon: 'pen-to-square', callback: handleEditAction, variant: 'secondary', show: isEnabled },
-      { label: t('disable'), icon: 'ban', callback: handleDisableAction, variant: 'danger', show: isEnabled },
-      { label: t('reenable'), icon: 'repeat', callback: handleReenableAction, variant: 'success', show: isDisabled },
+      editAction(transactionAutomationStore),
+      disableAction(transactionAutomationStore),
+      reenableAction(transactionAutomationStore),
     ];
 
     const tableColumns = [

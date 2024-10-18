@@ -47,6 +47,11 @@ en:
           accessible.
 
     components:
+      categories_list:
+        disabled: Disabled
+        system: System
+        name_label: Name
+        subcategories_label: Subcategories
       transaction_automations_list:
         name_label: Transaction Name
         category_label: Category
@@ -54,13 +59,7 @@ en:
         schedule_label: Schedule
         next_run_label: Next Run
         amount_label: Amount
-        edit: Edit
-        disable: Disable
-        reenable: Re-enable
       wallets_list:
-        edit: Edit
-        disable: Disable
-        reenable: Re-enable
         name_label: Name
         balance_label: Balance
 
@@ -197,7 +196,11 @@ en:
         unspecified: Unspecified
       footer:
         version: Version
-        copyright_notice: '© 2023 Rodrigo Castro'
+        copyright_notice: '© 2024 Rodrigo Castro'
+      grid_table:
+        edit_action_label: Edit
+        disable_action_label: Disable
+        reenable_action_label: Re-enable
       page_header:
         action_toggle_label: Actions
       profile_switcher:
