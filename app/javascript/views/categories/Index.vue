@@ -52,17 +52,9 @@ export default {
     PageHeader,
   },
 
-  props: {
-    categories: {
-      type: Array,
-      required: true,
-    },
-  },
-
-  setup(props) {
+  setup() {
     const categoryStore = useCategoryStore();
     const { categories: categoriesFromStore, showDisabled, showSystem } = storeToRefs(categoryStore);
-    categoriesFromStore.value = props.categories;
 
     const floatingActionButtonStore = useFloatingActionButtonStore();
     floatingActionButtonStore.registerSpeedDialEntry({
@@ -75,6 +67,7 @@ export default {
     const initialShowDisabled = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'sd');
     const initialShowSystem = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'ss');
     categoryStore.setFetchParams({ showDisabled: initialShowDisabled, showSystem: initialShowSystem });
+    categoryStore.fetchCollection();
 
     const handleNew = () => categoryStore.openFormModal(null);
     const handleShowDisabled = () => {
