@@ -4,7 +4,10 @@
     :style="gridTableStyle"
   >
     <div class="GridRow GridRow__header">
-      <div class="GridRow__left">
+      <div
+        v-if="leftColumns.length"
+        class="GridRow__left"
+      >
         <div
           v-for="(column, index) in leftColumns"
           :key="`header_left_${index}`"
@@ -20,7 +23,10 @@
         </div>
       </div>
 
-      <div class="GridRow__right">
+      <div
+        v-if="rightColumns.length"
+        class="GridRow__right"
+      >
         <div
           v-for="(column, index) in rightColumns"
           :key="`header_right_${index}`"
@@ -123,7 +129,16 @@ export default {
     const leftColumns = computed(() => allColumns.value.filter(column => column.side === 'left'));
     const rightColumns = computed(() => allColumns.value.filter(column => column.side === 'right' && column.name !== 'action'));
 
-    const midGridColumn = computed(() => leftColumns.value.length + 1);
+    const midGridColumn = computed(() => {
+      if (!rightColumns.value.length) {
+        return -1;
+      }
+      if (!leftColumns.value.length) {
+        return 1;
+      }
+
+      return leftColumns.value.length + 1;
+    });
     const gridTableStyle = computed(() => {
       return {
         'grid-template-columns': allColumns.value.map(column => (column.gridSize ?? 'auto')).join(' '),

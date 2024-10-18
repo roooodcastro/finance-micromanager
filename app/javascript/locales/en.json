@@ -763,23 +763,23 @@
         }
       },
       "components": {
+        "categories_list": {
+          "disabled": "Disabled",
+          "name_label": "Name",
+          "subcategories_label": "Subcategories",
+          "system": "System"
+        },
         "transaction_automations_list": {
           "amount_label": "Amount",
           "category_label": "Category",
-          "disable": "Disable",
-          "edit": "Edit",
           "name_label": "Transaction Name",
           "next_run_label": "Next Run",
-          "reenable": "Re-enable",
           "schedule_label": "Schedule",
           "wallet_label": "Wallet"
         },
         "wallets_list": {
           "balance_label": "Balance",
-          "disable": "Disable",
-          "edit": "Edit",
-          "name_label": "Name",
-          "reenable": "Re-enable"
+          "name_label": "Name"
         }
       },
       "dashboard": {
@@ -920,7 +920,7 @@
       },
       "layout": {
         "footer": {
-          "copyright_notice": "© 2023 Rodrigo Castro",
+          "copyright_notice": "© 2024 Rodrigo Castro",
           "version": "Version"
         },
         "forms": {
@@ -930,6 +930,11 @@
           "multiple_select_selections": "selections",
           "none": "None",
           "unspecified": "Unspecified"
+        },
+        "grid_table": {
+          "disable_action_label": "Disable",
+          "edit_action_label": "Edit",
+          "reenable_action_label": "Re-enable"
         },
         "modals": {
           "shortcut_help": {

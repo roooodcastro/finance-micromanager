@@ -1,16 +1,21 @@
 <template>
   <NoRecordsFound v-if="!categories.length" />
-  <div
+  <BCard
     v-else
-    class="CategoriesList list-group"
+    no-body
+    class="p-2"
   >
-    <template
-      v-for="category in categories"
-      :key="category.id"
+    <GridTable
+      :columns="categoryColumns"
+      :rows="categories"
+      :actions="categoryActions"
+      :side-strip-color="sideStripColorFunction"
     >
-      <CategoryListItem :category="category" />
-    </template>
-  </div>
+      <template v-slot:default="{ row: category }">
+        <CategoryTableRow :category="category" />
+      </template>
+    </GridTable>
+  </BCard>
 </template>
 
 <script>
@@ -20,17 +25,24 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtils.js';
 
-import CategoryListItem from '~/components/categories/CategoryListItem.vue';
+import CategoryTableRow from '~/components/categories/CategoryTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
+import GridTable from '~/components/ui/GridTable.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    CategoryListItem,
+    BCard,
+    CategoryTableRow,
+    GridTable,
     NoRecordsFound,
   },
 
   setup() {
+    const t = I18n.scopedTranslator('views.components.categories_list');
+
     const categoryStore = useCategoryStore();
 
     // Load categories from props
@@ -41,9 +53,24 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     watch(currentProfile, () => categoryStore.fetchCollection());
 
+    const categoryActions = [
+      editAction(categoryStore),
+      disableAction(categoryStore),
+      reenableAction(categoryStore),
+    ];
+
+    const categoryColumns = [
+      { label: t('name_label'), side: 'left' },
+      { label: t('subcategories_label'), side: 'left' },
+    ];
+
+    const sideStripColorFunction = row => row.color;
+
     return {
-      t: I18n.scopedTranslator('views.categories.index'),
       categories,
+      categoryColumns,
+      categoryActions,
+      sideStripColorFunction,
     };
   },
 };
