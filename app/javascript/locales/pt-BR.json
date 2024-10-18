@@ -837,6 +837,12 @@
           "subcategories_label": "Subcategorias",
           "system": "Sistema"
         },
+        "reconciliations_list": {
+          "balance_diff_label": "Divergência",
+          "cancel_action": "Cancelar",
+          "name_label": "Data",
+          "status_label": "Status"
+        },
         "transaction_automations_list": {
           "amount_label": "Valor",
           "category_label": "Categoria",

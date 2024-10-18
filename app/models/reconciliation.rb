@@ -31,7 +31,8 @@ class Reconciliation < ApplicationRecord
     super.merge(
       reconciliations_wallets:      reconciliations_wallets.as_json,
       previous_reconciliation_date: previous_finished_reconciliation&.date,
-      currency:                     currency_as_json
+      currency:                     currency_as_json,
+      difference_amount:            difference_amount.to_f
     )
   end
 
