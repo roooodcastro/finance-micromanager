@@ -762,6 +762,26 @@
           "title": "Category"
         }
       },
+      "components": {
+        "transaction_automations_list": {
+          "amount_label": "Amount",
+          "category_label": "Category",
+          "disable": "Disable",
+          "edit": "Edit",
+          "name_label": "Transaction Name",
+          "next_run_label": "Next Run",
+          "reenable": "Re-enable",
+          "schedule_label": "Schedule",
+          "wallet_label": "Wallet"
+        },
+        "wallets_list": {
+          "balance_label": "Balance",
+          "disable": "Disable",
+          "edit": "Edit",
+          "name_label": "Name",
+          "reenable": "Re-enable"
+        }
+      },
       "dashboard": {
         "show": {
           "average_spend": "Avg. Spend",
@@ -1383,11 +1403,6 @@
           "new": "New Wallet",
           "show_disabled": "Show Disabled",
           "title": "Wallets"
-        },
-        "list": {
-          "balance": "Balance",
-          "disabled": "Disabled",
-          "reenable_label": "Re-enable"
         }
       }
     },

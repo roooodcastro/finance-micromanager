@@ -46,6 +46,24 @@ en:
           This category is disabled. It cannot be edited or used for new transactions. Historical data will remain
           accessible.
 
+    components:
+      transaction_automations_list:
+        name_label: Transaction Name
+        category_label: Category
+        wallet_label: Wallet
+        schedule_label: Schedule
+        next_run_label: Next Run
+        amount_label: Amount
+        edit: Edit
+        disable: Disable
+        reenable: Re-enable
+      wallets_list:
+        edit: Edit
+        disable: Disable
+        reenable: Re-enable
+        name_label: Name
+        balance_label: Balance
+
     dashboard:
       show:
         title: "Welcome, %{name}"
@@ -616,7 +634,3 @@ en:
         edit: Edit
         destroy: Disable
         show_disabled: Show Disabled
-      list:
-        balance: Balance
-        disabled: Disabled
-        reenable_label: Re-enable
