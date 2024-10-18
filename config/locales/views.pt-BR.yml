@@ -52,6 +52,13 @@ pt-BR:
         system: Sistema
         name_label: Nome
         subcategories_label: Subcategorias
+      import_names_list:
+        from_name_label: De
+        to_name_label: Para
+      imports_list:
+        name_label: Arquivo de Origem
+        target_wallet_label: Carteira Alvo
+        status_label: Status
       reconciliations_list:
         name_label: Data
         status_label: Status
@@ -120,7 +127,7 @@ pt-BR:
         desc_in_progress: 'Em andamento, iniciada em %{start_date}'
         desc_cancelled: 'Cancelada em %{date}'
         desc_finished: 'Concluída em %{date}'
-        import_desc: 'Importar "%{file_name}" de %{source} para a carteira'
+        import_desc: 'Importar "%{file_name}" de %{source}'
       preview:
         title: Prévia da Importação
         original_name_label: "Nome original:"
@@ -205,6 +212,7 @@ pt-BR:
       grid_table:
         edit_action_label: Editar
         disable_action_label: Desabilitar
+        delete_action_label: Deletar
         reenable_action_label: Reabilitar
       page_header:
         action_toggle_label: Ações

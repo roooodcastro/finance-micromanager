@@ -52,6 +52,13 @@ en:
         system: System
         name_label: Name
         subcategories_label: Subcategories
+      import_names_list:
+        from_name_label: From
+        to_name_label: To
+      imports_list:
+        name_label: Source
+        target_wallet_label: To Wallet
+        status_label: Status
       reconciliations_list:
         name_label: Date
         status_label: Status
@@ -120,7 +127,7 @@ en:
         desc_in_progress: 'In Progress, started on %{start_date}'
         desc_cancelled: 'Cancelled on %{date}'
         desc_finished: 'Completed on %{date}'
-        import_desc: 'Import "%{file_name}" from %{source} into wallet'
+        import_desc: 'Import "%{file_name}" from %{source}'
       preview:
         title: Preview Import
         original_name_label: "Original name:"
@@ -205,6 +212,7 @@ en:
       grid_table:
         edit_action_label: Edit
         disable_action_label: Disable
+        delete_action_label: Delete
         reenable_action_label: Re-enable
       page_header:
         action_toggle_label: Actions

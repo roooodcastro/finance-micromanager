@@ -837,6 +837,15 @@
           "subcategories_label": "Subcategorias",
           "system": "Sistema"
         },
+        "import_names_list": {
+          "from_name_label": "De",
+          "to_name_label": "Para"
+        },
+        "imports_list": {
+          "name_label": "Arquivo de Origem",
+          "status_label": "Status",
+          "target_wallet_label": "Carteira Alvo"
+        },
         "reconciliations_list": {
           "balance_diff_label": "Divergência",
           "cancel_action": "Cancelar",
@@ -936,7 +945,7 @@
           "desc_cancelled": "Cancelada em %{date}",
           "desc_finished": "Concluída em %{date}",
           "desc_in_progress": "Em andamento, iniciada em %{start_date}",
-          "import_desc": "Importar \"%{file_name}\" de %{source} para a carteira"
+          "import_desc": "Importar \"%{file_name}\" de %{source}"
         },
         "preview": {
           "actions_label": "Ação",
@@ -1006,6 +1015,7 @@
           "unspecified": "Não especificado"
         },
         "grid_table": {
+          "delete_action_label": "Deletar",
           "disable_action_label": "Desabilitar",
           "edit_action_label": "Editar",
           "reenable_action_label": "Reabilitar"

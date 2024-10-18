@@ -769,6 +769,15 @@
           "subcategories_label": "Subcategories",
           "system": "System"
         },
+        "import_names_list": {
+          "from_name_label": "From",
+          "to_name_label": "To"
+        },
+        "imports_list": {
+          "name_label": "Source",
+          "status_label": "Status",
+          "target_wallet_label": "To Wallet"
+        },
         "reconciliations_list": {
           "balance_diff_label": "Divergence",
           "cancel_action": "Cancel",
@@ -868,7 +877,7 @@
           "desc_cancelled": "Cancelled on %{date}",
           "desc_finished": "Completed on %{date}",
           "desc_in_progress": "In Progress, started on %{start_date}",
-          "import_desc": "Import \"%{file_name}\" from %{source} into wallet"
+          "import_desc": "Import \"%{file_name}\" from %{source}"
         },
         "preview": {
           "actions_label": "Action",
@@ -938,6 +947,7 @@
           "unspecified": "Unspecified"
         },
         "grid_table": {
+          "delete_action_label": "Delete",
           "disable_action_label": "Disable",
           "edit_action_label": "Edit",
           "reenable_action_label": "Re-enable"

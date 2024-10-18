@@ -20,6 +20,15 @@ export const disableAction = (store) => {
   };
 };
 
+export const deleteAction = (store) => {
+  return {
+    label: I18n.t('views.layout.grid_table.delete_action_label'),
+    icon: ['far', 'trash-can'],
+    callback: row => store.destroy(row.id),
+    variant: 'danger',
+  };
+};
+
 export const reenableAction = (store) => {
   return {
     label: I18n.t('views.layout.grid_table.reenable_action_label'),

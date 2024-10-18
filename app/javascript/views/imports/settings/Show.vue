@@ -24,7 +24,7 @@
         class="m-3"
       />
 
-      <ImportNamesList />
+      <ImportNamesList class="m-0 m-lg-3" />
     </BCard>
 
     <ImportNameForm />

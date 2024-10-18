@@ -97,7 +97,7 @@ export default {
       };
     };
 
-    const actionsForRow = row => props.actions.filter(action => action.show(row));
+    const actionsForRow = row => props.actions.filter(action => action.show ? action.show(row) : true);
 
     const handleActionClick = (event, action, row) => {
       if (action.callback) {

@@ -39,10 +39,10 @@ export const COLORS_FOR_RECONCILIATION_STATUSES = {
   cancelled: 'var(--bs-danger)',
 };
 
-export const VARIANTS_FOR_IMPORT_STATUSES = {
-  in_progress: 'secondary',
-  finished: 'success',
-  cancelled: 'danger',
+export const COLORS_FOR_IMPORT_STATUSES = {
+  in_progress: 'var(--bs-secondary)',
+  finished: 'var(--bs-success)',
+  cancelled: 'var(--bs-danger)',
 };
 
 export const VARIANTS_FOR_IMPORT_ACTIONS = {
