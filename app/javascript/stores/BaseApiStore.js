@@ -10,12 +10,25 @@ export function defineBaseApiStore(name, storeOptions = {}) {
   const dynamicState = {};
   dynamicState[`${storeOptions.resourceName}ForFormModal`] = {};
 
+  const setShowPageHref = (collection) => {
+    collection.forEach((record) => {
+      const showPageHref = storeOptions.api.show?.path({ id: record.id });
+      if (showPageHref) {
+        record.href = showPageHref;
+      }
+    });
+  }
+
   const fetchCollectionFromApi = (store) => {
     store.loading = true;
     return storeOptions
       .api
       .index(Object.assign(store.urlParams, { query: store.fetchParams }))
-      .then(response => store[storeOptions.resourcesName] = response[storeOptions.resourcesName])
+      .then((response) => {
+        const newCollection = response[storeOptions.resourcesName];
+        setShowPageHref(newCollection);
+        store[storeOptions.resourcesName] = newCollection;
+      })
       .finally(() => {
         store.loading = false;
         store.initialFetchDone = true;
@@ -26,7 +39,11 @@ export function defineBaseApiStore(name, storeOptions = {}) {
     const path = storeOptions.api.index.path(Object.assign(store.urlParams, { query: store.fetchParams }));
 
     return fetchFromCache(path, store.latestUpdatedAt)
-      .then(data => store[storeOptions.resourcesName] = data[storeOptions.resourcesName])
+      .then((data) => {
+        const collection = data[storeOptions.resourcesName];
+        setShowPageHref(collection);
+        store[storeOptions.resourcesName] = collection;
+      })
       .catch(() => fetchCollectionFromApi(store))
       .finally(() => {
         store.loading = false;
@@ -74,13 +91,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       loadCollectionFromProps(records) {
-        records.forEach((record) => {
-          const showPageHref = storeOptions.api.show?.path({ id: record.id });
-          if (showPageHref) {
-            record.href = showPageHref;
-          }
-        });
-
+        setShowPageHref(records);
         this[storeOptions.resourcesName] = records;
         this.initialFetchDone = true;
       },

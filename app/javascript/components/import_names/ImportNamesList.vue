@@ -9,19 +9,20 @@
       v-else
       @scroll="handleInfiniteScrolling"
     >
-      <div class="list-group">
-        <template
-          v-for="importName in importNames"
-          :key="`${importName.id}_${importName.updatedAt}`"
-        >
-          <ImportNameListItem :import-name="importName" />
+      <GridTable
+        :rows="importNames"
+        :columns="tableColumns"
+        :actions="tableActions"
+      >
+        <template v-slot:default="{ row: importName }">
+          <ImportNameTableRow :import-name="importName" />
         </template>
-      </div>
+      </GridTable>
     </InfiniteScrolling>
 
     <Pagination
       v-if="!loading"
-      class="d-none d-lg-flex mt-3 me-2 me-lg-3 mb-2 mb-lg-3"
+      class="d-none d-lg-flex my-3"
       @change="handlePageChange"
     />
   </LoadingOverlay>
@@ -31,26 +32,32 @@
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
+import I18n from '~/utils/I18n.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
+import { editAction, deleteAction } from '~/utils/GridTableUtils.js';
 
-import ImportNameListItem from '~/components/import_names/ImportNameListItem.vue';
+import ImportNameTableRow from '~/components/import_names/ImportNameTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 import Pagination from '~/components/rails/Pagination.vue';
+import GridTable from '~/components/ui/GridTable.vue';
 
 export default {
   components: {
-    NoRecordsFound,
-    ImportNameListItem,
+    GridTable,
+    ImportNameTableRow,
     InfiniteScrolling,
     LoadingOverlay,
+    NoRecordsFound,
     Pagination,
   },
 
   setup() {
+    const t = I18n.scopedTranslator('views.components.import_names_list');
+
     const importNameStore = useImportNameStore();
     const paginationStore = usePaginationStore();
 
@@ -70,9 +77,14 @@ export default {
       }
     };
 
+    const tableActions = [editAction(importNameStore), deleteAction(importNameStore)];
+    const tableColumns = [{ label: t('from_name_label'), side: 'left' }, { label: t('to_name_label'), side: 'right' }];
+
     return {
       importNames,
       loading,
+      tableActions,
+      tableColumns,
       handlePageChange,
       handleInfiniteScrolling,
     };
