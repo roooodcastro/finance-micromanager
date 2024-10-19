@@ -31,7 +31,7 @@ export class RulesParser {
       const value = displayValue ? `"${displayValue}"` : '?';
 
       return `${column} ${operator} ${value}`;
-    }).join(`, ${t('label_or')} `);
+    }).join(` ${t('label_or')} `);
   }
 
   get actionsDescription() {
@@ -43,7 +43,7 @@ export class RulesParser {
       const value = displayValue ? `"${displayValue}"` : '?';
 
       return `${column} ${t('label_with')} ${value}`;
-    }).join(`, ${t('label_and')} `);
+    }).join(` ${t('label_and')} `);
   }
 
   get actions() {

@@ -103,6 +103,9 @@ export default {
       if (action.callback) {
         event.preventDefault();
         action.callback(row);
+      } else if (action.href) {
+        event.preventDefault();
+        window.location.href = action.href(row);
       }
     };
 

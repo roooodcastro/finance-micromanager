@@ -71,6 +71,11 @@ en:
         schedule_label: Schedule
         next_run_label: Next Run
         amount_label: Amount
+      transaction_predictions_list:
+        name_label: Rule Name
+        conditions_label: When
+        actions_label: Then Fill
+        edit_action: Edit
       wallets_list:
         name_label: Name
         balance_label: Balance
@@ -580,9 +585,6 @@ en:
         new: New Transaction Autofill
       list:
         disabled: Disabled
-        reenable_label: Reenable
-        label_when: When
-        label_then: Then fill
       show:
         title: Transaction Autofill
         edit: Edit

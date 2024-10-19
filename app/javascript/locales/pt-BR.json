@@ -860,6 +860,12 @@
           "schedule_label": "Agendamento",
           "wallet_label": "Carteira"
         },
+        "transaction_predictions_list": {
+          "actions_label": "Então Preencha",
+          "conditions_label": "Quando",
+          "edit_action": "Editar",
+          "name_label": "Nome da Regra"
+        },
         "wallets_list": {
           "balance_label": "Saldo",
           "name_label": "Nome"
@@ -1317,7 +1323,7 @@
           "label_condition_wallet": "-- Carteira --",
           "label_or": "OU",
           "label_with": "com",
-          "name_label": "Nome da Transação",
+          "name_label": "Nome",
           "new_action": "Nova Ação",
           "new_condition": "Nova Condição",
           "new_title": "Novo Autopreenchimento",
@@ -1328,7 +1334,7 @@
           "sub_header_edit_action": "Editar Ação",
           "sub_header_edit_condition": "Editar Condição",
           "submit": "Salvar",
-          "transaction_date_label": "Data da Transação",
+          "transaction_date_label": "Data",
           "value_label": "valor",
           "wallet_id_label": "Carteira"
         },
@@ -1337,10 +1343,7 @@
           "title": "Autopreenchimentos de Transações"
         },
         "list": {
-          "disabled": "Desabilitado",
-          "label_then": "Então preencha",
-          "label_when": "Quando",
-          "reenable_label": "Reabilitar"
+          "disabled": "Desabilitado"
         },
         "show": {
           "destroy": "Remover",
