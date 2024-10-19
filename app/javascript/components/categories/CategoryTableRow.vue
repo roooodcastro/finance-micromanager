@@ -5,12 +5,7 @@
         {{ category.name }}
       </span>
 
-      <span
-        v-if="isDisabled"
-        class="badge text-bg-danger"
-      >
-        {{ t('disabled') }}
-      </span>
+      <DisabledBadge v-if="isDisabled" />
 
       <span
         v-if="isSystem"
@@ -31,7 +26,13 @@ import { computed } from 'vue';
 
 import I18n from '~/utils/I18n.js';
 
+import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+
 export default {
+  components: {
+    DisabledBadge,
+  },
+
   props: {
     category: {
       type: Object,

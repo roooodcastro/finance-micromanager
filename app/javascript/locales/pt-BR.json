@@ -646,6 +646,9 @@
       "destroy": {
         "success": "Perfil \"%{name}\" desabilitado com sucesso."
       },
+      "reenable": {
+        "success": "Perfil \"%{name}\" reabilitado com sucesso."
+      },
       "update": {
         "error": "Perfil \"%{name}\" não pode ser atualizado: %{error}",
         "success": "Perfil \"%{name}\" atualizado com sucesso."
@@ -845,6 +848,14 @@
           "name_label": "Arquivo de Origem",
           "status_label": "Status",
           "target_wallet_label": "Carteira Alvo"
+        },
+        "profiles_list": {
+          "currency_label": "Moeda",
+          "default_wallet_label": "Carteira Padrão",
+          "name_label": "Nome",
+          "no_default_wallet": "--- Nenhuma ---",
+          "no_name": "--- Sem nome ---",
+          "shared_by_label": "Criador"
         },
         "reconciliations_list": {
           "balance_diff_label": "Divergência",
@@ -1054,6 +1065,7 @@
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "disable": "Desativar",
           "disable_confirmation": "Tem certeza? Você pode re-habilitar isto no futuro.",
+          "disabled": "Desativado",
           "edit": "Editar",
           "generic_error": "Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.",
           "no_records": "Não há nada para exibir",
@@ -1118,6 +1130,10 @@
         }
       },
       "profiles": {
+        "confirmation": {
+          "disable": "Tem certeza de que deseja desabilitar este perfil?",
+          "reenable": "Tem certeza de que deseja reabilitar este perfil?"
+        },
         "floating_button_label": "Novo Perfil",
         "form": {
           "back": "Voltar",
@@ -1134,9 +1150,8 @@
           "currency": "Moeda",
           "name": "Nome",
           "new": "Novo perfil",
-          "no_name": "--- Sem nome ---",
           "share_action_link_label": "Compartilhar",
-          "shared_text": "Compartilhado com você por %{user}",
+          "show_disabled": "Exibir desativados",
           "title": "Perfis"
         }
       },

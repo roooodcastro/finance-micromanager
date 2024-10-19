@@ -59,6 +59,13 @@ pt-BR:
         name_label: Arquivo de Origem
         target_wallet_label: Carteira Alvo
         status_label: Status
+      profiles_list:
+        name_label: Nome
+        currency_label: Moeda
+        default_wallet_label: Carteira Padrão
+        shared_by_label: Criador
+        no_name: '--- Sem nome ---'
+        no_default_wallet: '--- Nenhuma ---'
       reconciliations_list:
         name_label: Data
         status_label: Status
@@ -232,6 +239,7 @@ pt-BR:
         delete: Remover
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
         disable: Desativar
+        disabled: Desativado
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
         generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
@@ -277,15 +285,17 @@ pt-BR:
         login_page: Página de Login
         dashboard: Página Inicial
     profiles:
+      confirmation:
+        disable: Tem certeza de que deseja desabilitar este perfil?
+        reenable: Tem certeza de que deseja reabilitar este perfil?
       floating_button_label: Novo Perfil
       index:
         title: Perfis
         new: Novo perfil
         name: Nome
         currency: Moeda
-        no_name: '--- Sem nome ---'
-        shared_text: 'Compartilhado com você por %{user}'
         share_action_link_label: Compartilhar
+        show_disabled: Exibir desativados
       form:
         new_title: Novo Perfil
         edit_title: Editar Perfil

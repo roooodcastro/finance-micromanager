@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Profile < ApplicationRecord
+  include Disableable
+
   monetize :balance_amount_cents, with_currency: ->(instance) { instance.currency }, disable_validation: true
 
   belongs_to :user
@@ -28,8 +30,6 @@ class Profile < ApplicationRecord
 
   scope :shared_with, ->(user) { left_joins(:profile_shares).where(profile_shares: { user: }) }
 
-  enum status: { active: 'active', disabled: 'disabled' }
-
   validates :status, presence: true
   validates :currency, presence: true
   validates :currency, inclusion: { in: Money::Currency.map(&:id).map(&:to_s) }, allow_nil: true
@@ -48,7 +48,8 @@ class Profile < ApplicationRecord
         balance_amount:           balance_amount.to_f
       )
       .then do |json|
-        json[:wallets] = wallets.map(&:as_json) if include_wallets
+        json[:wallets]        = wallets.map(&:as_json) if include_wallets
+        json[:default_wallet] = default_wallet.as_json if include_wallets
         json
       end
   end

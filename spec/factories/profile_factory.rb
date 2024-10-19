@@ -6,12 +6,8 @@ FactoryBot.define do
     currency { :eur }
     user
 
-    trait :active do
-      status { :active }
-    end
-
     trait :disabled do
-      status { :disabled }
+      disabled_at { Time.current }
     end
   end
 end

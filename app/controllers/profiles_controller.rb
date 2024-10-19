@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
 class ProfilesController < AbstractAuthenticatedController
-  before_action :set_profile, only: %i[show update destroy]
+  before_action :set_profile, only: %i[show update destroy reenable]
 
   def index
-    profiles = current_user.available_profiles
-    props    = camelize_props(
-      profiles:        profiles.map { |profile| profile.as_json(include_wallets: true) },
-      current_profile: Current.profile.as_json
-    )
-
     respond_to do |format|
-      format.html { render inertia: 'profiles/Index', props: props }
-      format.json { render json: props }
+      format.html { render inertia: 'profiles/Index' }
+      format.json do
+        initial_relation = Profile
+                           .left_joins(:profile_shares)
+                           .where(profile_shares: { user: current_user })
+                           .or(current_user.profiles)
+                           .includes(:wallets, :default_wallet, :user, :latest_reconciliation)
+        profiles         = ProfileSearch.new(initial_relation, search_params).search
+
+        render json: camelize_props(profiles: profiles.map { |profile| profile.as_json(include_wallets: true) })
+      end
     end
   end
 
   def show
-    render inertia: 'profiles/Show'
+    respond_to do |format|
+      format.html { render inertia: 'profiles/Show' }
+      format.json { render json: @profile.as_json(include_wallets: true) }
+    end
   end
 
   def create
@@ -42,7 +48,13 @@ class ProfilesController < AbstractAuthenticatedController
   end
 
   def destroy
-    @profile.disabled!
+    @profile.disable!
+
+    render json: camelize_props(message: t('.success', name: @profile.display_name))
+  end
+
+  def reenable
+    @profile.enable!
 
     render json: camelize_props(message: t('.success', name: @profile.display_name))
   end
@@ -55,5 +67,9 @@ class ProfilesController < AbstractAuthenticatedController
 
   def profile_params
     params.require(:profile).permit(:currency, :name, :default_wallet_id)
+  end
+
+  def search_params
+    params.permit(%i[show_disabled]).to_h.symbolize_keys
   end
 end

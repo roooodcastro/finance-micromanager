@@ -59,6 +59,13 @@ en:
         name_label: Source
         target_wallet_label: To Wallet
         status_label: Status
+      profiles_list:
+        name_label: Name
+        currency_label: Currency
+        default_wallet_label: Default Wallet
+        shared_by_label: Creator
+        no_name: '--- No name ---'
+        no_default_wallet: '--- None ---'
       reconciliations_list:
         name_label: Date
         status_label: Status
@@ -232,6 +239,7 @@ en:
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
         disable: Disable
+        disabled: Disabled
         disable_confirmation: Are you sure? You can re-enable this in the future.
         edit: Edit
         generic_error: An unexpected error has occurred. Please reload the page and try again.
@@ -277,15 +285,17 @@ en:
         login_page: Login page
         dashboard: Dashboard
     profiles:
+      confirmation:
+        disable: Are you sure you want to disable this profile?
+        reenable: Are you sure you want to re-enable this profile?
       floating_button_label: New Profile
       index:
         title: Profiles
         new: New Profile
         name: Name
         currency: Currency
-        no_name: '--- No name ---'
-        shared_text: 'Shared with you by %{user}'
         share_action_link_label: Share
+        show_disabled: Show disabled
       form:
         new_title: New Profile
         edit_title: Edit Profile
