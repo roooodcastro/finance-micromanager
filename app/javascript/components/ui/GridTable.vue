@@ -104,8 +104,8 @@ export default {
      *   show: Function that accepts the row as parameter, used to determine if this action should be displayed or not.
      *         Optional, action will always be displayed if not present.
      *   href: Path or URL to redirect the user when clicked. Optional.
-     *   callback: Function that accepts the row as parameter, will be called when the action is clicked. When both
-     *             href and callback options are specified, both will be called. Optional.
+     *   callback: Function that accepts the row as parameter, will be called when the action is clicked. If both href
+     *             and callback options are specified, callback will take precedence and href won't work. Optional.
      * }
      */
     actions: {

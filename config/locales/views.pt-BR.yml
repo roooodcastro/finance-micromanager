@@ -71,6 +71,11 @@ pt-BR:
         schedule_label: Agendamento
         next_run_label: Próxima Execução
         amount_label: Valor
+      transaction_predictions_list:
+        name_label: Nome da Regra
+        conditions_label: Quando
+        actions_label: Então Preencha
+        edit_action: Editar
       wallets_list:
         name_label: Nome
         balance_label: Saldo
@@ -566,8 +571,8 @@ pt-BR:
         label_action_category: '-- Com a categoria --'
         label_action_wallet: '-- Com a carteira --'
         value_label: valor
-        name_label: Nome da Transação
-        transaction_date_label: Data da Transação
+        name_label: Nome
+        transaction_date_label: Data
         amount_label: Valor
         category_id_label: Categoria
         wallet_id_label: Carteira
@@ -581,9 +586,6 @@ pt-BR:
         new: Novo Autopreenchimento de Transação
       list:
         disabled: Desabilitado
-        reenable_label: Reabilitar
-        label_when: Quando
-        label_then: Então preencha
       show:
         title: Autopreenchimento de Transação
         edit: Editar

@@ -792,6 +792,12 @@
           "schedule_label": "Schedule",
           "wallet_label": "Wallet"
         },
+        "transaction_predictions_list": {
+          "actions_label": "Then Fill",
+          "conditions_label": "When",
+          "edit_action": "Edit",
+          "name_label": "Rule Name"
+        },
         "wallets_list": {
           "balance_label": "Balance",
           "name_label": "Name"
@@ -1267,10 +1273,7 @@
           "title": "Transaction Autofills"
         },
         "list": {
-          "disabled": "Disabled",
-          "label_then": "Then fill",
-          "label_when": "When",
-          "reenable_label": "Reenable"
+          "disabled": "Disabled"
         },
         "show": {
           "destroy": "Delete",
