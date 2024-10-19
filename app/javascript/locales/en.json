@@ -795,6 +795,10 @@
           "name_label": "Date",
           "status_label": "Status"
         },
+        "subcategories_list": {
+          "balance_label": "Balance",
+          "name_label": "Name"
+        },
         "transaction_automations_list": {
           "amount_label": "Amount",
           "category_label": "Category",

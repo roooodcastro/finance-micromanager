@@ -863,6 +863,10 @@
           "name_label": "Data",
           "status_label": "Status"
         },
+        "subcategories_list": {
+          "balance_label": "Saldo",
+          "name_label": "Nome"
+        },
         "transaction_automations_list": {
           "amount_label": "Valor",
           "category_label": "Categoria",

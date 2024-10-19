@@ -71,6 +71,9 @@ en:
         status_label: Status
         balance_diff_label: Divergence
         cancel_action: Cancel
+      subcategories_list:
+        name_label: Name
+        balance_label: Balance
       transaction_automations_list:
         name_label: Transaction Name
         category_label: Category
