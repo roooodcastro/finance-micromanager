@@ -61,7 +61,6 @@
         v-if="subcategoriesFromStore.length"
         :title="t('sub_header_subcategories')"
         class="mt-3"
-        no-body
       >
         <template v-slot:header>
           <DropdownMenu

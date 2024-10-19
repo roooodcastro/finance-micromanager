@@ -56,6 +56,7 @@ export default {
       disableAction(profileStore),
       reenableAction(profileStore),
     ];
+
     const tableColumns = [
       { label: t('name_label'), side: 'left' },
       { label: t('currency_label'), side: 'left' },
