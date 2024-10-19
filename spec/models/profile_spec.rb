@@ -66,7 +66,9 @@ RSpec.describe Profile do
         user:                     expected_user_json,
         currency_object:          { iso_code: 'EUR', name: 'Euro', symbol: '€' },
         last_reconciliation_date: nil,
-        default_wallet_id:        nil
+        default_wallet_id:        nil,
+        disabled_at:              nil,
+        disabled_by_id:           nil
       }
     end
 

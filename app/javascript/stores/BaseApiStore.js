@@ -122,6 +122,10 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       fetchSingle(id) {
+        if (!storeOptions.api.show) {
+          return Promise.resolve();
+        }
+
         this.loading = true;
         return storeOptions
           .api

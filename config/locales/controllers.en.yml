@@ -51,6 +51,8 @@ en:
       error: 'Profile "%{name}" could not be updated: %{error}'
     destroy:
       success: 'Profile "%{name}" was successfully disabled.'
+    reenable:
+      success: 'Profile "%{name}" was successfully re-enabled.'
 
   profile_share_invites_sent:
     create:

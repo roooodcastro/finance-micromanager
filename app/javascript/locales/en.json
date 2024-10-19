@@ -579,6 +579,9 @@
       "destroy": {
         "success": "Profile \"%{name}\" was successfully disabled."
       },
+      "reenable": {
+        "success": "Profile \"%{name}\" was successfully re-enabled."
+      },
       "update": {
         "error": "Profile \"%{name}\" could not be updated: %{error}",
         "success": "Profile \"%{name}\" was successfully updated."
@@ -777,6 +780,14 @@
           "name_label": "Source",
           "status_label": "Status",
           "target_wallet_label": "To Wallet"
+        },
+        "profiles_list": {
+          "currency_label": "Currency",
+          "default_wallet_label": "Default Wallet",
+          "name_label": "Name",
+          "no_default_wallet": "--- None ---",
+          "no_name": "--- No name ---",
+          "shared_by_label": "Creator"
         },
         "reconciliations_list": {
           "balance_diff_label": "Divergence",
@@ -986,6 +997,7 @@
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "disable": "Disable",
           "disable_confirmation": "Are you sure? You can re-enable this in the future.",
+          "disabled": "Disabled",
           "edit": "Edit",
           "generic_error": "An unexpected error has occurred. Please reload the page and try again.",
           "no_records": "There's nothing to show",
@@ -1050,6 +1062,10 @@
         }
       },
       "profiles": {
+        "confirmation": {
+          "disable": "Are you sure you want to disable this profile?",
+          "reenable": "Are you sure you want to re-enable this profile?"
+        },
         "floating_button_label": "New Profile",
         "form": {
           "back": "Back",
@@ -1066,9 +1082,8 @@
           "currency": "Currency",
           "name": "Name",
           "new": "New Profile",
-          "no_name": "--- No name ---",
           "share_action_link_label": "Share",
-          "shared_text": "Shared with you by %{user}",
+          "show_disabled": "Show disabled",
           "title": "Profiles"
         }
       },

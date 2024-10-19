@@ -9,18 +9,34 @@ RSpec.describe ProfilesController do
     allow(Current).to receive(:user).and_return(user)
   end
 
-  describe 'GET index', :inertia do
-    before do
-      create(:profile, user:)
+  describe 'GET index' do
+    subject(:index_request) { get :index, format: }
 
-      shared_profile = create(:profile)
-      create(:profile_share, profile: shared_profile, user: user)
+    let!(:profile) { user.default_profile }
+    let!(:shared_profile) { create(:profile) }
+
+    before { create(:profile_share, profile: shared_profile, user: user) }
+
+    context 'for HTML requests', :inertia do
+      let(:format) { :html }
+
+      it 'renders the index component' do
+        index_request
+
+        expect_inertia.to render_component('profiles/Index')
+      end
     end
 
-    it 'renders the index component, returning all available profiles' do
-      get :index
+    context 'for JSON requests' do
+      let(:format) { :json }
 
-      expect_inertia.to render_component('profiles/Index')
+      let(:expected_profiles) { [profile, shared_profile].map { |profile| profile.as_json(include_wallets: true) } }
+
+      it 'renders the available profiles as JSON' do
+        index_request
+
+        expect(json_response).to match(CamelizeProps.call('profiles' => expected_profiles))
+      end
     end
   end
 
@@ -131,7 +147,7 @@ RSpec.describe ProfilesController do
     end
   end
 
-  describe 'DELETE destroy' do
+  describe 'DELETE destroy', :travel_to_now do
     subject(:delete_request) { delete :destroy, params: { id: profile.id } }
 
     let!(:profile) { create(:profile, user:) }
@@ -139,12 +155,29 @@ RSpec.describe ProfilesController do
     it 'disables the profile and renders json' do
       expect { delete_request }
         .to not_change { Profile.count }
-        .and change { profile.reload.status }
-        .from('active')
-        .to('disabled')
+        .and change { profile.reload.disabled_at }
+        .from(nil)
+        .to(Time.current)
 
       expect(json_response)
         .to eq('message' => "Profile \"#{profile.display_name}\" was successfully disabled.")
+    end
+  end
+
+  describe 'PATCH reenable', :travel_to_now do
+    subject(:reenable_request) { patch :reenable, params: { id: profile.id } }
+
+    let!(:profile) { create(:profile, :disabled, user:) }
+
+    it 're-enables the profile and renders json' do
+      expect { reenable_request }
+        .to not_change { Profile.count }
+        .and change { profile.reload.disabled_at }
+        .from(Time.current)
+        .to(nil)
+
+      expect(json_response)
+        .to eq('message' => "Profile \"#{profile.display_name}\" was successfully re-enabled.")
     end
   end
 end

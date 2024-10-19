@@ -56,6 +56,7 @@ export const VARIANTS_FOR_IMPORT_ACTIONS = {
  * Cookies
  */
 export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
+export const PROFILE_OPTIONS_COOKIE_NAME = 'profile-options';
 export const DISPLAY_OPTIONS_COOKIE_NAME = 'display-options';
 
 /*

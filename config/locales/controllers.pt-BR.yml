@@ -51,6 +51,8 @@ pt-BR:
       error: 'Perfil "%{name}" não pode ser atualizado: %{error}'
     destroy:
       success: 'Perfil "%{name}" desabilitado com sucesso.'
+    reenable:
+      success: 'Perfil "%{name}" reabilitado com sucesso.'
 
   profile_share_invites_sent:
     create:
