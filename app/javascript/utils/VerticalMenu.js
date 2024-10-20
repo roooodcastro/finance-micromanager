@@ -58,11 +58,11 @@ const isMenuItemActive = (options) => {
   const itemPath = options.path;
   const currentPath = window.location.pathname;
 
-  if (currentPath === '/' && itemPath === '/') {
-    return true;
-  }
-
-  return itemPath !== '/' && currentPath.includes(itemPath);
+  // Tries to match the exact path, or the following derivative paths:
+  // Show page for a resource: /item-path/{uuid}
+  // Edit page for a resource: /item-path/{uuid}/edit
+  const pathRegex = new RegExp(`^${itemPath}(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?(/edit)?/?$`, 'i');
+  return currentPath.match(pathRegex);
 };
 
 export const buildVerticalMenuItems = () => {
