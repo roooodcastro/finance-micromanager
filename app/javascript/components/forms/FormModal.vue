@@ -1,10 +1,12 @@
 <template>
-  <div
+  <Draggable
     :id="modalId"
     class="modal fade"
     tabindex="-1"
     :aria-labelledby="title"
     aria-hidden="true"
+    draggable-element-selector=".modal-content"
+    trigger-element-selector=".modal-header"
     v-on="{ 'shown.bs.modal': handleShown, 'show.bs.modal': handleShow }"
   >
     <div class="modal-dialog modal-dialog-centered">
@@ -59,7 +61,7 @@
         </div>
       </LoadingOverlay>
     </div>
-  </div>
+  </Draggable>
 </template>
 
 <script>
@@ -69,12 +71,14 @@ import useModalStore from '~/stores/ModalStore.js';
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
+import Draggable from '~/components/ui/Draggable.vue';
 
 export default {
   components: {
-    LoadingOverlay,
     CloseButton,
+    Draggable,
     FontAwesomeIcon,
+    LoadingOverlay,
   },
 
   props: {
