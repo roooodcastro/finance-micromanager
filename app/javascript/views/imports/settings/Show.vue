@@ -3,7 +3,7 @@
     <PageHeader :title="t('title')" />
 
     <BCard
-      :title="t('sub_header_import_name', { count: importNames.length })"
+      :title="t('sub_header_import_name')"
       no-body
     >
       <template v-slot:header>
@@ -78,14 +78,12 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     watch(currentProfile, () => importNameStore.fetchCollection());
 
-    const { importNames } = storeToRefs(importNameStore);
     importNameStore.fetchCollection();
 
     const handleNewImportName = () => importNameStore.openFormModal(null);
 
     return {
       t,
-      importNames,
       handleNewImportName,
     };
   },

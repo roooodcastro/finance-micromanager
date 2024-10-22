@@ -1,5 +1,16 @@
 <template>
   <div
+    v-if="searchable"
+    class="d-flex mb-3"
+  >
+    <SearchField
+      :debounce-timeout="searchDebounceTimeout"
+      :placeholder="t('search_placeholder')"
+      @input="handleSearchInput"
+    />
+  </div>
+
+  <div
     class="GridTable border rounded"
     :style="gridTableStyle"
   >
@@ -9,13 +20,13 @@
         class="GridRow__left"
       >
         <div
-          v-for="(column, index) in leftColumns"
-          :key="`header_left_${index}`"
+          v-for="(column, columnIndex) in leftColumns"
+          :key="`header_left_${columnIndex}`"
           :class="{ 'text-end': column.align === 'right' }"
         >
           <h5
-            v-for="(label, index) in headerLabels(column)"
-            :key="`header_left_label_${index}`"
+            v-for="(label, labelIndex) in headerLabels(column)"
+            :key="`header_left_label_${labelIndex}`"
             class="d-block m-0"
           >
             {{ label }}
@@ -28,13 +39,13 @@
         class="GridRow__right"
       >
         <div
-          v-for="(column, index) in rightColumns"
-          :key="`header_right_${index}`"
+          v-for="(column, columnIndex) in rightColumns"
+          :key="`header_right_${columnIndex}`"
           :class="{ 'text-end': column.align === 'right' }"
         >
           <h5
-            v-for="(label, index) in headerLabels(column)"
-            :key="`header_right_label_${index}`"
+            v-for="(label, labelIndex) in headerLabels(column)"
+            :key="`header_right_label_${labelIndex}`"
             class="d-block m-0"
           >
             {{ label }}
@@ -61,11 +72,15 @@
 <script>
 import { computed } from 'vue';
 
+import I18n from '~/utils/I18n.js';
+
 import GridTableRow from '~/components/ui/GridTableRow.vue';
+import SearchField from '~/components/ui/SearchField.vue';
 
 export default {
   components: {
     GridTableRow,
+    SearchField,
   },
 
   props: {
@@ -93,6 +108,7 @@ export default {
       type: Array,
       required: true,
     },
+
     /*
      * Defines the actions for each row. These will be displayed either in a drawer context menu in mobile view, or in
      * the far right side of the table. Each entry has the following specification:
@@ -112,6 +128,7 @@ export default {
       type: Array,
       default: () => [],
     },
+
     /*
      * Optional function that returns the colour for the side strip of a specific data row. The function will be called
      * passing the row object as parameter. The return value should be a CSS colour value to be used as the side strip,
@@ -121,9 +138,33 @@ export default {
       type: Function,
       default: () => {},
     },
+
+    /*
+     * Defines if a search field should be included at the top of the table. If included, it will trigger a search
+     * event when the search field has any input. This event is debounced using the searchDebounceTimeout prop.
+     * Defaults to false. Optional.
+     */
+    searchable: {
+      type: Boolean,
+      default: false,
+    },
+
+    /*
+     * Used if searchable prop if true. This defines a debounce interval, in milliseconds, to apply to the search input
+     * field. This means that the search event will only be emitted after the user hasn't typed in the configured time.
+     * Defaults to 300. Optional.
+     */
+    searchDebounceTimeout: {
+      type: Number,
+      default: 300,
+    },
   },
 
-  setup(props) {
+  emits: ['search'],
+
+  setup(props, { emit }) {
+    const t = I18n.scopedTranslator('views.layout.grid_table');
+
     const actionColumn = { name: 'action', label: '', side: 'right', gridSize: 'max-content' };
     const allColumns = computed(() => props.columns.concat(props.actions.length ? [actionColumn] : []));
     const leftColumns = computed(() => allColumns.value.filter(column => column.side === 'left'));
@@ -150,11 +191,15 @@ export default {
 
     const headerLabels = (column => column.label.split('\n'));
 
+    const handleSearchInput = searchString => emit('search', searchString);
+
     return {
+      t,
       gridTableStyle,
       leftColumns,
       rightColumns,
       headerLabels,
+      handleSearchInput,
     };
   }
 }

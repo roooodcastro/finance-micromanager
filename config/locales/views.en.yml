@@ -172,7 +172,7 @@ en:
         show:
           title: Import Settings
           new_import_name: New Import Name
-          sub_header_import_name: "Import Names (%{count})"
+          sub_header_import_name: "Import Names"
           import_names_menu_aria_label: Import Names Options
           import_name_info_text: >-
             Import names are "translations" for the original transaction names from the import source to a
@@ -225,6 +225,7 @@ en:
         version: Version
         copyright_notice: '© 2024 Rodrigo Castro'
       grid_table:
+        search_placeholder: Search
         edit_action_label: Edit
         disable_action_label: Disable
         delete_action_label: Delete

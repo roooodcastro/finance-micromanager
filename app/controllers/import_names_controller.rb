@@ -8,7 +8,8 @@ class ImportNamesController < AbstractAuthenticatedController
   MAX_PAGINATION = 2**32
 
   def index
-    import_names       = Current.profile.import_names.order(:import_name)
+    initial_relation   = Current.profile.import_names.order(:import_name)
+    import_names       = ImportNameSearch.new(initial_relation, search_params).search
     pagination_limit   = params[:fetch_all] ? MAX_PAGINATION : current_pagination_limit
     pagy, import_names = pagy(import_names, limit: pagination_limit)
     props              = camelize_props(import_names: import_names.as_json, pagination: pagy_metadata(pagy))
@@ -55,5 +56,9 @@ class ImportNamesController < AbstractAuthenticatedController
 
   def import_name_params
     params.require(:import_name).permit(:import_name, :transaction_name)
+  end
+
+  def search_params
+    params.permit(%i[search_string]).to_h.symbolize_keys
   end
 end

@@ -172,7 +172,7 @@ pt-BR:
         show:
           title: Configurações de Importação
           new_import_name: Novo Nome de Importação
-          sub_header_import_name: "Nomes de Importação (%{count})"
+          sub_header_import_name: "Nomes de Importação"
           import_names_menu_aria_label: Opções de Nomes de Importação
           import_name_info_text: >-
             Nomes de Importação são "traduções" dos nomes de transação originais da fonte de importação para um nome de
@@ -225,6 +225,7 @@ pt-BR:
         version: Versão
         copyright_notice: '© 2024 Rodrigo Castro'
       grid_table:
+        search_placeholder: Buscar
         edit_action_label: Editar
         disable_action_label: Desabilitar
         delete_action_label: Deletar
