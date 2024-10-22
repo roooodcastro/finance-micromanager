@@ -81,7 +81,7 @@ export default {
 
     const handleSearch = (searchString) => {
       fetchParams.value.search_string = searchString;
-      importNameStore.fetchCollection();
+      importNameStore.fetchCollection().then(() => loadingNextPage.value = false);
     };
 
     const tableActions = [editAction(importNameStore), deleteAction(importNameStore)];

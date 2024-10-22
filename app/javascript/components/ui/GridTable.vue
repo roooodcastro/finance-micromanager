@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="searchable"
-    class="d-flex mb-3"
+    class="GridTable__search d-flex mb-3"
   >
     <SearchField
       :debounce-timeout="searchDebounceTimeout"
@@ -399,6 +399,16 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 }
 
 // Mobile view
+@include media-breakpoint-down(md) {
+  .GridTable__search {
+    margin: 0 map-get($spacers, 3);
+
+    > div {
+      width: 100% !important;
+    }
+  }
+}
+
 @include media-breakpoint-down(lg) {
   .GridRow__left > *, .GridRow__right > * {
     grid-column: 1 / -1;
