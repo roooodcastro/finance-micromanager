@@ -458,6 +458,7 @@
         "password_too_long": "is too long",
         "present": "deve ficar em branco",
         "required": "é obrigatório(a)",
+        "spoofed_content_type": "tem um tipo de conteúdo que não é o declarado através de seu conteúdo, nome de arquivo e extensão",
         "taken": "já está em uso",
         "too_long": {
           "one": "é muito longo (máximo: %{count} caracter)",
@@ -467,6 +468,11 @@
           "one": "é muito curto (mínimo: %{count} caracter)",
           "other": "é muito curto (mínimo: %{count} caracteres)"
         },
+        "total_file_size_not_between": "o tamanho total do arquivo deve estar entre %{min_size} e %{max_size} (o tamanho atual é %{total_file_size})",
+        "total_file_size_not_greater_than": "o tamanho total do arquivo deve ser maior que %{min_size} (o tamanho atual é %{total_file_size})",
+        "total_file_size_not_greater_than_or_equal_to": "o tamanho total do arquivo deve ser maior ou igual a %{min_size} (o tamanho atual é %{total_file_size})",
+        "total_file_size_not_less_than": "o tamanho total do arquivo deve ser menor que %{max_size} (o tamanho atual é %{total_file_size})",
+        "total_file_size_not_less_than_or_equal_to": "o tamanho total do arquivo deve ser menor ou igual a %{max_size} (o tamanho atual é %{total_file_size})",
         "wrong_length": {
           "one": "não possui o tamanho esperado (%{count} caracter)",
           "other": "não possui o tamanho esperado (%{count} caracteres)"
