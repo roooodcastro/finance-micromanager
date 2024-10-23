@@ -14,7 +14,7 @@ module TransactionImports
     belongs_to :subcategory, optional: true
     belongs_to :match_transaction, class_name: 'Transaction', optional: true
 
-    enum action: { import: 'import', skip: 'skip', match: 'match', block: 'block' }, _default: nil
+    enum :action, { import: 'import', skip: 'skip', match: 'match', block: 'block' }, default: nil
 
     def currency
       import&.profile&.currency || Money.default_currency

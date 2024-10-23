@@ -9,7 +9,7 @@ class ProfileShareInvite < ApplicationRecord
 
   validates :invitee_email, presence: true, uniqueness: { scope: :profile_id }
 
-  enum status: { pending: 'pending', accepted: 'accepted', rejected: 'rejected', cancelled: 'cancelled' }
+  enum :status, { pending: 'pending', accepted: 'accepted', rejected: 'rejected', cancelled: 'cancelled' }
 
   def self.new_invite(profile_owner:, profile_id:, invitee_email:)
     invite = find_or_initialize_by(

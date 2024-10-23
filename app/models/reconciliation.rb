@@ -9,7 +9,7 @@ class Reconciliation < ApplicationRecord
 
   has_many :reconciliations_wallets, dependent: :destroy
 
-  enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
+  enum :status, { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, default: 'in_progress'
 
   validates :date, presence: true
   validates :status, presence: true
