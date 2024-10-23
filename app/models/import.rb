@@ -12,8 +12,8 @@ class Import < ApplicationRecord
   has_many :import_transactions, class_name: 'TransactionImports::ImportTransaction',
                                  dependent:  :restrict_with_exception
 
-  enum source: { ptsb: 'ptsb', n26: 'n26', revolut: 'revolut', sheets: 'sheets' }
-  enum status: { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, _default: 'in_progress'
+  enum :source, { ptsb: 'ptsb', n26: 'n26', revolut: 'revolut', sheets: 'sheets' }
+  enum :status, { in_progress: 'in_progress', finished: 'finished', cancelled: 'cancelled' }, default: 'in_progress'
 
   validates :source, presence: true, unless: :cancelled?
   validates :source_file,

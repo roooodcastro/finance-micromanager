@@ -22,7 +22,7 @@ class TransactionAutomation < ApplicationRecord
   validate :validate_category_is_enabled
   validate :validate_wallet_is_enabled
 
-  enum schedule_type: { month: 'M', week: 'W', day: 'D', custom: 'C' }, _prefix: :schedule_type
+  enum :schedule_type, { month: 'M', week: 'W', day: 'D', custom: 'C' }, prefix: :schedule_type
 
   def as_json
     super(except: %w[schedule_type transaction_amount_cents]).merge(

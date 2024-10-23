@@ -18,7 +18,7 @@ class Category < ApplicationRecord
   has_many :active_subcategories, -> { active }, class_name: 'Subcategory', dependent: :restrict_with_exception
   # rubocop:enable Rails/InverseOf
 
-  enum category_type: { user: 'user', system: 'system' }, _default: 'user'
+  enum :category_type, { user: 'user', system: 'system' }, default: 'user'
 
   validates :name, presence: true
   validates :color, format: { with: HEX_COLOR_REGEX }
