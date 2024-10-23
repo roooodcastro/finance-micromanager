@@ -13,7 +13,7 @@ RSpec.describe ProfilesController do
     subject(:index_request) { get :index, format: }
 
     let!(:profile) { user.default_profile }
-    let!(:shared_profile) { create(:profile) }
+    let!(:shared_profile) { create(:user).default_profile }
 
     before { create(:profile_share, profile: shared_profile, user: user) }
 
@@ -35,7 +35,8 @@ RSpec.describe ProfilesController do
       it 'renders the available profiles as JSON' do
         index_request
 
-        expect(json_response).to match(CamelizeProps.call('profiles' => expected_profiles))
+        expect(json_response['profiles'])
+          .to match_array(CamelizeProps.call('profiles' => expected_profiles)['profiles'])
       end
     end
   end
