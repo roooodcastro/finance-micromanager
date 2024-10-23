@@ -131,7 +131,7 @@ export default {
 @import '../../stylesheets/variables';
 
 .VerticalMenu__desktop {
-  background-color: $gray-300;
+  background-color: var(--bs-tertiary-bg);
   flex-grow: 1;
   height: calc(100vh - $main-navbar-height);
   margin-left: -1rem;

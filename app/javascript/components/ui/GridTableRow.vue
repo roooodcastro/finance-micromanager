@@ -3,7 +3,7 @@
     :is="!!row.href ? 'a' : 'div'"
     :href="row.href"
     class="GridRow"
-    :class="{ 'text-decoration-none link-dark': !!row.href }"
+    :class="{ 'text-decoration-none link-body-emphasis': !!row.href }"
     :style="gridRowStyle(row)"
   >
     <HorizontalSwipe

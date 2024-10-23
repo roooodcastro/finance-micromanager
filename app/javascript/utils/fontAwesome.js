@@ -68,8 +68,10 @@ import {
   faFaceFrown as farFaceFrown,
   faFloppyDisk as farFloppyDisk,
   faFolder as farFolder,
+  faMoon as farMoon,
   faSquare as farSquare,
   faSquareMinus as farSquareMinus,
+  faSun as farSun,
   faTrashCan as farTrashCan,
 } from '@fortawesome/free-regular-svg-icons';
 
@@ -117,6 +119,7 @@ library.add(
   faMagnifyingGlassChart,
   faMinus,
   faMoneyBillTransfer,
+  farMoon,
   faPenToSquare,
   faPlus,
   faRepeat,
@@ -137,6 +140,7 @@ library.add(
   faSquareMinus,
   farSquareMinus,
   faSquarePlus,
+  farSun,
   farTrashCan,
   faTriangleExclamation,
   faUser,

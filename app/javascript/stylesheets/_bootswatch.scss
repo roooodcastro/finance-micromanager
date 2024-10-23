@@ -10,14 +10,10 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;6
   @import url($web-font-path);
 }
 
-:root {
-  color-scheme: light;
-}
-
 html, body, #app {
   height: 100%;
   overflow-x: hidden;
-  background-color: $background-color;
+  background-color: var(--bs-tertiary-bg);
 }
 
 // Navbar
@@ -282,5 +278,19 @@ select.minimalist-secondary-select {
     &::before {
       transform: rotate(180deg);
     }
+  }
+}
+
+@include color-mode(dark) {
+  html, body, #app {
+    background-color: var(--bs-body-bg);
+  }
+
+  .text-credit {
+    color: $mintgreen-500 !important;
+  }
+
+  .text-debit {
+    color: $red !important;
   }
 }

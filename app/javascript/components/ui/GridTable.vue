@@ -210,7 +210,7 @@ export default {
 @import '../../stylesheets/variables';
 
 .GridTable {
-  background-color: $border-color;
+  background-color: var(--bs-secondary-bg);
   display: grid;
   grid-template-columns: auto auto auto auto;
   align-items: center;
@@ -219,8 +219,8 @@ export default {
 
 .GridRow {
   align-items: center;
-  background-color: $foreground-color;
-  border-top: 1px solid $border-color;
+  background-color: var(--bs-tertiary-bg);
+  border-top: 1px solid var(--bs-border-color);
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
@@ -228,7 +228,7 @@ export default {
   z-index: 0;
 
   .GridRow__content .GridRow__left, .GridRow__content .GridRow__right {
-    background-color: $foreground-color;
+    background-color: var(--bs-tertiary-bg);
   }
 
   &:first-child {
@@ -277,7 +277,7 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 .GridRow__header {
   font-weight: bold;
   background-color: transparent;
-  color: $text-muted;
+  color: var(--bs-secondary-color);
 
   span {
     white-space: pre;
@@ -373,7 +373,7 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 
     &:hover::before, &:active::before, &:focus::before, &:hover::after, &:active::after, &:focus::after {
       content: '';
-      background-color: $white;
+      background-color: var(--bs-secondary-bg);
       border-radius: $border-radius;
       position: absolute;
       left: map-get($spacers, 1);
@@ -428,7 +428,7 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 
   .GridRow:not(.GridRow__header) .GridRow__left > div:not(:first-child),
   .GridRow:not(.GridRow__header) .GridRow__right > div:not(:first-child) {
-    color: $text-muted;
+    color: var(--bs-secondary-color);
     font-size: $h6-font-size;
   }
 
@@ -457,7 +457,6 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
     > a {
       aspect-ratio: 1;
       background-color: var(--grid-table-action-bg-color);
-      color: $white !important;
       padding: 0 map-get($spacers, 4);
       justify-content: center;
     }

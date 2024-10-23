@@ -11,6 +11,9 @@ $theme: "lux" !default;
 // Color system
 //
 
+$enable-dark-mode: true;
+$color-mode-type: data;
+
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #f7f7f9 !default;
@@ -167,6 +170,7 @@ $pagination-disabled-border-color:  $pagination-border-color !default;
 // Offcanvas
 $offcanvas-transition-duration:     .3s !default;
 
+@import './variables-dark.scss';
 @import "bootstrap/scss/variables.scss";
 
 $main-navbar-height: 4rem;
@@ -175,8 +179,11 @@ $page-footer-height: 12rem;
 
 // Custom theme variables
 
+@include color-mode(light) {
+  --background-color: #{$gray-100};
+  --foreground-color: #{$white};
+}
+
 $page-header-color: $light-bg-subtle;
-$background-color: $gray-100;
-$foreground-color: $white;
 
 $side-strip-width: 0.5rem;

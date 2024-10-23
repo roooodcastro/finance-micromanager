@@ -960,6 +960,10 @@
         "title": "Landing"
       },
       "layout": {
+        "color_modes": {
+          "dark": "Dark",
+          "light": "Light"
+        },
         "footer": {
           "copyright_notice": "© 2024 Rodrigo Castro",
           "version": "Version"

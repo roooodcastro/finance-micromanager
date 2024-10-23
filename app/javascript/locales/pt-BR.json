@@ -1028,6 +1028,10 @@
         "title": "Página Inicial"
       },
       "layout": {
+        "color_modes": {
+          "dark": "Escuro",
+          "light": "Claro"
+        },
         "footer": {
           "copyright_notice": "© 2024 Rodrigo Castro",
           "version": "Versão"

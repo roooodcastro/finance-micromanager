@@ -4,23 +4,27 @@
     :class="{ 'py-3 PageFooter--background':!compact, 'py-1': compact }"
   >
     <div class="container">
-      <ul
-        class="nav justify-content-center border-bottom"
+      <div
+        class="d-flex gap-3 align-items-center justify-content-center border-bottom border-primary"
         :class="{ 'pb-3 mb-3': !compact, 'pb-1 mb-1': compact }"
       >
-        <li
-          v-for="locale in locales"
-          :key="locale.locale"
-          class="nav-item mx-3"
-        >
-          <a
-            :href="`?new_locale=${locale.locale}`"
-            class="nav-link text-white text-center"
+        <ul class="nav justify-content-center align-items-center">
+          <li
+            v-for="locale in locales"
+            :key="locale.locale"
+            class="nav-item mx-3"
           >
-            {{ locale.name }}
-          </a>
-        </li>
-      </ul>
+            <a
+              :href="`?new_locale=${locale.locale}`"
+              class="nav-link text-white text-center"
+            >
+              {{ locale.name }}
+            </a>
+          </li>
+        </ul>
+
+        <ColorModeSelect />
+      </div>
 
       <p class="text-center my-0 fs-6">
         {{ t('copyright_notice') }} | {{ t('version') }} {{ version }}-{{ deployTimestamp }}
@@ -42,14 +46,17 @@
 import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 import useLocaleStore from '~/stores/LocaleStore.js';
 import I18n from '~/utils/I18n.js';
 import { GITHUB_REPO_URL } from '~/utils/Constants.js';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import ColorModeSelect from '~/components/layout/ColorModeSelect.vue';
 
 export default {
   components: {
+    ColorModeSelect,
     FontAwesomeIcon,
   },
 
@@ -90,5 +97,11 @@ export default {
 
 .PageFooter--background {
   background-color: $mintgreen-700;
+}
+
+@include color-mode(dark) {
+  .PageFooter--background {
+  background-color: $mintgreen-800;
+}
 }
 </style>
