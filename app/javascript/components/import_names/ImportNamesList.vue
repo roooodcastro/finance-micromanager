@@ -13,6 +13,8 @@
         :rows="importNames"
         :columns="tableColumns"
         :actions="tableActions"
+        searchable
+        @search="handleSearch"
       >
         <template v-slot:default="{ row: importName }">
           <ImportNameTableRow :import-name="importName" />
@@ -61,7 +63,7 @@ export default {
     const importNameStore = useImportNameStore();
     const paginationStore = usePaginationStore();
 
-    const { importNames, loading } = storeToRefs(importNameStore);
+    const { importNames, loading, fetchParams } = storeToRefs(importNameStore);
 
     const loadingNextPage = ref(false);
 
@@ -77,6 +79,11 @@ export default {
       }
     };
 
+    const handleSearch = (searchString) => {
+      fetchParams.value.search_string = searchString;
+      importNameStore.fetchCollection().then(() => loadingNextPage.value = false);
+    };
+
     const tableActions = [editAction(importNameStore), deleteAction(importNameStore)];
     const tableColumns = [{ label: t('from_name_label'), side: 'left' }, { label: t('to_name_label'), side: 'right' }];
 
@@ -85,6 +92,7 @@ export default {
       loading,
       tableActions,
       tableColumns,
+      handleSearch,
       handlePageChange,
       handleInfiniteScrolling,
     };

@@ -929,7 +929,7 @@
             "import_name_info_text": "Import names are \"translations\" for the original transaction names from the import source to a transaction name in Finance MicroManager. These are useful as many names, particularly from card transactions have non descriptive names such as \"CNC SSP UK LTD\". This is actually from Burger King, but it would be almost impossible to know or remember where a particular spend came from just by looking at the original name. Import names can be used to automatically perform this translation and make things easier.",
             "import_names_menu_aria_label": "Import Names Options",
             "new_import_name": "New Import Name",
-            "sub_header_import_name": "Import Names (%{count})",
+            "sub_header_import_name": "Import Names",
             "title": "Import Settings"
           }
         },
@@ -971,7 +971,8 @@
           "delete_action_label": "Delete",
           "disable_action_label": "Disable",
           "edit_action_label": "Edit",
-          "reenable_action_label": "Re-enable"
+          "reenable_action_label": "Re-enable",
+          "search_placeholder": "Search"
         },
         "modals": {
           "shortcut_help": {

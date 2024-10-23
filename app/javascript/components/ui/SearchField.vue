@@ -1,10 +1,8 @@
 <template>
-  <div class="input-group flex-grow-0">
+  <div class="input-group flex-grow-0 w-auto">
     <input
-      id="transactionSearch"
-      name="transactionSearch"
+      v-bind="$attrs"
       class="form-control form-control-sm bg-white"
-      :placeholder="t('search_label')"
       :value="modelValue ?? $attrs.value"
       @input="handleInput"
     >
@@ -21,17 +19,21 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import I18n from '~/utils/I18n.js';
 import { ref } from 'vue';
 
-const DEBOUNCING_TIMEOUT = 300;
-
 export default {
   components: {
     FontAwesomeIcon,
   },
 
+  inheritAttrs: false,
+
   props: {
     modelValue: {
       type: String,
       default: null,
+    },
+    debounceTimeout: {
+      type: Number,
+      default: 300,
     },
   },
 
@@ -50,7 +52,7 @@ export default {
       debouncingTimeout.value = setTimeout(() => {
         emit('update:modelValue', ev.target.value);
         emit('input', ev.target.value);
-      }, DEBOUNCING_TIMEOUT);
+      }, props.debounceTimeout);
     };
 
     return {

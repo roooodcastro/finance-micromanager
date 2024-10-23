@@ -5,7 +5,10 @@
       class="mb-3 mx-1 mx-lg-0"
     >
       <SearchField
+        id="transactionSearch"
         v-model="fetchParams.searchString"
+        name="transactionSearch"
+        :placeholder="t('search_label')"
         @input="handleSearchInput"
       />
     </div>
@@ -98,7 +101,7 @@ import useWalletStore from '~/stores/WalletStore.js';
 import { setQueryParam } from '~/utils/QueryStringUtils.js';
 
 import MultipleSelect from '~/components/forms/MultipleSelect.vue';
-import SearchField from '~/components/transactions/SearchField.vue';
+import SearchField from '~/components/ui/SearchField.vue';
 
 export default {
   components: {

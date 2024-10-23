@@ -47,7 +47,7 @@ export default defineBaseApiStore('importName', {
 
           pagination.value = response.pagination;
         })
-        .finally(() => this.loading = false );
+        .finally(() => this.loading = false);
     },
 
     destroy(id) {
