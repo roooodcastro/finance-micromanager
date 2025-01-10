@@ -1,17 +1,15 @@
 @include color-mode(dark) {
-  //
-  // Color system
-  //
+  html, body, #app {
+    background-color: var(--bs-body-bg);
+  }
 
-  // Body
+  .text-credit {
+    color: $mintgreen-500 !important;
+  }
 
-  $body-color: $mintgreen-900;
-
-  // Fonts
-
-  $color-contrast-dark:      $black !default;
-  $color-contrast-light:     $white !default;
-  $headings-color:           $mintgreen-900;
+  .text-debit {
+    color: $red !important;
+  }
 
   // Cards
 

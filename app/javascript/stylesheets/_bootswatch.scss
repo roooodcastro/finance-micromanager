@@ -238,8 +238,8 @@ select.minimalist-secondary-select {
   align-items: center;
   appearance: none;
   border: none;
-  border-bottom: 2px solid $secondary;
-  color: $body-color;
+  border-bottom: 2px solid var(--bs-secondary);
+  color: var(--bs-body-color);
   cursor: pointer;
   display: flex;
   height: fit-content;
@@ -263,26 +263,12 @@ select.minimalist-secondary-select {
   }
 
   &:hover, &.show {
-    border-bottom-color: $indigo-800;
+    border-bottom-color: $indigo-700;
   }
 
   &.show {
     &::before {
       transform: rotate(180deg);
     }
-  }
-}
-
-@include color-mode(dark) {
-  html, body, #app {
-    background-color: var(--bs-body-bg);
-  }
-
-  .text-credit {
-    color: $mintgreen-500 !important;
-  }
-
-  .text-debit {
-    color: $red !important;
   }
 }

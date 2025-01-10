@@ -2,7 +2,7 @@
   <div class="input-group flex-grow-0 w-auto">
     <input
       v-bind="$attrs"
-      class="form-control form-control-sm bg-white"
+      class="form-control form-control-sm"
       :value="modelValue ?? $attrs.value"
       @input="handleInput"
     >

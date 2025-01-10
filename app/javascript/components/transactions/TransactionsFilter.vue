@@ -15,7 +15,7 @@
     <div class="dropdown d-flex gap-3 flex-wrap flex-lg-nowrap">
       <MultipleSelect
         v-model="selectedCategoryIds"
-        class="flex-grow-1 flex-lg-grow-0 bg-white"
+        class="flex-grow-1 flex-lg-grow-0"
         select-class="minimalist-secondary-select"
         :options="categoriesForSelect(true)"
         :placeholder="t('category_filter')"
@@ -26,7 +26,7 @@
 
       <MultipleSelect
         v-model="selectedWalletIds"
-        class="flex-grow-1 flex-lg-grow-0 bg-white"
+        class="flex-grow-1 flex-lg-grow-0"
         select-class="minimalist-secondary-select"
         :options="walletsForSelect"
         :placeholder="t('wallet_filter')"
@@ -36,7 +36,7 @@
       />
 
       <select
-        class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0 bg-white"
+        class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0 bg-body"
         @change="handleTransactionTypeChange"
       >
         <option value="0">
@@ -52,7 +52,7 @@
 
       <div
         v-if="showDateRange"
-        class="TransactionsFilter__date-range btn-group d-flex bg-white flex-shrink-0 flex-grow-1 flex-lg-grow-0"
+        class="TransactionsFilter__date-range btn-group d-flex flex-shrink-0 flex-grow-1 flex-lg-grow-0 bg-body"
       >
         <button
           class="btn btn-sm btn-outline-secondary"
