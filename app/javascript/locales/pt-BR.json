@@ -404,11 +404,11 @@
       "messages": {
         "accepted": "deve ser aceito",
         "already_confirmed": "já foi confirmado, por favor logue para continuar",
+        "aspect_ratio_invalid": "tem uma proporção de aspecto inválida",
         "aspect_ratio_is_not": "não contém uma proporção de %{aspect_ratio}",
         "aspect_ratio_not_landscape": "não está no formato paisagem",
         "aspect_ratio_not_portrait": "não está no formato retrato",
         "aspect_ratio_not_square": "não é uma imagem quadrada",
-        "aspect_ratio_unknown": "não tem uma proporção definida",
         "blank": "não pode ficar em branco",
         "confirmation": "não é igual a %{attribute}",
         "confirmation_period_expired": "deve ser confirmada dentro de %{period}, por favor solicite novamente",
@@ -614,8 +614,7 @@
           }
         }
       },
-      "nth": {
-      },
+      "nth": {},
       "percentage": {
         "format": {
           "delimiter": ".",

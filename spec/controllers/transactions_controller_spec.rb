@@ -28,12 +28,12 @@ RSpec.describe TransactionsController do
         {
           transactions: [transaction_b, transaction_a].as_json,
           statistics:   hash_including(
-            spends:      0,
-            moneyIn:     20,
-            dailyTotals: [
-              { date: 2.days.ago.to_date, spends: 0, income: 0 },
-              { date: 1.day.ago.to_date, spends: 0, income: 10 },
-              { date: Date.current, spends: 0, income: 10 }
+            'spends'      => 0,
+            'moneyIn'     => 20,
+            'dailyTotals' => [
+              { 'date' => 2.days.ago.to_date, 'spends' => 0, 'income' => 0 },
+              { 'date' => 1.day.ago.to_date, 'spends' => 0, 'income' => 10 },
+              { 'date' => Date.current, 'spends' => 0, 'income' => 10 }
             ]
           )
         }

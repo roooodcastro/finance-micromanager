@@ -97,6 +97,6 @@ class ReconciliationsController < AbstractAuthenticatedController
   end
 
   def message(scope, options = {})
-    t(scope, **options.merge(date: I18n.l(@reconciliation.date)))
+    t(scope, **options, date: I18n.l(@reconciliation.date))
   end
 end

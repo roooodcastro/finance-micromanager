@@ -19,7 +19,7 @@ class ProfileShareInvitesSentController < AbstractAuthenticatedController
 
       flash[:success] = t('.success', **message_params)
     else
-      flash[:error] = t('.error', **message_params.merge(error: profile_share_invite.error_messages))
+      flash[:error] = t('.error', **message_params, error: profile_share_invite.error_messages)
     end
 
     redirect_to profiles_path

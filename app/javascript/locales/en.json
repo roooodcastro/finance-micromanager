@@ -356,11 +356,11 @@
       "messages": {
         "accepted": "must be accepted",
         "already_confirmed": "was already confirmed, please try signing in",
+        "aspect_ratio_invalid": "has an invalid aspect ratio",
         "aspect_ratio_is_not": "must have an aspect ratio of %{aspect_ratio}",
         "aspect_ratio_not_landscape": "must be a landscape image",
         "aspect_ratio_not_portrait": "must be a portrait image",
         "aspect_ratio_not_square": "must be a square image",
-        "aspect_ratio_unknown": "has an unknown aspect ratio",
         "blank": "can't be blank",
         "confirmation": "doesn't match %{attribute}",
         "confirmation_period_expired": "needs to be confirmed within %{period}, please request a new one",
@@ -547,8 +547,7 @@
           }
         }
       },
-      "nth": {
-      },
+      "nth": {},
       "percentage": {
         "format": {
           "delimiter": "",
