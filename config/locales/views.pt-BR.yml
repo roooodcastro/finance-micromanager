@@ -214,6 +214,9 @@ pt-BR:
       title: Página Inicial
 
     layout:
+      color_modes:
+        light: Claro
+        dark: Escuro
       forms:
         all: Tudo
         choose_options: Escolha

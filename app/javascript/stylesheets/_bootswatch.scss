@@ -10,14 +10,10 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;6
   @import url($web-font-path);
 }
 
-:root {
-  color-scheme: light;
-}
-
 html, body, #app {
   height: 100%;
   overflow-x: hidden;
-  background-color: $background-color;
+  background-color: var(--background-color);
 }
 
 // Navbar
@@ -174,25 +170,17 @@ th {
 
   }
 
-  .text-hover-#{$color}:hover {
-    color: darken($value, 10%) !important;
-  }
-
   .bg-hover-#{$color}:hover {
     background-color: $value !important;
   }
 }
 
-.text-hover-white:hover {
-  color: $white !important;
-}
-
 .text-credit {
-  color: $mintgreen-700 !important;
+  color: var(--text-credit-color) !important;
 }
 
 .text-debit {
-  color: shade-color($red, 10%) !important;
+  color: var(--text-debit-color) !important;
 }
 
 .min-width-0 {
@@ -217,6 +205,14 @@ th {
 
 .width-20rem {
   width: 20rem;
+}
+
+.bg-foreground {
+  background-color: var(--foreground-color) !important;
+}
+
+.bg-foreground-hover:hover, .bg-foreground-hover:active, .bg-foreground-hover:focus {
+  background-color: var(--bs-secondary-bg) !important;
 }
 
 input.input-no-arrows {
@@ -250,8 +246,8 @@ select.minimalist-secondary-select {
   align-items: center;
   appearance: none;
   border: none;
-  border-bottom: 2px solid $secondary;
-  color: $body-color;
+  border-bottom: 2px solid var(--bs-secondary);
+  color: var(--bs-body-color);
   cursor: pointer;
   display: flex;
   height: fit-content;
@@ -275,7 +271,7 @@ select.minimalist-secondary-select {
   }
 
   &:hover, &.show {
-    border-bottom-color: $indigo-800;
+    border-bottom-color: $indigo-700;
   }
 
   &.show {

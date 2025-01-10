@@ -93,7 +93,7 @@ export default {
 
 @include media-breakpoint-down(lg) {
   .GridRow__schedule-column {
-    color: $text-muted;
+    color: var(--bs-secondary-color);
     font-size: $h6-font-size;
     text-align: right;
     order: 1;

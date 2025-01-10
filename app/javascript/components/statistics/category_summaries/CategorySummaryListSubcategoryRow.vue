@@ -1,6 +1,6 @@
 <template>
   <div class="row align-items-center">
-    <div class="col-7 col-md-9 col-lg-8 col-xl-9 d-flex align-items-stretch text-decoration-none text-body bg-hover-light">
+    <div class="col-7 col-md-9 col-lg-8 col-xl-9 d-flex align-items-stretch text-decoration-none text-body">
       <span
         class="CategoriesList__color-indicator me-2"
         :style="{ backgroundColor: indicatorColor }"

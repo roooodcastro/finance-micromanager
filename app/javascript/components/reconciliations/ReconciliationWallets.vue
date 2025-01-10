@@ -7,15 +7,15 @@
       <table class="table table-sm table-hover mb-0">
         <thead>
           <tr>
-            <th class="bg-light align-middle text-nowrap">
+            <th class="bg-body-secondary align-middle text-nowrap">
               {{ t('table_header_wallet_name') }}
             </th>
-            <th class="bg-light text-end text-nowrap d-none d-md-table-cell">
+            <th class="bg-body-secondary text-end text-nowrap d-none d-md-table-cell">
               {{ t('table_header_calculated_balance') }}
 
               <InfoTooltip :message="t('calculated_balance_info_text')" />
             </th>
-            <th class="bg-light text-end text-nowrap">
+            <th class="bg-body-secondary text-end text-nowrap">
               {{ t('table_header_real_balance') }}
 
               <InfoTooltip :message="t('real_balance_info_text')" />
@@ -50,16 +50,16 @@
 
         <tfoot class="table-group-divider">
           <tr>
-            <td class="text-nowrap fw-bold bg-light">
+            <td class="text-nowrap fw-bold bg-body-secondary">
               {{ t('total') }}
               <div class="d-block d-md-none fw-bold">
                 {{ formatMoney(walletBalancesSum) }}
               </div>
             </td>
-            <td class="text-end fw-bold bg-light d-none d-md-table-cell">
+            <td class="text-end fw-bold bg-body-secondary d-none d-md-table-cell">
               {{ formatMoney(walletBalancesSum) }}
             </td>
-            <td class="text-end fw-bold bg-light">
+            <td class="text-end fw-bold bg-body-secondary">
               {{ formatMoney(realBalancesSum) }}
             </td>
           </tr>

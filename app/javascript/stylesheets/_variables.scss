@@ -11,6 +11,9 @@ $theme: "lux" !default;
 // Color system
 //
 
+$enable-dark-mode: true;
+$color-mode-type: data;
+
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #f7f7f9 !default;
@@ -111,10 +114,6 @@ $headings-color:              $mintgreen-900;
 
 $table-border-color:          rgba(0, 0, 0, .05) !default;
 
-// Buttons + Forms
-
-//$input-btn-border-width:      0 !default;
-
 // Buttons
 
 $btn-line-height:             1.5rem !default;
@@ -133,9 +132,6 @@ $card-title-spacer-y: 1rem;
 // Forms
 
 $input-line-height:                     1.5 !default;
-$input-bg:                              $gray-200 !default;
-$input-disabled-bg:                     $gray-300 !default;
-$input-group-addon-bg:                  $gray-300 !default;
 
 // Lists
 
@@ -175,8 +171,13 @@ $page-footer-height: 12rem;
 
 // Custom theme variables
 
-$page-header-color: $light-bg-subtle;
-$background-color: $gray-100;
-$foreground-color: $white;
+@include color-mode(light) {
+  --background-color: var(--bs-tertiary-bg);
+  --foreground-color: var(--bs-white);
+  --text-credit-color: #{$mintgreen-700};
+  --text-debit-color: #{shade-color($red, 10%)};
+  --page-header-color: #{$light-bg-subtle};
+  --page-footer-bg-color: #{$mintgreen-700};
+}
 
 $side-strip-width: 0.5rem;

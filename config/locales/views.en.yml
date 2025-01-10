@@ -214,6 +214,9 @@ en:
       title: Landing
 
     layout:
+      color_modes:
+        light: Light
+        dark: Dark
       forms:
         all: All
         choose_options: Choose

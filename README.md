@@ -107,7 +107,7 @@ environment's credentials file, and change the values accordingly.
 
 - [x] Allow for more complex transaction automation schedules
 - [x] Transaction Autofill (create autofill rules to speed up the creation of transactions)
-- [ ] Batch importing of transactions
+- [x] Batch importing of transactions
 - [ ] Better insights and statistics in category and wallet page
 - [ ] Authorization management
 - [ ] Admin area
@@ -121,7 +121,7 @@ environment's credentials file, and change the values accordingly.
 - [ ] Omniauth authentication
 - [ ] Multi factor authentication
 - [ ] Notification centre
-- [ ] Dark Mode
+- [x] Dark Mode
 - [ ] Profile photo support
 - [ ] Stream changes to frontend with ActiveCable
 

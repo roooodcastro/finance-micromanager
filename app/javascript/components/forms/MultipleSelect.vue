@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
     <a
-      class=" text-truncate"
+      class=" text-truncate bg-body"
       :class="selectClass"
       data-bs-toggle="dropdown"
       data-bs-auto-close="outside"

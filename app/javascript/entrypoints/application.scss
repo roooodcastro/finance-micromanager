@@ -4,5 +4,8 @@
 // Rest of Bootstrap library
 @import "bootstrap/scss/bootstrap.scss";
 
+// Bootstrap dark theme
+@import '../stylesheets/variables-dark.scss';
+
 // Bootstrap Theme (Lux)
 @import "../stylesheets/_bootswatch.scss";

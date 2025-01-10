@@ -1,0 +1,27 @@
+@include color-mode(dark) {
+  --background-color: var(--bs-body-bg);
+  --foreground-color: var(--bs-tertiary-bg);
+
+  --text-credit-color: #{$mintgreen-500};
+  --text-debit-color: #{$red};
+
+  --page-header-color: var(--bs-body-bg);
+  --page-footer-bg-color: #{$mintgreen-800};
+
+  // Cards
+
+  .card {
+    --bs-card-bg: var(--bs-tertiary-bg);
+  }
+
+  // Lists
+
+  .list-group-item:hover {
+    --bs-list-group-bg: var(--bs-secondary-bg);
+  }
+
+  .nav {
+    --bs-nav-link-color: #{$gray-100};
+    --bs-nav-link-hover-color: #{$gray-400};
+  }
+}

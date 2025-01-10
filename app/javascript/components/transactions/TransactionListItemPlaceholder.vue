@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex bg-white bg-hover-light justify-content-between align-items-center flex-grow-1">
+  <div class="d-flex justify-content-between align-items-center flex-grow-1">
     <div class="side-strip side-strip-light placeholder-glow flex-grow-1 ps-3 py-2">
       <div class="d-flex justify-content-between flex-grow-1 fs-4 mb-2">
         <span class="placeholder col-6" />

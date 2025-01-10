@@ -1,5 +1,8 @@
 <template>
-  <nav class="Navigation navbar bg-dark navbar-expand-lg navbar-dark sticky-top py-1 py-lg-2">
+  <nav
+    class="Navigation navbar navbar-expand-lg sticky-top py-1 py-lg-2"
+    data-bs-theme="dark"
+  >
     <div class="container-fluid">
       <a
         class="navbar-brand"
@@ -27,7 +30,7 @@
         <FontAwesomeIcon
           icon="bars"
           size="lg"
-          class="fs-1 text-light text-hover-light"
+          class="fs-1 link-light"
         />
       </a>
     </div>
@@ -72,6 +75,7 @@ export default {
 @import '../../stylesheets/variables';
 
 .Navigation {
+  background-color: $mintgreen-900;
   height: $main-navbar-height;
 }
 
