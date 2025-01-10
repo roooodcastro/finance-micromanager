@@ -13,7 +13,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;6
 html, body, #app {
   height: 100%;
   overflow-x: hidden;
-  background-color: var(--bs-tertiary-bg);
+  background-color: var(--background-color);
 }
 
 // Navbar
@@ -176,11 +176,11 @@ th {
 }
 
 .text-credit {
-  color: $mintgreen-700 !important;
+  color: var(--text-credit-color) !important;
 }
 
 .text-debit {
-  color: shade-color($red, 10%) !important;
+  color: var(--text-debit-color) !important;
 }
 
 .min-width-0 {

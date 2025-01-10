@@ -172,8 +172,10 @@ $page-footer-height: 12rem;
 // Custom theme variables
 
 @include color-mode(light) {
-  --background-color: #{$gray-100};
+  --background-color: var(--bs-tertiary-bg);
   --foreground-color: #{$white};
+  --text-credit-color: #{$mintgreen-700};
+  --text-debit-color: #{shade-color($red, 10%)};
 }
 
 $page-header-color: $light-bg-subtle;
