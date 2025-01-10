@@ -219,7 +219,7 @@ export default {
 
 .GridRow {
   align-items: center;
-  background-color: var(--bs-tertiary-bg);
+  background-color: var(--bs-white);
   border-top: 1px solid var(--bs-border-color);
   display: grid;
   grid-template-columns: subgrid;
@@ -228,7 +228,7 @@ export default {
   z-index: 0;
 
   .GridRow__content .GridRow__left, .GridRow__content .GridRow__right {
-    background-color: var(--bs-tertiary-bg);
+    background-color: var(--bs-white);
   }
 
   &:first-child {
@@ -276,7 +276,7 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 // Header row
 .GridRow__header {
   font-weight: bold;
-  background-color: transparent;
+  background-color: transparent !important;
   color: var(--bs-secondary-color);
 
   span {
@@ -468,6 +468,16 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 
   .GridRow:last-child > .GridRow__actions > a:last-child {
     border-bottom-right-radius: $border-radius;
+  }
+}
+
+@include color-mode(dark) {
+  .GridRow {
+    background-color: var(--bs-tertiary-bg);
+
+    .GridRow__content .GridRow__left, .GridRow__content .GridRow__right {
+      background-color: var(--bs-tertiary-bg);
+    }
   }
 }
 </style>

@@ -114,10 +114,6 @@ $headings-color:              $mintgreen-900;
 
 $table-border-color:          rgba(0, 0, 0, .05) !default;
 
-// Buttons + Forms
-
-//$input-btn-border-width:      0 !default;
-
 // Buttons
 
 $btn-line-height:             1.5rem !default;
@@ -136,9 +132,6 @@ $card-title-spacer-y: 1rem;
 // Forms
 
 $input-line-height:                     1.5 !default;
-$input-bg:                              $gray-200 !default;
-$input-disabled-bg:                     $gray-300 !default;
-$input-group-addon-bg:                  $gray-300 !default;
 
 // Lists
 
@@ -170,7 +163,6 @@ $pagination-disabled-border-color:  $pagination-border-color !default;
 // Offcanvas
 $offcanvas-transition-duration:     .3s !default;
 
-@import './variables-dark.scss';
 @import "bootstrap/scss/variables.scss";
 
 $main-navbar-height: 4rem;

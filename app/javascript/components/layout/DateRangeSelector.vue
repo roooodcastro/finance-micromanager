@@ -1,6 +1,6 @@
 <template>
   <div
-    class="btn-group d-flex bg-white"
+    class="DateRangeSelector btn-group d-flex"
     role="group"
   >
     <button
@@ -100,14 +100,18 @@ export default {
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
 
+.DateRangeSelector {
+  background-color: var(--bs-tertiary-bg);
+}
+
 .DateRangeSelector__button {
   border-color: $border-color-translucent;
 
   &:hover, &:active, &:focus {
-    background-color: $gray-300;
+    background-color: var(--bs-secondary-bg);
   }
   &:disabled {
-    color: $gray-400;
+    color: var(--bs-tertiary-color);
   }
 }
 </style>

@@ -3,15 +3,6 @@
   // Color system
   //
 
-  $primary:       $mintgreen-800;
-  $secondary:     $indigo;
-  $success:       $green !default;
-  $info:          $cyan !default;
-  $warning:       $yellow !default;
-  $danger:        $red !default;
-  $light:         $gray-200;
-  $dark:          $mintgreen-900;
-
   // Body
 
   $body-color: $mintgreen-900;
@@ -22,16 +13,6 @@
   $color-contrast-light:     $white !default;
   $headings-color:           $mintgreen-900;
 
-  // Tables
-
-  $table-border-color:          rgba(0, 0, 0, .05) !default;
-
-  // Buttons
-
-  $input-bg:                              $gray-200 !default;
-  $input-disabled-bg:                     $gray-300 !default;
-  $input-group-addon-bg:                  $gray-300 !default;
-
   // Cards
 
   .card {
@@ -40,24 +21,12 @@
 
   // Lists
 
-  $list-group-bg: transparent;
+  .list-group-item:hover {
+    --bs-list-group-bg: var(--bs-secondary-bg);
+  }
 
-  $nav-link-color:                    $gray-700;
-  $nav-link-hover-color:              $gray-800;
-
-  // Pagination
-
-  $pagination-border-color:           transparent !default;
-  $pagination-hover-border-color:     $pagination-border-color !default;
-  $pagination-disabled-border-color:  $pagination-border-color !default;
-
-  $main-navbar-height: 4rem;
-  $page-footer-height: 12rem;
-
-
-  // Custom theme variables
-
-  $page-header-color: blue;
-  --background-color: #{$gray-900};
-  --foreground-color: red;
+  .nav {
+    --bs-nav-link-color: $gray-100;
+    --bs-nav-link-hover-color: $gray-300;
+  }
 }

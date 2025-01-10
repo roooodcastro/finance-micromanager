@@ -30,7 +30,7 @@
         <FontAwesomeIcon
           icon="bars"
           size="lg"
-          class="fs-1 text-light text-hover-light"
+          class="fs-1 link-light"
         />
       </a>
     </div>

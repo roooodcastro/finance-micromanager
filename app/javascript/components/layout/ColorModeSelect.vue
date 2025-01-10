@@ -18,7 +18,7 @@
         <a
           class="dropdown-item"
           href="#"
-          @click="setColorTheme('light')"
+          @click="handleThemeChange('light')"
         >
           <FontAwesomeIcon
             :icon="['far', 'sun']"
@@ -32,7 +32,7 @@
         <a
           class="dropdown-item"
           href="#"
-          @click="setColorTheme('dark')"
+          @click="handleThemeChange('dark')"
         >
           <FontAwesomeIcon
             :icon="['far', 'moon']"
@@ -71,11 +71,16 @@ export default {
 
     const currentModeIcon = computed(() => icons[currentMode.value]);
 
+    const handleThemeChange = (theme) => {
+      setColorTheme(theme);
+      currentMode.value = theme;
+    }
+
     return {
       t,
       currentMode,
       currentModeIcon,
-      setColorTheme,
+      handleThemeChange,
     };
   },
 };

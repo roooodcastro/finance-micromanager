@@ -15,7 +15,7 @@
       <div
         class="TransactionListItem d-flex align-items-center border border-start-0 pe-2"
         :class="{
-          'bg-white bg-hover-light': !massEditSelected,
+          'bg-body-secondary': !massEditSelected,
           'bg-primary-subtle': massEditSelected,
         }"
         @click="handleClick"
@@ -130,6 +130,7 @@ export default {
 @import '../../stylesheets/variables';
 
 .TransactionListItem {
+  --bs-bg-opacity: 0;
   border-left: 0.5em solid white;
 
   .credit-transaction {
@@ -138,6 +139,10 @@ export default {
 
   .debit-transaction {
     color: $red;
+  }
+
+  &:hover {
+    --bs-bg-opacity: 1;
   }
 }
 

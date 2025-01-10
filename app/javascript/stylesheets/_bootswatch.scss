@@ -170,17 +170,9 @@ th {
 
   }
 
-  .text-hover-#{$color}:hover {
-    color: darken($value, 10%) !important;
-  }
-
   .bg-hover-#{$color}:hover {
     background-color: $value !important;
   }
-}
-
-.text-hover-white:hover {
-  color: $white !important;
 }
 
 .text-credit {

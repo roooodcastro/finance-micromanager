@@ -66,7 +66,7 @@
         >
           <div
             v-if="!compact"
-            class="position-sticky top-0 bg-white fw-bold py-2 ps-2"
+            class="position-sticky top-0 bg-tertiary fw-bold py-2 ps-2"
             :class="{ 'ps-2 ps-lg-0': !cardBody }"
           >
             {{ formatDate(new Date(transactionDate)) }}

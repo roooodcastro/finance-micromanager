@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 bg-light rounded">
+  <div class="TransactionTypeTabs p-2 rounded">
     <ul class="nav nav-pills row text-center mx-0">
       <li class="col-4 nav-item active me-0 p-0">
         <a
@@ -71,4 +71,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.TransactionTypeTabs {
+  background-color: var(--bs-tertiary-bg);
+}
 </style>
