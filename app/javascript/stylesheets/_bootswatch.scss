@@ -207,6 +207,14 @@ th {
   width: 20rem;
 }
 
+.bg-foreground {
+  background-color: var(--foreground-color) !important;
+}
+
+.bg-foreground-hover:hover, .bg-foreground-hover:active, .bg-foreground-hover:focus {
+  background-color: var(--bs-secondary-bg) !important;
+}
+
 input.input-no-arrows {
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

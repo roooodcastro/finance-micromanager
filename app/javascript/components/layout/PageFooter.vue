@@ -96,12 +96,6 @@ export default {
 }
 
 .PageFooter--background {
-  background-color: $mintgreen-700;
-}
-
-@include color-mode(dark) {
-  .PageFooter--background {
-  background-color: $mintgreen-800;
-}
+  background-color: var(--page-footer-bg-color);
 }
 </style>

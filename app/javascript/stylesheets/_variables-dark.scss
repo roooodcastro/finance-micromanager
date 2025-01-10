@@ -1,7 +1,12 @@
 @include color-mode(dark) {
   --background-color: var(--bs-body-bg);
+  --foreground-color: var(--bs-tertiary-bg);
+
   --text-credit-color: #{$mintgreen-500};
   --text-debit-color: #{$red};
+
+  --page-header-color: var(--bs-body-bg);
+  --page-footer-bg-color: #{$mintgreen-800};
 
   // Cards
 

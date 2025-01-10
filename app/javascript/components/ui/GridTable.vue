@@ -219,7 +219,7 @@ export default {
 
 .GridRow {
   align-items: center;
-  background-color: var(--bs-white);
+  background-color: var(--foreground-color);
   border-top: 1px solid var(--bs-border-color);
   display: grid;
   grid-template-columns: subgrid;
@@ -228,7 +228,7 @@ export default {
   z-index: 0;
 
   .GridRow__content .GridRow__left, .GridRow__content .GridRow__right {
-    background-color: var(--bs-white);
+    background-color: var(--foreground-color);
   }
 
   &:first-child {
@@ -457,6 +457,7 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
     > a {
       aspect-ratio: 1;
       background-color: var(--grid-table-action-bg-color);
+      color: var(--bs-light) !important;
       padding: 0 map-get($spacers, 4);
       justify-content: center;
     }
@@ -468,16 +469,6 @@ a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
 
   .GridRow:last-child > .GridRow__actions > a:last-child {
     border-bottom-right-radius: $border-radius;
-  }
-}
-
-@include color-mode(dark) {
-  .GridRow {
-    background-color: var(--bs-tertiary-bg);
-
-    .GridRow__content .GridRow__left, .GridRow__content .GridRow__right {
-      background-color: var(--bs-tertiary-bg);
-    }
   }
 }
 </style>

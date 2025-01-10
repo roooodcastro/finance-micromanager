@@ -173,11 +173,11 @@ $page-footer-height: 12rem;
 
 @include color-mode(light) {
   --background-color: var(--bs-tertiary-bg);
-  --foreground-color: #{$white};
+  --foreground-color: var(--bs-white);
   --text-credit-color: #{$mintgreen-700};
   --text-debit-color: #{shade-color($red, 10%)};
+  --page-header-color: #{$light-bg-subtle};
+  --page-footer-bg-color: #{$mintgreen-700};
 }
-
-$page-header-color: $light-bg-subtle;
 
 $side-strip-width: 0.5rem;

@@ -1,7 +1,7 @@
 <template>
   <div
     class="d-flex py-3 px-2 border-0 text-decoration-none align-items-center"
-    :class="{ 'bg-light': offcanvas }"
+    :class="{ 'bg-body-tertiary': offcanvas }"
   >
     <a
       class="text-decoration-none"

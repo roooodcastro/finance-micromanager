@@ -1,11 +1,11 @@
 <template>
   <div
-    class="DateRangeSelector btn-group d-flex"
+    class="btn-group d-flex bg-foreground"
     role="group"
   >
     <button
       type="button"
-      class="DateRangeSelector__button btn flex-grow-0"
+      class="DateRangeSelector__button btn flex-grow-0 bg-foreground-hover"
       @click="handlePrev"
     >
       <FontAwesomeIcon icon="chevron-left" />
@@ -13,7 +13,7 @@
 
     <button
       type="button"
-      class="DateRangeSelector__button btn flex-grow-1 fs-4 d-flex align-items-center justify-content-center"
+      class="DateRangeSelector__button btn flex-grow-1 fs-4 d-flex align-items-center justify-content-center bg-foreground-hover"
       @click="handlePickerOpen"
     >
       <input
@@ -32,7 +32,7 @@
 
     <button
       type="button"
-      class="DateRangeSelector__button btn flex-grow-0"
+      class="DateRangeSelector__button btn flex-grow-0 bg-foreground-hover"
       :disabled="!nextEnabled"
       @click="handleNext"
     >
@@ -100,16 +100,9 @@ export default {
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
 
-.DateRangeSelector {
-  background-color: var(--bs-tertiary-bg);
-}
-
 .DateRangeSelector__button {
   border-color: $border-color-translucent;
 
-  &:hover, &:active, &:focus {
-    background-color: var(--bs-secondary-bg);
-  }
   &:disabled {
     color: var(--bs-tertiary-color);
   }
