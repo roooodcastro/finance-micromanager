@@ -1350,8 +1350,9 @@
           "name_label": "Name",
           "new_title": "New Transaction",
           "optional": "Optional",
-          "submit": "Create",
           "submit_and_continue": "Create & Add Next",
+          "submit_create": "Create",
+          "submit_update": "Update",
           "wallet_label": "Wallet"
         },
         "index": {

@@ -486,7 +486,8 @@ pt-BR:
         date_label: Data
         name_label: Nome
         optional: Opcional
-        submit: Salvar
+        submit_create: Salvar
+        submit_update: Salvar
         submit_and_continue: Salvar e continuar
         cancel: Cancelar
         locked_message: >-

@@ -1420,8 +1420,9 @@
           "name_label": "Nome",
           "new_title": "Nova Transação",
           "optional": "Opcional",
-          "submit": "Salvar",
           "submit_and_continue": "Salvar e continuar",
+          "submit_create": "Salvar",
+          "submit_update": "Salvar",
           "wallet_label": "Carteira"
         },
         "index": {
