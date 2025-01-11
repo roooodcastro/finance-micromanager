@@ -11,7 +11,7 @@ module TransactionAutomations
     def call
       transaction_automations.each do |transaction_automation|
         ActiveRecord::Base.transaction do
-          Transaction.create!(transaction_automation.transaction_attributes)
+          Transaction.create!(transaction_automation.transaction_attributes) if transaction_automation.enabled?
           transaction_automation.bump_scheduled_date!
         end
       end
@@ -20,7 +20,7 @@ module TransactionAutomations
     private
 
     def transaction_automations
-      @transaction_automations ||= TransactionAutomation.active.where(scheduled_date: [..date])
+      @transaction_automations ||= TransactionAutomation.where(scheduled_date: [..date])
     end
   end
 end
