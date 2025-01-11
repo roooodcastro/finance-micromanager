@@ -143,7 +143,7 @@
           class="me-lg-2"
         />
 
-        {{ t('submit') }}
+        {{ submitButtonLabel }}
       </button>
     </template>
   </FormModal>
@@ -211,6 +211,7 @@ export default {
 
     const isNewRecord = computed(() => !transaction.value.id);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
+    const submitButtonLabel = computed(() => isNewRecord.value ? t('submit_create') : t('submit_update'));
 
     const formMethod = computed(() => isNewRecord.value ? 'POST' : 'PATCH');
     const formAction = computed(() => {
@@ -303,6 +304,7 @@ export default {
       transaction,
       modalId,
       showWalletField,
+      submitButtonLabel,
       handleSubmit,
       handleShow,
       handleInput,
