@@ -24,4 +24,26 @@
     --bs-nav-link-color: #{$gray-100};
     --bs-nav-link-hover-color: #{$gray-400};
   }
+
+  // Tables
+
+  .table-primary {
+    --bs-table-color: var(--bs-light);
+    --bs-table-bg: var(--bs-primary-bg-subtle);
+  }
+
+  .table-secondary {
+    --bs-table-color: var(--bs-light);
+    --bs-table-bg: var(--bs-secondary-bg-subtle);
+  }
+
+  .table-danger {
+    --bs-table-color: var(--bs-light);
+    --bs-table-bg: var(--bs-danger-bg-subtle);
+  }
+
+  .table-light {
+    --bs-table-color: var(--bs-light);
+    --bs-table-bg: var(--bs-light-bg-subtle);
+  }
 }

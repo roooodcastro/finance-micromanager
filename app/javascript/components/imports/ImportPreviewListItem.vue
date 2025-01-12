@@ -37,7 +37,7 @@
           <a
             v-if="allowImportNameCreation"
             href="#"
-            class="btn btn-sm btn-outline-dark py-0"
+            class="btn btn-sm btn-outline-primary py-0"
             @click="handleCreateImportName"
           >
             <FontAwesomeIcon :icon="['far', 'floppy-disk']" />

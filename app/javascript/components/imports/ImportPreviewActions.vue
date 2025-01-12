@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex mt-3 align-items-center justify-content-center sticky-bottom bg-white p-3 gap-3 shadow"
+    class="d-flex mt-3 align-items-center justify-content-center sticky-bottom bg-body-tertiary p-3 gap-3 shadow"
   >
     <div class="text-muted me-3">
       <FontAwesomeIcon
