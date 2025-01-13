@@ -64,6 +64,7 @@ en:
         currency_label: Currency
         default_wallet_label: Default Wallet
         shared_by_label: Creator
+        share_action_link_label: Share
         no_name: '--- No name ---'
         no_default_wallet: '--- None ---'
       reconciliations_list:
@@ -301,7 +302,6 @@ en:
         new: New Profile
         name: Name
         currency: Currency
-        share_action_link_label: Share
         show_disabled: Show disabled
       form:
         new_title: New Profile

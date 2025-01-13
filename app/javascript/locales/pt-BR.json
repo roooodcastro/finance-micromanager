@@ -860,6 +860,7 @@
           "name_label": "Nome",
           "no_default_wallet": "--- Nenhuma ---",
           "no_name": "--- Sem nome ---",
+          "share_action_link_label": "Compartilhar",
           "shared_by_label": "Criador"
         },
         "reconciliations_list": {
@@ -1164,7 +1165,6 @@
           "currency": "Moeda",
           "name": "Nome",
           "new": "Novo perfil",
-          "share_action_link_label": "Compartilhar",
           "show_disabled": "Exibir desativados",
           "title": "Perfis"
         }
