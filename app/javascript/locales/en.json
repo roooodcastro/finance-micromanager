@@ -1246,7 +1246,6 @@
           "edit": "Edit",
           "every": "Every",
           "last_schedule_date": "Last Run",
-          "no_last_run": "-- Never --",
           "no_next_run": "-- Disabled --",
           "no_wallet": "-- Not Specified --",
           "reenable": "Reenable",

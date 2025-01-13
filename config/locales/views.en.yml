@@ -550,7 +550,6 @@ en:
         destroy: Delete
         sub_header_transactions: Past Transactions
         sub_header_summary: Summary
-        no_last_run: -- Never --
         no_next_run: -- Disabled --
         no_wallet: -- Not Specified --
         schedule: Schedule
