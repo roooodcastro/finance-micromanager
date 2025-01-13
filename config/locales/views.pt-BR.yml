@@ -552,7 +552,6 @@ pt-BR:
         destroy: Remover
         sub_header_transactions: Transações Passadas
         sub_header_summary: Resumo
-        no_last_run: -- Nunca --
         no_next_run: -- Desabilitada --
         no_wallet: -- Não Especificada --
         schedule: Agendamento

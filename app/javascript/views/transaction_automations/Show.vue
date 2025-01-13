@@ -105,12 +105,6 @@
           <dd class="col-6 col-md-8 my-1">
             {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
           </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('last_schedule_date') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            {{ transactionAutomationFromStore.lastScheduleDate ? formatDate(transactionAutomationFromStore.lastScheduleDate) : t('no_last_run') }}
-          </dd>
         </dl>
       </BCard>
     </div>
@@ -198,7 +192,12 @@ export default {
     transactionAutomationFromStore.value = props.transactionAutomation;
 
     const transactionStore = useTransactionStore();
-    transactionStore.setFetchParams({ transactionAutomationId: props.transactionAutomation.id, daysToShow: 0 });
+    transactionStore.setFetchParams({
+      transactionAutomationId: props.transactionAutomation.id,
+      daysToShow: 0,
+      updateDateRange: false,
+      startDate: null,
+    });
     transactionStore.fetchCollection();
 
     const isDisabled = computed(() => !!transactionAutomationFromStore.value.disabledAt);
