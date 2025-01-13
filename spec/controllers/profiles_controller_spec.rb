@@ -54,9 +54,10 @@ RSpec.describe ProfilesController do
       it 'creates the new profile' do
         expect { create_request }.to change { Profile.count }.by(1)
 
-        expect(json_response).to eq(expected_json)
-
         new_profile = Profile.find_by(currency: 'brl')
+
+        expect(json_response).to eq(expected_json.merge('id' => new_profile.id))
+
         expect(new_profile.name).to eq('')
         expect(new_profile.user).to eq(user)
       end
@@ -72,9 +73,10 @@ RSpec.describe ProfilesController do
       it 'creates the new profile' do
         expect { create_request }.to change { Profile.count }.by(1)
 
-        expect(json_response).to eq(expected_json)
-
         new_profile = Profile.find_by(name: 'Test')
+
+        expect(json_response).to eq(expected_json.merge('id' => new_profile.id))
+
         expect(new_profile.name).to eq('Test')
         expect(new_profile.currency).to eq('brl')
         expect(new_profile.user).to eq(user)

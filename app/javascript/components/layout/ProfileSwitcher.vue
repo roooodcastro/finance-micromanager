@@ -78,8 +78,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { storeToRefs } from 'pinia';
 
 import useProfileStore from '~/stores/ProfileStore.js';
-import useNotificationStore from '~/stores/NotificationStore.js';
-import { currentProfiles } from '~/api/all.js';
 import { faIconForCurrency } from '~/utils/CurrencyIcons.js';
 import I18n from '~/utils/I18n.js';
 
@@ -95,19 +93,7 @@ export default {
     const { currentProfile, profiles } = storeToRefs(profileStore);
     const dropdownOpened = ref(false);
 
-    const handleProfileChange = (profileId) => {
-      currentProfiles
-        .create({ data: { profile_id: profileId } })
-        .then((response) => {
-          if (response.error) {
-            const { errorMessages } = storeToRefs(useNotificationStore());
-              errorMessages.value.push(response.error);
-          } else {
-            currentProfile.value = response.profile;
-          }
-        });
-    };
-
+    const handleProfileChange = profileId => profileStore.changeCurrentProfile(profileId);
     const handleNewProfile = () => profileStore.openFormModal(null);
     const handleDropDownClick = (ev) => {
       dropdownOpened.value = ev.target.classList.contains('show');

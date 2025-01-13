@@ -1,4 +1,6 @@
-import profilesApi from '~/api/ProfilesApi.js';
+import { storeToRefs } from 'pinia';
+
+import { profiles as profilesApi, currentProfiles as currentProfilesApi } from '~/api/all.js';
 import { PROFILE_FORM_ID, PROFILE_SHARE_INVITE_MODAL_ID } from '~/utils/Constants.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
@@ -87,6 +89,19 @@ export default defineBaseApiStore('profile', {
 
       this.setProfileIdForInviteModal(id);
       modalStore.show(PROFILE_SHARE_INVITE_MODAL_ID);
+    },
+
+    changeCurrentProfile(id) {
+      currentProfilesApi
+        .create({ data: { profile_id: id } })
+        .then((response) => {
+          if (response.error) {
+            const { errorMessages } = storeToRefs(useNotificationStore());
+            errorMessages.value.push(response.error);
+          } else {
+            this.currentProfile = response.profile;
+          }
+        });
     }
   },
 });
