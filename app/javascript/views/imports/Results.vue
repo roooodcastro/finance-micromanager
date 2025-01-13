@@ -43,6 +43,7 @@
 <script>
 import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
+import useTransactionStore from '~/stores/TransactionStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
@@ -78,8 +79,12 @@ export default {
     },
   },
 
-  setup() {
+  setup(props) {
     const t = I18n.scopedTranslator('views.imports.results');
+
+    const transactionStore = useTransactionStore();
+    transactionStore.loadCollectionFromProps(props.importedTransactions.concat(props.matchedTransactions));
+
     const importsPath = importsApi.index.path();
 
     return {
