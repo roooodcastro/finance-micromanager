@@ -1,5 +1,5 @@
 import profilesApi from '~/api/ProfilesApi.js';
-import { PROFILE_FORM_ID } from '~/utils/Constants.js';
+import { PROFILE_FORM_ID, PROFILE_SHARE_INVITE_MODAL_ID } from '~/utils/Constants.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 import useNotificationStore from '~/stores/NotificationStore.js';
 import useModalStore from '~/stores/ModalStore.js';
@@ -81,5 +81,12 @@ export default defineBaseApiStore('profile', {
             });
         });
     },
+
+    openShareInviteModal(id) {
+      const modalStore = useModalStore();
+
+      this.setProfileIdForInviteModal(id);
+      modalStore.show(PROFILE_SHARE_INVITE_MODAL_ID);
+    }
   },
 });

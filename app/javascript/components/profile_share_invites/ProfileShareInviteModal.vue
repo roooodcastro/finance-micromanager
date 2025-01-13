@@ -1,6 +1,6 @@
 <template>
   <div
-    id="profileShareInviteModal"
+    :id="PROFILE_SHARE_INVITE_MODAL_ID"
     class="modal fade"
     tabindex="-1"
     :aria-labelledby="t('title')"
@@ -74,6 +74,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import { profileShareInvitesSent as profileShareInvitesSentApi } from '~/api/all.js';
+import { PROFILE_SHARE_INVITE_MODAL_ID } from '~/utils/Constants.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 
 import CloseButton from '~/components/bootstrap/CloseButton.vue';
@@ -98,6 +99,7 @@ export default {
       t: I18n.scopedTranslator('views.profile_share_invites.modal'),
       profileForInviteModal,
       profileShareInvitesPath,
+      PROFILE_SHARE_INVITE_MODAL_ID,
     }
   },
 };

@@ -64,6 +64,7 @@ pt-BR:
         currency_label: Moeda
         default_wallet_label: Carteira Padrão
         shared_by_label: Criador
+        share_action_link_label: Compartilhar
         no_name: '--- Sem nome ---'
         no_default_wallet: '--- Nenhuma ---'
       reconciliations_list:
@@ -301,7 +302,6 @@ pt-BR:
         new: Novo perfil
         name: Nome
         currency: Moeda
-        share_action_link_label: Compartilhar
         show_disabled: Exibir desativados
       form:
         new_title: Novo Perfil

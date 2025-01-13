@@ -792,6 +792,7 @@
           "name_label": "Name",
           "no_default_wallet": "--- None ---",
           "no_name": "--- No name ---",
+          "share_action_link_label": "Share",
           "shared_by_label": "Creator"
         },
         "reconciliations_list": {
@@ -1096,7 +1097,6 @@
           "currency": "Currency",
           "name": "Name",
           "new": "New Profile",
-          "share_action_link_label": "Share",
           "show_disabled": "Show disabled",
           "title": "Profiles"
         }

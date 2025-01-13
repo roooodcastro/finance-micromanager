@@ -55,6 +55,13 @@ export default {
       editAction(profileStore),
       disableAction(profileStore),
       reenableAction(profileStore),
+      {
+        label: t('share_action_link_label'),
+        icon: 'share-nodes',
+        callback: row => profileStore.openShareInviteModal(row.id),
+        variant: 'info',
+        show: row => !row.disabledAt
+      },
     ];
 
     const tableColumns = [
