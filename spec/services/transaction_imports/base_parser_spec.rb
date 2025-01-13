@@ -191,5 +191,19 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
         expect { parse! }.to not_change { TransactionImports::ImportTransaction.count }
       end
     end
+
+    context 'when the CSV file format is not supported' do
+      before do
+        allow(parser).to receive(:parse_file).and_raise(TransactionImports::BaseParser::WrongCsvFileFormatError)
+      end
+
+      it 'does not create any import transactions and cancels the import' do
+        expect { parse! }
+          .to not_change { TransactionImports::ImportTransaction.count }
+          .and change { import.reload.cancelled? }
+          .from(false)
+          .to(true)
+      end
+    end
   end
 end

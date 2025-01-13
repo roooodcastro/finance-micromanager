@@ -5,7 +5,12 @@ module TransactionImports
     class N26 < BaseParser
       # CSV variables
       #
+      HEADER_ROW_CSV            = 0
       FIRST_TRANSACTION_ROW_CSV = 1
+      # If N26 changes the CSV file format, adding, removing or changing the columns returned by the file, we'll
+      # know to not try to parse the file, and instead throw an error. The new file format will need to be implemented
+      # before it can be parsed.
+      CURRENT_CSV_FORMAT_MD5    = '46032c7802e90152084331a5bb9555c0'
 
       # PDF variables
       #
@@ -63,12 +68,16 @@ module TransactionImports
       private
 
       def parse_csv_file
-        rows = read_csv_file.then(&method(:filter_non_transaction_rows))
+        all_rows = read_csv_file
+        rows     = filter_non_transaction_rows(all_rows)
+
+        validate_csv_file_format!(all_rows[HEADER_ROW_CSV])
+
         rows.map do |row|
           original_import_name = build_full_transaction_name(row)
           name                 = original_import_name
-          transaction_date     = Date.parse(row[0])
-          amount               = row[5].to_f
+          transaction_date     = Date.parse(row[1])
+          amount               = row[7].to_f
           wallet               = import.wallet
 
           TransactionImports::ImportTransaction.new(
@@ -107,13 +116,13 @@ module TransactionImports
       end
 
       def build_full_transaction_name(csv_row)
-        [csv_row[1], csv_row[2], csv_row[4]].map do |part|
+        [csv_row[2], csv_row[5]].map do |part|
           part.to_s.gsub('-', '').strip.presence
         end.uniq.compact.join(' ')
       end
 
       def process_n26_category(pdf_row)
-        n26_category = pdf_row[3].to_s.split('•')[1].to_s.strip.presence
+        n26_category = pdf_row[4].to_s.split('•')[1].to_s.strip.presence
         return unless n26_category
 
         profile_categories.find { |category| category.name.downcase == n26_category.downcase }
@@ -121,6 +130,12 @@ module TransactionImports
 
       def profile_categories
         @profile_categories ||= import.profile.categories
+      end
+
+      def validate_csv_file_format!(header_row)
+        return if Digest::MD5.hexdigest(header_row.join) == CURRENT_CSV_FORMAT_MD5
+
+        raise WrongCsvFileFormatError
       end
 
       def source

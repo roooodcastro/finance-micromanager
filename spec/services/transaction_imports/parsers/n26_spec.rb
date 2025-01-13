@@ -11,26 +11,42 @@ RSpec.describe TransactionImports::Parsers::N26, type: :service do
       [
         TransactionImports::ImportTransaction.new(
           import:               import,
-          original_import_name: 'NETFLIX.COM',
-          name:                 'NETFLIX.COM',
-          transaction_date:     Date.parse('2023-04-07'),
-          amount:               -20.0,
+          original_import_name: 'amazon.co.uk*DJ43KJFsd',
+          name:                 'amazon.co.uk*DJ43KJFsd',
+          transaction_date:     Date.parse('2024-12-30'),
+          amount:               -6.03,
           wallet_id:            import.wallet.id
         ),
         TransactionImports::ImportTransaction.new(
           import:               import,
-          original_import_name: 'From Test Space to Main Wallet',
-          name:                 'From Test Space to Main Wallet',
-          transaction_date:     Date.parse('2023-04-12'),
-          amount:               100.0,
+          original_import_name: 'TESCO STORES',
+          name:                 'TESCO STORES',
+          transaction_date:     Date.parse('2024-12-30'),
+          amount:               -28.89,
           wallet_id:            import.wallet.id
         ),
         TransactionImports::ImportTransaction.new(
           import:               import,
-          original_import_name: 'WWW.ALIEXPRESS.COM',
-          name:                 'WWW.ALIEXPRESS.COM',
-          transaction_date:     Date.parse('2023-04-13'),
-          amount:               -9.99,
+          original_import_name: 'COSTA',
+          name:                 'COSTA',
+          transaction_date:     Date.parse('2024-12-30'),
+          amount:               -5.65,
+          wallet_id:            import.wallet.id
+        ),
+        TransactionImports::ImportTransaction.new(
+          import:               import,
+          original_import_name: 'Main Account N26 N26 You Membership Fee',
+          name:                 'Main Account N26 N26 You Membership Fee',
+          transaction_date:     Date.parse('2024-12-31'),
+          amount:               -7.9,
+          wallet_id:            import.wallet.id
+        ),
+        TransactionImports::ImportTransaction.new(
+          import:               import,
+          original_import_name: 'Main Account Monthly Rule',
+          name:                 'Main Account Monthly Rule',
+          transaction_date:     Date.parse('2025-01-01'),
+          amount:               -300.0,
           wallet_id:            import.wallet.id
         )
       ]
