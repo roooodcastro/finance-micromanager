@@ -30,7 +30,7 @@ class ProfilesController < AbstractAuthenticatedController
     profile = current_user.profiles.new(profile_params)
 
     if profile.save
-      render json: camelize_props(message: t('.success', name: profile.display_name))
+      render json: camelize_props(message: t('.success', name: profile.display_name), id: profile.id)
     else
       render json:   camelize_props(message: t('.error', error: profile.error_messages)),
              status: :unprocessable_entity

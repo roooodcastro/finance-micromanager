@@ -115,7 +115,10 @@ export default {
       if (isNewRecord.value) {
         profileStore
           .create(profile.value)
-          .then(closeModal)
+          .then((response) => {
+            closeModal();
+            profileStore.changeCurrentProfile(response.id);
+          })
           .catch(() => {})
           .finally(() => loading.value = false);
       } else {
