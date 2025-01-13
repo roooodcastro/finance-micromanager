@@ -8,6 +8,21 @@
   --page-header-color: var(--bs-body-bg);
   --page-footer-bg-color: #{$mintgreen-800};
 
+  // Toasts
+
+  --toast-success-header-bg-color: #{$mintgreen-800};
+  --toast-success-header-body-color: #{$mintgreen-700};
+  --toast-info-header-bg-color: #{$cyan-800};
+  --toast-info-header-body-color: #{$cyan-700};
+  --toast-warning-header-bg-color: #{$yellow-800};
+  --toast-warning-header-body-color: #{$yellow-700};
+  --toast-danger-header-bg-color: #{$red-800};
+  --toast-danger-header-body-color: #{$red-700};
+
+  .toast {
+    --bs-toast-header-border-color: rgba(0,0,0,.5);
+  }
+
   // Cards
 
   .card {

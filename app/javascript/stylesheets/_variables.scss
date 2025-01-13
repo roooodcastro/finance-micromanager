@@ -178,6 +178,15 @@ $page-footer-height: 12rem;
   --text-debit-color: #{shade-color($red, 10%)};
   --page-header-color: #{$light-bg-subtle};
   --page-footer-bg-color: #{$mintgreen-700};
+
+  --toast-success-header-bg-color: #{$mintgreen-400};
+  --toast-success-header-body-color: #{$mintgreen-200};
+  --toast-info-header-bg-color: #{$cyan-400};
+  --toast-info-header-body-color: #{$cyan-200};
+  --toast-warning-header-bg-color: #{$yellow-400};
+  --toast-warning-header-body-color: #{$yellow-200};
+  --toast-danger-header-bg-color: #{$red-400};
+  --toast-danger-header-body-color: #{$red-200};
 }
 
 $side-strip-width: 0.5rem;

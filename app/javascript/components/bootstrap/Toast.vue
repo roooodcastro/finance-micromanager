@@ -85,34 +85,34 @@ export default {
 .toast {
   &.bg-success {
     .toast-header {
-      background-color: $mintgreen-400;
+      background-color: var(--toast-success-header-bg-color);
     }
     .toast-body {
-      background-color: $mintgreen-200;
+      background-color: var(--toast-success-header-body-color);
     }
   }
   &.bg-info {
     .toast-header {
-      background-color: $cyan-400;
+      background-color: var(--toast-info-header-bg-color);
     }
     .toast-body {
-      background-color: $cyan-200;
+      background-color: var(--toast-info-header-body-color);
     }
   }
   &.bg-warning {
     .toast-header {
-      background-color: $yellow-400;
+      background-color: var(--toast-warning-header-bg-color);
     }
     .toast-body {
-      background-color: $yellow-200;
+      background-color: var(--toast-warning-header-body-color);
     }
   }
   &.bg-danger {
     .toast-header {
-      background-color: $red-400;
+      background-color: var(--toast-danger-header-bg-color);
     }
     .toast-body {
-      background-color: $red-200;
+      background-color: var(--toast-danger-header-body-color);
     }
   }
 }
