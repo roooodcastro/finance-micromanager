@@ -2,6 +2,8 @@
 
 module TransactionImports
   class BaseParser
+    class WrongCsvFileFormatError < ArgumentError; end
+
     attr_reader :import
 
     PARSER_CLASSES = {
@@ -33,6 +35,9 @@ module TransactionImports
       end
 
       transaction_imports
+    rescue WrongCsvFileFormatError => e
+      NewRelic::Agent.notice_error(e)
+      import.cancelled!
     end
 
     def parse_file
