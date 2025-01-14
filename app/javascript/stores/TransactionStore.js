@@ -25,6 +25,7 @@ export default defineBaseApiStore('transaction', {
 
   state: {
     transactions: [],
+    transaction: null,
     statistics: {},
     idForFormModal: null,
     massEditMode: false,
@@ -162,5 +163,34 @@ export default defineBaseApiStore('transaction', {
       this.fetchParams.excludeCredits = newType === DEBIT_TRANSACTION;
       this.fetchParams.excludeDebits = newType === CREDIT_TRANSACTION;
     },
+
+    destroy(id) {
+      const notificationStore = useNotificationStore();
+      const modalStore = useModalStore();
+
+      let responseResolve;
+        let responseReject;
+        const returnPromise = new Promise((resolve, reject) => {
+          responseResolve = resolve;
+          responseReject = reject;
+        });
+
+        modalStore
+        .showConfirmationDialog({ message: I18n.t('views.layout.rails.delete_confirmation') })
+        .then(() => {
+          transactionsApi.destroy({ id }).then((response) => {
+            notificationStore.notify(response.message, 'success');
+            this.fetchCollection();
+            responseResolve();
+          }).catch((error) => {
+            const errorMessage = error?.body?.message ?? I18n.t('views.layout.rails.generic_error');
+            notificationStore.notify(errorMessage, 'danger');
+            responseReject(error);
+          });
+        })
+        .catch(() => {});
+
+      return returnPromise;
+    }
   }
 });

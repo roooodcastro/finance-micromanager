@@ -1455,6 +1455,26 @@
           "wallet_label": "Carteira"
         },
         "pwa_shortcut_label": "Criar nova Transação",
+        "show": {
+          "amount_label": "Valor",
+          "category_label": "Categoria",
+          "created_at_label": "Criada em",
+          "created_by_label": "Criada por",
+          "date_label": "Data",
+          "delete": "Deletar",
+          "edit": "Editar",
+          "import_label": "Importada por",
+          "import_value": "Importação de Transação",
+          "name_label": "Nome",
+          "no_wallet": "-- Não Especificada --",
+          "sub_header_summary": "Resumo",
+          "title": "Transação",
+          "transaction_automation_label": "Criada através de",
+          "transaction_automation_value": "Automação de Transação",
+          "updated_at_label": "Última atualização em",
+          "updated_by_label": "Última atualização por",
+          "wallet_label": "Carteira"
+        },
         "types": {
           "all_transactions": "Todas",
           "credit_transactions": "Receitas",

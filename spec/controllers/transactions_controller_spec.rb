@@ -49,6 +49,39 @@ RSpec.describe TransactionsController do
     end
   end
 
+  describe 'GET show', :inertia do
+    subject(:show_request) { get :show, format: format, params: { id: transaction.id } }
+
+    let!(:transaction) { create(:transaction, profile:) }
+
+    before do
+      allow_any_instance_of(Transaction) # rubocop:disable RSpec/AnyInstance
+        .to receive(:as_json)
+        .with(include_author_info: true)
+        .and_return('serialized_json')
+    end
+
+    context 'for a HTML request', :inertia do
+      let(:format) { :html }
+
+      it 'renders the show component' do
+        show_request
+
+        expect_inertia.to render_component('transactions/Show').and include_props({ transaction: 'serialized_json' })
+      end
+    end
+
+    context 'for a JSON request' do
+      let(:format) { :json }
+
+      it 'renders the transaction as json' do
+        show_request
+
+        expect(json_response).to eq({ 'transaction' => 'serialized_json' })
+      end
+    end
+  end
+
   describe 'POST create', :inertia do
     subject(:create_request) { post :create, params: }
 

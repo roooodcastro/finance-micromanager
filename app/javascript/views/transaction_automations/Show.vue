@@ -197,6 +197,7 @@ export default {
       daysToShow: 0,
       updateDateRange: false,
       startDate: null,
+      endDate: null,
     });
     transactionStore.fetchCollection();
 

@@ -41,15 +41,26 @@ class Transaction < ApplicationRecord
     profile&.currency || Money.default_currency
   end
 
-  def as_json(*)
-    super(except: %w[created_at updated_at])
-      .merge(
-        'name'        => display_name,
-        'amount'      => amount.to_f,
-        'subcategory' => subcategory.as_json,
-        'wallet'      => wallet.as_json,
-        'category'    => category.as_json(include_subcategories: false)
+  def as_json(include_author_info: false, **)
+    json = super(except: %w[created_at updated_at])
+           .merge(
+             'name'        => display_name,
+             'amount'      => amount.to_f,
+             'subcategory' => subcategory.as_json,
+             'wallet'      => wallet.as_json,
+             'category'    => category.as_json(include_subcategories: false)
+           )
+
+    if include_author_info
+      json = json.merge(
+        created_at: created_at,
+        updated_at: updated_at,
+        created_by: created_by.as_json(attributes_only: true),
+        updated_by: updated_by.as_json(attributes_only: true)
       )
+    end
+
+    json
   end
 
   def display_name
