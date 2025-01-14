@@ -1385,6 +1385,26 @@
           "wallet_label": "Wallet"
         },
         "pwa_shortcut_label": "Create New Transaction",
+        "show": {
+          "amount_label": "Amount",
+          "category_label": "Category",
+          "created_at_label": "Added on",
+          "created_by_label": "Added by",
+          "date_label": "Date",
+          "delete": "Delete",
+          "edit": "Edit",
+          "import_label": "Imported by",
+          "import_value": "Transaction Import",
+          "name_label": "Name",
+          "no_wallet": "-- Not Specified --",
+          "sub_header_summary": "Summary",
+          "title": "Transaction",
+          "transaction_automation_label": "Created from",
+          "transaction_automation_value": "Transaction Automation",
+          "updated_at_label": "Last updated on",
+          "updated_by_label": "Last updated by",
+          "wallet_label": "Wallet"
+        },
         "types": {
           "all_transactions": "All",
           "credit_transactions": "Income",

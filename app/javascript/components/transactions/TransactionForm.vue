@@ -205,7 +205,7 @@ export default {
     const { categories } = storeToRefs(categoryStore);
     const { activeWallets } = storeToRefs(walletStore);
     const { transactionPredictions } = storeToRefs(transactionPredictionStore);
-    const { transactionForFormModal: transaction, defaultTransactionDate } = storeToRefs(transactionStore);
+    const { transactionForFormModal: transaction, defaultTransactionDate, actionName } = storeToRefs(transactionStore);
 
     const showWalletField = computed(() => !!activeWallets.value.length);
 
@@ -274,15 +274,19 @@ export default {
 
       const successCallback = keepOpen ? resetForm : closeModal;
 
+      const fetchOptions = actionName.value === 'show'
+        ? { fetchSingle: true, fetchCollection: false }
+        : { fetchCollection: true };
+
       if (isNewRecord.value) {
         transactionStore
-          .create(transactionData)
+          .create(transactionData, fetchOptions)
           .then(successCallback)
           .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         transactionStore
-          .update(transaction.value.id, transactionData)
+          .update(transaction.value.id, transactionData, fetchOptions)
           .then(successCallback)
           .catch(() => {})
           .finally(() => loading.value = false);

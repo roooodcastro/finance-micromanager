@@ -30,9 +30,10 @@
           :checked="massEditSelected"
           class="me-2"
         >
-        <div
-          class="TransactionListItem__name flex-grow-1 py-2"
+        <a
+          class="TransactionListItem__name text-decoration-none text-body flex-grow-1 py-2"
           :class="{ 'pe-lg-2': massEditMode }"
+          :href="massEditMode ? '#' : transactionPath"
         >
           <div class="d-flex justify-content-between">
             <span>
@@ -53,7 +54,7 @@
               {{ formatDate(new Date(transaction.transactionDate)) }}
             </span>
           </div>
-        </div>
+        </a>
         <div class="d-none d-lg-flex">
           <TransactionActions
             v-if="!massEditMode"
@@ -72,6 +73,7 @@ import { computed } from 'vue';
 
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
+import { transactions as transactionsApi } from '~/api/all.js';
 
 import ListItemDrawerContextMenu from '~/components/layout/ListItemDrawerContextMenu.vue';
 import TransactionActions from '~/components/transactions/TransactionActions.vue';
@@ -108,6 +110,7 @@ export default {
   setup(props, { emit }) {
     const isDebit = computed(() => props.transaction.amount < 0);
     const isCredit = computed(() => props.transaction.amount > 0);
+    const transactionPath = transactionsApi.show.path({ id: props.transaction.id });
 
     const handleClick = () => {
       if (props.massEditMode) {
@@ -120,6 +123,7 @@ export default {
       formatDate,
       isDebit,
       isCredit,
+      transactionPath,
       handleClick,
     };
   },

@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     resources :import_names, only: %i[index create update destroy]
 
     resources :locales, only: %i[index]
-    resources :transactions, except: %i[show new edit] do
+    resources :transactions, except: %i[new edit] do
       patch :update_all, on: :collection
     end
 

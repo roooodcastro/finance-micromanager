@@ -502,6 +502,25 @@ en:
         credit_transactions: Income
         debit_transactions: Spends
         all_transactions: All
+      show:
+        title: 'Transaction'
+        edit: Edit
+        delete: Delete
+        sub_header_summary: Summary
+        name_label: Name
+        amount_label: Amount
+        date_label: Date
+        category_label: Category
+        wallet_label: Wallet
+        transaction_automation_label: Created from
+        transaction_automation_value: Transaction Automation
+        import_label: Imported by
+        import_value: Transaction Import
+        created_at_label: Added on
+        created_by_label: Added by
+        updated_at_label: Last updated on
+        updated_by_label: Last updated by
+        no_wallet: -- Not Specified --
 
     transaction_automations:
       floating_button_label: New Transaction Automation

@@ -3,7 +3,7 @@
 class TransactionsController < AbstractAuthenticatedController
   include Pagy::Backend
 
-  before_action :set_transaction, only: %i[update destroy]
+  before_action :set_transaction, only: %i[show update destroy]
 
   def index
     transaction_search = TransactionSearch.new(Current.profile.transactions, search_params)
@@ -20,6 +20,15 @@ class TransactionsController < AbstractAuthenticatedController
 
     respond_to do |format|
       format.html { render inertia: 'transactions/Index', props: camelize_props(props) }
+      format.json { render json: props }
+    end
+  end
+
+  def show
+    props = camelize_props(transaction: @transaction.as_json(include_author_info: true))
+
+    respond_to do |format|
+      format.html { render inertia: 'transactions/Show', props: props }
       format.json { render json: props }
     end
   end
