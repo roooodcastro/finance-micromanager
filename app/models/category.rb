@@ -11,8 +11,11 @@ class Category < ApplicationRecord
 
   belongs_to :profile
 
+  has_one :budget, as: :owner, dependent: :restrict_with_exception
+
   has_many :transactions, dependent: :restrict_with_exception
   has_many :subcategories, dependent: :restrict_with_exception
+  has_many :budget_instances, as: :owner, dependent: :restrict_with_exception
 
   # rubocop:disable Rails/InverseOf
   has_many :active_subcategories, -> { active }, class_name: 'Subcategory', dependent: :restrict_with_exception
