@@ -76,7 +76,7 @@ class ApplicationQuery
     @binds ||= self.class.binds.dup
   end
 
-  def wrapper_class
+  def wrapper_class # rubocop:disable Rails/Delegate
     self.class.wrapper_class
   end
 

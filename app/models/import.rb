@@ -18,7 +18,7 @@ class Import < ApplicationRecord
   validates :source, presence: true, unless: :cancelled?
   validates :source_file,
             attached:     true,
-            content_type: %w[text/csv application/csv application/xls application/vnd.ms-excel application/pdf],
+            content_type: %w[text/csv application/vnd.ms-excel application/pdf],
             size:         { less_than: MAX_UPLOAD_FILE_SIZE }
 
   def as_json
