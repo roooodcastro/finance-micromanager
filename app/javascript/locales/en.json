@@ -2,6 +2,9 @@
   "en": {
     "activerecord": {
       "attributes": {
+        "budget": {
+          "limit_type_remainder": "Remainder"
+        },
         "import": {
           "sources": {
             "n26": "N26",
@@ -142,6 +145,24 @@
             }
           }
         }
+      }
+    },
+    "budgets": {
+      "create": {
+        "error": "Budget could not be set: %{error}",
+        "success": "Budget was successfully set."
+      },
+      "destroy": {
+        "error": "Budget could not be disabled.",
+        "success": "Budget was successfully disabled."
+      },
+      "reenable": {
+        "error": "Budget could not be re-enabled.",
+        "success": "Budget was successfully re-enabled."
+      },
+      "update": {
+        "error": "Budget could not be updated: %{error}",
+        "success": "Budget was successfully updated."
       }
     },
     "categories": {
@@ -753,6 +774,28 @@
     "views": {
       "app_description": "Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.",
       "app_name": "Finance MicroManager",
+      "budgets": {
+        "confirmation": {
+          "disable": "Are you sure you want to disable this budget? This will keep past budgets, including the current month's budget.",
+          "reenable": "Are you sure you want to re-enable this budget? This will take effect for the current month and future months."
+        },
+        "floating_button_label": "New Budget",
+        "form": {
+          "cancel": "Cancel",
+          "edit_title": "Edit Budget",
+          "limit_label": "Monthly Limit",
+          "limit_type_absolute_label": "Absolute",
+          "limit_type_label": "Budget Type",
+          "limit_type_percentage_label": "Percentage",
+          "limit_type_remainder_label": "Remainder",
+          "new_title": "New Budget",
+          "submit": "Submit"
+        },
+        "index": {
+          "new": "New Budget",
+          "title": "Budgets"
+        }
+      },
       "categories": {
         "confirmation": {
           "disable": "Are you sure you want to disable this category?",
@@ -797,6 +840,11 @@
         }
       },
       "components": {
+        "budgets_list": {
+          "budget_usage_label": "Budget",
+          "category_name_label": "Category",
+          "new_budget_label": "Set Budget"
+        },
         "categories_list": {
           "disabled": "Disabled",
           "name_label": "Name",

@@ -1,4 +1,18 @@
 pt-BR:
+  budgets:
+    create:
+      success: 'Orçamento criado com sucesso.'
+      error: 'Orçamento não pode ser criado: %{error}'
+    update:
+      success: 'Orçamento atualizado com successo.'
+      error: 'Orçamento não pode ser atualizado: %{error}'
+    destroy:
+      success: 'Orçamento desativado com sucesso.'
+      error: 'Orçamento não pode ser desativado.'
+    reenable:
+      success: 'Orçamento reabilitado com sucesso.'
+      error: 'Orçamento não pode ser reabilitado.'
+
   categories:
     create:
       success: 'Categoria "%{name}" criada com sucesso.'

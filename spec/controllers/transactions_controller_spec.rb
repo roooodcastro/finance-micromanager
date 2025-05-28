@@ -55,7 +55,7 @@ RSpec.describe TransactionsController do
     let!(:transaction) { create(:transaction, profile:) }
 
     before do
-      allow_any_instance_of(Transaction) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(Transaction)
         .to receive(:as_json)
         .with(include_author_info: true)
         .and_return('serialized_json')

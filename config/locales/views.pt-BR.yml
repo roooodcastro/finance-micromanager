@@ -5,6 +5,25 @@ pt-BR:
     app_description: >-
       Finance MicroManager is a personal finance management tool designed to allow users to meticulously track their day-to-day expenses. With a user-friendly interface, this web-based application ensures you have complete control and visibility into your financial life.
 
+    budgets:
+      floating_button_label: Novo Orçamento
+      confirmation:
+        disable: Tem certeza de que deseja desabilitar este orçamento? Isto irá manter orçamentos passados, incluindo o deste mês.
+        reenable: Tem certeza de que deseja reabilitar este orçamento? Isto terá efeito para o mês corrente e meses futuros.
+      index:
+        title: Orçamentos
+        new: Novo Orçamento
+      form:
+        new_title: Novo Orçamento
+        edit_title: Editar Orçamento
+        limit_label: Limite Mensal
+        limit_type_label: Tipo do Orçamento
+        limit_type_absolute_label: Absoluto
+        limit_type_percentage_label: Porcentagem
+        limit_type_remainder_label: Restante
+        submit: Salvar
+        cancel: Cancelar
+
     categories:
       floating_button_label: Nova Categoria
       confirmation:
@@ -47,6 +66,10 @@ pt-BR:
           serão mantidos.
 
     components:
+      budgets_list:
+        category_name_label: Categoria
+        budget_usage_label: Orçamento
+        new_budget_label: Criar Orçamento
       categories_list:
         disabled: Desabilitada
         system: Sistema

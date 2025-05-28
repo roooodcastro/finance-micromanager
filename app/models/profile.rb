@@ -8,10 +8,6 @@ class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :default_wallet, class_name: 'Wallet', optional: true
 
-  # rubocop:disable Rails/InverseOf, Rails/HasManyOrHasOneDependent
-  has_one :latest_reconciliation, -> { finished.order(date: :desc) }, class_name: 'Reconciliation'
-  # rubocop:enable Rails/InverseOf, Rails/HasManyOrHasOneDependent
-
   has_many :transactions, dependent: :restrict_with_exception
   has_many :categories, dependent: :restrict_with_exception
   has_many :subcategories, through: :categories, source: :profile
@@ -22,11 +18,18 @@ class Profile < ApplicationRecord
   has_many :transaction_automations, dependent: :restrict_with_exception
   has_many :transaction_predictions, dependent: :restrict_with_exception
   has_many :import_names, dependent: :restrict_with_exception
+  has_many :shared_users, class_name: 'User', through: :profile_shares, source: :user
+
+  # All budgets (category and own) within the profile
+  has_many :budgets, dependent: :restrict_with_exception
+  # Budget for this profile
+  has_one :budget, as: :owner, dependent: :restrict_with_exception
+  has_many :budget_instances, as: :owner, dependent: :restrict_with_exception
+
   # rubocop:disable Rails/InverseOf, Rails/HasManyOrHasOneDependent
+  has_one :latest_reconciliation, -> { finished.order(date: :desc) }, class_name: 'Reconciliation'
   has_many :finished_reconciliations, -> { finished.order(date: :desc) }, class_name: 'Reconciliation'
   # rubocop:enable Rails/InverseOf, Rails/HasManyOrHasOneDependent
-
-  has_many :shared_users, class_name: 'User', through: :profile_shares, source: :user
 
   scope :shared_with, ->(user) { left_joins(:profile_shares).where(profile_shares: { user: }) }
 

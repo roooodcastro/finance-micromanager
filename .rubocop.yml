@@ -126,3 +126,6 @@ RSpec/ContextWording:
 
 RSpec/IndexedLet:
   Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false

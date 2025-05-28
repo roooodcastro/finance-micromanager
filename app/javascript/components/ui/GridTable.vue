@@ -62,6 +62,7 @@
         :row="row"
         :actions="actions"
         :side-strip-color="sideStripColor"
+        :hoverable="hoverable"
       >
         <slot :row="row" />
       </GridTableRow>
@@ -158,6 +159,15 @@ export default {
       type: Number,
       default: 300,
     },
+
+    /*
+     * Used when the grid rows do not have clickable links. This option forces the row to have hover highlighting for
+     * easier navigation.
+     */
+    hoverable: {
+      type: Boolean,
+      default: false,
+    }
   },
 
   emits: ['search'],
@@ -237,7 +247,8 @@ export default {
 }
 
 // Hover effect for rows that are links
-a.GridRow:hover, a.GridRow.active, a.GridRow.focus {
+a.GridRow:hover, a.GridRow.active, a.GridRow.focus,
+div.GridRow--hoverable:hover, div.GridRow--hoverable:active, div.GridRow--hoverable:focus {
   background-color: transparent !important;
 
   .GridRow__content > * {

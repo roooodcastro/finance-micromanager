@@ -1,4 +1,18 @@
 en:
+  budgets:
+    create:
+      success: 'Budget was successfully set.'
+      error: 'Budget could not be set: %{error}'
+    update:
+      success: 'Budget was successfully updated.'
+      error: 'Budget could not be updated: %{error}'
+    destroy:
+      success: 'Budget was successfully disabled.'
+      error: 'Budget could not be disabled.'
+    reenable:
+      success: 'Budget was successfully re-enabled.'
+      error: 'Budget could not be re-enabled.'
+
   categories:
     create:
       success: 'Category "%{name}" was successfully created.'

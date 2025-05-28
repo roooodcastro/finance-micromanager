@@ -75,14 +75,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../stylesheets/variables';
-
-.CategoriesList__color-indicator {
-  border: 1px solid $table-border-color;
-  display: inline-block;
-  width: 2em;
-  height: 2em;
-}
-</style>

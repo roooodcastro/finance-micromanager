@@ -2,6 +2,8 @@
 en:
   activerecord:
     attributes:
+      budget:
+        limit_type_remainder: Remainder
       import:
         sources:
           ptsb: PTSB
