@@ -2,6 +2,7 @@
 pt-BR:
   activerecord:
     models:
+      budget: Orçamento
       category: Categoria
       profile: Perfil
       user: Usuário
@@ -9,6 +10,9 @@ pt-BR:
       transaction: Transação
       wallet: Carteira
     attributes:
+      budget:
+        limit_type: Tipo do Orçamento
+        limit_type_remainder: Restante
       category:
         name: Nome
         color: Cor

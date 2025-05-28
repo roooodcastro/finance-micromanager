@@ -26,4 +26,16 @@ class Budget < ApplicationRecord
   def currency
     profile&.currency || Money.default_currency
   end
+
+  def as_json
+    super.merge('limit_amount' => limit_amount.to_f, 'formatted_limit' => formatted_limit)
+  end
+
+  def formatted_limit
+    return if disabled?
+    return I18n.t('activerecord.attributes.budget.limit_type_remainder') if limit_type_remainder?
+    return limit_amount.format if limit_type_absolute?
+
+    "#{limit_percentage}%"
+  end
 end

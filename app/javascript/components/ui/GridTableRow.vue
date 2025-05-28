@@ -3,7 +3,7 @@
     :is="!!row.href ? 'a' : 'div'"
     :href="row.href"
     class="GridRow"
-    :class="{ 'text-decoration-none link-body-emphasis': !!row.href }"
+    :class="{ 'text-decoration-none link-body-emphasis': !!row.href, 'GridRow--hoverable': hoverable }"
     :style="gridRowStyle(row)"
   >
     <HorizontalSwipe
@@ -60,6 +60,10 @@ export default {
     sideStripColor: {
       type: Function,
       default: () => {},
+    },
+    hoverable: {
+      type: Boolean,
+      default: false,
     },
   },
 

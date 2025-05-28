@@ -5,7 +5,7 @@ RSpec.describe Reconciliations::FinishReconciliation do
 
   describe '#self.call' do
     it 'creates a new instance and runs "call"' do
-      expect_any_instance_of(described_class).to receive(:call) # rubocop:disable RSpec/AnyInstance
+      expect_any_instance_of(described_class).to receive(:call)
       described_class.call(instance_double(Reconciliation, finished!: true))
     end
   end

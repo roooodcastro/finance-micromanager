@@ -35,6 +35,10 @@ Rails.application.routes.draw do
       root to: 'landings#show', as: :public_root
     end
 
+    resources :budgets, only: %i[index create update destroy] do
+      patch :reenable, on: :member
+    end
+
     resource :dashboard, only: :show
     resource :landing, only: :show
     resource :setting, only: %i[show update]

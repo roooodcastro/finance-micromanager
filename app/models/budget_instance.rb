@@ -13,7 +13,6 @@ class BudgetInstance < ApplicationRecord
   belongs_to :budget
   belongs_to :owner, polymorphic: true
 
-  validates :owner_id, uniqueness: { scope: :owner_type } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :owner_type, inclusion: { in: VALID_LIMIT_TYPES.keys }
   validates :limit_type, inclusion: { in: ->(instance) { VALID_LIMIT_TYPES[instance.owner_type] || [] } }
   validates :limit_amount, presence: true, if: ->(instance) { instance.limit_type_absolute? }

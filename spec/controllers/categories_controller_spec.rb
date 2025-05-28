@@ -96,7 +96,7 @@ RSpec.describe CategoriesController do
     end
   end
 
-  describe 'PATCH update', :inertia do
+  describe 'PATCH update' do
     subject(:update_request) { patch :update, params: }
 
     let!(:category) { create(:category, profile: profile, name: 'Test') }
@@ -108,8 +108,8 @@ RSpec.describe CategoriesController do
         expect { update_request }.not_to change { Category.count }
 
         expect(json_response).to eq({ 'message' => 'Category "New Name" was successfully updated.' })
-        expect(Category.last.name).to eq('New Name')
-        expect(Category.last.color).to eq('#FF00FF')
+        expect(category.reload.name).to eq('New Name')
+        expect(category.color).to eq('#FF00FF')
       end
     end
 

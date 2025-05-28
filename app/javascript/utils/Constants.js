@@ -12,6 +12,7 @@ export const PROFILE_SHARE_INVITE_MODAL_ID = 'profileShareInviteModal';
 /*
  * Form IDs
  */
+export const BUDGET_FORM_ID = 'budgetForm';
 export const CATEGORY_FORM_ID = 'categoryForm';
 export const IMPORT_FORM_ID = 'importForm';
 export const IMPORT_NAME_FORM_ID = 'importNameForm';
@@ -71,6 +72,7 @@ export const CURRENT_PROFILE_ID_HEADER_NAME = 'Current-Profile-Id';
 /*
  * Icons
  */
+export const ICON_BUDGETS = 'piggy-bank';
 export const ICON_DASHBOARD = 'home';
 export const ICON_TRANSACTION_AUTOMATIONS = 'robot';
 export const ICON_TRANSACTION_LIST = 'list';
@@ -96,6 +98,29 @@ export const CREDIT_TRANSACTION = 'credit';
 export const ALL_TRANSACTIONS = 'all';
 export const PAGINATION_PER_PAGE_OPTIONS = [10, 25, 50, 100];
 export const GITHUB_REPO_URL = 'https://github.com/roooodcastro/finance-micromanager';
+
+/*
+ * Budgets
+ */
+
+export const BUDGET_OWNER_TYPE_CATEGORY = 'Category';
+export const BUDGET_OWNER_TYPE_PROFILE = 'Profile';
+
+export const BUDGET_LIMIT_TYPE_ABSOLUTE ='absolute';
+export const BUDGET_LIMIT_TYPE_PERCENTAGE ='percentage';
+export const BUDGET_LIMIT_TYPE_REMAINDER ='remainder';
+
+export const BUDGET_VALID_LIMIT_TYPES_FOR_PROFILE = [BUDGET_LIMIT_TYPE_ABSOLUTE, BUDGET_LIMIT_TYPE_PERCENTAGE];
+export const BUDGET_VALID_LIMIT_TYPES_FOR_CATEGORY = [
+  BUDGET_LIMIT_TYPE_ABSOLUTE,
+  BUDGET_LIMIT_TYPE_PERCENTAGE,
+  BUDGET_LIMIT_TYPE_REMAINDER,
+];
+
+export const BUDGET_VALID_LIMIT_TYPES = {
+  [BUDGET_OWNER_TYPE_PROFILE]: BUDGET_VALID_LIMIT_TYPES_FOR_PROFILE,
+  [BUDGET_OWNER_TYPE_CATEGORY]: BUDGET_VALID_LIMIT_TYPES_FOR_CATEGORY,
+}
 
 /*
  * Imports
