@@ -42,10 +42,8 @@ RSpec.describe TransactionImports::ImportTransaction do
         expect { assign_match_transaction }
           .to change { import_transaction.name }
           .to('A Name')
-          .and change { import_transaction.transaction_date }
-          .to(Date.parse('2024-09-01'))
-          .and change { import_transaction.amount.to_f }
-          .to(123)
+          .and not_change { import_transaction.transaction_date }
+          .and not_change { import_transaction.amount.to_f }
           .and change { import_transaction.category }
           .to(category)
           .and change { import_transaction.subcategory }
