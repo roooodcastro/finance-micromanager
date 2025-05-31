@@ -5,8 +5,9 @@ import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.j
 import { RulesParser, CONTAINS_OPERATOR, EQUALS_OPERATOR } from '~/lib/transaction_predictions/RulesParser.js';
 
 export class RulesProcessor {
-  constructor(transaction) {
+  constructor(transaction, changedColumnName = null) {
     this.transaction = transaction;
+    this.changedColumnName = changedColumnName;
   }
 
   processTransaction() {
@@ -29,7 +30,9 @@ export class RulesProcessor {
       if (conditionResults.some(Boolean)) {
         rulesParser.actions.forEach((action) => {
           const columnName = _.camelCase(action.column);
-          this.transaction[columnName] = action.value;
+          if (this.changedColumnName !== columnName) {
+            this.transaction[columnName] = action.value;
+          }
         });
       }
     });

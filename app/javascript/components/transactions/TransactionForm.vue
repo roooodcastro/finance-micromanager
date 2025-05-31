@@ -27,7 +27,7 @@
             :label="t('name_label')"
             class="focus"
             required
-            @input="handleInput"
+            @input="handleInput('name')"
           />
 
           <label
@@ -52,7 +52,7 @@
                 step="0.01"
                 :disabled="transaction.lockedByReconciliation"
                 required
-                @input="handleInput"
+                @input="handleInput('amount')"
               >
             </div>
 
@@ -79,7 +79,7 @@
             type="date"
             :disabled="transaction.lockedByReconciliation"
             required
-            @input="handleInput"
+            @input="handleInput('transactionDate')"
           />
 
           <label
@@ -94,7 +94,7 @@
             v-model="transaction.categoryId"
             :name="formHelper.fieldName('category_id')"
             required
-            @change="handleInput"
+            @change="handleInput('categoryId')"
           />
 
           <template v-if="showWalletField">
@@ -111,7 +111,7 @@
               v-model="transaction.walletId"
               :name="formHelper.fieldName('wallet_id')"
               :disabled="transaction.lockedByReconciliation"
-              @change="handleInput"
+              @change="handleInput('walletId')"
             />
           </template>
         </template>
@@ -293,9 +293,9 @@ export default {
       }
     };
 
-    const handleInput = () => {
+    const handleInput = (changedColumnName) => {
       if (isNewRecord.value) {
-        transaction.value = new RulesProcessor(transaction.value).processTransaction();
+        transaction.value = new RulesProcessor(transaction.value, changedColumnName).processTransaction();
       }
     };
 

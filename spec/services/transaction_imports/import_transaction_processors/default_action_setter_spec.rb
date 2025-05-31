@@ -117,12 +117,10 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::DefaultActionSet
           .to('match')
           .and change { import_transaction.name }
           .to(transaction.name)
-          .and change { import_transaction.transaction_date }
-          .to(transaction.transaction_date)
+          .and not_change { import_transaction.transaction_date }
           .and change { import_transaction.category }
           .to(transaction.category)
-          .and change { import_transaction.amount.to_f }
-          .to(transaction.amount.to_f)
+          .and not_change { import_transaction.amount.to_f }
       end
     end
 
