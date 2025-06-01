@@ -11,6 +11,7 @@ module TransactionImports
       # know to not try to parse the file, and instead throw an error. The new file format will need to be implemented
       # before it can be parsed.
       CURRENT_CSV_FORMAT_MD5    = '46032c7802e90152084331a5bb9555c0'
+      TYPE_PRESENTMENT          = 'Presentment'
 
       # PDF variables
       #
@@ -76,7 +77,7 @@ module TransactionImports
         rows.map do |row|
           original_import_name = build_full_transaction_name(row)
           name                 = original_import_name
-          transaction_date     = Date.parse(row[1])
+          transaction_date     = parse_date(row)
           amount               = row[7].to_f
           wallet               = import.wallet
 
@@ -136,6 +137,12 @@ module TransactionImports
         return if Digest::MD5.hexdigest(header_row.join) == CURRENT_CSV_FORMAT_MD5
 
         raise WrongCsvFileFormatError
+      end
+
+      def parse_date(row)
+        date  = Date.parse(row[1])
+        date -= 1.day if row[4] == TYPE_PRESENTMENT
+        date
       end
 
       def source
