@@ -13,7 +13,7 @@ RSpec.describe TransactionImports::Parsers::N26, type: :service do
           import:               import,
           original_import_name: 'amazon.co.uk*DJ43KJFsd',
           name:                 'amazon.co.uk*DJ43KJFsd',
-          transaction_date:     Date.parse('2024-12-30'),
+          transaction_date:     Date.parse('2024-12-29'),
           amount:               -6.03,
           wallet_id:            import.wallet.id
         ),
@@ -21,7 +21,7 @@ RSpec.describe TransactionImports::Parsers::N26, type: :service do
           import:               import,
           original_import_name: 'TESCO STORES',
           name:                 'TESCO STORES',
-          transaction_date:     Date.parse('2024-12-30'),
+          transaction_date:     Date.parse('2024-12-29'),
           amount:               -28.89,
           wallet_id:            import.wallet.id
         ),
@@ -29,7 +29,7 @@ RSpec.describe TransactionImports::Parsers::N26, type: :service do
           import:               import,
           original_import_name: 'COSTA',
           name:                 'COSTA',
-          transaction_date:     Date.parse('2024-12-30'),
+          transaction_date:     Date.parse('2024-12-29'),
           amount:               -5.65,
           wallet_id:            import.wallet.id
         ),
