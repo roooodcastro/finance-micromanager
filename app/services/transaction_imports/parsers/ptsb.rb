@@ -14,7 +14,7 @@ module TransactionImports
           original_import_name = row[2].scan(TRANSACTION_NAME_REGEX).join(' ')
           name                 = row[2].scan(TRANSACTION_NAME_REGEX).join(' ')
           transaction_date     = extract_date(row)
-          amount               = row[3].to_f - row[4].to_f
+          amount               = parse_amount(row)
           wallet               = import.wallet
 
           TransactionImports::ImportTransaction.new(
@@ -52,6 +52,13 @@ module TransactionImports
       def parse_date(statement_date, year)
         date_parts = statement_date.split('/').reverse
         Date.parse(([year] + date_parts).join('-'))
+      end
+
+      def parse_amount(row)
+        credit = row[3].to_f
+        debit  = row[4].to_f.positive? ? row[4].to_f * -1 : row[4].to_f
+
+        credit + debit
       end
 
       def source
