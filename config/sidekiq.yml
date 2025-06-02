@@ -7,3 +7,6 @@
     process_transaction_automations:
       cron: '0 2 * * *'
       class: ProcessTransactionAutomationsJob
+    create_budget_instances:
+      cron: '1 0 1 * *'
+      class: 'CreateBudgetInstances'

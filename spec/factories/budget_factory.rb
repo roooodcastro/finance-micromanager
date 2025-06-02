@@ -8,6 +8,10 @@ FactoryBot.define do
     limit_amount { 100 }
     limit_percentage { nil }
 
+    after(:build) do |budget|
+      budget.owner ||= budget.profile
+    end
+
     trait :category do
       owner { Category.last }
     end
@@ -24,7 +28,7 @@ FactoryBot.define do
 
     trait :percentage do
       limit_type { :percentage }
-      limit_amount { nil }
+      limit_amount_cents { nil }
       limit_percentage { 10 }
     end
 
