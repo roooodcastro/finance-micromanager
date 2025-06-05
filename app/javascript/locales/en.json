@@ -792,8 +792,14 @@
           "submit": "Submit"
         },
         "index": {
-          "new": "New Budget",
-          "title": "Budgets"
+          "categories_subheader": "Budgets per category",
+          "edit": "Edit",
+          "monthly_budget_absolute_desc": "%{amount} / month",
+          "monthly_budget_percentage_desc": "%{percentage} of monthly income",
+          "new": "Set Budget",
+          "no_budget_set": "--- No budget ---",
+          "profile_subheader": "Profile Budget",
+          "title": "Budgets config"
         }
       },
       "categories": {
@@ -841,7 +847,7 @@
       },
       "components": {
         "budgets_list": {
-          "budget_usage_label": "Budget",
+          "budget_usage_label": "Monthly",
           "category_name_label": "Category",
           "new_budget_label": "Set Budget"
         },

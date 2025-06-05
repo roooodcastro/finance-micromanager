@@ -21,9 +21,9 @@ class Profile < ApplicationRecord
   has_many :shared_users, class_name: 'User', through: :profile_shares, source: :user
 
   # All budgets (category and own) within the profile
-  has_many :budgets, dependent: :restrict_with_exception
-  # Budget for this profile
-  has_one :budget, as: :owner, dependent: :restrict_with_exception
+  has_many :budgets, dependent: :restrict_with_exception, inverse_of: :profile
+  # Own budget for this profile
+  has_one :budget, -> { active }, inverse_of: :owner, as: :owner, dependent: :restrict_with_exception
   has_many :budget_instances, as: :owner, dependent: :restrict_with_exception
 
   # rubocop:disable Rails/InverseOf, Rails/HasManyOrHasOneDependent

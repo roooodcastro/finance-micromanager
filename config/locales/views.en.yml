@@ -11,8 +11,15 @@ en:
         disable: Are you sure you want to disable this budget? This will keep past budgets, including the current month's budget.
         reenable: Are you sure you want to re-enable this budget? This will take effect for the current month and future months.
       index:
-        title: Budgets
-        new: New Budget
+        title: Budgets config
+        new: Set Budget
+        edit: Edit
+        categories_subheader: Budgets per category
+        profile_subheader: Profile Budget
+        no_budget_set: --- No budget ---
+        monthly_budget_absolute_desc: '%{amount} / month'
+        monthly_budget_percentage_desc: '%{percentage} of monthly income'
+
       form:
         new_title: New Budget
         edit_title: Edit Budget
@@ -68,7 +75,7 @@ en:
     components:
       budgets_list:
         category_name_label: Category
-        budget_usage_label: Budget
+        budget_usage_label: Monthly
         new_budget_label: Set Budget
       categories_list:
         disabled: Disabled

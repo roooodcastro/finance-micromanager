@@ -1,30 +1,46 @@
 <template>
   <PageHeader :title="t('title')" />
 
-  <BudgetsList />
+  <ProfileBudget />
+
+  <BCard
+    :title="t('categories_subheader')"
+    class="mt-3"
+    no-body
+  >
+    <BudgetsList />
+  </BCard>
 
   <BudgetForm />
 </template>
 
 <script>
-import I18n from '~/utils/I18n.js';
 import useBudgetStore from '~/stores/BudgetStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import I18n from '~/utils/I18n.js';
 
-import PageHeader from '~/components/layout/PageHeader.vue';
-import BudgetsList from '~/components/budgets/BudgetsList.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
 import BudgetForm from '~/components/budgets/BudgetForm.vue';
+import BudgetsList from '~/components/budgets/BudgetsList.vue';
+import ProfileBudget from '~/components/budgets/ProfileBudget.vue';
+import PageHeader from '~/components/layout/PageHeader.vue';
 
 export default {
   components: {
+    BCard,
     BudgetsList,
     BudgetForm,
     PageHeader,
+    ProfileBudget,
   },
 
   props: {
     budgets: {
       type: Array,
+      required: true,
+    },
+    profileBudget: {
+      type: Object,
       required: true,
     },
   },
@@ -35,6 +51,7 @@ export default {
     // Load props into budgets store
     const budgetStore = useBudgetStore();
     budgetStore.loadCollectionFromProps(props.budgets);
+    budgetStore.loadProfileBudgetFromProps(props.profileBudget);
 
     const categoryStore = useCategoryStore();
     categoryStore.fetchCollection();

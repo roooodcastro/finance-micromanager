@@ -3,7 +3,8 @@
 class Budget < ApplicationRecord
   include Disableable
 
-  monetize :limit_amount_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
+  monetize :limit_amount_cents, allow_nil: true, disable_validation: true,
+    with_currency: ->(instance) { instance.currency }
 
   VALID_LIMIT_TYPES = {
     'Profile'  => %w[absolute percentage],
@@ -22,6 +23,13 @@ class Budget < ApplicationRecord
   validates :limit_percentage, absence: true, unless: ->(instance) { instance.limit_type_percentage? }
 
   enum :limit_type, { absolute: 'absolute', percentage: 'percentage', remainder: 'remainder' }, prefix: :limit_type
+
+  def self.build_budget(params)
+    budget   = find_by(profile: Current.profile, owner_id: params[:owner_id]) if params[:owner_type] == 'Profile'
+    budget ||= Current.profile.budgets.new
+    budget.assign_attributes({ disabled_at: nil, disabled_by: nil }.merge(params))
+    budget
+  end
 
   def currency
     profile&.currency || Money.default_currency

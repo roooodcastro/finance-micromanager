@@ -14,6 +14,7 @@ RSpec.describe BudgetsController do
 
     let!(:category) { create(:category, profile:) }
     let!(:budget) { create(:budget, profile: profile, owner: category) }
+    let!(:profile_budget) { create(:budget, profile: profile, owner: profile) }
 
     context 'for a HTML request', :inertia do
       let(:format) { :html }
@@ -31,7 +32,10 @@ RSpec.describe BudgetsController do
       it 'renders the budgets as json' do
         index_request
 
-        expect(json_response).to eq({ 'budgets' => [CamelizeProps.call(budget.as_json)] })
+        expect(json_response).to eq(
+          'budgets'       => [CamelizeProps.call(budget.as_json), CamelizeProps.call(profile_budget.as_json)],
+          'profileBudget' => CamelizeProps.call(profile_budget.as_json)
+        )
       end
     end
   end

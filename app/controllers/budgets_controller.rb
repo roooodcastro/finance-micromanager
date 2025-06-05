@@ -4,8 +4,9 @@ class BudgetsController < AbstractAuthenticatedController
   before_action :set_budget, only: %i[update destroy reenable]
 
   def index
-    budgets       = Current.profile.budgets
-    props         = camelize_props(budgets: budgets.as_json)
+    budgets        = Current.profile.budgets
+    profile_budget = Current.profile.budget
+    props          = camelize_props(budgets: budgets.as_json, profile_budget: profile_budget.as_json)
 
     respond_to do |format|
       format.html { render inertia: 'budgets/Index', props: props }
@@ -14,7 +15,7 @@ class BudgetsController < AbstractAuthenticatedController
   end
 
   def create
-    budget = Current.profile.budgets.new(budget_params)
+    budget = Budget.build_budget(budget_params)
 
     if budget.save
       render json: camelize_props(message: t('.success'))

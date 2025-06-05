@@ -861,8 +861,14 @@
           "submit": "Salvar"
         },
         "index": {
-          "new": "Novo Orçamento",
-          "title": "Orçamentos"
+          "categories_subheader": "Orçamentos por categoria",
+          "edit": "Editar",
+          "monthly_budget_absolute_desc": "%{amount} / mês",
+          "monthly_budget_percentage_desc": "%{percentage} da renda mensal",
+          "new": "Definir Orçamento",
+          "no_budget_set": "--- Sem orçamento ---",
+          "profile_subheader": "Orçamento do perfil",
+          "title": "Configuração de orçamentos"
         }
       },
       "categories": {
@@ -911,7 +917,7 @@
       },
       "components": {
         "budgets_list": {
-          "budget_usage_label": "Orçamento",
+          "budget_usage_label": "Mensal",
           "category_name_label": "Categoria",
           "new_budget_label": "Criar Orçamento"
         },
