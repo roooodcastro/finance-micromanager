@@ -11,8 +11,14 @@ pt-BR:
         disable: Tem certeza de que deseja desabilitar este orçamento? Isto irá manter orçamentos passados, incluindo o deste mês.
         reenable: Tem certeza de que deseja reabilitar este orçamento? Isto terá efeito para o mês corrente e meses futuros.
       index:
-        title: Orçamentos
-        new: Novo Orçamento
+        title: Configuração de orçamentos
+        new: Definir Orçamento
+        edit: Editar
+        categories_subheader: Orçamentos por categoria
+        profile_subheader: Orçamento do perfil
+        no_budget_set: --- Sem orçamento ---
+        monthly_budget_absolute_desc: '%{amount} / mês'
+        monthly_budget_percentage_desc: '%{percentage} da renda mensal'
       form:
         new_title: Novo Orçamento
         edit_title: Editar Orçamento
@@ -68,7 +74,7 @@ pt-BR:
     components:
       budgets_list:
         category_name_label: Categoria
-        budget_usage_label: Orçamento
+        budget_usage_label: Mensal
         new_budget_label: Criar Orçamento
       categories_list:
         disabled: Desabilitada

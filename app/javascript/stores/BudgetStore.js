@@ -14,11 +14,24 @@ export default defineBaseApiStore('budget', {
 
   state: {
     budgets: [],
+    profileBudget: null,
     budget: null,
     fetchParams: {},
   },
 
   actions: {
+    loadProfileBudgetFromProps(profileBudget) {
+      this.profileBudget = profileBudget;
+    },
+
+    fetchProfileBudget() {
+      this.loading = true;
+      budgetsApi
+        .index()
+        .then(response => this.profileBudget = response.profileBudget)
+        .finally(() => this.loading = false);
+    },
+
     fetchSingle(id) {
       this.loading = true;
       budgetsApi
@@ -37,7 +50,11 @@ export default defineBaseApiStore('budget', {
           budgetsApi
             .destroy({ id })
             .then((response) => {
-              this.fetch(id, fetchOptions);
+              if (this.profileBudget?.id === id) {
+                this.fetchProfileBudget();
+              } else {
+                this.fetch(id, fetchOptions);
+              }
               notificationStore.notify(response.message, 'success');
             })
             .catch((error) => {

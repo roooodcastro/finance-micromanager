@@ -29,6 +29,7 @@
             :name="formHelper.fieldName('limit_type')"
             :limit-owner-type="budget.ownerType"
             required
+            @change="handleLimitTypeChange"
           />
 
           <template v-if="budget.limitType === BUDGET_LIMIT_TYPE_ABSOLUTE">
@@ -104,6 +105,7 @@ import {
   BUDGET_FORM_ID,
   BUDGET_LIMIT_TYPE_ABSOLUTE,
   BUDGET_LIMIT_TYPE_PERCENTAGE,
+  BUDGET_OWNER_TYPE_PROFILE,
 } from '~/utils/Constants.js';
 
 import RailsForm from '~/components/rails/RailsForm.vue';
@@ -142,15 +144,26 @@ export default {
     const handleSubmit = (closeModal) => {
       loading.value = true;
       if (isNewRecord.value) {
+        const isProfileBudget = budget.value.ownerType === BUDGET_OWNER_TYPE_PROFILE;
         budgetStore
           .create(budget.value)
-          .then(closeModal)
+          .then(() => {
+            if (isProfileBudget) {
+              budgetStore.fetchProfileBudget();
+            }
+            closeModal();
+          })
           .catch(() => {})
           .finally(() => loading.value = false);
       } else {
         budgetStore
           .update(budget.value.id, budget.value)
-          .then(closeModal)
+          .then(() => {
+            if (budget.value.ownerType === BUDGET_OWNER_TYPE_PROFILE) {
+              budgetStore.fetchProfileBudget();
+            }
+            closeModal();
+          })
           .catch(() => {})
           .finally(() => loading.value = false);
       }
@@ -170,6 +183,11 @@ export default {
       setDefaultValues();
     };
 
+    const handleLimitTypeChange = () => {
+      budget.value.limitAmount = null;
+      budget.value.limitPercentage = '';
+    }
+
     return {
       t,
       loading,
@@ -180,6 +198,7 @@ export default {
       currencySymbol,
       handleSubmit,
       handleShow,
+      handleLimitTypeChange,
       BUDGET_FORM_ID,
       BUDGET_LIMIT_TYPE_ABSOLUTE,
       BUDGET_LIMIT_TYPE_PERCENTAGE,

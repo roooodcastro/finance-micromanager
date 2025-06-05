@@ -1,10 +1,6 @@
 <template>
   <NoRecordsFound v-if="!categoriesWithBudgets.length" />
-  <BCard
-    v-else
-    no-body
-    class="p-2"
-  >
+  <template v-else>
     <GridTable
       :columns="budgetColumns"
       :rows="categoriesWithBudgets"
@@ -19,7 +15,7 @@
         />
       </template>
     </GridTable>
-  </BCard>
+  </template>
 </template>
 
 <script>
@@ -35,11 +31,9 @@ import { BUDGET_OWNER_TYPE_CATEGORY } from '~/utils/Constants.js';
 import BudgetTableRow from '~/components/budgets/BudgetTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import GridTable from '~/components/ui/GridTable.vue';
-import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    BCard,
     BudgetTableRow,
     GridTable,
     NoRecordsFound,
