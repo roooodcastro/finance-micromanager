@@ -10,8 +10,7 @@ class BudgetInstance < ApplicationRecord
 
   validates :owner_type, inclusion: { in: Budget::VALID_LIMIT_TYPES.keys }
   validates :limit_type, inclusion: { in: ->(instance) { Budget::VALID_LIMIT_TYPES[instance.owner_type] || [] } }
-  validates :limit_amount, presence: true, if: ->(instance) { instance.limit_type_absolute? }
-  validates :limit_amount, absence: true, unless: ->(instance) { instance.limit_type_absolute? }
+  validates :limit_amount, presence: true
   validates :limit_percentage, presence: true, if: ->(instance) { instance.limit_type_percentage? }
   validates :limit_percentage, absence: true, unless: ->(instance) { instance.limit_type_percentage? }
   validates :used_amount, presence: true
