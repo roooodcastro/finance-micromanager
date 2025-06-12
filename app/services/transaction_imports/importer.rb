@@ -21,6 +21,8 @@ module TransactionImports
           import_transaction!(import_transaction)
         end
 
+        Budgets::UpdateProfileBudgetInstancesService.call(import.profile)
+
         import.finished!
       rescue ActiveRecord::ActiveRecordError
         raise ActiveRecord::Rollback

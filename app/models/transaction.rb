@@ -7,7 +7,7 @@ class Transaction < ApplicationRecord
 
   monetize :amount_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
 
-  attr_accessor :amount_type
+  attr_accessor :amount_type, :skip_budget_recalculation
 
   belongs_to :import, optional: true
   belongs_to :transaction_automation, optional: true
@@ -25,6 +25,8 @@ class Transaction < ApplicationRecord
   before_save -> { update_balances!(:save) }
   before_destroy :check_reconciliation_date_before_destroy, prepend: true
   before_destroy -> { update_balances!(:destroy) }
+  after_destroy -> { update_budget_instances! }
+  after_save -> { update_budget_instances! }
 
   validates :name, :transaction_date, :amount, presence: true
   validate :validate_cannot_alter_prior_to_reconciliation
@@ -107,6 +109,10 @@ class Transaction < ApplicationRecord
 
   def update_balances!(operation)
     ::Transactions::UpdateAssociatedBalances.call(self, operation)
+  end
+
+  def update_budget_instances!
+    Budgets::UpdateProfileBudgetInstancesService.call(profile) unless skip_budget_recalculation
   end
 
   def validate_category_is_enabled

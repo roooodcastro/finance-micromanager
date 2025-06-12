@@ -17,6 +17,8 @@ class BudgetInstance < ApplicationRecord
 
   enum :limit_type, { absolute: 'absolute', percentage: 'percentage', remainder: 'remainder' }, prefix: :limit_type
 
+  scope :for_current_date, -> { where(start_date: (...Time.current), end_date: (Time.current...)) }
+
   def self.build_from_budget(budget)
     new(
       profile:          budget.profile,
