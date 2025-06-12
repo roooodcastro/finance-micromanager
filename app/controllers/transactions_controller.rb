@@ -65,9 +65,11 @@ class TransactionsController < AbstractAuthenticatedController
 
     Transaction.transaction do
       transactions.find_each(batch_size: 100) do |transaction|
-        transaction.update!(update_all_params)
+        transaction.update!(update_all_params.merge(skip_budget_recalculation: true))
       end
     end
+
+    Budgets::UpdateProfileBudgetInstancesService.call(Current.profile)
 
     render json: { message: t('.success') }
   rescue ActiveRecord::ActiveRecordError, ActiveRecord::Rollback => e
