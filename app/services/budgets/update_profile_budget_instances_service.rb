@@ -51,7 +51,7 @@ module Budgets
       budget_instance = category_budget_instances.find(&:limit_type_remainder?)
       return unless budget_instance
 
-      categories_limit_amount = category_budget_instances.sum(&:limit_amount)
+      categories_limit_amount = (category_budget_instances - [budget_instance]).sum(&:limit_amount)
       profile_limit_amount    = profile_budget_instance&.limit_amount || calculate_profile_income(
         budget_instance.start_date, budget_instance.end_date
       )

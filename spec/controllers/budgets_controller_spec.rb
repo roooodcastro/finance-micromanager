@@ -57,13 +57,19 @@ RSpec.describe BudgetsController do
         }
       end
 
-      it 'creates the new budget' do
-        expect { create_request }.to change { Budget.count }.by(1)
+      it 'creates the new budget and budget_instance for current period' do
+        expect { create_request }
+          .to change { Budget.count }
+          .by(1)
+          .and change { BudgetInstance.count }
+          .by(1)
 
         expect(json_response).to eq({ 'message' => 'Budget was successfully set.' })
-        new_budget = Budget.last
+        new_budget          = Budget.last
         expect(new_budget.owner).to eq(category)
         expect(new_budget.formatted_limit).to eq('10.0%')
+        new_budget_instance = BudgetInstance.last
+        expect(new_budget_instance.budget).to eq(new_budget)
       end
     end
 
@@ -167,13 +173,18 @@ RSpec.describe BudgetsController do
 
     let!(:budget) { create(:budget, profile: profile, owner: profile) }
 
+    before { create(:budget_instance, :from_budget, budget:) }
+
     context 'when the budget can be disabled' do
       it 'disables the budget and renders json' do
         expect { delete_request }
           .to not_change { Budget.count }
           .and change { budget.reload.disabled? }
           .to(true)
+          .and change { BudgetInstance.count }
+          .by(-1)
 
+        expect(budget.current_budget_instance).to be_nil
         expect(json_response).to eq('message' => 'Budget was successfully disabled.')
       end
     end
@@ -202,6 +213,11 @@ RSpec.describe BudgetsController do
           .to not_change { Budget.count }
           .and change { budget.reload.disabled? }
           .to(false)
+          .and change { BudgetInstance.count }
+          .by(1)
+
+        new_budget_instance = BudgetInstance.last
+        expect(new_budget_instance.budget).to eq(budget)
 
         expect(json_response).to eq('message' => 'Budget was successfully re-enabled.')
       end

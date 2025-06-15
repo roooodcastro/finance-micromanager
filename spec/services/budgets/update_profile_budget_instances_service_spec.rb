@@ -7,14 +7,14 @@ RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures
     let(:profile) { create(:profile) }
     let(:category) { create(:category, profile:) }
     let!(:budget_instance) { create(:budget_instance, :from_budget, profile:, budget:) }
+    let!(:profile_budget) do # rubocop:disable RSpec/LetSetup
+      profile_budget = create(:budget, :percentage, profile: profile, owner: profile, limit_percentage: 50)
+      create(:budget_instance, :from_budget, profile: profile, budget: profile_budget)
+    end
 
     before do
       create(:transaction, profile: profile, amount: 100, skip_budget_recalculation: true)
       create(:transaction, profile: profile, category: category, amount: -10, skip_budget_recalculation: true)
-
-      # Income transaction for 100, means profile budget is 50
-      profile_budget = create(:budget, :percentage, profile: profile, owner: profile, limit_percentage: 50)
-      create(:budget_instance, :from_budget, profile: profile, budget: profile_budget)
     end
 
     context 'for an absolute budget' do
@@ -40,13 +40,13 @@ RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures
       end
     end
 
-    context 'for a remainder budget' do
+    context 'for a remainder budget when profile budget is present' do
       let(:budget) { create(:budget, :remainder, profile: profile, owner: category) }
 
       before do
         # Total profile budget is 50, minus this 30 should yield 20 for the remainder
         budget = create(:budget, :absolute, profile: profile, limit_amount: 30, owner: create(:category, profile:))
-        create(:budget_instance, :from_budget, profile:, budget:)
+        create(:budget_instance, :from_budget, profile: profile, budget: budget, limit_amount: 100)
       end
 
       it 'updates the budget instance limit and used amount with the new transactions sum for that category' do
@@ -55,6 +55,30 @@ RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures
           .to(20)
           .and change { budget_instance.used_amount.to_f }
           .by(10)
+      end
+    end
+
+    context 'for a remainder budget when profile budget is absent' do
+      let(:budget) { create(:budget, :remainder, profile: profile, owner: category) }
+      let(:profile_budget) { nil }
+
+      it 'updates the budget instance limit and used amount with the new transactions sum for that category' do
+        expect { call }
+          .to change { budget_instance.reload.limit_amount.to_f }
+          .to(100)
+          .and change { budget_instance.used_amount.to_f }
+          .by(10)
+      end
+    end
+
+    context 'when an error is raised' do
+      let(:budget) { create(:budget, :absolute, profile: profile, owner: category) }
+
+      before { allow(Transaction).to receive(:where).and_raise(ActiveRecord::RecordInvalid) }
+
+      it 'reports the error to NewRelic' do
+        expect(NewRelic::Agent).to receive(:notice_error)
+        call
       end
     end
   end
