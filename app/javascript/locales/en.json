@@ -782,6 +782,7 @@
         "floating_button_label": "New Budget",
         "form": {
           "cancel": "Cancel",
+          "carryover_label": "Apply carryover to next month",
           "edit_title": "Edit Budget",
           "limit_label": "Monthly Limit",
           "limit_type_absolute_label": "Absolute",

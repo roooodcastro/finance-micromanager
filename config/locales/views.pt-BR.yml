@@ -27,6 +27,7 @@ pt-BR:
         limit_type_absolute_label: Absoluto
         limit_type_percentage_label: Porcentagem
         limit_type_remainder_label: Restante
+        carryover_label: Transferir saldo para o mês sequinte
         submit: Salvar
         cancel: Cancelar
 
