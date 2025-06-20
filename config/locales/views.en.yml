@@ -28,6 +28,7 @@ en:
         limit_type_absolute_label: Absolute
         limit_type_percentage_label: Percentage
         limit_type_remainder_label: Remainder
+        carryover_label: Apply carryover to next month
         submit: Submit
         cancel: Cancel
 

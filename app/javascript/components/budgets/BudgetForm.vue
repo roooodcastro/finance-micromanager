@@ -83,6 +83,14 @@
               >
             </div>
           </template>
+
+          <CheckboxField
+            :id="formHelper.fieldId('carryover')"
+            v-model="budget.carryover"
+            :name="formHelper.fieldName('carryover')"
+          >
+            {{ t('carryover_label') }}
+          </CheckboxField>
         </template>
       </RailsForm>
     </template>
@@ -111,9 +119,11 @@ import {
 import RailsForm from '~/components/rails/RailsForm.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import LimitTypeSelect from '~/components/budgets/LimitTypeSelect.vue';
+import CheckboxField from '~/components/forms/CheckboxField.vue';
 
 export default {
   components: {
+    CheckboxField,
     FormModal,
     LimitTypeSelect,
     RailsForm,

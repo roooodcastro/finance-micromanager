@@ -21,7 +21,8 @@ module TransactionImports
           import_transaction!(import_transaction)
         end
 
-        Budgets::UpdateProfileBudgetInstancesService.call(import.profile)
+        reference_dates = filtered_import_transactions.map(&:transaction_date)
+        Budgets::UpdateProfileBudgetInstancesService.call(import.profile, reference_dates)
 
         import.finished!
       rescue ActiveRecord::ActiveRecordError

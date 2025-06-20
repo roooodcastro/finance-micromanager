@@ -27,6 +27,7 @@ class Budget < ApplicationRecord
   validates :limit_amount, absence: true, unless: ->(instance) { instance.limit_type_absolute? }
   validates :limit_percentage, presence: true, if: ->(instance) { instance.limit_type_percentage? }
   validates :limit_percentage, absence: true, unless: ->(instance) { instance.limit_type_percentage? }
+  validates :carryover, inclusion: { in: [true, false] }
 
   enum :limit_type, { absolute: 'absolute', percentage: 'percentage', remainder: 'remainder' }, prefix: :limit_type
 

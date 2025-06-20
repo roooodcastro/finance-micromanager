@@ -17,20 +17,21 @@ class BudgetInstance < ApplicationRecord
 
   enum :limit_type, { absolute: 'absolute', percentage: 'percentage', remainder: 'remainder' }, prefix: :limit_type
 
-  scope :for_current_date, -> { where(start_date: (...Time.current), end_date: (Time.current...)) }
-
-  def self.build_from_budget(budget)
-    new(
-      profile:          budget.profile,
-      owner:            budget.owner,
-      limit_type:       budget.limit_type,
-      limit_amount:     budget.limit_amount,
-      limit_percentage: budget.limit_percentage,
-      budget:           budget
-    )
-  end
+  scope :for_current_date, ->(date = Time.current) { where(start_date: ..date, end_date: date...) }
 
   def currency
     profile&.currency || Money.default_currency
+  end
+
+  def previous_instance
+    @previous_instance ||= self.class.for_current_date(start_date - 1.day).find_by(profile_id:, budget_id:)
+  end
+
+  def next_instance
+    @next_instance ||= self.class.for_current_date(end_date + 1.day).find_by(profile_id:, budget_id:)
+  end
+
+  def carryover_amount
+    limit_amount - used_amount
   end
 end

@@ -83,6 +83,36 @@ RSpec.describe Budgets::CreateBudgetInstancesService, :aggregate_failures do
       end
     end
 
+    context 'when the profile has a budget with previous instances for past months and carryover is true' do
+      let(:budget) { create(:budget, :absolute, owner: profile, profile: profile, limit_amount: 100, carryover: true) }
+
+      before do
+        create(:budget_instance, :from_budget, budget: budget, used_amount: 120,
+               start_date: 1.month.ago.beginning_of_month, end_date: 1.month.ago.end_of_month.end_of_day)
+      end
+
+      it 'creates budget_instance for the budget with the correct used_amount accounting for past usage' do
+        expect { call }.to change { BudgetInstance.count }.by(1)
+        budget_instance = BudgetInstance.last
+        expect(budget_instance.used_amount.to_f).to eq(20)
+      end
+    end
+
+    context 'when the profile has a budget with previous instances for past months and carryover is false' do
+      let(:budget) { create(:budget, :absolute, owner: profile, profile: profile, limit_amount: 100, carryover: false) }
+
+      before do
+        create(:budget_instance, :from_budget, budget: budget, used_amount: 120,
+               start_date: 1.month.ago.beginning_of_month, end_date: 1.month.ago.end_of_month.end_of_day)
+      end
+
+      it 'creates budget_instance for the budget with zero used_amount' do
+        expect { call }.to change { BudgetInstance.count }.by(1)
+        budget_instance = BudgetInstance.last
+        expect(budget_instance.used_amount.to_f).to eq(0)
+      end
+    end
+
     context 'when the profile does not have a budget' do
       let(:category1) { create(:category, profile:) }
       let(:category2) { create(:category, profile:) }
@@ -107,7 +137,7 @@ RSpec.describe Budgets::CreateBudgetInstancesService, :aggregate_failures do
 
     context 'when an error is raised' do
       before do
-        allow(BudgetInstance).to receive(:build_from_budget).and_raise(ActiveRecord::RecordInvalid)
+        allow(Budgets::BudgetInstanceFactoryService).to receive(:call).and_raise(ActiveRecord::RecordInvalid)
         create(:budget, :absolute, owner: profile, profile: profile)
       end
 

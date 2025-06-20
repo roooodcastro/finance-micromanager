@@ -851,6 +851,7 @@
         "floating_button_label": "Novo Orçamento",
         "form": {
           "cancel": "Cancelar",
+          "carryover_label": "Transferir saldo para o mês sequinte",
           "edit_title": "Editar Orçamento",
           "limit_label": "Limite Mensal",
           "limit_type_absolute_label": "Absoluto",

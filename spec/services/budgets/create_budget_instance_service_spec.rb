@@ -26,7 +26,7 @@ RSpec.describe Budgets::CreateBudgetInstanceService, :aggregate_failures do
     end
 
     context 'when there is an error' do
-      before { allow(BudgetInstance).to receive(:build_from_budget).and_raise(ActiveRecord::RecordInvalid) }
+      before { allow(Budgets::BudgetInstanceFactoryService).to receive(:call).and_raise(ActiveRecord::RecordInvalid) }
 
       it 'does not create a new budget_instance and reports the error to NewRelic' do
         expect(NewRelic::Agent).to receive(:notice_error)

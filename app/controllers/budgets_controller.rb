@@ -60,6 +60,6 @@ class BudgetsController < AbstractAuthenticatedController
   end
 
   def budget_params
-    params.require(:budget).permit(:owner_type, :owner_id, :limit_type, :limit_amount, :limit_percentage)
+    params.require(:budget).permit(:owner_type, :owner_id, :limit_type, :limit_amount, :limit_percentage, :carryover)
   end
 end

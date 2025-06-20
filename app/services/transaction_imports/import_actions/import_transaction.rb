@@ -6,9 +6,10 @@ module TransactionImports
       def execute
         transaction = Transaction.new(
           import_transaction.attributes_for_transaction.merge(
-            created_by: Current.user,
-            import_id:  import.id,
-            profile:    Current.profile
+            created_by:                Current.user,
+            import_id:                 import.id,
+            profile:                   Current.profile,
+            skip_budget_recalculation: true
           )
         )
 

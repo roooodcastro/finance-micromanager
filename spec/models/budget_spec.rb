@@ -49,7 +49,8 @@ RSpec.describe Budget do
           'disabled_at'        => nil,
           'disabled_by_id'     => nil,
           'created_at'         => nil,
-          'updated_at'         => nil
+          'updated_at'         => nil,
+          'carryover'          => false
         )
       end
     end
@@ -57,7 +58,7 @@ RSpec.describe Budget do
     context 'when the budget is for the profile and the profile already has a disabled budget' do
       let(:owner_id) { profile.id }
       let(:owner_type) { profile.class.name }
-      let!(:budget) { create(:budget, :disabled, profile: profile, owner: profile) }
+      let!(:budget) { create(:budget, :disabled, profile: profile, owner: profile, carryover: true) }
 
       it 'returns the existing budget with updated attributes' do
         expect(build_budget.attributes).to eq(
@@ -71,7 +72,8 @@ RSpec.describe Budget do
           'disabled_at'        => nil,
           'disabled_by_id'     => nil,
           'created_at'         => budget.created_at,
-          'updated_at'         => budget.updated_at
+          'updated_at'         => budget.updated_at,
+          'carryover'          => true
         )
       end
     end
@@ -94,7 +96,8 @@ RSpec.describe Budget do
           'disabled_at'        => nil,
           'disabled_by_id'     => nil,
           'created_at'         => nil,
-          'updated_at'         => nil
+          'updated_at'         => nil,
+          'carryover'          => false
         )
       end
     end
