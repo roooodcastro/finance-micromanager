@@ -2,26 +2,33 @@
 
 module Budgets
   class UpdateProfileBudgetInstancesService < ApplicationService
-    attr_reader :profile
+    attr_reader :profile, :reference_dates
 
-    def initialize(profile)
-      @profile = profile
+    def initialize(profile, reference_dates = Time.current)
+      @profile         = profile
+      @reference_dates = reference_dates
     end
 
     def call
       ActiveRecord::Base.transaction do
-        # First calculate the used amount for each category budget
-        category_budget_instances.each(&method(:calculate_used_amount))
-        # Then recalculate the limit of the profile budget, if it exists and has a percentage limit type
-        calculate_percentage_limit_amount(profile_budget_instance)
-        # Then recalculate all the category budgets which have a percentage limit type
-        category_budget_instances.each(&method(:calculate_percentage_limit_amount))
-        # Lastly, recalculate the remainder category budget, if it exists
-        calculate_remainder_limit_amount
+        parse_reference_dates.each do |reference_date|
+          # First, fetch the data for the specified period
+          category_budget_instances = fetch_category_budget_instances_for(reference_date)
+          profile_bi                = fetch_profile_budget_instance_for(reference_date)
 
-        # Now save everything
-        profile_budget_instance&.save!
-        category_budget_instances.each(&:save!)
+          # Then, recalculate the used amount for each category budget
+          category_budget_instances.each(&method(:calculate_used_amount))
+          # Then, recalculate the limit of the profile budget, if it exists and has a percentage limit type
+          calculate_percentage_limit_amount(profile_bi, profile_bi)
+          # Then, recalculate all the category budgets which have a percentage limit type
+          category_budget_instances.each { |category_bi| calculate_percentage_limit_amount(category_bi, profile_bi) }
+          # Lastly, recalculate the remainder category budget, if it exists
+          calculate_remainder_limit_amount(category_budget_instances, profile_bi)
+
+          # Now save everything
+          profile_bi&.save!
+          category_budget_instances.each(&:save!)
+        end
       rescue ActiveRecord::ActiveRecordError => e
         NewRelic::Agent.notice_error(e)
         raise ActiveRecord::Rollback
@@ -37,7 +44,7 @@ module Budgets
       end
     end
 
-    def calculate_percentage_limit_amount(budget_instance)
+    def calculate_percentage_limit_amount(budget_instance, profile_budget_instance)
       return unless budget_instance&.limit_type_percentage?
 
       profile_income    = calculate_profile_income(budget_instance.start_date, budget_instance.end_date)
@@ -47,35 +54,32 @@ module Budgets
       budget_instance.limit_amount = limit_reference * (budget_instance.limit_percentage / 100.0)
     end
 
-    def calculate_remainder_limit_amount
-      budget_instance = category_budget_instances.find(&:limit_type_remainder?)
-      return unless budget_instance
+    def calculate_remainder_limit_amount(category_budget_instances, profile_budget_instance)
+      remainder_bi = category_budget_instances.find(&:limit_type_remainder?)
+      return unless remainder_bi
 
-      categories_limit_amount = (category_budget_instances - [budget_instance]).sum(&:limit_amount)
+      categories_limit_amount = (category_budget_instances - [remainder_bi]).sum(&:limit_amount)
       profile_limit_amount    = profile_budget_instance&.limit_amount || calculate_profile_income(
-        budget_instance.start_date, budget_instance.end_date
+        remainder_bi.start_date, remainder_bi.end_date
       )
 
-      budget_instance.limit_amount = [profile_limit_amount - categories_limit_amount, 0].max
+      remainder_bi.limit_amount = [profile_limit_amount - categories_limit_amount, 0].max
     end
 
     def calculate_used_amount(budget_instance)
       transactions_in_period = transactions_in_period_for(budget_instance)
 
-      sum                         = transactions_in_period.sum(:amount_cents) * -1
-      budget_instance.used_amount = Money.new(sum, profile.currency_object)
+      transactions_sum            = transactions_in_period.sum(:amount_cents) * -1
+      carryover_amount            = budget_instance.previous_instance&.carryover_amount.to_f
+      budget_instance.used_amount = Money.new(transactions_sum - carryover_amount, profile.currency_object)
     end
 
-    def profile_budget_instance
-      return @profile_budget_instance if defined?(@profile_budget_instance)
-
-      @profile_budget_instance ||= BudgetInstance.for_current_date.find_by(profile: profile, owner: profile)
+    def fetch_profile_budget_instance_for(reference_date)
+      BudgetInstance.for_current_date(reference_date).find_by(profile: profile, owner: profile)
     end
 
-    def category_budget_instances
-      return @category_budget_instances if defined?(@category_budget_instances)
-
-      @category_budget_instances ||= BudgetInstance.for_current_date.where(profile: profile, owner_type: 'Category')
+    def fetch_category_budget_instances_for(reference_date)
+      BudgetInstance.for_current_date(reference_date).where(profile: profile, owner_type: 'Category')
     end
 
     def transactions_in_period_for(budget_instance)
@@ -83,6 +87,10 @@ module Budgets
 
       profile.transactions.newer_than(budget_instance.start_date).older_than(budget_instance.end_date)
              .where(category: budget_instance.owner)
+    end
+
+    def parse_reference_dates
+      Array.wrap(reference_dates).compact.map(&:beginning_of_month).uniq.sort
     end
   end
 end

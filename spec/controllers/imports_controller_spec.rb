@@ -307,6 +307,45 @@ RSpec.describe ImportsController do
       end
     end
 
+    context 'when two transactions from different months are to be imported' do
+      before do
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Tesco',
+          original_import_name: 'CNC TESCO STORES 03/05 1',
+          amount:               -15.25,
+          transaction_date:     '2023-05-03',
+          action:               'import',
+          category:             category
+        )
+
+        create(
+          :import_transaction,
+          import:               import,
+          wallet:               import.wallet,
+          name:                 'Costa Café',
+          original_import_name: 'COSTA',
+          transaction_date:     '2023-06-01',
+          amount:               -5.65,
+          action:               'import',
+          category:             category
+        )
+
+        allow(Budgets::UpdateProfileBudgetInstancesService).to receive(:call)
+      end
+
+      it 'imports the transactions and calls the budget recalculator passing the 2 reference dates' do
+        expect(Budgets::UpdateProfileBudgetInstancesService).not_to receive(:call).with(import.profile)
+        expect(Budgets::UpdateProfileBudgetInstancesService)
+          .to receive(:call)
+          .with(import.profile, [Date.parse('2023-05-03'), Date.parse('2023-06-01')])
+
+        expect { update_request }.to change { Transaction.count }.by(2)
+      end
+    end
+
     context 'when an unexpected error occurs' do
       before do
         create(

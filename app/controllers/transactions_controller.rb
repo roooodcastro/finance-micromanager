@@ -61,15 +61,18 @@ class TransactionsController < AbstractAuthenticatedController
   end
 
   def update_all
-    transactions = Current.profile.transactions.where(id: params[:transaction_ids])
+    transactions    = Current.profile.transactions.where(id: params[:transaction_ids])
+    reference_dates = []
 
     Transaction.transaction do
       transactions.find_each(batch_size: 100) do |transaction|
+        reference_dates << transaction.transaction_date # Use date before updating for budget calculation
         transaction.update!(update_all_params.merge(skip_budget_recalculation: true))
+        reference_dates << transaction.transaction_date # Also use new date after updating for budget calculation
       end
     end
 
-    Budgets::UpdateProfileBudgetInstancesService.call(Current.profile)
+    Budgets::UpdateProfileBudgetInstancesService.call(Current.profile, reference_dates.uniq)
 
     render json: { message: t('.success') }
   rescue ActiveRecord::ActiveRecordError, ActiveRecord::Rollback => e

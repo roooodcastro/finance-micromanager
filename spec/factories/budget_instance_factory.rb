@@ -13,6 +13,7 @@ FactoryBot.define do
 
     trait :from_budget do
       after(:build) do |budget_instance|
+        budget_instance.profile          = budget_instance.budget.profile
         budget_instance.owner            = budget_instance.budget.owner
         budget_instance.limit_type       = budget_instance.budget.limit_type
         budget_instance.limit_amount     = budget_instance.budget.limit_amount

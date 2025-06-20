@@ -21,11 +21,7 @@ module Budgets
     def create_budget_instance!(budget, profile_budget_instance = nil, budget_instances = nil)
       return unless budget
 
-      budget_instance = BudgetInstance.build_from_budget(budget)
-      budget_instance.assign_attributes(
-        start_date: Date.current.beginning_of_month,
-        end_date:   Date.current.end_of_month.end_of_day
-      )
+      budget_instance = Budgets::BudgetInstanceFactoryService.call(budget)
 
       calculate_percetage_limit_amount(profile_budget_instance, budget_instance)
       calculate_remainder_limit_amount(profile_budget_instance, budget_instance, budget_instances)
