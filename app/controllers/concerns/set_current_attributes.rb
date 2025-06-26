@@ -25,11 +25,13 @@ module SetCurrentAttributes
 
   def current_start_date
     start_date_from_params = params[:update_date_range].to_b ? params[:start_date] : nil
+    # binding.pry if start_date_from_params
     session[:start_date]   = start_date_from_params || session[:start_date] || Date.current.beginning_of_month.to_s
   end
 
   def current_end_date
     end_date_from_params = params[:update_date_range].to_b ? params[:end_date] : nil
+    # binding.pry if end_date_from_params
     session[:end_date]   = end_date_from_params || session[:end_date] || Date.current.to_s
   end
 end

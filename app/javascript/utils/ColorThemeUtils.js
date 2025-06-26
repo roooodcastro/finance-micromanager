@@ -16,6 +16,8 @@ export const setColorTheme = (theme) => {
   }
   setStoredTheme(theme);
   document.documentElement.setAttribute('data-bs-theme', theme);
+  const event = new Event('themeChanged');
+  document.body.dispatchEvent(event);
 };
 
 export const constrastingColor = (hexcolor) => {

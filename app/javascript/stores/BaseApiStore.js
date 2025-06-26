@@ -19,15 +19,21 @@ export function defineBaseApiStore(name, storeOptions = {}) {
     });
   }
 
-  const fetchCollectionFromApi = (store) => {
+  const fetchCollectionFromApi = (store, options = {}) => {
     store.loading = true;
+    const fetchParams = { ...(store.urlParams || {}), ...{ query: {...store.fetchParams, ...(options?.fetchParams || {})} }};
+
     return storeOptions
       .api
-      .index(Object.assign(store.urlParams, { query: store.fetchParams }))
+      .index(fetchParams)
       .then((response) => {
         const newCollection = response[storeOptions.resourcesName];
         setShowPageHref(newCollection);
-        store[storeOptions.resourcesName] = newCollection;
+        if (options.targetVariable) {
+          store[options.targetVariable] = newCollection;
+        } else {
+          store[storeOptions.resourcesName] = newCollection;
+        }
       })
       .finally(() => {
         store.loading = false;
@@ -35,16 +41,21 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       });
   };
 
-  const fetchCollectionFromCache = (store) => {
-    const path = storeOptions.api.index.path(Object.assign(store.urlParams, { query: store.fetchParams }));
+  const fetchCollectionFromCache = (store, options = {}) => {
+    const fetchParams = { ...(store.urlParams || {}), ...{ query: {...store.fetchParams, ...(options?.fetchParams || {})} }};
+    const path = storeOptions.api.index.path(fetchParams);
 
     return fetchFromCache(path, store.latestUpdatedAt)
       .then((data) => {
         const collection = data[storeOptions.resourcesName];
         setShowPageHref(collection);
-        store[storeOptions.resourcesName] = collection;
+        if (options.targetVariable) {
+          store[options.targetVariable] = collection;
+        } else {
+          store[storeOptions.resourcesName] = collection;
+        }
       })
-      .catch(() => fetchCollectionFromApi(store))
+      .catch(() => fetchCollectionFromApi(store, options))
       .finally(() => {
         store.loading = false;
         store.initialFetchDone = true;
@@ -115,9 +126,9 @@ export function defineBaseApiStore(name, storeOptions = {}) {
 
       fetchCollection(options = {}) {
         if (this.latestUpdatedAt && !options.overrideCache) {
-          return fetchCollectionFromCache(this);
+          return fetchCollectionFromCache(this, options);
         } else {
-          return fetchCollectionFromApi(this);
+          return fetchCollectionFromApi(this, options);
         }
       },
 

@@ -51,7 +51,7 @@
   />
 
   <div class="row">
-    <div class="col-12 col-xl-6">
+    <div class="col-12 col-xl-6 mb-3">
       <CategorySummary
         :category="categoryFromStore"
         :loading="loadingCategory"
@@ -88,10 +88,17 @@
       </BCard>
     </div>
 
-    <div class="col-12 col-xl-6">
+    <div class="col-12 col-xl-6 mb-3">
+      <BCard
+        :title="t('sub_header_budget_history')"
+      >
+        <BudgetHistoryChart />
+      </BCard>
+    </div>
+
+    <div class="col-12 col-xl-6 mb-3">
       <BCard
         :title="t('sub_header_recent_transactions')"
-        class="mt-3 mt-xl-0"
         no-body
       >
         <TransactionsList
@@ -117,6 +124,8 @@ import useProfileStore from '~/stores/ProfileStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import { ICON_CATEGORIES } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -131,10 +140,12 @@ import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import CategoryForm from '~/components/categories/CategoryForm.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
+import BudgetHistoryChart from '~/components/budgets/BudgetHistoryChart.vue';
 
 export default {
   components: {
     BCard,
+    BudgetHistoryChart,
     CategoryForm,
     CategorySummary,
     DateRangeSelector,
@@ -161,6 +172,8 @@ export default {
     const categoryStore = useCategoryStore();
     const subcategoryStore = useSubcategoryStore();
     const transactionStore = useTransactionStore();
+    const dateRangeStore = useDateRangeStore();
+    const budgetInstanceStore = useBudgetInstanceStore();
     const floatingActionButtonStore = useFloatingActionButtonStore();
 
     floatingActionButtonStore.registerSpeedDialEntry({
@@ -171,6 +184,7 @@ export default {
     });
 
     const { transactions } = storeToRefs(transactionStore);
+    const { startDate, endDate } = storeToRefs(dateRangeStore);
 
     // Load categories from props
     const { category: categoryFromStore, loading: loadingCategory } = storeToRefs(categoryStore);
@@ -180,6 +194,10 @@ export default {
 
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
     transactionStore.fetchCollection();
+
+    budgetInstanceStore.setFetchParams({ startDate, endDate });
+    budgetInstanceStore.fetchCollection();
+    budgetInstanceStore.fetchForHistory(props.category.id);
 
     // Load subcategories from props
     const {
@@ -195,7 +213,10 @@ export default {
     watch(currentProfile, () => window.location.href = categoriesApi.index.path());
 
     watch(subcategoriesFromStore, () => { categoryStore.fetchSingle(props.category.id) });
-    watch(transactions, () => { categoryStore.fetchSingle(props.category.id) });
+    watch(transactions, () => {
+      categoryStore.fetchSingle(props.category.id);
+      budgetInstanceStore.fetchCollection();
+    });
 
     const handleEdit = () => categoryStore.openFormModal(props.category.id);
     const handleDisable = () => categoryStore.disable(props.category.id, { fetchSingle: true });
@@ -205,6 +226,9 @@ export default {
     const handleDateRangeChange = () => {
       categoryStore.fetchSingle(props.category.id);
       transactionStore.fetchCollection();
+      budgetInstanceStore.setFetchParams({ startDate, endDate });
+      budgetInstanceStore.fetchCollection();
+      budgetInstanceStore.fetchForHistory(props.category.id);
     }
 
     return {

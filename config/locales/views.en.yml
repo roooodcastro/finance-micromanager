@@ -58,11 +58,16 @@ en:
         cancel: Cancel
       show:
         title: 'Category'
-        sub_header_summary: Summary
+        sub_header_summary: Summary for
         sub_header_recent_transactions: Recent Transactions
         sub_header_subcategories: Subcategories
+        sub_header_budget_history: Budget History
         money_in: Income
         expenses: Spends
+        budget_label: Budget
+        balance_label: Aggregate
+        used_budget_label: Used / Limit
+        remaining_budget_label: Remaining
         edit: Edit
         disable: Disable
         reenable: Re-enable
@@ -74,6 +79,9 @@ en:
           accessible.
 
     components:
+      budget_history_chart:
+        limit_label: 'Limit'
+        used_label: 'Used'
       budgets_list:
         category_name_label: Category
         budget_usage_label: Monthly

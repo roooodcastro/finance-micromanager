@@ -176,6 +176,8 @@ $page-footer-height: 12rem;
   --foreground-color: var(--bs-white);
   --text-credit-color: #{$mintgreen-700};
   --text-debit-color: #{shade-color($red, 10%)};
+  --chart-credit-color: #{rgba($mintgreen-700, 0.7)};
+  --chart-debit-color: #{rgba(shade-color($red, 20%), 0.7)};
   --page-header-color: #{$light-bg-subtle};
   --page-footer-bg-color: #{$mintgreen-700};
 

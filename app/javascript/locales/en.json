@@ -831,6 +831,8 @@
           "title": "Categories"
         },
         "show": {
+          "balance_label": "Aggregate",
+          "budget_label": "Budget",
           "disable": "Disable",
           "disabled_category_warning": "This category is disabled. It cannot be edited or used for new transactions. Historical data will remain accessible.",
           "edit": "Edit",
@@ -838,15 +840,22 @@
           "money_in": "Income",
           "new_subcategory": "Create Subcategory",
           "reenable": "Re-enable",
+          "remaining_budget_label": "Remaining",
           "show_all_subcategories": "Show Disabled",
+          "sub_header_budget_history": "Budget History",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_subcategories": "Subcategories",
-          "sub_header_summary": "Summary",
+          "sub_header_summary": "Summary for",
           "subcategories_options": "Options",
-          "title": "Category"
+          "title": "Category",
+          "used_budget_label": "Used / Limit"
         }
       },
       "components": {
+        "budget_history_chart": {
+          "limit_label": "Limit",
+          "used_label": "Used"
+        },
         "budgets_list": {
           "budget_usage_label": "Monthly",
           "category_name_label": "Category",

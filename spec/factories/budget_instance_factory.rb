@@ -4,8 +4,9 @@ FactoryBot.define do
   factory :budget_instance do
     profile
     budget
+    owner { create(:category) }
 
-    limit_type { :absolute }
+    limit_type { 'absolute' }
     limit_amount { 100 }
     limit_percentage { nil }
     start_date { Date.current.beginning_of_month }
