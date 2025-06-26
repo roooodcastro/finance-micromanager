@@ -57,11 +57,16 @@ pt-BR:
         back: Cancelar
       show:
         title: 'Categoria'
-        sub_header_summary: Resumo
+        sub_header_summary: Resumo para
         sub_header_recent_transactions: Transações Recentes
         sub_header_subcategories: Subcategorias
+        sub_header_budget_history: Histórico de Orçamentos
         money_in: Receita
         expenses: Gastos
+        budget_label: Orçamento
+        balance_label: Agregado
+        used_budget_label: Usado / Limite
+        remaining_budget_label: Restante
         edit: Editar
         disable: Desabilitar
         reenable: Reabilitar
@@ -73,6 +78,9 @@ pt-BR:
           serão mantidos.
 
     components:
+      budget_history_chart:
+        limit_label: 'Limite'
+        used_label: 'Usado'
       budgets_list:
         category_name_label: Categoria
         budget_usage_label: Mensal

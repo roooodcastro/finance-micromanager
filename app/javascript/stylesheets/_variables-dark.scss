@@ -4,6 +4,8 @@
 
   --text-credit-color: #{$mintgreen-500};
   --text-debit-color: #{$red};
+  --chart-credit-color: #{rgba(shade-color($mintgreen-700, 10%), 0.7)};
+  --chart-debit-color: #{rgba(shade-color($red, 20%), 0.7)};
 
   --page-header-color: var(--bs-body-bg);
   --page-footer-bg-color: #{$mintgreen-800};

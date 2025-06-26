@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       patch :reenable, on: :member
     end
 
+    resources :budget_instances, only: %i[index]
     resource :dashboard, only: :show
     resource :landing, only: :show
     resource :setting, only: %i[show update]

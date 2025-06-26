@@ -23,6 +23,10 @@ class BudgetInstance < ApplicationRecord
     profile&.currency || Money.default_currency
   end
 
+  def as_json(*)
+    super.merge('limit_amount' => limit_amount.to_f, 'used_amount' => used_amount.to_f)
+  end
+
   def previous_instance
     @previous_instance ||= self.class.for_current_date(start_date - 1.day).find_by(profile_id:, budget_id:)
   end
@@ -32,6 +36,8 @@ class BudgetInstance < ApplicationRecord
   end
 
   def carryover_amount
+    return 0 unless budget.carryover?
+
     limit_amount - used_amount
   end
 end

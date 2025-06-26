@@ -10,6 +10,8 @@ module Budgets
     end
 
     def call
+      return existing_budget_instance if existing_budget_instance
+
       BudgetInstance.new(
         profile:          budget.profile,
         owner:            budget.owner,
@@ -31,6 +33,15 @@ module Budgets
       return 0 if budget_instance.previous_instance.nil?
 
       -budget_instance.previous_instance.carryover_amount
+    end
+
+    def existing_budget_instance
+      @existing_budget_instance ||= BudgetInstance.find_by(
+        profile:    budget.profile,
+        owner:      budget.owner,
+        start_date: reference_date.beginning_of_month,
+        end_date:   reference_date.end_of_month.end_of_day
+      )
     end
   end
 end

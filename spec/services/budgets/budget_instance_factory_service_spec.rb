@@ -7,6 +7,21 @@ RSpec.describe Budgets::BudgetInstanceFactoryService do
     let(:reference_date) { Time.current }
     let(:category) { create(:category) }
 
+    context 'for a budget which already has an instance for the specified date period' do
+      let(:budget) { create(:budget, :absolute, limit_amount: 50) }
+      let!(:existing_budget_instance) do
+        create(
+          :budget_instance,
+          :from_budget,
+          budget:     budget,
+          start_date: reference_date.beginning_of_month,
+          end_date:   reference_date.end_of_month.end_of_day
+        )
+      end
+
+      it { is_expected.to eq existing_budget_instance }
+    end
+
     context 'for an absolute budget' do
       let(:budget) { create(:budget, :absolute, limit_amount: 50) }
 

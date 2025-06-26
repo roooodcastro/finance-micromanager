@@ -129,3 +129,6 @@ RSpec/IndexedLet:
 
 RSpec/AnyInstance:
   Enabled: false
+
+FactoryBot/FactoryAssociationWithStrategy:
+  Enabled: false
