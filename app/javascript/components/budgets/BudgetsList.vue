@@ -51,7 +51,11 @@ export default {
     // Reload categories if profile has changed while this list is shown
     const profileStore = useProfileStore();
     const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => categoryStore.fetchCollection());
+    watch(currentProfile, () => {
+      categoryStore.fetchCollection();
+      budgetStore.fetchCollection();
+      budgetStore.fetchProfileBudget();
+    });
 
     const categoriesWithBudgets = computed(() => {
       return categories.value.map((category) => {

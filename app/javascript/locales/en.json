@@ -841,6 +841,7 @@
           "new_subcategory": "Create Subcategory",
           "reenable": "Re-enable",
           "remaining_budget_label": "Remaining",
+          "set_budget_menu_item": "Set Budget",
           "show_all_subcategories": "Show Disabled",
           "sub_header_budget_history": "Budget History",
           "sub_header_recent_transactions": "Recent Transactions",

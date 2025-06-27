@@ -29,6 +29,7 @@ class BudgetsController < AbstractAuthenticatedController
 
   def update
     if @budget.update(budget_params)
+      Budgets::UpdateProfileBudgetInstancesService.call(Current.profile)
       render json: camelize_props(message: t('.success'))
     else
       error = @budget.error_messages

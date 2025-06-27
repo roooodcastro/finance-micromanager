@@ -144,12 +144,16 @@ RSpec.describe BudgetsController do
     subject(:update_request) { patch :update, params: }
 
     let!(:budget) { create(:budget, :absolute, profile: profile, owner: profile, limit_amount: 10) }
+    let!(:budget_instance) { create(:budget_instance, :from_budget, budget:, profile:) }
 
     context 'when params are valid' do
       let(:params) { { id: budget.id, budget: { limit_amount: 15, carryover: true } } }
 
-      it 'updates the budget' do
-        expect { update_request }.not_to change { Budget.count }
+      it 'updates the budget and the budget instance for the current period' do
+        expect { update_request }
+          .to not_change { Budget.count }
+          .and change { budget_instance.reload.limit_amount.to_f }
+          .to(15)
 
         expect(json_response).to eq({ 'message' => 'Budget was successfully updated.' })
         expect(budget.reload.limit_amount.to_f).to eq(15)
