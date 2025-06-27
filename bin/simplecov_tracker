@@ -2,16 +2,31 @@
 
 # Temp script used to get historical simplecov coverage results from past git releases
 
-rm spec/temp_coverage.csv
+rm tmp/temp_coverage.csv
 
 for tag in $(git tag | grep v | sort -t "." -k1,1n -k2,2n -k3,3n); do
   git checkout $tag
   git reset --hard
+  gem install bundler -v 2.4.10
   bundle
   bundle clean --force
   bundle
   rm coverage/.last_run.json
+
+  if [ -f "spec/services/importer/ptsb_spec.rb" ]; then
+    awk '/ptsb.xls/ { print; print "around { |example| extend ActiveSupport::Testing::TimeHelpers; travel_to(Date.parse(\"2023-05-03\")) { example.run } }"; next }1' spec/services/importer/ptsb_spec.rb > spec/services/importer/ptsb_spec.rb2
+    mv spec/services/importer/ptsb_spec.rb2 spec/services/importer/ptsb_spec.rb
+  fi
+
+  if ! grep -q simplecov spec/rails_helper.rb; then
+    awk '/RAILS_ENV/ { print; print "require \"simplecov\"; require \"simplecov_json_formatter\"; SimpleCov.start { enable_coverage :branch ;primary_coverage :branch; add_filter \"/spec/\"; add_filter \"/config/\"; add_filter \"/app/services/transaction_imports/parsers/google_sheets.rb\"; add_filter \"/lib\" }"; next }1' spec/rails_helper.rb > spec/rails_helper.rb2
+    mv spec/rails_helper.rb2 spec/rails_helper.rb
+  fi
+
   rspec
 
-  echo "$tag,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> spec/temp_coverage.csv
+  echo "$tag,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> tmp/temp_coverage.csv
+
+  git add .
+  git reset --hard
 done
