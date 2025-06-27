@@ -138,6 +138,8 @@ pt-BR:
         sub_header_transactions_summary: Posição
         money_in: Receita
         spends: Gastos
+        budget_limit: Orçamento
+        remaining_limit: Disponível
         average_spend: Gasto Diário
         money_saved: Dif. Saldo
         start_balance: 'S. Inicial'

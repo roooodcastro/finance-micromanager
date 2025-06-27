@@ -54,6 +54,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useUserStore from '~/stores/UserStore.js';
@@ -103,6 +104,7 @@ export default {
     const paginationStore = usePaginationStore();
     const transactionStore = useTransactionStore();
     const categorySummaryStore = useStatisticsCategorySummaryStore();
+    const budgetInstanceStore = useBudgetInstanceStore();
     const userStore = useUserStore();
 
     const { categories: categoriesFromStore } = storeToRefs(categoryStore);
@@ -131,7 +133,11 @@ export default {
       });
     }
 
-    watch(transactions, fetchCategorySummaries);
+    watch(transactions, () => {
+      fetchCategorySummaries();
+      budgetInstanceStore.fetchCollection();
+    });
+
     fetchRecentTransactions();
 
     const handleDateRangeChange = () => {

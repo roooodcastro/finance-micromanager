@@ -918,10 +918,12 @@
       "dashboard": {
         "show": {
           "average_spend": "Avg. Spend",
+          "budget_limit": "Budget",
           "end_balance": "End Bal.",
           "from_last_month_label": "vs last month",
           "money_in": "Money In",
           "money_saved": "Balance Diff",
+          "remaining_limit": "Available",
           "spends": "Spends",
           "start_balance": "Start Bal.",
           "sub_header_category_summary": "Categories",

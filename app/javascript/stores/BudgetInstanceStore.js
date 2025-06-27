@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 
-import { BUDGET_OWNER_TYPE_CATEGORY } from '~/utils/Constants.js';
+import { BUDGET_OWNER_TYPE_CATEGORY, BUDGET_OWNER_TYPE_PROFILE } from '~/utils/Constants.js';
 import { budgetInstances as budgetInstancesApi } from '~/api/all.js';
 
 export default defineBaseApiStore('budgetInstance', {
@@ -25,6 +25,9 @@ export default defineBaseApiStore('budgetInstance', {
         });
       };
     },
+    budgetInstanceForProfile: (state) => {
+      return state.budgetInstances.find(budgetInstance => budgetInstance.ownerType === BUDGET_OWNER_TYPE_PROFILE);
+    }
   },
 
   actions: {

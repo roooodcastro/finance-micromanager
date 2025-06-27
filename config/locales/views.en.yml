@@ -72,6 +72,7 @@ en:
         disable: Disable
         reenable: Re-enable
         set_budget_menu_item: Set Budget
+        set_budget_menu_item: Set Budget
         new_subcategory: Create Subcategory
         subcategories_options: Options
         show_all_subcategories: Show Disabled
@@ -139,6 +140,8 @@ en:
         sub_header_transactions_summary: Position
         money_in: Money In
         spends: Spends
+        budget_limit: Budget
+        remaining_limit: Available
         average_spend: Avg. Spend
         money_saved: Balance Diff
         start_balance: Start Bal.

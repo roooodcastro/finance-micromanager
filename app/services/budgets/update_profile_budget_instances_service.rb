@@ -17,6 +17,7 @@ module Budgets
           profile_bi                = fetch_profile_budget_instance_for(reference_date)
 
           # Then, recalculate the used amount for each category budget
+          calculate_used_amount(profile_bi)
           category_budget_instances.each(&method(:calculate_used_amount))
           # Then, recalculate the limit of the profile budget, if it exists
           calculate_absolute_limit_amount(profile_bi)
@@ -77,6 +78,8 @@ module Budgets
     end
 
     def calculate_used_amount(budget_instance)
+      return unless budget_instance
+
       transactions_in_period = transactions_in_period_for(budget_instance)
 
       transactions_sum            = transactions_in_period.sum(:amount_cents) * -1
@@ -93,10 +96,10 @@ module Budgets
     end
 
     def transactions_in_period_for(budget_instance)
-      return [] unless budget_instance.owner.is_a?(Category)
+      transactions = profile.transactions.newer_than(budget_instance.start_date).older_than(budget_instance.end_date)
+      return transactions unless budget_instance.owner.is_a?(Category)
 
-      profile.transactions.newer_than(budget_instance.start_date).older_than(budget_instance.end_date)
-             .where(category: budget_instance.owner)
+      transactions.where(category: budget_instance.owner)
     end
 
     def parse_reference_dates

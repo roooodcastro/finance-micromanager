@@ -52,7 +52,10 @@
         </div>
       </div>
 
-      <div class="row mt-5">
+      <div
+        class="row"
+        :class="{ 'mt-4': !!budgetInstance, 'mt-5': !budgetInstance }"
+      >
         <div class="col-6">
           <h5 class="m-0">
             {{ t('money_in') }}
@@ -71,6 +74,32 @@
           </span>
         </div>
       </div>
+
+      <div
+        v-if="!!budgetInstance"
+        class="row mt-3"
+      >
+        <div class="col-6">
+          <h5 class="m-0">
+            {{ t('budget_limit') }}
+          </h5>
+          <span class="fs-3 fw-bold">
+            {{ formatMoney(budgetInstance.limitAmount) }}
+          </span>
+        </div>
+
+        <div class="col-6">
+          <h5 class="m-0">
+            {{ t('remaining_limit') }}
+          </h5>
+          <span
+            class="fs-3 fw-bold"
+            :class="{ 'text-credit': budgetInstance.remainingAmount > 0, 'text-debit': budgetInstance.remainingAmount < 0}"
+          >
+            {{ formatMoney(budgetInstance.remainingAmount) }}
+          </span>
+        </div>
+      </div>
     </template>
   </BCard>
 </template>
@@ -81,6 +110,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
 import { formatMoney } from '~/utils/NumberFormatter.js';
@@ -94,7 +124,14 @@ export default {
     const t = I18n.scopedTranslator('views.dashboard.show');
 
     const transactionStore = useTransactionStore();
+    const budgetInstanceStore = useBudgetInstanceStore();
+
     const { statistics, loading, initialFetchDone } = storeToRefs(transactionStore);
+    const { budgetInstanceForProfile: budgetInstance } = storeToRefs(budgetInstanceStore);
+
+    if (!budgetInstance.value) {
+      budgetInstanceStore.fetchCollection();
+    }
 
     const startBalance = computed(() => statistics.value.startBalance);
     const endBalance = computed(() => statistics.value.endBalance);
@@ -109,6 +146,7 @@ export default {
       endBalance,
       balanceDiff,
       formatMoney,
+      budgetInstance,
     };
   },
 };

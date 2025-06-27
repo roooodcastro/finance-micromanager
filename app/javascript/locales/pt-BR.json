@@ -988,10 +988,12 @@
       "dashboard": {
         "show": {
           "average_spend": "Gasto Diário",
+          "budget_limit": "Orçamento",
           "end_balance": "S. Final",
           "from_last_month_label": "vs mês passado",
           "money_in": "Receita",
           "money_saved": "Dif. Saldo",
+          "remaining_limit": "Disponível",
           "spends": "Gastos",
           "start_balance": "S. Inicial",
           "sub_header_category_summary": "Categorias",

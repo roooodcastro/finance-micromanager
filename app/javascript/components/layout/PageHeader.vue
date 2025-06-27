@@ -100,7 +100,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   .PageHeader {
     background-color: var(--page-header-color);
     border-bottom: $border-width $border-style var(--bs-border-color);

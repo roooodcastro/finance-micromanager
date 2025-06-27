@@ -15,7 +15,7 @@
           aria-hidden="true"
         >
 
-        <span class="d-none d-lg-inline-block ms-3">
+        <span class="d-none d-md-inline-block ms-3">
           {{ t('app_name') }}
         </span>
       </a>
