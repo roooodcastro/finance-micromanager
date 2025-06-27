@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Temp script used to get historical simplecov coverage results from past git releases
+
+rm spec/temp_coverage.csv
+
+for tag in $(git tag | grep v | sort -t "." -k1,1n -k2,2n -k3,3n); do
+  git checkout $tag
+  git reset --hard
+  bundle
+  bundle clean --force
+  bundle
+  rm coverage/.last_run.json
+  rspec
+
+  echo "$tag,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> spec/temp_coverage.csv
+done

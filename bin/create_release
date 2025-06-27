@@ -44,7 +44,6 @@ esac
 
 new_version="$major.$minor.$patch"
 tag_name="v$new_version"
-branch_name="release-$new_version"
 
 echo
 echo "The version will be updated from $current_version to $new_version and a release will be created."
@@ -58,24 +57,43 @@ then
   exit 0
 fi
 
+# Start process to create the new release
+
+# Create a new git branch to commit changes needed for the release
+branch_name="release-$new_version"
 git checkout -b $branch_name
 
-echo $new_version > $script_location/../VERSION
+# Run RSpec to get Simplecov coverage results
+bundle exec rspec
 
-git add $script_location/../VERSION
+# Update VERSION and coverage files
+echo $new_version > $script_location/../VERSION
+# Build the coverage string in the CSV format "{version},{line_coverage},{branch_coverage}" with multiple steps:
+# 1. Set version as the first column
+# 2. Read the results from simplecov with cat
+# 3. Use jq to parse the JSON resultset and extract the line and branch coverage percentages
+# 4. Use tr to transform the newline characters from jq into commas for the CSV
+# 5. Use sed to remove the trailing comma
+# 6. Append to the file using >>
+echo "$new_version,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> spec/coverage.csv
+
+# Commit and push the release changes
+git add $script_location/../VERSION spec/coverage.csv
 git commit -m "Release $new_version"
 git push origin $branch_name
 
+# Create and merge the PR in GitHub for the release changes
 gh pr create --title "Release $new_version" --body ""
 gh pr merge -m --admin
 
+# Go back to the main branch and delete release branch
 git checkout main
 git pull origin main
 git branch -d $branch_name
 
+# Push tag for the new version and create a GitHub release
 git tag -a $tag_name -m "Release $tag_name"
 git push origin $tag_name
-
 gh release create $tag_name --title "Release $new_version" --latest --generate-notes
 
 
