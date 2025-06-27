@@ -19,6 +19,11 @@
           icon="pen-to-square"
           @click="handleEdit"
         />
+        <DropdownMenuItem
+          :label="t('set_budget_menu_item')"
+          :icon="ICON_BUDGETS"
+          @click="handleSetBudget"
+        />
 
         <hr class="my-2">
 
@@ -88,7 +93,10 @@
       </BCard>
     </div>
 
-    <div class="col-12 col-xl-6 mb-3">
+    <div
+      v-if="!!budgetInstance"
+      class="col-12 col-xl-6 mb-3"
+    >
       <BCard
         :title="t('sub_header_budget_history')"
       >
@@ -111,40 +119,48 @@
 
   <SubcategoryForm :category="categoryFromStore" />
   <CategoryForm />
+  <BudgetForm />
 </template>
 
 <script>
-import { computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
+import { computed, watch } from 'vue';
 
-import I18n from '~/utils/I18n.js';
 import { categories as categoriesApi } from '~/api/all.js';
+import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
+import useBudgetStore from '~/stores/BudgetStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
-import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
-import useDateRangeStore from '~/stores/DateRangeStore.js';
-import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
-import { ICON_CATEGORIES } from '~/utils/Constants.js';
+import {
+  BUDGET_OWNER_TYPE_CATEGORY,
+  ICON_BUDGETS,
+  ICON_CATEGORIES,
+} from '~/utils/Constants.js';
+import I18n from '~/utils/I18n.js';
 
-import PageHeader from '~/components/layout/PageHeader.vue';
-import TransactionsList from '~/components/transactions/TransactionsList.vue';
+import BCard from '~/components/bootstrap/BCard.vue';
+import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
+import BudgetForm from '~/components/budgets/BudgetForm.vue';
+import BudgetHistoryChart from '~/components/budgets/BudgetHistoryChart.vue';
+import CategoryForm from '~/components/categories/CategoryForm.vue';
 import CategorySummary from '~/components/categories/CategorySummary.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
-import DropdownMenu from '~/components/ui/DropdownMenu.vue';
-import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
-import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
+import PageHeader from '~/components/layout/PageHeader.vue';
 import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
 import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
-import CategoryForm from '~/components/categories/CategoryForm.vue';
-import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
-import BCard from '~/components/bootstrap/BCard.vue';
-import BudgetHistoryChart from '~/components/budgets/BudgetHistoryChart.vue';
+import TransactionsList from '~/components/transactions/TransactionsList.vue';
+import DropdownMenu from '~/components/ui/DropdownMenu.vue';
+import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
+import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 
 export default {
   components: {
     BCard,
+    BudgetForm,
     BudgetHistoryChart,
     CategoryForm,
     CategorySummary,
@@ -174,6 +190,7 @@ export default {
     const transactionStore = useTransactionStore();
     const dateRangeStore = useDateRangeStore();
     const budgetInstanceStore = useBudgetInstanceStore();
+    const budgetStore = useBudgetStore();
     const floatingActionButtonStore = useFloatingActionButtonStore();
 
     floatingActionButtonStore.registerSpeedDialEntry({
@@ -185,16 +202,20 @@ export default {
 
     const { transactions } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
+    const { budgetInstanceForCategory } = storeToRefs(budgetInstanceStore);
+    const { budgets } = storeToRefs(budgetStore);
 
     // Load categories from props
     const { category: categoryFromStore, loading: loadingCategory } = storeToRefs(categoryStore);
     categoryFromStore.value = props.category;
 
     const isDisabled = computed(() => !!categoryFromStore.value.disabledAt);
+    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category));
 
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
     transactionStore.fetchCollection();
 
+    budgetStore.fetchCollection();
     budgetInstanceStore.setFetchParams({ startDate, endDate });
     budgetInstanceStore.fetchCollection();
     budgetInstanceStore.fetchForHistory(props.category.id);
@@ -217,6 +238,10 @@ export default {
       categoryStore.fetchSingle(props.category.id);
       budgetInstanceStore.fetchCollection();
     });
+    watch(budgets, () => {
+      budgetInstanceStore.fetchCollection();
+      budgetInstanceStore.fetchForHistory(props.category.id);
+    });
 
     const handleEdit = () => categoryStore.openFormModal(props.category.id);
     const handleDisable = () => categoryStore.disable(props.category.id, { fetchSingle: true });
@@ -229,7 +254,14 @@ export default {
       budgetInstanceStore.setFetchParams({ startDate, endDate });
       budgetInstanceStore.fetchCollection();
       budgetInstanceStore.fetchForHistory(props.category.id);
-    }
+    };
+
+    const handleSetBudget = () => {
+      budgetStore.openFormModal(
+        budgetInstance.value?.budgetId,
+        { ownerType: BUDGET_OWNER_TYPE_CATEGORY, ownerId: props.category.id }
+      );
+    };
 
     return {
       t: I18n.scopedTranslator('views.categories.show'),
@@ -239,9 +271,12 @@ export default {
       subcategoriesFromStore,
       showDisabledSubcategories,
       loadingCategory,
+      budgetInstance,
+      ICON_BUDGETS,
       handleEdit,
       handleDisable,
       handleReenable,
+      handleSetBudget,
       handleDateRangeChange,
       handleNewSubcategory,
       handleShowDisabledSubcategories,

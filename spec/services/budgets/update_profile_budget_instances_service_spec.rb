@@ -6,7 +6,11 @@ RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures
 
     let(:profile) { create(:profile) }
     let(:category) { create(:category, profile:) }
-    let!(:budget_instance) { create(:budget_instance, :from_budget, profile:, budget:) }
+    let!(:budget_instance) do
+      budget_instance = create(:budget_instance, :from_budget, profile:, budget:)
+      budget_instance.update(limit_amount: 10)
+      budget_instance
+    end
     let!(:profile_budget) do # rubocop:disable RSpec/LetSetup
       profile_budget = create(:budget, :percentage, profile: profile, owner: profile, limit_percentage: 50)
       create(:budget_instance, :from_budget, profile: profile, budget: profile_budget)
@@ -18,13 +22,14 @@ RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures
     end
 
     context 'for an absolute budget' do
-      let(:budget) { create(:budget, :absolute, profile: profile, owner: category) }
+      let(:budget) { create(:budget, :absolute, profile: profile, owner: category, limit_amount: 60) }
 
-      it 'updates the budget instance used amount with the new transactions sum for that category' do
+      it 'updates the budget instance limit and used amount with the new transactions sum for that category' do
         expect { call }
           .to change { budget_instance.reload.used_amount.to_f }
           .by(10)
-          .and not_change { budget_instance.limit_amount.to_f }
+          .and change { budget_instance.limit_amount.to_f }
+          .to(60)
       end
     end
 

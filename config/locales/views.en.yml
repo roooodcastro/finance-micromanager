@@ -71,6 +71,7 @@ en:
         edit: Edit
         disable: Disable
         reenable: Re-enable
+        set_budget_menu_item: Set Budget
         new_subcategory: Create Subcategory
         subcategories_options: Options
         show_all_subcategories: Show Disabled
