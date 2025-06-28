@@ -91,6 +91,10 @@ pt-BR:
         system: Sistema
         name_label: Nome
         subcategories_label: Subcategorias
+      category_summary_list:
+        from_budget_label: de
+        left_budget_label: restantes
+        over_budget_label: acima
       import_names_list:
         from_name_label: De
         to_name_label: Para
@@ -138,6 +142,8 @@ pt-BR:
         sub_header_transactions_summary: Posição
         money_in: Receita
         spends: Gastos
+        budget_limit: Orçamento
+        remaining_limit: Disponível
         average_spend: Gasto Diário
         money_saved: Dif. Saldo
         start_balance: 'S. Inicial'

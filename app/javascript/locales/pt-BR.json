@@ -938,6 +938,11 @@
           "subcategories_label": "Subcategorias",
           "system": "Sistema"
         },
+        "category_summary_list": {
+          "from_budget_label": "de",
+          "left_budget_label": "restantes",
+          "over_budget_label": "acima"
+        },
         "import_names_list": {
           "from_name_label": "De",
           "to_name_label": "Para"
@@ -988,10 +993,12 @@
       "dashboard": {
         "show": {
           "average_spend": "Gasto Diário",
+          "budget_limit": "Orçamento",
           "end_balance": "S. Final",
           "from_last_month_label": "vs mês passado",
           "money_in": "Receita",
           "money_saved": "Dif. Saldo",
+          "remaining_limit": "Disponível",
           "spends": "Gastos",
           "start_balance": "S. Inicial",
           "sub_header_category_summary": "Categorias",

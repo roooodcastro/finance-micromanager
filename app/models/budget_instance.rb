@@ -24,7 +24,15 @@ class BudgetInstance < ApplicationRecord
   end
 
   def as_json(*)
-    super.merge('limit_amount' => limit_amount.to_f, 'used_amount' => used_amount.to_f)
+    super.merge(
+      'limit_amount'     => limit_amount.to_f,
+      'used_amount'      => used_amount.to_f,
+      'remaining_amount' => remaining_amount.to_f
+    )
+  end
+
+  def remaining_amount
+    limit_amount - used_amount
   end
 
   def previous_instance
@@ -36,8 +44,6 @@ class BudgetInstance < ApplicationRecord
   end
 
   def carryover_amount
-    return 0 unless budget.carryover?
-
-    limit_amount - used_amount
+    budget.carryover? ? remaining_amount : 0
   end
 end

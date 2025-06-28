@@ -32,6 +32,34 @@
     </div>
 
     <div
+      v-if="!!budgetInstance"
+      class="row align-items-center"
+    >
+      <div class="col-7 col-md-9 col-lg-8 col-xl-9 d-flex align-items-stretch text-decoration-none text-body">
+        <span
+          class="CategoriesList__color-indicator me-2"
+          :style="{ backgroundColor: category.color }"
+        />
+        <span
+          class="pb-2"
+          :class="{
+            'ms-2': category.subcategories.length === 0,
+            'ms-4': category.subcategories.length > 0,
+            'text-credit': budgetInstance.remainingAmount > 0,
+            'text-debit': budgetInstance.remainingAmount < 0,
+          }"
+        >
+          {{ formatMoney(Math.abs(budgetInstance.remainingAmount)) }}
+          {{ budgetInstance.remainingAmount < 0 ? t('over_budget_label') : t('left_budget_label') }}
+        </span>
+      </div>
+
+      <div class="col text-end me-2 text-muted">
+        {{ t('from_budget_label') }} {{ formatMoney(budgetInstance.limitAmount) }}
+      </div>
+    </div>
+
+    <div
       class="CategorySummaryListItem__subcategoriesContainer row align-items-center"
       :class="{ 'show': expanded }"
     >
@@ -61,9 +89,11 @@ import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { categories as categoriesApi } from '~/api/all.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
+import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
 import { DISPLAY_OPTIONS_COOKIE_NAME } from '~/utils/Constants.js';
 
@@ -86,14 +116,20 @@ export default {
   },
 
   setup(props) {
+    const t = I18n.scopedTranslator('views.components.category_summary_list');
+
     const dateRangeStore = useDateRangeStore();
+    const budgetInstanceStore = useBudgetInstanceStore();
+
     const { rangeKey } = storeToRefs(dateRangeStore);
+    const { budgetInstanceForCategory } = storeToRefs(budgetInstanceStore);
 
     const expanded = ref(getValueFromJsonCookie(DISPLAY_OPTIONS_COOKIE_NAME,
         `category_summary_expanded_${props.category.id}`));
 
     const showCategoryPath = (categoryId) => categoriesApi.show.path({ id: categoryId });
 
+    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category));
     const mainCategorySummary = computed(() => props.summaries.filter(summary => !summary.subcategoryId)?.at(0));
     const subcategorySummaries = computed(() => props.summaries.filter(summary => summary.subcategoryId));
     const totalSum = computed(() => _.sumBy(props.summaries, summary => summary.debitSum + summary.creditSum));
@@ -118,12 +154,14 @@ export default {
     };
 
     return {
+      t,
       expanded,
       rangeKey,
       mainCategorySummary,
       subcategorySummaries,
       totalSum,
       rootCategorySum,
+      budgetInstance,
       summarySumFor,
       showCategoryPath,
       subcategoryName,
