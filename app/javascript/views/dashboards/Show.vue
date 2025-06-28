@@ -116,6 +116,9 @@ export default {
     categoriesFromStore.value = props.categories;
     categorySummariesFromStore.value = props.categorySummaries;
 
+    budgetInstanceStore.setFetchParams({ startDate, endDate });
+    budgetInstanceStore.fetchCollection();
+
     const fetchRecentTransactions = () => {
       transactionStore.setFetchParams({ daysToShow: 0, includeStatistics: true });
       paginationStore.setPaginationOptions({

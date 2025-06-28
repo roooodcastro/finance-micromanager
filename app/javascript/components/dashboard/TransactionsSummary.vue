@@ -129,10 +129,6 @@ export default {
     const { statistics, loading, initialFetchDone } = storeToRefs(transactionStore);
     const { budgetInstanceForProfile: budgetInstance } = storeToRefs(budgetInstanceStore);
 
-    if (!budgetInstance.value) {
-      budgetInstanceStore.fetchCollection();
-    }
-
     const startBalance = computed(() => statistics.value.startBalance);
     const endBalance = computed(() => statistics.value.endBalance);
     const balanceDiff = computed(() => endBalance.value - startBalance.value);

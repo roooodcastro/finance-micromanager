@@ -91,6 +91,10 @@ pt-BR:
         system: Sistema
         name_label: Nome
         subcategories_label: Subcategorias
+      category_summary_list:
+        from_budget_label: de
+        left_budget_label: restantes
+        over_budget_label: acima
       import_names_list:
         from_name_label: De
         to_name_label: Para

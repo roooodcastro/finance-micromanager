@@ -868,6 +868,11 @@
           "subcategories_label": "Subcategories",
           "system": "System"
         },
+        "category_summary_list": {
+          "from_budget_label": "from",
+          "left_budget_label": "left",
+          "over_budget_label": "over"
+        },
         "import_names_list": {
           "from_name_label": "From",
           "to_name_label": "To"
