@@ -559,6 +559,8 @@ en:
         date_label: Date
         category_label: Category
         wallet_label: Wallet
+        of_label: of
+        budget_percentage_label: '% of budget'
         transaction_automation_label: Created from
         transaction_automation_value: Transaction Automation
         import_label: Imported by

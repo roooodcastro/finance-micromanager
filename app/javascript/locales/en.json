@@ -1485,6 +1485,7 @@
         "pwa_shortcut_label": "Create New Transaction",
         "show": {
           "amount_label": "Amount",
+          "budget_percentage_label": "% of budget",
           "category_label": "Category",
           "created_at_label": "Added on",
           "created_by_label": "Added by",
@@ -1495,6 +1496,7 @@
           "import_value": "Transaction Import",
           "name_label": "Name",
           "no_wallet": "-- Not Specified --",
+          "of_label": "of",
           "sub_header_summary": "Summary",
           "title": "Transaction",
           "transaction_automation_label": "Created from",

@@ -559,6 +559,8 @@ pt-BR:
         date_label: Data
         category_label: Categoria
         wallet_label: Carteira
+        of_label: de
+        budget_percentage_label: '% do orçamento'
         transaction_automation_label: Criada através de
         transaction_automation_value: Automação de Transação
         import_label: Importada por

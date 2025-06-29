@@ -1557,6 +1557,7 @@
         "pwa_shortcut_label": "Criar nova Transação",
         "show": {
           "amount_label": "Valor",
+          "budget_percentage_label": "% do orçamento",
           "category_label": "Categoria",
           "created_at_label": "Criada em",
           "created_by_label": "Criada por",
@@ -1567,6 +1568,7 @@
           "import_value": "Importação de Transação",
           "name_label": "Nome",
           "no_wallet": "-- Não Especificada --",
+          "of_label": "de",
           "sub_header_summary": "Resumo",
           "title": "Transação",
           "transaction_automation_label": "Criada através de",

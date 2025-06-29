@@ -67,6 +67,19 @@
               {{ t('no_wallet') }}
             </template>
           </dd>
+          <template v-if="!!budgetInstance">
+            <dd class="col-6 col-md-4 my-1">
+              {{ t('budget_percentage_label') }}
+            </dd>
+            <dt
+              class="col-6 col-md-8 my-1"
+              :class="{ 'text-credit': usedBudgetPercentage > 0, 'text-debit': usedBudgetPercentage < -100 }"
+            >
+              {{ Math.abs(usedBudgetPercentage).toFixed(1) }}%
+              {{ t('of_label') }}
+              {{ formatMoney(budgetInstance.limitAmount) }}
+            </dt>
+          </template>
           <template v-if="!!transactionFromStore.transactionAutomationId">
             <dd class="col-6 col-md-4 my-1">
               {{ t('transaction_automation_label') }}
@@ -141,6 +154,7 @@ import {
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { formatDate, formatDateTime } from '~/utils/DateUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -175,6 +189,19 @@ export default {
     const transactionStore = useTransactionStore();
     transactionStore.setActionName('show');
 
+    const budgetInstanceStore = useBudgetInstanceStore();
+    const { budgetInstanceForCategory } = storeToRefs(budgetInstanceStore);
+    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.transaction.categoryId));
+    budgetInstanceStore.setFetchParams({
+      startDate: props.transaction.transactionDate,
+      endDate: props.transaction.transactionDate
+    });
+    budgetInstanceStore.fetchCollection();
+
+    const usedBudgetPercentage = computed(() => {
+      return 100 * (props.transaction.amount / budgetInstance.value.limitAmount);
+    });
+
     const { transaction: transactionFromStore, transactions } = storeToRefs(transactionStore);
     transactionFromStore.value = props.transaction;
     transactions.value = [props.transaction];
@@ -195,6 +222,8 @@ export default {
       transactionsPath,
       isDebit,
       isCredit,
+      budgetInstance,
+      usedBudgetPercentage,
       categoryPath,
       importPath,
       transactionAutomationPath,

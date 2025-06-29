@@ -19,9 +19,9 @@ export default defineBaseApiStore('budgetInstance', {
 
   getters: {
     budgetInstanceForCategory: (state) => {
-      return (category) => {
+      return (categoryId) => {
         return state.budgetInstances.find((budgetInstance) => {
-          return budgetInstance.ownerType === BUDGET_OWNER_TYPE_CATEGORY && budgetInstance.ownerId === category.id;
+          return budgetInstance.ownerType === BUDGET_OWNER_TYPE_CATEGORY && budgetInstance.ownerId === categoryId;
         });
       };
     },

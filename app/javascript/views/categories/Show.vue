@@ -210,7 +210,7 @@ export default {
     categoryFromStore.value = props.category;
 
     const isDisabled = computed(() => !!categoryFromStore.value.disabledAt);
-    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category));
+    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category.id));
 
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
     transactionStore.fetchCollection();
