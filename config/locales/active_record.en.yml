@@ -3,6 +3,7 @@ en:
   activerecord:
     attributes:
       budget:
+        limit_amount: Limit
         limit_type_remainder: Remainder
       import:
         sources:
@@ -43,18 +44,32 @@ en:
         locale: Language
     errors:
       models:
+        budget:
+          attributes:
+            limit_amount:
+              cannot_be_greater_than_profile_budget: cannot be greater than the profile budget limit
+              cannot_be_less_than_category_budget: cannot be less than the highest category budget limit
+            limit_percentage:
+              valid_percentage: 'must be a value between 0 and 100'
+            limit_type:
+              cannot_be_remainder_on_profile_budget: cannot be "Remainder" for profile budgets
+              only_one_remainder_category_budget_per_profile: cannot be "Remainder" as there's already another category with a budget set as "Remainder"
+
         category:
           attributes:
             base:
               cannot_edit_system_category: Cannot edit system categories
+
         profile:
           attributes:
             currency:
               cannot_change_after_creation: cannot be changed. Please create a new profile for the currency
+
         profile_share:
           attributes:
             user:
               owner_self_share: is already the owner of the profile
+
         reconciliation:
           attributes:
             base:
@@ -72,6 +87,7 @@ en:
               cannot_be_older_than_finished_reconciliations: >-
                 has to be newer than the date from the last finished reconciliation
               cannot_finish_date_in_future: cannot be a date in the future when finishing a reconciliation
+
         reconciliation_wallet:
           attributes:
             balance_amount_cents:

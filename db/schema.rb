@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_16_214453) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_29_210906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_214453) do
     t.datetime "updated_at", null: false
     t.boolean "carryover", default: false, null: false
     t.index ["disabled_by_id"], name: "index_budgets_on_disabled_by_id"
+    t.index ["owner_id"], name: "index_budgets_on_owner_id", unique: true
     t.index ["owner_type", "owner_id"], name: "index_budgets_on_owner"
     t.index ["profile_id"], name: "index_budgets_on_profile_id"
   end

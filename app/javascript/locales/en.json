@@ -3,6 +3,7 @@
     "activerecord": {
       "attributes": {
         "budget": {
+          "limit_amount": "Limit",
           "limit_type_remainder": "Remainder"
         },
         "import": {
@@ -64,6 +65,21 @@
           }
         },
         "models": {
+          "budget": {
+            "attributes": {
+              "limit_amount": {
+                "cannot_be_greater_than_profile_budget": "cannot be greater than the profile budget limit",
+                "cannot_be_less_than_category_budget": "cannot be less than the highest category budget limit"
+              },
+              "limit_percentage": {
+                "valid_percentage": "must be a value between 0 and 100"
+              },
+              "limit_type": {
+                "cannot_be_remainder_on_profile_budget": "cannot be \"Remainder\" for profile budgets",
+                "only_one_remainder_category_budget_per_profile": "cannot be \"Remainder\" as there's already another category with a budget set as \"Remainder\""
+              }
+            }
+          },
           "category": {
             "attributes": {
               "base": {
