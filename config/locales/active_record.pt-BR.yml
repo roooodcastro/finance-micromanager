@@ -11,8 +11,11 @@ pt-BR:
       wallet: Carteira
     attributes:
       budget:
+        limit_amount: Limite
+        limit_percentage: Porcentagem limite
         limit_type: Tipo do Orçamento
         limit_type_remainder: Restante
+        owner_id: Orçamento
       category:
         name: Nome
         color: Cor
@@ -76,6 +79,22 @@ pt-BR:
         name: Nome
     errors:
       models:
+        budget:
+          attributes:
+            limit_amount:
+              cannot_be_greater_than_profile_budget: não pode ser maior do que o limite do orçamento do perfil
+              cannot_be_less_than_category_budget: não pode ser menor do que o maior limite de orçamento de categoria
+            limit_percentage:
+              valid_percentage: 'deve ter um valor entre 0 e 100'
+            limit_type:
+              cannot_be_remainder_on_profile_budget: não pode ser "Restante" para orçamentos de perfil
+              only_one_remainder_category_budget_per_profile: não pode ser "Restante" pois há outra categoria cujo orçamento é "Restante"
+
+        category:
+          attributes:
+            base:
+              cannot_edit_system_category: Não é possível editar categorias do sistema
+
         profile:
           attributes:
             currency:

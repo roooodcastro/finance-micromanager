@@ -13,11 +13,11 @@ FactoryBot.define do
     end
 
     trait :category do
-      owner { Category.last }
+      owner { create(:category) }
     end
 
     trait :profile do
-      owner { Profile.last }
+      owner { create(:profile) }
     end
 
     trait :absolute do

@@ -80,8 +80,8 @@ pt-BR:
 
     components:
       budget_history_chart:
-        limit_label: 'Limite'
-        used_label: 'Usado'
+        limit_label: Limite
+        used_label: Usado
       budgets_list:
         category_name_label: Categoria
         budget_usage_label: Mensal

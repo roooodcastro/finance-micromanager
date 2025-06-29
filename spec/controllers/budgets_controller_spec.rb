@@ -90,7 +90,8 @@ RSpec.describe BudgetsController do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json_response).to eq(
-          { 'message' => 'Budget could not be set: Limit amount must be blank, Limit percentage can\'t be blank' }
+          { 'message' => 'Budget could not be set: Limit must be blank, Limit percentage can\'t be blank, ' \
+                         'Limit percentage must be a value between 0 and 100' }
         )
       end
     end
@@ -134,7 +135,8 @@ RSpec.describe BudgetsController do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json_response).to eq(
-          { 'message' => 'Budget could not be set: Limit amount must be blank, Limit percentage can\'t be blank' }
+          { 'message' => 'Budget could not be set: Limit must be blank, Limit percentage can\'t be blank, ' \
+                         'Limit percentage must be a value between 0 and 100' }
         )
       end
     end
