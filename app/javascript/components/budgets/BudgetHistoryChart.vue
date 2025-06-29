@@ -38,16 +38,22 @@ export default {
 
     const { budgetInstancesForHistory } = storeToRefs(budgetInstanceStore);
 
-    const chartLabels = computed(() => {
-      return budgetInstancesForHistory.value
-        .map(budgetInstance => budgetInstance.startDate)
-        .sort()
-        .map(date => _.upperFirst(dayjs(date).format('MMM YYYY')));
-    });
+    // Builds an array of all months to be charted. This will be the current month plus the 12 months prior.
+    const chartMonths = [...Array(13)].map((_, index) => dayjs().tz('utc').utc().subtract(index, 'month')).reverse();
+
+    const chartLabels = computed(() => chartMonths.map(month => _.upperFirst(month.format('MMM YYYY'))));
 
     const chartDatasets = computed(() => {
-      const limitsData = budgetInstancesForHistory.value.map(budgetInstance => budgetInstance.limitAmount);
-      const usedAmountsData = budgetInstancesForHistory.value.map(budgetInstance => budgetInstance.usedAmount);
+      // Correctly positions the budgetInstances in the dataset array to be shown at the correct place in the chart.
+      // This is important as if there are gaps in the data, these will be left empty and not filled in
+      // by the data for the wrong month.
+      const budgetInstancesForChart = chartMonths.map((monthDate) => {
+        const month = monthDate.format('MMM YYYY');
+        return budgetInstancesForHistory.value.find(bi => dayjs(bi.startDate).format('MMM YYYY') === month);
+      });
+
+      const limitsData = budgetInstancesForChart.map(budgetInstance => budgetInstance?.limitAmount);
+      const usedAmountsData = budgetInstancesForChart.map(budgetInstance => budgetInstance?.usedAmount);
 
       const limitsDataset = {
         data: limitsData,
@@ -74,7 +80,7 @@ export default {
       return {
         anchor: 'start',
         align: 'end',
-        formatter: value => formatMoney(value.toFixed(), { includeCents: false }),
+        formatter: value => value ? formatMoney(value.toFixed(), { includeCents: false }) : '',
         display: isMediaBreakpointLgOrUpper.value ? 'auto' : false,
       };
     });

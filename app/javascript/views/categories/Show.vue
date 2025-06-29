@@ -89,7 +89,7 @@
           </DropdownMenu>
         </template>
 
-        <SubcategoriesList :subcategories="categoryFromStore.subcategories" />
+        <SubcategoriesList />
       </BCard>
     </div>
 
