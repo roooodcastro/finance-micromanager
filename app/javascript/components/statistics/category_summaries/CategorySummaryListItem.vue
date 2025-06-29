@@ -129,7 +129,7 @@ export default {
 
     const showCategoryPath = (categoryId) => categoriesApi.show.path({ id: categoryId });
 
-    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category));
+    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category.id));
     const mainCategorySummary = computed(() => props.summaries.filter(summary => !summary.subcategoryId)?.at(0));
     const subcategorySummaries = computed(() => props.summaries.filter(summary => summary.subcategoryId));
     const totalSum = computed(() => _.sumBy(props.summaries, summary => summary.debitSum + summary.creditSum));

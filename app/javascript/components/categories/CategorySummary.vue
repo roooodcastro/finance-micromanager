@@ -93,7 +93,7 @@ export default {
     const { budgetInstanceForCategory } = storeToRefs(budgetInstanceStore);
     const { startMonth: month, startYear: year } = storeToRefs(dateRangeStore);
 
-    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category));
+    const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category.id));
     const remainderLimit = computed(() => {
       return (budgetInstance.value?.limitAmount ?? 0) - (budgetInstance.value?.usedAmount ?? 0)
     });
