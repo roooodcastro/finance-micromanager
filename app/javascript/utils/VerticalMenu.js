@@ -1,6 +1,7 @@
 import { computed } from 'vue';
 
 import {
+  budgets as budgetsApi,
   categories as categoriesApi,
   dashboards as dashboardsApi,
   profiles as profilesApi,
@@ -17,6 +18,7 @@ import {
 } from '~/api/all.js';
 
 import {
+  ICON_BUDGETS,
   ICON_CATEGORIES,
   ICON_DASHBOARD,
   ICON_IMPORTS,
@@ -94,6 +96,7 @@ export const buildVerticalMenuItems = () => {
           ]
         }),
         buildMenuItem({ key: 'categories', path: categoriesApi.index.path(), icon: ICON_CATEGORIES }),
+        buildMenuItem({ key: 'budgets', path: budgetsApi.index.path(), icon: ICON_BUDGETS }),
         buildMenuItem({ key: 'wallets', path: walletsApi.index.path(), icon: ICON_WALLETS }),
         buildMenuItem({ key: 'profiles', path: profilesApi.index.path(), icon: ICON_PROFILES }),
         buildMenuItem({ key: 'settings', path: settingsApi.show.path(), icon: ICON_SETTINGS }),

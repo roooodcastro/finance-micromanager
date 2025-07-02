@@ -32,7 +32,7 @@ module Budgets
       return 0 unless budget.carryover?
       return 0 if budget_instance.previous_instance.nil?
 
-      -budget_instance.previous_instance.carryover_amount
+      -budget_instance.carryover_amount_from_last_month.to_f
     end
 
     def existing_budget_instance

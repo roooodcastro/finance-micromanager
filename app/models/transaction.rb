@@ -112,7 +112,7 @@ class Transaction < ApplicationRecord
   end
 
   def update_budget_instances!
-    Budgets::UpdateProfileBudgetInstancesService.call(profile) unless skip_budget_recalculation
+    Budgets::UpdateBudgetInstancesAmountsService.call(profile) unless skip_budget_recalculation
   end
 
   def validate_category_is_enabled

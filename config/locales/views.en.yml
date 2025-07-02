@@ -8,8 +8,8 @@ en:
     budgets:
       floating_button_label: New Budget
       confirmation:
-        disable: Are you sure you want to disable this budget? This will keep past budgets, including the current month's budget.
-        reenable: Are you sure you want to re-enable this budget? This will take effect for the current month and future months.
+        disable: Are you sure you want to disable this budget? This will keep past budgets, but will remove this month's budget.
+        reenable: Are you sure you want to re-enable this budget? This will set the budget for this and future months.
       index:
         title: Budgets config
         new: Set Budget
@@ -19,7 +19,6 @@ en:
         no_budget_set: --- No budget ---
         monthly_budget_absolute_desc: '%{amount} / month'
         monthly_budget_percentage_desc: '%{percentage} of monthly income'
-
       form:
         new_title: New Budget
         edit_title: Edit Budget
@@ -31,6 +30,19 @@ en:
         carryover_label: Apply carryover to next month
         submit: Submit
         cancel: Cancel
+      show:
+        title: Budget
+        sub_header_summary: Summary for
+        sub_header_budget_history: Budget History
+        of_label: of
+        edit: Edit
+        disable: Disable
+        reenable: Re-enable
+        limit_amount_label: Budget limit
+        used_amount_label: Used
+        remaining_amount_label: Available
+        carryover_label: Carryover from
+        no_budget_info_message: No budget for this month
 
     categories:
       floating_button_label: New Category
@@ -307,6 +319,7 @@ en:
         toast_title_warning: Warning
         toast_title_danger: Error
       vertical_menu:
+        budgets: Budgets
         dashboard: Dashboard
         imports: Transaction Imports
         imports_list: List Imports

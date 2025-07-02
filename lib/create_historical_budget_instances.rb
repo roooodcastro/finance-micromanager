@@ -18,7 +18,7 @@ class CreateHistoricalBudgetInstances
       Budgets::BudgetInstanceFactoryService.call(budget, start_date).save!
     end
 
-    Budgets::UpdateProfileBudgetInstancesService.call(budget.profile, build_start_dates)
+    Budgets::UpdateBudgetInstancesAmountsService.call(budget.profile, build_start_dates)
   end
 
   private

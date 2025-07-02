@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures do
+RSpec.describe Budgets::UpdateBudgetInstancesAmountsService, :aggregate_failures do
   describe '#self.call' do
     subject(:call) { described_class.call(profile) }
 
@@ -25,12 +25,11 @@ RSpec.describe Budgets::UpdateProfileBudgetInstancesService, :aggregate_failures
     context 'for an absolute budget' do
       let(:budget) { create(:budget, :absolute, profile: profile, owner: category1, limit_amount: 60) }
 
-      it 'updates the budget instance limit and used amount with the new transactions sum for that category' do
+      it 'updates the budget instance used amount with the new transactions sum for that category' do
         expect { call }
           .to change { budget_instance.reload.used_amount.to_f }
           .by(10)
-          .and change { budget_instance.limit_amount.to_f }
-          .to(60)
+          .and not_change { budget_instance.limit_amount.to_f }
       end
 
       it 'updates the profile budget used amount' do
