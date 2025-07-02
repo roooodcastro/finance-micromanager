@@ -136,7 +136,7 @@ export default {
     const handleDisable = () => budgetStore.disable(props.budget.id, { fetchSingle: true });
     const handleReenable = () => budgetStore.reenable(props.budget.id, { fetchSingle: true });
     const handleDateRangeChange = () => {
-      budgetInstanceStore.setFetchParams({ startDate, endDate });
+      budgetInstanceStore.setFetchParams({ startDate, endDate, updateDateRange: true });
       budgetInstanceStore.fetchCollection();
       budgetInstanceStore.fetchForHistory(props.budget.ownerId);
     };

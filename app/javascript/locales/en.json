@@ -792,8 +792,8 @@
       "app_name": "Finance MicroManager",
       "budgets": {
         "confirmation": {
-          "disable": "Are you sure you want to disable this budget? This will keep past budgets, including the current month's budget.",
-          "reenable": "Are you sure you want to re-enable this budget? This will take effect for the current month and future months."
+          "disable": "Are you sure you want to disable this budget? This will keep past budgets, but will remove this month's budget.",
+          "reenable": "Are you sure you want to re-enable this budget? This will set the budget for this and future months."
         },
         "floating_button_label": "New Budget",
         "form": {
@@ -823,6 +823,7 @@
           "disable": "Disable",
           "edit": "Edit",
           "limit_amount_label": "Budget limit",
+          "no_budget_info_message": "No budget for this month",
           "of_label": "of",
           "reenable": "Re-enable",
           "remaining_amount_label": "Available",

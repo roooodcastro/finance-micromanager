@@ -8,8 +8,8 @@ pt-BR:
     budgets:
       floating_button_label: Novo Orçamento
       confirmation:
-        disable: Tem certeza de que deseja desabilitar este orçamento? Isto irá manter orçamentos passados, incluindo o deste mês.
-        reenable: Tem certeza de que deseja reabilitar este orçamento? Isto terá efeito para o mês corrente e meses futuros.
+        disable: Tem certeza de que deseja desabilitar este orçamento? Isto irá manter orçamentos passados, porém irá excluir o orçamento deste mês.
+        reenable: Tem certeza de que deseja reabilitar este orçamento? Isto irá criar um orçamento para este mês e meses futuros.
       index:
         title: Configuração de orçamentos
         new: Definir Orçamento
@@ -42,6 +42,7 @@ pt-BR:
         used_amount_label: Usado
         remaining_amount_label: Disponível
         carryover_label: Transferido de
+        no_budget_info_message: Sem orçamento neste mês
 
     categories:
       floating_button_label: Nova Categoria
