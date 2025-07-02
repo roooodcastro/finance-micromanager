@@ -72,7 +72,7 @@ class TransactionsController < AbstractAuthenticatedController
       end
     end
 
-    Budgets::UpdateProfileBudgetInstancesService.call(Current.profile, reference_dates.uniq)
+    Budgets::UpdateBudgetInstancesAmountsService.call(Current.profile, reference_dates.uniq)
 
     render json: { message: t('.success') }
   rescue ActiveRecord::ActiveRecordError, ActiveRecord::Rollback => e

@@ -51,7 +51,7 @@ class Budget < ApplicationRecord
   end
 
   def as_json
-    super.merge('limit_amount' => limit_amount.to_f, 'formatted_limit' => formatted_limit)
+    super.merge('limit_amount' => limit_amount.to_f, 'formatted_limit' => formatted_limit, 'owner_name' => owner&.name)
   end
 
   def formatted_limit

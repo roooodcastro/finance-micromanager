@@ -888,6 +888,19 @@
           "no_budget_set": "--- Sem orçamento ---",
           "profile_subheader": "Orçamento do perfil",
           "title": "Configuração de orçamentos"
+        },
+        "show": {
+          "carryover_label": "Transferido de",
+          "disable": "Desabilitar",
+          "edit": "Editar",
+          "limit_amount_label": "Limite mensal",
+          "of_label": "de",
+          "reenable": "Reabilitar",
+          "remaining_amount_label": "Disponível",
+          "sub_header_budget_history": "Histórico do Orçamento",
+          "sub_header_summary": "Resumo para",
+          "title": "Orçamento",
+          "used_amount_label": "Usado"
         }
       },
       "categories": {
@@ -1211,6 +1224,7 @@
           "toast_title_warning": "Alerta"
         },
         "vertical_menu": {
+          "budgets": "Orçamentos",
           "categories": "Categorias",
           "current_profile": "Perfil:",
           "dashboard": "Dashboard",

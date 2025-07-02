@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Budgets
-  class UpdateProfileBudgetInstancesService < ApplicationService
+  class UpdateBudgetInstancesAmountsService < ApplicationService
     attr_reader :profile, :reference_dates
 
     def initialize(profile, reference_dates = Time.current)
@@ -19,14 +19,15 @@ module Budgets
           # Then, recalculate the used amount for each category budget
           calculate_used_amount(profile_bi)
           category_budget_instances.each(&method(:calculate_used_amount))
+
           # Then, recalculate the limit of the profile budget, if it exists
-          calculate_absolute_limit_amount(profile_bi)
           calculate_percentage_limit_amount(profile_bi, profile_bi)
+
           # Then, recalculate all the category budgets which have an absolute or percentage limit type
           category_budget_instances.each do |category_bi|
-            calculate_absolute_limit_amount(category_bi)
             calculate_percentage_limit_amount(category_bi, profile_bi)
           end
+
           # Lastly, recalculate the remainder category budget, if it exists
           calculate_remainder_limit_amount(category_budget_instances, profile_bi)
 
@@ -47,12 +48,6 @@ module Budgets
         sum = Transaction.where(profile:).newer_than(start_date).older_than(end_date).exclude_debits.sum(:amount_cents)
         Money.new(sum, profile.currency_object)
       end
-    end
-
-    def calculate_absolute_limit_amount(budget_instance)
-      return unless budget_instance&.limit_type_absolute?
-
-      budget_instance.limit_amount = budget_instance.budget.limit_amount
     end
 
     def calculate_percentage_limit_amount(budget_instance, profile_budget_instance)
@@ -83,7 +78,7 @@ module Budgets
       transactions_in_period = transactions_in_period_for(budget_instance)
 
       transactions_sum            = transactions_in_period.sum(:amount_cents) * -1
-      carryover_amount            = budget_instance.previous_instance&.carryover_amount.to_f
+      carryover_amount            = budget_instance.carryover_amount_from_last_month.to_f
       budget_instance.used_amount = Money.new(transactions_sum - carryover_amount, profile.currency_object)
     end
 

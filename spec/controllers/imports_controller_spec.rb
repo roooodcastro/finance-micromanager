@@ -333,12 +333,12 @@ RSpec.describe ImportsController do
           category:             category
         )
 
-        allow(Budgets::UpdateProfileBudgetInstancesService).to receive(:call)
+        allow(Budgets::UpdateBudgetInstancesAmountsService).to receive(:call)
       end
 
       it 'imports the transactions and calls the budget recalculator passing the 2 reference dates' do
-        expect(Budgets::UpdateProfileBudgetInstancesService).not_to receive(:call).with(import.profile)
-        expect(Budgets::UpdateProfileBudgetInstancesService)
+        expect(Budgets::UpdateBudgetInstancesAmountsService).not_to receive(:call).with(import.profile)
+        expect(Budgets::UpdateBudgetInstancesAmountsService)
           .to receive(:call)
           .with(import.profile, [Date.parse('2023-05-03'), Date.parse('2023-06-01')])
 

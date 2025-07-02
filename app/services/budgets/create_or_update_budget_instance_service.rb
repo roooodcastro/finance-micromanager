@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Budgets
-  class DestroyBudgetInstanceService < ApplicationService
+  class CreateOrUpdateBudgetInstanceService < ApplicationService
     attr_reader :budget
 
     def initialize(budget)
@@ -9,10 +9,12 @@ module Budgets
     end
 
     def call
-      budget_instance = budget.current_budget_instance
-      return unless budget_instance
+      if budget.current_budget_instance.present?
+        budget.current_budget_instance.update!(budget.slice(:limit_amount, :limit_percentage, :limit_type))
+      else
+        Budgets::BudgetInstanceFactoryService.call(budget).save!
+      end
 
-      budget_instance.destroy!
       Budgets::UpdateBudgetInstancesAmountsService.call(budget.profile)
     rescue ActiveRecord::ActiveRecordError => e
       NewRelic::Agent.notice_error(e)

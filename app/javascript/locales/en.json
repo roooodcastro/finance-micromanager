@@ -817,6 +817,19 @@
           "no_budget_set": "--- No budget ---",
           "profile_subheader": "Profile Budget",
           "title": "Budgets config"
+        },
+        "show": {
+          "carryover_label": "Carryover from",
+          "disable": "Disable",
+          "edit": "Edit",
+          "limit_amount_label": "Budget limit",
+          "of_label": "of",
+          "reenable": "Re-enable",
+          "remaining_amount_label": "Available",
+          "sub_header_budget_history": "Budget History",
+          "sub_header_summary": "Summary for",
+          "title": "Budget",
+          "used_amount_label": "Used"
         }
       },
       "categories": {
@@ -1139,6 +1152,7 @@
           "toast_title_warning": "Warning"
         },
         "vertical_menu": {
+          "budgets": "Budgets",
           "categories": "Categories",
           "current_profile": "Profile:",
           "dashboard": "Dashboard",

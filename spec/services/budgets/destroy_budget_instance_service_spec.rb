@@ -24,7 +24,7 @@ RSpec.describe Budgets::DestroyBudgetInstanceService, :aggregate_failures do
     context 'when there is an error' do
       before do
         create(:budget_instance, :from_budget, budget:)
-        allow(Budgets::UpdateProfileBudgetInstancesService).to receive(:call).and_raise(ActiveRecord::RecordInvalid)
+        allow(Budgets::UpdateBudgetInstancesAmountsService).to receive(:call).and_raise(ActiveRecord::RecordInvalid)
       end
 
       it 'reports the error to NewRelic' do

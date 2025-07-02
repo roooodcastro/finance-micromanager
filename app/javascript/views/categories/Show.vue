@@ -237,6 +237,7 @@ export default {
     watch(transactions, () => {
       categoryStore.fetchSingle(props.category.id);
       budgetInstanceStore.fetchCollection();
+      budgetInstanceStore.fetchForHistory(props.category.id);
     });
     watch(budgets, () => {
       budgetInstanceStore.fetchCollection();

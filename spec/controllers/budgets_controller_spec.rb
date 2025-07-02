@@ -40,6 +40,34 @@ RSpec.describe BudgetsController do
     end
   end
 
+  describe 'GET show', :inertia do
+    subject(:show_request) { get :show, format: format, params: { id: budget.id } }
+
+    let!(:budget) { create(:budget, profile:) }
+
+    context 'for a HTML request', :inertia do
+      let(:format) { :html }
+      let(:expected_props) { CamelizeProps.call(budget: budget.as_json) }
+
+      it 'renders the show component' do
+        show_request
+
+        expect_inertia.to render_component('budgets/Show').and include_props(expected_props)
+      end
+    end
+
+    context 'for a JSON request' do
+      let(:format) { :json }
+      let(:expected_json) { CamelizeProps.call('budget' => budget.as_json) }
+
+      it 'renders the budget as json' do
+        show_request
+
+        expect(json_response).to eq(expected_json)
+      end
+    end
+  end
+
   describe 'POST create' do
     subject(:create_request) { post :create, params: }
 
@@ -58,6 +86,8 @@ RSpec.describe BudgetsController do
       end
 
       it 'creates the new budget and budget_instance for current period' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).to receive(:call).and_call_original
+
         expect { create_request }
           .to change { Budget.count }
           .by(1)
@@ -86,6 +116,8 @@ RSpec.describe BudgetsController do
       end
 
       it 'does not create a new budget' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).not_to receive(:call)
+
         expect { create_request }.not_to change { Budget.count }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -109,6 +141,7 @@ RSpec.describe BudgetsController do
       end
 
       it 'creates the new budget' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).to receive(:call).and_call_original
         expect { create_request }.to change { Budget.count }.by(1)
 
         expect(json_response).to eq({ 'message' => 'Budget was successfully set.' })
@@ -131,6 +164,7 @@ RSpec.describe BudgetsController do
       end
 
       it 'does not create a new budget' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).not_to receive(:call)
         expect { create_request }.not_to change { Budget.count }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -152,6 +186,7 @@ RSpec.describe BudgetsController do
       let(:params) { { id: budget.id, budget: { limit_amount: 15, carryover: true } } }
 
       it 'updates the budget and the budget instance for the current period' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).to receive(:call).with(budget).and_call_original
         expect { update_request }
           .to not_change { Budget.count }
           .and change { budget_instance.reload.limit_amount.to_f }
@@ -167,6 +202,7 @@ RSpec.describe BudgetsController do
       let(:params) { { id: budget.id, budget: { limit_percentage: 10 } } }
 
       it 'does not update the budget' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).not_to receive(:call)
         expect { update_request }.not_to change { Budget.count }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -184,6 +220,7 @@ RSpec.describe BudgetsController do
 
     context 'when the budget can be disabled' do
       it 'disables the budget and renders json' do
+        expect(Budgets::DestroyBudgetInstanceService).to receive(:call).with(budget).and_call_original
         expect { delete_request }
           .to not_change { Budget.count }
           .and change { budget.reload.disabled? }
@@ -200,6 +237,7 @@ RSpec.describe BudgetsController do
       before { allow_any_instance_of(Budget).to receive(:disable!).and_raise(ActiveRecord::RecordInvalid) }
 
       it 'does not disables the budget' do
+        expect(Budgets::DestroyBudgetInstanceService).not_to receive(:call)
         expect { delete_request }
           .to not_change { Budget.count }
           .and not_change { budget.reload.disabled? }
@@ -216,6 +254,7 @@ RSpec.describe BudgetsController do
 
     context 'when the budget can be re-enabled' do
       it 're-enables the budget and renders json' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).to receive(:call).with(budget).and_call_original
         expect { reenable_request }
           .to not_change { Budget.count }
           .and change { budget.reload.disabled? }
@@ -234,6 +273,7 @@ RSpec.describe BudgetsController do
       before { allow_any_instance_of(Budget).to receive(:enable!).and_raise(ActiveRecord::RecordInvalid) }
 
       it 'does not reenables the budget' do
+        expect(Budgets::CreateOrUpdateBudgetInstanceService).not_to receive(:call)
         expect { reenable_request }
           .to not_change { Budget.count }
           .and not_change { budget.reload.disabled? }

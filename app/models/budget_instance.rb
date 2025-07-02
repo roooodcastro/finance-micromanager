@@ -27,7 +27,8 @@ class BudgetInstance < ApplicationRecord
     super.merge(
       'limit_amount'     => limit_amount.to_f,
       'used_amount'      => used_amount.to_f,
-      'remaining_amount' => remaining_amount.to_f
+      'remaining_amount' => remaining_amount.to_f,
+      'carryover_amount' => carryover_amount_from_last_month.to_f
     )
   end
 
@@ -39,11 +40,13 @@ class BudgetInstance < ApplicationRecord
     @previous_instance ||= self.class.for_current_date(start_date - 1.day).find_by(profile_id:, budget_id:)
   end
 
-  def next_instance
-    @next_instance ||= self.class.for_current_date(end_date + 1.day).find_by(profile_id:, budget_id:)
+  def carryover_amount_from_last_month
+    return 0 unless budget.carryover
+
+    previous_instance&.carryover_amount_to_next_month
   end
 
-  def carryover_amount
+  def carryover_amount_to_next_month
     budget.carryover? ? remaining_amount : 0
   end
 end

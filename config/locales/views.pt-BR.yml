@@ -30,6 +30,18 @@ pt-BR:
         carryover_label: Transferir saldo para o mês sequinte
         submit: Salvar
         cancel: Cancelar
+      show:
+        title: Orçamento
+        sub_header_summary: Resumo para
+        sub_header_budget_history: Histórico do Orçamento
+        of_label: de
+        edit: Editar
+        disable: Desabilitar
+        reenable: Reabilitar
+        limit_amount_label: Limite mensal
+        used_amount_label: Usado
+        remaining_amount_label: Disponível
+        carryover_label: Transferido de
 
     categories:
       floating_button_label: Nova Categoria
@@ -305,6 +317,7 @@ pt-BR:
         toast_title_warning: Alerta
         toast_title_danger: Erro
       vertical_menu:
+        budgets: Orçamentos
         dashboard: Dashboard
         imports: Importação de Transações
         imports_list: Listar Importações

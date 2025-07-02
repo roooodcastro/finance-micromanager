@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BudgetsController < AbstractAuthenticatedController
-  before_action :set_budget, only: %i[update destroy reenable]
+  before_action :set_budget, only: %i[show update destroy reenable]
 
   def index
     budgets        = Current.profile.budgets
@@ -14,11 +14,20 @@ class BudgetsController < AbstractAuthenticatedController
     end
   end
 
+  def show
+    props = camelize_props(budget: @budget.as_json)
+
+    respond_to do |format|
+      format.html { render inertia: 'budgets/Show', props: props }
+      format.json { render json: props }
+    end
+  end
+
   def create
     budget = Budget.build_budget(budget_params)
 
     if budget.save
-      Budgets::CreateBudgetInstanceService.call(budget)
+      Budgets::CreateOrUpdateBudgetInstanceService.call(budget)
       render json: camelize_props(message: t('.success'))
     else
       error = budget.error_messages
@@ -29,7 +38,8 @@ class BudgetsController < AbstractAuthenticatedController
 
   def update
     if @budget.update(budget_params)
-      Budgets::UpdateProfileBudgetInstancesService.call(Current.profile)
+      Budgets::CreateOrUpdateBudgetInstanceService.call(@budget)
+      Budgets::UpdateBudgetInstancesAmountsService.call(Current.profile)
       render json: camelize_props(message: t('.success'))
     else
       error = @budget.error_messages
@@ -48,7 +58,7 @@ class BudgetsController < AbstractAuthenticatedController
 
   def reenable
     @budget.enable!
-    Budgets::CreateBudgetInstanceService.call(@budget)
+    Budgets::CreateOrUpdateBudgetInstanceService.call(@budget)
     render json: { message: t('.success') }
   rescue ActiveRecord::RecordInvalid
     render json: { message: t('.error') }, status: :unprocessable_entity

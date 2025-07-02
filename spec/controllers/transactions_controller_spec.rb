@@ -339,11 +339,11 @@ RSpec.describe TransactionsController do
       let(:params) { { transaction_ids: transaction_ids, transaction: { name: 'New Name' } } }
       let(:transaction_ids) { [transaction_a.id, transaction_b.id] }
 
-      before { allow(Budgets::UpdateProfileBudgetInstancesService).to receive(:call) }
+      before { allow(Budgets::UpdateBudgetInstancesAmountsService).to receive(:call) }
 
       it 'updates the transactions and calls the budget recalculator passing the 2 reference dates' do
-        expect(Budgets::UpdateProfileBudgetInstancesService).not_to receive(:call).with(profile)
-        expect(Budgets::UpdateProfileBudgetInstancesService)
+        expect(Budgets::UpdateBudgetInstancesAmountsService).not_to receive(:call).with(profile)
+        expect(Budgets::UpdateBudgetInstancesAmountsService)
           .to receive(:call)
           .with(profile, array_including(Date.parse('2023-05-03'), Date.parse('2023-06-01')))
 

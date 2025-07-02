@@ -63,7 +63,7 @@ export default {
           return budget.ownerId === category.id && budget.ownerType === BUDGET_OWNER_TYPE_CATEGORY
         }) ?? {};
 
-        return { category, budget };
+        return { category, budget, href: budget.href };
       });
     });
 
