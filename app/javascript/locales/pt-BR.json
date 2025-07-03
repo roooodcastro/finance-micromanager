@@ -999,6 +999,9 @@
           "name_label": "Data",
           "status_label": "Status"
         },
+        "see_all_link": {
+          "label": "Ver Tudo"
+        },
         "subcategories_list": {
           "balance_label": "Saldo",
           "name_label": "Nome"

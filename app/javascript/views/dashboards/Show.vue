@@ -22,9 +22,14 @@
       <div class="col-12 col-lg-6">
         <BCard
           id="dashboard_show_category_summary"
-          :title="t('sub_header_category_summary')"
           no-body
         >
+          <template v-slot:header>
+            <h4 class="card-title m-0 d-flex gap-3 align-items-center">
+              {{ t('sub_header_category_summary') }}
+              <SeeAllLink :href="categoriesIndexPath" />
+            </h4>
+          </template>
           <CategorySummariesList />
         </BCard>
       </div>
@@ -32,9 +37,14 @@
       <div class="col-12 col-lg-6 mt-3 mt-lg-0">
         <BCard
           id="dashboard_show_recent_transactions"
-          :title="t('sub_header_recent_transactions')"
           no-body
         >
+          <template v-slot:header>
+            <h4 class="card-title m-0 d-flex gap-3 align-items-center">
+              {{ t('sub_header_recent_transactions') }}
+              <SeeAllLink :href="transactionsIndexPath" />
+            </h4>
+          </template>
           <TransactionTypeTabs class="mx-3 mb-3" />
 
           <TransactionsList
@@ -60,6 +70,11 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useUserStore from '~/stores/UserStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 
+import {
+  categories as categoriesApi,
+  transactions as transactionsApi,
+} from '~/api/all.js';
+
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
@@ -67,6 +82,7 @@ import CategorySummariesList from '~/components/statistics/category_summaries/Ca
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
+import SeeAllLink from '~/components/ui/SeeAllLink.vue';
 import DailyTotalsChart from '~/components/transactions/DailyTotalsChart.vue';
 import TransactionsSummary from '~/components/dashboard/TransactionsSummary.vue';
 
@@ -78,6 +94,7 @@ export default {
     DateRangeSelector,
     InProgressReconciliationInfoAlert,
     PageHeader,
+    SeeAllLink,
     TransactionsList,
     TransactionsSummary,
     TransactionTypeTabs,
@@ -99,6 +116,9 @@ export default {
   },
 
   setup(props) {
+    const categoriesIndexPath = categoriesApi.index.path();
+    const transactionsIndexPath = transactionsApi.index.path();
+
     const dateRangeStore = useDateRangeStore();
     const categoryStore = useCategoryStore();
     const paginationStore = usePaginationStore();
@@ -151,6 +171,8 @@ export default {
       t: I18n.scopedTranslator('views.dashboard.show'),
       transactions,
       user,
+      categoriesIndexPath,
+      transactionsIndexPath,
       handleDateRangeChange,
     };
   },
