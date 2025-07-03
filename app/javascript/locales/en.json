@@ -927,6 +927,9 @@
           "name_label": "Date",
           "status_label": "Status"
         },
+        "see_all_link": {
+          "label": "See All"
+        },
         "subcategories_list": {
           "balance_label": "Balance",
           "name_label": "Name"

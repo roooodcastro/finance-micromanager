@@ -128,6 +128,8 @@ pt-BR:
         status_label: Status
         balance_diff_label: Divergência
         cancel_action: Cancelar
+      see_all_link:
+        label: Ver Tudo
       subcategories_list:
         name_label: Nome
         balance_label: Saldo

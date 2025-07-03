@@ -129,6 +129,8 @@ en:
         status_label: Status
         balance_diff_label: Divergence
         cancel_action: Cancel
+      see_all_link:
+        label: See All
       subcategories_list:
         name_label: Name
         balance_label: Balance
