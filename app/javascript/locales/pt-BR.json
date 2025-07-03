@@ -870,6 +870,7 @@
         "form": {
           "cancel": "Cancelar",
           "carryover_label": "Transferir saldo para o mês sequinte",
+          "carryover_tooltip": "Se selecionado, qualquer sobra ou gasto acima do orçamento será transferido para o mês seguinte quando o mês atual terminar.",
           "edit_title": "Editar Orçamento",
           "limit_label": "Limite Mensal",
           "limit_type_absolute_label": "Absoluto",
@@ -877,6 +878,9 @@
           "limit_type_percentage_label": "Porcentagem",
           "limit_type_remainder_label": "Restante",
           "new_title": "Novo Orçamento",
+          "percentage_info_alert_absolute_profile": "Porcentagem de %{limit_amount}",
+          "percentage_info_alert_income": "Porcentagem da receita total",
+          "percentage_info_alert_percentage_profile": "Porcentagem de %{limit_percentage}% da receita total",
           "submit": "Salvar"
         },
         "index": {

@@ -799,6 +799,7 @@
         "form": {
           "cancel": "Cancel",
           "carryover_label": "Apply carryover to next month",
+          "carryover_tooltip": "If selected, any leftover balance or over expecnditure will be carried over to the next month when the current month ends.",
           "edit_title": "Edit Budget",
           "limit_label": "Monthly Limit",
           "limit_type_absolute_label": "Absolute",
@@ -806,6 +807,9 @@
           "limit_type_percentage_label": "Percentage",
           "limit_type_remainder_label": "Remainder",
           "new_title": "New Budget",
+          "percentage_info_alert_absolute_profile": "Percentage of %{limit_amount}",
+          "percentage_info_alert_income": "Percentage of the total income",
+          "percentage_info_alert_percentage_profile": "Percentage of %{limit_percentage}% of the total income",
           "submit": "Submit"
         },
         "index": {
