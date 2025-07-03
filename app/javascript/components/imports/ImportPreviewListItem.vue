@@ -55,24 +55,14 @@
     </td>
 
     <td
-      class="width-12rem text-end py-4"
+      class="width-10rem text-end py-4"
       :class="{ 'text-debit': isSpend, 'text-credit': isIncome }"
     >
       {{ formatMoney(transaction.amount) }}
     </td>
 
-    <td class="width-10rem">
-      <input
-        data-transaction-input="date"
-        :data-row="index"
-        :value="transaction.transactionDate"
-        :disabled="!isEditable && !isDateEditable"
-        :name="`transactions[${transaction.id}][transaction_date]`"
-        class="form-control px-3"
-        type="date"
-        required
-        @change="handleDateChange(transaction.id, $event)"
-      >
+    <td class="width-10rem py-4">
+      {{ formatDate(transaction.transactionDate) }}
     </td>
 
     <td>
@@ -103,6 +93,7 @@
         :allow-match="allowMatch"
         :name="`transactions[${transaction.id}][action]`"
         :disabled="isBlocked"
+        :class="{ 'ImportActionsSelect__match-available': allowMatch }"
         required
         @change="handleActionChange(transaction.id, $event)"
       />
@@ -215,12 +206,6 @@ export default {
         .then(processTransactionPredictions);
     };
 
-    const handleDateChange = (transactionId, event) => {
-      importTransactionStore
-        .update(transactionId, { id: transactionId, transactionDate: event.target.value })
-        .then(processTransactionPredictions);
-    };
-
     const handleCategoryChange = (transactionId, categoryId) => {
       importTransactionStore
         .update(transactionId, { id: transactionId, categoryId })
@@ -273,9 +258,16 @@ export default {
       handleActionChange,
       handleCategoryChange,
       handleNameChange,
-      handleDateChange,
       handleCreateImportName,
     };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+.ImportActionsSelect__match-available {
+  outline: 0.25rem solid $secondary;
+}
+</style>
