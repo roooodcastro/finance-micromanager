@@ -58,6 +58,19 @@
             </div>
           </template>
           <template v-if="budget.limitType === BUDGET_LIMIT_TYPE_PERCENTAGE">
+            <InfoAlert
+              v-if="isProfileBudget || !profileBudget"
+              :message="t('percentage_info_alert_income')"
+            />
+            <InfoAlert
+              v-if="!isProfileBudget && profileBudget && profileBudget.limitType === BUDGET_LIMIT_TYPE_ABSOLUTE"
+              :message="t('percentage_info_alert_absolute_profile', { limit_amount: formatMoney(profileBudget.limitAmount) })"
+            />
+            <InfoAlert
+              v-if="!isProfileBudget && profileBudget && profileBudget.limitType === BUDGET_LIMIT_TYPE_PERCENTAGE"
+              :message="t('percentage_info_alert_percentage_profile', { limit_percentage: profileBudget.limitPercentage })"
+            />
+
             <label
               :for="formHelper.fieldId('limit_percentage')"
               class="form-label"
@@ -90,6 +103,7 @@
             :name="formHelper.fieldName('carryover')"
           >
             {{ t('carryover_label') }}
+            <InfoTooltip :message="t('carryover_tooltip')" />
           </CheckboxField>
         </template>
       </RailsForm>
@@ -102,8 +116,8 @@ import { computed, ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-
 import { budgets as budgetsApi } from '~/api/all.js';
+import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import useBudgetStore from '~/stores/BudgetStore.js';
 import useModalStore from '~/stores/ModalStore.js';
@@ -120,11 +134,15 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import LimitTypeSelect from '~/components/budgets/LimitTypeSelect.vue';
 import CheckboxField from '~/components/forms/CheckboxField.vue';
+import InfoAlert from '~/components/bootstrap/InfoAlert.vue';
+import InfoTooltip from '~/components/bootstrap/InfoTooltip.vue';
 
 export default {
   components: {
     CheckboxField,
     FormModal,
+    InfoAlert,
+    InfoTooltip,
     LimitTypeSelect,
     RailsForm,
   },
@@ -141,9 +159,10 @@ export default {
     const profileStore = useProfileStore();
 
     const { currentProfile } = storeToRefs(profileStore);
-    const { budgetForFormModal: budget } = storeToRefs(budgetStore);
+    const { budgetForFormModal: budget, profileBudget } = storeToRefs(budgetStore);
 
     const isNewRecord = computed(() => !budget.value.id);
+    const isProfileBudget = computed(() => budget.value.ownerType === BUDGET_OWNER_TYPE_PROFILE);
 
     const formAction = isNewRecord.value
       ? budgetsApi.create.path()
@@ -154,13 +173,10 @@ export default {
     const handleSubmit = (closeModal) => {
       loading.value = true;
       if (isNewRecord.value) {
-        const isProfileBudget = budget.value.ownerType === BUDGET_OWNER_TYPE_PROFILE;
         budgetStore
           .create(budget.value)
           .then(() => {
-            if (isProfileBudget) {
-              budgetStore.fetchProfileBudget();
-            }
+            budgetStore.fetchProfileBudget();
             closeModal();
           })
           .catch(() => {})
@@ -169,9 +185,7 @@ export default {
         budgetStore
           .update(budget.value.id, budget.value)
           .then(() => {
-            if (budget.value.ownerType === BUDGET_OWNER_TYPE_PROFILE) {
-              budgetStore.fetchProfileBudget();
-            }
+            budgetStore.fetchProfileBudget();
             closeModal();
           })
           .catch(() => {})
@@ -187,6 +201,10 @@ export default {
 
     onMounted(() => {
       setDefaultValues();
+
+      if (!profileBudget.value) {
+        budgetStore.fetchProfileBudget();
+      }
     });
 
     const handleShow = () => {
@@ -203,12 +221,15 @@ export default {
       loading,
       modalId,
       budget,
+      profileBudget,
       formAction,
       submitButtonLabel,
       currencySymbol,
+      isProfileBudget,
       handleSubmit,
       handleShow,
       handleLimitTypeChange,
+      formatMoney,
       BUDGET_FORM_ID,
       BUDGET_LIMIT_TYPE_ABSOLUTE,
       BUDGET_LIMIT_TYPE_PERCENTAGE,

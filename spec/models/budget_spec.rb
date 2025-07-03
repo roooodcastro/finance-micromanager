@@ -305,5 +305,22 @@ RSpec.describe Budget do
 
       it { is_expected.not_to have_key(:limit_amount) }
     end
+
+    context 'when there is a disabled category budget' do
+      let(:limit_amount) { 199 }
+
+      before { create(:budget, :category, :absolute, :disabled, profile: profile, limit_amount: 200) }
+
+      it { is_expected.not_to have_key(:limit_amount) }
+    end
+
+    context 'when decreasing existing profile budget limit amount' do
+      let(:budget) { create(:budget, :absolute, profile: profile, owner: profile, limit_amount: 150) }
+      let(:limit_amount) { 100 }
+
+      before { budget.assign_attributes(limit_amount:) }
+
+      it { is_expected.not_to have_key(:limit_amount) }
+    end
   end
 end

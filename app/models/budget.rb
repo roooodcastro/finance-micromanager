@@ -90,7 +90,13 @@ class Budget < ApplicationRecord
   def validate_profile_amount_not_less_than_category_amount
     return if limit_amount.nil? || profile.nil?
 
-    highest_category_limit_amount_cents = profile.budgets.limit_type_absolute.maximum(:limit_amount_cents)
+    highest_category_limit_amount_cents = profile
+                                          .budgets
+                                          .active
+                                          .limit_type_absolute
+                                          .where(owner_type: 'Category')
+                                          .maximum(:limit_amount_cents)
+
     return if highest_category_limit_amount_cents.nil?
 
     highest_category_limit_amount = Money.new(highest_category_limit_amount_cents, currency)

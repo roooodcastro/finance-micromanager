@@ -75,6 +75,7 @@ export default defineBaseApiStore('budget', {
             .reenable({ id })
             .then((response) => {
               this.fetch(id, fetchOptions);
+              this.fetchProfileBudget();
               notificationStore.notify(response.message, 'success');
             })
             .catch((error) => {
