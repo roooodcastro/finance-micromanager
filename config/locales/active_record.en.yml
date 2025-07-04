@@ -60,6 +60,12 @@ en:
             base:
               cannot_edit_system_category: Cannot edit system categories
 
+        import:
+          attributes:
+            base:
+              nothing_to_import: Import cannot be processed as nothing was found to be improted. Please check the file and try again.
+              unsupported_csv_file: This CSV file format is unsupported. Please check the file and try again.
+
         profile:
           attributes:
             currency:

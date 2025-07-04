@@ -34,10 +34,12 @@ module TransactionImports
         raise ActiveRecord::Rollback
       end
 
+      import.cancelled!(:nothing_to_import) if transaction_imports.none?(&:persisted?)
+
       transaction_imports
     rescue WrongCsvFileFormatError => e
       NewRelic::Agent.notice_error(e)
-      import.cancelled!
+      import.cancelled!(:unsupported_csv_file)
     end
 
     def parse_file

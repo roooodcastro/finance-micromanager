@@ -95,6 +95,12 @@ pt-BR:
             base:
               cannot_edit_system_category: Não é possível editar categorias do sistema
 
+        import:
+          attributes:
+            base:
+              nothing_to_import: Importação não pode ser processada pois não há nada para importar. Por favor verifique o arquivo e tente novamente.
+              unsupported_csv_file: O formato deste arquivo CSV não é suportado. Por favor verifique o arquivo e tente novamente.
+
         profile:
           attributes:
             currency:

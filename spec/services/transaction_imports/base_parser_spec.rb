@@ -187,8 +187,12 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
         ]
       end
 
-      it 'does not save anything' do
-        expect { parse! }.to not_change { TransactionImports::ImportTransaction.count }
+      it 'does not save anything and set the import as cancelled' do
+        expect { parse! }
+          .to not_change { TransactionImports::ImportTransaction.count }
+          .and change { import.reload.cancelled? }
+          .from(false)
+          .to(true)
       end
     end
 
@@ -198,6 +202,18 @@ RSpec.describe TransactionImports::BaseParser, type: :service do
       end
 
       it 'does not create any import transactions and cancels the import' do
+        expect { parse! }
+          .to not_change { TransactionImports::ImportTransaction.count }
+          .and change { import.reload.cancelled? }
+          .from(false)
+          .to(true)
+      end
+    end
+
+    context 'when there is nothing to import' do
+      let(:import_transactions) { [] }
+
+      it 'cancels the import' do
         expect { parse! }
           .to not_change { TransactionImports::ImportTransaction.count }
           .and change { import.reload.cancelled? }
