@@ -75,7 +75,7 @@ echo $new_version > $script_location/../VERSION
 # 4. Use tr to transform the newline characters from jq into commas for the CSV
 # 5. Use sed to remove the trailing comma
 # 6. Append to the file using >>
-echo "$new_version,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> spec/coverage.csv
+echo "v$new_version,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> spec/coverage.csv
 
 # Commit and push the release changes
 git add $script_location/../VERSION spec/coverage.csv
