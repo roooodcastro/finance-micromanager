@@ -24,4 +24,10 @@ class Import < ApplicationRecord
   def as_json
     super.merge(wallet: wallet.as_json, file_name: source_file.blob&.filename.to_s)
   end
+
+  def cancelled!(error_message = nil)
+    update(status: :cancelled)
+    errors.add(:base, error_message) if error_message
+    true
+  end
 end
