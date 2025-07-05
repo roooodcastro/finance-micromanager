@@ -45,7 +45,6 @@ export default defineBaseApiStore('budgetInstance', {
         fetchParams: {
           startDate: null,
           endDate: dayjs().tz('utc').utc().subtract(12, 'months'),
-          ownerType: BUDGET_OWNER_TYPE_CATEGORY,
           ownerId,
         }
       });

@@ -14,6 +14,7 @@ en:
         title: Budgets config
         new: Set Budget
         edit: Edit
+        show: Details
         categories_subheader: Budgets per category
         profile_subheader: Profile Budget
         no_budget_set: --- No budget ---

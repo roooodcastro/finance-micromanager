@@ -1,8 +1,5 @@
 <template>
-  <BCard
-    id="transactions_summary"
-    :title="t('profile_subheader')"
-  >
+  <BCard :title="t('profile_subheader')">
     <div
       v-if="!!profileBudget"
       class="d-flex justify-content-between gap-3"
@@ -16,6 +13,17 @@
         </template>
       </span>
       <div class="d-flex gap-2">
+        <a
+          :href="showPath"
+          class="btn btn-outline-secondary"
+        >
+          <FontAwesomeIcon
+            icon="circle-info"
+            size="lg"
+            class="me-2"
+          />
+          {{ t('show') }}
+        </a>
         <button
           class="btn btn-secondary btn-sm"
           @click="handleEdit"
@@ -67,6 +75,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import I18n from '~/utils/I18n.js';
 import useBudgetStore from '~/stores/BudgetStore.js';
 import useProfileStore from '~/stores/ProfileStore.js';
+import { budgets as budgetsApi } from '~/api/all.js';
 import { BUDGET_OWNER_TYPE_PROFILE, BUDGET_LIMIT_TYPE_ABSOLUTE } from '~/utils/Constants.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
@@ -85,6 +94,8 @@ export default {
     const { currentProfile } = storeToRefs(profileStore);
     const { profileBudget } = storeToRefs(budgetStore);
 
+    const showPath = budgetsApi.show.path({ id: profileBudget.value?.id });
+
     const handleNew = () => {
       budgetStore.openFormModal(null, { ownerType: BUDGET_OWNER_TYPE_PROFILE, ownerId: currentProfile.value.id });
     };
@@ -95,6 +106,7 @@ export default {
     return {
       t,
       profileBudget,
+      showPath,
       handleNew,
       handleEdit,
       handleDelete,

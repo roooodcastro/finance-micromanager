@@ -828,6 +828,7 @@
           "new": "Set Budget",
           "no_budget_set": "--- No budget ---",
           "profile_subheader": "Profile Budget",
+          "show": "Details",
           "title": "Budgets config"
         },
         "show": {
