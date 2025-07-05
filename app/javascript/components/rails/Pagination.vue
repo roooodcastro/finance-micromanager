@@ -7,7 +7,7 @@
       {{ t('per_page') }}
       <button
         type="button"
-        class="btn btn-sm btn-outline-dark dropdown-toggle"
+        class="btn btn-sm btn-outline-secondary dropdown-toggle"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
@@ -43,7 +43,7 @@
     >
       <div class="btn-group">
         <a
-          class="btn btn-sm btn-outline-dark"
+          class="btn btn-sm btn-outline-secondary"
           :class="{
             'disabled': pagination.page === 1,
           }"
@@ -60,9 +60,9 @@
             <a
               class="btn btn-sm"
               :class="{
-                'active disabled btn-dark': page === `${pagination.page}`,
+                'active disabled btn-secondary': page === `${pagination.page}`,
                 'disabled': page === 'gap',
-                'btn-outline-dark': page !== `${pagination.page}`
+                'btn-outline-secondary': page !== `${pagination.page}`
               }"
               :aria-disabled="page === `${pagination.page}`"
               @click="handlePageChange(page)"
@@ -71,7 +71,7 @@
           </template>
         </template>
         <a
-          class="btn btn-sm btn-outline-dark"
+          class="btn btn-sm btn-outline-secondary"
           :class="{ 'disabled': pagination.page === pagination.pages }"
           :aria-disabled="pagination.page === pagination.pages"
           @click="handlePageChange(pagination.page + 1)"
