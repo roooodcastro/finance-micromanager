@@ -14,6 +14,7 @@ pt-BR:
         title: Configuração de orçamentos
         new: Definir Orçamento
         edit: Editar
+        show: Detalhes
         categories_subheader: Orçamentos por categoria
         profile_subheader: Orçamento do perfil
         no_budget_set: --- Sem orçamento ---

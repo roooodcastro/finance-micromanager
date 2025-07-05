@@ -24,13 +24,15 @@
             </h5>
             <span class="fs-3 fw-bold">
               {{ formatMoney(budgetInstance?.limitAmount) }}
-              (
-              {{ budget.formattedLimit }}
-              <template v-if="budget.limitType === BUDGET_LIMIT_TYPE_PERCENTAGE && !!budgetInstanceForProfile">
-                {{ t('of_label') }}
-                {{ formatMoney(budgetInstanceForProfile.limitAmount) }}
+              <template v-if="budget.limitType !== BUDGET_LIMIT_TYPE_ABSOLUTE">
+                (
+                {{ budget.formattedLimit }}
+                <template v-if="budget.limitType === BUDGET_LIMIT_TYPE_PERCENTAGE && !!budgetInstanceForProfile">
+                  {{ t('of_label') }}
+                  {{ formatMoney(budgetInstanceForProfile.limitAmount) }}
+                </template>
+                )
               </template>
-              )
             </span>
           </div>
         </div>
@@ -85,7 +87,7 @@ import I18n from '~/utils/I18n.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
-import { BUDGET_LIMIT_TYPE_PERCENTAGE } from '~/utils/Constants.js';
+import { BUDGET_LIMIT_TYPE_ABSOLUTE, BUDGET_LIMIT_TYPE_PERCENTAGE } from '~/utils/Constants.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
 import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
@@ -134,6 +136,7 @@ export default {
       formatMoney,
       lastMonthLabel,
       budgetInstanceForProfile,
+      BUDGET_LIMIT_TYPE_ABSOLUTE,
       BUDGET_LIMIT_TYPE_PERCENTAGE,
     };
   },
