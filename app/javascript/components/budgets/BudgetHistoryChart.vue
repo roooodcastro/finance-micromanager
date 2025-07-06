@@ -19,6 +19,7 @@ import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { isMediaBreakpointUp } from '~/utils/ResponsivenessUtils.js';
 import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 
 import BarChart from '~/components/ui/BarChart.vue';
 
@@ -35,19 +36,21 @@ export default {
     const textDebitColor = ref('');
 
     const budgetInstanceStore = useBudgetInstanceStore();
+    const dateRangeStore = useDateRangeStore();
 
     const { budgetInstancesForHistory } = storeToRefs(budgetInstanceStore);
+    const { endDate } = storeToRefs(dateRangeStore);
 
     // Builds an array of all months to be charted. This will be the current month plus the 12 months prior.
-    const chartMonths = [...Array(13)].map((_, index) => dayjs().tz('utc').utc().subtract(index, 'month')).reverse();
+    const chartMonths = computed(() => [...Array(13)].map((_, index) => endDate.value.subtract(index, 'month')).reverse());
 
-    const chartLabels = computed(() => chartMonths.map(month => _.upperFirst(month.format('MMM YYYY'))));
+    const chartLabels = computed(() => chartMonths.value.map(month => _.upperFirst(month.format('MMM YYYY'))));
 
     const chartDatasets = computed(() => {
       // Correctly positions the budgetInstances in the dataset array to be shown at the correct place in the chart.
       // This is important as if there are gaps in the data, these will be left empty and not filled in
       // by the data for the wrong month.
-      const budgetInstancesForChart = chartMonths.map((monthDate) => {
+      const budgetInstancesForChart = chartMonths.value.map((monthDate) => {
         const month = monthDate.format('MMM YYYY');
         return budgetInstancesForHistory.value.find(bi => dayjs(bi.startDate).format('MMM YYYY') === month);
       });

@@ -17,9 +17,7 @@ export default defineBaseApiStore('category', {
   state: {
     categories: [],
     category: null,
-    fetchParams: {
-      updateDateRange: true,
-    },
+    fetchParams: {},
   },
 
   getters: {

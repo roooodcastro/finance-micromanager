@@ -195,7 +195,6 @@ export default {
     transactionStore.setFetchParams({
       transactionAutomationId: props.transactionAutomation.id,
       daysToShow: 0,
-      updateDateRange: false,
       startDate: null,
       endDate: null,
     });

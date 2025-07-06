@@ -218,7 +218,7 @@ export default {
     budgetStore.fetchCollection();
     budgetInstanceStore.setFetchParams({ startDate, endDate });
     budgetInstanceStore.fetchCollection();
-    budgetInstanceStore.fetchForHistory(props.category.id);
+    budgetInstanceStore.fetchForHistory(props.category.id, endDate.value);
 
     // Load subcategories from props
     const {
@@ -237,11 +237,11 @@ export default {
     watch(transactions, () => {
       categoryStore.fetchSingle(props.category.id);
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id);
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate);
     });
     watch(budgets, () => {
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id);
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate);
     });
 
     const handleEdit = () => categoryStore.openFormModal(props.category.id);
@@ -254,7 +254,7 @@ export default {
       transactionStore.fetchCollection();
       budgetInstanceStore.setFetchParams({ startDate, endDate });
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id);
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate);
     };
 
     const handleSetBudget = () => {

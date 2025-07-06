@@ -41,7 +41,19 @@ RSpec.describe BudgetInstanceSearch, type: :search do
     end
 
     context 'when start_date is specified' do
-      let(:query_params) { { start_date: Time.current } }
+      let(:query_params) { { start_date: Time.current.beginning_of_month } }
+
+      let!(:budget_instance_a) { create(:budget_instance, start_date: 1.month.ago.beginning_of_month) }
+      let!(:budget_instance_b) { create(:budget_instance, start_date: Time.current.beginning_of_month) }
+      let!(:budget_instance_c) { create(:budget_instance, start_date: 1.month.from_now.beginning_of_month) }
+
+      it { is_expected.not_to include(budget_instance_a) }
+      it { is_expected.to include(budget_instance_b) }
+      it { is_expected.to include(budget_instance_c) }
+    end
+
+    context 'when end_date is specified' do
+      let(:query_params) { { end_date: Time.current.end_of_month.end_of_day } }
 
       let(:budget_instance_a) { create(:budget_instance, start_date: 1.month.ago.beginning_of_month) }
       let(:budget_instance_b) { create(:budget_instance, start_date: Time.current.beginning_of_month) }
@@ -50,18 +62,6 @@ RSpec.describe BudgetInstanceSearch, type: :search do
       it { is_expected.to include(budget_instance_a) }
       it { is_expected.to include(budget_instance_b) }
       it { is_expected.not_to include(budget_instance_c) }
-    end
-
-    context 'when end_date is specified' do
-      let(:query_params) { { end_date: Time.current } }
-
-      let(:budget_instance_a) { create(:budget_instance, end_date: 1.month.ago.end_of_month.end_of_day) }
-      let(:budget_instance_b) { create(:budget_instance, end_date: Time.current.end_of_month.end_of_day) }
-      let(:budget_instance_c) { create(:budget_instance, end_date: 1.month.from_now.end_of_month.end_of_day) }
-
-      it { is_expected.not_to include(budget_instance_a) }
-      it { is_expected.to include(budget_instance_b) }
-      it { is_expected.to include(budget_instance_c) }
     end
   end
 end
