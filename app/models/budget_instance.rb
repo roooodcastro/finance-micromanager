@@ -41,7 +41,7 @@ class BudgetInstance < ApplicationRecord
   end
 
   def carryover_amount_from_last_month
-    return 0 unless budget.carryover
+    return Money.new(0, currency) unless budget.carryover && previous_instance
 
     previous_instance&.carryover_amount_to_next_month
   end
