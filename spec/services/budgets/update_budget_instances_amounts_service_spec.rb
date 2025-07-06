@@ -37,6 +37,38 @@ RSpec.describe Budgets::UpdateBudgetInstancesAmountsService, :aggregate_failures
       end
     end
 
+    context 'for an absolute budget with a carryover but with no instance last month' do
+      let(:budget) { create(:budget, :absolute, profile: profile, owner: category1, limit_amount: 10, carryover: true) }
+
+      it 'updates the profile budget used amount with the carryover from the previous month' do
+        expect { call }
+          .to change { budget_instance.reload.used_amount.to_f }
+          .by(10)
+      end
+    end
+
+    context 'for an absolute budget with a carryover from last month' do
+      let(:budget) { create(:budget, :absolute, profile: profile, owner: category1, limit_amount: 10, carryover: true) }
+
+      before do
+        create(
+          :budget_instance,
+          :from_budget,
+          budget:      budget,
+          profile:     profile,
+          used_amount: 5,
+          start_date:  1.month.ago.beginning_of_month,
+          end_date:    1.month.ago.end_of_month.end_of_day
+        )
+      end
+
+      it 'updates the profile budget used amount with the carryover from the previous month' do
+        expect { call }
+          .to change { budget_instance.reload.used_amount.to_f }
+          .by(5)
+      end
+    end
+
     context 'for a percentage budget' do
       let(:budget) { create(:budget, :percentage, profile: profile, owner: category1, limit_percentage: 25) }
 

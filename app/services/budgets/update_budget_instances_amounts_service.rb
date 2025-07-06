@@ -78,7 +78,7 @@ module Budgets
       transactions_in_period = transactions_in_period_for(budget_instance)
 
       transactions_sum            = transactions_in_period.sum(:amount_cents) * -1
-      carryover_amount            = budget_instance.carryover_amount_from_last_month.to_f
+      carryover_amount            = budget_instance.carryover_amount_from_last_month.cents
       budget_instance.used_amount = Money.new(transactions_sum - carryover_amount, profile.currency_object)
     end
 
