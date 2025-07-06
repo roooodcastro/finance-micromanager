@@ -137,7 +137,6 @@ export default {
       .add(1, 'day');
 
     transactionStore.setFetchParams({
-      updateDateRange: false,
       startDate,
       endDate: props.reconciliation.date,
       daysToShow: 0,

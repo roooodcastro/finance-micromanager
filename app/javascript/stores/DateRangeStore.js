@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
 
+import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
+import { DATE_RANGE_COOKIE_NAME } from '~/utils/Constants.js';
+
 export default defineStore('dateRange', {
   state: () => ({
     type: 'month',
@@ -25,19 +28,24 @@ export default defineStore('dateRange', {
     setFromProps(props) {
       this.startDate = dayjs.tz(props.startDate, 'utc');
     },
+    loadFromCookie() {
+      this.type = getValueFromJsonCookie(DATE_RANGE_COOKIE_NAME, 'type') ?? this.type;
+      this.startDate = dayjs(getValueFromJsonCookie(DATE_RANGE_COOKIE_NAME, 'startDate')).tz('utc').utc() ?? this.startDate;
+    },
     setStartDate(newDate) {
-      this.startDate = dayjs.tz(newDate, 'utc').startOf(this.type);
+      this.startDate = dayjs.tz(newDate, 'utc');
+      setValueToJsonCookie(DATE_RANGE_COOKIE_NAME, 'startDate', this.startDate.format());
     },
     setType(newType) {
       this.type = newType;
-      this.startDate = this.startDate.startOf(newType);
+      setValueToJsonCookie(DATE_RANGE_COOKIE_NAME, 'type', newType);
     },
     next() {
-      this.startDate = this.startDate.add(1, this.type);
+      this.setStartDate(this.startDate.add(1, this.type));
     },
 
     prev() {
-      this.startDate = this.startDate.add(-1, this.type);
+      this.setStartDate(this.startDate.add(-1, this.type));
     }
   },
 });

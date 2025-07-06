@@ -82,10 +82,6 @@ export default {
       type: Object,
       required: true,
     },
-    dateRange: {
-      type: Object,
-      default: () => {},
-    },
   },
   setup(props) {
     const modalStore = useModalStore();
@@ -136,9 +132,7 @@ export default {
       useNotificationStore().loadFromProps(props.notifications);
     }
 
-    if (props.dateRange.startDate) {
-      dateRangeStore.setFromProps(props.dateRange);
-    }
+    dateRangeStore.loadFromCookie();
 
     onMounted(() => {
       const queryParams = getQueryParams();

@@ -17,17 +17,21 @@ class BudgetInstanceSearch
     relation
   end
 
+  # start_date here doesn't directly correlate to the start_date column. Rather, it means the start of a date range
+  # that budget instances should be searched for, so which months should be returned.
   def search_start_date
     return self unless query_params.key?(:start_date)
 
-    @relation = relation.where(start_date: ..query_params[:start_date])
+    @relation = relation.where(start_date: query_params[:start_date]...)
     self
   end
 
+  # end_date here doesn't correlate to the end_date column. Rather, it means the end of a date range that budget
+  # instances should be searched for, so which months should be returned.
   def search_end_date
     return self unless query_params.key?(:end_date)
 
-    @relation = relation.where(end_date: query_params[:end_date]...)
+    @relation = relation.where(start_date: ..query_params[:end_date])
     self
   end
 

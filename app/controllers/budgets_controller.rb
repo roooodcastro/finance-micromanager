@@ -4,7 +4,7 @@ class BudgetsController < AbstractAuthenticatedController
   before_action :set_budget, only: %i[show update destroy reenable]
 
   def index
-    budgets        = Current.profile.budgets
+    budgets        = Current.profile.budgets.includes(:owner)
     profile_budget = Current.profile.budget
     props          = camelize_props(budgets: budgets.as_json, profile_budget: profile_budget.as_json)
 

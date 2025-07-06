@@ -115,7 +115,7 @@ export default {
     budgetStore.fetchCollection();
     budgetInstanceStore.setFetchParams({ startDate, endDate });
     budgetInstanceStore.fetchCollection();
-    budgetInstanceStore.fetchForHistory(props.budget.ownerId);
+    budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
 
     // If profile changes, redirect back to the budgets index page, as the current budget is for another profile
     const profileStore = useProfileStore();
@@ -125,20 +125,24 @@ export default {
     watch(transactions, () => {
       budgetStore.fetchSingle(props.budget.id);
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.budget.ownerId);
+      budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
     });
-    watch(budgets, () => {
+    watch(budgets, (newBudgets, oldBudgets) => {
+      if (newBudgets?.length > 0 && oldBudgets?.length === 0) {
+        return;
+      }
+
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.budget.ownerId);
+      budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
     });
 
     const handleEdit = () => budgetStore.openFormModal(props.budget.id);
     const handleDisable = () => budgetStore.disable(props.budget.id, { fetchSingle: true });
     const handleReenable = () => budgetStore.reenable(props.budget.id, { fetchSingle: true });
     const handleDateRangeChange = () => {
-      budgetInstanceStore.setFetchParams({ startDate, endDate, updateDateRange: true });
+      budgetInstanceStore.setFetchParams({ startDate, endDate });
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.budget.ownerId);
+      budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
     };
 
     return {

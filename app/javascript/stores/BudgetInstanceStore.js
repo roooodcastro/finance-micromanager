@@ -39,14 +39,13 @@ export default defineBaseApiStore('budgetInstance', {
         .finally(() => this.loading = false);
     },
 
-    fetchForHistory(ownerId) {
+    fetchForHistory(ownerId, referenceDate = null) {
+      const endDate = referenceDate ?? dayjs().tz('utc').utc();
+      const startDate = endDate.subtract(13, 'months');
+
       this.fetchCollection({
         targetVariable: 'budgetInstancesForHistory',
-        fetchParams: {
-          startDate: null,
-          endDate: dayjs().tz('utc').utc().subtract(12, 'months'),
-          ownerId,
-        }
+        fetchParams: { startDate, endDate, ownerId }
       });
     },
   },

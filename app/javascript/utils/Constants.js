@@ -60,6 +60,7 @@ export const VARIANTS_FOR_IMPORT_ACTIONS = {
 export const CATEGORY_OPTIONS_COOKIE_NAME = 'category-options';
 export const PROFILE_OPTIONS_COOKIE_NAME = 'profile-options';
 export const DISPLAY_OPTIONS_COOKIE_NAME = 'display-options';
+export const DATE_RANGE_COOKIE_NAME = 'date-range-options';
 
 /*
  * Caching
