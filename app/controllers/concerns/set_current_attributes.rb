@@ -12,8 +12,7 @@ module SetCurrentAttributes
     Current.profile = current_profile if user_signed_in?
     Current.user    = current_user if user_signed_in?
 
-    CurrentDateRange.start_date = params[:start_date]
-    CurrentDateRange.end_date   = params[:end_date]
+    set_start_end_dates
   end
 
   def current_profile
@@ -21,5 +20,14 @@ module SetCurrentAttributes
     current_user.find_available_profile(profile_id)
   rescue ActiveRecord::RecordNotFound
     nil
+  end
+
+  def set_start_end_dates
+    CurrentDateRange.start_date = params[:start_date] || Time.current.beginning_of_month
+    CurrentDateRange.end_date   = params[:end_date] || Time.current
+
+    return unless params[:days_to_show]
+
+    CurrentDateRange.start_date = params[:days_to_show].to_i.days.ago.beginning_of_day
   end
 end

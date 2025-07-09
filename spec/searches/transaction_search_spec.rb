@@ -36,6 +36,31 @@ RSpec.describe TransactionSearch, type: :search do
       end
     end
 
+    context 'when days_to_show is specified' do
+      let(:query_params) { { days_to_show: } }
+
+      let!(:newer_transaction) { create(:transaction, transaction_date: 14.days.ago) }
+      let!(:older_transaction) { create(:transaction, transaction_date: 15.days.ago) }
+
+      context 'and it is blank' do
+        let(:days_to_show) { '' }
+
+        it { is_expected.to contain_exactly(newer_transaction, older_transaction) }
+      end
+
+      context 'and it is an invalid number' do
+        let(:days_to_show) { 'ABC' }
+
+        it { is_expected.to contain_exactly(newer_transaction, older_transaction) }
+      end
+
+      context 'and it is a valid number' do
+        let(:days_to_show) { '14' }
+
+        it { is_expected.to contain_exactly(newer_transaction) }
+      end
+    end
+
     context 'when exclude_debits is specified' do
       let(:query_params) { { exclude_debits: } }
       let!(:money_in_transaction) { create(:transaction, amount: 10) }

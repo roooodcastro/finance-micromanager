@@ -47,6 +47,20 @@ RSpec.describe TransactionsController do
         expect_inertia.to render_component('transactions/Index').and include_camelized_props(expected_props)
       end
     end
+
+    context 'when days_to_show search param is specified' do
+      let(:expected_props) { { transactions: [transaction_b, transaction_a].as_json } }
+
+      before { create(:transaction, profile: profile, created_by: user, transaction_date: 2.months.ago) }
+
+      it 'renders the index component, returning transactions according to the search' do
+        expect(TransactionSearch).to receive(:new).with(anything, { days_to_show: '30' }).and_call_original
+
+        get :index, params: { days_to_show: 30 }
+
+        expect_inertia.to render_component('transactions/Index').and include_camelized_props(expected_props)
+      end
+    end
   end
 
   describe 'GET show', :inertia do
