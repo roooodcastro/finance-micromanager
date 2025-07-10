@@ -1,10 +1,14 @@
 <template>
-  <div
+  <Draggable
     :id="DAILY_TOTALS_CHART_MODE_MODAL_ID"
-    class="modal"
+    class="modal fade"
     tabindex="-1"
+    :aria-labelledby="t('mode_modal_title')"
+    aria-hidden="true"
+    draggable-element-selector=".modal-content"
+    trigger-element-selector=".modal-header"
   >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
@@ -21,7 +25,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </Draggable>
 </template>
 
 <script>
@@ -31,10 +35,12 @@ import { DAILY_TOTALS_CHART_MODE_MODAL_ID, DISPLAY_OPTIONS_COOKIE_NAME } from '~
 import useModalStore from '~/stores/ModalStore.js';
 import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
 
+import Draggable from '~/components/ui/Draggable.vue';
 import FormSelect from '~/components/forms/FormSelect.vue';
 
 export default {
   components: {
+    Draggable,
     FormSelect
   },
 
@@ -49,7 +55,7 @@ export default {
       { label: t('mode_both'), value: 'both' },
     ]
 
-    const selectedMode = ref(getValueFromJsonCookie(DISPLAY_OPTIONS_COOKIE_NAME, 'dailyTotalsChartMode'));
+    const selectedMode = ref(getValueFromJsonCookie(DISPLAY_OPTIONS_COOKIE_NAME, 'dailyTotalsChartMode') ?? 'both');
     const modalStore = useModalStore();
 
     onMounted(() => modalStore.registerModal(DAILY_TOTALS_CHART_MODE_MODAL_ID));
