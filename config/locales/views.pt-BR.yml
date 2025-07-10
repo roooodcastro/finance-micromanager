@@ -162,6 +162,7 @@ pt-BR:
         sub_header_recent_transactions: Transações Recentes
         sub_header_category_summary: Categorias
         sub_header_transactions_summary: Posição
+        sub_header_daily_totals_chart: Totais Diários
         money_in: Receita
         spends: Gastos
         budget_limit: Orçamento

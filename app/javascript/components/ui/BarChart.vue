@@ -1,9 +1,11 @@
 <template>
-  <BarChart
-    ref="chart"
-    :data="chartData"
-    :options="chartOptions"
-  />
+  <div>
+    <BarChart
+      ref="chart"
+      :data="chartData"
+      :options="chartOptions"
+    />
+  </div>
 </template>
 
 <script>
@@ -40,13 +42,21 @@ export default {
       type: Object,
       default: () => {},
     },
+    tooltipTitleFormatter: {
+      type: Function,
+      default: () => null,
+    },
     tooltipLabelFormatter: {
       type: Function,
-      required: true,
+      default: () => null,
     },
     yTicksFormatter: {
       type: Function,
-      required: true,
+      default: () => null,
+    },
+    chartUpdateCallback: {
+      type: Function,
+      default: () => null,
     },
     xScaleOptions: {
       type: Object,
@@ -131,7 +141,8 @@ export default {
           datalabels: Object.assign(defaultDatalabelsOptions.value, props.datalabelsOptions),
           tooltip: {
             callbacks: {
-              label: props.tooltipLabelFormatter,
+              title: props.tooltipTitleFormatter || null,
+              label: props.tooltipLabelFormatter || null,
             },
           },
         },
@@ -149,6 +160,10 @@ export default {
 
       // Reset annotations, if any
       chartInstance.config.options.plugins.annotation = { clip: false, annotations: {} };
+
+      if (props.chartUpdateCallback) {
+        props.chartUpdateCallback(chartInstance);
+      }
 
       chartInstance.update();
     });

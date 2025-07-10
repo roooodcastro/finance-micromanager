@@ -1,54 +1,41 @@
 <template>
   <div>
-    <BCard
-      id="dashboard_show_day_chart"
-      :loading="loading"
-      :title="t('title')"
-      header-class="d-flex align-items-center justify-content-between"
-      class="position-relative"
-      no-body
-      full-height
-    >
-      <template v-slot:header>
-        <DropdownMenu
-          toggle-icon="gear"
-          :toggle-label="t('options_aria_label')"
-        >
-          <DropdownMenuItem
-            :label="t('display_options_label')"
-            icon="magnifying-glass-chart"
-            @click="handleDisplayOptionsClick"
-          />
-        </DropdownMenu>
-      </template>
-      <template v-slot:default>
-        <BarChart
-          ref="chart"
-          :data="chartData"
-          :options="chartOptions"
-          class="DailyTotalsChart py-2"
-        />
-      </template>
-    </BCard>
+    <h4 class="card-title m-0 d-none d-md-block">
+      {{ t('title') }}
+    </h4>
+
+    <div class="d-flex justify-content-end">
+      <a
+        href="#"
+        class="btn btn-sm btn-outline-secondary py-1"
+        @click="handleDisplayOptionsClick"
+      >
+        <FontAwesomeIcon icon="gear" />
+        {{ t('display_options_label') }}
+      </a>
+    </div>
+
+    <BarChart
+      :labels="chartLabels"
+      :datasets="chartDatasets"
+      :datalabels-options="datalabelsOptions"
+      :tooltip-label-formatter="tooltipLabelFormatter"
+      :tooltip-title-formatter="tooltipTitleFormatter"
+      :x-scale-options="xScaleOptions"
+      :y-scale-options="yScaleOptions"
+      :chart-update-callback="updateAnnotations"
+      class="DailyTotalsChart py-2"
+    />
 
     <DailyTotalsChartModeModal @change="handleModeChange" />
   </div>
 </template>
 
 <script>
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import dayjs from 'dayjs';
-import {
-  Chart as ChartJS,
-  Tooltip,
-  BarElement,
-  BarController,
-  CategoryScale,
-  LinearScale,
-} from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import AnnotationPlugin from 'chartjs-plugin-annotation';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
@@ -58,52 +45,43 @@ import { isMediaBreakpointDown, isMediaBreakpointUp } from '~/utils/Responsivene
 import { DAILY_TOTALS_CHART_MODE_MODAL_ID, DISPLAY_OPTIONS_COOKIE_NAME } from '~/utils/Constants.js';
 import { getValueFromJsonCookie } from '~/utils/CookieUtils.js';
 
-import { Bar as BarChart } from 'vue-chartjs';
-import BCard from '~/components/bootstrap/BCard.vue';
-import DropdownMenu from '~/components/ui/DropdownMenu.vue';
-import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
+import BarChart from '~/components/ui/BarChart.vue';
 import DailyTotalsChartModeModal from '~/components/statistics/DailyTotalsChartModeModal.vue';
 
-const CHART_X_MAX = 1000;
-const CHART_X_MIN = -1000;
+const CHART_Y_MAX = 1000;
+const CHART_Y_MIN = -1000;
 const MONEY_IN_COLOR = '#268c4d80';
 const SPENDS_COLOR = '#d9534f80';
 
 export default {
   components: {
     BarChart,
-    BCard,
     DailyTotalsChartModeModal,
-    DropdownMenu,
-    DropdownMenuItem,
+    FontAwesomeIcon,
   },
 
   setup() {
-    const chart = ref(null);
-
     const t = I18n.scopedTranslator('views.statistics.daily_totals_chart');
+
+    const isMediaBreakpointLgOrUpper = ref('');
+    const isMediaBreakpointSmOrLower = ref('');
+    const textCreditColor = ref('');
+    const textDebitColor = ref('');
+
     const transactionStore = useTransactionStore();
 
     const { statistics, loading } = storeToRefs(transactionStore);
 
     const chartMode = ref(getValueFromJsonCookie(DISPLAY_OPTIONS_COOKIE_NAME, 'dailyTotalsChartMode') || 'both');
 
-    ChartJS.register(
-      BarElement,
-      BarController,
-      CategoryScale,
-      LinearScale,
-      Tooltip,
-      ChartDataLabels,
-      AnnotationPlugin
-    );
-
     const dailyTotalsUntilToday = computed(() => {
       const today = dayjs().tz('utc').utc();
       return statistics.value.dailyTotals?.filter(total => dayjs.tz(total.date, 'utc') < today) || [];
     });
 
-    const chartData = computed(() => {
+    const chartLabels = computed(() => statistics.value.dailyTotals?.map(total => total.date) || []);
+
+    const chartDatasets = computed(() => {
       let datasets = [];
 
       const onlySpendsDataset = {
@@ -135,64 +113,72 @@ export default {
       } else if (chartMode.value === 'both') {
         datasets = [spendsDataset, incomeDataset];
       }
+      return datasets;
+    });
+
+    const dataMaxValue = computed(() => Math.max(...chartDatasets.value.map(dataset => Math.max(...dataset.data))));
+    const dataMinValue = computed(() => Math.min(...chartDatasets.value.map(dataset => Math.min(...dataset.data))));
+    const yAxisMinValue = computed(() => Math.max(dataMinValue.value, CHART_Y_MIN));
+    const yAxisMaxValue = computed(() => Math.min(dataMaxValue.value, CHART_Y_MAX));
+
+    const datalabelsOptions = computed(() => {
       return {
-        labels: statistics.value.dailyTotals?.map(total => total.date) || [],
-        datasets,
+        formatter: value => value.toFixed(),
+        display: isMediaBreakpointUp('lg') ? 'auto' : false,
       };
     });
 
-    const xAxisMinRotation = isMediaBreakpointDown('sm') ? 90 : 0;
+    const tooltipLabelFormatter = tooltip => formatMoney(tooltip.raw);
+    const tooltipTitleFormatter = tooltip => dayjs(tooltip[0].label).format('L');
 
-    const chartOptions = computed(() => {
+    const xScaleOptions = computed(() => {
       return {
-        animation: {
-          duration: 200,
+        stacked: true,
+        display: !isMediaBreakpointSmOrLower.value,
+        grid: {
+          color: '#00000010',
         },
-        maintainAspectRatio: false,
-        layout: {
-          padding: 0,
-        },
-        categoryPercentage: 1.0,
-        barPercentage: 1.0,
-        plugins: {
-          datalabels: {
-            offset: 0,
-            clamp: true,
-            formatter: value => value.toFixed(),
-            display: isMediaBreakpointUp('lg') ? 'auto' : false,
+        ticks: {
+          callback: function(label) {
+            return dayjs(this.getLabelForValue(label)).date();
           },
-          tooltip: {
-            callbacks: {
-              title: tooltip => dayjs(tooltip[0].label).format('L'),
-              label: tooltip => formatMoney(tooltip.raw),
-            },
-          },
-        },
-        scales: {
-          x: {
-            stacked: true,
-            display: isMediaBreakpointUp('md'),
-            grid: {
-              color: '#00000010',
-            },
-            ticks: {
-              callback: function(label) {
-                return dayjs(this.getLabelForValue(label)).date();
-              },
-              autoSkipPadding: 0,
-              maxRotation: 90,
-              minRotation: xAxisMinRotation,
-            },
-          },
-          y: {
-            ticks: {
-              callback: label => formatMoney(label, { includeCents: false }),
-            },
-            min: ['income', 'spends'].includes(chartMode.value) ? 0 : CHART_X_MIN,
-            max: CHART_X_MAX,
-          },
+          autoSkipPadding: 0,
+          maxRotation: 90,
+          minRotation: isMediaBreakpointSmOrLower.value ? 90 : 0,
         },
       };
+    });
+
+    const yScaleOptions = computed(() => {
+      return {
+        ticks: { display: false },
+        min: ['income', 'spends'].includes(chartMode.value) ? 0 : yAxisMinValue.value,
+        max: yAxisMaxValue.value,
+      };
+    });
+
+    const updateColorVariables = () => {
+      textCreditColor.value = getComputedStyle(document.documentElement).getPropertyValue('--chart-credit-color');
+      textDebitColor.value = getComputedStyle(document.documentElement).getPropertyValue('--chart-debit-color');
+    };
+
+    onMounted(() => {
+      updateColorVariables();
+      isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
+      isMediaBreakpointSmOrLower.value = isMediaBreakpointDown('sm');
+
+      document.body.addEventListener('themeChanged', updateColorVariables);
+
+      window.addEventListener('resize', () => {
+        isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
+        isMediaBreakpointSmOrLower.value = isMediaBreakpointDown('sm');
+      });
+    });
+
+    onUnmounted(() => {
+      document.body.removeEventListener('themeChanged');
+      document.body.removeEventListener('resize');
+
     });
 
     const spendsTriangle = (config, index) => {
@@ -228,27 +214,18 @@ export default {
       };
     };
 
-    watch(chartData, async () => {
-      await nextTick();
-
-      const chartInstance = chart.value.chart;
-
-      // Reset annotations
-      chartInstance.config.options.plugins.annotation = { clip: false, annotations: {} };
-
+    const updateAnnotations = (chartInstance) => {
       // Draw triangles to indicate data point exceeds chart limits
       chartInstance.data.datasets.forEach((dataset) => {
         dataset.data.forEach((dataPoint, index) => {
-          if (dataPoint > CHART_X_MAX) {
+          if (dataPoint > CHART_Y_MAX) {
             chartInstance.config.options.plugins.annotation.annotations[`moneyIn_${index}`] = moneyInTriangle(chartInstance.config, index);
-          } else if (dataPoint < CHART_X_MIN) {
+          } else if (dataPoint < CHART_Y_MIN) {
             chartInstance.config.options.plugins.annotation.annotations[`spends_${index}`] = spendsTriangle(chartInstance.config, index);
           }
         });
       });
-
-      chartInstance.update();
-    });
+    };
 
     const handleDisplayOptionsClick = () => {
       const modalStore = useModalStore();
@@ -262,10 +239,15 @@ export default {
     return {
       t,
       loading,
-      chart,
-      chartData,
-      chartOptions,
       handleModeChange,
+      chartLabels,
+      chartDatasets,
+      datalabelsOptions,
+      tooltipLabelFormatter,
+      tooltipTitleFormatter,
+      xScaleOptions,
+      yScaleOptions,
+      updateAnnotations,
       handleDisplayOptionsClick,
     };
   }

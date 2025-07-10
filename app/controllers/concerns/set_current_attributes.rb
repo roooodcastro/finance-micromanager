@@ -26,7 +26,7 @@ module SetCurrentAttributes
     CurrentDateRange.start_date = params[:start_date] || Time.current.beginning_of_month
     CurrentDateRange.end_date   = params[:end_date] || Time.current
 
-    return unless params[:days_to_show]
+    return if params[:days_to_show].to_i.zero?
 
     CurrentDateRange.start_date = params[:days_to_show].to_i.days.ago.beginning_of_day
   end
