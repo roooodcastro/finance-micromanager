@@ -7,7 +7,7 @@ import { DATE_RANGE_COOKIE_NAME } from '~/utils/Constants.js';
 export default defineStore('dateRange', {
   state: () => ({
     type: 'month',
-    startDate: dayjs().tz('utc').startOf('month'),
+    startDate: dayjs().tz('utc').utc().startOf('month'),
   }),
 
   getters: {
@@ -25,15 +25,13 @@ export default defineStore('dateRange', {
   },
 
   actions: {
-    setFromProps(props) {
-      this.startDate = dayjs.tz(props.startDate, 'utc');
-    },
     loadFromCookie() {
       this.type = getValueFromJsonCookie(DATE_RANGE_COOKIE_NAME, 'type') ?? this.type;
-      this.startDate = dayjs(getValueFromJsonCookie(DATE_RANGE_COOKIE_NAME, 'startDate')).tz('utc').utc() ?? this.startDate;
+      const startDateFromCookie = getValueFromJsonCookie(DATE_RANGE_COOKIE_NAME, 'startDate');
+      this.startDate = startDateFromCookie ? dayjs(startDateFromCookie).tz('utc').utc() : this.startDate;
     },
     setStartDate(newDate) {
-      this.startDate = dayjs.tz(newDate, 'utc');
+      this.startDate = dayjs(newDate).tz('utc').utc().startOf('month');
       setValueToJsonCookie(DATE_RANGE_COOKIE_NAME, 'startDate', this.startDate.format());
     },
     setType(newType) {
