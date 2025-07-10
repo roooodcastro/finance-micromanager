@@ -9,14 +9,16 @@
       @change="handleDateRangeChange"
     />
 
-    <div class="row">
-      <div class="col-12 col-md-5 col-lg-4 col-xl-3">
+    <TabRowContainer
+      :tabs="firstRowTabs"
+    >
+      <template v-slot:tab0>
         <TransactionsSummary />
-      </div>
-      <div class="col-12 col-md-7 col-lg-8 col-xl-9 mt-3 mt-md-0">
+      </template>
+      <template v-slot:tab1>
         <DailyTotalsChart />
-      </div>
-    </div>
+      </template>
+    </TabRowContainer>
 
     <div class="row mt-3">
       <div class="col-12 col-lg-6">
@@ -85,6 +87,7 @@ import BCard from '~/components/bootstrap/BCard.vue';
 import SeeAllLink from '~/components/ui/SeeAllLink.vue';
 import DailyTotalsChart from '~/components/transactions/DailyTotalsChart.vue';
 import TransactionsSummary from '~/components/dashboard/TransactionsSummary.vue';
+import TabRowContainer from '~/components/layout/TabRowContainer.vue';
 
 export default {
   components: {
@@ -95,6 +98,7 @@ export default {
     InProgressReconciliationInfoAlert,
     PageHeader,
     SeeAllLink,
+    TabRowContainer,
     TransactionsList,
     TransactionsSummary,
     TransactionTypeTabs,
@@ -116,6 +120,13 @@ export default {
   },
 
   setup(props) {
+    const t = I18n.scopedTranslator('views.dashboard.show');
+
+    const firstRowTabs = [
+      { title: t('sub_header_transactions_summary'), colClasses: 'col-md-5 col-lg-4 col-xl-3' },
+      { title: t('sub_header_daily_totals_chart'), colClasses: 'col-md-7 col-lg-8 col-xl-9' },
+    ];
+
     const categoriesIndexPath = categoriesApi.index.path();
     const transactionsIndexPath = transactionsApi.index.path();
 
@@ -168,7 +179,8 @@ export default {
     };
 
     return {
-      t: I18n.scopedTranslator('views.dashboard.show'),
+      t,
+      firstRowTabs,
       transactions,
       user,
       categoriesIndexPath,

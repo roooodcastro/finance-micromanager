@@ -978,6 +978,7 @@
           "spends": "Spends",
           "start_balance": "Start Bal.",
           "sub_header_category_summary": "Categories",
+          "sub_header_daily_totals_chart": "Daily Totals",
           "sub_header_recent_transactions": "Recent Transactions",
           "sub_header_transactions_summary": "Position",
           "title": "Welcome, %{name}"
