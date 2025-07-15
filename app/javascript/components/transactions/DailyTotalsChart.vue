@@ -162,6 +162,11 @@ export default {
       textDebitColor.value = getComputedStyle(document.documentElement).getPropertyValue('--chart-debit-color');
     };
 
+    const handleResize = () => {
+      isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
+      isMediaBreakpointSmOrLower.value = isMediaBreakpointDown('sm');
+    };
+
     onMounted(() => {
       updateColorVariables();
       isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
@@ -169,15 +174,12 @@ export default {
 
       document.body.addEventListener('themeChanged', updateColorVariables);
 
-      window.addEventListener('resize', () => {
-        isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
-        isMediaBreakpointSmOrLower.value = isMediaBreakpointDown('sm');
-      });
+      window.addEventListener('resize', handleResize);
     });
 
     onUnmounted(() => {
-      document.body.removeEventListener('themeChanged');
-      document.body.removeEventListener('resize');
+      document.body.removeEventListener('themeChanged', updateColorVariables);
+      document.body.removeEventListener('resize', handleResize);
 
     });
 

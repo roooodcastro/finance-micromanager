@@ -95,20 +95,20 @@ export default {
       textDebitColor.value = getComputedStyle(document.documentElement).getPropertyValue('--chart-debit-color');
     };
 
+    const handleResize = () => isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
+
     onMounted(() => {
       updateColorVariables();
       isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
 
       document.body.addEventListener('themeChanged', updateColorVariables);
 
-      window.addEventListener('resize', () => {
-        isMediaBreakpointLgOrUpper.value = isMediaBreakpointUp('lg');
-      });
+      window.addEventListener('resize', handleResize);
     });
 
     onUnmounted(() => {
-      window.removeEventListener('resize');
-      document.body.removeEventListener('themeChanged');
+      window.removeEventListener('resize', handleResize);
+      document.body.removeEventListener('themeChanged', updateColorVariables);
     });
 
     return {

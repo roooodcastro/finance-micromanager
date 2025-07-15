@@ -7,9 +7,16 @@
         class="col"
         :class="tab.colClasses"
       >
-        <BCard full-height>
-          <slot :name="`tab${index}`" />
-        </BCard>
+        <component
+          :is="noCardWhenExpanded ? 'div' : 'BCard'"
+          :no-body="!noCardWhenExpanded && tab.noBodyOnCard"
+          :full-height="!noCardWhenExpanded && tab.fullHeight"
+        >
+          <slot
+            :name="tab.slot"
+            :is-tab-layout="false"
+          />
+        </component>
       </div>
     </div>
   </template>
@@ -25,7 +32,7 @@
           >
             <a
               class="TransactionTypeTabs__link nav-link"
-              :class="{ 'active': selectedTabIndex === index }"
+              :class="{ 'active': index === selectedTabIndex }"
               href="#"
               @click="handleTabChange(index)"
             >
@@ -35,8 +42,11 @@
         </ul>
       </div>
 
-      <div class="m-3">
-        <slot :name="`tab${selectedTabIndex}`" />
+      <div :class="{ 'm-3': !tabs[selectedTabIndex].noBodyOnCard }">
+        <slot
+          :name="tabs[selectedTabIndex].slot"
+          :is-tab-layout="true"
+        />
       </div>
     </BCard>
   </template>
@@ -60,6 +70,10 @@ export default {
     expandFromBreakpoint: {
       type: String,
       default: 'md',
+    },
+    noCardWhenExpanded: {
+      type: Boolean,
+      default: false,
     },
   },
 

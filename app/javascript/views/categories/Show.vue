@@ -55,67 +55,42 @@
     :message="t('disabled_category_warning')"
   />
 
-  <div class="row">
-    <div class="col-12 col-xl-6 mb-3">
-      <CategorySummary
+  <TabRowContainer
+    :tabs="tabsConfig"
+    no-card-when-expanded
+  >
+    <template v-slot:summary="{ isTabLayout }">
+      <CategorySummaryCard
         :category="categoryFromStore"
         :loading="loadingCategory"
+        :no-card="isTabLayout"
       />
 
-      <BCard
-        v-if="subcategoriesFromStore.length"
-        :title="t('sub_header_subcategories')"
-        class="mt-3"
-      >
-        <template v-slot:header>
-          <DropdownMenu
-            v-if="!isDisabled"
-            toggle-icon="gear"
-            :toggle-label="t('subcategories_options')"
-          >
-            <DropdownMenuItem
-              :label="t('new_subcategory')"
-              icon="plus"
-              @click="handleNewSubcategory"
-            />
+      <SubcategoriesCard
+        :no-card="isTabLayout"
+        class="mt-md-3"
+      />
 
-            <hr class="my-2">
-
-            <DropdownMenuCheckItem
-              :label="t('show_all_subcategories')"
-              :checked="showDisabledSubcategories"
-              @click="handleShowDisabledSubcategories"
-            />
-          </DropdownMenu>
-        </template>
-
-        <SubcategoriesList />
-      </BCard>
-    </div>
-
-    <div
-      v-if="!!budgetInstance"
-      class="col-12 col-xl-6 mb-3"
-    >
-      <BCard
-        :title="t('sub_header_budget_history')"
-      >
-        <BudgetHistoryChart />
-      </BCard>
-    </div>
-
-    <div class="col-12 col-xl-6 mb-3">
-      <BCard
-        :title="t('sub_header_recent_transactions')"
-        no-body
-      >
-        <TransactionsList
-          compact
-          card-body
+      <template v-if="!isTabLayout && !!budgetInstance">
+        <CategoryBudgetSummaryCard
+          :category="categoryFromStore"
+          class="mt-md-3"
         />
-      </BCard>
-    </div>
-  </div>
+      </template>
+    </template>
+
+    <template v-slot:transactions="{ isTabLayout }">
+      <TransactionsCard :no-card="isTabLayout" />
+    </template>
+
+    <template v-slot:budget="{ isTabLayout }">
+      <CategoryBudgetSummaryCard
+        v-if="isTabLayout"
+        :category="categoryFromStore"
+        no-card
+      />
+    </template>
+  </TabRowContainer>
 
   <SubcategoryForm :category="categoryFromStore" />
   <CategoryForm />
@@ -142,36 +117,32 @@ import {
 } from '~/utils/Constants.js';
 import I18n from '~/utils/I18n.js';
 
-import BCard from '~/components/bootstrap/BCard.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import BudgetForm from '~/components/budgets/BudgetForm.vue';
-import BudgetHistoryChart from '~/components/budgets/BudgetHistoryChart.vue';
 import CategoryForm from '~/components/categories/CategoryForm.vue';
-import CategorySummary from '~/components/categories/CategorySummary.vue';
+import CategorySummaryCard from '~/components/categories/CategorySummaryCard.vue';
+import SubcategoriesCard from '~/components/categories/SubcategoriesCard.vue';
+import CategoryBudgetSummaryCard from '~/components/categories/CategoryBudgetSummaryCard.vue';
 import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import PageHeader from '~/components/layout/PageHeader.vue';
-import SubcategoriesList from '~/components/subcategories/SubcategoriesList.vue';
 import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
-import TransactionsList from '~/components/transactions/TransactionsList.vue';
-import DropdownMenu from '~/components/ui/DropdownMenu.vue';
-import DropdownMenuCheckItem from '~/components/ui/DropdownMenuCheckItem.vue';
+import TransactionsCard from '~/components/categories/TransactionsCard.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
+import TabRowContainer from '~/components/layout/TabRowContainer.vue';
 
 export default {
   components: {
-    BCard,
     BudgetForm,
-    BudgetHistoryChart,
+    CategoryBudgetSummaryCard,
     CategoryForm,
-    CategorySummary,
+    CategorySummaryCard,
     DateRangeSelector,
-    DropdownMenu,
-    DropdownMenuCheckItem,
     DropdownMenuItem,
     PageHeader,
-    SubcategoriesList,
+    SubcategoriesCard,
     SubcategoryForm,
-    TransactionsList,
+    TabRowContainer,
+    TransactionsCard,
     WarningAlert,
   },
 
@@ -183,7 +154,26 @@ export default {
   },
 
   setup(props) {
+    const t = I18n.scopedTranslator('views.categories.show');
     const categoriesPath = categoriesApi.index.path();
+
+    const tabsConfig = computed(() => {
+      const tabs = [
+        { slot: 'summary', noBodyOnCard: true, title: t('sub_header_summary'), colClasses: 'col-6 mb-3' },
+        {
+          slot: 'transactions',
+          noBodyOnCard: true,
+          title: t('sub_header_recent_transactions'),
+          colClasses: 'col-6 mb-3'
+        },
+      ];
+
+      if (budgetInstance.value) {
+        tabs.splice(2, 0, { slot: 'budget', title: t('sub_header_budget'), colClasses: 'col-6 mb-3' });
+      }
+
+      return tabs;
+    });
 
     const categoryStore = useCategoryStore();
     const subcategoryStore = useSubcategoryStore();
@@ -224,7 +214,6 @@ export default {
     const {
       categoryId: subcategoryCategoryId,
       subcategories: subcategoriesFromStore,
-      showDisabled: showDisabledSubcategories,
     } = storeToRefs(subcategoryStore);
     subcategoriesFromStore.value = props.category.subcategories;
     subcategoryCategoryId.value = props.category.id;
@@ -237,24 +226,23 @@ export default {
     watch(transactions, () => {
       categoryStore.fetchSingle(props.category.id);
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id, endDate);
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate.value);
     });
     watch(budgets, () => {
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id, endDate);
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate.value);
     });
 
     const handleEdit = () => categoryStore.openFormModal(props.category.id);
     const handleDisable = () => categoryStore.disable(props.category.id, { fetchSingle: true });
     const handleReenable = () => categoryStore.reenable(props.category.id, { fetchSingle: true });
     const handleNewSubcategory = () => subcategoryStore.openFormModal(null);
-    const handleShowDisabledSubcategories = () => subcategoryStore.setShowDisabled(!showDisabledSubcategories.value);
     const handleDateRangeChange = () => {
       categoryStore.fetchSingle(props.category.id);
       transactionStore.fetchCollection();
       budgetInstanceStore.setFetchParams({ startDate, endDate });
       budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id, endDate);
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate.value);
     };
 
     const handleSetBudget = () => {
@@ -265,14 +253,13 @@ export default {
     };
 
     return {
-      t: I18n.scopedTranslator('views.categories.show'),
+      t,
       isDisabled,
       categoriesPath,
       categoryFromStore,
-      subcategoriesFromStore,
-      showDisabledSubcategories,
       loadingCategory,
       budgetInstance,
+      tabsConfig,
       ICON_BUDGETS,
       handleEdit,
       handleDisable,
@@ -280,7 +267,6 @@ export default {
       handleSetBudget,
       handleDateRangeChange,
       handleNewSubcategory,
-      handleShowDisabledSubcategories,
     };
   },
 };

@@ -947,7 +947,9 @@
         },
         "show": {
           "balance_label": "Agregado",
-          "budget_label": "Orçamento",
+          "budget_limit_label": "Limite",
+          "budget_remainder_label": "Restante",
+          "budget_used_label": "Usado",
           "disable": "Desabilitar",
           "disabled_category_warning": "Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos serão mantidos.",
           "edit": "Editar",
@@ -955,16 +957,16 @@
           "money_in": "Receita",
           "new_subcategory": "Criar Subcategoria",
           "reenable": "Reabilitar",
-          "remaining_budget_label": "Restante",
           "set_budget_menu_item": "Definir Orçamento",
           "show_all_subcategories": "Mostrar Desabilitadas",
-          "sub_header_budget_history": "Histórico de Orçamentos",
-          "sub_header_recent_transactions": "Transações Recentes",
+          "sub_header_budget": "Orçamento",
+          "sub_header_budget_history": "Histórico do Orçamento",
+          "sub_header_recent_transactions": "Transações",
           "sub_header_subcategories": "Subcategorias",
-          "sub_header_summary": "Resumo para",
+          "sub_header_summary": "Resumo",
           "subcategories_options": "Opções",
           "title": "Categoria",
-          "used_budget_label": "Usado / Limite"
+          "used_budget_label": "Uso do Orçamento"
         }
       },
       "components": {
