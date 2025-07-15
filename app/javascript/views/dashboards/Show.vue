@@ -12,10 +12,10 @@
     <TabRowContainer
       :tabs="firstRowTabs"
     >
-      <template v-slot:tab0>
+      <template v-slot:summary>
         <TransactionsSummary />
       </template>
-      <template v-slot:tab1>
+      <template v-slot:chart>
         <DailyTotalsChart />
       </template>
     </TabRowContainer>
@@ -123,8 +123,8 @@ export default {
     const t = I18n.scopedTranslator('views.dashboard.show');
 
     const firstRowTabs = [
-      { title: t('sub_header_transactions_summary'), colClasses: 'col-md-5 col-lg-4 col-xl-3' },
-      { title: t('sub_header_daily_totals_chart'), colClasses: 'col-md-7 col-lg-8 col-xl-9' },
+      { slot: 'summary', title: t('sub_header_transactions_summary'), colClasses: 'col-md-5 col-lg-4 col-xl-3', fullHeight: true },
+      { slot: 'chart', title: t('sub_header_daily_totals_chart'), colClasses: 'col-md-7 col-lg-8 col-xl-9', fullHeight: true },
     ];
 
     const categoriesIndexPath = categoriesApi.index.path();

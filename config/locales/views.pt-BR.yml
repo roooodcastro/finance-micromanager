@@ -77,16 +77,18 @@ pt-BR:
         back: Cancelar
       show:
         title: 'Categoria'
-        sub_header_summary: Resumo para
-        sub_header_recent_transactions: Transações Recentes
+        sub_header_summary: Resumo
+        sub_header_recent_transactions: Transações
         sub_header_subcategories: Subcategorias
-        sub_header_budget_history: Histórico de Orçamentos
+        sub_header_budget: Orçamento
+        sub_header_budget_history: Histórico do Orçamento
         money_in: Receita
         expenses: Gastos
-        budget_label: Orçamento
         balance_label: Agregado
-        used_budget_label: Usado / Limite
-        remaining_budget_label: Restante
+        budget_used_label: Usado
+        budget_limit_label: Limite
+        budget_remainder_label: Restante
+        used_budget_label: Uso do Orçamento
         edit: Editar
         disable: Desabilitar
         reenable: Reabilitar

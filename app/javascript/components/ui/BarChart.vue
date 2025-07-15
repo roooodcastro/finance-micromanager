@@ -176,13 +176,11 @@ export default {
     onMounted(() => {
       updateColorVariables();
 
-      document.body.addEventListener('themeChanged', () => {
-        updateColorVariables();
-      });
+      document.body.addEventListener('themeChanged', updateColorVariables);
     });
 
     onUnmounted(() => {
-      document.body.removeEventListener('themeChanged');
+      document.body.removeEventListener('themeChanged', updateColorVariables);
     });
 
     return {

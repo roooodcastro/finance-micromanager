@@ -77,20 +77,21 @@ en:
         cancel: Cancel
       show:
         title: 'Category'
-        sub_header_summary: Summary for
-        sub_header_recent_transactions: Recent Transactions
+        sub_header_summary: Summary
+        sub_header_recent_transactions: Transactions
         sub_header_subcategories: Subcategories
+        sub_header_budget: Budget
         sub_header_budget_history: Budget History
         money_in: Income
         expenses: Spends
-        budget_label: Budget
+        budget_used_label: Used
+        budget_limit_label: Limit
+        budget_remainder_label: Remaining
         balance_label: Aggregate
-        used_budget_label: Used / Limit
-        remaining_budget_label: Remaining
+        used_budget_label: Budget usage
         edit: Edit
         disable: Disable
         reenable: Re-enable
-        set_budget_menu_item: Set Budget
         set_budget_menu_item: Set Budget
         new_subcategory: Create Subcategory
         subcategories_options: Options

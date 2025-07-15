@@ -810,6 +810,7 @@ common: &default_settings # Required license key associated with your New Relic 
 development:
   <<: *default_settings
   app_name: Finance Micromanager (Development)
+  browser_monitoring.auto_instrument: false
 
 test:
   <<: *default_settings
