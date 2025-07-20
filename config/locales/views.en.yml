@@ -124,6 +124,13 @@ en:
         name_label: Source
         target_wallet_label: To Wallet
         status_label: Status
+      match_transaction_selector_modal:
+        title: Select transaction to match
+        name_label: Name
+        category_label: Category
+        amount_label: Amount
+        transaction_date_label: Date
+        cancel: Cancel
       profiles_list:
         name_label: Name
         currency_label: Currency

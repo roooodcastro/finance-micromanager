@@ -10,6 +10,8 @@
       :actions="tableActions"
       :columns="tableColumns"
       :rows="transactionPredictions"
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: transactionPrediction }">
         <TransactionPredictionTableRow :transaction-prediction="transactionPrediction" />

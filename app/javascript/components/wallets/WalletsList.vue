@@ -9,6 +9,8 @@
       :columns="walletColumns"
       :rows="wallets"
       :actions="walletActions"
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: wallet }">
         <WalletTableRow :wallet="wallet" />

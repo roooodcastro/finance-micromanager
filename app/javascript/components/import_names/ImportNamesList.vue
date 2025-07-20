@@ -14,6 +14,8 @@
         :columns="tableColumns"
         :actions="tableActions"
         searchable
+        bordered
+        rounded
         @search="handleSearch"
       >
         <template v-slot:default="{ row: importName }">

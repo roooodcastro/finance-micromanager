@@ -25,7 +25,7 @@
       >
         <ImportPreviewListItem
           :index="index"
-          :transaction="transaction"
+          :transaction-id="transaction.id"
         />
       </template>
     </tbody>

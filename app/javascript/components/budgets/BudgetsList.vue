@@ -7,6 +7,8 @@
       :actions="categoryActions"
       :side-strip-color="sideStripColorFunction"
       hoverable
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: budgetWithCategory }">
         <BudgetTableRow

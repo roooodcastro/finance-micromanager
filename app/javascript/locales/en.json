@@ -927,6 +927,14 @@
           "status_label": "Status",
           "target_wallet_label": "To Wallet"
         },
+        "match_transaction_selector_modal": {
+          "amount_label": "Amount",
+          "cancel": "Cancel",
+          "category_label": "Category",
+          "name_label": "Name",
+          "title": "Select transaction to match",
+          "transaction_date_label": "Date"
+        },
         "profiles_list": {
           "currency_label": "Currency",
           "default_wallet_label": "Default Wallet",

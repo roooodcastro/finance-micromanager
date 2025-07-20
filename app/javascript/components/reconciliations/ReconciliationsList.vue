@@ -11,6 +11,8 @@
       :columns="reconciliationColumns"
       :rows="reconciliations"
       :side-strip-color="sideStripColorFunction"
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: reconciliation }">
         <ReconciliationTableRow :reconciliation="reconciliation" />

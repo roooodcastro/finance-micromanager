@@ -1,10 +1,11 @@
 <template>
   <component
-    :is="!!row.href ? 'a' : 'div'"
-    :href="row.href"
+    :is="!!href ? 'a' : 'div'"
+    :href="href"
     class="GridRow"
-    :class="{ 'text-decoration-none link-body-emphasis': !!row.href, 'GridRow--hoverable': hoverable }"
+    :class="{ 'text-decoration-none link-body-emphasis': !!href, 'GridRow--hoverable': hoverable }"
     :style="gridRowStyle(row)"
+    @click="handleRowClick"
   >
     <HorizontalSwipe
       class="GridRow__content"
@@ -65,6 +66,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    clickHandler: {
+      type: Function,
+      default: null,
+    },
   },
 
   setup(props) {
@@ -101,6 +106,8 @@ export default {
       };
     };
 
+    const href = props.row?.href ?? (props.clickHandler ? '#' : null);
+
     const actionsForRow = row => props.actions.filter(action => action.show ? action.show(row) : true);
 
     const handleActionClick = (event, action, row) => {
@@ -113,12 +120,20 @@ export default {
       }
     };
 
+    const handleRowClick = () => {
+      if (props.clickHandler) {
+        props.clickHandler(props.row);
+      }
+    };
+
     return {
+      href,
       minTranslation,
       actionsContainer,
       gridRowStyle,
       actionStyle,
       actionsForRow,
+      handleRowClick,
       handleActionClick,
     };
   }

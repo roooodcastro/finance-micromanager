@@ -10,6 +10,8 @@
       :rows="categories"
       :actions="categoryActions"
       :side-strip-color="sideStripColorFunction"
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: category }">
         <CategoryTableRow :category="category" />

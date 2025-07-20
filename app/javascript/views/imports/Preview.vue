@@ -16,6 +16,7 @@
   </ImportPreviewForm>
 
   <ImportNameForm />
+  <MatchTransactionSelectorModal />
 </template>
 
 <script>
@@ -41,6 +42,7 @@ import ImportPreviewList from '~/components/imports/ImportPreviewList.vue';
 import ImportPreviewSummary from '~/components/imports/ImportPreviewSummary.vue';
 import ImportPreviewActions from '~/components/imports/ImportPreviewActions.vue';
 import ImportNameForm from '~/components/import_names/ImportNameForm.vue';
+import MatchTransactionSelectorModal from '~/components/imports/MatchTransactionSelectorModal.vue';
 
 export default {
   components: {
@@ -49,6 +51,7 @@ export default {
     ImportPreviewForm,
     ImportPreviewList,
     ImportPreviewSummary,
+    MatchTransactionSelectorModal,
     PageHeader,
   },
 

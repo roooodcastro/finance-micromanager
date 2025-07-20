@@ -14,6 +14,8 @@
         :rows="profiles"
         :columns="tableColumns"
         :actions="tableActions"
+        bordered
+        rounded
       >
         <template v-slot:default="{ row: profile }">
           <ProfileTableRow :profile="profile" />
