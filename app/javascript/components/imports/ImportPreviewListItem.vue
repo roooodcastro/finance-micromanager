@@ -85,18 +85,34 @@
         :name="`transactions[${transaction.id}][match_transaction_id]`"
         :value="transaction.matchId"
       >
-      <ImportActionsSelect
+      <div
         v-if="!isBlocked"
-        data-transaction-input="action"
-        :data-row="index"
-        :value="transaction.action"
-        :allow-match="allowMatch"
-        :name="`transactions[${transaction.id}][action]`"
-        :disabled="isBlocked"
-        :class="{ 'ImportActionsSelect__match-available': allowMatch }"
-        required
-        @change="handleActionChange(transaction.id, $event)"
-      />
+        class="d-flex"
+      >
+        <ImportActionsSelect
+          v-model="transaction.action"
+          data-transaction-input="action"
+          :data-row="index"
+          :allow-match="allowMatch"
+          :name="`transactions[${transaction.id}][action]`"
+          :disabled="isBlocked"
+          :class="{ 'ImportActionsSelect__match-available': allowMatch }"
+          required
+          @change="handleActionChange(transaction.id, $event)"
+        />
+
+        <div
+          v-if="transaction.action === IMPORT_ACTION_MATCH"
+          class="btn btn-sm btn-outline-secondary d-flex align-items-center ms-2"
+          @click="handleOpenMatchTransactionSelector(transaction.id)"
+        >
+          <FontAwesomeIcon
+            icon="repeat"
+            size="lg"
+          />
+        </div>
+      </div>
+
       <template v-else>
         <input
           type="hidden"
@@ -110,29 +126,29 @@
 </template>
 
 <script>
-import { computed } from 'vue';
-import { storeToRefs } from 'pinia';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
-import I18n from '~/utils/I18n.js';
-import useProfileStore from '~/stores/ProfileStore.js';
+import { RulesProcessor } from '~/lib/transaction_predictions/RulesProcessor.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
+import useImportNameStore from '~/stores/ImportNameStore.js';
 import useImportStore from '~/stores/ImportStore.js';
 import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
-import useImportNameStore from '~/stores/ImportNameStore.js';
-import { RulesProcessor } from '~/lib/transaction_predictions/RulesProcessor.js';
-import { formatDate } from '~/utils/DateUtils.js';
-import { formatMoney } from '~/utils/NumberFormatter.js';
+import useProfileStore from '~/stores/ProfileStore.js';
 import {
-  VARIANTS_FOR_IMPORT_ACTIONS,
-  IMPORT_ACTION_IMPORT,
   IMPORT_ACTION_BLOCK,
-  IMPORT_ACTION_MATCH
+  IMPORT_ACTION_IMPORT,
+  IMPORT_ACTION_MATCH,
+  VARIANTS_FOR_IMPORT_ACTIONS,
 } from '~/utils/Constants.js';
+import { formatDate } from '~/utils/DateUtils.js';
+import I18n from '~/utils/I18n.js';
+import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
-import ImportActionsSelect from '~/components/imports/ImportActionsSelect.vue';
 import BlockedTransactionTooltip from '~/components/imports/BlockedTransactionTooltip.vue';
+import ImportActionsSelect from '~/components/imports/ImportActionsSelect.vue';
 
 export default {
   components: {
@@ -143,8 +159,8 @@ export default {
   },
 
   props: {
-    transaction: {
-      type: Object,
+    transactionId: {
+      type: String,
       required: true,
     },
     index: {
@@ -168,18 +184,19 @@ export default {
     const { importTransactions } = storeToRefs(importTransactionStore);
     const { importNames, loading: loadingImportNames } = storeToRefs(importNameStore);
 
-    const isEditable = computed(() => props.transaction.action === IMPORT_ACTION_IMPORT);
-    const isDateEditable = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
-    const isBlocked = computed(() => props.transaction.action === IMPORT_ACTION_BLOCK);
-    const isMatch = computed(() => props.transaction.action === IMPORT_ACTION_MATCH);
-    const allowMatch = computed(() => props.transaction.matches.length > 0);
+    const transaction = computed(() => importTransactions.value.find(transaction => transaction.id === props.transactionId) ?? {});
+    const isEditable = computed(() => transaction.value.action === IMPORT_ACTION_IMPORT);
+    const isDateEditable = computed(() => transaction.value.action === IMPORT_ACTION_BLOCK);
+    const isBlocked = computed(() => transaction.value.action === IMPORT_ACTION_BLOCK);
+    const isMatch = computed(() => transaction.value.action === IMPORT_ACTION_MATCH);
+    const allowMatch = computed(() => transaction.value.matches.length > 0);
     const currencySymbol = computed(() => currentProfile.value.currencyObject.symbol);
-    const isSpend = computed(() => props.transaction.amount < 0);
-    const isIncome = computed(() => props.transaction.amount > 0);
+    const isSpend = computed(() => transaction.value.amount < 0);
+    const isIncome = computed(() => transaction.value.amount > 0);
     const categoryNameFor = categoryStore.categoryNameFor;
 
     const allowImportNameCreation = computed(() => {
-      const importNameExists = importNames.value.some(importName => importName.importName === props.transaction.originalImportName);
+      const importNameExists = importNames.value.some(importName => importName.importName === transaction.value.originalImportName);
       return !loadingImportNames.value && !importNameExists;
     });
 
@@ -188,12 +205,11 @@ export default {
     }
 
     const processTransactionPredictions = () => {
-      const transaction = importTransactions.value.find(importTransaction => importTransaction.id === props.transaction.id);
-      if (transaction.action === IMPORT_ACTION_IMPORT) {
+      if (transaction.value.action === IMPORT_ACTION_IMPORT) {
         const result = new RulesProcessor({...transaction}).processTransaction();
-        if (!transaction.categoryId && !!result.categoryId) {
+        if (!transaction.value.categoryId && !!result.categoryId) {
           importTransactionStore
-            .update(props.transaction.id, { id: props.transaction.id, categoryId: result.categoryId });
+            .update(transaction.value.id, { id: transaction.value.id, categoryId: result.categoryId });
         }
       }
     };
@@ -213,35 +229,29 @@ export default {
     };
 
     const handleActionChange = (transactionId, action) => {
-      importTransactionStore.update(transactionId, { id: transactionId, action }).then(() => {
-        processTransactionPredictions();
-
-        if (action === IMPORT_ACTION_MATCH) {
-          handleMatchTransactionChange(transactionId, 0);
-        }
-      });
+      if (action === IMPORT_ACTION_MATCH) {
+          handleOpenMatchTransactionSelector(transactionId);
+      } else {
+        importTransactionStore.update(transactionId, { id: transactionId, action, matchTransactionId: null }).then(() => {
+          processTransactionPredictions();
+        });
+      }
     };
 
-    const handleMatchTransactionChange = (importPreviewTransactionId, matchTransactionIndex) => {
-      const matchTransaction = props.transaction.matches[matchTransactionIndex].transaction;
-      importTransactionStore.update(importPreviewTransactionId, {
-        id: importPreviewTransactionId,
-        name: matchTransaction.name,
-        transactionDate: matchTransaction.transactionDate,
-        categoryId: [matchTransaction.categoryId, matchTransaction.subcategoryId].filter(x => x).join('|'),
-        matchId: matchTransaction.id,
-      });
+    const handleOpenMatchTransactionSelector = (transactionId) => {
+      importTransactionStore.openMatchTransactionSelectorModal(transactionId);
     };
 
     const handleCreateImportName = () => {
       importNameStore.openFormModal(null, {
-        importName: props.transaction.originalImportName,
-        transactionName: props.transaction.name
+        importName: transaction.value.originalImportName,
+        transactionName: transaction.value.name
       });
     };
 
     return {
       t,
+      transaction,
       currencySymbol,
       isSpend,
       isIncome,
@@ -259,6 +269,8 @@ export default {
       handleCategoryChange,
       handleNameChange,
       handleCreateImportName,
+      handleOpenMatchTransactionSelector,
+      IMPORT_ACTION_MATCH,
     };
   },
 };

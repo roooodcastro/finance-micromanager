@@ -8,6 +8,7 @@ export const TRANSACTION_PREDICTION_ACTION_MODAL_ID = 'transactionPredictionActi
 export const DAILY_TOTALS_CHART_MODE_MODAL_ID = 'dailyTotalsChartModeModal';
 export const SHORTCUTS_HELP_MODAL_ID = 'shortcutsHelpModal';
 export const PROFILE_SHARE_INVITE_MODAL_ID = 'profileShareInviteModal';
+export const MATCH_TRANSACTION_SELECTOR_MODAL_ID = 'matchTransactionSelectorModal';
 
 /*
  * Form IDs

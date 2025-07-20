@@ -11,10 +11,14 @@
   </div>
 
   <div
-    class="GridTable border rounded"
+    class="GridTable"
+    :class="{ 'border': bordered, rounded, 'mobile': alwaysMobile }"
     :style="gridTableStyle"
   >
-    <div class="GridRow GridRow__header">
+    <div
+      v-if="!noHeader"
+      class="GridRow GridRow__header"
+    >
       <div
         v-if="leftColumns.length"
         class="GridRow__left"
@@ -63,6 +67,7 @@
         :actions="actions"
         :side-strip-color="sideStripColor"
         :hoverable="hoverable"
+        :click-handler="rowClickHandler"
       >
         <slot :row="row" />
       </GridTableRow>
@@ -167,7 +172,48 @@ export default {
     hoverable: {
       type: Boolean,
       default: false,
-    }
+    },
+
+    /*
+     * Adds borders to the table
+     */
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
+
+    /*
+     * Makes the edges of the table slightly rounded
+     */
+    rounded: {
+      type: Boolean,
+      default: false,
+    },
+
+    /*
+     * Always shows the mobile view, even in wider screens
+     */
+    alwaysMobile: {
+      type: Boolean,
+      default: false,
+    },
+
+    /*
+     * Does not render the table header
+     */
+    noHeader: {
+      type: Boolean,
+      default: false,
+    },
+
+    /*
+     * Sets an explicit behaviour when a row is clicked. If set, the row will behave as if the entry has a href
+     * attribute, and will make the whole row hoverable and clickable.
+     */
+    rowClickHandler: {
+      type: Function,
+      default: null,
+    },
   },
 
   emits: ['search'],
@@ -324,7 +370,7 @@ div.GridRow--hoverable:hover, div.GridRow--hoverable:active, div.GridRow--hovera
 }
 
 // Rounded corners for first data row
-.GridRow:nth-child(2) {
+.GridTable.rounded .GridRow:nth-child(2) {
   border-radius: $border-radius $border-radius 0 0;
 
   .GridRow__content {
@@ -345,7 +391,7 @@ div.GridRow--hoverable:hover, div.GridRow--hoverable:active, div.GridRow--hovera
 }
 
 // Rouded corners for last data row
-.GridRow:last-child {
+.GridTable.rounded .GridRow:last-child {
   border-radius: 0 0 $border-radius $border-radius;
 
   .GridRow__content {
@@ -409,36 +455,26 @@ div.GridRow--hoverable:hover, div.GridRow--hoverable:active, div.GridRow--hovera
   }
 }
 
-// Mobile view
-@include media-breakpoint-down(md) {
-  .GridTable__search {
-    margin: 0 map-get($spacers, 3);
-
-    > div {
-      width: 100% !important;
-    }
-  }
-}
-
-@include media-breakpoint-down(lg) {
+@mixin gridTableMobile() {
+.GridRow {
   .GridRow__left > *, .GridRow__right > * {
     grid-column: 1 / -1;
   }
 
-  .GridRow__header > .GridRow__left > div:not(:first-child) > h5,
-  .GridRow__header > .GridRow__left > div:first-child > h5:not(:first-child),
-  .GridRow__header > .GridRow__right > div:not(:first-child) > h5,
-  .GridRow__header > .GridRow__right > div:first-child > h5:not(:first-child) {
+  &.GridRow__header > .GridRow__left > div:not(:first-child) > h5,
+  &.GridRow__header > .GridRow__left > div:first-child > h5:not(:first-child),
+  &.GridRow__header > .GridRow__right > div:not(:first-child) > h5,
+  &.GridRow__header > .GridRow__right > div:first-child > h5:not(:first-child) {
     font-size: $h6-font-size;
     margin-top: map-get($spacers, 1) !important;
   }
 
-  .GridRow__header > .GridRow__right > div:last-child {
+  &.GridRow__header > .GridRow__right > div:last-child {
     margin-right: 0;
   }
 
-  .GridRow:not(.GridRow__header) .GridRow__left > div:not(:first-child),
-  .GridRow:not(.GridRow__header) .GridRow__right > div:not(:first-child) {
+  .GridRow__left > div:not(:first-child),
+  .GridRow__right > div:not(:first-child) {
     color: var(--bs-secondary-color);
     font-size: $h6-font-size;
   }
@@ -474,12 +510,32 @@ div.GridRow--hoverable:hover, div.GridRow--hoverable:active, div.GridRow--hovera
     }
   }
 
-  .GridRow:nth-child(2) > .GridRow__actions > a:last-child {
+  &:nth-child(2) > .GridRow__actions > a:last-child {
     border-top-right-radius: $border-radius;
   }
 
-  .GridRow:last-child > .GridRow__actions > a:last-child {
+  &:last-child > .GridRow__actions > a:last-child {
     border-bottom-right-radius: $border-radius;
   }
+}
+}
+
+// Mobile view
+@include media-breakpoint-down(md) {
+  .GridTable__search {
+    margin: 0 map-get($spacers, 3);
+
+    > div {
+      width: 100% !important;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  @include gridTableMobile();
+}
+
+.GridTable.mobile {
+  @include gridTableMobile();
 }
 </style>

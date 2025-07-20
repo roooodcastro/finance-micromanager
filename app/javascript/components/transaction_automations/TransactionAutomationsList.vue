@@ -10,6 +10,8 @@
       :rows="transactionAutomations"
       :actions="tableActions"
       :side-strip-color="sideStripColorFunction"
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: transactionAutomation }">
         <TransactionAutomationTableRow :transaction-automation="transactionAutomation" />

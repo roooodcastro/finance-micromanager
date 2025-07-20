@@ -999,6 +999,14 @@
           "status_label": "Status",
           "target_wallet_label": "Carteira Alvo"
         },
+        "match_transaction_selector_modal": {
+          "amount_label": "Valor",
+          "cancel": "Cancelar",
+          "category_label": "Categoria",
+          "name_label": "Nome",
+          "title": "Selecione transação para combinar",
+          "transaction_date_label": "Data"
+        },
         "profiles_list": {
           "currency_label": "Moeda",
           "default_wallet_label": "Carteira Padrão",

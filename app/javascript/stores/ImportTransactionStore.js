@@ -1,6 +1,9 @@
 import { importsImportTransactions as importTransactionsApi } from '~/api/all.js';
 import { defineBaseApiStore } from '~/stores/BaseApiStore.js';
 
+import { MATCH_TRANSACTION_SELECTOR_MODAL_ID } from '~/utils/Constants.js';
+import useModalStore from '~/stores/ModalStore.js';
+
 export default defineBaseApiStore('importTransaction', {
   resourceName: 'importTransaction',
   resourcesName: 'importTransactions',
@@ -10,8 +13,17 @@ export default defineBaseApiStore('importTransaction', {
   state: {
     importTransactions: [],
     importTransaction: null,
+    importTransactionIdForMatchSelector: null,
     fetchParams: {},
     urlParams: {},
+  },
+
+  getters: {
+    importTransactionForMatchSelector: (state) => {
+      return state.importTransactions.find((importTransaction) => {
+        return importTransaction.id === state.importTransactionIdForMatchSelector;
+      });
+    },
   },
 
   actions: {
@@ -42,6 +54,17 @@ export default defineBaseApiStore('importTransaction', {
         const importTransactionId = this.importTransactions[currentRow].id;
         this.update(importTransactionId, { id: importTransactionId, action });
       }
+    },
+
+    openMatchTransactionSelectorModal(importTransactionId) {
+      this.importTransactionIdForMatchSelector = importTransactionId;
+      const modalStore = useModalStore();
+      modalStore.show(MATCH_TRANSACTION_SELECTOR_MODAL_ID);
+    },
+
+    closeMatchTransactionSelectorModal() {
+      const modalStore = useModalStore();
+      modalStore.hide(MATCH_TRANSACTION_SELECTOR_MODAL_ID);
     }
   },
 });

@@ -124,6 +124,13 @@ pt-BR:
         name_label: Arquivo de Origem
         target_wallet_label: Carteira Alvo
         status_label: Status
+      match_transaction_selector_modal:
+        title: Selecione transação para combinar
+        name_label: Nome
+        category_label: Categoria
+        amount_label: Valor
+        transaction_date_label: Data
+        cancel: Cancelar
       profiles_list:
         name_label: Nome
         currency_label: Moeda

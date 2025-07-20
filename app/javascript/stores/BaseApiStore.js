@@ -120,8 +120,9 @@ export function defineBaseApiStore(name, storeOptions = {}) {
           this.fetchSingle(id);
         }
         if (!('fetchCollection' in options) || options.fetchCollection) {
-          this.fetchCollection();
+          return this.fetchCollection();
         }
+        return Promise.resolve();
       },
 
       fetchCollection(options = {}) {
@@ -203,9 +204,15 @@ export function defineBaseApiStore(name, storeOptions = {}) {
           .api
           .update({ params: Object.assign(this.urlParams, idParam), data })
           .then((response) => {
-            this.fetch(id, options);
+            this.fetch(id, options).then(() => {
+              if (options.waitForFetch) {
+                responseResolve();
+              }
+            });
             notificationStore.notify(response.message, 'success');
-            responseResolve();
+            if (!options.waitForFetch) {
+              responseResolve();
+            }
           })
           .catch((error) => {
             const errorMessage = error?.body?.message ?? I18n.t('views.layout.rails.generic_error');

@@ -13,6 +13,8 @@
       :actions="tableActions"
       :columns="tableColumns"
       :side-strip-color="sideStripColorFunction"
+      bordered
+      rounded
     >
       <template v-slot:default="{ row: importObject }">
         <ImportTableRow :import-object="importObject" />
