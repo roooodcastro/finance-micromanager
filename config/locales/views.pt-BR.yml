@@ -84,6 +84,9 @@ pt-BR:
         sub_header_budget_history: Histórico do Orçamento
         money_in: Receita
         expenses: Gastos
+        favourite: Favorita
+        set_favourite_menu_item: Favoritar
+        remove_favourite_menu_item: Desfavoritar
         balance_label: Agregado
         budget_used_label: Usado
         budget_limit_label: Limite
@@ -113,6 +116,8 @@ pt-BR:
         system: Sistema
         name_label: Nome
         subcategories_label: Subcategorias
+        favourite_action_label: Favoritar
+        unfavourite_action_label: Desfavoritar
       category_summary_list:
         from_budget_label: de
         left_budget_label: restantes

@@ -70,4 +70,9 @@ class Category < ApplicationRecord
 
     errors.add(:base, :cannot_edit_system_category)
   end
+
+  def disable!
+    update!(favourite: false)
+    super
+  end
 end

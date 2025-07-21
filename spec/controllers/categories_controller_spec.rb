@@ -102,7 +102,7 @@ RSpec.describe CategoriesController do
     let!(:category) { create(:category, profile: profile, name: 'Test') }
 
     context 'when params are valid' do
-      let(:params) { { id: category.id, category: { name: 'New Name', color: '#FF00FF' } } }
+      let(:params) { { id: category.id, category: { name: 'New Name', color: '#FF00FF', favourite: true } } }
 
       it 'updates the category' do
         expect { update_request }.not_to change { Category.count }
@@ -110,6 +110,7 @@ RSpec.describe CategoriesController do
         expect(json_response).to eq({ 'message' => 'Category "New Name" was successfully updated.' })
         expect(category.reload.name).to eq('New Name')
         expect(category.color).to eq('#FF00FF')
+        expect(category).to be_favourite
       end
     end
 

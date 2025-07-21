@@ -1,9 +1,22 @@
 <template>
   <PageHeader
-    :title="categoryFromStore.name"
     :sub-title="t('title')"
     :back-button-href="categoriesPath"
   >
+    <div class="d-flex gap-3 align-items-center">
+      {{ categoryFromStore.name }}
+
+      <FavouriteBadge
+        v-if="categoryFromStore.favourite"
+        class="fs-5"
+      />
+
+      <DisabledBadge
+        v-if="isDisabled"
+        class="fs-5"
+      />
+    </div>
+
     <template
       v-if="!categoryFromStore.system"
       v-slot:actions
@@ -23,6 +36,18 @@
           :label="t('set_budget_menu_item')"
           :icon="ICON_BUDGETS"
           @click="handleSetBudget"
+        />
+        <DropdownMenuItem
+          v-if="!categoryFromStore.favourite"
+          :label="t('set_favourite_menu_item')"
+          icon="star"
+          @click="handleToggleFavourite"
+        />
+        <DropdownMenuItem
+          v-if="categoryFromStore.favourite"
+          :label="t('remove_favourite_menu_item')"
+          :icon="['far', 'star']"
+          @click="handleToggleFavourite"
         />
 
         <hr class="my-2">
@@ -129,6 +154,8 @@ import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import TransactionsCard from '~/components/categories/TransactionsCard.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TabRowContainer from '~/components/layout/TabRowContainer.vue';
+import FavouriteBadge from '~/components/categories/FavouriteBadge.vue';
+import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
 
 export default {
   components: {
@@ -137,7 +164,9 @@ export default {
     CategoryForm,
     CategorySummaryCard,
     DateRangeSelector,
+    DisabledBadge,
     DropdownMenuItem,
+    FavouriteBadge,
     PageHeader,
     SubcategoriesCard,
     SubcategoryForm,
@@ -252,6 +281,14 @@ export default {
       );
     };
 
+    const handleToggleFavourite = () => {
+      categoryStore.update(
+        categoryFromStore.value.id,
+        { favourite: !categoryFromStore.value.favourite },
+        { fetchSingle: true }
+      );
+    }
+
     return {
       t,
       isDisabled,
@@ -267,6 +304,7 @@ export default {
       handleSetBudget,
       handleDateRangeChange,
       handleNewSubcategory,
+      handleToggleFavourite,
     };
   },
 };
