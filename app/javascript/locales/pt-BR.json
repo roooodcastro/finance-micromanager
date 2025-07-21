@@ -954,10 +954,13 @@
           "disabled_category_warning": "Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos serão mantidos.",
           "edit": "Editar",
           "expenses": "Gastos",
+          "favourite": "Favorita",
           "money_in": "Receita",
           "new_subcategory": "Criar Subcategoria",
           "reenable": "Reabilitar",
+          "remove_favourite_menu_item": "Desfavoritar",
           "set_budget_menu_item": "Definir Orçamento",
+          "set_favourite_menu_item": "Favoritar",
           "show_all_subcategories": "Mostrar Desabilitadas",
           "sub_header_budget": "Orçamento",
           "sub_header_budget_history": "Histórico do Orçamento",
@@ -981,9 +984,11 @@
         },
         "categories_list": {
           "disabled": "Desabilitada",
+          "favourite_action_label": "Favoritar",
           "name_label": "Nome",
           "subcategories_label": "Subcategorias",
-          "system": "Sistema"
+          "system": "Sistema",
+          "unfavourite_action_label": "Desfavoritar"
         },
         "category_summary_list": {
           "from_budget_label": "de",

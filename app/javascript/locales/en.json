@@ -882,10 +882,13 @@
           "disabled_category_warning": "This category is disabled. It cannot be edited or used for new transactions. Historical data will remain accessible.",
           "edit": "Edit",
           "expenses": "Spends",
+          "favourite": "Favourite",
           "money_in": "Income",
           "new_subcategory": "Create Subcategory",
           "reenable": "Re-enable",
+          "remove_favourite_menu_item": "Unfavourite",
           "set_budget_menu_item": "Set Budget",
+          "set_favourite_menu_item": "Favourite",
           "show_all_subcategories": "Show Disabled",
           "sub_header_budget": "Budget",
           "sub_header_budget_history": "Budget History",
@@ -909,9 +912,11 @@
         },
         "categories_list": {
           "disabled": "Disabled",
+          "favourite_action_label": "Favourite",
           "name_label": "Name",
           "subcategories_label": "Subcategories",
-          "system": "System"
+          "system": "System",
+          "unfavourite_action_label": "Un-favourite"
         },
         "category_summary_list": {
           "from_budget_label": "from",

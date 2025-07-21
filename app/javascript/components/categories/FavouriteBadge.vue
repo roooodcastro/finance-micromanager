@@ -1,8 +1,7 @@
 <template>
-  <span class="badge border border-danger text-danger">
-    <FontAwesomeIcon icon="ban" />
-
-    {{ I18n.t('views.layout.rails.disabled') }}
+  <span class="badge border border-warning text-warning d-flex gap-3 align-items-center">
+    <FontAwesomeIcon icon="star" />
+    {{ I18n.t('views.categories.show.favourite') }}
   </span>
 </template>
 

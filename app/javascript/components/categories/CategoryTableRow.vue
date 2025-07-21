@@ -1,6 +1,13 @@
 <template>
   <div class="GridRow__left">
     <div class="d-flex gap-2 align-items-center">
+      <StarsSlider
+        v-if="!isSystem && !isDisabled && category.favourite"
+        :max="1"
+        :value="1"
+        class="text-warning"
+      />
+
       <span :class="{ 'text-muted': isDisabled }">
         {{ category.name }}
       </span>
@@ -27,10 +34,12 @@ import { computed } from 'vue';
 import I18n from '~/utils/I18n.js';
 
 import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+import StarsSlider from '~/components/ui/StarsSlider.vue';
 
 export default {
   components: {
     DisabledBadge,
+    StarsSlider,
   },
 
   props: {

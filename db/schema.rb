@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_29_210906) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_21_153835) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_29_210906) do
     t.datetime "updated_at", null: false
     t.string "category_type", limit: 20, default: "user", null: false
     t.uuid "disabled_by_id"
+    t.boolean "favourite", default: false, null: false
     t.index ["disabled_by_id"], name: "index_categories_on_disabled_by_id"
     t.index ["profile_id"], name: "index_categories_on_profile_id"
   end

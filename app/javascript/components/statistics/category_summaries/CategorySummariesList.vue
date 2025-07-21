@@ -1,13 +1,13 @@
 <template>
   <LoadingOverlay :loading="loading">
     <NoRecordsFound
-      v-if="!categories.length"
+      v-if="!filteredCategories.length"
       class="m-3"
     />
 
     <div v-else>
       <template
-        v-for="category in categories"
+        v-for="category in filteredCategories"
         :key="`${category.id}-${rangeKey}`"
       >
         <CategorySummaryListItem
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
@@ -46,10 +47,19 @@ export default {
     const { rangeKey } = storeToRefs(dateRangeStore);
     const { indexedSummaries, loading } = storeToRefs(categorySummaryStore);
 
+    const filteredCategories = computed(() => {
+      const favouriteCategories = categories.value.filter(category => category.favourite);
+      if (favouriteCategories.length) {
+        return favouriteCategories;
+      } else {
+        return categories.value;
+      }
+    });
+
     return {
       loading,
       rangeKey,
-      categories,
+      filteredCategories,
       indexedSummaries,
     };
   },

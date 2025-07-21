@@ -84,6 +84,9 @@ en:
         sub_header_budget_history: Budget History
         money_in: Income
         expenses: Spends
+        favourite: Favourite
+        set_favourite_menu_item: Favourite
+        remove_favourite_menu_item: Unfavourite
         budget_used_label: Used
         budget_limit_label: Limit
         budget_remainder_label: Remaining
@@ -113,6 +116,8 @@ en:
         system: System
         name_label: Name
         subcategories_label: Subcategories
+        favourite_action_label: Favourite
+        unfavourite_action_label: Un-favourite
       category_summary_list:
         from_budget_label: from
         left_budget_label: left

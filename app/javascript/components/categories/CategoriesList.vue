@@ -1,5 +1,5 @@
 <template>
-  <NoRecordsFound v-if="!categories.length" />
+  <NoRecordsFound v-if="!orderedCategories.length" />
   <BCard
     v-else
     no-body
@@ -7,7 +7,7 @@
   >
     <GridTable
       :columns="categoryColumns"
-      :rows="categories"
+      :rows="orderedCategories"
       :actions="categoryActions"
       :side-strip-color="sideStripColorFunction"
       bordered
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -56,6 +56,20 @@ export default {
     watch(currentProfile, () => categoryStore.fetchCollection());
 
     const categoryActions = [
+      {
+        label: t('favourite_action_label'),
+        icon: 'star',
+        callback: row => categoryStore.update(row.id, { favourite: true }),
+        variant: 'warning',
+        show: row => !row.system && !row.disabledAt && !row.favourite
+      },
+      {
+        label: t('unfavourite_action_label'),
+        icon: ['far', 'star'],
+        callback: row => categoryStore.update(row.id, { favourite: false }),
+        variant: 'warning',
+        show: row => !row.system && !row.disabledAt && row.favourite
+      },
       editAction(categoryStore),
       disableAction(categoryStore),
       reenableAction(categoryStore),
@@ -68,8 +82,18 @@ export default {
 
     const sideStripColorFunction = row => row.color;
 
+    const orderedCategories = computed(() => {
+      return categories.value.toSorted((a, b) => {
+        if (b.favourite - a.favourite !== 0) {
+          return b.favourite - a.favourite;
+        } else {
+          return a.name.localeCompare(b.name);
+        }
+      });
+    });
+
     return {
-      categories,
+      orderedCategories,
       categoryColumns,
       categoryActions,
       sideStripColorFunction,
