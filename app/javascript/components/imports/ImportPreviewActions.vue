@@ -12,6 +12,7 @@
     <button
       type="submit"
       class="btn btn-primary"
+      :disabled="loadingImportTransactions"
     >
       <FontAwesomeIcon icon="cloud-arrow-up" />
       {{ t('submit_button') }}
@@ -25,6 +26,7 @@
       <button
         type="submit"
         class="btn btn-outline-secondary"
+        :disabled="loadingImportTransactions"
       >
         <FontAwesomeIcon icon="ban" />
         {{ t('cancel_button') }}
@@ -41,6 +43,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
 import useImportStore from '~/stores/ImportStore.js';
+import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import useModalStore from '~/stores/ModalStore.js';
 import { IMPORT_PREVIEW_SAVE_STATES } from '~/utils/Constants.js';
 
@@ -56,8 +59,10 @@ export default {
     const t = I18n.scopedTranslator('views.imports.preview');
 
     const importStore = useImportStore();
+    const importTransactionStore = useImportTransactionStore();
     const modalStore = useModalStore();
     const { import: importObject, previewSaveState } = storeToRefs(importStore);
+    const { loading: loadingImportTransactions } = storeToRefs(importTransactionStore);
 
     const previewSaveStateIcons = {
       [IMPORT_PREVIEW_SAVE_STATES.saved]: ['far', 'floppy-disk'],
@@ -82,6 +87,7 @@ export default {
       isSavingPreview,
       previewSaveState,
       previewSaveStateIcon,
+      loadingImportTransactions,
       submitCancelForm,
     };
   },

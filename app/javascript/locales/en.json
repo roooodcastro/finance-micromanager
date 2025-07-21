@@ -1170,6 +1170,7 @@
           "disabled": "Disabled",
           "edit": "Edit",
           "generic_error": "An unexpected error has occurred. Please reload the page and try again.",
+          "loading_message": "Loading, please wait&hellip;",
           "no_records": "There's nothing to show",
           "page_desc": "Showing %{items} of %{total}",
           "pagination": "Pagination",
