@@ -1,37 +1,39 @@
 <template>
   <div class="row">
     <div class="col col-lg-6">
-      <BCard
-        :title="t('summary_title')"
-        full-height
-      >
-        <dl class="row mb-0">
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('target_wallet_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            {{ importObject.wallet.name }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('date_range_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            {{ `${formatDate(minDateFound)} - ${formatDate(maxDateFound)}` }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('total_count_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            {{ transactionCount }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('valid_count_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            {{ validTransactionCount }}
-          </dd>
-        </dl>
-      </BCard>
+      <LoadingOverlay :loading="loadingImportTransactions">
+        <BCard
+          :title="t('summary_title')"
+          full-height
+        >
+          <dl class="row mb-0">
+            <dt class="col-6 col-md-4 my-1">
+              {{ t('target_wallet_label') }}
+            </dt>
+            <dd class="col-6 col-md-8 my-1">
+              {{ importObject.wallet.name }}
+            </dd>
+            <dt class="col-6 col-md-4 my-1">
+              {{ t('date_range_label') }}
+            </dt>
+            <dd class="col-6 col-md-8 my-1">
+              {{ `${formatDate(minDateFound)} - ${formatDate(maxDateFound)}` }}
+            </dd>
+            <dt class="col-6 col-md-4 my-1">
+              {{ t('total_count_label') }}
+            </dt>
+            <dd class="col-6 col-md-8 my-1">
+              {{ transactionCount }}
+            </dd>
+            <dt class="col-6 col-md-4 my-1">
+              {{ t('valid_count_label') }}
+            </dt>
+            <dd class="col-6 col-md-8 my-1">
+              {{ validTransactionCount }}
+            </dd>
+          </dl>
+        </BCard>
+      </LoadingOverlay>
     </div>
     <div class="col col-lg-6">
       <BCard
@@ -44,18 +46,20 @@
             :key="actionStats.id"
             class="col col-md-6 col-lg-3"
           >
-            <div :class="`card bg-${actionStats.variant}-subtle text-${actionStats.variant}-emphasis border-0`">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <FontAwesomeIcon :icon="actionStats.icon" />
-                  {{ actionStats.label }}
-                </h5>
+            <LoadingOverlay :loading="loadingImportTransactions">
+              <div :class="`card bg-${actionStats.variant}-subtle text-${actionStats.variant}-emphasis border-0`">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <FontAwesomeIcon :icon="actionStats.icon" />
+                    {{ actionStats.label }}
+                  </h5>
 
-                <span class="fs-1">
-                  {{ actionStats.count }}
-                </span>
+                  <span class="fs-1">
+                    {{ actionStats.count }}
+                  </span>
+                </div>
               </div>
-            </div>
+            </LoadingOverlay>
           </div>
         </div>
       </BCard>
@@ -69,17 +73,19 @@ import { storeToRefs } from 'pinia';
 import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import BCard from '~/components/bootstrap/BCard.vue';
-
 import I18n from '~/utils/I18n.js';
 import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { IMPORT_ACTIONS, VARIANTS_FOR_IMPORT_ACTIONS, IMPORT_ACTION_BLOCK } from '~/utils/Constants.js';
 
+import BCard from '~/components/bootstrap/BCard.vue';
+import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
+
 export default {
   components: {
     BCard,
     FontAwesomeIcon,
+    LoadingOverlay,
   },
 
   props: {
@@ -93,7 +99,7 @@ export default {
     const t = I18n.scopedTranslator('views.imports.summary');
 
     const importTransactionStore = useImportTransactionStore();
-    const { importTransactions } = storeToRefs(importTransactionStore);
+    const { importTransactions, loading: loadingImportTransactions } = storeToRefs(importTransactionStore);
 
     const transactionCount = computed(() => importTransactions.value.length);
     const validTransactionCount = computed(() => {
@@ -125,6 +131,7 @@ export default {
       actionsStatsData,
       minDateFound,
       maxDateFound,
+      loadingImportTransactions,
       formatDate,
     };
   },

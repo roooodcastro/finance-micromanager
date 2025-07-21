@@ -1242,6 +1242,7 @@
           "disabled": "Desativado",
           "edit": "Editar",
           "generic_error": "Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.",
+          "loading_message": "Carregando, por favor aguarde&hellip;",
           "no_records": "Não há nada para exibir",
           "page_desc": "Exibindo %{items} de %{total}",
           "pagination": "Paginação",

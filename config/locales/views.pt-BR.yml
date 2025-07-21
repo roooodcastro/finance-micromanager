@@ -328,6 +328,7 @@ pt-BR:
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
         generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
+        loading_message: 'Carregando, por favor aguarde&hellip;'
         no_records: Não há nada para exibir
         pagination: Paginação
         per_page: 'Exibir:'
