@@ -4,12 +4,11 @@
       <span :class="{ 'text-muted': isDisabled }">
         {{ wallet.name }}
       </span>
-      <span
+      <Badge
         v-if="isDisabled"
-        class="badge text-bg-danger"
-      >
-        {{ t('disabled') }}
-      </span>
+        type="disabled"
+        i18n-scope="views.wallets.index.disabled"
+      />
     </div>
   </div>
 
@@ -26,7 +25,11 @@ import { computed } from 'vue';
 import I18n from '~/utils/I18n.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
+import Badge from '~/components/ui/Badge.vue';
+
 export default {
+  components: { Badge },
+
   props: {
     wallet: {
       type: Object,

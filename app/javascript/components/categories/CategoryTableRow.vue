@@ -12,14 +12,16 @@
         {{ category.name }}
       </span>
 
-      <DisabledBadge v-if="isDisabled" />
+      <Badge
+        v-if="isDisabled"
+        type="disabled"
+        i18n-scope="views.categories.show.disabled"
+      />
 
-      <span
+      <Badge
         v-if="isSystem"
-        class="badge text-bg-dark"
-      >
-        {{ t('system') }}
-      </span>
+        type="system"
+      />
     </div>
 
     <div>
@@ -33,12 +35,12 @@ import { computed } from 'vue';
 
 import I18n from '~/utils/I18n.js';
 
-import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+import Badge from '~/components/ui/Badge.vue';
 import StarsSlider from '~/components/ui/StarsSlider.vue';
 
 export default {
   components: {
-    DisabledBadge,
+    Badge,
     StarsSlider,
   },
 

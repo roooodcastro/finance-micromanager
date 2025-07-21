@@ -84,7 +84,6 @@ en:
         sub_header_budget_history: Budget History
         money_in: Income
         expenses: Spends
-        favourite: Favourite
         set_favourite_menu_item: Favourite
         remove_favourite_menu_item: Unfavourite
         budget_used_label: Used
@@ -104,6 +103,10 @@ en:
           accessible.
 
     components:
+      badges:
+        disabled: Disabled
+        favourite: Favourite
+        system: System
       budget_history_chart:
         limit_label: 'Limit'
         used_label: 'Used'
@@ -113,7 +116,6 @@ en:
         new_budget_label: Set Budget
       categories_list:
         disabled: Disabled
-        system: System
         name_label: Name
         subcategories_label: Subcategories
         favourite_action_label: Favourite
@@ -329,7 +331,6 @@ en:
         delete: Remove
         delete_confirmation: Are you sure? This action cannot be undone.
         disable: Disable
-        disabled: Disabled
         disable_confirmation: Are you sure? You can re-enable this in the future.
         edit: Edit
         generic_error: An unexpected error has occurred. Please reload the page and try again.

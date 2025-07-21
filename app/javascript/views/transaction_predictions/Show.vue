@@ -1,9 +1,18 @@
 <template>
   <PageHeader
-    :title="transactionPredictionFromStore.name"
     :sub-title="t('title')"
     :back-button-href="indexPath"
   >
+    <div class="d-flex gap-3 align-items-center">
+      {{ transactionPredictionFromStore.name }}
+
+      <Badge
+        v-if="isDisabled"
+        type="disabled"
+        class="fs-5"
+      />
+    </div>
+
     <template v-slot:actions>
       <DropdownMenuItem
         :label="t('edit')"
@@ -93,9 +102,11 @@ import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import TransactionPredictionAction from '~/components/transaction_predictions/TransactionPredictionAction.vue';
 import TransactionPredictionCondition from '~/components/transaction_predictions/TransactionPredictionCondition.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
+import Badge from '~/components/ui/Badge.vue';
 
 export default {
   components: {
+    Badge,
     BCard,
     DropdownMenuItem,
     PageHeader,

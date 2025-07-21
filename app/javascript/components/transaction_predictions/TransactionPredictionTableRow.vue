@@ -4,12 +4,10 @@
       <span :class="{ 'text-muted': isDisabled }">
         {{ transactionPrediction.name }}
       </span>
-      <span
+      <Badge
         v-if="isDisabled"
-        class="badge text-bg-danger ms-2"
-      >
-        {{ t('disabled') }}
-      </span>
+        type="disabled"
+      />
     </div>
     <div>
       {{ rulesParser.conditionsDescription }}
@@ -26,7 +24,11 @@ import { computed } from 'vue';
 import I18n from '~/utils/I18n.js';
 import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 
+import Badge from '~/components/ui/Badge.vue';
+
 export default {
+  components: { Badge },
+
   props: {
     transactionPrediction: {
       type: Object,

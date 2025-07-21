@@ -5,12 +5,11 @@
       <span :class="{ 'text-muted': isDisabled }">
         {{ transactionAutomation.transactionName }}
       </span>
-      <span
+      <Badge
         v-if="isDisabled"
-        class="badge text-bg-danger"
-      >
-        {{ t('disabled') }}
-      </span>
+        type="disabled"
+        i18n-scope="views.transaction_automations.show.disabled"
+      />
     </div>
 
     <!-- Category & Wallet columns -->
@@ -58,7 +57,11 @@ import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
+import Badge from '~/components/ui/Badge.vue';
+
 export default {
+  components: { Badge },
+
   props: {
     transactionAutomation: {
       type: Object,

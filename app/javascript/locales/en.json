@@ -882,7 +882,6 @@
           "disabled_category_warning": "This category is disabled. It cannot be edited or used for new transactions. Historical data will remain accessible.",
           "edit": "Edit",
           "expenses": "Spends",
-          "favourite": "Favourite",
           "money_in": "Income",
           "new_subcategory": "Create Subcategory",
           "reenable": "Re-enable",
@@ -901,6 +900,11 @@
         }
       },
       "components": {
+        "badges": {
+          "disabled": "Disabled",
+          "favourite": "Favourite",
+          "system": "System"
+        },
         "budget_history_chart": {
           "limit_label": "Limit",
           "used_label": "Used"
@@ -915,7 +919,6 @@
           "favourite_action_label": "Favourite",
           "name_label": "Name",
           "subcategories_label": "Subcategories",
-          "system": "System",
           "unfavourite_action_label": "Un-favourite"
         },
         "category_summary_list": {
@@ -1172,7 +1175,6 @@
           "delete_confirmation": "Are you sure? This action cannot be undone.",
           "disable": "Disable",
           "disable_confirmation": "Are you sure? You can re-enable this in the future.",
-          "disabled": "Disabled",
           "edit": "Edit",
           "generic_error": "An unexpected error has occurred. Please reload the page and try again.",
           "loading_message": "Loading, please wait&hellip;",
