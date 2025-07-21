@@ -5,7 +5,10 @@
         {{ t('sub_header_summary') }}
         {{ month }}
         {{ year }}
-        <DisabledBadge v-if="isDisabled" />
+        <Badge
+          v-if="isDisabled"
+          type="disabled"
+        />
       </h4>
     </template>
     <LoadingOverlay
@@ -90,14 +93,14 @@ import { formatMoney } from '~/utils/NumberFormatter.js';
 import { BUDGET_LIMIT_TYPE_ABSOLUTE, BUDGET_LIMIT_TYPE_PERCENTAGE } from '~/utils/Constants.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
-import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+import Badge from '~/components/ui/Badge.vue';
 import InfoAlert from '~/components/bootstrap/InfoAlert.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
   components: {
     BCard,
-    DisabledBadge,
+    Badge,
     InfoAlert,
     LoadingOverlay,
   },

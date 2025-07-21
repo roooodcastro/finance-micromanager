@@ -3,7 +3,10 @@
     <div class="d-flex gap-2 align-items-center">
       <span>{{ profile.name || t('no_name') }}</span>
 
-      <DisabledBadge v-if="isDisabled" />
+      <Badge
+        v-if="isDisabled"
+        type="disabled"
+      />
     </div>
     <div>{{ profile.currencyObject.name }} ({{ profile.currencyObject.symbol }})</div>
   </div>
@@ -28,11 +31,11 @@ import { computed } from 'vue';
 
 import I18n from '~/utils/I18n.js';
 
-import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+import Badge from '~/components/ui/Badge.vue';
 
 export default {
   components: {
-    DisabledBadge,
+    Badge,
     FontAwesomeIcon,
   },
 
@@ -44,7 +47,7 @@ export default {
   },
 
   setup(props) {
-    const isDisabled = computed(() => props.profile.status === 'disabled');
+    const isDisabled = computed(() => !!props.profile.disabledAt);
     return {
       t: I18n.scopedTranslator('views.components.profiles_list'),
       isDisabled,

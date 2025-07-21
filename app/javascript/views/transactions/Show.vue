@@ -86,8 +86,11 @@
             </dd>
             <dt class="col-6 col-md-8 my-1">
               <a :href="transactionAutomationPath(transactionFromStore.transactionAutomationId)">
-                <TransactionFromAutomationIndicator v-if="!!transaction.transactionAutomationId" />
-                {{ t('transaction_automation_value') }}
+                <Badge
+                  i18n-scope="views.transactions.show.transaction_automation_value"
+                  icon="robot"
+                  class="text-decoration-underline"
+                />
               </a>
             </dt>
           </template>
@@ -159,16 +162,16 @@ import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
-import TransactionFromAutomationIndicator from '~/components/transactions/TransactionFromAutomationIndicator.vue';
 import CategoryBadge from '~/components/categories/CategoryBadge.vue';
+import Badge from '~/components/ui/Badge.vue';
 
 export default {
   components: {
+    Badge,
     BCard,
     CategoryBadge,
     DropdownMenuItem,
     PageHeader,
-    TransactionFromAutomationIndicator,
   },
 
   props: {

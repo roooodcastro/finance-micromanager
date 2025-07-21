@@ -951,6 +951,7 @@
           "budget_remainder_label": "Restante",
           "budget_used_label": "Usado",
           "disable": "Desabilitar",
+          "disabled": "Desabilitada",
           "disabled_category_warning": "Esta categoria está desabilitada. Não é possível alterá-la ou usá-la para novas transações. Dados históricos serão mantidos.",
           "edit": "Editar",
           "expenses": "Gastos",
@@ -973,6 +974,11 @@
         }
       },
       "components": {
+        "badges": {
+          "disabled": "Desabilitado",
+          "favourite": "Favorito",
+          "system": "Sistema"
+        },
         "budget_history_chart": {
           "limit_label": "Limite",
           "used_label": "Usado"
@@ -987,7 +993,6 @@
           "favourite_action_label": "Favoritar",
           "name_label": "Nome",
           "subcategories_label": "Subcategorias",
-          "system": "Sistema",
           "unfavourite_action_label": "Desfavoritar"
         },
         "category_summary_list": {
@@ -1244,7 +1249,6 @@
           "delete_confirmation": "Tem certeza? Esta ação não pode ser desfeita.",
           "disable": "Desativar",
           "disable_confirmation": "Tem certeza? Você pode re-habilitar isto no futuro.",
-          "disabled": "Desativado",
           "edit": "Editar",
           "generic_error": "Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.",
           "loading_message": "Carregando, por favor aguarde&hellip;",
@@ -1477,6 +1481,7 @@
         "show": {
           "destroy": "Remover",
           "disable": "Desabilitar",
+          "disabled": "Desabilitada",
           "disabled_alert_message": "Esta automação está desabilitada. Ela não será mais executada ou ter seu agendamento atualizado.",
           "disabled_alert_title": "Desabilitada",
           "edit": "Editar",
@@ -1706,20 +1711,15 @@
           "edit_title": "Editar Carteira",
           "name_label": "Nome",
           "new_title": "Nova Carteira",
-          "show_disabled": "Mostrar Desabilitadas",
           "submit": "Salvar"
         },
         "index": {
           "destroy": "Desabilitar",
+          "disabled": "Desabilitada",
           "edit": "Editar",
           "new": "Nova Carteira",
-          "show_disabled": "Show Disabled",
+          "show_disabled": "Mostrar Desabilitadas",
           "title": "Carteiras"
-        },
-        "list": {
-          "balance": "Saldo",
-          "disabled": "Desabilitada",
-          "reenable_label": "Reabilitar"
         }
       }
     },

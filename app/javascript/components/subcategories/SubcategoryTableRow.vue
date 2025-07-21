@@ -3,7 +3,11 @@
     <div class="d-flex gap-2 align-items-center">
       <span>{{ subcategory.name }}</span>
 
-      <DisabledBadge v-if="isDisabled" />
+      <Badge
+        v-if="isDisabled"
+        type="disabled"
+        i18n-scope="views.categories.show.disabled"
+      />
     </div>
   </div>
 
@@ -27,10 +31,10 @@ import { computed } from 'vue';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { fixUuidObjectKeys } from '~/utils/StringUtils.js';
 
-import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+import Badge from '~/components/ui/Badge.vue';
 
 export default {
-  components: { DisabledBadge },
+  components: { Badge },
 
   props: {
     category: {

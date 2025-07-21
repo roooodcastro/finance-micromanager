@@ -1,17 +1,19 @@
 <template>
-  <span
-    :class="`badge rounded-pill text-bg-${variant}`"
-  >
-    {{ statusName }}
-  </span>
+  <Badge
+    :variant="variant"
+    :i18n-scope="statusName"
+  />
 </template>
 <script>
 import { computed } from 'vue';
 
-import I18n from '~/utils/I18n.js';
 import { VARIANTS_FOR_RECONCILIATION_STATUSES } from '~/utils/Constants.js';
 
+import Badge from '~/components/ui/Badge.vue';
+
 export default {
+  components: { Badge },
+
   props: {
     reconciliation: {
       type: Object,
@@ -21,7 +23,7 @@ export default {
 
   setup(props) {
     const statusName = computed(() => {
-      return I18n.t(`activerecord.attributes.reconciliation.statuses.${props.reconciliation.status}`);
+      return `activerecord.attributes.reconciliation.statuses.${props.reconciliation.status}`;
     });
     const variant = computed(() => VARIANTS_FOR_RECONCILIATION_STATUSES[props.reconciliation.status]);
 

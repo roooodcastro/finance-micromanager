@@ -6,13 +6,17 @@
     <div class="d-flex gap-3 align-items-center">
       {{ categoryFromStore.name }}
 
-      <FavouriteBadge
+      <Badge
         v-if="categoryFromStore.favourite"
+        type="favourite"
+        i18n-scope="views.categories.show.favourite"
         class="fs-5"
       />
 
-      <DisabledBadge
+      <Badge
         v-if="isDisabled"
+        type="disabled"
+        i18n-scope="views.categories.show.disabled"
         class="fs-5"
       />
     </div>
@@ -154,8 +158,7 @@ import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import TransactionsCard from '~/components/categories/TransactionsCard.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TabRowContainer from '~/components/layout/TabRowContainer.vue';
-import FavouriteBadge from '~/components/categories/FavouriteBadge.vue';
-import DisabledBadge from '~/components/bootstrap/DisabledBadge.vue';
+import Badge from '~/components/ui/Badge.vue';
 
 export default {
   components: {
@@ -164,9 +167,8 @@ export default {
     CategoryForm,
     CategorySummaryCard,
     DateRangeSelector,
-    DisabledBadge,
     DropdownMenuItem,
-    FavouriteBadge,
+    Badge,
     PageHeader,
     SubcategoriesCard,
     SubcategoryForm,

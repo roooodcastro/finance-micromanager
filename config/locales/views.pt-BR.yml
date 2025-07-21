@@ -84,6 +84,7 @@ pt-BR:
         sub_header_budget_history: Histórico do Orçamento
         money_in: Receita
         expenses: Gastos
+        disabled: Desabilitada
         favourite: Favorita
         set_favourite_menu_item: Favoritar
         remove_favourite_menu_item: Desfavoritar
@@ -104,6 +105,10 @@ pt-BR:
           serão mantidos.
 
     components:
+      badges:
+        disabled: Desabilitado
+        favourite: Favorito
+        system: Sistema
       budget_history_chart:
         limit_label: Limite
         used_label: Usado
@@ -113,7 +118,6 @@ pt-BR:
         new_budget_label: Criar Orçamento
       categories_list:
         disabled: Desabilitada
-        system: Sistema
         name_label: Nome
         subcategories_label: Subcategorias
         favourite_action_label: Favoritar
@@ -329,7 +333,6 @@ pt-BR:
         delete: Remover
         delete_confirmation: Tem certeza? Esta ação não pode ser desfeita.
         disable: Desativar
-        disabled: Desativado
         disable_confirmation: Tem certeza? Você pode re-habilitar isto no futuro.
         edit: Editar
         generic_error: Um erro inesperado ocorreu. Por favor atualize a página e tente novamente.
@@ -665,6 +668,7 @@ pt-BR:
         transaction_name: Nome da Transação
         transaction_amount: Valor
         every: A cada
+        disabled: Desabilitada
         disabled_alert_title: Desabilitada
         disabled_alert_message: >-
           Esta automação está desabilitada. Ela não será mais executada ou ter seu agendamento atualizado.
@@ -770,13 +774,10 @@ pt-BR:
         name_label: Nome
         new_title: Nova Carteira
         edit_title: Editar Carteira
-        show_disabled: Mostrar Desabilitadas
       index:
         title: Carteiras
         new: Nova Carteira
         edit: Editar
         destroy: Desabilitar
-      list:
-        balance: Saldo
         disabled: Desabilitada
-        reenable_label: Reabilitar
+        show_disabled: Mostrar Desabilitadas

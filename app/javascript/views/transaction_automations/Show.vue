@@ -1,9 +1,19 @@
 <template>
   <PageHeader
-    :title="transactionAutomationFromStore.transactionName"
     :sub-title="t('title')"
     :back-button-href="transactionAutomationsPath"
   >
+    <div class="d-flex gap-3 align-items-center">
+      {{ transactionAutomationFromStore.transactionName }}
+
+      <Badge
+        v-if="isDisabled"
+        type="disabled"
+        i18n-scope="views.transaction_automations.show.disabled"
+        class="fs-5"
+      />
+    </div>
+
     <template v-slot:actions>
       <DropdownMenuItem
         :label="t('edit')"
@@ -66,7 +76,10 @@
           </dt>
           <dd class="col-6 col-md-8 my-1">
             <a :href="categoryPath(transactionAutomationFromStore.transactionCategoryId)">
-              {{ transactionAutomationFromStore.transactionSubcategory?.displayName ?? transactionAutomationFromStore.transactionCategory.name }}
+              <CategoryBadge
+                :category="transactionAutomationFromStore.transactionCategory"
+                :subcategory="transactionAutomationFromStore.transactionSubcategory"
+              />
             </a>
           </dd>
           <dt class="col-6 col-md-4 my-1">
@@ -148,10 +161,14 @@ import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import TransactionAutomationForm from '~/components/transaction_automations/TransactionAutomationForm.vue';
 import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
+import Badge from '~/components/ui/Badge.vue';
+import CategoryBadge from '~/components/categories/CategoryBadge.vue';
 
 export default {
   components: {
+    Badge,
     BCard,
+    CategoryBadge,
     DropdownMenuItem,
     PageHeader,
     TransactionAutomationForm,
