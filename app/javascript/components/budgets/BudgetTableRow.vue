@@ -28,9 +28,5 @@ export default {
       required: true,
     },
   },
-
-  setup() {
-    return {};
-  }
 };
 </script>
