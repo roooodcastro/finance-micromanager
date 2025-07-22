@@ -1,19 +1,12 @@
 <template>
   <div class="GridRow__left">
     <!-- Name column -->
-    <div class="d-flex gap-2 align-items-center">
-      <span :class="{ 'text-muted': isDisabled }">
-        {{ transactionAutomation.transactionName }}
-      </span>
-      <Badge
-        v-if="isDisabled"
-        type="disabled"
-        i18n-scope="views.transaction_automations.show.disabled"
-      />
+    <div :class="{ 'text-muted': isDisabled }">
+      {{ transactionAutomation.transactionName }}
     </div>
 
     <!-- Category & Wallet columns -->
-    <div class="GridRow__category-wallet-column">
+    <div>
       <span>
         {{ transactionAutomation.transactionSubcategory?.displayName ?? transactionAutomation.transactionCategory.name }}
       </span>
@@ -22,11 +15,20 @@
         {{ transactionAutomation.transactionWallet?.name }}
       </span>
     </div>
-  </div>
 
-  <div class="GridRow__right">
-    <!-- Schedule & Next Run columns -->
-    <div class="GridRow__schedule-column">
+    <div
+      v-if="isDisabled"
+      class="d-none d-lg-block"
+    >
+      <Badge
+        type="disabled"
+        i18n-scope="views.transaction_automations.show.disabled"
+      />
+    </div>
+    <div
+      v-else
+      class="GridRow__schedule-column"
+    >
       <span v-if="isCustomRule">
         {{ t('schedule_desc', { interval: I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomation.scheduleCustomRule}`) }) }}
       </span>
@@ -39,13 +41,24 @@
         {{ t('next_run_desc', { date: formatDate(transactionAutomation.scheduledDate) }) }}
       </span>
     </div>
+  </div>
 
+  <div class="GridRow__right">
     <!-- Amount column -->
     <div
       class="fs-5 align-self-center text-end fw-bold"
       :class="{ 'text-muted': isDisabled, 'text-credit': isCredit && !isDisabled, 'text-debit': isDebit && !isDisabled }"
     >
       {{ formatMoney(transactionAutomation.transactionAmount) }}
+    </div>
+
+    <div class="d-block d-lg-none">
+      <Badge
+        v-if="isDisabled"
+        type="disabled"
+        i18n-scope="views.transaction_automations.show.disabled"
+        class="fs-6"
+      />
     </div>
   </div>
 </template>
