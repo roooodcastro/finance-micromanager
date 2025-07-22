@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.2', '3.3']
+        ruby: ['3.4']
     services:
       postgres:
         image: postgres:15-alpine
@@ -63,7 +63,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3
+          ruby-version: 3.4
           bundler-cache: true
       # Add or replace any other lints here
       - name: Security audit application code
