@@ -135,3 +135,6 @@ FactoryBot/FactoryAssociationWithStrategy:
 
 Naming/PredicateMethod:
   Enabled: false
+
+Rails/StrongParametersExpect:
+  Enabled: false

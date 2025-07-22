@@ -3,9 +3,13 @@ shared: &shared
   host: <%= ENV.fetch('REDIS_HOST', 'localhost') %>
   password: <%= ENV.fetch('REDIS_PASSWORD', nil) %>
   port: <%= ENV.fetch('REDIS_PORT', 6379) %>
-  reconnect_attempts: 5
-  reconnect_delay: 0.05
-  reconnect_delay_max: 0.25
+  reconnect_attempts: [
+    0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+  ]
 
 development:
   <<: *shared
