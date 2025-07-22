@@ -6,6 +6,7 @@
   >
     <template v-slot:actions>
       <DropdownMenuItem
+        v-if="!isDisabled"
         :label="t('edit')"
         icon="pen-to-square"
         @click="handleEdit"

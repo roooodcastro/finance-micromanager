@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { isMediaBreakpointUp } from '~/utils/ResponsivenessUtils.js';
@@ -106,7 +106,7 @@ export default {
       };
     };
 
-    const href = props.row?.href ?? (props.clickHandler ? '#' : null);
+    const href = computed(() => props.row?.href ?? (props.clickHandler ? '#' : null));
 
     const actionsForRow = row => props.actions.filter(action => action.show ? action.show(row) : true);
 
