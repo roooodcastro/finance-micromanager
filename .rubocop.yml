@@ -13,7 +13,7 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
   NewCops: enable
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.4
 
 Gemspec/RequiredRubyVersion:
   Enabled: false
@@ -131,4 +131,7 @@ RSpec/AnyInstance:
   Enabled: false
 
 FactoryBot/FactoryAssociationWithStrategy:
+  Enabled: false
+
+Naming/PredicateMethod:
   Enabled: false

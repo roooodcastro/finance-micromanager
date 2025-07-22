@@ -1,6 +1,6 @@
-ARG RUBY_VERSION=3.3.3
+ARG RUBY_VERSION=3.4.5
 
-FROM ruby:$RUBY_VERSION as builder
+FROM ruby:$RUBY_VERSION AS builder
 
 # Install build dependencies
 RUN apt update -qq &&\
@@ -39,7 +39,7 @@ RUN mv .env.docker_development .env.production.local && \
     SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bundle exec rails assets:precompile --trace && \
     rm -rf /finance_micromanager/node_modules
 
-FROM ruby:3.3.3 as app
+FROM ruby:$RUBY_VERSION AS app
 
 # Install runtime dependencies
 RUN apt update -qq &&\
