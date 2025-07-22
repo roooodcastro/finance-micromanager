@@ -8,8 +8,8 @@ ruby '>= 3.4.5', '< 3.5.0'
 # Default Rails gems
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 6.0'
-gem 'rails', '~> 7.1.0'
-gem 'redis', '~> 4.0'
+gem 'rails', '~> 8.0.0'
+gem 'redis', '~> 5.0'
 
 # Frontend
 gem 'i18n-js'
