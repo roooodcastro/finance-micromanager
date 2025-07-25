@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../stylesheets/variables.scss';
+@import '../../stylesheets/variables';
 
 @include media-breakpoint-down(sm) {
   .DescriptionListItem__term:has(+ .DescriptionListItem__details) {

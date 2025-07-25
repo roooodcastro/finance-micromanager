@@ -3,24 +3,15 @@
     :title="t('summary_title')"
   >
     <dl class="row mb-0">
-      <dt class="col-6 col-md-4 my-1">
-        {{ t('file_name_label') }}
-      </dt>
-      <dd class="col-6 col-md-8 my-1">
+      <DescriptionListItem :title="t('file_name_label')">
         {{ importObject.fileName }}
-      </dd>
-      <dt class="col-6 col-md-4 my-1">
-        {{ t('target_wallet_label') }}
-      </dt>
-      <dd class="col-6 col-md-8 my-1">
+      </DescriptionListItem>
+      <DescriptionListItem :title="t('target_wallet_label')">
         {{ importObject.wallet.name }}
-      </dd>
-      <dt class="col-6 col-md-4 my-1">
-        {{ t('total_count_label') }}
-      </dt>
-      <dd class="col-6 col-md-8 my-1">
+      </DescriptionListItem>
+      <DescriptionListItem :title="t('total_count_label')">
         {{ transactionCount }}
-      </dd>
+      </DescriptionListItem>
     </dl>
   </BCard>
 </template>
@@ -28,14 +19,16 @@
 <script>
 import _ from 'lodash';
 
-import BCard from '~/components/bootstrap/BCard.vue';
-
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
+
+import BCard from '~/components/bootstrap/BCard.vue';
+import DescriptionListItem from '~/components/layout/DescriptionListItem.vue';
 
 export default {
   components: {
     BCard,
+    DescriptionListItem,
   },
 
   props: {
