@@ -21,7 +21,7 @@ class TransactionAutomation < ApplicationRecord
   validates :schedule_day, presence: true, if: -> { schedule_type_month? || schedule_type_week? }
   validates :schedule_day, absence: true, unless: -> { schedule_type_month? || schedule_type_week? }
 
-  validates_with TransactionAutomationValidator
+  validates_with ::TransactionAutomationValidator
 
   enum :schedule_type, { month: 'M', week: 'W', day: 'D', custom: 'C' }, prefix: :schedule_type
 
