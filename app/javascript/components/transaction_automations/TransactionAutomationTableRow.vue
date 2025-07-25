@@ -29,16 +29,10 @@
       v-else
       class="GridRow__schedule-column"
     >
-      <span v-if="isCustomRule">
-        {{ t('schedule_desc', { interval: I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomation.scheduleCustomRule}`) }) }}
-      </span>
-      <span v-else>
-        {{ t('schedule_desc', { interval: transactionAutomation.scheduleInterval }) }}
-        {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomation.scheduleTypeKey}`) }}
-      </span>
+      {{ transactionAutomation.humanizedSchedule }}
 
       <span class="d-block fs-6 text-muted">
-        {{ t('next_run_desc', { date: formatDate(transactionAutomation.scheduledDate) }) }}
+        {{ transactionAutomation.humanizedNextRun }}
       </span>
     </div>
   </div>

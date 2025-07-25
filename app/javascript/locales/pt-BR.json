@@ -58,15 +58,34 @@
           "wallet_id": "Carteira"
         },
         "transaction_automation": {
-          "schedule_custom_rule": {
-            "first_business_day_of_month": "primeiro dia útil do mês",
-            "last_business_day_of_month": "último dia útil do mês",
-            "last_day_of_month": "último dia do mês"
+          "schedule_custom_rules": {
+            "first_business_day_of_month": "Todo primeiro dia útil do mês",
+            "last_business_day_of_month": "Todo último dia útil do mês",
+            "last_day_of_month": "Todo último dia do mês"
+          },
+          "schedule_days": {
+            "month": "no dia %{day}",
+            "week": "no dia %{day}"
+          },
+          "schedule_next_runs": {
+            "custom": "Próxima transação: %{date}",
+            "day": "Próxima transação: %{date}",
+            "month": "Criará transação no início do mês",
+            "week": "Criará transação no início da semana"
           },
           "schedule_types": {
-            "day": "Dia(s)",
-            "month": "Mês(es)",
-            "week": "Semana(s)"
+            "day": {
+              "one": "Todo Dia",
+              "other": "A cada %{count} Dias"
+            },
+            "month": {
+              "one": "Todo Mês",
+              "other": "A cada %{count} Meses"
+            },
+            "week": {
+              "one": "Toda Semana",
+              "other": "A cada %{count} Semanas"
+            }
           },
           "transaction_category": "Categoria",
           "transaction_category_id": "Categoria",
@@ -698,7 +717,9 @@
           }
         }
       },
-      "nth": {},
+      "nth": {
+        "ordinalized": "%{number}º"
+      },
       "percentage": {
         "format": {
           "delimiter": ".",
@@ -1453,6 +1474,8 @@
         "floating_button_label": "Nova Automação de Transação",
         "form": {
           "cancel": "Cancelar",
+          "create_at_start_of_period_label": "Criar no primeiro dia do período?",
+          "create_at_start_of_period_tooltip": "Quando selecionado, a automação será processada no primeiro dia do período. Por exemplo, no primeiro dia do mês vai ser criada uma transação para o dia 15, a data programada. Quando não selecionado, a transação será criada na data exata que está programada.",
           "credit_label": "Receita",
           "custom_rule_first_business_day_of_month": "Primeiro dia útil do mês",
           "custom_rule_last_business_day_of_month": "Último dia útil do mês",
@@ -1464,6 +1487,8 @@
           "next_schedule_date_label": "Criar próxima transação em",
           "normal_rule_tab_title": "Regra padrão",
           "optional": "Opcional",
+          "schedule_day_of_month_label": "Neste dia do mês",
+          "schedule_day_of_week_label": "Neste dia da semana",
           "schedule_type_day": "Dia(s)",
           "schedule_type_interval_label": "Criar transações a cada",
           "schedule_type_month": "Mês(es)",
@@ -1483,9 +1508,7 @@
         },
         "list": {
           "disabled": "Desabilitada",
-          "next_run_desc": "Próxima execução em %{date}",
-          "reenable_label": "Reabilitar",
-          "schedule_desc": "Agendado a cada %{interval}"
+          "reenable_label": "Reabilitar"
         },
         "show": {
           "destroy": "Remover",
@@ -1496,18 +1519,21 @@
           "edit": "Editar",
           "every": "A cada",
           "last_schedule_date": "Última execução",
+          "next_run_at": "Próxima execução",
           "no_next_run": "-- Desabilitada --",
           "no_wallet": "-- Não Especificada --",
           "reenable": "Reabilitar",
+          "run_on_transaction_date": "Na data de transação agendada",
           "schedule": "Agendamento",
-          "scheduled_date": "Próxima execução",
+          "scheduled_transaction_date": "Próxima data de transação",
           "sub_header_summary": "Resumo",
           "sub_header_transactions": "Transações Passadas",
           "title": "Automação de Transação",
           "transaction_amount": "Valor",
-          "transaction_category": "Category",
-          "transaction_name": "Nome da Transação",
-          "transaction_wallet": "Wallet"
+          "transaction_category": "Categoria",
+          "transaction_name": "Nome da transação",
+          "transaction_wallet": "Carteira",
+          "when_to_run": "Quando irá executar"
         }
       },
       "transaction_predictions": {

@@ -623,6 +623,8 @@ en:
         sub_header_schedule: Schedule Info
         sub_header_transaction: Transaction Info
         schedule_type_interval_label: Create transactions every
+        schedule_day_of_month_label: On this day of the month
+        schedule_day_of_week_label: On this day of the week
         next_schedule_date_label: Create next transaction on
         credit_label: Income
         debit_label: Spend
@@ -638,16 +640,19 @@ en:
         schedule_type_week: Week(s)
         schedule_type_day: Day(s)
         custom_rule_last_day_of_month: Last day of month
-        custom_rule_first_business_day_of_month: First business day of month
-        custom_rule_last_business_day_of_month: Last business day of month
+        custom_rule_first_business_day_of_month: First weekday of month
+        custom_rule_last_business_day_of_month: Last weekday of month
+        create_at_start_of_period_label: Create on the first day of period?
+        create_at_start_of_period_tooltip: >-
+          If selected, the automation will be processed on the first day of the period. For example, on the first day
+          of the month, a transaction will be created for the 15th, the scheduled date. If not selected, the
+          transaction will be created exactly on the scheduled date.
       index:
         title: Transaction Automations
         new: New Automation
       list:
         disabled: Disabled
         reenable_label: Reenable
-        schedule_desc: 'Scheduled every %{interval}'
-        next_run_desc: 'Next run at %{date}'
       show:
         title: Transaction Automation
         edit: Edit
@@ -659,15 +664,18 @@ en:
         no_next_run: -- Disabled --
         no_wallet: -- Not Specified --
         schedule: Schedule
-        scheduled_date: Next Run
+        next_run_at: Next Run
+        scheduled_transaction_date: Next transaction date
         last_schedule_date: Last Run
-        transaction_name: Transaction Name
+        transaction_name: Transaction name
         transaction_amount: Amount
         transaction_category: Category
         transaction_wallet: Wallet
         every: Every
         disabled_alert_title: Disabled
         disabled_alert_message: This automation is disabled. It will not run and its schedule will not be updated.
+        when_to_run: When to run
+        run_on_transaction_date: On the scheduled transaction date
 
     transaction_predictions:
       floating_button_label: New Transaction Autofill

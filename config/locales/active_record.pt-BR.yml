@@ -59,13 +59,27 @@ pt-BR:
         transaction_wallet: Carteira
         transaction_wallet_id: Carteira
         schedule_types:
-          month: Mês(es)
-          week: Semana(s)
-          day: Dia(s)
-        schedule_custom_rule:
-          last_day_of_month: último dia do mês
-          first_business_day_of_month: primeiro dia útil do mês
-          last_business_day_of_month: último dia útil do mês
+          month:
+            one: Todo Mês
+            other: A cada %{count} Meses
+          week:
+            one: Toda Semana
+            other: A cada %{count} Semanas
+          day:
+            one: Todo Dia
+            other: A cada %{count} Dias
+        schedule_custom_rules:
+          last_day_of_month: Todo último dia do mês
+          first_business_day_of_month: Todo primeiro dia útil do mês
+          last_business_day_of_month: Todo último dia útil do mês
+        schedule_days:
+          week: 'no dia %{day}'
+          month: 'no dia %{day}'
+        schedule_next_runs:
+          custom: 'Próxima transação: %{date}'
+          day: 'Próxima transação: %{date}'
+          week: Criará transação no início da semana
+          month: Criará transação no início do mês
       transaction_prediction:
         name: Nome
         rules_json: Regras de autopreenchimento

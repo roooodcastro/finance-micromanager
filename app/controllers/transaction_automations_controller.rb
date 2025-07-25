@@ -75,16 +75,20 @@ class TransactionAutomationsController < AbstractAuthenticatedController
   end
 
   def transaction_automation_params
-    params.require(:transaction_automation).permit(
-      :transaction_name,
-      :transaction_amount,
-      :transaction_category_id,
-      :transaction_wallet_id,
-      :transaction_transaction_automation_id,
-      :schedule_type,
-      :schedule_interval,
-      :scheduled_date,
-      :schedule_custom_rule
+    params.expect(
+      transaction_automation: %i[
+        transaction_name
+        transaction_amount
+        transaction_category_id
+        transaction_wallet_id
+        transaction_transaction_automation_id
+        schedule_type
+        schedule_interval
+        schedule_day
+        scheduled_date
+        schedule_custom_rule
+        create_at_start_of_period
+      ]
     ).then { |permitted_params| process_category_id_param(permitted_params) }
   end
 

@@ -31,13 +31,27 @@ en:
         transaction_wallet_id: Wallet
         transaction_name: Transaction Name
         schedule_types:
-          month: Month
-          week: Week
-          day: Day
-        schedule_custom_rule:
-          last_day_of_month: last day of month
-          first_business_day_of_month: first business day of month
-          last_business_day_of_month: last business day of month
+          month:
+            one: Every month
+            other: Every %{count} months
+          week:
+            one: Every week
+            other: Every %{count} weeks
+          day:
+            one: Every day
+            other: Every %{count} days
+        schedule_custom_rules:
+          last_day_of_month: Every last day of month
+          first_business_day_of_month: Every first weekday of month
+          last_business_day_of_month: Every last weekday of month
+        schedule_days:
+          week: 'on %{day}'
+          month: 'on day %{day}'
+        schedule_next_runs:
+          custom: 'Next transaction: %{date}'
+          day: 'Next transaction: %{date}'
+          week: Will run at the start of the week
+          month: Will run at the start of the month
       transaction_prediction:
         rules_json: Autofill Rules
       user:

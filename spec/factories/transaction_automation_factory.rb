@@ -11,6 +11,14 @@ FactoryBot.define do
     schedule_type { TransactionAutomation.schedule_types[:month] }
     schedule_interval { 1 }
     scheduled_date { Date.current }
+    schedule_day { Date.current.day }
+
+    trait :schedule_type_week do
+      schedule_type { TransactionAutomation.schedule_types[:week] }
+      schedule_interval { 1 }
+      scheduled_date { Date.current }
+      schedule_day { 1 } # Monday
+    end
 
     trait :disabled do
       disabled_at { Time.current }

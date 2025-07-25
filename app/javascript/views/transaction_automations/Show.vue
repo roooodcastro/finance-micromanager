@@ -93,6 +93,12 @@
               {{ t('no_wallet') }}
             </template>
           </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('scheduled_transaction_date') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
+          </dd>
         </dl>
 
         <hr class="my-3">
@@ -102,21 +108,19 @@
             {{ t('schedule') }}
           </dt>
           <dd class="col-6 col-md-8 my-1">
-            <template v-if="!isCustomRule">
-              {{ t('every') }}
-              {{ transactionAutomationFromStore.scheduleInterval }}
-              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
-            </template>
-            <template v-else>
-              {{ t('every') }}
-              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomationFromStore.scheduleCustomRule}`) }}
-            </template>
+            {{ transactionAutomationFromStore.humanizedSchedule }}
           </dd>
           <dt class="col-6 col-md-4 my-1">
-            {{ t('scheduled_date') }}
+            {{ t('when_to_run') }}
           </dt>
           <dd class="col-6 col-md-8 my-1">
-            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
+            {{ !!transactionAutomationFromStore.createAtStartOfPeriod ? transactionAutomationFromStore.humanizedNextRun : t('run_on_transaction_date') }}
+          </dd>
+          <dt class="col-6 col-md-4 my-1">
+            {{ t('next_run_at') }}
+          </dt>
+          <dd class="col-6 col-md-8 my-1">
+            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.nextRunAt) }}
           </dd>
         </dl>
       </BCard>

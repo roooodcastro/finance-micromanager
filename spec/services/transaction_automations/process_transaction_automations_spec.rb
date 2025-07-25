@@ -33,6 +33,7 @@ RSpec.describe TransactionAutomations::ProcessTransactionAutomations, :travel_to
                scheduled_date:       2.days.ago,
                schedule_type:        :day,
                schedule_interval:    5,
+               schedule_day:         nil,
                transaction_name:     'Service Test',
                transaction_amount:   5.49,
                transaction_category: category)

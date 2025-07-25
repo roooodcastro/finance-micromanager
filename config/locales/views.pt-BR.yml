@@ -627,6 +627,8 @@ pt-BR:
         sub_header_schedule: Dados do Agendamento
         sub_header_transaction: Dados da Transação
         schedule_type_interval_label: Criar transações a cada
+        schedule_day_of_month_label: Neste dia do mês
+        schedule_day_of_week_label: Neste dia da semana
         next_schedule_date_label: Criar próxima transação em
         credit_label: Receita
         debit_label: Gasto
@@ -644,14 +646,17 @@ pt-BR:
         custom_rule_last_day_of_month: Último dia do mês
         custom_rule_first_business_day_of_month: Primeiro dia útil do mês
         custom_rule_last_business_day_of_month: Último dia útil do mês
+        create_at_start_of_period_label: Criar no primeiro dia do período?
+        create_at_start_of_period_tooltip: >-
+          Quando selecionado, a automação será processada no primeiro dia do período. Por exemplo, no primeiro dia do
+          mês vai ser criada uma transação para o dia 15, a data programada. Quando não selecionado, a transação será
+          criada na data exata que está programada.
       index:
         title: Automações de Transações
         new: Nova Automação
       list:
         disabled: Desabilitada
         reenable_label: Reabilitar
-        schedule_desc: 'Agendado a cada %{interval}'
-        next_run_desc: 'Próxima execução em %{date}'
       show:
         title: Automação de Transação
         edit: Editar
@@ -663,15 +668,20 @@ pt-BR:
         no_next_run: -- Desabilitada --
         no_wallet: -- Não Especificada --
         schedule: Agendamento
-        scheduled_date: Próxima execução
+        next_run_at: Próxima execução
+        scheduled_transaction_date: Próxima data de transação
         last_schedule_date: Última execução
-        transaction_name: Nome da Transação
+        transaction_name: Nome da transação
         transaction_amount: Valor
+        transaction_category: Categoria
+        transaction_wallet: Carteira
         every: A cada
         disabled: Desabilitada
         disabled_alert_title: Desabilitada
         disabled_alert_message: >-
           Esta automação está desabilitada. Ela não será mais executada ou ter seu agendamento atualizado.
+        when_to_run: Quando irá executar
+        run_on_transaction_date: Na data de transação agendada
 
     transaction_predictions:
       floating_button_label: Novo Autopreenchimento de Transação

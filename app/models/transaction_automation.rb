@@ -18,9 +18,10 @@ class TransactionAutomation < ApplicationRecord
   validates :schedule_custom_rule, absence: true, unless: :schedule_type_custom?
   validates :schedule_custom_rule, inclusion: { in: -> { TransactionAutomations::CustomRule.available_rules } },
                                    if:        :schedule_type_custom?
+  validates :schedule_day, presence: true, if: -> { schedule_type_month? || schedule_type_week? }
+  validates :schedule_day, absence: true, unless: -> { schedule_type_month? || schedule_type_week? }
 
-  validate :validate_category_is_enabled
-  validate :validate_wallet_is_enabled
+  validates_with TransactionAutomationValidator
 
   enum :schedule_type, { month: 'M', week: 'W', day: 'D', custom: 'C' }, prefix: :schedule_type
 
@@ -31,7 +32,10 @@ class TransactionAutomation < ApplicationRecord
       transaction_amount:      transaction_amount.to_f,
       transaction_category:    transaction_category.as_json(include_subcategories: false),
       transaction_subcategory: transaction_subcategory.as_json,
-      transaction_wallet:      transaction_wallet.as_json
+      transaction_wallet:      transaction_wallet.as_json,
+      humanized_schedule:      humanized_schedule,
+      humanized_next_run:      humanized_next_run,
+      next_run_at:             next_run_at.iso8601
     )
   end
 
@@ -60,6 +64,35 @@ class TransactionAutomation < ApplicationRecord
     }
   end
 
+  def next_run_at
+    return scheduled_date unless create_at_start_of_period?
+    return scheduled_date.beginning_of_week if schedule_type_week?
+
+    scheduled_date.beginning_of_month
+  end
+
+  def humanized_schedule
+    return self.class.human_enum_name(:schedule_custom_rule, schedule_custom_rule) if schedule_type_custom?
+
+    schedule_type_part = self.class.human_enum_name(:schedule_type, schedule_type, count: schedule_interval)
+    schedule_day_part  = if schedule_type_week?
+                           week_day = I18n.t('date.day_names')[schedule_day.to_i]
+                           self.class.human_enum_name(:schedule_days, :week, day: week_day)
+                         elsif schedule_type_month?
+                           self.class.human_enum_name(:schedule_days, :month, day: schedule_day.to_i)
+                         end
+
+    [schedule_type_part, schedule_day_part].compact.join(' ')
+  end
+
+  def humanized_next_run
+    if create_at_start_of_period
+      self.class.human_enum_name(:schedule_next_run, schedule_type, date: I18n.l(scheduled_date.to_date))
+    else
+      self.class.human_enum_name(:schedule_next_run, :custom, date: I18n.l(scheduled_date.to_date))
+    end
+  end
+
   private
 
   def next_scheduled_date(current_date)
@@ -76,22 +109,7 @@ class TransactionAutomation < ApplicationRecord
 
   def schedule_duration
     return unless valid?
-    return if schedule_type_custom?
 
     ActiveSupport::Duration.parse("P#{schedule_interval}#{self.class.schedule_types[schedule_type]}")
-  end
-
-  def validate_category_is_enabled
-    return unless changes[:transaction_category_id]
-    return if transaction_category.blank? || transaction_category.enabled?
-
-    errors.add(:transaction_category_id, :must_be_enabled)
-  end
-
-  def validate_wallet_is_enabled
-    return unless changes[:transaction_wallet_id]
-    return if transaction_wallet.blank? || transaction_wallet.enabled?
-
-    errors.add(:transaction_wallet_id, :must_be_enabled)
   end
 end
