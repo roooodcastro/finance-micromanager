@@ -33,15 +33,34 @@
           "wallet_id": "Wallet"
         },
         "transaction_automation": {
-          "schedule_custom_rule": {
-            "first_business_day_of_month": "first business day of month",
-            "last_business_day_of_month": "last business day of month",
-            "last_day_of_month": "last day of month"
+          "schedule_custom_rules": {
+            "first_business_day_of_month": "Every first weekday of month",
+            "last_business_day_of_month": "Every last weekday of month",
+            "last_day_of_month": "Every last day of month"
+          },
+          "schedule_days": {
+            "month": "on day %{day}",
+            "week": "on %{day}"
+          },
+          "schedule_next_runs": {
+            "custom": "Next transaction: %{date}",
+            "day": "Next transaction: %{date}",
+            "month": "Will run at the start of the month",
+            "week": "Will run at the start of the week"
           },
           "schedule_types": {
-            "day": "Day",
-            "month": "Month",
-            "week": "Week"
+            "day": {
+              "one": "Every day",
+              "other": "Every %{count} days"
+            },
+            "month": {
+              "one": "Every month",
+              "other": "Every %{count} months"
+            },
+            "week": {
+              "one": "Every week",
+              "other": "Every %{count} weeks"
+            }
           },
           "transaction_category": "Category",
           "transaction_category_id": "Category",
@@ -1377,9 +1396,11 @@
         "floating_button_label": "New Transaction Automation",
         "form": {
           "cancel": "Cancel",
+          "create_at_start_of_period_label": "Create on the first day of period?",
+          "create_at_start_of_period_tooltip": "If selected, the automation will be processed on the first day of the period. For example, on the first day of the month, a transaction will be created for the 15th, the scheduled date. If not selected, the transaction will be created exactly on the scheduled date.",
           "credit_label": "Income",
-          "custom_rule_first_business_day_of_month": "First business day of month",
-          "custom_rule_last_business_day_of_month": "Last business day of month",
+          "custom_rule_first_business_day_of_month": "First weekday of month",
+          "custom_rule_last_business_day_of_month": "Last weekday of month",
           "custom_rule_last_day_of_month": "Last day of month",
           "custom_rule_tab_title": "Custom Rule",
           "debit_label": "Spend",
@@ -1388,6 +1409,8 @@
           "next_schedule_date_label": "Create next transaction on",
           "normal_rule_tab_title": "Standard Rule",
           "optional": "Optional",
+          "schedule_day_of_month_label": "On this day of the month",
+          "schedule_day_of_week_label": "On this day of the week",
           "schedule_type_day": "Day(s)",
           "schedule_type_interval_label": "Create transactions every",
           "schedule_type_month": "Month(s)",
@@ -1407,9 +1430,7 @@
         },
         "list": {
           "disabled": "Disabled",
-          "next_run_desc": "Next run at %{date}",
-          "reenable_label": "Reenable",
-          "schedule_desc": "Scheduled every %{interval}"
+          "reenable_label": "Reenable"
         },
         "show": {
           "destroy": "Delete",
@@ -1419,18 +1440,21 @@
           "edit": "Edit",
           "every": "Every",
           "last_schedule_date": "Last Run",
+          "next_run_at": "Next Run",
           "no_next_run": "-- Disabled --",
           "no_wallet": "-- Not Specified --",
           "reenable": "Reenable",
+          "run_on_transaction_date": "On the scheduled transaction date",
           "schedule": "Schedule",
-          "scheduled_date": "Next Run",
+          "scheduled_transaction_date": "Next transaction date",
           "sub_header_summary": "Summary",
           "sub_header_transactions": "Past Transactions",
           "title": "Transaction Automation",
           "transaction_amount": "Amount",
           "transaction_category": "Category",
-          "transaction_name": "Transaction Name",
-          "transaction_wallet": "Wallet"
+          "transaction_name": "Transaction name",
+          "transaction_wallet": "Wallet",
+          "when_to_run": "When to run"
         }
       },
       "transaction_predictions": {

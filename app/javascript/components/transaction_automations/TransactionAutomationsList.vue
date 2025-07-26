@@ -1,5 +1,5 @@
 <template>
-  <NoRecordsFound v-if="!transactionAutomations.length" />
+  <NoRecordsFound v-if="!orderedTransactionAutomations.length" />
   <BCard
     v-else
     no-body
@@ -7,7 +7,7 @@
   >
     <GridTable
       :columns="tableColumns"
-      :rows="transactionAutomations"
+      :rows="orderedTransactionAutomations"
       :actions="tableActions"
       :side-strip-color="sideStripColorFunction"
       bordered
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -56,7 +57,7 @@ export default {
     const tableColumns = [
       { label: t('name_label'), side: 'left' },
       { label: `${t('category_label')}\n${t('wallet_label')}`, side: 'left' },
-      { label: `${t('schedule_label')}\n${t('next_run_label')}`, side: 'right' },
+      { label: `${t('schedule_label')}\n${t('next_run_label')}`, side: 'left' },
       { label: t('amount_label'), side: 'right', align: 'right' },
     ];
 
@@ -65,8 +66,18 @@ export default {
       return isDisabled ? 'var(--bs-danger)' : 'var(--bs-primary)';
     };
 
+    const orderedTransactionAutomations = computed(() => {
+      return transactionAutomations.value.toSorted((a, b) => {
+        if (!!b.disabledAt !== !!a.disabledAt) {
+          return a.disabledAt ? 1 : -1;
+        } else {
+          return a.transactionName.localeCompare(b.transactionName);
+        }
+      });
+    });
+
     return {
-      transactionAutomations,
+      orderedTransactionAutomations,
       tableColumns,
       tableActions,
       sideStripColorFunction,

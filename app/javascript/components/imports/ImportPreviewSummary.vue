@@ -1,55 +1,44 @@
 <template>
   <div class="row">
-    <div class="col col-lg-6">
+    <div class="col-12 col-xxl-5 mb-3 mb-xxl-0">
       <LoadingOverlay :loading="loadingImportTransactions">
         <BCard
           :title="t('summary_title')"
           full-height
         >
           <dl class="row mb-0">
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('target_wallet_label') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
+            <DescriptionListItem :title="t('target_wallet_label')">
               {{ importObject.wallet.name }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('date_range_label') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
+            </DescriptionListItem>
+            <DescriptionListItem :title="t('date_range_label')">
               {{ `${formatDate(minDateFound)} - ${formatDate(maxDateFound)}` }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('total_count_label') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
+            </DescriptionListItem>
+            <DescriptionListItem :title="t('total_count_label')">
               {{ transactionCount }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('valid_count_label') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
+            </DescriptionListItem>
+            <DescriptionListItem :title="t('valid_count_label')">
               {{ validTransactionCount }}
-            </dd>
+            </DescriptionListItem>
           </dl>
         </BCard>
       </LoadingOverlay>
     </div>
-    <div class="col col-lg-6">
+
+    <div class="col-12 col-xxl-7">
       <BCard
         :title="t('stats_title')"
         full-height
       >
-        <div class="row">
+        <div class="row ImportPreviewSummary__statisticsRow">
           <div
             v-for="actionStats in actionsStatsData"
             :key="actionStats.id"
-            class="col col-md-6 col-lg-3"
+            class="col-6 col-md-3"
           >
             <LoadingOverlay :loading="loadingImportTransactions">
               <div :class="`card bg-${actionStats.variant}-subtle text-${actionStats.variant}-emphasis border-0`">
                 <div class="card-body">
-                  <h5 class="card-title">
+                  <h5 class="card-title fs-6">
                     <FontAwesomeIcon :icon="actionStats.icon" />
                     {{ actionStats.label }}
                   </h5>
@@ -80,10 +69,12 @@ import { IMPORT_ACTIONS, VARIANTS_FOR_IMPORT_ACTIONS, IMPORT_ACTION_BLOCK } from
 
 import BCard from '~/components/bootstrap/BCard.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
+import DescriptionListItem from '~/components/layout/DescriptionListItem.vue';
 
 export default {
   components: {
     BCard,
+    DescriptionListItem,
     FontAwesomeIcon,
     LoadingOverlay,
   },
@@ -137,3 +128,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+@include media-breakpoint-down(md) {
+  .ImportPreviewSummary__statisticsRow > :nth-child(1) {
+    margin-bottom: 1rem;
+  }
+}
+</style>

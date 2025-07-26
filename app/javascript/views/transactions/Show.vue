@@ -23,117 +23,82 @@
   <div class="row">
     <div class="col-12">
       <BCard :title="t('sub_header_summary')">
-        <dl class="row">
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('name_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+        <dl class="row mb-0">
+          <DescriptionListItem :title="t('name_label')">
             {{ transactionFromStore.name }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('amount_label') }}
-          </dt>
-          <dd
-            class="col-6 col-md-8 my-1 fw-bold"
-            :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
+          </DescriptionListItem>
+          <DescriptionListItem
+            :title="t('amount_label')"
+            :details-class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
           >
             {{ formatMoney(transactionFromStore.amount) }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('date_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('date_label')">
             {{ formatDate(transactionFromStore.transactionDate) }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('category_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('category_label')">
             <a :href="categoryPath(transactionFromStore.categoryId)">
               <CategoryBadge
                 :category="transactionFromStore.category"
                 :subcategory="transactionFromStore.subcategory"
               />
             </a>
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('wallet_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('wallet_label')">
             <template v-if="transactionFromStore.wallet">
               {{ transactionFromStore.wallet.name }}
             </template>
             <template v-else>
               {{ t('no_wallet') }}
             </template>
-          </dd>
-          <template v-if="!!budgetInstance">
-            <dd class="col-6 col-md-4 my-1">
-              {{ t('budget_percentage_label') }}
-            </dd>
-            <dt
-              class="col-6 col-md-8 my-1"
-              :class="{ 'text-credit': usedBudgetPercentage > 0, 'text-debit': usedBudgetPercentage < -100 }"
-            >
-              {{ Math.abs(usedBudgetPercentage).toFixed(1) }}%
-              {{ t('of_label') }}
-              {{ formatMoney(budgetInstance.limitAmount) }}
-            </dt>
-          </template>
-          <template v-if="!!transactionFromStore.transactionAutomationId">
-            <dd class="col-6 col-md-4 my-1">
-              {{ t('transaction_automation_label') }}
-            </dd>
-            <dt class="col-6 col-md-8 my-1">
-              <a :href="transactionAutomationPath(transactionFromStore.transactionAutomationId)">
-                <Badge
-                  i18n-scope="views.transactions.show.transaction_automation_value"
-                  icon="robot"
-                  class="text-decoration-underline"
-                />
-              </a>
-            </dt>
-          </template>
-          <template v-if="!!transactionFromStore.importId">
-            <dd class="col-6 col-md-4 my-1">
-              {{ t('import_label') }}
-            </dd>
-            <dt class="col-6 col-md-8 my-1">
-              <a :href="importPath(transactionFromStore.importId)">
-                {{ t('import_value') }}
-              </a>
-            </dt>
-          </template>
+          </DescriptionListItem>
+          <DescriptionListItem
+            v-if="!!budgetInstance"
+            :title="t('budget_percentage_label')"
+            :details-class="{ 'text-credit': usedBudgetPercentage > 0, 'text-debit': usedBudgetPercentage < -100 }"
+          >
+            {{ Math.abs(usedBudgetPercentage).toFixed(1) }}%
+            {{ t('of_label') }}
+            {{ formatMoney(budgetInstance.limitAmount) }}
+          </DescriptionListItem>
+          <DescriptionListItem
+            v-if="!!transactionFromStore.transactionAutomationId"
+            :title="t('transaction_automation_label')"
+          >
+            <a :href="transactionAutomationPath(transactionFromStore.transactionAutomationId)">
+              <Badge
+                i18n-scope="views.transactions.show.transaction_automation_value"
+                icon="robot"
+                class="text-decoration-underline"
+              />
+            </a>
+          </DescriptionListItem>
+          <DescriptionListItem
+            v-if="!!transactionFromStore.importId"
+            :title="t('import_label')"
+          >
+            <a :href="importPath(transactionFromStore.importId)">
+              {{ t('import_value') }}
+            </a>
+          </DescriptionListItem>
         </dl>
 
-        <hr class="my-3">
+        <hr class="d-none d-sm-block my-3">
 
         <dl class="row">
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('created_at_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          <DescriptionListItem :title="t('created_at_label')">
             {{ formatDateTime(transactionFromStore.createdAt) }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('created_by_label') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('created_by_label')">
             {{ transactionFromStore.createdBy?.displayName }}
-          </dd>
+          </DescriptionListItem>
           <template v-if="transactionFromStore.createdAt != transactionFromStore.updatedAt">
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('updated_at_label') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
+            <DescriptionListItem :title="t('updated_at_label')">
               {{ formatDateTime(transactionFromStore.updatedAt) }}
-            </dd>
-            <dt class="col-6 col-md-4 my-1">
-              {{ t('updated_by_label') }}
-            </dt>
-            <dd class="col-6 col-md-8 my-1">
+            </DescriptionListItem>
+            <DescriptionListItem :title="t('updated_by_label')">
               {{ transactionFromStore.updatedBy?.displayName }}
-            </dd>
+            </DescriptionListItem>
           </template>
         </dl>
       </BCard>
@@ -164,12 +129,14 @@ import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
 import CategoryBadge from '~/components/categories/CategoryBadge.vue';
 import Badge from '~/components/ui/Badge.vue';
+import DescriptionListItem from '~/components/layout/DescriptionListItem.vue';
 
 export default {
   components: {
     Badge,
     BCard,
     CategoryBadge,
+    DescriptionListItem,
     DropdownMenuItem,
     PageHeader,
   },

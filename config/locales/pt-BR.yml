@@ -207,6 +207,8 @@ pt-BR:
           mb: MB
           pb: PB
           tb: TB
+    nth:
+      ordinalized: '%{number}º'
     percentage:
       format:
         delimiter: "."

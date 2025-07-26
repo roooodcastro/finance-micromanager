@@ -10,7 +10,7 @@
         v-if="isDisabled"
         type="disabled"
         i18n-scope="views.transaction_automations.show.disabled"
-        class="fs-5"
+        class="fs-5 d-none d-md-block"
       />
     </div>
 
@@ -50,74 +50,56 @@
     v-if="isDisabled"
     :title="t('disabled_alert_title')"
     :message="t('disabled_alert_message')"
+    class="m-3 mx-lg-0"
   />
 
   <div class="row">
     <div class="col-12 col-xl-6">
       <BCard :title="t('sub_header_summary')">
-        <dl class="row">
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('transaction_name') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+        <dl class="row mb-0">
+          <DescriptionListItem :title="t('transaction_name')">
             {{ transactionAutomation.transactionName }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('transaction_amount') }}
-          </dt>
-          <dd
-            class="col-6 col-md-8 my-1 fw-bold"
-            :class="{ 'text-muted': isDisabled, 'text-credit': isCredit && !isDisabled, 'text-debit': isDebit && !isDisabled }"
+          </DescriptionListItem>
+
+          <DescriptionListItem
+            :title="t('transaction_amount')"
+            :details-class="{ 'text-muted': isDisabled, 'text-credit': isCredit && !isDisabled, 'text-debit': isDebit && !isDisabled }"
           >
             {{ formatMoney(transactionAutomationFromStore.transactionAmount) }}
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('transaction_category') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('transaction_category')">
             <a :href="categoryPath(transactionAutomationFromStore.transactionCategoryId)">
               <CategoryBadge
                 :category="transactionAutomationFromStore.transactionCategory"
                 :subcategory="transactionAutomationFromStore.transactionSubcategory"
               />
             </a>
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('transaction_wallet') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('transaction_wallet')">
             <template v-if="transactionAutomationFromStore.transactionWallet">
               {{ transactionAutomationFromStore.transactionWallet.name }}
             </template>
             <template v-else>
               {{ t('no_wallet') }}
             </template>
-          </dd>
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('scheduled_transaction_date')">
+            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
+          </DescriptionListItem>
         </dl>
 
-        <hr class="my-3">
+        <hr class="d-none d-sm-block my-3">
 
         <dl class="row">
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('schedule') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            <template v-if="!isCustomRule">
-              {{ t('every') }}
-              {{ transactionAutomationFromStore.scheduleInterval }}
-              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_types.${transactionAutomationFromStore.scheduleTypeKey}`) }}
-            </template>
-            <template v-else>
-              {{ t('every') }}
-              {{ I18n.t(`activerecord.attributes.transaction_automation.schedule_custom_rule.${transactionAutomationFromStore.scheduleCustomRule}`) }}
-            </template>
-          </dd>
-          <dt class="col-6 col-md-4 my-1">
-            {{ t('scheduled_date') }}
-          </dt>
-          <dd class="col-6 col-md-8 my-1">
-            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
-          </dd>
+          <DescriptionListItem :title="t('schedule')">
+            {{ transactionAutomationFromStore.humanizedSchedule }}
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('when_to_run')">
+            {{ !!transactionAutomationFromStore.createAtStartOfPeriod ? transactionAutomationFromStore.humanizedNextRun : t('run_on_transaction_date') }}
+          </DescriptionListItem>
+          <DescriptionListItem :title="t('next_run_at')">
+            {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.nextRunAt) }}
+          </DescriptionListItem>
         </dl>
       </BCard>
     </div>
@@ -163,12 +145,14 @@ import WarningAlert from '~/components/bootstrap/WarningAlert.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
 import Badge from '~/components/ui/Badge.vue';
 import CategoryBadge from '~/components/categories/CategoryBadge.vue';
+import DescriptionListItem from '~/components/layout/DescriptionListItem.vue';
 
 export default {
   components: {
     Badge,
     BCard,
     CategoryBadge,
+    DescriptionListItem,
     DropdownMenuItem,
     PageHeader,
     TransactionAutomationForm,

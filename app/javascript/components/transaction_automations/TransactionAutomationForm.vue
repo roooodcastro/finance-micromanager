@@ -65,6 +65,7 @@
                 :form-helper="formHelper"
                 class="flex-grow-1"
                 required
+                @change="resetScheduleDay"
               />
             </div>
           </div>
@@ -87,7 +88,29 @@
             />
           </div>
 
+          <div
+            v-if="showScheduleDay"
+            class="mb-3"
+          >
+            <label
+              :for="formHelper.fieldId('schedule_day')"
+              class="form-label"
+            >
+              {{ t(`schedule_day_of_${transactionAutomation.scheduleType === 'M' ? 'month' : 'week'}_label`) }}
+            </label>
+
+            <FormSelect
+              v-model="transactionAutomation.scheduleDay"
+              :options="scheduleDayOptions"
+              field-name="schedule_day"
+              :form-helper="formHelper"
+              class="flex-grow-1"
+              required
+            />
+          </div>
+
           <FormInput
+            v-else
             v-model="transactionAutomation.scheduledDate"
             field-name="scheduled_date"
             :form-helper="formHelper"
@@ -95,6 +118,15 @@
             type="date"
             required
           />
+
+          <CheckboxField
+            :id="formHelper.fieldId('create_at_start_of_period')"
+            v-model="transactionAutomation.createAtStartOfPeriod"
+            :name="formHelper.fieldName('create_at_start_of_period')"
+          >
+            {{ t('create_at_start_of_period_label') }}
+            <InfoTooltip :message="t('create_at_start_of_period_tooltip')" />
+          </CheckboxField>
 
           <hr>
 
@@ -184,6 +216,7 @@
 <script>
 import { computed, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import _ from 'lodash';
 
 import I18n from '~/utils/I18n.js';
 import { transactionAutomations as transactionAutomationsApi } from '~/api/all.js';
@@ -201,15 +234,20 @@ import FormModal from '~/components/forms/FormModal.vue';
 import ToggleSwitch from '~/components/ui/ToggleSwitch.vue';
 import CategoriesSelect from '~/components/categories/CategoriesSelect.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
+import CheckboxField from '~/components/forms/CheckboxField.vue';
+import InfoTooltip from '~/components/bootstrap/InfoTooltip.vue';
 
 export default {
   components: {
-    WalletsSelect, CategoriesSelect,
-    ToggleSwitch,
+    CategoriesSelect,
+    CheckboxField,
     FormInput,
     FormModal,
     FormSelect,
+    InfoTooltip,
     RailsForm,
+    ToggleSwitch,
+    WalletsSelect,
   },
 
   setup() {
@@ -261,6 +299,22 @@ export default {
       updateDataWithDefaultValues();
     });
 
+    const showScheduleDay = computed(() => {
+      return transactionAutomation.value.scheduleType === 'M' || transactionAutomation.value.scheduleType === 'W';
+    });
+
+    const scheduleDayOptions = computed(() => {
+      if (transactionAutomation.value.scheduleType === 'M') {
+        return [...Array(31)].map((_, i) => {
+          return { value: i + 1, label: i + 1 }
+        });
+      } else {
+        return I18n.t('date.day_names').map((weekDay, index) => {
+          return { value: index, label: _.upperFirst(weekDay) };
+        });
+      }
+    });
+
     const updateDataWithDefaultValues = () => {
       if (isNewRecord.value) {
         transactionAutomation.value.amountType = 'debit';
@@ -302,6 +356,7 @@ export default {
       transactionAutomation.value.isCustomRule = true;
       transactionAutomation.value.scheduleType = 'C';
       transactionAutomation.value.scheduleInterval = null;
+      transactionAutomation.value.scheduleDay = null;
     };
 
     const handleSubmit = (closeModal) => {
@@ -329,6 +384,8 @@ export default {
       }
     };
 
+    const resetScheduleDay = () => transactionAutomation.value.scheduleDay = null;
+
     return {
       t,
       loading,
@@ -339,10 +396,13 @@ export default {
       scheduleCustomRuleOptions,
       transactionAutomation,
       modalId,
+      showScheduleDay,
+      scheduleDayOptions,
       handleShow,
       handleSubmit,
       handleNormalTabClick,
       handleCustomTabClick,
+      resetScheduleDay,
       TRANSACTION_AUTOMATION_FORM_ID,
     };
   },
