@@ -20,6 +20,8 @@ class TransactionAutomation < ApplicationRecord
                                    if:        :schedule_type_custom?
   validates :schedule_day, presence: true, if: -> { schedule_type_month? || schedule_type_week? }
   validates :schedule_day, absence: true, unless: -> { schedule_type_month? || schedule_type_week? }
+  validates :schedule_day, numericality: { only_integer: true, in: (0..6) }, if: -> { schedule_type_week? }
+  validates :schedule_day, numericality: { only_integer: true, in: (1..31) }, if: -> { schedule_type_month? }
 
   validates_with ::TransactionAutomationValidator
 
@@ -96,20 +98,31 @@ class TransactionAutomation < ApplicationRecord
   private
 
   def next_scheduled_date(current_date)
-    return if !schedule_type_custom? && !schedule_duration
+    return next_monthly_scheduled_date(current_date) if schedule_type_month?
+    return next_weekly_scheduled_date(current_date) if schedule_type_week?
+    return current_date + schedule_interval.days if schedule_type_day?
+    return custom_rule.next_scheduled_date(current_date) if schedule_type_custom?
 
-    return current_date + schedule_duration unless schedule_type_custom?
+    nil
+  end
 
-    custom_rule.next_scheduled_date(current_date)
+  def next_weekly_scheduled_date(current_date)
+    return unless valid?
+
+    (current_date + schedule_interval.weeks).beginning_of_week(Date::DAYNAMES[schedule_day].downcase.to_sym)
+  end
+
+  def next_monthly_scheduled_date(current_date)
+    return unless valid?
+
+    next_date = current_date + schedule_interval.months
+    next_date.change(day: schedule_day)
+  rescue Date::Error
+    # Edge case when schedule_day is set to 31, and the next month only has 30 or less days
+    (current_date + schedule_interval.months).end_of_month
   end
 
   def custom_rule
     @custom_rule ||= ::TransactionAutomations::CustomRule.new(self)
-  end
-
-  def schedule_duration
-    return unless valid?
-
-    ActiveSupport::Duration.parse("P#{schedule_interval}#{self.class.schedule_types[schedule_type]}")
   end
 end

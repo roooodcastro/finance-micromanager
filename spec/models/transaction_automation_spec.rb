@@ -182,34 +182,62 @@ RSpec.describe TransactionAutomation do
     let(:schedule_custom_rule) { nil }
     let(:schedule_day) { 1 }
 
+    context 'when schedule_type is month but schedule_day is nil' do
+      let(:schedule_type) { :month }
+      let(:schedule_interval) { 2 }
+      let(:schedule_day) { 1 }
+
+      it 'does not change the scheduled_date' do
+        transaction_automation.schedule_day = nil
+        expect { transaction_automation.bump_scheduled_date! }
+          .not_to change { transaction_automation.scheduled_date }
+      end
+    end
+
     context 'when schedule_type is month' do
       let(:schedule_type) { :month }
       let(:schedule_interval) { 2 }
+      let(:schedule_day) { 11 }
 
       it 'changes scheduled_date accordingly' do
         expect { bump_scheduled_date! }
-          .to change { transaction_automation.reload.scheduled_date }.to(2.months.from_now.to_date)
+          .to change { transaction_automation.scheduled_date }
+          .to(2.months.from_now.to_date.change(day: 11))
+      end
+    end
+
+    context 'when schedule_type is week but schedule_day is nil' do
+      let(:schedule_type) { :week }
+      let(:schedule_interval) { 2 }
+      let(:schedule_day) { 0 }
+
+      it 'does not change the scheduled_date' do
+        transaction_automation.schedule_day = nil
+        expect { transaction_automation.bump_scheduled_date! }
+          .not_to change { transaction_automation.scheduled_date }
       end
     end
 
     context 'when schedule_type is week' do
       let(:schedule_type) { :week }
       let(:schedule_interval) { 3 }
+      let(:schedule_day) { 6 } # Saturday
 
       it 'changes scheduled_date accordingly' do
         expect { bump_scheduled_date! }
-          .to change { transaction_automation.reload.scheduled_date }.to(3.weeks.from_now.to_date)
+          .to change { transaction_automation.scheduled_date }
+          .to(3.weeks.from_now.to_date.beginning_of_week(:saturday))
       end
     end
 
     context 'when schedule_type is day' do
       let(:schedule_type) { :day }
-      let(:schedule_interval) { 1 }
+      let(:schedule_interval) { 3 }
       let(:schedule_day) { nil }
 
       it 'changes scheduled_date accordingly' do
         expect { bump_scheduled_date! }
-          .to change { transaction_automation.reload.scheduled_date }.to(1.day.from_now.to_date)
+          .to change { transaction_automation.scheduled_date }.to(3.days.from_now.to_date)
       end
     end
 
@@ -238,13 +266,21 @@ RSpec.describe TransactionAutomation do
     subject { transaction_automation.next_run_at }
 
     let(:transaction_automation) do
-      create(:transaction_automation, profile:, scheduled_date:, create_at_start_of_period:, schedule_type:)
+      create(
+        :transaction_automation,
+        profile:,
+        scheduled_date:,
+        create_at_start_of_period:,
+        schedule_type:,
+        schedule_day:
+      )
     end
 
     context 'when create_at_start_of_period is false' do
       let(:create_at_start_of_period) { false }
       let(:scheduled_date) { '2025-07-03' }
       let(:schedule_type) { :month }
+      let(:schedule_day) { 3 }
 
       it { is_expected.to eq(Date.parse('2025-07-03')) }
     end
@@ -253,14 +289,16 @@ RSpec.describe TransactionAutomation do
       let(:create_at_start_of_period) { true }
       let(:scheduled_date) { '2025-07-10' }
       let(:schedule_type) { :week }
+      let(:schedule_day) { 5 } # Friday
 
-      it { is_expected.to eq(Date.parse('2025-07-07')) }
+      it { is_expected.to eq(Date.parse('2025-07-06')) }
     end
 
     context 'when create_at_start_of_period is true and schedule type is month' do
       let(:create_at_start_of_period) { true }
       let(:scheduled_date) { '2025-07-25' }
       let(:schedule_type) { :month }
+      let(:schedule_day) { 15 }
 
       it { is_expected.to eq(Date.parse('2025-07-01')) }
     end

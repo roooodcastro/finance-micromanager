@@ -20,7 +20,22 @@ module TransactionAutomations
     private
 
     def transaction_automations
-      @transaction_automations ||= TransactionAutomation.where(scheduled_date: [..date])
+      @transaction_automations ||= TransactionAutomation
+                                   .where(scheduled_date: [..date])
+                                   .or(automations_to_create_at_start_of_month)
+                                   .or(automations_to_create_at_start_of_week)
+    end
+
+    def automations_to_create_at_start_of_week
+      TransactionAutomation.where(schedule_type: :week, scheduled_date: date.all_week, create_at_start_of_period: true)
+    end
+
+    def automations_to_create_at_start_of_month
+      TransactionAutomation.where(
+        schedule_type:             :month,
+        scheduled_date:            date.all_month,
+        create_at_start_of_period: true
+      )
     end
   end
 end
