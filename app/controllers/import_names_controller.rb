@@ -5,14 +5,15 @@ class ImportNamesController < AbstractAuthenticatedController
 
   before_action :set_import_name, only: %i[update destroy]
 
-  MAX_PAGINATION = 2**32
-
   def index
     initial_relation   = Current.profile.import_names.order(:import_name)
     import_names       = ImportNameSearch.new(initial_relation, search_params).search
-    pagination_limit   = params[:fetch_all] ? MAX_PAGINATION : current_pagination_limit
-    pagy, import_names = pagy(import_names, limit: pagination_limit)
-    props              = camelize_props(import_names: import_names.as_json, pagination: pagy_metadata(pagy))
+    props              = if params[:fetch_all]
+                           camelize_props(import_names: import_names.as_json)
+                         else
+                           pagy, import_names = pagy(import_names, limit: current_pagination_limit)
+                           camelize_props(import_names: import_names.as_json, pagination: pagy_metadata(pagy))
+                         end
 
     respond_to do |format|
       format.html { render inertia: 'import_names/Index', props: props }
