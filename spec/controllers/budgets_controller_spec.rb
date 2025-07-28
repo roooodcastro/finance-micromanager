@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BudgetsController do
+RSpec.describe BudgetsController, :travel_to_now do
   let(:user) { create(:user) }
   let(:profile) { create(:profile, user:) }
 

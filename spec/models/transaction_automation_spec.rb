@@ -366,7 +366,7 @@ RSpec.describe TransactionAutomation do
     context 'when create_at_start_of_period is false' do
       let(:create_at_start_of_period) { false }
 
-      it { is_expected.to eq('Next transaction: 2025-07-20') }
+      it { is_expected.to eq('Next transaction: 20/07/2025') }
     end
 
     context 'when create_at_start_of_period is true' do

@@ -83,7 +83,7 @@ RSpec.describe ReconciliationsController do
 
       let(:expected_json) do
         {
-          'message'        => "Reconciliation for #{date} was successfully started.",
+          'message'        => "Reconciliation for #{I18n.l(date)} was successfully started.",
           'reconciliation' => Reconciliation.last.as_json
         }
       end
@@ -99,8 +99,8 @@ RSpec.describe ReconciliationsController do
 
       let(:expected_json) do
         {
-          'message' => "Reconciliation for #{date} could not be started: Date has to be newer than the date from the " \
-                       'last finished reconciliation'
+          'message' => "Reconciliation for #{I18n.l(date)} could not be started: Date has to be newer than the date " \
+                       'from the last finished reconciliation'
         }
       end
 
@@ -122,7 +122,7 @@ RSpec.describe ReconciliationsController do
     context 'when the date is present and valid' do
       let(:new_date) { 1.day.from_now.to_date }
 
-      let(:expected_json) { { 'message' => "Reconciliation for #{new_date} was successfully updated." } }
+      let(:expected_json) { { 'message' => "Reconciliation for #{I18n.l(new_date)} was successfully updated." } }
 
       it 'updates the reconciliation and renders json' do
         expect { update_request }.to change { reconciliation.reload.date }.to(new_date)
@@ -136,8 +136,8 @@ RSpec.describe ReconciliationsController do
 
       let(:expected_json) do
         {
-          'message' => "Reconciliation for #{new_date} could not be updated: This reconciliation has been cancelled. " \
-                       'Further changes to it are not possible'
+          'message' => "Reconciliation for #{I18n.l(new_date)} could not be updated: This reconciliation has been " \
+                       'cancelled. Further changes to it are not possible'
         }
       end
 
@@ -158,8 +158,8 @@ RSpec.describe ReconciliationsController do
     context 'when the reconciliation can be finished' do
       let(:expected_json) do
         {
-          'message' => "Reconciliation for #{reconciliation.date} has been successfully finalised. No balance " \
-                       'difference was detected.'
+          'message' => "Reconciliation for #{I18n.l(reconciliation.date)} has been successfully finalised. No " \
+                       'balance difference was detected.'
         }
       end
 
@@ -174,8 +174,8 @@ RSpec.describe ReconciliationsController do
 
       let(:expected_json) do
         {
-          'message' => "Reconciliation for #{reconciliation.date} could not be finalised: This reconciliation has " \
-                       'been cancelled. Further changes to it are not possible'
+          'message' => "Reconciliation for #{I18n.l(reconciliation.date)} could not be finalised: " \
+                       'This reconciliation has been cancelled. Further changes to it are not possible'
         }
       end
 
@@ -193,7 +193,9 @@ RSpec.describe ReconciliationsController do
 
     context 'when the cancellation works' do
       let(:reconciliation) { create(:reconciliation, :in_progress, profile:) }
-      let(:expected_json) { { 'message' => "Reconciliation for #{1.day.ago.to_date} was successfully cancelled." } }
+      let(:expected_json) do
+        { 'message' => "Reconciliation for #{I18n.l(1.day.ago.to_date)} was successfully cancelled." }
+      end
 
       it 'changes the status to cancelled and renders json' do
         expect { destroy }.to change { reconciliation.reload.status }.to('cancelled')
@@ -206,8 +208,8 @@ RSpec.describe ReconciliationsController do
 
       let(:expected_json) do
         {
-          'message' => "Reconciliation for #{1.day.ago.to_date} could not be cancelled: This reconciliation is " \
-                       'already finished. Further changes to it are not possible'
+          'message' => "Reconciliation for #{I18n.l(1.day.ago.to_date)} could not be cancelled: This reconciliation " \
+                       'is already finished. Further changes to it are not possible'
         }
       end
 
