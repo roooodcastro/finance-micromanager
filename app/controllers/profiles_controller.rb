@@ -66,7 +66,7 @@ class ProfilesController < AbstractAuthenticatedController
   end
 
   def profile_params
-    params.require(:profile).permit(:currency, :name, :default_wallet_id)
+    params.expect(profile: %i[currency name default_wallet_id])
   end
 
   def search_params

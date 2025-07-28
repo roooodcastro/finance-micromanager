@@ -89,7 +89,7 @@ class ReconciliationsController < AbstractAuthenticatedController
   private
 
   def reconciliation_params
-    params.require(:reconciliation).permit(:date)
+    params.expect(reconciliation: [:date])
   end
 
   def set_reconciliation

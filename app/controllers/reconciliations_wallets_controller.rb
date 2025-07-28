@@ -20,7 +20,7 @@ class ReconciliationsWalletsController < AbstractAuthenticatedController
   private
 
   def reconciliation_wallet_params
-    params.require(:reconciliation_wallet).permit(:balance_amount).merge(wallet:)
+    params.expect(reconciliation_wallet: [:balance_amount]).merge(wallet:)
   end
 
   def set_reconciliation

@@ -22,6 +22,6 @@ class SettingsController < AbstractAuthenticatedController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :default_profile_id, :locale)
+    params.expect(user: %i[first_name last_name email default_profile_id locale])
   end
 end

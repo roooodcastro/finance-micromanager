@@ -79,6 +79,6 @@ class SubcategoriesController < AbstractAuthenticatedController
   end
 
   def subcategory_params
-    params.require(:subcategory).permit(:name)
+    params.expect(subcategory: [:name])
   end
 end

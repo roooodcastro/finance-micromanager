@@ -74,7 +74,7 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def category_params
-    params.require(:category).permit(:name, :color, :favourite)
+    params.expect(category: %i[name color favourite])
   end
 
   def search_params
