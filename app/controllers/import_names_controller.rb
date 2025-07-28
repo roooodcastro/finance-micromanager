@@ -56,7 +56,7 @@ class ImportNamesController < AbstractAuthenticatedController
   end
 
   def import_name_params
-    params.require(:import_name).permit(:import_name, :transaction_name)
+    params.expect(import_name: %i[import_name transaction_name])
   end
 
   def search_params

@@ -41,8 +41,7 @@ module Imports
 
     def update_params
       params
-        .require(:import_transaction)
-        .permit(%i[name category_id subcategory_id transaction_date action match_transaction_id])
+        .expect(import_transaction: %i[name category_id subcategory_id transaction_date action match_transaction_id])
         .then { |permitted_params| process_category_id_param(permitted_params) }
     end
 

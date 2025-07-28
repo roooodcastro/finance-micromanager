@@ -81,6 +81,6 @@ class TransactionPredictionsController < AbstractAuthenticatedController
   end
 
   def transaction_prediction_params
-    params.require(:transaction_prediction).permit(:name, :rules_json)
+    params.expect(transaction_prediction: %i[name rules_json])
   end
 end

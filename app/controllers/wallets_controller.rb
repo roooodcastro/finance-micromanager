@@ -58,6 +58,6 @@ class WalletsController < AbstractAuthenticatedController
   end
 
   def wallet_params
-    params.require(:wallet).permit(:name)
+    params.expect(wallet: [:name])
   end
 end

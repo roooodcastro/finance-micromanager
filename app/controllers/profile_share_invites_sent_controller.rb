@@ -37,6 +37,6 @@ class ProfileShareInvitesSentController < AbstractAuthenticatedController
   private
 
   def profile_share_invite_params
-    params.require(:profile_share_invite).permit(:profile_id, :invitee_email).merge(profile_owner: current_user)
+    params.expect(profile_share_invite: %i[profile_id invitee_email]).merge(profile_owner: current_user)
   end
 end
