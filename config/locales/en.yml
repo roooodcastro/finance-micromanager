@@ -4,3 +4,6 @@ en:
   reconciliations:
     transaction_name: Reconciliation Balance Adjustment
     category_name: Reconciliations
+  date:
+    formats:
+      default: "%d/%m/%Y"
