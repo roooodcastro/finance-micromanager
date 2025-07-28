@@ -80,10 +80,10 @@ import dayjs from 'dayjs';
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { reconciliations as reconciliationsApi } from '~/api/all.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useReconciliationStore from '~/stores/ReconciliationStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useReconciliationWalletStore from '~/stores/ReconciliationWalletStore.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import ReconciliationSummary from '~/components/reconciliations/ReconciliationSummary.vue';
@@ -152,9 +152,7 @@ export default {
       end_date: formatDate(reconciliationFromStore.value.date),
     });
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => window.location.href = reconciliationsApi.index.path());
+    onProfileChangedRedirectToIndex(reconciliationsApi);
 
     watch(transactions, () => reconciliationStore.fetchSingle());
 

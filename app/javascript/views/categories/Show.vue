@@ -136,9 +136,9 @@ import useBudgetStore from '~/stores/BudgetStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 import {
   BUDGET_OWNER_TYPE_CATEGORY,
   ICON_BUDGETS,
@@ -249,9 +249,7 @@ export default {
     subcategoriesFromStore.value = props.category.subcategories;
     subcategoryCategoryId.value = props.category.id;
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => window.location.href = categoriesApi.index.path());
+    onProfileChangedRedirectToIndex(categoriesApi);
 
     watch(subcategoriesFromStore, () => { categoryStore.fetchSingle(props.category.id) });
     watch(transactions, () => {

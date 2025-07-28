@@ -15,15 +15,12 @@
 </template>
 
 <script>
-import { watch } from 'vue';
-import { storeToRefs } from 'pinia';
-
 import I18n from '~/utils/I18n.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { transactionPredictions as transactionPredictionsApi } from '~/api/all.js';
 import { ICON_TRANSACTION_PREDICTIONS } from '~/utils/Constants.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -57,9 +54,7 @@ export default {
       shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => transactionPredictionStore.fetchCollection());
+    onProfileChanged(() => transactionPredictionStore.fetchCollection());
 
     transactionPredictionStore.loadCollectionFromProps(props.transactionPredictions);
 

@@ -29,6 +29,7 @@ import I18n from '~/utils/I18n.js';
 import { imports as importsApi } from '~/api/all.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import BCard from '~/components/bootstrap/BCard.vue';
@@ -64,6 +65,8 @@ export default {
       transactionStore.setFetchParams({ importId: props.importObject.id, daysToShow: 0, startDate: null, endDate: null });
       transactionStore.fetchCollection();
     });
+
+    onProfileChangedRedirectToIndex(importsApi);
 
     return {
       t,

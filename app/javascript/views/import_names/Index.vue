@@ -17,14 +17,13 @@
 </template>
 
 <script>
-import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -62,9 +61,7 @@ export default {
       shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => importNameStore.fetchCollection());
+    onProfileChanged(() => importNameStore.fetchCollection());
 
     const paginationStore = usePaginationStore();
     const { pagination: paginationFromStore } = storeToRefs(paginationStore);

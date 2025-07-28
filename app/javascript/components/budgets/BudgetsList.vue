@@ -21,11 +21,10 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useBudgetStore from '~/stores/BudgetStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import { BUDGET_OWNER_TYPE_CATEGORY } from '~/utils/Constants.js';
@@ -49,15 +48,6 @@ export default {
 
     const { budgets } = storeToRefs(budgetStore);
     const { categories } = storeToRefs(categoryStore);
-
-    // Reload categories if profile has changed while this list is shown
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => {
-      categoryStore.fetchCollection();
-      budgetStore.fetchCollection();
-      budgetStore.fetchProfileBudget();
-    });
 
     const categoriesWithBudgets = computed(() => {
       return categories.value.map((category) => {

@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -130,11 +130,11 @@ import {
   transactionAutomations as transactionAutomationsApi,
 } from '~/api/all.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 import { formatDate } from '~/utils/DateUtils.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 import { ICON_TRANSACTION_AUTOMATIONS } from '~/utils/Constants.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
@@ -184,9 +184,7 @@ export default {
       shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => window.location.href = transactionAutomationsApi.index.path());
+    onProfileChangedRedirectToIndex(transactionAutomationsApi);
 
     // Load transaction automation from props
     const { transactionAutomation: transactionAutomationFromStore } = storeToRefs(transactionAutomationStore);

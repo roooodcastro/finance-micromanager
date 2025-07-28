@@ -43,8 +43,11 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import { getQueryParams } from '~/utils/QueryStringUtils.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
+import useWalletStore from '~/stores/WalletStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
@@ -76,6 +79,9 @@ export default {
 
   setup(props) {
     const transactionStore = useTransactionStore();
+    const categoryStore = useCategoryStore();
+    const walletStore = useWalletStore();
+
     transactionStore.loadCollectionFromProps(props.transactions);
 
     const daysToShowFromQuery = getQueryParams().daysToShow;
@@ -92,6 +98,12 @@ export default {
       excludeCredits: !!getQueryParams().excludeCredits,
       startDate: null,
       endDate: null,
+    });
+
+    onProfileChanged(() => {
+      transactionStore.fetchCollection();
+      categoryStore.fetchCollection();
+      walletStore.fetchCollection();
     });
 
     const handleNew = () => transactionStore.openFormModal(null);

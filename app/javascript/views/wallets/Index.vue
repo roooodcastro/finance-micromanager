@@ -24,14 +24,13 @@
 </template>
 
 <script>
-import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useWalletStore from '~/stores/WalletStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { ICON_WALLETS } from '~/utils/Constants.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import WalletsList from '~/components/wallets/WalletsList.vue';
@@ -67,9 +66,7 @@ export default {
       shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => walletStore.fetchCollection());
+    onProfileChanged(() => walletStore.fetchCollection());
 
     const { showDisabled }  = storeToRefs(walletStore);
 
