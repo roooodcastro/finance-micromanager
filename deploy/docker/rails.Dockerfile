@@ -1,10 +1,12 @@
+# syntax=docker/dockerfile:1.7-labs
+
 ARG RUBY_VERSION=3.4.5
 
-FROM ruby:$RUBY_VERSION AS builder
+FROM ruby:$RUBY_VERSION-slim AS builder
 
 # Install build dependencies
 RUN apt update -qq &&\
-    apt install -y ca-certificates curl gnupg lsb-release &&\
+    apt install -y build-essential libpq-dev libyaml-dev ca-certificates curl gnupg lsb-release &&\
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg &&\
     export NODE_MAJOR=21 &&\
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list &&\
@@ -39,7 +41,7 @@ RUN mv .env.docker_development .env.production.local && \
     SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bundle exec rails assets:precompile --trace && \
     rm -rf /finance_micromanager/node_modules
 
-FROM ruby:$RUBY_VERSION AS app
+FROM ruby:$RUBY_VERSION-slim AS app
 
 # Install runtime dependencies
 RUN apt update -qq &&\
@@ -52,7 +54,7 @@ RUN apt update -qq &&\
 WORKDIR /finance_micromanager
 
 # Copy relevant files from builder stage
-COPY --from=builder /finance_micromanager /finance_micromanager
+COPY --from=builder --exclude=vendor/cache /finance_micromanager /finance_micromanager
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 
 # Configure entrypoint
