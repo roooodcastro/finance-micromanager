@@ -30,6 +30,7 @@ import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useShortcutStore from '~/stores/ShortcutStore.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import {
   IMPORT_ACTION_IMPORT,
@@ -105,6 +106,8 @@ export default {
         importTransactionStore.fetchCollection();
       }
     });
+
+    onProfileChangedRedirectToIndex(importsApi);
 
     return {
       t,

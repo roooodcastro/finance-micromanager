@@ -123,6 +123,7 @@ import { formatMoney } from '~/utils/NumberFormatter.js';
 import { formatDate, formatDateTime } from '~/utils/DateUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -178,6 +179,8 @@ export default {
 
     const isDebit = computed(() => transactionFromStore.value.amount < 0);
     const isCredit = computed(() => transactionFromStore.value.amount > 0);
+
+    onProfileChangedRedirectToIndex(transactionsApi);
 
     const handleEdit = () => transactionStore.openFormModal(props.transaction.id);
     const handleDelete = () => {

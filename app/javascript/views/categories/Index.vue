@@ -36,6 +36,7 @@ import useCategoryStore from '~/stores/CategoryStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { CATEGORY_OPTIONS_COOKIE_NAME, ICON_CATEGORIES } from '~/utils/Constants.js';
 import { getValueFromJsonCookie, setValueToJsonCookie } from '~/utils/CookieUtils.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import CategoriesList from '~/components/categories/CategoriesList.vue';
@@ -68,6 +69,8 @@ export default {
     const initialShowSystem = !!getValueFromJsonCookie(CATEGORY_OPTIONS_COOKIE_NAME, 'ss');
     categoryStore.setFetchParams({ showDisabled: initialShowDisabled, showSystem: initialShowSystem });
     categoryStore.fetchCollection();
+
+    onProfileChanged(() => categoryStore.fetchCollection());
 
     const handleNew = () => categoryStore.openFormModal(null);
     const handleShowDisabled = () => {

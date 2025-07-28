@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -91,10 +91,10 @@ import { transactionPredictions as transactionPredictionsApi } from '~/api/all.j
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useWalletStore from '~/stores/WalletStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
 import { RulesParser } from '~/lib/transaction_predictions/RulesParser.js';
 import { ICON_TRANSACTION_PREDICTIONS } from '~/utils/Constants.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
@@ -152,9 +152,7 @@ export default {
       shortcut: { keys: 'alt+n', keyLabels: ['alt', 'n'] },
     });
 
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => window.location.href = indexPath);
+    onProfileChangedRedirectToIndex(transactionPredictionsApi);
 
     // Load transaction prediction from props
     const { transactionPrediction: transactionPredictionFromStore } = storeToRefs(transactionPredictionStore);

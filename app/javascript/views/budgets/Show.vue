@@ -62,9 +62,9 @@ import { budgets as budgetsApi } from '~/api/all.js';
 import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import useBudgetStore from '~/stores/BudgetStore.js';
 import useDateRangeStore from '~/stores/DateRangeStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import I18n from '~/utils/I18n.js';
+import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
 import BudgetForm from '~/components/budgets/BudgetForm.vue';
@@ -118,10 +118,7 @@ export default {
     budgetInstanceStore.fetchCollection();
     budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
 
-    // If profile changes, redirect back to the budgets index page, as the current budget is for another profile
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => window.location.href = budgetsApi.index.path());
+    onProfileChangedRedirectToIndex(budgetsApi);
 
     watch(transactions, () => {
       budgetStore.fetchSingle(props.budget.id);

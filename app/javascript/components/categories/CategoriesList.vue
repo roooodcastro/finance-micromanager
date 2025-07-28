@@ -21,11 +21,10 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import useProfileStore from '~/stores/ProfileStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtils.js';
 
@@ -46,14 +45,7 @@ export default {
     const t = I18n.scopedTranslator('views.components.categories_list');
 
     const categoryStore = useCategoryStore();
-
-    // Load categories from props
     const { categories } = storeToRefs(categoryStore);
-
-    // Reload categories if profile has changed while this list is shown
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(currentProfile, () => categoryStore.fetchCollection());
 
     const categoryActions = [
       {

@@ -18,6 +18,7 @@
 import useBudgetStore from '~/stores/BudgetStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import I18n from '~/utils/I18n.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
 import BudgetForm from '~/components/budgets/BudgetForm.vue';
@@ -55,6 +56,12 @@ export default {
 
     const categoryStore = useCategoryStore();
     categoryStore.fetchCollection();
+
+    onProfileChanged(() => {
+      categoryStore.fetchCollection();
+      budgetStore.fetchCollection();
+      budgetStore.fetchProfileBudget();
+    });
 
     return {
       t,

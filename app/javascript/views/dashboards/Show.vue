@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -71,6 +70,7 @@ import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
 import useUserStore from '~/stores/UserStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
+import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 
 import {
   categories as categoriesApi,
@@ -167,10 +167,11 @@ export default {
       });
     }
 
-    watch(transactions, () => {
-      fetchCategorySummaries();
+    onProfileChanged(() => {
       budgetInstanceStore.fetchCollection();
-    });
+      fetchRecentTransactions();
+      fetchCategorySummaries();
+    })
 
     fetchRecentTransactions();
 

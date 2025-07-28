@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { watch, ref } from 'vue';
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -102,9 +102,6 @@ import { formatDate } from '~/utils/DateUtils.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
-import useProfileStore from '~/stores/ProfileStore.js';
-import useWalletStore from '~/stores/WalletStore.js';
-import useCategoryStore from '~/stores/CategoryStore.js';
 
 import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
 import Pagination from '~/components/rails/Pagination.vue';
@@ -138,8 +135,6 @@ export default {
 
   setup() {
     const paginationStore = usePaginationStore();
-    const categoryStore = useCategoryStore();
-    const walletStore = useWalletStore();
     const transactionStore = useTransactionStore();
     const {
       loading,
@@ -152,18 +147,6 @@ export default {
     } = storeToRefs(transactionStore);
 
     const handlePageChange = () => transactionStore.fetchCollection();
-
-    // Reload transactions if profile has changed while this page is open
-    const profileStore = useProfileStore();
-    const { currentProfile } = storeToRefs(profileStore);
-    watch(
-      currentProfile,
-      () => {
-        transactionStore.fetchCollection();
-        categoryStore.fetchCollection();
-        walletStore.fetchCollection();
-      }
-    );
 
     const loadingNextPage = ref(false);
 
