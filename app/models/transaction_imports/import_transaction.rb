@@ -48,12 +48,12 @@ module TransactionImports
     end
 
     def assign_match_transaction(transaction_to_match)
-      self.match_transaction = transaction_to_match
+      self.match_transaction_id = transaction_to_match&.dig(:id)
 
       if transaction_to_match
-        self.name             = transaction_to_match.name
-        self.category         = transaction_to_match.category
-        self.subcategory      = transaction_to_match.subcategory
+        self.name           = transaction_to_match[:name]
+        self.category_id    = transaction_to_match[:category_id]
+        self.subcategory_id = transaction_to_match[:subcategory_id]
       else
         self.action      = 'import'
         self.name        = original_import_name

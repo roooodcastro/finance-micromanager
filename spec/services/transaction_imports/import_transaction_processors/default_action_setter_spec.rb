@@ -40,7 +40,7 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::DefaultActionSet
     context 'when action is already match' do
       let(:import_transaction) { build(:import_transaction, import: import, action: 'match') }
 
-      let(:transaction) { create(:transaction, profile:) }
+      let(:transaction) { create(:transaction, profile:).attributes.symbolize_keys }
 
       before { import_transaction.matches = [{ transaction: }] }
 
@@ -88,6 +88,9 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::DefaultActionSet
       let(:other_import_transaction) { create(:import_transaction) }
       let(:transaction) do
         create(:transaction, profile: profile, import: import, import_transaction: other_import_transaction)
+          .attributes
+          .symbolize_keys
+          .merge(import_transaction_id: other_import_transaction.id)
       end
 
       before { import_transaction.matches = [{ transaction: transaction, already_imported: true }] }
@@ -104,9 +107,11 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::DefaultActionSet
     end
 
     context 'when action is nil and there is a valid match' do
-      let(:import_transaction) { build(:import_transaction, import: import, action: nil) }
+      let(:import_transaction) { build(:import_transaction, import: import, action: nil, name: 'Test') }
       let(:transaction) do
         create(:transaction, profile: profile, import: import, amount: 4, transaction_date: 1.day.ago)
+          .attributes
+          .symbolize_keys
       end
 
       before { import_transaction.matches = [{ transaction: transaction, already_imported: false }] }
@@ -116,10 +121,10 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::DefaultActionSet
           .to change { import_transaction.action }
           .to('match')
           .and change { import_transaction.name }
-          .to(transaction.name)
+          .to(transaction[:name])
           .and not_change { import_transaction.transaction_date }
-          .and change { import_transaction.category }
-          .to(transaction.category)
+          .and change { import_transaction.category_id }
+          .to(transaction[:category_id])
           .and not_change { import_transaction.amount.to_f }
       end
     end
@@ -142,6 +147,9 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::DefaultActionSet
 
       let(:transaction) do
         create(:transaction, profile: profile, import_transaction: other_import_transaction)
+          .attributes
+          .symbolize_keys
+          .merge(import_transaction_id: other_import_transaction.id)
       end
 
       before { import_transaction.matches = [{ transaction: }] }

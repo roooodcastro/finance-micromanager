@@ -19,7 +19,10 @@ module TransactionImports
       private
 
       def action_for(import_transaction)
-        return :block if minimum_transaction_date && import_transaction.transaction_date < minimum_transaction_date
+        if import.minimum_transaction_date && import_transaction.transaction_date < import.minimum_transaction_date
+          return :block
+        end
+
         return import_transaction.action if import_transaction.action.present?
 
         top_match_data = top_match_data_for(import_transaction)
@@ -34,15 +37,11 @@ module TransactionImports
         return if match_data.blank?
 
         transaction = match_data[:transaction]
-        return if transaction.import_transaction.present? && transaction.import_transaction != import_transaction
+        if transaction[:import_transaction_id].present? && transaction[:import_transaction_id] != import_transaction.id
+          return
+        end
 
         match_data
-      end
-
-      def minimum_transaction_date
-        return unless import.profile.latest_reconciliation
-
-        @minimum_transaction_date ||= import.profile.latest_reconciliation.date.to_date + 1.day
       end
 
       def clear_match_transaction(import_transaction)
