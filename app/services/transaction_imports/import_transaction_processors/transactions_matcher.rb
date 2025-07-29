@@ -18,16 +18,12 @@ module TransactionImports
         @transactions_to_match ||= import
                                    .profile
                                    .transactions
-                                   .includes(:category, :subcategory, wallet: :profile)
-                                   .newer_than(minimum_transaction_date)
+                                   .includes(:category, :subcategory, :import_transaction, wallet: :profile)
+                                   .newer_than(import.minimum_transaction_date)
                                    .where(wallet: import.wallet)
-                                   .to_a
-      end
-
-      def minimum_transaction_date
-        return unless import.profile.latest_reconciliation
-
-        import.profile.latest_reconciliation.date.to_date + 1.day
+                                   .map do |t|
+                                     t.attributes.symbolize_keys.merge(import_transaction_id: t.import_transaction&.id)
+                                   end
       end
     end
   end

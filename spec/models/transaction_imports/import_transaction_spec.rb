@@ -20,7 +20,9 @@ RSpec.describe TransactionImports::ImportTransaction do
   end
 
   describe '#assign_match_transaction', :aggregate_failures do
-    subject(:assign_match_transaction) { import_transaction.assign_match_transaction(match_transaction) }
+    subject(:assign_match_transaction) do
+      import_transaction.assign_match_transaction(match_transaction&.attributes&.symbolize_keys)
+    end
 
     let(:category) { create(:category, profile:) }
     let(:subcategory) { create(:subcategory, category:) }
