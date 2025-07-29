@@ -4,7 +4,11 @@ require 'new_relic/agent/method_tracer'
 
 Rails.application.config.after_initialize do
   ApplicationService.class_eval do
+    include ::NewRelic::Agent::MethodTracer
+
     class << self
+      include ::NewRelic::Agent::MethodTracer
+
       add_method_tracer :call
     end
     add_method_tracer :call
@@ -40,6 +44,8 @@ Rails.application.config.after_initialize do
   end
 
   TransactionImports::TransactionMatcher.class_eval do
+    include ::NewRelic::Agent::MethodTracer
+
     add_method_tracer :call
     add_method_tracer :match_data_for
     add_method_tracer :match_score_for
