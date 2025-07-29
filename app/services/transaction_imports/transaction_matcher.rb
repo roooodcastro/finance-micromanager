@@ -6,8 +6,8 @@ module TransactionImports
 
     # Maximum difference in days between two dates so they can be considered to have a half match
     DATE_MATCH_DAYS_THRESHOLD = 7
-    # Maximum difference in currency units between two amounts so they can be considered to have a half match
-    AMOUNT_MATCH_THRESHOLD    = 0.1
+    # Maximum difference in currency cents units between two amounts so they can be considered to have a half match
+    AMOUNT_MATCH_THRESHOLD    = 10
     # Minimum match score so that a transaction can be considered to match with this import transaction
     MATCH_SCORE_THRESHOLD     = 1.5
 
@@ -58,8 +58,8 @@ module TransactionImports
     end
 
     def amount_match_score(transaction)
-      return 1 if (transaction.amount.to_d - import_transaction.amount.to_d).abs < Float::EPSILON
-      return 0.5 if (transaction.amount.to_d - import_transaction.amount.to_d).abs < AMOUNT_MATCH_THRESHOLD
+      return 1 if (transaction.amount_cents - import_transaction.amount_cents).abs < Float::EPSILON
+      return 0.5 if (transaction.amount_cents - import_transaction.amount_cents).abs < AMOUNT_MATCH_THRESHOLD
 
       0
     end
