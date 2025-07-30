@@ -93,5 +93,5 @@ jobs:
           platforms: linux/arm64
           file: deploy/docker/rails.Dockerfile
           tags: ${{ secrets.REGISTRY_HOSTNAME }}/finance_micromanager:latest
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
