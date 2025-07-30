@@ -23,15 +23,26 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
-          ref: ${{ github.head_ref }}
+          ref: main
       - name: Bump VERSION file
         id: bump_version
         run: |
           bin/bump_version ${{ inputs.version_type }}
           echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
-      - name: Commit new version
+      - name: Commit new version and tag
         run: |
           git config --global user.name 'Rodrigo Azevedo'
           git config --global user.email 'roooodcastro@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
           git commit -am "Release v${{ steps.bump_version.outputs.VERSION }}"
+          git push origin main
+          git tag -a v${{ steps.bump_version.outputs.VERSION }} -m "Release v${{ steps.bump_version.outputs.VERSION }}"
+          git push origin v${{ steps.bump_version.outputs.VERSION }}
+      - name: Create new Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.bump_version.outputs.VERSION }}" \
+            --title="Release ${{ steps.bump_version.outputs.VERSION }}" \
+            --latest \
+            --generate-notes
