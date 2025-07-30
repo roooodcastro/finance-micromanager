@@ -40,6 +40,11 @@ jobs:
           git push origin main
           git tag -a v${{ steps.bump_version.outputs.VERSION }} -m "Release v${{ steps.bump_version.outputs.VERSION }}"
           git push origin v${{ steps.bump_version.outputs.VERSION }}
+      - name: Update HEAD
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          token: ${{ secrets.PAT }}
       - name: Create new Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
