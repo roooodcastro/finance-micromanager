@@ -36,6 +36,5 @@ Rails.application.config.after_initialize do
     include ::NewRelic::Agent::MethodTracer
 
     add_method_tracer :call
-    add_method_tracer :match_data_for
   end
 end

@@ -39,7 +39,7 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
 gem 'bootsnap', require: false
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
 gem 'sassc-rails'
 
@@ -49,7 +49,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'rspec'
