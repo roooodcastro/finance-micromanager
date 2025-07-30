@@ -5,7 +5,9 @@ RSpec.describe TransactionImports::ImportTransactionProcessors::BaseProcessor, t
     subject(:run_pipeline) { described_class.run_pipeline(import, import_transactions, save:) }
 
     let(:import) { instance_double(Import) }
-    let(:import_transactions) { [instance_double(TransactionImports::ImportTransaction, save: true)] }
+    let(:import_transactions) do
+      [instance_double(TransactionImports::ImportTransaction, save: true, has_changes: true)]
+    end
     let(:save) { true }
 
     context 'when save is true' do

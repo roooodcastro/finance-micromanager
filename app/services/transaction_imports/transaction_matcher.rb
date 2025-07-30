@@ -11,19 +11,22 @@ module TransactionImports
 
     class << self
       def call(import_transaction, transactions)
-        matches   = transactions.each_with_object([]) do |transaction, result|
-          match_data = match_data_for(import_transaction, transaction)
-          result << match_data if match_data
-        end
+        matches = transactions
+                  .map { |transaction| match_data_for(import_transaction, transaction) }
+                  .compact
 
-        import_transaction.matches = matches.sort_by { |match| -match[:match_score] }
+        import_transaction.matches = if matches.present?
+                                       matches.sort_by { |match| -match[:match_score] }
+                                     else
+                                       []
+                                     end
         import_transaction
       end
 
       private
 
       def match_data_for(import_transaction, transaction)
-        match_score      = match_score_for(import_transaction, transaction)
+        match_score = match_score_for(import_transaction, transaction)
         return if match_score < MATCH_SCORE_THRESHOLD
 
         already_imported = transaction[:import_id].present?
@@ -32,9 +35,10 @@ module TransactionImports
       end
 
       def match_score_for(import_transaction, transaction)
-        name_match_score(import_transaction, transaction) +
-          date_match_score(import_transaction, transaction) +
-          amount_match_score(import_transaction, transaction)
+        score = amount_match_score(import_transaction, transaction) + name_match_score(import_transaction, transaction)
+        return 0 if score.zero?
+
+        score + date_match_score(import_transaction, transaction)
       end
 
       def name_match_score(import_transaction, transaction)

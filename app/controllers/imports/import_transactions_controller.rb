@@ -16,7 +16,7 @@ module Imports
     end
 
     def update
-      @import_transaction.assign_attributes(update_params)
+      @import_transaction.assign_attributes(update_params.merge(has_changes: true))
       TransactionImports::ImportTransactionProcessors::BaseProcessor
         .run_pipeline(@import_transaction.import, [@import_transaction])
 

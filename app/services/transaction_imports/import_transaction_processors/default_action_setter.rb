@@ -5,7 +5,7 @@ module TransactionImports
     class DefaultActionSetter < BaseProcessor
       def call
         import_transactions.each do |import_transaction|
-          import_transaction.action = action_for(import_transaction)
+          update_action(import_transaction)
           clear_match_transaction(import_transaction)
           next unless import_transaction.match?
 
@@ -44,8 +44,17 @@ module TransactionImports
         match_data
       end
 
+      def update_action(import_transaction)
+        new_action                     = action_for(import_transaction)
+        import_transaction.has_changes = true if import_transaction.action != new_action
+        import_transaction.action      = new_action
+      end
+
       def clear_match_transaction(import_transaction)
-        import_transaction.match_transaction = nil unless import_transaction.match?
+        return if import_transaction.match?
+
+        import_transaction.has_changes          = true if import_transaction.match_transaction_id.present?
+        import_transaction.match_transaction_id = nil
       end
     end
   end
