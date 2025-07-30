@@ -1,0 +1,37 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will build the Dockerfile for the application and push it to the private registry
+name: "Deploy FinanceMicromanager"
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version Type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Bump VERSION file
+        id: bump_version
+        run: |
+          bin/bump_version ${{ inputs.version_type }}
+          cat VERSION >> "$VERSION"
+      - name: Commit new version
+        run: |
+          git config --global user.name 'Rodrigo Azevedo'
+          git config --global user.email 'roooodcastro@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+          git commit -am "Release v${{ steps.bump_version.outputs.VERSION }}"
