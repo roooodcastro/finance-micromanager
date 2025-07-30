@@ -16,7 +16,8 @@ module TransactionImports
         import_transaction.import_name_object = import_name
         return if import_transaction.original_import_name != import_transaction.name
 
-        import_transaction.name = import_name.transaction_name
+        import_transaction.has_changes = true if import_transaction.name != import_name.transaction_name
+        import_transaction.name        = import_name.transaction_name
       end
 
       def import_names

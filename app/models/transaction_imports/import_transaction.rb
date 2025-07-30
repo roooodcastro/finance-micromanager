@@ -2,7 +2,7 @@
 
 module TransactionImports
   class ImportTransaction < ApplicationRecord
-    attr_accessor :matches, :import_name_object
+    attr_accessor :matches, :import_name_object, :has_changes
 
     monetize :amount_cents, disable_validation: true, with_currency: ->(instance) { instance.currency }
 
@@ -48,6 +48,7 @@ module TransactionImports
     end
 
     def assign_match_transaction(transaction_to_match)
+      self.has_changes          = true if match_transaction_id != transaction_to_match&.dig(:id)
       self.match_transaction_id = transaction_to_match&.dig(:id)
 
       if transaction_to_match

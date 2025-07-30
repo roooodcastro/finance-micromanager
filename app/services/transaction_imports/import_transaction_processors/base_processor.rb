@@ -14,7 +14,9 @@ module TransactionImports
       def self.run_pipeline(import, import_transactions, save: true)
         PROCESSORS.each { |processor_class| processor_class.constantize.call(import, import_transactions) }
 
-        import_transactions.each(&:save) if save
+        return unless save
+
+        import_transactions.each { |import_transaction| import_transaction.save if import_transaction.has_changes }
       end
 
       def initialize(import, import_transactions)
