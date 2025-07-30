@@ -49,11 +49,18 @@ jobs:
       # Add or replace test runners here
       - name: Run tests
         run: bundle exec rspec
-
       - name: SimpleCov Results
         uses: joshmfrankel/simplecov-check-action@1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate new coverage metric for coverage.csv
+        run: echo "VERSION,$(cat coverage/.last_run.json | jq '.result.line,.result.branch' | tr '\n' ',' | sed 's/,$//')" >> spec/coverage.csv
+      - name: Upload coverage.csv artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage_csv
+          path: spec/coverage.csv
 
   lint:
     runs-on: ubuntu-latest

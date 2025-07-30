@@ -30,6 +30,12 @@ jobs:
         run: |
           bin/bump_version ${{ inputs.version_type }}
           echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
+      - name: Download coverage.csv artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage_csv
+      - name: Inject new version tag into coverage.csv
+        run: sed -i "s/VERSION/v${{ steps.bump_version.outputs.VERSION }}/" spec/coverage.csv
       - name: Commit new version and tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
