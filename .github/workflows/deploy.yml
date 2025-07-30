@@ -21,19 +21,21 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           ref: main
+          token: ${{ secrets.PAT }}
       - name: Bump VERSION file
         id: bump_version
         run: |
           bin/bump_version ${{ inputs.version_type }}
           echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
       - name: Commit new version and tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'Rodrigo Azevedo'
           git config --global user.email 'roooodcastro@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
           git commit -am "Release v${{ steps.bump_version.outputs.VERSION }}"
           git push origin main
           git tag -a v${{ steps.bump_version.outputs.VERSION }} -m "Release v${{ steps.bump_version.outputs.VERSION }}"
