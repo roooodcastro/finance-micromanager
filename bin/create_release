@@ -96,6 +96,11 @@ git tag -a $tag_name -m "Release $tag_name"
 git push origin $tag_name
 gh release create $tag_name --title "Release $new_version" --latest --generate-notes
 
+# If BUILD=1 is passed, skip confirmation prompt and build the image
+if [[ -n "$BUILD" ]]; then
+  bin/build
+  exit 0
+fi
 
 # Ask for confirmation before building new image
 read -p "Do you want to build and push a new Docker image? (Y/y) " -n 1 -r
