@@ -28,7 +28,7 @@ jobs:
         id: bump_version
         run: |
           bin/bump_version ${{ inputs.version_type }}
-          cat VERSION >> "$VERSION"
+          echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
       - name: Commit new version
         run: |
           git config --global user.name 'Rodrigo Azevedo'
