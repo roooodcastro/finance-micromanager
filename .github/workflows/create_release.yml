@@ -43,7 +43,6 @@ jobs:
           path: spec
       - name: Inject new version tag into coverage.csv
         run: |
-          grep -q VERSION spec/coverage.csv; if [ ! $? -eq 0 ]; then exit 1; fi
           sed -i "s/VERSION/v${{ steps.bump_version.outputs.VERSION }}/" spec/coverage.csv
           grep -q v${{ steps.bump_version.outputs.VERSION }} spec/coverage.csv; if [ ! $? -eq 0 ]; then exit 1; fi
       - name: Commit new version and tag
@@ -60,6 +59,8 @@ jobs:
           ref: main
           token: ${{ secrets.PAT }}
       - name: Create new Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "v${{ steps.bump_version.outputs.VERSION }}" \
             --title="Release ${{ steps.bump_version.outputs.VERSION }}" \
