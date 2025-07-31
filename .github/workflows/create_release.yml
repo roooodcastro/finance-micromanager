@@ -40,7 +40,7 @@ jobs:
           workflow_conclusion: success
           branch: main
           name: coverage_csv
-          path: spec/coverage.csv
+          path: spec
       - name: Inject new version tag into coverage.csv
         run: |
           grep -q VERSION spec/coverage.csv; if [ ! $? -eq 0 ]; then exit 1; fi
