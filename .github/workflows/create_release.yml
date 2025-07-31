@@ -38,11 +38,13 @@ jobs:
           workflow_conclusion: success
           branch: main
           name: coverage_csv
+          path: spec/coverage.csv
       - name: Inject new version tag into coverage.csv
-        run: sed -i "s/VERSION/v${{ steps.bump_version.outputs.VERSION }}/" spec/coverage.csv
+        run: |
+          grep -q VERSION spec/coverage.csv; if [ ! $? -eq 0 ]; then exit 1; fi
+          sed -i "s/VERSION/v${{ steps.bump_version.outputs.VERSION }}/" spec/coverage.csv
+          grep -q v${{ steps.bump_version.outputs.VERSION }} spec/coverage.csv; if [ ! $? -eq 0 ]; then exit 1; fi
       - name: Commit new version and tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'Rodrigo Azevedo'
           git config --global user.email 'roooodcastro@users.noreply.github.com'
@@ -56,8 +58,6 @@ jobs:
           ref: main
           token: ${{ secrets.PAT }}
       - name: Create new Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "v${{ steps.bump_version.outputs.VERSION }}" \
             --title="Release ${{ steps.bump_version.outputs.VERSION }}" \
