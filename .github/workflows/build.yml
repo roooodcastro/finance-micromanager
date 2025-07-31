@@ -3,7 +3,7 @@
 # privacy policy, and support documentation.
 #
 # This workflow will build the Dockerfile for the application and push it to the private registry
-name: "Build FinanceMicromanager"
+name: "Build and push Docker image"
 on:
   push:
     tags:

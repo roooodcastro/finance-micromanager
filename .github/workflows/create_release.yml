@@ -2,8 +2,8 @@
 # provided by a third-party and are governed by separate terms of service,
 # privacy policy, and support documentation.
 #
-# This workflow will build the Dockerfile for the application and push it to the private registry
-name: "Deploy FinanceMicromanager"
+# This workflow will create a new release
+name: "Create Release"
 on:
   workflow_dispatch:
     inputs:
@@ -31,8 +31,12 @@ jobs:
           bin/bump_version ${{ inputs.version_type }}
           echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
       - name: Download coverage.csv artifact
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v11
         with:
+          github_token: ${{ secrets.PAT }}
+          workflow: rubyonrails.yml
+          workflow_conclusion: success
+          branch: main
           name: coverage_csv
       - name: Inject new version tag into coverage.csv
         run: sed -i "s/VERSION/v${{ steps.bump_version.outputs.VERSION }}/" spec/coverage.csv
