@@ -9,4 +9,4 @@
       class: ProcessTransactionAutomationsJob
     create_budget_instances:
       cron: '1 0 1 * *'
-      class: 'CreateBudgetInstances'
+      class: CreateBudgetInstancesJob

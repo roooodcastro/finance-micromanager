@@ -17,7 +17,7 @@
     </div>
 
     <div :class="{ 'ms-4': match.selected }">
-      {{ match.transaction.subcategory?.displayName ?? match.transaction.category.name }}
+      {{ categoryDisplayName }}
     </div>
   </div>
 
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
@@ -62,13 +63,27 @@ export default {
       type: Object,
       required: true,
     },
+    category: {
+      type: Object,
+      required: true,
+    },
   },
 
-  setup() {
+  setup(props) {
     const t = I18n.scopedTranslator('views.components.categories_list');
+
+    const categoryDisplayName = computed(() => {
+      if (props.match.transaction.subcategoryId) {
+        const subcategory = props.category.subcategories.find(subcat => subcat.id === props.match.transaction.subcategoryId);
+        return subcategory.displayName;
+      } else {
+        return props.category.name;
+      }
+    });
 
     return {
       t,
+      categoryDisplayName,
       formatMoney,
       formatDate,
     };

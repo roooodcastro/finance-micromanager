@@ -23,14 +23,14 @@ module TransactionImports
                                    .where(wallet_id: import.wallet_id)
                                    .map do |t|
           {
-            id:                    t.id,
-            name:                  t.name,
-            transaction_date:      t.transaction_date,
-            amount_cents:          t.amount_cents,
-            import_id:             t.import_id,
-            category_id:           t.category_id,
-            subcategory_id:        t.subcategory_id,
-            import_transaction_id: t.import_transaction&.id
+            id:               t.id,
+            name:             t.name,
+            transaction_date: t.transaction_date,
+            amount_cents:     t.amount_cents,
+            amount:           t.amount_cents / 100.0,
+            import_id:        t.import_id,
+            category_id:      t.category_id,
+            subcategory_id:   t.subcategory_id
           }
         end
       end
