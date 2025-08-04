@@ -10,15 +10,6 @@ export function defineBaseApiStore(name, storeOptions = {}) {
   const dynamicState = {};
   dynamicState[`${storeOptions.resourceName}ForFormModal`] = {};
 
-  const setShowPageHref = (collection) => {
-    collection.forEach((record) => {
-      const showPageHref = storeOptions.api.show?.path({ id: record.id });
-      if (showPageHref) {
-        record.href = showPageHref;
-      }
-    });
-  }
-
   const fetchCollectionFromApi = (store, options = {}) => {
     store.loading = true;
     const fetchParams = { ...(store.urlParams || {}), ...{ query: {...store.fetchParams, ...(options?.fetchParams || {})} }};
@@ -28,7 +19,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       .index(fetchParams)
       .then((response) => {
         const newCollection = response[storeOptions.resourcesName];
-        setShowPageHref(newCollection);
+        store.setShowPageHref(newCollection);
         if (options.targetVariable) {
           store[options.targetVariable] = newCollection;
         } else {
@@ -48,7 +39,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
     return fetchFromCache(path, store.latestUpdatedAt)
       .then((data) => {
         const collection = data[storeOptions.resourcesName];
-        setShowPageHref(collection);
+        store.setShowPageHref(collection);
         if (options.targetVariable) {
           store[options.targetVariable] = collection;
         } else {
@@ -102,7 +93,7 @@ export function defineBaseApiStore(name, storeOptions = {}) {
       },
 
       loadCollectionFromProps(records) {
-        setShowPageHref(records);
+        this.setShowPageHref(records);
         this[storeOptions.resourcesName] = records;
         this.initialFetchDone = true;
       },
@@ -221,6 +212,15 @@ export function defineBaseApiStore(name, storeOptions = {}) {
           });
 
         return returnPromise;
+      },
+
+      setShowPageHref(collection) {
+        collection.forEach((record) => {
+          const showPageHref = storeOptions.api.show?.path({ id: record.id });
+          if (showPageHref) {
+            record.href = showPageHref;
+          }
+        });
       },
 
       ...storeOptions.actions,

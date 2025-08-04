@@ -52,6 +52,13 @@ import I18n from '~/utils/I18n.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 
 export default {
+  props: {
+    cardBody: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   setup() {
     const transactionStore = useTransactionStore();
 

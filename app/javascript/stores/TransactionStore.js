@@ -75,6 +75,8 @@ export default defineBaseApiStore('transaction', {
             ? this.transactions.push(...response.transactions)
             : this.transactions = response.transactions;
 
+          this.setShowPageHref(this.transactions);
+
           if (this.fetchParams.includeStatistics) {
             this.statistics = response.statistics;
           }

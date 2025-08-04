@@ -19,7 +19,7 @@
       <TransactionsFilter
         show-date-range
         show-search
-        class="mx-1 mx-lg-0"
+        class="mx-2 mx-lg-0 mt-3 mt-lg-0"
       />
 
       <Pagination
@@ -30,10 +30,7 @@
     </div>
 
     <BCard no-body>
-      <TransactionsList
-        :transactions="transactions"
-        card-body
-      />
+      <TransactionsList card-body />
     </BCard>
   </div>
 </template>

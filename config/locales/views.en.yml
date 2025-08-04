@@ -171,6 +171,17 @@ en:
       wallets_list:
         name_label: Name
         balance_label: Balance
+      transactions:
+        transactions_list:
+          name_label: Name
+          date_label: Date
+          amount_label: Amount
+          wallet_label: Wallet
+          category_label: Category
+      wallets:
+        wallet_badge:
+          tooltip: Wallet
+          no_wallet: '- No Wallet -'
 
     dashboard:
       show:

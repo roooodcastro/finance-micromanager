@@ -1083,6 +1083,21 @@
           "edit_action": "Editar",
           "name_label": "Nome da Regra"
         },
+        "transactions": {
+          "transactions_list": {
+            "amount_label": "Valor",
+            "category_label": "Categoria",
+            "date_label": "Data",
+            "name_label": "Nome",
+            "wallet_label": "Carteira"
+          }
+        },
+        "wallets": {
+          "wallet_badge": {
+            "no_wallet": "- Sem carteira -",
+            "tooltip": "Carteira"
+          }
+        },
         "wallets_list": {
           "balance_label": "Saldo",
           "name_label": "Nome"

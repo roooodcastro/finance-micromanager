@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="showSearch"
-      class="mb-3 mx-1 mx-lg-0"
+      class="mb-3"
     >
       <SearchField
         id="transactionSearch"

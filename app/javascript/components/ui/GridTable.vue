@@ -238,7 +238,8 @@ export default {
     });
     const gridTableStyle = computed(() => {
       return {
-        'grid-template-columns': allColumns.value.map(column => (column.gridSize ?? 'auto')).join(' '),
+        '--column-count': allColumns.value.length,
+        '--desktop-grid-template-columns': allColumns.value.map(column => (column.gridSize ?? 'auto')).join(' '),
         '--grid-table-left-grid-column': [1, midGridColumn.value].join(' / '),
         '--grid-table-right-grid-column': [midGridColumn.value, -1].join(' / '),
         '--grid-row-content-grid-end': props.actions.length ? -2 : -1,
@@ -268,7 +269,7 @@ export default {
 .GridTable {
   background-color: var(--bs-secondary-bg);
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: var(--desktop-grid-template-columns);
   align-items: center;
   --grid-row-padding-left: 1rem;
 }
@@ -456,6 +457,10 @@ div.GridRow--hoverable:hover, div.GridRow--hoverable:active, div.GridRow--hovera
 }
 
 @mixin gridTableMobile() {
+.GridTable {
+  grid-template-columns: repeat(var(--column-count), auto);
+}
+
 .GridRow {
   .GridRow__left > *, .GridRow__right > * {
     grid-column: 1 / -1;

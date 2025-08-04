@@ -1,42 +1,41 @@
 <template>
-  <LoadingOverlay :loading="loading && initialFetchDone">
-    <MassEditForm />
+  <LoadingOverlay :loading="loading">
     <NoTransactionsPlaceholder
-      v-if="initialFetchDone && !transactions.length"
+      v-if="initialFetchDone && !transactionsForList.length"
       :class="{ 'm-3': cardBody }"
     />
 
     <template v-else>
-      <MassEditControls />
+      <MassEditControls :card-body="cardBody" />
 
       <InfiniteScrolling @scroll="handleInfiniteScrolling">
-        <template v-if="!initialFetchDone">
-          <TransactionListItemPlaceholder
-            v-for="n in 5"
-            :key="n"
-          />
-        </template>
         <template
           v-for="(transactionsByDate, transactionDate) in groupedTransactions"
-          v-else
           :key="transactionDate"
         >
           <div
             v-if="!compact"
-            class="position-sticky top-0 bg-body-tertiary fw-bold py-2 ps-2"
+            class="top-0 fw-bold border rounded m-2"
             :class="{ 'ps-2 ps-lg-0': !cardBody }"
           >
-            {{ formatDate(new Date(transactionDate)) }}
+            <div class="px-2 py-2 fw-bold border-bottom bg-body-secondary">
+              {{ formatDate(new Date(transactionDate)) }}
+            </div>
+            <GridTable
+              :actions="transactionActions"
+              :columns="transactionColumns"
+              :rows="transactionsByDate"
+              :side-strip-color="sideStripColorFunction"
+              :row-click-handler="massEditMode ? handleMassEditSelect : null"
+              no-header
+              hoverable
+              rounded
+            >
+              <template v-slot:default="{ row: transaction }">
+                <TransactionTableRow :transaction="transaction" />
+              </template>
+            </GridTable>
           </div>
-          <TransactionListItem
-            v-for="transaction in transactionsByDate"
-            :key="transaction.id"
-            :transaction="transaction"
-            :compact="compact"
-            :mass-edit-mode="massEditMode"
-            :mass-edit-selected="massEditTransactionIds[transaction.id]"
-            @mass-edit-toggle="handleMassEditToggle"
-          />
         </template>
       </InfiniteScrolling>
 
@@ -47,11 +46,13 @@
         @change="handlePageChange"
       />
     </template>
+
+    <MassEditForm />
   </LoadingOverlay>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -59,26 +60,27 @@ import { formatDate } from '~/utils/DateUtils.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
+import { editAction, deleteAction } from '~/utils/GridTableUtils.js';
 
-import TransactionListItem from '~/components/transactions/TransactionListItem.vue';
+import GridTable from '~/components/ui/GridTable.vue';
+import TransactionTableRow from '~/components/transactions/TransactionTableRow.vue';
 import Pagination from '~/components/rails/Pagination.vue';
 import NoTransactionsPlaceholder from '~/components/transactions/NoTransactionsPlaceholder.vue';
 import InfiniteScrolling from '~/components/layout/InfiniteScrolling.vue';
 import MassEditForm from '~/components/transactions/MassEditForm.vue';
-import TransactionListItemPlaceholder from '~/components/transactions/TransactionListItemPlaceholder.vue';
 import MassEditControls from '~/components/transactions/MassEditControls.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
 
 export default {
   components: {
+    GridTable,
     InfiniteScrolling,
     LoadingOverlay,
     MassEditControls,
     MassEditForm,
     NoTransactionsPlaceholder,
     Pagination,
-    TransactionListItem,
-    TransactionListItemPlaceholder,
+    TransactionTableRow,
   },
 
   props: {
@@ -90,21 +92,51 @@ export default {
       type: Boolean,
       default: false,
     },
+    transactions: {
+      type: Array,
+      default: null,
+    },
   },
 
-  setup() {
+  setup(props) {
+    const t = I18n.scopedTranslator('views.components.transactions.transactions_list');
+
     const paginationStore = usePaginationStore();
     const transactionStore = useTransactionStore();
+
     const {
       loading,
-      transactions,
+      transactions: transactionsFromStore,
       initialFetchDone,
       groupedTransactions,
       massEditMode,
       massEditTransactionIds,
     } = storeToRefs(transactionStore);
 
+    const transactionActions = computed(() => {
+      if (massEditMode.value) {
+        return [];
+      } else {
+        return [
+          editAction(transactionStore),
+          deleteAction(transactionStore),
+        ];
+      }
+    });
+
+    const transactionColumns = [
+      { label: t('name_label'), side: 'left', gridSize: '6fr' },
+      { label: t('category_label'), side: 'left', gridSize: 'minmax(10rem, 3fr)' },
+      { label: t('date_label'), side: 'right', align: 'center', gridSize: 'minmax(8rem, 2fr)' },
+      { label: t('wallet_label'), side: 'right', align: 'right', gridSize: 'minmax(10rem, 3fr)' },
+      { label: t('amount_label'), side: 'right', align: 'right', gridSize: '2fr' },
+    ];
+
     const handlePageChange = () => transactionStore.fetchCollection();
+
+    const transactionsForList = computed(() => props.transactions ? props.transactions : transactionsFromStore.value);
+
+    const sideStripColorFunction = row => row.category.color;
 
     const loadingNextPage = ref(false);
 
@@ -120,20 +152,25 @@ export default {
       }
     };
 
-    const handleMassEditToggle = transactionStore.toggleMassEditTransactionId;
+    const handleMassEditSelect = (transaction) => {
+      transactionStore.toggleMassEditTransactionId(transaction.id);
+    };
 
     return {
+      t,
       formatDate,
       loading,
       initialFetchDone,
-      transactions,
+      transactionsForList,
       groupedTransactions,
       massEditMode,
       massEditTransactionIds,
+      transactionActions,
+      transactionColumns,
       handlePageChange,
       handleInfiniteScrolling,
-      handleMassEditToggle,
-      t: I18n.scopedTranslator('views.transactions.index'),
+      sideStripColorFunction,
+      handleMassEditSelect,
     };
   },
 };
