@@ -75,8 +75,11 @@ export default {
     const chartMode = ref(getValueFromJsonCookie(DISPLAY_OPTIONS_COOKIE_NAME, 'dailyTotalsChartMode') || 'both');
 
     const dailyTotalsUntilToday = computed(() => {
+      const daysWithData = statistics.value.dailyTotals?.filter(total => total.spends !== 0 || total.income !== 0) ?? [];
+      const maxDateWithData = daysWithData.map(total => total.date).at(-1);
       const today = dayjs().tz('utc').utc();
-      return statistics.value.dailyTotals?.filter(total => dayjs.tz(total.date, 'utc') < today) || [];
+      const maxDate = maxDateWithData && dayjs.tz(maxDateWithData, 'utc') > today ? dayjs.tz(maxDateWithData, 'utc') : today;
+      return statistics.value.dailyTotals?.filter(total => dayjs.tz(total.date, 'utc') <= maxDate) || [];
     });
 
     const chartLabels = computed(() => statistics.value.dailyTotals?.map(total => total.date) || []);
