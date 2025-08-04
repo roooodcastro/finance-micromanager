@@ -8,14 +8,20 @@
     :row-click-handler="handleMatchTransactionChange"
   >
     <template v-slot:default="{ row: match }">
-      <MatchTransactionTableRow :match="match" />
+      <MatchTransactionTableRow
+        :match="match"
+        :category="categoryForMatch(match)"
+      />
     </template>
   </GridTable>
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
+
 import I18n from '~/utils/I18n.js';
 import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
 import { IMPORT_ACTION_MATCH } from '~/utils/Constants.js';
 
 import GridTable from '~/components/ui/GridTable.vue';
@@ -43,6 +49,9 @@ export default {
     const t = I18n.scopedTranslator('views.components.match_transaction_selector_modal');
 
     const importTransactionStore = useImportTransactionStore();
+    const categoryStore = useCategoryStore();
+
+    const { categories } = storeToRefs(categoryStore);
 
     const transactionColumns = [
       { label: t('name_label'), side: 'left' },
@@ -51,7 +60,12 @@ export default {
       { label: t('transaction_date_label'), side: 'right' },
     ];
 
-    const sideStripColorFunction = match => match.transaction.category.color;
+    const sideStripColorFunction = (match) => {
+      const category = categories.value.find(category => category.id === match.transaction.categoryId);
+      return category.color;
+    };
+
+    const categoryForMatch = (match) => categories.value.find(category => category.id === match.transaction.categoryId);
 
     const handleMatchTransactionChange = (match) => {
       const matchTransaction = match.transaction;
@@ -68,6 +82,7 @@ export default {
     };
 
     return {
+      categoryForMatch,
       transactionColumns,
       sideStripColorFunction,
       handleMatchTransactionChange,

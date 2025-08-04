@@ -30,6 +30,7 @@ import useImportTransactionStore from '~/stores/ImportTransactionStore.js';
 import useImportNameStore from '~/stores/ImportNameStore.js';
 import useTransactionPredictionStore from '~/stores/TransactionPredictionStore.js';
 import useShortcutStore from '~/stores/ShortcutStore.js';
+import useCategoryStore from '~/stores/CategoryStore.js';
 import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
 
 import {
@@ -69,6 +70,7 @@ export default {
 
     const importStore = useImportStore();
     const shortcutStore = useShortcutStore();
+    const categoryStore = useCategoryStore();
     const importNameStore = useImportNameStore();
     const importTransactionStore = useImportTransactionStore();
     const transactionPredictionStore = useTransactionPredictionStore();
@@ -99,6 +101,8 @@ export default {
       if (!transactionPredictions.value.length) {
         transactionPredictionStore.fetchCollection();
       }
+
+      categoryStore.fetchCollection();
     });
 
     watch(importNames, (_, oldImportNames) => {
