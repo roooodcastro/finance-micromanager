@@ -27,7 +27,10 @@
         @click="handleActionClick($event, action, row)"
       >
         <FontAwesomeIcon :icon="action.icon" />
-        <span class="d-none d-lg-inline-block ms-2">
+        <span
+          v-if="action.label"
+          class="d-none d-lg-inline-block ms-2"
+        >
           {{ action.label }}
         </span>
       </a>

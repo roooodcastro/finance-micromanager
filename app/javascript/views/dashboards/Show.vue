@@ -49,10 +49,7 @@
           </template>
           <TransactionTypeTabs class="mx-3 mb-3" />
 
-          <TransactionsList
-            compact
-            card-body
-          />
+          <TransactionsList card-body />
         </BCard>
       </div>
     </div>

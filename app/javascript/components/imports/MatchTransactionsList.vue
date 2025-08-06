@@ -3,7 +3,7 @@
     :columns="transactionColumns"
     :rows="matches"
     :side-strip-color="sideStripColorFunction"
-    always-mobile
+    force-mobile-when-smaller-than="always"
     no-header
     :row-click-handler="handleMatchTransactionChange"
   >

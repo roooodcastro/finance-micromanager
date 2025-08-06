@@ -6,13 +6,25 @@
     />
 
     <template v-else>
-      <MassEditControls :card-body="cardBody" />
+      <MassEditControls
+        v-if="massEditMode"
+        :card-body="cardBody"
+      />
 
       <InfiniteScrolling @scroll="handleInfiniteScrolling">
         <template
-          v-for="(transactionsByDate, transactionDate) in groupedTransactions"
+          v-for="(transactionsByDate, transactionDate, index) in groupedTransactions"
           :key="transactionDate"
         >
+          <GridTable
+            v-if="!compact && index === 0"
+            :actions="[{}]"
+            :columns="transactionColumns"
+            :rows="[]"
+            force-mobile-when-smaller-than="lg"
+            actions-grid-size="6rem"
+          />
+
           <div
             v-if="!compact"
             class="top-0 fw-bold border rounded m-2"
@@ -27,12 +39,40 @@
               :rows="transactionsByDate"
               :side-strip-color="sideStripColorFunction"
               :row-click-handler="massEditMode ? handleMassEditSelect : null"
+              force-mobile-when-smaller-than="lg"
+              actions-grid-size="6rem"
               no-header
               hoverable
               rounded
             >
-              <template v-slot:default="{ row: transaction }">
-                <TransactionTableRow :transaction="transaction" />
+              <template v-slot:default="{ row: transaction, forcedMobile }">
+                <TransactionTableRow
+                  :transaction="transaction"
+                  :forced-mobile="forcedMobile"
+                />
+              </template>
+            </GridTable>
+          </div>
+
+          <div
+            v-else
+            class="border-bottom"
+          >
+            <GridTable
+              :actions="transactionActions"
+              :columns="transactionColumns"
+              :rows="transactionsByDate"
+              :side-strip-color="sideStripColorFunction"
+              :row-click-handler="massEditMode ? handleMassEditSelect : null"
+              :no-header="index > 0"
+              force-mobile-when-smaller-than="lg"
+              hoverable
+            >
+              <template v-slot:default="{ row: transaction, forcedMobile }">
+                <TransactionTableRow
+                  :transaction="transaction"
+                  :forced-mobile="forcedMobile"
+                />
               </template>
             </GridTable>
           </div>
@@ -60,7 +100,6 @@ import { formatDate } from '~/utils/DateUtils.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
-import { editAction, deleteAction } from '~/utils/GridTableUtils.js';
 
 import GridTable from '~/components/ui/GridTable.vue';
 import TransactionTableRow from '~/components/transactions/TransactionTableRow.vue';
@@ -118,8 +157,16 @@ export default {
         return [];
       } else {
         return [
-          editAction(transactionStore),
-          deleteAction(transactionStore),
+          {
+            icon: 'pen-to-square',
+            callback: row => transactionStore.openFormModal(row.id),
+            variant: 'secondary',
+          },
+          {
+            icon: ['far', 'trash-can'],
+            callback: row => transactionStore.destroy(row.id),
+            variant: 'danger',
+          },
         ];
       }
     });
@@ -127,9 +174,9 @@ export default {
     const transactionColumns = [
       { label: t('name_label'), side: 'left', gridSize: '6fr' },
       { label: t('category_label'), side: 'left', gridSize: 'minmax(10rem, 3fr)' },
-      { label: t('date_label'), side: 'right', align: 'center', gridSize: 'minmax(8rem, 2fr)' },
-      { label: t('wallet_label'), side: 'right', align: 'right', gridSize: 'minmax(10rem, 3fr)' },
-      { label: t('amount_label'), side: 'right', align: 'right', gridSize: '2fr' },
+      { label: t('date_label'), side: 'right', align: 'left', gridSize: 'minmax(8rem, 2fr)' },
+      { label: t('wallet_label'), side: 'right', align: 'left', gridSize: 'minmax(10rem, 3fr)' },
+      { label: t('amount_label'), side: 'right', align: 'right', gridSize: 'minmax(8rem, 2fr)' },
     ];
 
     const handlePageChange = () => transactionStore.fetchCollection();

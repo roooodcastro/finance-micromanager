@@ -1,12 +1,17 @@
 <template>
   <div
-    class="GridRow__left ps-4 py-3 py-lg-0"
+    class="GridRow__left ps-4 py-3"
     :class="{
       'bg-foreground': !massEditSelected,
       'bg-primary-subtle': massEditSelected,
+      'GridRow__left--mobile': forcedMobile,
+      'py-lg-0': !forcedMobile
     }"
   >
-    <div class="d-flex gap-2 align-items-center pe-lg-2">
+    <div
+      class="d-flex gap-2 align-items-center"
+      :class="{ 'pe-lg-2': !forcedMobile }"
+    >
       <input
         v-if="massEditMode"
         type="checkbox"
@@ -17,7 +22,10 @@
       <span>{{ transaction.name }}</span>
     </div>
 
-    <div class="d-flex align-items-center pe-lg-2">
+    <div
+      class="d-flex align-items-center"
+      :class="{ 'pe-lg-2': !forcedMobile }"
+    >
       <CategoryBadge
         :category="transaction.category"
         :subcategory="transaction.subcategory"
@@ -26,28 +34,42 @@
   </div>
 
   <div
-    class="GridRow__right py-3 py-lg-2"
+    class="GridRow__right py-3"
     :class="{
       'bg-foreground': !massEditSelected,
       'bg-primary-subtle': massEditSelected,
+      'pe-lg-2': !forcedMobile
     }"
   >
-    <div class="d-none d-lg-block pe-lg-2 text-center">
+    <div
+      class="d-none"
+      :class="{ 'd-lg-block pe-lg-2': !forcedMobile }"
+    >
       {{ formatDate(new Date(transaction.transactionDate)) }}
     </div>
 
-    <div class="d-none d-lg-block pe-lg-2">
+    <div
+      class="d-none"
+      :class="{ 'd-lg-block pe-lg-2': !forcedMobile }"
+    >
       <WalletBadge :wallet="transaction.wallet" />
     </div>
 
     <div
-      class="TransactionTableRow__amount pe-lg-2 text-end"
-      :class="{ 'text-credit': isCredit, 'text-debit': isDebit }"
+      class="TransactionTableRow__amount text-end"
+      :class="{
+        'text-credit': isCredit,
+        'text-debit': isDebit,
+        'TransactionTableRow__amount--mobile pe-lg-2': forcedMobile
+      }"
     >
       {{ formatMoney(transaction.amount) }}
     </div>
 
-    <div class="d-lg-none fs-5 mt-2">
+    <div
+      class="fs-5 mt-2"
+      :class="{ 'd-lg-none': !forcedMobile }"
+    >
       {{ transaction.wallet.name }} |
       {{ formatDate(new Date(transaction.transactionDate)) }}
     </div>
@@ -76,6 +98,10 @@ export default {
   props: {
     transaction: {
       type: Object,
+      required: true,
+    },
+    forcedMobile: {
+      type: Boolean,
       required: true,
     },
   },
@@ -112,5 +138,13 @@ export default {
   .GridRow__left {
     place-content: space-between;
   }
+}
+
+.TransactionTableRow__amount--mobile {
+  font-size: 1.1rem !important;
+}
+
+.GridRow__left--mobile {
+  place-content: space-between;
 }
 </style>

@@ -107,10 +107,7 @@
         :title="t('sub_header_transactions')"
         no-body
       >
-        <TransactionsList
-          compact
-          card-body
-        />
+        <TransactionsList card-body />
       </BCard>
     </div>
   </div>
