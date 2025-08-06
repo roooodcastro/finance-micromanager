@@ -95,6 +95,7 @@ $body-color: $mintgreen-900;
 // Fonts
 
 $font-size-root: 14px;
+$line-height-base: 1.55; // Fix for Firefox not rendering borders correctly, default value is 1.5
 
 $color-contrast-dark:      $black !default;
 $color-contrast-light:     $white !default;

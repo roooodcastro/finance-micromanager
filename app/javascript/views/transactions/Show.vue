@@ -37,12 +37,10 @@
             {{ formatDate(transactionFromStore.transactionDate) }}
           </DescriptionListItem>
           <DescriptionListItem :title="t('category_label')">
-            <a :href="categoryPath(transactionFromStore.categoryId)">
-              <CategoryBadge
-                :category="transactionFromStore.category"
-                :subcategory="transactionFromStore.subcategory"
-              />
-            </a>
+            <CategoryBadge
+              :category="transactionFromStore.category"
+              :subcategory="transactionFromStore.subcategory"
+            />
           </DescriptionListItem>
           <DescriptionListItem :title="t('wallet_label')">
             <template v-if="transactionFromStore.wallet">
@@ -114,7 +112,6 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import {
-  categories as categoriesApi,
   imports as importsApi,
   transactions as transactionsApi,
   transactionAutomations as transactionAutomationsApi,
@@ -153,7 +150,6 @@ export default {
     const t = I18n.scopedTranslator('views.transactions.show');
 
     const transactionsPath = transactionsApi.index.path();
-    const categoryPath = id => categoriesApi.show.path({ id });
     const importPath = id => importsApi.show.path({ id });
     const transactionAutomationPath = id => transactionAutomationsApi.show.path({ id });
 
@@ -197,7 +193,6 @@ export default {
       isCredit,
       budgetInstance,
       usedBudgetPercentage,
-      categoryPath,
       importPath,
       transactionAutomationPath,
       formatMoney,

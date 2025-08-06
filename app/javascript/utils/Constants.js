@@ -1,5 +1,5 @@
 /*
- * Modal IDs
+ * Modal IDsCaching
  */
 export const CONFIRMATION_MODAL_ID = 'confirmationModal';
 export const PASSWORD_CHANGE_MODAL_ID = 'passwordChangeModal';
@@ -81,7 +81,7 @@ export const ICON_TRANSACTION_LIST = 'list';
 export const ICON_TRANSACTION_PREDICTIONS = 'wand-magic-sparkles';
 export const ICON_TRANSACTIONS = 'money-bill-transfer';
 export const ICON_RECONCILIATIONS = 'scale-balanced';
-export const ICON_CATEGORIES = ['far', 'folder'];
+export const ICON_CATEGORIES = 'shapes';
 export const ICON_IMPORTS = 'cloud-arrow-up';
 export const ICON_IMPORT_LIST = 'list';
 export const ICON_IMPORT_SETTINGS = 'gear';

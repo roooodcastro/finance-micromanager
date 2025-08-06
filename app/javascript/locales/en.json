@@ -1007,6 +1007,21 @@
           "edit_action": "Edit",
           "name_label": "Rule Name"
         },
+        "transactions": {
+          "transactions_list": {
+            "amount_label": "Amount",
+            "category_label": "Category",
+            "date_label": "Date",
+            "name_label": "Name",
+            "wallet_label": "Wallet"
+          }
+        },
+        "wallets": {
+          "wallet_badge": {
+            "no_wallet": "- No Wallet -",
+            "tooltip": "Wallet"
+          }
+        },
         "wallets_list": {
           "balance_label": "Balance",
           "name_label": "Name"

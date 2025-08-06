@@ -68,12 +68,10 @@
             {{ formatMoney(transactionAutomationFromStore.transactionAmount) }}
           </DescriptionListItem>
           <DescriptionListItem :title="t('transaction_category')">
-            <a :href="categoryPath(transactionAutomationFromStore.transactionCategoryId)">
-              <CategoryBadge
-                :category="transactionAutomationFromStore.transactionCategory"
-                :subcategory="transactionAutomationFromStore.transactionSubcategory"
-              />
-            </a>
+            <CategoryBadge
+              :category="transactionAutomationFromStore.transactionCategory"
+              :subcategory="transactionAutomationFromStore.transactionSubcategory"
+            />
           </DescriptionListItem>
           <DescriptionListItem :title="t('transaction_wallet')">
             <template v-if="transactionAutomationFromStore.transactionWallet">
@@ -109,10 +107,7 @@
         :title="t('sub_header_transactions')"
         no-body
       >
-        <TransactionsList
-          compact
-          card-body
-        />
+        <TransactionsList card-body />
       </BCard>
     </div>
   </div>
@@ -125,10 +120,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import {
-  categories as categoriesApi,
-  transactionAutomations as transactionAutomationsApi,
-} from '~/api/all.js';
+import { transactionAutomations as transactionAutomationsApi } from '~/api/all.js';
 import useTransactionAutomationStore from '~/stores/TransactionAutomationStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
@@ -171,7 +163,6 @@ export default {
     const t = I18n.scopedTranslator('views.transaction_automations.show');
 
     const transactionAutomationsPath = transactionAutomationsApi.index.path();
-    const categoryPath = id => categoriesApi.show.path({ id });
 
     const transactionAutomationStore = useTransactionAutomationStore();
     transactionAutomationStore.setActionName('show');
@@ -218,7 +209,6 @@ export default {
       isDebit,
       isCredit,
       isCustomRule,
-      categoryPath,
       formatMoney,
       formatDate,
       handleEdit,

@@ -62,7 +62,6 @@
           <TransactionsFilter class="m-2" />
 
           <TransactionsList
-            compact
             card-body
             class="w-100"
           />

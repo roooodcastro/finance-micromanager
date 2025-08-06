@@ -173,6 +173,17 @@ pt-BR:
       wallets_list:
         name_label: Nome
         balance_label: Saldo
+      transactions:
+        transactions_list:
+          name_label: Nome
+          date_label: Data
+          amount_label: Valor
+          wallet_label: Carteira
+          category_label: Categoria
+      wallets:
+        wallet_badge:
+          tooltip: Carteira
+          no_wallet: '- Sem carteira -'
 
     dashboard:
       show:

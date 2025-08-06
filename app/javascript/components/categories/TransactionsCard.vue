@@ -9,10 +9,7 @@
       </h4>
     </template>
 
-    <TransactionsList
-      compact
-      card-body
-    />
+    <TransactionsList card-body />
   </component>
 </template>
 

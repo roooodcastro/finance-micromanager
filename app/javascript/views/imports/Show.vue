@@ -14,10 +14,7 @@
     class="mt-3"
     no-body
   >
-    <TransactionsList
-      compact
-      card-body
-    />
+    <TransactionsList card-body />
   </BCard>
 </template>
 
