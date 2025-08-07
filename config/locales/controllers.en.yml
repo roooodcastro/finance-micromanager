@@ -65,6 +65,7 @@ en:
       error: 'Profile "%{name}" could not be updated: %{error}'
     destroy:
       success: 'Profile "%{name}" was successfully disabled.'
+      error: 'Profile "%{name}" cannot be disabled: %{error}'
     reenable:
       success: 'Profile "%{name}" was successfully re-enabled.'
 

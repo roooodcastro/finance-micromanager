@@ -149,6 +149,9 @@
           },
           "profile": {
             "attributes": {
+              "base": {
+                "cannot_disable_current_profile": "perfil está em uso"
+              },
               "currency": {
                 "cannot_change_after_creation": "não pode ser alterada. Por favor crie um novo perfil para a moeda"
               }
@@ -754,6 +757,7 @@
         "success": "Perfil \"%{name}\" criado com sucesso."
       },
       "destroy": {
+        "error": "Perfil \"%{name}\" não pode ser desabilitado: %{error}",
         "success": "Perfil \"%{name}\" desabilitado com sucesso."
       },
       "reenable": {

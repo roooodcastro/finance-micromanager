@@ -155,15 +155,31 @@ RSpec.describe ProfilesController do
 
     let!(:profile) { create(:profile, user:) }
 
-    it 'disables the profile and renders json' do
-      expect { delete_request }
-        .to not_change { Profile.count }
-        .and change { profile.reload.disabled_at }
-        .from(nil)
-        .to(Time.current)
+    context 'when the current profile is another' do
+      it 'disables the profile and renders json' do
+        expect { delete_request }
+          .to not_change { Profile.count }
+          .and change { profile.reload.disabled_at }
+          .from(nil)
+          .to(Time.current)
 
-      expect(json_response)
-        .to eq('message' => "Profile \"#{profile.display_name}\" was successfully disabled.")
+        expect(json_response)
+          .to eq('message' => "Profile \"#{profile.display_name}\" was successfully disabled.")
+      end
+    end
+
+    context 'when the current profile is being disabled' do
+      before { session[:current_profile_id] = profile.id }
+
+      it 'does not disable the profile and renders json error' do
+        expect { delete_request }
+          .to not_change { Profile.count }
+          .and not_change { profile.reload.disabled_at }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json_response)
+          .to match('message' => a_string_matching(/cannot be disabled: profile is in use/))
+      end
     end
   end
 

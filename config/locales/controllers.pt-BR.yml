@@ -65,6 +65,7 @@ pt-BR:
       error: 'Perfil "%{name}" não pode ser atualizado: %{error}'
     destroy:
       success: 'Perfil "%{name}" desabilitado com sucesso.'
+      error: 'Perfil "%{name}" não pode ser desabilitado: %{error}'
     reenable:
       success: 'Perfil "%{name}" reabilitado com sucesso.'
 

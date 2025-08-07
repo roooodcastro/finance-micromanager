@@ -117,6 +117,8 @@ pt-BR:
 
         profile:
           attributes:
+            base:
+              cannot_disable_current_profile: perfil está em uso
             currency:
               cannot_change_after_creation: não pode ser alterada. Por favor crie um novo perfil para a moeda
 
