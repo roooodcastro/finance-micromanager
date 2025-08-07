@@ -3,10 +3,14 @@
 module Budgets
   class CreateBudgetInstancesService < ApplicationService
     def call
-      Profile.active.each do |profile|
+      Profile.active.each { |profile| self.class.call_for_profile(profile) }
+    end
+
+    class << self
+      def call_for_profile(profile)
         profile_budget_instance = create_budget_instance!(profile.budget)
 
-        budgets          = profile.budgets.where(owner_type: 'Category').where.not(limit_type: :remainder)
+        budgets          = fetch_category_budgets(profile)
         budget_instances = budgets.map { |budget| create_budget_instance!(budget, profile_budget_instance) }
 
         remainder_budget = profile.budgets.limit_type_remainder.first
@@ -14,34 +18,38 @@ module Budgets
       rescue ActiveRecord::ActiveRecordError => e
         NewRelic::Agent.notice_error(e)
       end
-    end
 
-    private
+      private
 
-    def create_budget_instance!(budget, profile_budget_instance = nil, budget_instances = nil)
-      return unless budget
+      def create_budget_instance!(budget, profile_budget_instance = nil, budget_instances = nil)
+        return unless budget
 
-      budget_instance = Budgets::BudgetInstanceFactoryService.call(budget)
+        budget_instance = Budgets::BudgetInstanceFactoryService.call(budget)
 
-      calculate_percetage_limit_amount(profile_budget_instance, budget_instance)
-      calculate_remainder_limit_amount(profile_budget_instance, budget_instance, budget_instances)
+        calculate_percetage_limit_amount(profile_budget_instance, budget_instance)
+        calculate_remainder_limit_amount(profile_budget_instance, budget_instance, budget_instances)
 
-      budget_instance.tap(&:save!)
-    end
+        budget_instance.tap(&:save!)
+      end
 
-    def calculate_percetage_limit_amount(profile_budget_instance, budget_instance)
-      return unless budget_instance.limit_type_percentage?
+      def calculate_percetage_limit_amount(profile_budget_instance, budget_instance)
+        return unless budget_instance.limit_type_percentage?
 
-      limit_reference              = profile_budget_instance&.limit_amount.to_f
-      budget_instance.limit_amount = limit_reference * (budget_instance.limit_percentage / 100.0)
-    end
+        limit_reference              = profile_budget_instance&.limit_amount.to_f
+        budget_instance.limit_amount = limit_reference * (budget_instance.limit_percentage / 100.0)
+      end
 
-    def calculate_remainder_limit_amount(profile_budget_instance, budget_instance, other_budget_instances)
-      return unless budget_instance.limit_type_remainder?
+      def calculate_remainder_limit_amount(profile_budget_instance, budget_instance, other_budget_instances)
+        return unless budget_instance.limit_type_remainder?
 
-      limit_reference              = profile_budget_instance&.limit_amount.to_f
-      other_limit_sum              = other_budget_instances.sum(&:limit_amount).to_f
-      budget_instance.limit_amount = [limit_reference - other_limit_sum, 0].max
+        limit_reference              = profile_budget_instance&.limit_amount.to_f
+        other_limit_sum              = other_budget_instances.sum(&:limit_amount).to_f
+        budget_instance.limit_amount = [limit_reference - other_limit_sum, 0].max
+      end
+
+      def fetch_category_budgets(profile)
+        profile.budgets.includes(:owner, :profile).where(owner_type: 'Category').where.not(limit_type: :remainder)
+      end
     end
   end
 end

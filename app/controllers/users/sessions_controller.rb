@@ -17,6 +17,9 @@ module Users
       self.resource = warden.authenticate!(auth_options)
       set_flash_message!(:notice, :signed_in)
       sign_in(resource_name, resource)
+
+      Users::PostLoginActionsService.call(current_user)
+
       redirect_to after_sign_in_path_for(resource)
     end
 
