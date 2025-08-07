@@ -82,6 +82,8 @@ en:
 
         profile:
           attributes:
+            base:
+              cannot_disable_current_profile: profile is in use
             currency:
               cannot_change_after_creation: cannot be changed. Please create a new profile for the currency
 

@@ -79,4 +79,13 @@ class Profile < ApplicationRecord
 
     errors.add(:currency, :cannot_change_after_creation)
   end
+
+  def can_disable?
+    if self == Current.profile
+      errors.add(:base, :cannot_disable_current_profile)
+      return false
+    end
+
+    true
+  end
 end

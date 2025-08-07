@@ -30,7 +30,7 @@ import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useProfileStore from '~/stores/ProfileStore.js';
-import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtils.js';
+import { editAction, reenableAction } from '~/utils/GridTableUtils.js';
 
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import LoadingOverlay from '~/components/layout/LoadingOverlay.vue';
@@ -51,11 +51,17 @@ export default {
     const t = I18n.scopedTranslator('views.components.profiles_list');
     const profileStore = useProfileStore();
 
-    const { profiles, loading } = storeToRefs(profileStore);
+    const { currentProfile, profiles, loading } = storeToRefs(profileStore);
 
     const tableActions = [
       editAction(profileStore),
-      disableAction(profileStore),
+      {
+        label: I18n.t('views.layout.grid_table.disable_action_label'),
+        icon: 'ban',
+        callback: row => profileStore.disable(row.id),
+        variant: 'danger',
+        show: row => !row.disabledAt && row.id !== currentProfile.value.id
+      },
       reenableAction(profileStore),
       {
         label: t('share_action_link_label'),
