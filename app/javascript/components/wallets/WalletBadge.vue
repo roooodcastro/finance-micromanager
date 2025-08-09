@@ -1,9 +1,11 @@
 <template>
   <div
-    class="WalletBadge badge text-bg-secondary fs-5 py-1 text-decoration-none"
+    class="WalletBadge badge fs-5 py-1 text-decoration-none"
+    :class="{ 'text-bg-secondary': !!wallet, 'text-secondary-emphasis bg-secondary-subtle': !wallet }"
     :title="t('tooltip')"
   >
     <FontAwesomeIcon
+      v-if="!!wallet"
       :icon="ICON_WALLETS"
       class="me-2"
     />
@@ -29,7 +31,7 @@ export default {
   props: {
     wallet: {
       type: Object,
-      required: true,
+      default: null,
     },
   },
 

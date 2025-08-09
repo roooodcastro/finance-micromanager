@@ -21,8 +21,11 @@
             :actions="[{}]"
             :columns="transactionColumns"
             :rows="[]"
+            :sorting="sortParams"
             force-mobile-when-smaller-than="lg"
             actions-grid-size="6rem"
+            rounded
+            @sort="handleSorting"
           />
 
           <div
@@ -65,8 +68,10 @@
               :side-strip-color="sideStripColorFunction"
               :row-click-handler="massEditMode ? handleMassEditSelect : null"
               :no-header="index > 0"
+              :sorting="sortParams"
               force-mobile-when-smaller-than="lg"
               hoverable
+              @sort="handleSorting"
             >
               <template v-slot:default="{ row: transaction, forcedMobile }">
                 <TransactionTableRow
@@ -98,6 +103,7 @@ import { storeToRefs } from 'pinia';
 import I18n from '~/utils/I18n.js';
 import { formatDate } from '~/utils/DateUtils.js';
 import { isMediaBreakpointDown } from '~/utils/ResponsivenessUtils.js';
+import { setQueryParam } from '~/utils/QueryStringUtils.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 
@@ -135,6 +141,10 @@ export default {
       type: Array,
       default: null,
     },
+    sortable: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props) {
@@ -150,6 +160,7 @@ export default {
       groupedTransactions,
       massEditMode,
       massEditTransactionIds,
+      sortParams,
     } = storeToRefs(transactionStore);
 
     const transactionActions = computed(() => {
@@ -174,7 +185,7 @@ export default {
     const transactionColumns = [
       { label: t('name_label'), side: 'left', gridSize: '6fr' },
       { label: t('category_label'), side: 'left', gridSize: 'minmax(10rem, 3fr)' },
-      { label: t('date_label'), side: 'right', align: 'left', gridSize: 'minmax(8rem, 2fr)' },
+      { label: t('date_label'), side: 'right', align: 'left', gridSize: 'minmax(8rem, 2fr)', sortColumn: props.sortable ? 'transaction_date' : null },
       { label: t('wallet_label'), side: 'right', align: 'left', gridSize: 'minmax(10rem, 3fr)' },
       { label: t('amount_label'), side: 'right', align: 'right', gridSize: 'minmax(8rem, 2fr)' },
     ];
@@ -203,6 +214,15 @@ export default {
       transactionStore.toggleMassEditTransactionId(transaction.id);
     };
 
+    const handleSorting = (sortColumn) => {
+      const newSortDirection = sortParams.value.sortDirection?.toLowerCase() === 'asc' ? 'desc' : 'asc';
+      const sortDirection = sortParams.value.sortColumn === sortColumn ? newSortDirection : 'asc';
+      setQueryParam('sort_direction', sortDirection);
+
+      transactionStore.setFetchParams({ sortDirection });
+      transactionStore.fetchCollection();
+    };
+
     return {
       t,
       formatDate,
@@ -214,8 +234,10 @@ export default {
       massEditTransactionIds,
       transactionActions,
       transactionColumns,
+      sortParams,
       handlePageChange,
       handleInfiniteScrolling,
+      handleSorting,
       sideStripColorFunction,
       handleMassEditSelect,
     };

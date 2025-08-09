@@ -268,5 +268,35 @@ RSpec.describe TransactionSearch, type: :search do
         it { is_expected.to contain_exactly(transaction_b) }
       end
     end
+
+    context 'when sort_direction is specified' do
+      let(:query_params) { { sort_direction: } }
+      let!(:transaction_a) { create(:transaction, transaction_date: 2.days.ago) }
+      let!(:transaction_b) { create(:transaction, transaction_date: 1.day.ago) }
+
+      context 'and it is an invalid value' do
+        let(:sort_direction) { 'iNvAlID' }
+
+        it { is_expected.to eq([transaction_b, transaction_a]) }
+      end
+
+      context 'and it is ASC' do
+        let(:sort_direction) { 'ASC' }
+
+        it { is_expected.to eq([transaction_a, transaction_b]) }
+      end
+
+      context 'and it is asc' do
+        let(:sort_direction) { 'asc' }
+
+        it { is_expected.to eq([transaction_a, transaction_b]) }
+      end
+
+      context 'and it is desc' do
+        let(:sort_direction) { 'desc' }
+
+        it { is_expected.to eq([transaction_b, transaction_a]) }
+      end
+    end
   end
 end

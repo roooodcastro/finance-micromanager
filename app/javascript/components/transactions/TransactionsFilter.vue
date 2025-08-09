@@ -37,6 +37,7 @@
 
       <select
         class="minimalist-secondary-select flex-grow-1 flex-lg-grow-0 bg-body"
+        :value="transactionTypeValue"
         @change="handleTransactionTypeChange"
       >
         <option value="0">
@@ -56,7 +57,7 @@
       >
         <button
           class="btn btn-sm btn-outline-secondary"
-          :class="{ active: daysToShow === 7 }"
+          :class="{ active: daysToShow.toString() === '7' }"
           @click="handleDateFilterClick(7)"
         >
           {{ t('seven_days') }}
@@ -64,7 +65,7 @@
 
         <button
           class="btn btn-sm btn-outline-secondary"
-          :class="{ active: daysToShow === 30 }"
+          :class="{ active: daysToShow.toString() === '30' }"
           @click="handleDateFilterClick(30)"
         >
           {{ t('thirty_days') }}
@@ -72,7 +73,7 @@
 
         <button
           class="btn btn-sm btn-outline-secondary"
-          :class="{ active: daysToShow === 90 }"
+          :class="{ active: daysToShow.toString() === '90' }"
           @click="handleDateFilterClick(90)"
         >
           {{ t('ninety_days') }}
@@ -80,7 +81,7 @@
 
         <button
           class="btn btn-sm btn-outline-secondary"
-          :class="{ active: daysToShow === 0 }"
+          :class="{ active: daysToShow.toString() === '0' }"
           @click="handleDateFilterClick(0)"
         >
           {{ t('all_days') }}
@@ -91,7 +92,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
@@ -137,11 +138,20 @@ export default {
       walletStore.fetchCollection();
     }
 
+    const transactionTypeValue = computed(() => {
+      if (fetchParams.value.excludeCredits) {
+        return '-1';
+      } else if (fetchParams.value.excludeDebits) {
+        return '1';
+      } else {
+        return '0';
+      }
+    });
 
     const handleDateFilterClick = (numberOfDays) => {
       if (fetchParams.value.daysToShow !== numberOfDays) {
         transactionStore.setFetchParams({ daysToShow: numberOfDays });
-        setQueryParam('numberOfDays', numberOfDays || null);
+        setQueryParam('days_to_show', numberOfDays ?? null);
         transactionStore.fetchCollection();
       }
     };
@@ -149,6 +159,7 @@ export default {
     const handleTransactionTypeChange = (ev) => {
       let excludeDebits = false;
       let excludeCredits = false;
+
       const option = parseInt(ev.target.value);
 
       if (option === -1) {
@@ -158,25 +169,30 @@ export default {
       }
 
       transactionStore.setFetchParams({ excludeDebits, excludeCredits });
-      setQueryParam('excludeCredits', fetchParams.value.excludeCredits || null);
-      setQueryParam('excludeDebits', fetchParams.value.excludeDebits || null);
+      setQueryParam('exclude_credits', fetchParams.value.excludeCredits || null);
+      setQueryParam('exclude_debits', fetchParams.value.excludeDebits || null);
       transactionStore.fetchCollection();
     };
 
     const handleCategoryChange = () => {
       transactionStore.setFetchParams({ categoryIds: selectedCategoryIds.value });
+      setQueryParam('category_ids', selectedCategoryIds.value.length ? selectedCategoryIds.value : null);
       transactionStore.fetchCollection();
     };
 
     const handleWalletChange = () => {
       transactionStore.setFetchParams({ walletIds: selectedWalletIds.value });
+      setQueryParam('wallet_ids', selectedWalletIds.value.length ? selectedWalletIds.value : null);
       transactionStore.fetchCollection();
     };
 
-    const handleSearchInput = () => transactionStore.fetchCollection();
+    const handleSearchInput = () => {
+      setQueryParam('search_string', fetchParams.value.searchString || null);
+      transactionStore.fetchCollection();
+    };
 
-    const selectedCategoryIds = ref('');
-    const selectedWalletIds = ref('');
+    const selectedCategoryIds = ref(fetchParams.value.categoryIds);
+    const selectedWalletIds = ref(fetchParams.value.walletIds);
 
     return {
       selectedCategoryIds,
@@ -185,6 +201,7 @@ export default {
       walletsForSelect,
       daysToShow,
       fetchParams,
+      transactionTypeValue,
       handleCategoryChange,
       handleWalletChange,
       handleDateFilterClick,

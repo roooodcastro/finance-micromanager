@@ -39,7 +39,6 @@
 import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
-import { getQueryParams } from '~/utils/QueryStringUtils.js';
 import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
@@ -72,6 +71,10 @@ export default {
       type: Object,
       required: true,
     },
+    filters: {
+      type: Object,
+      required: true,
+    },
   },
 
   setup(props) {
@@ -80,19 +83,13 @@ export default {
     const walletStore = useWalletStore();
 
     transactionStore.loadCollectionFromProps(props.transactions);
-
-    const daysToShowFromQuery = getQueryParams().daysToShow;
-    if (daysToShowFromQuery) {
-      transactionStore.setFetchParams({ daysToShow: daysToShowFromQuery });
-    }
+    transactionStore.setFetchParams(props.filters);
 
     const paginationStore = usePaginationStore();
     const { pagination: paginationFromStore } = storeToRefs(paginationStore);
     paginationFromStore.value = props.pagination;
 
     transactionStore.setFetchParams({
-      excludeDebits: !!getQueryParams().excludeDebits,
-      excludeCredits: !!getQueryParams().excludeCredits,
       startDate: null,
       endDate: null,
     });

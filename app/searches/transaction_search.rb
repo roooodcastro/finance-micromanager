@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TransactionSearch
+class TransactionSearch # rubocop:disable Metrics/ClassLength
   attr_reader :relation, :query_params
 
   def initialize(relation, query_params)
@@ -19,6 +19,8 @@ class TransactionSearch
     search_wallet_ids
     search_transaction_automation_id
     search_import_id
+
+    order_by_transaction_date
 
     relation
   end
@@ -128,7 +130,18 @@ class TransactionSearch
     [category_ids, subcategory_ids]
   end
 
+  def order_by_transaction_date
+    @relation = relation.order(transaction_date: sort_direction, created_at: sort_direction)
+    self
+  end
+
   def default_search_params
     { days_to_show: 30 }
+  end
+
+  def sort_direction
+    return 'asc' if query_params[:sort_direction]&.downcase == 'asc'
+
+    'desc'
   end
 end
