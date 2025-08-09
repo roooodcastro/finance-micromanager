@@ -9,13 +9,10 @@ class TransactionsController < AbstractAuthenticatedController
     transaction_search = TransactionSearch.new(Current.profile.transactions, search_params)
 
     statistics   = TransactionStatisticsSerializer.new(transaction_search).as_json if params[:include_statistics]
-    transactions = transaction_search
-                   .search
-                   .order(transaction_date: :desc, created_at: :desc)
-                   .includes(:category, :subcategory, :wallet)
+    transactions = transaction_search.search.includes(:category, :subcategory, :wallet)
 
     pagy, transactions = pagy(transactions, limit: current_pagination_limit)
-    props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy) }
+    props              = { transactions: transactions.as_json, pagination: pagy_metadata(pagy), filters: search_params }
     props[:statistics] = statistics if params[:include_statistics]
 
     respond_to do |format|
@@ -116,7 +113,7 @@ class TransactionsController < AbstractAuthenticatedController
   def search_params
     params
       .permit(%i[days_to_show exclude_debits exclude_credits limit start_date end_date category_ids wallet_ids
-                 transaction_automation_id search_string import_id])
+                 transaction_automation_id search_string import_id sort_direction])
       .to_h
       .symbolize_keys
   end

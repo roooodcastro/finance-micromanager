@@ -70,7 +70,7 @@
       class="fs-5 mt-2"
       :class="{ 'd-lg-none': !forcedMobile }"
     >
-      {{ transaction.wallet.name }} |
+      {{ transaction.wallet?.name }} |
       {{ formatDate(new Date(transaction.transactionDate)) }}
     </div>
   </div>

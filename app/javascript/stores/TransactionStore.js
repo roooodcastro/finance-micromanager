@@ -37,6 +37,8 @@ export default defineBaseApiStore('transaction', {
       excludeCredits: false,
       includeStatistics: false,
       searchString: '',
+      sortColumn: 'transaction_date',
+      sortDirection: 'desc'
     },
   },
   getters: {
@@ -45,6 +47,9 @@ export default defineBaseApiStore('transaction', {
     excludeCredits: state => state.fetchParams.excludeCredits,
     groupedTransactions: state => _.groupBy(state.transactions, 'transactionDate'),
     massEditTransactionIdsCount: state => Object.keys(state.massEditTransactionIds).length,
+    sortParams: state => {
+      return { sortColumn: state.fetchParams.sortColumn, sortDirection: state.fetchParams.sortDirection };
+    },
   },
   actions: {
     fetchCollection(options = {}) {

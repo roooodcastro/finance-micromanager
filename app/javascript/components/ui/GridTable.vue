@@ -27,13 +27,22 @@
         <div
           v-for="(column, columnIndex) in leftColumns"
           :key="`header_left_${columnIndex}`"
-          :class="{ 'text-end': column.align === 'right' }"
+          :class="{
+            'text-end': column.align === 'right',
+            'GridRow--sortable': !!column.sortColumn,
+            'text-body-emphasis': column.sortColumn === sorting?.sortColumn,
+          }"
         >
           <h5
             v-for="(label, labelIndex) in headerLabels(column)"
             :key="`header_left_label_${labelIndex}`"
             class="d-block m-0"
+            @click="handleSorting(column)"
           >
+            <FontAwesomeIcon
+              v-if="!!column.sortColumn"
+              :icon="sortIconFor(column)"
+            />
             {{ label }}
           </h5>
         </div>
@@ -46,13 +55,22 @@
         <div
           v-for="(column, columnIndex) in rightColumns"
           :key="`header_right_${columnIndex}`"
-          :class="{ 'text-end': column.align === 'right' }"
+          :class="{
+            'text-end': column.align === 'right',
+            'GridRow--sortable': !!column.sortColumn,
+            'text-body-emphasis': column.sortColumn === sorting?.sortColumn,
+          }"
         >
           <h5
             v-for="(label, labelIndex) in headerLabels(column)"
             :key="`header_right_label_${labelIndex}`"
             class="d-block m-0"
+            @click="handleSorting(column)"
           >
+            <FontAwesomeIcon
+              v-if="!!column.sortColumn"
+              :icon="sortIconFor(column)"
+            />
             {{ label }}
           </h5>
         </div>
@@ -81,6 +99,7 @@
 
 <script>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import I18n from '~/utils/I18n.js';
 
@@ -89,6 +108,7 @@ import SearchField from '~/components/ui/SearchField.vue';
 
 export default {
   components: {
+    FontAwesomeIcon,
     GridTableRow,
     SearchField,
   },
@@ -132,6 +152,8 @@ export default {
      *   href: Path or URL to redirect the user when clicked. Optional.
      *   callback: Function that accepts the row as parameter, will be called when the action is clicked. If both href
      *             and callback options are specified, callback will take precedence and href won't work. Optional.
+     *   sortColumn: The DB column that should be used for sorting for this column. The presence of this indicates
+     *               that the column is sortable.
      * }
      */
     actions: {
@@ -166,6 +188,17 @@ export default {
     searchable: {
       type: Boolean,
       default: false,
+    },
+
+    /*
+     * Defines the active sorting column and direction for the grid table. Only columns that are sortable (have the
+     * sortColumn attribute) are valid. The object structure is:
+     * { sortColumn: "dataColumn", sortDdirection: "asc|desc" }
+     * Optional, should only be used when at least 1 column is sortable.
+     */
+    sorting: {
+      type: Object,
+      default: () => {},
     },
 
     /*
@@ -233,7 +266,7 @@ export default {
     },
   },
 
-  emits: ['search'],
+  emits: ['search', 'sort'],
 
   setup(props, { emit }) {
     const t = I18n.scopedTranslator('views.layout.grid_table');
@@ -295,9 +328,21 @@ export default {
     });
 
     const headerLabels = (column => column.label.split('\n'));
+    const sortIconFor = (column) => {
+      if (props.sorting?.sortColumn === column.sortColumn) {
+        return props.sorting?.sortDirection?.toLowerCase() === 'asc' ? 'sort-up' : 'sort-down';
+      } else {
+        return 'sort';
+      }
+    }
 
     const handleSearchInput = searchString => emit('search', searchString);
     const updateGridTableWidth = () => gridTableWidth.value = gridTable.value.offsetWidth;
+    const handleSorting = (column) => {
+      if (column.sortColumn) {
+        emit('sort', column.sortColumn);
+      }
+    };
 
     onMounted(() => {
       isMounted.value = true;
@@ -317,8 +362,10 @@ export default {
       forceMobile,
       leftColumns,
       rightColumns,
+      sortIconFor,
       headerLabels,
       handleSearchInput,
+      handleSorting,
     };
   }
 }
@@ -400,6 +447,23 @@ export default {
 
   .GridRow__right > div:last-child {
     margin-right: 1rem;
+  }
+
+  .GridRow--sortable {
+    margin: calc(map-get($spacers, 2) * -1) calc(map-get($spacers, 3) * -1);
+    padding: map-get($spacers, 2) map-get($spacers, 3) !important;
+    width: 100%;
+
+    &:hover, &:active, &:focus {
+      background-color: rgba(#808080, 0.15) !important;
+      cursor: pointer;
+    }
+  }
+}
+
+.GridTable.rounded .GridRow__header .GridRow--sortable {
+  &:hover, &:active, &:focus {
+    border-radius: $border-radius;
   }
 }
 
