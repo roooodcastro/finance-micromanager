@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TransactionSearch # rubocop:disable Metrics/ClassLength
+class TransactionSearch
   attr_reader :relation, :query_params
 
   def initialize(relation, query_params)

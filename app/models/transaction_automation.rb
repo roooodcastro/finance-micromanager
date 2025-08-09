@@ -23,6 +23,8 @@ class TransactionAutomation < ApplicationRecord
   validates :schedule_day, numericality: { only_integer: true, in: (0..6) }, if: -> { schedule_type_week? }
   validates :schedule_day, numericality: { only_integer: true, in: (1..31) }, if: -> { schedule_type_month? }
 
+  before_validation :set_initial_scheduled_date
+
   validates_with ::TransactionAutomationValidator
 
   enum :schedule_type, { month: 'M', week: 'W', day: 'D', custom: 'C' }, prefix: :schedule_type
@@ -107,13 +109,13 @@ class TransactionAutomation < ApplicationRecord
   end
 
   def next_weekly_scheduled_date(current_date)
-    return unless valid?
+    return if schedule_day.blank? || schedule_interval.blank?
 
     (current_date + schedule_interval.weeks).beginning_of_week(Date::DAYNAMES[schedule_day].downcase.to_sym)
   end
 
   def next_monthly_scheduled_date(current_date)
-    return unless valid?
+    return if schedule_day.blank? || schedule_interval.blank?
 
     next_date = current_date + schedule_interval.months
     next_date.change(day: schedule_day)
@@ -124,5 +126,11 @@ class TransactionAutomation < ApplicationRecord
 
   def custom_rule
     @custom_rule ||= ::TransactionAutomations::CustomRule.new(self)
+  end
+
+  def set_initial_scheduled_date
+    return if scheduled_date
+
+    self.scheduled_date = next_scheduled_date(Time.current)
   end
 end

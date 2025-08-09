@@ -47,6 +47,7 @@ Metrics/BlockLength:
     - 'integrations/**/spec/**/*.rb'
 
 Metrics/ClassLength:
+  Max: 150
   Exclude:
     - 'config/**/*'
     - 'app/queries/**/*.rb'

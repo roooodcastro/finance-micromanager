@@ -78,18 +78,61 @@ RSpec.describe TransactionAutomationsController do
     let(:subcategory) { create(:subcategory, category:) }
     let(:wallet) { create(:wallet, profile:) }
 
-    context 'when parameters are present and valid for a regular automation' do
+    context 'when parameters are present and valid for a monthly automation' do
+      let(:params) do
+        {
+          schedule_type:             'M',
+          schedule_interval:         '2',
+          transaction_name:          'Netflix',
+          transaction_category_id:   subcategory.compose_category_id,
+          transaction_wallet_id:     wallet.id,
+          transaction_amount:        '-9.99',
+          create_at_start_of_period: true,
+          schedule_day:              25
+        }
+      end
+
+      let(:expected_json) { { 'message' => 'Transaction Automation was successfully created.' } }
+
+      it 'creates a new transaction_automation and renders json' do
+        expect { create_request }.to change { TransactionAutomation.count }.by(1)
+        expect(json_response).to eq(CamelizeProps.call(expected_json))
+      end
+    end
+
+    context 'when parameters are present and valid for a weekly automation' do
       let(:params) do
         {
           schedule_type:             'W',
           schedule_interval:         '2',
-          scheduled_date:            2.days.from_now.to_date,
           transaction_name:          'Netflix',
           transaction_category_id:   subcategory.compose_category_id,
           transaction_wallet_id:     wallet.id,
           transaction_amount:        '-9.99',
           create_at_start_of_period: true,
           schedule_day:              3
+        }
+      end
+
+      let(:expected_json) { { 'message' => 'Transaction Automation was successfully created.' } }
+
+      it 'creates a new transaction_automation and renders json' do
+        expect { create_request }.to change { TransactionAutomation.count }.by(1)
+        expect(json_response).to eq(CamelizeProps.call(expected_json))
+      end
+    end
+
+    context 'when parameters are present and valid for a daily automation' do
+      let(:params) do
+        {
+          schedule_type:             'D',
+          schedule_interval:         '28',
+          scheduled_date:            20.days.from_now.to_date,
+          transaction_name:          'Netflix',
+          transaction_category_id:   subcategory.compose_category_id,
+          transaction_wallet_id:     wallet.id,
+          transaction_amount:        '-9.99',
+          create_at_start_of_period: true
         }
       end
 
