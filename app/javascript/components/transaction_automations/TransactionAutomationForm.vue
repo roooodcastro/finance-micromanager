@@ -373,13 +373,17 @@ export default {
         transactionAutomationStore
           .create(transactionAutomation.value, fetchOptions)
           .then(closeModal)
-          .catch(() => {})
+          .catch(() => {
+            transactionAutomation.value.transactionAmount *= -1;
+          })
           .finally(() => loading.value = false);
       } else {
         transactionAutomationStore
           .update(transactionAutomation.value.id, transactionAutomation.value, fetchOptions)
           .then(closeModal)
-          .catch(() => {})
+          .catch(() => {
+            transactionAutomation.value.transactionAmount *= -1;
+          })
           .finally(() => loading.value = false);
       }
     };
