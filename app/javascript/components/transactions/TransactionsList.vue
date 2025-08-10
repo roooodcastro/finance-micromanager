@@ -16,17 +16,19 @@
           v-for="(transactionsByDate, transactionDate, index) in groupedTransactions"
           :key="transactionDate"
         >
-          <GridTable
-            v-if="!compact && index === 0"
-            :actions="[{}]"
-            :columns="transactionColumns"
-            :rows="[]"
-            :sorting="sortParams"
-            force-mobile-when-smaller-than="lg"
-            actions-grid-size="6rem"
-            rounded
-            @sort="handleSorting"
-          />
+          <div class="d-none d-lg-block">
+            <GridTable
+              v-if="!compact && index === 0"
+              :actions="[{}]"
+              :columns="transactionColumns"
+              :rows="[]"
+              :sorting="sortParams"
+              force-mobile-when-smaller-than="lg"
+              actions-grid-size="6rem"
+              rounded
+              @sort="handleSorting"
+            />
+          </div>
 
           <div
             v-if="!compact"

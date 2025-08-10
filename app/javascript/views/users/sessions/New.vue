@@ -1,6 +1,9 @@
 <template>
   <div>
-    <PageHeader :page-title="t('title')" />
+    <PageHeader
+      :page-title="t('title')"
+      hide-back-button
+    />
 
     <div class="card shadow">
       <div class="card-body py-4">

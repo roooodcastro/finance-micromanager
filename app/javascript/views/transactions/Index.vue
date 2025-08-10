@@ -30,7 +30,10 @@
     </div>
 
     <BCard no-body>
-      <TransactionsList card-body />
+      <TransactionsList
+        card-body
+        sortable
+      />
     </BCard>
   </div>
 </template>
