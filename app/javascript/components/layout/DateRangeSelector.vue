@@ -1,19 +1,23 @@
 <template>
   <div
-    class="btn-group d-flex bg-foreground"
+    class="btn-group d-flex"
     role="group"
   >
     <button
       type="button"
-      class="DateRangeSelector__button btn flex-grow-0 bg-foreground-hover"
+      class="DateRangeSelector__button btn btn-outline-primary btn-sm flex-grow-0 py-1 py-lg-2 px-2 px-lg-3"
       @click="handlePrev"
     >
       <FontAwesomeIcon icon="chevron-left" />
     </button>
 
     <button
+      :id="`monthPickerToggle__${$attrs.id}`"
       type="button"
-      class="DateRangeSelector__button btn flex-grow-1 fs-4 d-flex align-items-center justify-content-center bg-foreground-hover"
+      class="DateRangeSelector__button btn btn-outline-primary btn-sm flex-grow-1 fs-5 d-flex align-items-center justify-content-center py-1 py-lg-2 px-2 px-lg-3"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="outside"
+      aria-expanded="false"
       @click="handlePickerOpen"
     >
       <input
@@ -22,17 +26,21 @@
         class="d-none"
         :value="startDate.format('YYYY-MM')"
         :max="maxDate"
-        @input="handlePickerChange"
       >
-      <span>{{ month }}</span>
-      <span class="DateRangeSelector__sub-date text-muted ms-2">
-        {{ year }}
-      </span>
+      {{ month }} {{ year }}
     </button>
+
+    <MonthPickerInput
+      id="monthInput"
+      :value="startDate.format('YYYY-MM')"
+      :max="maxDate"
+      :toggle-id="`monthPickerToggle__${$attrs.id}`"
+      @change="handlePickerChange"
+    />
 
     <button
       type="button"
-      class="DateRangeSelector__button btn flex-grow-0 bg-foreground-hover"
+      class="DateRangeSelector__button btn btn-outline-primary btn-sm flex-grow-0 py-1 py-lg-2 px-2 px-lg-3"
       :disabled="!nextEnabled"
       @click="handleNext"
     >
@@ -42,26 +50,33 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import _ from 'lodash';
+
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useShortcutStore from '~/stores/ShortcutStore.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import MonthPickerInput from '~/components/forms/MonthPickerInput.vue';
+
 export default {
   components: {
     FontAwesomeIcon,
+    MonthPickerInput,
   },
 
   emits: ['change'],
 
-  setup(_, { emit }) {
+  setup(_props, { emit }) {
     const shortcutStore = useShortcutStore();
     const dateRangeStore = useDateRangeStore();
 
     const monthInput = ref(null);
-    const { maxDate, startDate, startMonth: month, startYear: year, nextEnabled } = storeToRefs(dateRangeStore);
+    const { maxDate, startDate, startYear: year, nextEnabled } = storeToRefs(dateRangeStore);
+
+    const month = computed(() => _.upperFirst(startDate.value.format('MMM')));
 
     const handlePrev = () => {
       dateRangeStore.prev();
@@ -76,8 +91,8 @@ export default {
     shortcutStore.registerShortcut('alt+.', 'date_range_next', ['alt', '>'], handleNext);
 
     const handlePickerOpen = () => monthInput.value.showPicker();
-    const handlePickerChange = (ev) => {
-      dateRangeStore.setStartDate(ev.target.value);
+    const handlePickerChange = (newDate) => {
+      dateRangeStore.setStartDate(newDate);
       emit('change');
     }
 
@@ -101,7 +116,7 @@ export default {
 @import '../../stylesheets/variables';
 
 .DateRangeSelector__button {
-  border-color: $border-color-translucent;
+  text-transform: initial;
 
   &:disabled {
     color: var(--bs-tertiary-color);

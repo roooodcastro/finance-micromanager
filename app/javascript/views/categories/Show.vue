@@ -1,5 +1,8 @@
 <template>
-  <PageHeader :back-button-href="categoriesPath">
+  <PageHeader
+    :back-button-href="categoriesPath"
+    show-date-range-picker
+  >
     <div class="d-flex gap-3 align-items-center justify-content-between">
       {{ categoryFromStore.name }}
 
@@ -71,11 +74,6 @@
     </template>
   </PageHeader>
 
-  <DateRangeSelector
-    class="mb-3"
-    @change="handleDateRangeChange"
-  />
-
   <WarningAlert
     v-if="isDisabled"
     :message="t('disabled_category_warning')"
@@ -136,6 +134,7 @@ import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js'
 import useSubcategoryStore from '~/stores/SubcategoryStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
+import { onDateRangeChange } from '~/utils/DateRangeWatcher.js';
 import {
   BUDGET_OWNER_TYPE_CATEGORY,
   ICON_BUDGETS,
@@ -149,7 +148,6 @@ import CategoryForm from '~/components/categories/CategoryForm.vue';
 import CategorySummaryCard from '~/components/categories/CategorySummaryCard.vue';
 import SubcategoriesCard from '~/components/categories/SubcategoriesCard.vue';
 import CategoryBudgetSummaryCard from '~/components/categories/CategoryBudgetSummaryCard.vue';
-import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import PageHeader from '~/components/layout/PageHeader.vue';
 import SubcategoryForm from '~/components/subcategories/SubcategoryForm.vue';
 import TransactionsCard from '~/components/categories/TransactionsCard.vue';
@@ -163,7 +161,6 @@ export default {
     CategoryBudgetSummaryCard,
     CategoryForm,
     CategorySummaryCard,
-    DateRangeSelector,
     DropdownMenuItem,
     Badge,
     PageHeader,
@@ -247,6 +244,13 @@ export default {
     subcategoryCategoryId.value = props.category.id;
 
     onProfileChangedRedirectToIndex(categoriesApi);
+    onDateRangeChange(() => {
+      categoryStore.fetchSingle(props.category.id);
+      transactionStore.fetchCollection();
+      budgetInstanceStore.setFetchParams({ startDate, endDate });
+      budgetInstanceStore.fetchCollection();
+      budgetInstanceStore.fetchForHistory(props.category.id, endDate.value);
+    })
 
     watch(subcategoriesFromStore, () => { categoryStore.fetchSingle(props.category.id) });
     watch(transactions, () => {
@@ -263,13 +267,6 @@ export default {
     const handleDisable = () => categoryStore.disable(props.category.id, { fetchSingle: true });
     const handleReenable = () => categoryStore.reenable(props.category.id, { fetchSingle: true });
     const handleNewSubcategory = () => subcategoryStore.openFormModal(null);
-    const handleDateRangeChange = () => {
-      categoryStore.fetchSingle(props.category.id);
-      transactionStore.fetchCollection();
-      budgetInstanceStore.setFetchParams({ startDate, endDate });
-      budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.category.id, endDate.value);
-    };
 
     const handleSetBudget = () => {
       budgetStore.openFormModal(
@@ -299,7 +296,6 @@ export default {
       handleDisable,
       handleReenable,
       handleSetBudget,
-      handleDateRangeChange,
       handleNewSubcategory,
       handleToggleFavourite,
     };

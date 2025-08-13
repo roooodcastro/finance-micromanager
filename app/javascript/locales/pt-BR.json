@@ -1043,6 +1043,11 @@
           "status_label": "Status",
           "target_wallet_label": "Carteira Alvo"
         },
+        "layout": {
+          "month_picker_input": {
+            "today_label": "Hoje"
+          }
+        },
         "match_transaction_selector_modal": {
           "amount_label": "Valor",
           "cancel": "Cancelar",
@@ -1122,7 +1127,7 @@
           "sub_header_daily_totals_chart": "Totais Diários",
           "sub_header_recent_transactions": "Transações Recentes",
           "sub_header_transactions_summary": "Posição",
-          "title": "Bem vindo, %{name}"
+          "title": "Página Inicial"
         }
       },
       "devise": {

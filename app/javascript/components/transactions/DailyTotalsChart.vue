@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-end">
       <a
         href="#"
-        class="btn btn-sm btn-outline-secondary py-1"
+        class="btn btn-sm btn-outline-primary py-1"
         @click="handleDisplayOptionsClick"
       >
         <FontAwesomeIcon icon="gear" />

@@ -1,8 +1,5 @@
 <template>
-  <PageHeader
-    :title="t('title')"
-    :back-button-href="dashboardPath"
-  >
+  <PageHeader :title="t('title')">
     <template v-slot:actions>
       <DropdownMenuItem
         :label="t('new')"

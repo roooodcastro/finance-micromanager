@@ -82,17 +82,16 @@ export default {
     const shouldExpand = ref('');
 
     const handleTabChange = tabIndex => selectedTabIndex.value = tabIndex;
+    const handleResize = () => shouldExpand.value = isMediaBreakpointUp(props.expandFromBreakpoint);
 
     onMounted(() => {
       shouldExpand.value = isMediaBreakpointUp(props.expandFromBreakpoint);
 
-      window.addEventListener('resize', () => {
-        shouldExpand.value = isMediaBreakpointUp(props.expandFromBreakpoint);
-      });
+      window.addEventListener('resize', handleResize);
     });
 
     onUnmounted(() => {
-      window.remnoveEventListener('resize');
+      window.remnoveEventListener('resize', handleResize);
     })
 
     return {

@@ -54,14 +54,15 @@ html, body, #app {
 
 .btn-context-action {
   align-items: center;
+  aspect-ratio: 1;
   border: none;
   color: $gray-600;
   display: flex;
   flex: 0 0 auto;
-  height: 2.5em;
+  height: calc(var(--bs-body-line-height) * 1em);
   justify-content: center;
   padding: 0;
-  width: 2.5em;
+  width: auto;
 
   &:hover, &:focus, &:active, &:focus-visible {
     background-color: rgba(0, 0, 0, 0.1) !important;
