@@ -1,23 +1,20 @@
 <template>
-  <PageHeader
-    :sub-title="t('title')"
-    :back-button-href="categoriesPath"
-  >
-    <div class="d-flex gap-3 align-items-center">
+  <PageHeader :back-button-href="categoriesPath">
+    <div class="d-flex gap-3 align-items-center justify-content-between">
       {{ categoryFromStore.name }}
 
       <Badge
         v-if="categoryFromStore.favourite"
         type="favourite"
         i18n-scope="views.categories.show.favourite"
-        class="fs-5"
+        class="fs-6"
       />
 
       <Badge
         v-if="isDisabled"
         type="disabled"
         i18n-scope="views.categories.show.disabled"
-        class="fs-5"
+        class="fs-6"
       />
     </div>
 

@@ -1,8 +1,14 @@
 <template>
   <div>
-    <PageHeader :title="t('title', { name: user.displayName })" />
+    <PageHeader
+      :title="t('title', { name: user.displayName })"
+      hide-back-button
+    />
 
-    <InProgressReconciliationInfoAlert :reconciliation="inProgressReconciliation" />
+    <InProgressReconciliationInfoAlert
+      :reconciliation="inProgressReconciliation"
+      class="mt-3"
+    />
 
     <DateRangeSelector
       class="mb-3 mx-1 mx-lg-0"

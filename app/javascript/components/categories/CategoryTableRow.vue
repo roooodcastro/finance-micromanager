@@ -58,7 +58,7 @@ export default {
     const isSystem = computed(() => props.category.system);
 
     const subcategoriesNames = computed(() => {
-      return props.category.subcategories.map(subcategory => subcategory.name).join(', ') || '-';
+      return props.category.subcategories.map(subcategory => subcategory.name).join(', ') || '';
     });
 
     return {
