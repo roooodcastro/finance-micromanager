@@ -131,6 +131,9 @@ en:
         name_label: Source
         target_wallet_label: To Wallet
         status_label: Status
+      layout:
+        month_picker_input:
+          today_label: Today
       match_transaction_selector_modal:
         title: Select transaction to match
         name_label: Name
@@ -185,7 +188,7 @@ en:
 
     dashboard:
       show:
-        title: "Welcome, %{name}"
+        title: Home
         sub_header_recent_transactions: Recent Transactions
         sub_header_category_summary: Categories
         sub_header_transactions_summary: Position

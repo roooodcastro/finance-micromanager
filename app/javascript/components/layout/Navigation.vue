@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="Navigation navbar navbar-expand-lg sticky-top py-1 py-lg-2"
+    class="Navigation navbar navbar-expand-lg py-1 py-lg-2"
     data-bs-theme="dark"
   >
     <div class="container-fluid">
@@ -19,6 +19,17 @@
           {{ t('app_name') }}
         </span>
       </a>
+
+      <div
+        v-if="isUserLoggedIn"
+        class="flex-grow-1 d-flex justify-content-end pe-3"
+      >
+        <DateRangeSelector
+          v-if="showDateRangePicker"
+          id="Navigation__DateRangeSelector"
+          class="d-lg-none"
+        />
+      </div>
 
       <a
         class="text-decoration-none d-block d-xxl-none"
@@ -39,15 +50,20 @@
 
 <script>
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import I18n from '~/utils/I18n.js';
 import useUserStore from '~/stores/UserStore.js';
+import useDateRangeStore from '~/stores/DateRangeStore.js';
 import { dashboards as dashboardsApi } from '~/api/all.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
+
 export default {
   components: {
+    DateRangeSelector,
     FontAwesomeIcon,
   },
 
@@ -56,6 +72,9 @@ export default {
     const isUserLoggedIn = userStore.isUserLoggedIn;
     const dashboardPath = dashboardsApi.show.path();
     const monogramUrl = ref('');
+
+    const dateRangeStore = useDateRangeStore();
+    const { showDateRangePicker } = storeToRefs(dateRangeStore);
 
     onMounted(() => {
       monogramUrl.value = document.querySelector("link[rel='icon'][type='image/svg+xml']").href;
@@ -66,6 +85,7 @@ export default {
       isUserLoggedIn,
       dashboardPath,
       monogramUrl,
+      showDateRangePicker,
     };
   },
 };
@@ -77,9 +97,18 @@ export default {
 .Navigation {
   background-color: $mintgreen-900;
   height: $main-navbar-height;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
 }
 
 @include media-breakpoint-down(md) {
+  .Navigation {
+    position: initial;
+    top: initial;
+    z-index: initial;
+  }
+
   .Navigation .btn {
     --bs-btn-padding-y: 0.5rem;
     --bs-btn-padding-x: 1rem;

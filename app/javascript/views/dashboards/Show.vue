@@ -1,8 +1,9 @@
 <template>
   <div>
     <PageHeader
-      :title="t('title', { name: user.displayName })"
+      :title="t('title')"
       hide-back-button
+      show-date-range-picker
     />
 
     <InProgressReconciliationInfoAlert
@@ -10,14 +11,7 @@
       class="mt-3"
     />
 
-    <DateRangeSelector
-      class="mb-3 mx-1 mx-lg-0"
-      @change="handleDateRangeChange"
-    />
-
-    <TabRowContainer
-      :tabs="firstRowTabs"
-    >
+    <TabRowContainer :tabs="firstRowTabs">
       <template v-slot:summary>
         <TransactionsSummary />
       </template>
@@ -71,9 +65,9 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useBudgetInstanceStore from '~/stores/BudgetInstanceStore.js';
 import usePaginationStore from '~/stores/PaginationStore.js';
 import useCategoryStore from '~/stores/CategoryStore.js';
-import useUserStore from '~/stores/UserStore.js';
 import useStatisticsCategorySummaryStore from '~/stores/statistics/CategorySummaryStore.js';
 import { onProfileChanged } from '~/utils/OnProfileChangeWatcher.js';
+import { onDateRangeChange } from '~/utils/DateRangeWatcher.js';
 
 import {
   categories as categoriesApi,
@@ -82,7 +76,6 @@ import {
 
 import PageHeader from '~/components/layout/PageHeader.vue';
 import TransactionsList from '~/components/transactions/TransactionsList.vue';
-import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import CategorySummariesList from '~/components/statistics/category_summaries/CategorySummariesList.vue';
 import TransactionTypeTabs from '~/components/transactions/TransactionTypeTabs.vue';
 import InProgressReconciliationInfoAlert from '~/components/reconciliations/InProgressReconciliationInfoAlert.vue';
@@ -97,7 +90,6 @@ export default {
     BCard,
     CategorySummariesList,
     DailyTotalsChart,
-    DateRangeSelector,
     InProgressReconciliationInfoAlert,
     PageHeader,
     SeeAllLink,
@@ -139,13 +131,11 @@ export default {
     const transactionStore = useTransactionStore();
     const categorySummaryStore = useStatisticsCategorySummaryStore();
     const budgetInstanceStore = useBudgetInstanceStore();
-    const userStore = useUserStore();
 
     const { categories: categoriesFromStore } = storeToRefs(categoryStore);
     const { categorySummaries: categorySummariesFromStore } = storeToRefs(categorySummaryStore);
     const { transactions } = storeToRefs(transactionStore);
     const { startDate, endDate } = storeToRefs(dateRangeStore);
-    const { user } = storeToRefs(userStore);
 
     categoriesFromStore.value = props.categories;
     categorySummariesFromStore.value = props.categorySummaries;
@@ -178,20 +168,18 @@ export default {
     budgetInstanceStore.fetchCollection();
     fetchRecentTransactions();
 
-    const handleDateRangeChange = () => {
+    onDateRangeChange(() => {
       fetchRecentTransactions();
       fetchCategorySummaries();
       budgetInstanceStore.fetchCollection();
-    };
+    });
 
     return {
       t,
       firstRowTabs,
       transactions,
-      user,
       categoriesIndexPath,
       transactionsIndexPath,
-      handleDateRangeChange,
     };
   },
 };

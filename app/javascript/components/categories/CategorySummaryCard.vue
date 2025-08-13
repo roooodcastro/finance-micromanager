@@ -35,10 +35,7 @@
 </template>
 
 <script>
-import { storeToRefs } from 'pinia';
-
 import I18n from '~/utils/I18n.js';
-import useDateRangeStore from '~/stores/DateRangeStore.js';
 import { formatMoney } from '~/utils/NumberFormatter.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
@@ -67,14 +64,9 @@ export default {
 
   setup() {
     const t = I18n.scopedTranslator('views.categories.show');
-    const dateRangeStore = useDateRangeStore();
-
-    const { startMonth: month, startYear: year } = storeToRefs(dateRangeStore);
 
     return {
       t,
-      month,
-      year,
       formatMoney,
     };
   },

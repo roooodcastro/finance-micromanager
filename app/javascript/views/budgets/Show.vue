@@ -3,6 +3,7 @@
     :title="budgetFromStore.ownerName"
     :sub-title="t('title')"
     :back-button-href="budgetsPath"
+    show-date-range-picker
   >
     <template v-slot:actions>
       <DropdownMenuItem
@@ -29,11 +30,6 @@
       />
     </template>
   </PageHeader>
-
-  <DateRangeSelector
-    class="mb-3"
-    @change="handleDateRangeChange"
-  />
 
   <div class="row">
     <div class="col-12 col-xl-6 mb-3">
@@ -65,11 +61,11 @@ import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useTransactionStore from '~/stores/TransactionStore.js';
 import I18n from '~/utils/I18n.js';
 import { onProfileChangedRedirectToIndex } from '~/utils/OnProfileChangeWatcher.js';
+import { onDateRangeChange } from '~/utils/DateRangeWatcher.js';
 
 import BCard from '~/components/bootstrap/BCard.vue';
 import BudgetForm from '~/components/budgets/BudgetForm.vue';
 import BudgetHistoryChart from '~/components/budgets/BudgetHistoryChart.vue';
-import DateRangeSelector from '~/components/layout/DateRangeSelector.vue';
 import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import BudgetSummary from '~/components/budgets/BudgetSummary.vue';
@@ -80,7 +76,6 @@ export default {
     BudgetForm,
     BudgetHistoryChart,
     BudgetSummary,
-    DateRangeSelector,
     DropdownMenuItem,
     PageHeader,
   },
@@ -119,6 +114,11 @@ export default {
     budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
 
     onProfileChangedRedirectToIndex(budgetsApi);
+    onDateRangeChange(() => {
+      budgetInstanceStore.setFetchParams({ startDate, endDate });
+      budgetInstanceStore.fetchCollection();
+      budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
+    });
 
     watch(transactions, () => {
       budgetStore.fetchSingle(props.budget.id);
@@ -137,11 +137,6 @@ export default {
     const handleEdit = () => budgetStore.openFormModal(props.budget.id);
     const handleDisable = () => budgetStore.disable(props.budget.id, { fetchSingle: true });
     const handleReenable = () => budgetStore.reenable(props.budget.id, { fetchSingle: true });
-    const handleDateRangeChange = () => {
-      budgetInstanceStore.setFetchParams({ startDate, endDate });
-      budgetInstanceStore.fetchCollection();
-      budgetInstanceStore.fetchForHistory(props.budget.ownerId, endDate.value);
-    };
 
     return {
       t,
@@ -153,7 +148,6 @@ export default {
       handleEdit,
       handleDisable,
       handleReenable,
-      handleDateRangeChange,
     };
   },
 };
