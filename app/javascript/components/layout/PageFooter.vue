@@ -26,14 +26,14 @@
         <ColorModeSelect />
       </div>
 
-      <p class="text-center my-0 fs-6">
-        {{ t('copyright_notice') }} | {{ t('version') }} {{ version }}-{{ deployTimestamp }}
-      </p>
-
-      <p class="text-center mb-0 mt-2 fs-3">
+      <p class="text-center my-0 fs-6 d-flex gap-2 align-items-center justify-content-center">
+        {{ t('copyright_notice', { year: currentYear }) }}
+        |
+        {{ t('version') }} {{ version }}-{{ deployTimestamp }}
+        |
         <a
           :href="GITHUB_REPO_URL"
-          class="link-light"
+          class="link-light fs-5"
         >
           <FontAwesomeIcon :icon="['fab', 'github']" />
         </a>
@@ -45,6 +45,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import dayjs from 'dayjs';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -70,6 +71,8 @@ export default {
     const version = ref('');
     const deployTimestamp = ref('');
 
+    const currentYear = dayjs().year();
+
     onMounted(() => {
       version.value = document.querySelector('meta[name="version"]')?.content;
       deployTimestamp.value = document.querySelector('meta[name="deploy-timestamp"]')?.content || 'dev';
@@ -79,6 +82,7 @@ export default {
 
     return {
       t: I18n.scopedTranslator('views.layout.footer'),
+      currentYear,
       locales,
       version,
       deployTimestamp,
@@ -97,5 +101,11 @@ export default {
 
 .PageFooter--background {
   background-color: var(--page-footer-bg-color);
+}
+
+@include media-breakpoint-down(lg) {
+  .PageFooter {
+    margin-bottom: $navigation-tabs-height;
+  }
 }
 </style>

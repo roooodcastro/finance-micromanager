@@ -1181,7 +1181,7 @@
           "light": "Light"
         },
         "footer": {
-          "copyright_notice": "© 2024 Rodrigo Castro",
+          "copyright_notice": "© %{year} Rodrigo Castro",
           "version": "Version"
         },
         "forms": {
@@ -1244,6 +1244,7 @@
           "categories": "Categories",
           "current_profile": "Profile:",
           "dashboard": "Dashboard",
+          "home": "Home",
           "imports": "Transaction Imports",
           "imports_list": "List Imports",
           "imports_settings": "Configure Imports",

@@ -8,15 +8,16 @@
       <div class="mb-3 my-lg-3 flex-grow-1 min-width-0 d-flex flex-column">
         <ToastNotifications />
 
-        <div class="min-width-0 flex-grow-1">
+        <div class="ApplicationLayout__floatingButtonMargin min-width-0 flex-grow-1">
           <slot />
         </div>
 
-        <FloatingActionButton />
+        <FloatingActionButton class="d-none d-lg-block" />
       </div>
     </div>
 
     <PageFooter />
+    <NavigationTabs />
     <VerticalMenuOffcanvas />
     <ConfirmationModal />
     <ShortcutHelpModal />
@@ -47,6 +48,7 @@ import PageFooter from '~/components/layout/PageFooter.vue';
 import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 import VerticalMenuOffcanvas from '~/components/layout/VerticalMenuOffcanvas.vue';
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
+import NavigationTabs from '~/components/layout/NavigationTabs.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
 import ProfileForm from '~/components/profiles/ProfileForm.vue';
@@ -57,6 +59,7 @@ export default {
     ConfirmationModal,
     FloatingActionButton,
     Navigation,
+    NavigationTabs,
     PageFooter,
     ProfileForm,
     ShortcutHelpModal,
@@ -145,7 +148,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
 .ApplicationLayout {
   min-height: 100%;
+}
+
+@include media-breakpoint-up(lg) {
+  .ApplicationLayout__floatingButtonMargin {
+    margin-bottom: 2rem;
+  }
 }
 </style>
