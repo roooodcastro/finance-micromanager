@@ -37,16 +37,8 @@
         <span>{{ t('budgets') }}</span>
       </a>
 
-      <div class="NavigationTabs__centreButton">
-        <a
-          href="#"
-          class="NavigationTabs__centreButton btn btn-primary p-0 align-content-center active"
-        >
-          <FontAwesomeIcon
-            icon="plus"
-            size="xl"
-          />
-        </a>
+      <div class="d-flex justify-content-center">
+        <FloatingActionButton />
       </div>
 
       <a
@@ -112,8 +104,11 @@ import {
 import I18n from '~/utils/I18n.js';
 import { isMenuItemActive } from '~/utils/VerticalMenu.js';
 
+import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
+
 export default {
   components: {
+    FloatingActionButton,
     FontAwesomeIcon,
   },
 
@@ -177,22 +172,6 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-  }
-}
-
-.NavigationTabs__centreButton {
-  position: relative;
-
-  a {
-    aspect-ratio: 1;
-    box-shadow: 0 0rem 0.5rem rgba($black, .15);
-    bottom: calc((100% - min(18vw, $navigation-tabs-height + 1rem)) / 2);
-    border-radius: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-    width: 18vw;
-    max-width: calc($navigation-tabs-height + 1rem);
   }
 }
 

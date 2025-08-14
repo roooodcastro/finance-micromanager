@@ -1,5 +1,5 @@
 <template>
-  <div class="FloatingActionButton position-sticky end-0 bottom-0 py-3 pe-3">
+  <div class="FloatingActionButton">
     <div
       class="FloatingActionButton__speed-dial"
       :class="{ show: speedDialOpened }"
@@ -8,7 +8,7 @@
         v-for="(speedDialEntry, index) in speedDialEntries"
         :key="index"
         :href="speedDialEntry.href ?? '#'"
-        class="FloatingActionButton__speed-dial-link d-flex rounded-pill btn btn-light shadow mb-3"
+        class="FloatingActionButton__speed-dial-link d-flex rounded-pill btn btn-light mb-3"
         :style="{ bottom: `${(speedDialEntries.length - index) * -4}rem` }"
         @click="handleSpeedDialClick(speedDialEntry.callback)"
       >
@@ -21,7 +21,7 @@
     </div>
 
     <a
-      class="FloatingActionButton__link d-flex btn btn-primary rounded-circle fs-1 shadow ms-auto"
+      class="FloatingActionButton__link d-flex btn btn-primary rounded-circle fs-1"
       :class="{ active: speedDialOpened }"
       href="#"
       @click="handleClick"
@@ -83,18 +83,21 @@ export default {
 @import '../../stylesheets/variables';
 
 .FloatingActionButton {
+  position: absolute;
+  top: calc((min(18vw, $navigation-tabs-height + 1rem) - 100%) / -2);
   z-index: 1;
-  margin: auto 0 -1rem auto;
 }
 
 .FloatingActionButton__link {
   align-items: center;
+  aspect-ratio: 1;
+  box-shadow: 0 0rem 0.5rem rgba($black, .15);
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
+  max-width: calc($navigation-tabs-height + 1rem);
+  width: 18vw;
 
   &::before {
-    border-radius: 50% 0 0 0;
+    border-radius: 50%;
     cursor: default;
     content: '';
     position: fixed;
@@ -102,20 +105,21 @@ export default {
     width: 0;
     height: 0;
     z-index: -1;
-    transition: all 0.15s ease-in-out;
-    bottom: 0;
-    right: 0;
+    transition: all 0.2s ease-in-out;
+    bottom: 1rem;
+    right: 50%;
   }
 
   &.active::before {
-    border-radius: 0;
-    width: 100vw;
-    height: 100vh;
+    right: -25%;
+    bottom: -25%;
+    width: 150vw;
+    height: 150vh;
   }
 
   svg {
     transform: rotate(0);
-    transition: all 0.15s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 
   svg.rotated {
@@ -125,14 +129,15 @@ export default {
 
 .FloatingActionButton__speed-dial {
   white-space: nowrap;
-  position: absolute;
-  right: 1rem;
-  bottom: 5rem;
+  position: fixed;
+  right: 50%;
+  bottom: 6rem;
   overflow: hidden;
-  transform: scaleY(0);
+  transform: translate(50%, 50%) scaleY(0);
+  transition: all 0.2s ease-in-out;
 
   &.show {
-    transform: scaleY(1);
+    transform: translate(50%, 0) scaleY(1);
   }
 
   .FloatingActionButton__speed-dial-link {
@@ -141,11 +146,45 @@ export default {
     line-height: 3rem;
     position: relative;
     height: 3rem;
-    transition: all 0.15s ease-out;
+    transition: all 0.2s ease-in-out;
   }
 
   &.show .FloatingActionButton__speed-dial-link {
     bottom: 0 !important;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .FloatingActionButton {
+    margin: auto 0 -6rem auto;
+    right: 0;
+    bottom: 1rem;
+    left: initial;
+    position: sticky;
+    padding-right: 1rem;
+  }
+
+  .FloatingActionButton__link {
+    top: initial;
+    margin-left: auto;
+    width: 4rem;
+
+    &::before {
+      border-radius: 50%;
+      bottom: 2rem;
+      right: 3rem;
+    }
+  }
+
+  .FloatingActionButton__speed-dial {
+    position: absolute;
+    right: 1rem;
+    overflow: hidden;
+    transform: translateY(50%) scaleY(0);
+
+    &.show {
+      transform: translateY(0) scaleY(1);
+    }
   }
 }
 </style>
