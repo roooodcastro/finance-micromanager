@@ -43,7 +43,7 @@ import useUserStore from '~/stores/UserStore.js';
 const buildMenuItem = (options) => {
   return Object.assign(options, {
     label: I18n.t(`views.layout.vertical_menu.${options.key}`),
-    active: isMenuItemActive(options),
+    active: isMenuItemActive(options.path),
     expanded: isMenuItemExpanded(options),
     hasSubMenu: options.subItems && options.subItems.length > 0,
   });
@@ -51,13 +51,12 @@ const buildMenuItem = (options) => {
 
 const isMenuItemExpanded = (menuItem) => {
   if (menuItem.subItems && menuItem.subItems.length > 0) {
-    return menuItem.subItems.some(subItem => isMenuItemActive(subItem));
+    return menuItem.subItems.some(subItem => isMenuItemActive(subItem.path));
   }
   return false;
 }
 
-const isMenuItemActive = (options) => {
-  const itemPath = options.path;
+export const isMenuItemActive = (itemPath) => {
   const currentPath = window.location.pathname;
 
   // Tries to match the exact path, or the following derivative paths:

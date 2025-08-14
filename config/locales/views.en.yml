@@ -325,7 +325,7 @@ en:
         unspecified: Unspecified
       footer:
         version: Version
-        copyright_notice: '© 2024 Rodrigo Castro'
+        copyright_notice: '© %{year} Rodrigo Castro'
       grid_table:
         search_placeholder: Search
         edit_action_label: Edit
@@ -360,6 +360,7 @@ en:
       vertical_menu:
         budgets: Budgets
         dashboard: Dashboard
+        home: Home
         imports: Transaction Imports
         imports_list: List Imports
         imports_settings: Configure Imports

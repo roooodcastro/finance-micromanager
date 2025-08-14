@@ -17,6 +17,7 @@
     </div>
 
     <PageFooter />
+    <NavigationTabs />
     <VerticalMenuOffcanvas />
     <ConfirmationModal />
     <ShortcutHelpModal />
@@ -47,6 +48,7 @@ import PageFooter from '~/components/layout/PageFooter.vue';
 import VerticalMenu from '~/components/layout/VerticalMenu.vue';
 import VerticalMenuOffcanvas from '~/components/layout/VerticalMenuOffcanvas.vue';
 import FloatingActionButton from '~/components/layout/FloatingActionButton.vue';
+import NavigationTabs from '~/components/layout/NavigationTabs.vue';
 import ConfirmationModal from '~/components/bootstrap/ConfirmationModal.vue';
 import TransactionForm from '~/components/transactions/TransactionForm.vue';
 import ProfileForm from '~/components/profiles/ProfileForm.vue';
@@ -57,6 +59,7 @@ export default {
     ConfirmationModal,
     FloatingActionButton,
     Navigation,
+    NavigationTabs,
     PageFooter,
     ProfileForm,
     ShortcutHelpModal,

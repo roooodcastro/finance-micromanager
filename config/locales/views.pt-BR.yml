@@ -327,7 +327,7 @@ pt-BR:
         unspecified: Não especificado
       footer:
         version: Versão
-        copyright_notice: '© 2024 Rodrigo Castro'
+        copyright_notice: '© %{year} Rodrigo Castro'
       grid_table:
         search_placeholder: Buscar
         edit_action_label: Editar
@@ -362,6 +362,7 @@ pt-BR:
       vertical_menu:
         budgets: Orçamentos
         dashboard: Dashboard
+        home: Início
         imports: Importação de Transações
         imports_list: Listar Importações
         imports_settings: Configurar Importações

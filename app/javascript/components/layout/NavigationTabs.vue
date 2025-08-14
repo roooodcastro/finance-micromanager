@@ -1,0 +1,204 @@
+<template>
+  <div class="NavigationTabs d-lg-none position-fixed bottom-0 bg-primary p-2 w-100">
+    <nav class="d-grid gap-2 h-100 position-relative">
+      <a
+        :href="dashboardPath"
+        class="btn btn-primary p-0"
+        :class="{ 'active': isMenuItemActive(dashboardPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_DASHBOARD"
+          size="xl"
+        />
+        <span>{{ t('home') }}</span>
+      </a>
+
+      <a
+        :href="transactionsPath"
+        class="btn btn-primary p-0"
+        :class="{ 'active': isMenuItemActive(transactionsPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_TRANSACTIONS"
+          size="xl"
+        />
+        <span>{{ t('transactions') }}</span>
+      </a>
+
+      <a
+        :href="budgetsPath"
+        class="d-none d-sm-flex btn btn-primary p-0"
+        :class="{ 'active': isMenuItemActive(budgetsPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_BUDGETS"
+          size="xl"
+        />
+        <span>{{ t('budgets') }}</span>
+      </a>
+
+      <div class="NavigationTabs__centreButton">
+        <a
+          href="#"
+          class="NavigationTabs__centreButton btn btn-primary p-0 align-content-center active"
+        >
+          <FontAwesomeIcon
+            icon="plus"
+            size="xl"
+          />
+        </a>
+      </div>
+
+      <a
+        :href="categoriesPath"
+        class="btn btn-primary p-0"
+        :class="{ 'active': isMenuItemActive(categoriesPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_CATEGORIES"
+          size="xl"
+        />
+        <span>{{ t('categories') }}</span>
+      </a>
+
+      <a
+        :href="importsPath"
+        class="d-none d-sm-flex btn btn-primary p-0"
+        :class="{ 'active': isMenuItemActive(importsPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_IMPORTS"
+          size="xl"
+        />
+        <span>{{ t('imports') }}</span>
+      </a>
+
+      <a
+        :href="walletsPath"
+        class="btn btn-primary p-0"
+        :class="{ 'active': isMenuItemActive(walletsPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_WALLETS"
+          size="xl"
+        />
+        <span>{{ t('wallets') }}</span>
+      </a>
+    </nav>
+  </div>
+</template>
+
+<script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+import {
+  budgets as budgetsApi,
+  categories as categoriesApi,
+  dashboards as dashboardsApi,
+  imports as importsApi,
+  transactions as transactionsApi,
+  wallets as walletsApi,
+} from '~/api/all.js';
+
+import {
+  ICON_BUDGETS,
+  ICON_CATEGORIES,
+  ICON_DASHBOARD,
+  ICON_IMPORTS,
+  ICON_TRANSACTIONS,
+  ICON_WALLETS,
+} from '~/utils/Constants.js';
+
+import I18n from '~/utils/I18n.js';
+import { isMenuItemActive } from '~/utils/VerticalMenu.js';
+
+export default {
+  components: {
+    FontAwesomeIcon,
+  },
+
+  setup() {
+    const t = I18n.scopedTranslator('views.layout.vertical_menu');
+
+    const budgetsPath = budgetsApi.index.path();
+    const dashboardPath = dashboardsApi.show.path();
+    const importsPath = importsApi.index.path();
+    const transactionsPath = transactionsApi.index.path();
+    const categoriesPath = categoriesApi.index.path();
+    const walletsPath = walletsApi.index.path();
+
+    return {
+      t,
+      budgetsPath,
+      dashboardPath,
+      importsPath,
+      transactionsPath,
+      categoriesPath,
+      walletsPath,
+      ICON_BUDGETS,
+      ICON_CATEGORIES,
+      ICON_DASHBOARD,
+      ICON_IMPORTS,
+      ICON_TRANSACTIONS,
+      ICON_WALLETS,
+      isMenuItemActive,
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+.NavigationTabs {
+  box-shadow: 0 -0.25rem 0.5rem rgba($black, .15);
+  height: $navigation-tabs-height;
+
+  nav {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  nav > a {
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0;
+    text-transform: none;
+    width: 100%;
+
+    span {
+      font-size: 0.75rem;
+      overflow: hidden;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.NavigationTabs__centreButton {
+  position: relative;
+
+  a {
+    aspect-ratio: 1;
+    box-shadow: 0 0rem 0.5rem rgba($black, .15);
+    bottom: calc((100% - min(18vw, $navigation-tabs-height + 1rem)) / 2);
+    border-radius: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 18vw;
+    max-width: calc($navigation-tabs-height + 1rem);
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .NavigationTabs nav {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+</style>
