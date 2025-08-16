@@ -26,7 +26,7 @@ export default {
   props: {
     type: {
       type: String,
-      required: true,
+      default: null,
     },
     i18nScope: {
       type: String,

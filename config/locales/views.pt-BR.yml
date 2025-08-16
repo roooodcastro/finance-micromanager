@@ -484,9 +484,10 @@ pt-BR:
         table_header_real_balance: Real
         calculated_balance: Calculado
         real_balance: Real
-        unspecified: Não especificado
+        unspecified: '- Sem carteira -'
         total: Total
         difference_balance: Divergência
+        difference_sm_balance: Div.
         new_transaction: Nova Transação
         enter_mass_edit_transactions: Edição em Massa
         cancel_mass_edit_transactions: Cancelar Edição em Massa
@@ -496,6 +497,10 @@ pt-BR:
         real_balance_info_text: >-
           O saldo real deve refletir o valor contabilizado da carteira ao final do dia da reconciliação. Isso significa
           contar dinheiro em espécie, ou verificar o saldo de uma conta bancária, por exemplo.
+        divergence_info_text: >-
+          Essa é a diferença entre o saldo real e o saldo calculado da carteira. Divergências negativas indicam que
+          você tem mais dinheiro do que o calculado, o que pode indicar uma subnotificação de transações no período de
+          reconciliação.
         unspecified_balance_cannot_be_edited: >-
           Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de
           concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser
@@ -626,7 +631,6 @@ pt-BR:
         created_by_label: Criada por
         updated_at_label: Última atualização em
         updated_by_label: Última atualização por
-        no_wallet: -- Não Especificada --
 
     transaction_automations:
       floating_button_label: Nova Automação de Transação
@@ -681,7 +685,6 @@ pt-BR:
         sub_header_transactions: Transações Passadas
         sub_header_summary: Resumo
         no_next_run: -- Desabilitada --
-        no_wallet: -- Não Especificada --
         schedule: Agendamento
         next_run_at: Próxima execução
         scheduled_transaction_date: Próxima data de transação

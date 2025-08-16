@@ -1426,6 +1426,8 @@
           "calculated_balance_info_text": "Esse saldo foi calculado somando as quantias de todas as transações desde a última reconciliação, ou desde o início, caso esta seja a primeira reconciliação.",
           "cancel_mass_edit_transactions": "Cancelar Edição em Massa",
           "difference_balance": "Divergência",
+          "difference_sm_balance": "Div.",
+          "divergence_info_text": "Essa é a diferença entre o saldo real e o saldo calculado da carteira. Divergências negativas indicam que você tem mais dinheiro do que o calculado, o que pode indicar uma subnotificação de transações no período de reconciliação.",
           "enter_mass_edit_transactions": "Edição em Massa",
           "new_transaction": "Nova Transação",
           "real_balance": "Real",
@@ -1441,7 +1443,7 @@
           "table_header_wallet_name": "Carteira",
           "title": "Reconciliação do dia %{date}",
           "total": "Total",
-          "unspecified": "Não especificado",
+          "unspecified": "- Sem carteira -",
           "unspecified_balance_cannot_be_edited": "Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser reduzido a zero."
         }
       },
@@ -1546,7 +1548,6 @@
           "last_schedule_date": "Última execução",
           "next_run_at": "Próxima execução",
           "no_next_run": "-- Desabilitada --",
-          "no_wallet": "-- Não Especificada --",
           "reenable": "Reabilitar",
           "run_on_transaction_date": "Na data de transação agendada",
           "schedule": "Agendamento",
@@ -1698,7 +1699,6 @@
           "import_label": "Importada por",
           "import_value": "Importação de Transação",
           "name_label": "Nome",
-          "no_wallet": "-- Não Especificada --",
           "of_label": "de",
           "sub_header_summary": "Resumo",
           "title": "Transação",

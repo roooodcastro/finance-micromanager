@@ -43,12 +43,7 @@
             />
           </DescriptionListItem>
           <DescriptionListItem :title="t('wallet_label')">
-            <template v-if="transactionFromStore.wallet">
-              {{ transactionFromStore.wallet.name }}
-            </template>
-            <template v-else>
-              {{ t('no_wallet') }}
-            </template>
+            <WalletBadge :wallet="transactionFromStore.wallet" />
           </DescriptionListItem>
           <DescriptionListItem
             v-if="!!budgetInstance"
@@ -128,6 +123,7 @@ import BCard from '~/components/bootstrap/BCard.vue';
 import CategoryBadge from '~/components/categories/CategoryBadge.vue';
 import Badge from '~/components/ui/Badge.vue';
 import DescriptionListItem from '~/components/layout/DescriptionListItem.vue';
+import WalletBadge from '~/components/wallets/WalletBadge.vue';
 
 export default {
   components: {
@@ -137,6 +133,7 @@ export default {
     DescriptionListItem,
     DropdownMenuItem,
     PageHeader,
+    WalletBadge,
   },
 
   props: {
