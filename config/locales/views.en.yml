@@ -479,9 +479,10 @@ en:
         table_header_real_balance: Actual
         calculated_balance: Calculated
         real_balance: Actual
-        unspecified: Unspecified
+        unspecified: '- No Wallet -'
         total: Total
         difference_balance: Divergence
+        difference_sm_balance: Diff
         new_transaction: New Transaction
         enter_mass_edit_transactions: Bulk Edit
         cancel_mass_edit_transactions: Cancel Bulk Edit
@@ -491,6 +492,10 @@ en:
         real_balance_info_text: >-
           This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This
           is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.
+        divergence_info_text: >-
+          This is the difference betwen the actual reported balance and the calculated wallet balance. Negative
+          divergences indicate you have less money than calculated, which possibly indicates an underreporting of
+          transactions in the reconciliation period.
         unspecified_balance_cannot_be_edited: >-
           Unspecified balance refers to the balance sum of transactions which do not have a wallet specified. Before
           finishing this reconciliation, all transactions must have their wallets set and this balance must be reduced
@@ -622,7 +627,6 @@ en:
         created_by_label: Added by
         updated_at_label: Last updated on
         updated_by_label: Last updated by
-        no_wallet: -- Not Specified --
 
     transaction_automations:
       floating_button_label: New Transaction Automation
@@ -677,7 +681,6 @@ en:
         sub_header_transactions: Past Transactions
         sub_header_summary: Summary
         no_next_run: -- Disabled --
-        no_wallet: -- Not Specified --
         schedule: Schedule
         next_run_at: Next Run
         scheduled_transaction_date: Next transaction date

@@ -1,9 +1,9 @@
 <template>
-  <div class="NavigationTabs d-lg-none position-fixed bottom-0 bg-primary p-2 w-100">
-    <nav class="d-grid gap-2 h-100 position-relative">
+  <div class="NavigationTabs d-lg-none position-fixed bottom-0 bg-primary w-100">
+    <nav class="d-grid h-100 position-relative">
       <a
         :href="dashboardPath"
-        class="btn btn-primary p-0"
+        class="btn btn-primary ps-2 pe-1 rounded-0"
         :class="{ 'active': isMenuItemActive(dashboardPath) }"
       >
         <FontAwesomeIcon
@@ -15,7 +15,7 @@
 
       <a
         :href="transactionsPath"
-        class="btn btn-primary p-0"
+        class="NavigationTabs__transactionsBtn btn btn-primary p-1 rounded-0"
         :class="{ 'active': isMenuItemActive(transactionsPath) }"
       >
         <FontAwesomeIcon
@@ -43,7 +43,7 @@
 
       <a
         :href="categoriesPath"
-        class="btn btn-primary p-0"
+        class="NavigationTabs__categoriesBtn btn btn-primary p-1 rounded-0"
         :class="{ 'active': isMenuItemActive(categoriesPath) }"
       >
         <FontAwesomeIcon
@@ -55,7 +55,7 @@
 
       <a
         :href="importsPath"
-        class="d-none d-sm-flex btn btn-primary p-0"
+        class="d-none d-sm-flex btn btn-primary p-1 rounded-0"
         :class="{ 'active': isMenuItemActive(importsPath) }"
       >
         <FontAwesomeIcon
@@ -67,7 +67,7 @@
 
       <a
         :href="walletsPath"
-        class="btn btn-primary p-0"
+        class="btn btn-primary ps-1 pe-2 rounded-0"
         :class="{ 'active': isMenuItemActive(walletsPath) }"
       >
         <FontAwesomeIcon
@@ -172,6 +172,46 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+  }
+}
+
+.NavigationTabs__transactionsBtn.active, .NavigationTabs__transactionsBtn:active {
+  position: relative;
+  border-right: none;
+
+  &:before {
+    content: '';
+    color: var(--bs-btn-active-color);
+    background-color: var(--bs-btn-active-bg);
+    border-color: var(--bs-btn-active-border-color);
+    border: var(--bs-btn-border-width) solid var(--bs-btn-active-border-color);
+    border-left: none;
+    margin: -1px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 50%;
+  }
+}
+
+.NavigationTabs__categoriesBtn.active, .NavigationTabs__categoriesBtn:active {
+  position: relative;
+  border-left: none;
+
+  &:before {
+    content: '';
+    color: var(--bs-btn-active-color);
+    background-color: var(--bs-btn-active-bg);
+    border-color: var(--bs-btn-active-border-color);
+    border: var(--bs-btn-border-width) solid var(--bs-btn-active-border-color);
+    border-right: none;
+    margin: -1px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    width: 50%;
   }
 }
 

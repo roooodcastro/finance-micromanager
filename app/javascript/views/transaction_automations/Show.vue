@@ -74,12 +74,7 @@
             />
           </DescriptionListItem>
           <DescriptionListItem :title="t('transaction_wallet')">
-            <template v-if="transactionAutomationFromStore.transactionWallet">
-              {{ transactionAutomationFromStore.transactionWallet.name }}
-            </template>
-            <template v-else>
-              {{ t('no_wallet') }}
-            </template>
+            <WalletBadge :wallet="transactionAutomationFromStore.wallet" />
           </DescriptionListItem>
           <DescriptionListItem :title="t('scheduled_transaction_date')">
             {{ isDisabled ? t('no_next_run') : formatDate(transactionAutomationFromStore.scheduledDate) }}
@@ -138,6 +133,7 @@ import BCard from '~/components/bootstrap/BCard.vue';
 import Badge from '~/components/ui/Badge.vue';
 import CategoryBadge from '~/components/categories/CategoryBadge.vue';
 import DescriptionListItem from '~/components/layout/DescriptionListItem.vue';
+import WalletBadge from '~/components/wallets/WalletBadge.vue';
 
 export default {
   components: {
@@ -149,6 +145,7 @@ export default {
     PageHeader,
     TransactionAutomationForm,
     TransactionsList,
+    WalletBadge,
     WarningAlert,
   },
 

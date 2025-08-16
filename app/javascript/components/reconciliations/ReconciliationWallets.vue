@@ -2,70 +2,40 @@
   <BCard
     :title="t('sub_header_wallets')"
     no-body
+    class="ReconciliationWallets__cardBody"
   >
-    <div class="table-responsive-md">
-      <table class="table table-sm table-hover mb-0">
-        <thead>
-          <tr>
-            <th class="bg-body-secondary align-middle text-nowrap">
-              {{ t('table_header_wallet_name') }}
-            </th>
-            <th class="bg-body-secondary text-end text-nowrap d-none d-md-table-cell">
-              {{ t('table_header_calculated_balance') }}
+    <div class="ReconciliationWallets__header d-none d-lg-grid  p-2 py-3 px-lg-3 gap-2 border-bottom bg-body-secondary fw-bold">
+      <div>
+        {{ t('table_header_wallet_name') }}
+      </div>
+      <div class="text-end">
+        {{ t('table_header_calculated_balance') }}
 
-              <InfoTooltip :message="t('calculated_balance_info_text')" />
-            </th>
-            <th class="bg-body-secondary text-end text-nowrap">
-              {{ t('table_header_real_balance') }}
+        <InfoTooltip :message="t('calculated_balance_info_text')" />
+      </div>
+      <div class="text-end">
+        {{ t('difference_balance') }}
 
-              <InfoTooltip :message="t('real_balance_info_text')" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <ReconciliationWalletItem
-            v-for="wallet in wallets"
-            :key="wallet.id"
-            :wallet-balance="walletBalances[wallet.id]"
-            :wallet="wallet"
-          />
+        <InfoTooltip :message="t('divergence_info_text')" />
+      </div>
+      <div class="text-end">
+        {{ t('table_header_real_balance') }}
 
-          <tr
-            v-if="walletBalances['']"
-          >
-            <td class="text-nowrap bg-warning-subtle">
-              {{ t('unspecified') }}
-              <div class="d-block d-md-none fw-bold">
-                {{ formatMoney(walletBalances['']) }}
-              </div>
-            </td>
-            <td class="text-end fw-bold bg-warning-subtle d-none d-md-table-cell">
-              {{ formatMoney(walletBalances['']) }}
-            </td>
-            <td class="text-center bg-warning-subtle">
-              <InfoTooltip :message="t('unspecified_balance_cannot_be_edited')" />
-            </td>
-          </tr>
-        </tbody>
-
-        <tfoot class="table-group-divider">
-          <tr>
-            <td class="text-nowrap fw-bold bg-body-secondary">
-              {{ t('total') }}
-              <div class="d-block d-md-none fw-bold">
-                {{ formatMoney(walletBalancesSum) }}
-              </div>
-            </td>
-            <td class="text-end fw-bold bg-body-secondary d-none d-md-table-cell">
-              {{ formatMoney(walletBalancesSum) }}
-            </td>
-            <td class="text-end fw-bold bg-body-secondary">
-              {{ formatMoney(realBalancesSum) }}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+        <InfoTooltip :message="t('real_balance_info_text')" />
+      </div>
     </div>
+
+    <ReconciliationWalletItem
+      v-for="wallet in wallets"
+      :key="wallet.id"
+      :wallet-balance="walletBalances[wallet.id]"
+      :wallet="wallet"
+    />
+
+    <ReconciliationWalletItem
+      v-if="walletBalances['']"
+      :wallet-balance="walletBalances['']"
+    />
   </BCard>
 </template>
 
@@ -110,3 +80,16 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../../stylesheets/variables';
+
+.ReconciliationWallets__header {
+  grid-template-columns: minmax(0, 1fr) minmax(6rem, 1fr) minmax(6rem, 1fr) minmax(8rem, 1fr);
+}
+
+.ReconciliationWallets__cardBody .BCard__no-body > div:last-child {
+  border-bottom: none !important;
+  border-radius: 0 0 $border-radius $border-radius;
+}
+</style>
