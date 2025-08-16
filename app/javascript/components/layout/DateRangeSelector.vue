@@ -26,11 +26,13 @@
         class="d-none"
         :value="startDate.format('YYYY-MM')"
         :max="maxDate"
+        @change="handlePickerChange($event.target.value)"
       >
       {{ month }} {{ year }}
     </button>
 
     <MonthPickerInput
+      v-if="showCustomMonthPicker"
       id="monthInput"
       :value="startDate.format('YYYY-MM')"
       :max="maxDate"
@@ -56,6 +58,7 @@ import _ from 'lodash';
 
 import useDateRangeStore from '~/stores/DateRangeStore.js';
 import useShortcutStore from '~/stores/ShortcutStore.js';
+import { doesBrowserSupportsMonthInput } from '~/utils/ResponsivenessUtils.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -96,6 +99,9 @@ export default {
       emit('change');
     }
 
+    const showCustomMonthPicker = !doesBrowserSupportsMonthInput();
+
+
     return {
       startDate,
       maxDate,
@@ -107,6 +113,7 @@ export default {
       handlePickerOpen,
       handlePickerChange,
       monthInput,
+      showCustomMonthPicker,
     };
   }
 };

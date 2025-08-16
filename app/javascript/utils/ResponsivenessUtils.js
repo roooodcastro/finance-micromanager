@@ -16,3 +16,13 @@ export function isMediaBreakpointDown(breakpoint) {
 
   return currentWidth < breakpointWidth;
 }
+
+export function doesBrowserSupportsMonthInput() {
+  const testMonthInput = document.createElement('input');
+  try {
+    testMonthInput.type = 'month';
+  } catch {
+    return false;
+  }
+  return testMonthInput.type === 'month';
+}
