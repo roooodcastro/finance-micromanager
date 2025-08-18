@@ -1356,6 +1356,8 @@
           "new_transaction": "New Transaction",
           "real_balance": "Actual",
           "real_balance_info_text": "This should reflect the actual balance on the wallet at the end of the day on the reconciliation date. This is usually done by counting how much cash there is, or checking the balance in a bank account, for instance.",
+          "reconciliation_wallets_help_message": "<p>\n  Wallet Balances allows you to input the actual balance for each wallet at the date of the reconciliation.\n  A bank account wallet might have a certain calculated value, but when you check your bank statement you see\n  that there's less money in the bank than in the wallet here. Instead of meticulously auditing each\n  individual transaction to find the culprit, you can just input the amount that you have for each wallet, and\n  if there are any differences at the end, a reconciliation transaction will be created to adjust the balance.\n</p>\n<p>\n  Each wallet shows the calculated balance amount from all transactions since the last reconciliation. After\n  inputting the actual wallet balance, a difference sum will show up. Any non-zero sum could indicate a\n  transaction issue, or it could also point to a transfer between wallets that was done without the app\n  knowing about it. For example, a bank withdrawal could take money from a bank wallet into a cash wallet.\n</p>\n<p>\n  The amount specified for each wallet will be the base amount that will be used to calculate the balance for\n  the next reconciliation.\n</p>",
+          "reconciliation_wallets_help_title": "How it works",
           "status": "Status",
           "sub_header_actions": "Actions",
           "sub_header_balances": "Overall Balance",

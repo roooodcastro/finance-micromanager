@@ -505,6 +505,27 @@ pt-BR:
           Saldo não especificado se refere à soma das transações que não possuem uma carteira especificada. Antes de
           concluir esta reconciliação, todas as transações devem ter suas carteiras definidas e este saldo deve ser
           reduzido a zero.
+        reconciliation_wallets_help_title: Como funciona
+        reconciliation_wallets_help_message: >-
+          <p>
+            Saldos das Carteiras permite que você insira o valor real de cada carteira na data da reconciliação. Uma
+            carteira de conta de banco pode ter um valor calculado tal, mas quando você confere o saldo do banco, os
+            valores não batem. Ao invés de inspecionar transação por transação, você pode apenas inserir o saldo real
+            do banco, e quaisquer diferença no final será ajustada com uma transação de reconciliação.
+          </p>
+
+          <p>
+            Cada carteira mostra o saldo calculado a partir de todas as transações desde a última reconciliação. Depois
+            de inserir o saldo real da carteira, o valor da diferença entre o calculado e o real será exibido. qualquer
+            valor diferente de zero pode indicar um problema, como uma transação faltando, ou pode também indicar por
+            exemplo uma transferência entre carteiras que não foi inserida no aplicativo. Por exemplo, um saque do banco
+            pode tirar dinheiro da carteira do banco e botar dinheiro em uma carteira de dinheiro vivo.
+          </p>
+
+          <p>
+            O valor inserido em cada carteira será o valor base que será usado no cálculo do saldo para a próxima
+            reconciliação.
+          </p>
     settings:
       show:
         title: Minha conta
