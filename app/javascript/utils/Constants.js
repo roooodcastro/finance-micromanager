@@ -1,5 +1,5 @@
 /*
- * Modal IDsCaching
+ * Modal IDs
  */
 export const CONFIRMATION_MODAL_ID = 'confirmationModal';
 export const PASSWORD_CHANGE_MODAL_ID = 'passwordChangeModal';
@@ -9,6 +9,7 @@ export const DAILY_TOTALS_CHART_MODE_MODAL_ID = 'dailyTotalsChartModeModal';
 export const SHORTCUTS_HELP_MODAL_ID = 'shortcutsHelpModal';
 export const PROFILE_SHARE_INVITE_MODAL_ID = 'profileShareInviteModal';
 export const MATCH_TRANSACTION_SELECTOR_MODAL_ID = 'matchTransactionSelectorModal';
+export const HELP_MODAL_ID = 'helpModal';
 
 /*
  * Form IDs

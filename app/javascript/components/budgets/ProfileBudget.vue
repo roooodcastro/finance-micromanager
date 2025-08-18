@@ -15,25 +15,27 @@
       <div class="d-flex gap-2">
         <a
           :href="showPath"
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-primary btn-sm d-flex gap-2 align-items-center"
         >
           <FontAwesomeIcon
             icon="circle-info"
             size="lg"
-            class="me-2"
           />
-          {{ t('show') }}
+          <span class="d-none d-lg-inline">
+            {{ t('show') }}
+          </span>
         </a>
         <button
-          class="btn btn-secondary btn-sm"
+          class="btn btn-outline-secondary btn-sm"
           @click="handleEdit"
         >
           <FontAwesomeIcon
             icon="pen-to-square"
             size="lg"
-            class="me-2"
           />
-          {{ t('edit') }}
+          <span class="d-none d-lg-inline ms-2">
+            {{ t('edit') }}
+          </span>
         </button>
         <button
           class="btn btn-outline-danger btn-sm"

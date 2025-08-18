@@ -10,7 +10,7 @@
       <a
         v-if="!hideBackButton"
         :href="backButtonHref ?? dashboardPath"
-        class="btn btn-context-action fs-4 px-0 me-2"
+        class="PageHeader__backButton btn fs-4"
       >
         <FontAwesomeIcon icon="chevron-left" />
       </a>
@@ -128,6 +128,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../stylesheets/variables';
+
+.PageHeader__backButton {
+  color: $gray-600;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin: 0 0 0 -1rem;
+  padding: 0 1rem 0 1.5rem;
+}
 
 @include media-breakpoint-down(lg) {
   .PageHeader {

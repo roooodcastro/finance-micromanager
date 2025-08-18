@@ -14,6 +14,18 @@
       </a>
 
       <a
+        :href="budgetsPath"
+        class="d-none d-sm-flex btn btn-primary p-1 rounded-0"
+        :class="{ 'active': isMenuItemActive(budgetsPath) }"
+      >
+        <FontAwesomeIcon
+          :icon="ICON_BUDGETS"
+          size="xl"
+        />
+        <span>{{ t('budgets') }}</span>
+      </a>
+
+      <a
         :href="transactionsPath"
         class="NavigationTabs__transactionsBtn btn btn-primary p-1 rounded-0"
         :class="{ 'active': isMenuItemActive(transactionsPath) }"
@@ -23,18 +35,6 @@
           size="xl"
         />
         <span>{{ t('transactions') }}</span>
-      </a>
-
-      <a
-        :href="budgetsPath"
-        class="d-none d-sm-flex btn btn-primary p-0"
-        :class="{ 'active': isMenuItemActive(budgetsPath) }"
-      >
-        <FontAwesomeIcon
-          :icon="ICON_BUDGETS"
-          size="xl"
-        />
-        <span>{{ t('budgets') }}</span>
       </a>
 
       <div class="d-flex justify-content-center">
@@ -175,43 +175,67 @@ export default {
   }
 }
 
-.NavigationTabs__transactionsBtn.active, .NavigationTabs__transactionsBtn:active {
+.NavigationTabs__transactionsBtn, .NavigationTabs__categoriesBtn {
   position: relative;
-  border-right: none;
+}
 
-  &:before {
-    content: '';
+.NavigationTabs__transactionsBtn::before {
+  content: '';
+  background-color: transparent;
+  border: var(--bs-btn-border-width) solid transparent;
+  border-left: none;
+  margin: -1px 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 50%;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.NavigationTabs__categoriesBtn::before {
+  content: '';
+  background-color: transparent;
+  border: var(--bs-btn-border-width) solid transparent;
+  border-right: none;
+  margin: -1px 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: 50%;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.NavigationTabs__transactionsBtn.active, .NavigationTabs__transactionsBtn:active, .NavigationTabs__transactionsBtn:hover, .NavigationTabs__transactionsBtn:focus {
+  border-right-color: var(--bs-btn-active-border-color);
+
+  &::before {
     color: var(--bs-btn-active-color);
     background-color: var(--bs-btn-active-bg);
     border-color: var(--bs-btn-active-border-color);
-    border: var(--bs-btn-border-width) solid var(--bs-btn-active-border-color);
-    border-left: none;
-    margin: -1px 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 100%;
-    width: 50%;
   }
 }
 
-.NavigationTabs__categoriesBtn.active, .NavigationTabs__categoriesBtn:active {
-  position: relative;
-  border-left: none;
+.NavigationTabs__categoriesBtn.active, .NavigationTabs__categoriesBtn:active, .NavigationTabs__categoriesBtn:hover, .NavigationTabs__categoriesBtn:focus {
+  border-left-color: var(--bs-btn-active-border-color);
 
-  &:before {
-    content: '';
+  &::before {
     color: var(--bs-btn-active-color);
     background-color: var(--bs-btn-active-bg);
     border-color: var(--bs-btn-active-border-color);
-    border: var(--bs-btn-border-width) solid var(--bs-btn-active-border-color);
-    border-right: none;
-    margin: -1px 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 100%;
-    width: 50%;
+  }
+}
+
+.NavigationTabs__transactionsBtn:hover {
+  &:before {
+    background-color: var(--bs-btn-hover-bg);
+  }
+}
+
+.NavigationTabs__categoriesBtn:hover {
+  &:before {
+    background-color: var(--bs-btn-hover-bg);
   }
 }
 
