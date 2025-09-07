@@ -981,6 +981,7 @@
         },
         "show": {
           "balance_label": "Agregado",
+          "budget_carryover_label": "Sobra do mês anterior",
           "budget_limit_label": "Limite",
           "budget_remainder_label": "Restante",
           "budget_used_label": "Usado",

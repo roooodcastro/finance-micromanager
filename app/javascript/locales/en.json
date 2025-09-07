@@ -907,6 +907,7 @@
         },
         "show": {
           "balance_label": "Aggregate",
+          "budget_carryover_label": "Carryover",
           "budget_limit_label": "Limit",
           "budget_remainder_label": "Remaining",
           "budget_used_label": "Used",
