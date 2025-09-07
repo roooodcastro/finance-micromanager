@@ -88,6 +88,7 @@ en:
         remove_favourite_menu_item: Unfavourite
         budget_used_label: Used
         budget_limit_label: Limit
+        budget_carryover_label: Carryover
         budget_remainder_label: Remaining
         balance_label: Aggregate
         used_budget_label: Budget usage

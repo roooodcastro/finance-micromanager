@@ -17,11 +17,12 @@
           </h6>
           <span
             class="fs-3 fw-bold"
-            :class="{ 'text-debit': remainderLimit < 0, 'text-credit': remainderLimit >= 0 }"
+            :class="{ 'text-debit': remainderLimit < 0, 'text-credit': remainderLimit > 0 }"
           >
-            {{ formatMoney(budgetInstance.usedAmount) }}
+            {{ formatMoney(budgetInstance.usedAmount + budgetInstance.carryoverAmount) }}
           </span>
         </div>
+
 
         <div class="col-6 text-end">
           <h6 class="m-0">
@@ -34,7 +35,19 @@
       </div>
 
       <div class="row mt-3">
-        <div class="col">
+        <div class="col-6">
+          <h6 class="m-0">
+            {{ t('budget_carryover_label') }}
+          </h6>
+          <span
+            class="fs-3 fw-bold"
+            :class="{ 'text-debit': budgetInstance.carryoverAmount < 0, 'text-credit': budgetInstance.carryoverAmount > 0 }"
+          >
+            {{ formatMoney(budgetInstance.carryoverAmount) }}
+          </span>
+        </div>
+
+        <div class="col-6 text-end">
           <h6 class="m-0">
             {{ t('budget_remainder_label') }}
           </h6>

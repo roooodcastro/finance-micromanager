@@ -90,6 +90,7 @@ pt-BR:
         remove_favourite_menu_item: Desfavoritar
         balance_label: Agregado
         budget_used_label: Usado
+        budget_carryover_label: Sobra do mês anterior
         budget_limit_label: Limite
         budget_remainder_label: Restante
         used_budget_label: Uso do Orçamento
