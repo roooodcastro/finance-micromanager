@@ -959,9 +959,21 @@
           "left_budget_label": "left",
           "over_budget_label": "over"
         },
+        "drag_drop_upload_container": {
+          "accepted_file_formats": "Accepted formats: %{accepted_file_formats}",
+          "browse_button": "Browse file",
+          "file_format_not_accepted": "File format not accepted",
+          "instructions": "Drag and drop to upload a file.",
+          "or": "or"
+        },
         "import_names_list": {
           "from_name_label": "From",
           "to_name_label": "To"
+        },
+        "imports": {
+          "file_preview": {
+            "no_file_selected": "No file selected"
+          }
         },
         "imports_list": {
           "name_label": "Source",
@@ -1101,6 +1113,7 @@
         },
         "floating_button_label": "Import Transactions",
         "form": {
+          "browse_file": "Browse file&hellip;",
           "cancel": "Cancel",
           "edit_title": "Import Transactions",
           "new_title": "Import Transactions",
@@ -1113,6 +1126,8 @@
           "wallet_id_label": "Target Wallet"
         },
         "index": {
+          "drag_drop_instructions_text": "Drag and drop a file here to start a new import.",
+          "drag_drop_instructions_text_dragging": "Drop to start an import",
           "new": "Import Transactions",
           "title": "Transaction Imports"
         },

@@ -127,6 +127,15 @@ pt-BR:
         from_budget_label: de
         left_budget_label: restantes
         over_budget_label: acima
+      drag_drop_upload_container:
+        instructions: Arraste e solte para fazer upload do arquivo.
+        or: ou
+        browse_button: Buscar arquivo
+        file_format_not_accepted: Formato de arquivo não aceito
+        accepted_file_formats: 'Formatos aceitos: %{accepted_file_formats}'
+      imports:
+        file_preview:
+          no_file_selected: Nenhum arquivo selecionado
       import_names_list:
         from_name_label: De
         to_name_label: Para
@@ -237,9 +246,12 @@ pt-BR:
         source_n26_label: N26
         source_ptsb_label: PTSB
         source_revolut_label: Revolut
+        browse_file: Buscar arquivo&hellip;
       index:
         title: Importações de Transações
         new: Importar Transações
+        drag_drop_instructions_text: Arraste e solte um arquivo aqui para iniciar uma nova importação.
+        drag_drop_instructions_text_dragging: Solte para iniciar uma importação
       list:
         desc_in_progress: 'Em andamento, iniciada em %{start_date}'
         desc_cancelled: 'Cancelada em %{date}'

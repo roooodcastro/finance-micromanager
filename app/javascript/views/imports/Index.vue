@@ -10,6 +10,14 @@
       </template>
     </PageHeader>
 
+    <DragDropUploadContainer
+      :instructions-text="t('drag_drop_instructions_text')"
+      :instructions-text-dragging="t('drag_drop_instructions_text_dragging')"
+      accepted-file-extensions=".csv,.xls,.xlsx,.pdf"
+      class="d-none d-lg-block mb-3"
+      @change="handleDragDrop"
+    />
+
     <ImportsList />
 
     <ImportForm />
@@ -17,6 +25,8 @@
 </template>
 
 <script>
+import { nextTick } from 'vue';
+
 import I18n from '~/utils/I18n.js';
 import useImportStore from '~/stores/ImportStore.js';
 import useFloatingActionButtonStore from '~/stores/FloatingActionButtonStore.js';
@@ -26,9 +36,11 @@ import PageHeader from '~/components/layout/PageHeader.vue';
 import DropdownMenuItem from '~/components/ui/DropdownMenuItem.vue';
 import ImportForm from '~/components/imports/ImportForm.vue';
 import ImportsList from '~/components/imports/ImportsList.vue';
+import DragDropUploadContainer from '~/components/ui/DragDropUploadContainer.vue';
 
 export default {
   components: {
+    DragDropUploadContainer,
     DropdownMenuItem,
     ImportForm,
     ImportsList,
@@ -43,6 +55,7 @@ export default {
   },
 
   setup(props) {
+    const t = I18n.scopedTranslator('views.imports.index');
     const importStore = useImportStore();
     importStore.setActionName('index');
 
@@ -59,10 +72,15 @@ export default {
     importStore.loadCollectionFromProps(props.imports);
 
     const handleNew = () => importStore.openFormModal(null);
+    const handleDragDrop = async (file) => {
+      await nextTick();
+      importStore.openFormModal(null, { sourceFile: file });
+    };
 
     return {
-      t: I18n.scopedTranslator('views.imports.index'),
+      t,
       handleNew,
+      handleDragDrop,
     };
   },
 };

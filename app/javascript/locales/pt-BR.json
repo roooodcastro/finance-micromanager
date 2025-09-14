@@ -1035,9 +1035,21 @@
           "left_budget_label": "restantes",
           "over_budget_label": "acima"
         },
+        "drag_drop_upload_container": {
+          "accepted_file_formats": "Formatos aceitos: %{accepted_file_formats}",
+          "browse_button": "Buscar arquivo",
+          "file_format_not_accepted": "Formato de arquivo não aceito",
+          "instructions": "Arraste e solte para fazer upload do arquivo.",
+          "or": "ou"
+        },
         "import_names_list": {
           "from_name_label": "De",
           "to_name_label": "Para"
+        },
+        "imports": {
+          "file_preview": {
+            "no_file_selected": "Nenhum arquivo selecionado"
+          }
         },
         "imports_list": {
           "name_label": "Arquivo de Origem",
@@ -1177,6 +1189,7 @@
         },
         "floating_button_label": "Importar Transações",
         "form": {
+          "browse_file": "Buscar arquivo&hellip;",
           "cancel": "Cancelar",
           "edit_title": "Importar Transações",
           "new_title": "Importar Transações",
@@ -1189,6 +1202,8 @@
           "wallet_id_label": "Carteira Alvo"
         },
         "index": {
+          "drag_drop_instructions_text": "Arraste e solte um arquivo aqui para iniciar uma nova importação.",
+          "drag_drop_instructions_text_dragging": "Solte para iniciar uma importação",
           "new": "Importar Transações",
           "title": "Importações de Transações"
         },
