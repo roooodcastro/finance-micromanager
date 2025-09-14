@@ -125,6 +125,15 @@ en:
         from_budget_label: from
         left_budget_label: left
         over_budget_label: over
+      drag_drop_upload_container:
+        instructions: Drag and drop to upload a file.
+        or: or
+        browse_button: Browse file
+        file_format_not_accepted: File format not accepted
+        accepted_file_formats: 'Accepted formats: %{accepted_file_formats}'
+      imports:
+        file_preview:
+          no_file_selected: No file selected
       import_names_list:
         from_name_label: From
         to_name_label: To
@@ -235,9 +244,12 @@ en:
         source_n26_label: N26
         source_ptsb_label: PTSB
         source_revolut_label: Revolut
+        browse_file: Browse file&hellip;
       index:
         title: Transaction Imports
         new: Import Transactions
+        drag_drop_instructions_text: Drag and drop a file here to start a new import.
+        drag_drop_instructions_text_dragging: Drop to start an import
       list:
         desc_in_progress: 'In Progress, started on %{start_date}'
         desc_cancelled: 'Cancelled on %{date}'

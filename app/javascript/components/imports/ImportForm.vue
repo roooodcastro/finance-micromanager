@@ -16,14 +16,23 @@
       @submit.prevent="handleSubmit"
     >
       <template v-slot:default="{ formHelper }">
-        <FormInput
+        <input
           ref="sourceFileInput"
-          v-model="importObject.sourceFile"
-          :form-helper="formHelper"
-          field-name="source_file"
-          :label="t('source_file_label')"
           type="file"
           accept=".csv,.xls,.xlsx,.pdf"
+          class="d-none"
+          @change="handleFileSelected"
+        >
+
+        <button
+          class="btn btn-sm btn-outline-primary w-100 mb-2"
+          @click="handleBrowseFileClick"
+          v-html="t('browse_file')"
+        />
+
+        <FilePreview
+          :file="importObject.sourceFile"
+          class="mb-3"
         />
 
         <label
@@ -76,11 +85,11 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import WalletsSelect from '~/components/wallets/WalletsSelect.vue';
 import FormSelect from '~/components/forms/FormSelect.vue';
-import FormInput from '~/components/rails/FormInput.vue';
+import FilePreview from '~/components/imports/FilePreview.vue';
 
 export default {
   components: {
-    FormInput,
+    FilePreview,
     FormModal,
     FormSelect,
     RailsForm,
@@ -92,6 +101,7 @@ export default {
 
     const sourceFileInput = ref(null);
     const loading = ref(false);
+
     const sourceOptions = [
       { label: t('source_n26_label'), value: 'n26' },
       { label: t('source_ptsb_label'), value: 'ptsb' },
@@ -118,13 +128,18 @@ export default {
       }
     };
 
+    const handleFileSelected = (ev) => importObject.value.sourceFile = ev.target.files[0];
+
+    const handleBrowseFileClick = (ev) => {
+      ev.preventDefault();
+      sourceFileInput.value.click();
+    }
+
     const handleSubmit = () => {
       loading.value = true;
 
-      const file = sourceFileInput.value.$el.querySelector('input').files[0];
-
       importStore
-        .create({ ...importObject.value, sourceFile: file })
+        .create(importObject.value)
         .then((response) => window.location.href = importsApi.show.path({ id: response.importId }))
         .catch(() => loading.value = false)
     };
@@ -137,8 +152,10 @@ export default {
       formAction,
       importObject,
       modalId,
+      handleFileSelected,
       handleShow,
       handleSubmit,
+      handleBrowseFileClick,
       IMPORT_FORM_ID,
     };
   },
