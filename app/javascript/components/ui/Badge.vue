@@ -18,6 +18,7 @@ const BADGE_TYPES = {
   disabled: { icon: 'ban', label: 'views.components.badges.disabled', variant: 'danger' },
   favourite: { icon: 'star', label: 'views.components.badges.favourite', variant: 'warning' },
   system: { icon: '', label: 'views.components.badges.system', variant: 'secondary' },
+  income: { icon: '', label: 'views.components.badges.income', variant: 'primary' },
 };
 
 export default {

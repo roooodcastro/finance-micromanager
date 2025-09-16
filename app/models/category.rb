@@ -4,10 +4,11 @@ class Category < ApplicationRecord
   include CacheLatestUpdatedAt
   include Disableable
 
-  HEX_COLOR_REGEX       = /\A#[[0-9][a-f]]{6}\z/i
-  TEMPORARY_NAME        = 'Temporary'
-  RECONCILIATION_NAME   = 'reconciliations.category_name'
-  SYSTEM_CATEGORY_COLOR = '#808080'
+  HEX_COLOR_REGEX                = /\A#[[0-9][a-f]]{6}\z/i
+  TEMPORARY_NAME                 = 'Temporary'
+  RECONCILIATION_NAME            = 'reconciliations.category_name'
+  SYSTEM_CATEGORY_COLOR          = '#808080'
+  USER_SELECTABLE_CATEGORY_TYPES = %w[user income].freeze
 
   belongs_to :profile
 
@@ -21,7 +22,7 @@ class Category < ApplicationRecord
   has_many :active_subcategories, -> { active }, class_name: 'Subcategory', dependent: :restrict_with_exception
   # rubocop:enable Rails/InverseOf
 
-  enum :category_type, { user: 'user', system: 'system' }, default: 'user'
+  enum :category_type, { user: 'user', system: 'system', income: 'income' }, default: 'user'
 
   validates :name, presence: true
   validates :color, format: { with: HEX_COLOR_REGEX }

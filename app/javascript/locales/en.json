@@ -886,6 +886,8 @@
         "floating_button_label": "New Category",
         "form": {
           "cancel": "Cancel",
+          "category_type_label": "Category Type",
+          "category_type_tooltip": "Transactions in an income category will not count towards the profile budget, and the category can't have a budget",
           "color_label": "Category color",
           "edit_title": "Edit Category",
           "name_label": "Name",
@@ -936,6 +938,7 @@
         "badges": {
           "disabled": "Disabled",
           "favourite": "Favourite",
+          "income": "Income",
           "system": "System"
         },
         "budget_history_chart": {
@@ -946,6 +949,12 @@
           "budget_usage_label": "Monthly",
           "category_name_label": "Category",
           "new_budget_label": "Set Budget"
+        },
+        "categories": {
+          "category_type_select": {
+            "income": "Income category",
+            "user": "Default category"
+          }
         },
         "categories_list": {
           "disabled": "Disabled",

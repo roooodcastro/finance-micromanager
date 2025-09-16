@@ -960,6 +960,8 @@
         "form": {
           "back": "Cancelar",
           "cancel": "Cancel",
+          "category_type_label": "Tipo da categoria",
+          "category_type_tooltip": "Transações em uma categoria de receitas não contarão para o orçamento to perfil, e a categoria não pode ter um orçamento",
           "color_label": "Cor da Categoria",
           "edit_title": "Editar Categoria",
           "name_label": "Nome",
@@ -1012,6 +1014,7 @@
         "badges": {
           "disabled": "Desabilitado",
           "favourite": "Favorito",
+          "income": "Receitas",
           "system": "Sistema"
         },
         "budget_history_chart": {
@@ -1022,6 +1025,12 @@
           "budget_usage_label": "Mensal",
           "category_name_label": "Categoria",
           "new_budget_label": "Criar Orçamento"
+        },
+        "categories": {
+          "category_type_select": {
+            "income": "Categoria de receitas",
+            "user": "Categoria padrão"
+          }
         },
         "categories_list": {
           "disabled": "Desabilitada",

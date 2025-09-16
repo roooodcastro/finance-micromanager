@@ -73,8 +73,10 @@ pt-BR:
         edit_title: Editar Categoria
         name_label: Nome
         color_label: Cor da Categoria
+        category_type_label: Tipo da categoria
         submit: Salvar
         back: Cancelar
+        category_type_tooltip: "Transações em uma categoria de receitas não contarão para o orçamento to perfil, e a categoria não pode ter um orçamento"
       show:
         title: 'Categoria'
         sub_header_summary: Resumo
@@ -110,6 +112,7 @@ pt-BR:
         disabled: Desabilitado
         favourite: Favorito
         system: Sistema
+        income: Receitas
       budget_history_chart:
         limit_label: Limite
         used_label: Usado
@@ -117,6 +120,10 @@ pt-BR:
         category_name_label: Categoria
         budget_usage_label: Mensal
         new_budget_label: Criar Orçamento
+      categories:
+        category_type_select:
+          user: Categoria padrão
+          income: Categoria de receitas
       categories_list:
         disabled: Desabilitada
         name_label: Nome

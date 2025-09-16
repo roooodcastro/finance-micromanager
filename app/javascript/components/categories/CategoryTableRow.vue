@@ -22,6 +22,11 @@
         v-if="isSystem"
         type="system"
       />
+
+      <Badge
+        v-if="isIncome"
+        type="income"
+      />
     </div>
 
     <div>
@@ -56,6 +61,7 @@ export default {
 
     const isDisabled = computed(() => !!props.category.disabledAt);
     const isSystem = computed(() => props.category.system);
+    const isIncome = computed(() => props.category.categoryType === 'income');
 
     const subcategoriesNames = computed(() => {
       return props.category.subcategories.map(subcategory => subcategory.name).join(', ') || '';
@@ -65,6 +71,7 @@ export default {
       t,
       isDisabled,
       isSystem,
+      isIncome,
       subcategoriesNames,
     };
   }

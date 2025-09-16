@@ -74,7 +74,11 @@ class CategoriesController < AbstractAuthenticatedController
   end
 
   def category_params
-    params.expect(category: %i[name color favourite])
+    expected_params = params.expect(category: %i[name color favourite category_type])
+    if Category::USER_SELECTABLE_CATEGORY_TYPES.exclude?(expected_params[:category_type])
+      expected_params.delete(:category_type)
+    end
+    expected_params
   end
 
   def search_params
