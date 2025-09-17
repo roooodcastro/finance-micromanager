@@ -126,6 +126,12 @@ export const BUDGET_VALID_LIMIT_TYPES = {
 }
 
 /*
+ * Categories
+ */
+
+export const USER_SELECTABLE_CATEGORY_TYPES = ['user', 'income'];
+
+/*
  * Imports
  */
 export const IMPORT_ACTION_IMPORT = 'import';

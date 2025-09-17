@@ -25,6 +25,21 @@
           />
 
           <label
+            :for="formHelper.fieldId('category_type')"
+            class="form-label"
+          >
+            {{ t('category_type_label') }}
+            <InfoTooltip :message="t('category_type_tooltip')" />
+          </label>
+          <CategoryTypeSelect
+            :id="formHelper.fieldId('category_type')"
+            v-model="category.categoryType"
+            :name="formHelper.fieldName('category_type')"
+            class="mb-3"
+            required
+          />
+
+          <label
             :for="formHelper.fieldId('color')"
             class="form-label"
           >
@@ -56,12 +71,16 @@ import RailsForm from '~/components/rails/RailsForm.vue';
 import FormInput from '~/components/rails/FormInput.vue';
 import FormModal from '~/components/forms/FormModal.vue';
 import ColorPickerInput from '~/components/forms/ColorPickerInput.vue';
+import CategoryTypeSelect from '~/components/categories/CategoryTypeSelect.vue';
+import InfoTooltip from '~/components/bootstrap/InfoTooltip.vue';
 
 export default {
   components: {
+    CategoryTypeSelect,
     ColorPickerInput,
     FormInput,
     FormModal,
+    InfoTooltip,
     RailsForm,
   },
 

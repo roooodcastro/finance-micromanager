@@ -3,7 +3,7 @@
     :back-button-href="categoriesPath"
     show-date-range-picker
   >
-    <div class="d-flex gap-3 align-items-center justify-content-between">
+    <div class="d-flex gap-3 align-items-center justify-content-between me-3">
       {{ categoryFromStore.name }}
 
       <Badge
@@ -16,7 +16,12 @@
       <Badge
         v-if="isDisabled"
         type="disabled"
-        i18n-scope="views.categories.show.disabled"
+        class="fs-6"
+      />
+
+      <Badge
+        v-if="isIncome"
+        type="income"
         class="fs-6"
       />
     </div>
@@ -37,6 +42,7 @@
           @click="handleEdit"
         />
         <DropdownMenuItem
+          v-if="!isIncome"
           :label="t('set_budget_menu_item')"
           :icon="ICON_BUDGETS"
           @click="handleSetBudget"
@@ -225,6 +231,7 @@ export default {
     categoryFromStore.value = props.category;
 
     const isDisabled = computed(() => !!categoryFromStore.value.disabledAt);
+    const isIncome = computed(() => categoryFromStore.value.categoryType === 'income');
     const budgetInstance = computed(() => budgetInstanceForCategory.value(props.category.id));
 
     transactionStore.setFetchParams({ categoryIds: props.category.id, daysToShow: 0 });
@@ -286,6 +293,7 @@ export default {
     return {
       t,
       isDisabled,
+      isIncome,
       categoriesPath,
       categoryFromStore,
       loadingCategory,

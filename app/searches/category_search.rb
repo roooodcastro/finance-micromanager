@@ -17,6 +17,6 @@ class CategorySearch < ApplicationSearch
   def search_show_system
     return if query_params[:show_system].to_b
 
-    @relation = relation.user
+    @relation = relation.where.not(category_type: :system)
   end
 end

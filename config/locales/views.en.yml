@@ -73,8 +73,10 @@ en:
         edit_title: Edit Category
         name_label: Name
         color_label: Category color
+        category_type_label: Category Type
         submit: Submit
         cancel: Cancel
+        category_type_tooltip: "Transactions in an income category will not count towards the profile budget, and the category can't have a budget"
       show:
         title: 'Category'
         sub_header_summary: Summary
@@ -108,6 +110,7 @@ en:
         disabled: Disabled
         favourite: Favourite
         system: System
+        income: Income
       budget_history_chart:
         limit_label: 'Limit'
         used_label: 'Used'
@@ -115,6 +118,10 @@ en:
         category_name_label: Category
         budget_usage_label: Monthly
         new_budget_label: Set Budget
+      categories:
+        category_type_select:
+          user: Default category
+          income: Income category
       categories_list:
         disabled: Disabled
         name_label: Name

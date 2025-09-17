@@ -44,7 +44,11 @@ class Reconciliation < ApplicationRecord
     @transactions ||= begin
       start_date = profile.latest_reconciliation&.date
 
-      profile.transactions.joins(:category).where(categories: { category_type: 'user' }).then do |profile_transactions|
+      profile
+        .transactions
+        .joins(:category)
+        .where(categories: { category_type: Category::USER_SELECTABLE_CATEGORY_TYPES })
+        .then do |profile_transactions|
         profile_transactions = profile_transactions.newer_than(start_date + 1.day) if start_date
         profile_transactions.older_than(date)
       end

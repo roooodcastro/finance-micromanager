@@ -72,7 +72,7 @@ RSpec.describe CategoriesController do
     subject(:create_request) { post :create, params: }
 
     context 'when params are valid' do
-      let(:params) { { category: { name: 'Test', color: '#FF00FF' } } }
+      let(:params) { { category: { name: 'Test', color: '#FF00FF', category_type: 'income' } } }
 
       it 'creates the new category' do
         expect { create_request }.to change { Category.count }.by(1)
@@ -81,6 +81,7 @@ RSpec.describe CategoriesController do
         expect(Category.last.name).to eq('Test')
         expect(Category.last.color).to eq('#FF00FF')
         expect(Category.last.profile).to eq(profile)
+        expect(Category.last.income?).to be(true)
       end
     end
 
@@ -92,6 +93,20 @@ RSpec.describe CategoriesController do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json_response).to eq({ 'message' => 'Category could not be created: Color is invalid' })
+      end
+    end
+
+    context 'when the user tries to create a system category' do
+      let(:params) { { category: { name: 'Test', color: '#FF00FF', category_type: 'system' } } }
+
+      it 'ignores the type param and creates a normal category instead' do
+        expect { create_request }.to change { Category.count }.by(1)
+
+        expect(json_response).to eq({ 'message' => 'Category "Test" was successfully created.' })
+        expect(Category.last.name).to eq('Test')
+        expect(Category.last.color).to eq('#FF00FF')
+        expect(Category.last.profile).to eq(profile)
+        expect(Category.last.user?).to be(true)
       end
     end
   end
