@@ -7,6 +7,7 @@ RSpec.describe Budgets::UpdateBudgetInstancesAmountsService, :aggregate_failures
     let(:profile) { create(:profile) }
     let(:category1) { create(:category, profile:) }
     let(:category2) { create(:category, profile:) }
+    let(:category3) { create(:category, :income, profile:) }
     let!(:budget_instance) do
       budget_instance = create(:budget_instance, :from_budget, profile:, budget:)
       budget_instance.update(limit_amount: 10)
@@ -20,6 +21,7 @@ RSpec.describe Budgets::UpdateBudgetInstancesAmountsService, :aggregate_failures
       create(:transaction, profile: profile, amount: 100, skip_budget_recalculation: true)
       create(:transaction, profile: profile, category: category1, amount: -10, skip_budget_recalculation: true)
       create(:transaction, profile: profile, category: category2, amount: -105, skip_budget_recalculation: true)
+      create(:transaction, profile: profile, category: category3, amount: -25, skip_budget_recalculation: true)
     end
 
     context 'for an absolute budget' do
