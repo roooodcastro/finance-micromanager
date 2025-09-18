@@ -197,6 +197,9 @@ export default {
 
     const setDefaultValues = () => {
       budget.value.limitType = budget.value.limitType ?? BUDGET_LIMIT_TYPE_ABSOLUTE;
+      if (budget.value.limitType !== BUDGET_LIMIT_TYPE_ABSOLUTE) {
+        budget.value.limitAmount = null;
+      }
     };
 
     onMounted(() => {
