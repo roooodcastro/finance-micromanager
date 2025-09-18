@@ -17,5 +17,9 @@ FactoryBot.define do
     trait :system do
       category_type { :system }
     end
+
+    trait :income do
+      category_type { :income }
+    end
   end
 end

@@ -91,7 +91,13 @@ module Budgets
     end
 
     def transactions_in_period_for(budget_instance)
-      transactions = profile.transactions.newer_than(budget_instance.start_date).older_than(budget_instance.end_date)
+      eligible_categories = profile.categories.user
+      transactions        = profile
+                            .transactions
+                            .joins(:category)
+                            .newer_than(budget_instance.start_date)
+                            .older_than(budget_instance.end_date)
+                            .where(category: eligible_categories)
       return transactions unless budget_instance.owner.is_a?(Category)
 
       transactions.where(category: budget_instance.owner)
