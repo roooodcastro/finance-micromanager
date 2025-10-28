@@ -119,6 +119,27 @@
             required
           />
 
+          <div
+            v-if="showWeekendRule"
+            class="mb-3"
+          >
+            <label
+              :for="formHelper.fieldId('weekend_rule')"
+              class="form-label"
+            >
+              {{ t('weekend_rule_label') }}
+            </label>
+
+            <FormSelect
+              v-model="transactionAutomation.weekendRule"
+              :options="weekendRuleOptions"
+              field-name="weekend_rule"
+              :form-helper="formHelper"
+              class="flex-grow-1"
+              required
+            />
+          </div>
+
           <CheckboxField
             :id="formHelper.fieldId('create_at_start_of_period')"
             v-model="transactionAutomation.createAtStartOfPeriod"
@@ -303,6 +324,10 @@ export default {
       return transactionAutomation.value.scheduleType === 'M' || transactionAutomation.value.scheduleType === 'W';
     });
 
+    const showWeekendRule = computed(() => {
+      return transactionAutomation.value.scheduleType === 'M' || transactionAutomation.value.scheduleType === 'D';
+    });
+
     const scheduleDayOptions = computed(() => {
       if (transactionAutomation.value.scheduleType === 'M') {
         return [...Array(31)].map((_, i) => {
@@ -315,11 +340,16 @@ export default {
       }
     });
 
+    const weekendRuleOptions = ['allow', 'friday', 'monday'].map((value) => {
+      return { value, label: t(`weekend_rule_${value}`) };
+    });
+
     const updateDataWithDefaultValues = () => {
       if (isNewRecord.value) {
         transactionAutomation.value.amountType = 'debit';
         transactionAutomation.value.scheduleType = 'M';
         transactionAutomation.value.scheduleInterval = '1';
+        transactionAutomation.value.weekendRule = 'allow';
       }
 
       transactionAutomation.value.isCustomRule = transactionAutomation.value.scheduleType === 'C';
@@ -357,6 +387,7 @@ export default {
       transactionAutomation.value.scheduleType = 'C';
       transactionAutomation.value.scheduleInterval = null;
       transactionAutomation.value.scheduleDay = null;
+      transactionAutomation.value.weekendRule = null;
     };
 
     const handleSubmit = (closeModal) => {
@@ -388,7 +419,10 @@ export default {
       }
     };
 
-    const resetScheduleDay = () => transactionAutomation.value.scheduleDay = null;
+    const resetScheduleDay = () => {
+      transactionAutomation.value.scheduleDay = null;
+      transactionAutomation.value.weekendRule = null;
+    };
 
     return {
       t,
@@ -401,7 +435,9 @@ export default {
       transactionAutomation,
       modalId,
       showScheduleDay,
+      showWeekendRule,
       scheduleDayOptions,
+      weekendRuleOptions,
       handleShow,
       handleSubmit,
       handleNormalTabClick,

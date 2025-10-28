@@ -1476,7 +1476,11 @@
           "transaction_category_label": "Category",
           "transaction_date_label": "Date",
           "transaction_name_label": "Name",
-          "transaction_wallet_label": "Wallet"
+          "transaction_wallet_label": "Wallet",
+          "weekend_rule_allow": "Allow",
+          "weekend_rule_friday": "Advance to previous Friday",
+          "weekend_rule_label": "Allow to create on weekends?",
+          "weekend_rule_monday": "Postpone to next Monday"
         },
         "index": {
           "new": "New Automation",

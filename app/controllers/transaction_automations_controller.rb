@@ -88,6 +88,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
         scheduled_date
         schedule_custom_rule
         create_at_start_of_period
+        weekend_rule
       ]
     ).then { |permitted_params| process_category_id_param(permitted_params) }
   end

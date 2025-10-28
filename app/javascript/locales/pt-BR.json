@@ -1554,7 +1554,11 @@
           "transaction_category_label": "Categoria",
           "transaction_date_label": "Data",
           "transaction_name_label": "Nome",
-          "transaction_wallet_label": "Carteira"
+          "transaction_wallet_label": "Carteira",
+          "weekend_rule_allow": "Permitir",
+          "weekend_rule_friday": "Adiantar para a sexta-feira anterior",
+          "weekend_rule_label": "Permitir a criação no fim de semana?",
+          "weekend_rule_monday": "Atrasar para a próxima segunda-feira"
         },
         "index": {
           "new": "Nova Automação",
