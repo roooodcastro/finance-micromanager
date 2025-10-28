@@ -62,7 +62,8 @@ RSpec.describe TransactionAutomations::ProcessTransactionAutomations do
                scheduled_date:    date,
                schedule_type:     :week,
                schedule_day:      2, # Tuesday
-               schedule_interval: 1)
+               schedule_interval: 1,
+               weekend_rule:      nil)
       end
 
       it 'creates a new transaction with the same data as the automation and bumps scheduled_date' do

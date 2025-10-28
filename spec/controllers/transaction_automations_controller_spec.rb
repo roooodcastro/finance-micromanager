@@ -88,7 +88,8 @@ RSpec.describe TransactionAutomationsController do
           transaction_wallet_id:     wallet.id,
           transaction_amount:        '-9.99',
           create_at_start_of_period: true,
-          schedule_day:              25
+          schedule_day:              25,
+          weekend_rule:              'monday'
         }
       end
 
@@ -110,7 +111,8 @@ RSpec.describe TransactionAutomationsController do
           transaction_wallet_id:     wallet.id,
           transaction_amount:        '-9.99',
           create_at_start_of_period: true,
-          schedule_day:              3
+          schedule_day:              3,
+          weekend_rule:              nil
         }
       end
 
@@ -132,7 +134,8 @@ RSpec.describe TransactionAutomationsController do
           transaction_category_id:   subcategory.compose_category_id,
           transaction_wallet_id:     wallet.id,
           transaction_amount:        '-9.99',
-          create_at_start_of_period: true
+          create_at_start_of_period: true,
+          weekend_rule:              'friday'
         }
       end
 
@@ -154,7 +157,8 @@ RSpec.describe TransactionAutomationsController do
           transaction_category_id: subcategory.compose_category_id,
           transaction_wallet_id:   wallet.id,
           transaction_amount:      '-9.99',
-          schedule_day:            nil
+          schedule_day:            nil,
+          weekend_rule:            nil
         }
       end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_23_083939) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_210205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -223,6 +223,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_23_083939) do
     t.string "schedule_custom_rule", limit: 50
     t.boolean "create_at_start_of_period", default: false, null: false
     t.integer "schedule_day"
+    t.string "weekend_rule"
     t.index ["disabled_by_id"], name: "index_transaction_automations_on_disabled_by_id"
     t.index ["profile_id"], name: "index_transaction_automations_on_profile_id"
     t.index ["transaction_category_id"], name: "index_transaction_automations_on_transaction_category_id"

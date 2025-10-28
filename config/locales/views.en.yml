@@ -707,6 +707,10 @@ en:
           If selected, the automation will be processed on the first day of the period. For example, on the first day
           of the month, a transaction will be created for the 15th, the scheduled date. If not selected, the
           transaction will be created exactly on the scheduled date.
+        weekend_rule_label: Allow to create on weekends?
+        weekend_rule_allow: Allow
+        weekend_rule_friday: Advance to previous Friday
+        weekend_rule_monday: Postpone to next Monday
       index:
         title: Transaction Automations
         new: New Automation

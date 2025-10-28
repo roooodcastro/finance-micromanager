@@ -12,12 +12,14 @@ FactoryBot.define do
     schedule_interval { 1 }
     scheduled_date { Date.current }
     schedule_day { Date.current.day }
+    weekend_rule { :allow }
 
     trait :schedule_type_week do
       schedule_type { TransactionAutomation.schedule_types[:week] }
       schedule_interval { 1 }
       scheduled_date { Date.current }
       schedule_day { 1 } # Monday
+      weekend_rule { nil }
     end
 
     trait :disabled do

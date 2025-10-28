@@ -711,6 +711,10 @@ pt-BR:
           Quando selecionado, a automação será processada no primeiro dia do período. Por exemplo, no primeiro dia do
           mês vai ser criada uma transação para o dia 15, a data programada. Quando não selecionado, a transação será
           criada na data exata que está programada.
+        weekend_rule_label: Permitir a criação no fim de semana?
+        weekend_rule_allow: Permitir
+        weekend_rule_friday: Adiantar para a sexta-feira anterior
+        weekend_rule_monday: Atrasar para a próxima segunda-feira
       index:
         title: Automações de Transações
         new: Nova Automação

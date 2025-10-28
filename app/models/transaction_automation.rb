@@ -12,6 +12,8 @@ class TransactionAutomation < ApplicationRecord
 
   has_many :transactions, dependent: :nullify
 
+  enum :weekend_rule, { allow: 'allow', friday: 'friday', monday: 'monday' }, prefix: true, default: nil
+
   validates :schedule_type, :scheduled_date, :transaction_name, :transaction_amount, presence: true
   validates :schedule_interval, numericality: { only_integer: true, greater_than: 0 }, unless: :schedule_type_custom?
   validates :schedule_interval, absence: true, if: :schedule_type_custom?
@@ -20,6 +22,8 @@ class TransactionAutomation < ApplicationRecord
                                    if:        :schedule_type_custom?
   validates :schedule_day, presence: true, if: -> { schedule_type_month? || schedule_type_week? }
   validates :schedule_day, absence: true, unless: -> { schedule_type_month? || schedule_type_week? }
+  validates :weekend_rule, presence: true, if: -> { schedule_type_month? || schedule_type_day? }
+  validates :weekend_rule, absence: true, unless: -> { schedule_type_month? || schedule_type_day? }
   validates :schedule_day, numericality: { only_integer: true, in: (0..6) }, if: -> { schedule_type_week? }
   validates :schedule_day, numericality: { only_integer: true, in: (1..31) }, if: -> { schedule_type_month? }
 
@@ -102,7 +106,7 @@ class TransactionAutomation < ApplicationRecord
   def next_scheduled_date(current_date)
     return next_monthly_scheduled_date(current_date) if schedule_type_month?
     return next_weekly_scheduled_date(current_date) if schedule_type_week?
-    return current_date + schedule_interval.days if schedule_type_day?
+    return next_daily_scheduled_date(current_date) if schedule_type_day?
     return custom_rule.next_scheduled_date(current_date) if schedule_type_custom?
 
     nil
@@ -117,11 +121,26 @@ class TransactionAutomation < ApplicationRecord
   def next_monthly_scheduled_date(current_date)
     return if schedule_day.blank? || schedule_interval.blank?
 
-    next_date = current_date + schedule_interval.months
-    next_date.change(day: schedule_day)
-  rescue Date::Error
-    # Edge case when schedule_day is set to 31, and the next month only has 30 or less days
-    (current_date + schedule_interval.months).end_of_month
+    next_date = begin
+      date = current_date + schedule_interval.months
+      date.change(day: schedule_day)
+    rescue Date::Error
+      # Edge case when schedule_day is set to 31, and the next month only has 30 or less days
+      (current_date + schedule_interval.months).end_of_month
+    end
+
+    apply_weekend_rule(next_date)
+  end
+
+  def next_daily_scheduled_date(current_date)
+    apply_weekend_rule(current_date + schedule_interval.days)
+  end
+
+  def apply_weekend_rule(next_date)
+    return next_date.prev_occurring(:friday) if weekend_rule_friday? && next_date.on_weekend?
+    return next_date.next_occurring(:monday) if weekend_rule_monday? && next_date.on_weekend?
+
+    next_date
   end
 
   def custom_rule
