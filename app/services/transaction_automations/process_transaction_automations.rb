@@ -32,7 +32,7 @@ module TransactionAutomations
 
     def automations_to_create_at_start_of_month
       TransactionAutomation.where(
-        schedule_type:             :month,
+        schedule_type:             %i[custom month],
         scheduled_date:            date.all_month,
         create_at_start_of_period: true
       )

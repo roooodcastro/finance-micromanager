@@ -43,7 +43,7 @@
             "week": "on %{day}"
           },
           "schedule_next_runs": {
-            "custom": "Next transaction: %{date}",
+            "custom": "Will run at the start of the month",
             "day": "Next transaction: %{date}",
             "month": "Will run at the start of the month",
             "week": "Will run at the start of the week"

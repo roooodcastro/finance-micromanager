@@ -223,5 +223,49 @@ RSpec.describe TransactionAutomations::ProcessTransactionAutomations do
         expect(new_transaction.profile).to eq profile
       end
     end
+
+    context 'when there is a custom automation with create_at_start_of_period but it is not the start of period' do
+      before do
+        create(
+          :transaction_automation,
+          :schedule_type_last_weekday_of_month,
+          profile:                   profile,
+          scheduled_date:            '2025-07-13',
+          create_at_start_of_period: true
+        )
+      end
+
+      around { |example| travel_to(Date.parse('2025-06-30')) { example.run } }
+
+      it 'does not create a transaction' do
+        expect { service_call }.not_to change { Transaction.count }
+      end
+    end
+
+    context 'when there is a custom automation with create_at_start_of_period and it is past the start of period' do
+      let!(:transaction_automation) do
+        create(
+          :transaction_automation,
+          :schedule_type_last_weekday_of_month,
+          profile:                   profile,
+          scheduled_date:            '2025-08-29',
+          create_at_start_of_period: true
+        )
+      end
+
+      around { |example| travel_to(Date.parse('2025-08-01')) { example.run } }
+
+      it 'creates a new transaction with the same data as the automation and bumps scheduled_date' do
+        expect { service_call }
+          .to change { Transaction.count }
+          .by(1)
+          .and change { transaction_automation.reload.scheduled_date }
+          .to(Date.parse('2025-09-30'))
+
+        new_transaction = Transaction.last
+        expect(new_transaction.transaction_date).to eq Date.parse('2025-08-29')
+        expect(new_transaction.profile).to eq profile
+      end
+    end
   end
 end

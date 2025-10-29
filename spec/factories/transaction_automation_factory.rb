@@ -22,6 +22,14 @@ FactoryBot.define do
       weekend_rule { nil }
     end
 
+    trait :schedule_type_last_weekday_of_month do
+      schedule_type { TransactionAutomation.schedule_types[:custom] }
+      schedule_custom_rule { TransactionAutomations::CustomRule::LAST_BUSINESS_DAY_OF_MONTH }
+      schedule_interval { nil }
+      schedule_day { nil }
+      weekend_rule { nil }
+    end
+
     trait :disabled do
       disabled_at { Time.current }
       after(:create) { |automation| automation.update!(disabled_by: automation.profile.user) }

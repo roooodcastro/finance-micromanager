@@ -48,7 +48,7 @@ en:
           week: 'on %{day}'
           month: 'on day %{day}'
         schedule_next_runs:
-          custom: 'Next transaction: %{date}'
+          custom: Will run at the start of the month
           day: 'Next transaction: %{date}'
           week: Will run at the start of the week
           month: Will run at the start of the month

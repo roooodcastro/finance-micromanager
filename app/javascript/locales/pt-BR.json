@@ -68,7 +68,7 @@
             "week": "no dia %{day}"
           },
           "schedule_next_runs": {
-            "custom": "Próxima transação: %{date}",
+            "custom": "Criará transação no início do mês",
             "day": "Próxima transação: %{date}",
             "month": "Criará transação no início do mês",
             "week": "Criará transação no início da semana"
