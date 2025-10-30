@@ -213,26 +213,28 @@ RSpec.describe TransactionAutomation do
     context 'when schedule_type is month, day falls on weekend and weekend rule is set to Friday' do
       let(:schedule_type) { :month }
       let(:schedule_interval) { 1 }
-      let(:schedule_day) { 1.month.from_now.next_occurring(:sunday).day }
+      let(:schedule_day) { 26 }
       let(:weekend_rule) { :friday }
+      let(:now) { Date.parse('2025-09-26') }
 
       it 'changes scheduled_date accordingly' do
         expect { bump_scheduled_date! }
           .to change { transaction_automation.scheduled_date }
-          .to(1.month.from_now.to_date.change(day: schedule_day).prev_occurring(:friday))
+          .to(Date.parse('2025-10-24'))
       end
     end
 
     context 'when schedule_type is month, day falls on weekend and weekend rule is set to Monday' do
       let(:schedule_type) { :month }
       let(:schedule_interval) { 1 }
-      let(:schedule_day) { 1.month.from_now.next_occurring(:sunday).day }
+      let(:schedule_day) { 26 }
       let(:weekend_rule) { :monday }
+      let(:now) { Date.parse('2025-09-26') }
 
       it 'changes scheduled_date accordingly' do
         expect { bump_scheduled_date! }
           .to change { transaction_automation.scheduled_date }
-          .to(1.month.from_now.to_date.change(day: schedule_day).next_occurring(:monday))
+          .to(Date.parse('2025-10-27'))
       end
     end
 
