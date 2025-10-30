@@ -76,7 +76,7 @@ pt-BR:
           week: 'no dia %{day}'
           month: 'no dia %{day}'
         schedule_next_runs:
-          custom: 'Próxima transação: %{date}'
+          custom: Criará transação no início do mês
           day: 'Próxima transação: %{date}'
           week: Criará transação no início da semana
           month: Criará transação no início do mês

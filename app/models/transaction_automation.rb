@@ -97,7 +97,7 @@ class TransactionAutomation < ApplicationRecord
     if create_at_start_of_period
       self.class.human_enum_name(:schedule_next_run, schedule_type, date: I18n.l(scheduled_date.to_date))
     else
-      self.class.human_enum_name(:schedule_next_run, :custom, date: I18n.l(scheduled_date.to_date))
+      self.class.human_enum_name(:schedule_next_run, :day, date: I18n.l(scheduled_date.to_date))
     end
   end
 
