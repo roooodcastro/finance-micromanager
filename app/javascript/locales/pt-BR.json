@@ -1417,6 +1417,19 @@
           "new": "Novo perfil",
           "show_disabled": "Exibir desativados",
           "title": "Perfis"
+        },
+        "show": {
+          "currency_label": "Moeda",
+          "default_wallet": "Carteira padrão",
+          "disable": "Desabilitar",
+          "edit": "Editar",
+          "name_label": "Nome",
+          "reenable": "Reabilitar",
+          "sub_header_categories": "Categorias",
+          "sub_header_sharing": "Compatilhamento",
+          "sub_header_summary": "Resumo",
+          "sub_header_wallets": "Carteiras",
+          "title": "Perfil"
         }
       },
       "reconciliations": {

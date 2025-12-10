@@ -41,6 +41,32 @@ RSpec.describe ProfilesController do
     end
   end
 
+  describe 'GET show' do
+    subject(:show_request) { get :show, format: format, params: { id: profile.id } }
+
+    let!(:profile) { user.default_profile }
+
+    context 'for HTML requests', :inertia do
+      let(:format) { :html }
+
+      it 'renders the show component' do
+        show_request
+
+        expect_inertia.to render_component('profiles/Show')
+      end
+    end
+
+    context 'for JSON requests' do
+      let(:format) { :json }
+
+      it 'renders the profile with wallets as JSON' do
+        show_request
+
+        expect(json_response).to eq('profile' => CamelizeProps.call(profile.as_json(include_wallets: true)))
+      end
+    end
+  end
+
   describe 'POST create' do
     subject(:create_request) { post :create, params: }
 

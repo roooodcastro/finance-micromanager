@@ -1,9 +1,8 @@
 <template>
   <NoRecordsFound v-if="!orderedCategories.length" />
-  <BCard
+  <div
     v-else
-    no-body
-    class="p-2"
+    class="p-2 p-lg-0"
   >
     <GridTable
       :columns="categoryColumns"
@@ -17,7 +16,7 @@
         <CategoryTableRow :category="category" />
       </template>
     </GridTable>
-  </BCard>
+  </div>
 </template>
 
 <script>
@@ -31,11 +30,9 @@ import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtil
 import CategoryTableRow from '~/components/categories/CategoryTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import GridTable from '~/components/ui/GridTable.vue';
-import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    BCard,
     CategoryTableRow,
     GridTable,
     NoRecordsFound,

@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     resource :landing, only: :show
     resource :setting, only: %i[show update]
 
-    resources :profiles, except: %i[show new edit] do
+    resources :profiles, except: %i[new edit] do
       patch :reenable, on: :member
     end
     resources :profile_share_invites_sent, except: %i[show new edit update]

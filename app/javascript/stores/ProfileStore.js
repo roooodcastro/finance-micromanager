@@ -16,6 +16,7 @@ export default defineBaseApiStore('profile', {
   state: {
     currentProfile: {},
     profiles: [],
+    profile: null,
     idForFormModal: null,
     fetchParams: {},
     profileIdForInviteModal: null,

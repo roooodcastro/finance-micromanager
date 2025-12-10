@@ -433,6 +433,18 @@ en:
         submit: Submit
         back: Back
         currency_change_warning: Currency cannot be changed after profile is created!
+      show:
+        title: Profile
+        sub_header_summary: Summary
+        sub_header_wallets: Wallets
+        sub_header_categories: Categories
+        sub_header_sharing: Sharing
+        name_label: Name
+        currency_label: Currency
+        default_wallet: Default wallet
+        edit: Edit
+        disable: Disable
+        reenable: Reenable
     profile_share_invites:
       index:
         pending_invite_title_pending: Profile Share Invite

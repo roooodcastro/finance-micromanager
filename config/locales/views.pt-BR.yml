@@ -435,6 +435,18 @@ pt-BR:
         submit: Salvar
         back: Voltar
         currency_change_warning: A moeda não pode ser alterada após criação do perfil!
+      show:
+        title: Perfil
+        sub_header_summary: Resumo
+        sub_header_wallets: Carteiras
+        sub_header_categories: Categorias
+        sub_header_sharing: Compatilhamento
+        name_label: Nome
+        currency_label: Moeda
+        default_wallet: Carteira padrão
+        edit: Editar
+        disable: Desabilitar
+        reenable: Reabilitar
     profile_share_invites:
       index:
         pending_invite_title_pending: Convite de Compartilhamento de Perfil

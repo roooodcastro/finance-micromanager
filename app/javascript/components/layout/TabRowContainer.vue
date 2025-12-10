@@ -11,6 +11,7 @@
           :is="noCardWhenExpanded ? 'div' : 'BCard'"
           :no-body="!noCardWhenExpanded && tab.noBodyOnCard"
           :full-height="!noCardWhenExpanded && tab.fullHeight"
+          :class="{ 'h-100': noCardWhenExpanded && tab.fullHeight }"
         >
           <slot
             :name="tab.slot"
@@ -23,8 +24,8 @@
 
   <template v-else>
     <BCard no-body>
-      <div class="TabRowContainer p-2 rounded">
-        <ul class="nav nav-pills row text-center mx-0">
+      <div class="TabRowContainer rounded">
+        <ul class="nav nav-pills row text-center mx-0 p-2">
           <li
             v-for="tab, index in tabs"
             :key="index"
@@ -108,5 +109,11 @@ export default {
 
 .TabRowContainer {
   background-color: var(--bs-tertiary-bg);
+
+  ul {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
 }
 </style>

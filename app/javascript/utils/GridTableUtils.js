@@ -1,8 +1,8 @@
 import I18n from '~/utils/I18n.js';
 
-export const editAction = (store) => {
+export const editAction = (store, compact = false) => {
   return {
-    label: I18n.t('views.layout.grid_table.edit_action_label'),
+    label: compact ? '' : I18n.t('views.layout.grid_table.edit_action_label'),
     icon: 'pen-to-square',
     callback: row => store.openFormModal(row.id),
     variant: 'secondary',
@@ -10,9 +10,9 @@ export const editAction = (store) => {
   };
 };
 
-export const disableAction = (store) => {
+export const disableAction = (store, compact = false) => {
   return {
-    label: I18n.t('views.layout.grid_table.disable_action_label'),
+    label: compact ? '' : I18n.t('views.layout.grid_table.disable_action_label'),
     icon: 'ban',
     callback: row => store.disable(row.id),
     variant: 'danger',
@@ -20,18 +20,18 @@ export const disableAction = (store) => {
   };
 };
 
-export const deleteAction = (store) => {
+export const deleteAction = (store, compact = false) => {
   return {
-    label: I18n.t('views.layout.grid_table.delete_action_label'),
+    label: compact ? '' : I18n.t('views.layout.grid_table.delete_action_label'),
     icon: ['far', 'trash-can'],
     callback: row => store.destroy(row.id),
     variant: 'danger',
   };
 };
 
-export const reenableAction = (store) => {
+export const reenableAction = (store, compact = false) => {
   return {
-    label: I18n.t('views.layout.grid_table.reenable_action_label'),
+    label: compact ? '' : I18n.t('views.layout.grid_table.reenable_action_label'),
     icon: 'repeat',
     callback: row => store.reenable(row.id),
     variant: 'success',

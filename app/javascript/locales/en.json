@@ -1341,6 +1341,19 @@
           "new": "New Profile",
           "show_disabled": "Show disabled",
           "title": "Profiles"
+        },
+        "show": {
+          "currency_label": "Currency",
+          "default_wallet": "Default wallet",
+          "disable": "Disable",
+          "edit": "Edit",
+          "name_label": "Name",
+          "reenable": "Reenable",
+          "sub_header_categories": "Categories",
+          "sub_header_sharing": "Sharing",
+          "sub_header_summary": "Summary",
+          "sub_header_wallets": "Wallets",
+          "title": "Profile"
         }
       },
       "reconciliations": {

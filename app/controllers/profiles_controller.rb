@@ -20,9 +20,11 @@ class ProfilesController < AbstractAuthenticatedController
   end
 
   def show
+    props = camelize_props(profile: @profile.as_json(include_wallets: true))
+
     respond_to do |format|
-      format.html { render inertia: 'profiles/Show' }
-      format.json { render json: @profile.as_json(include_wallets: true) }
+      format.html { render inertia: 'profiles/Show', props: props }
+      format.json { render json: props }
     end
   end
 

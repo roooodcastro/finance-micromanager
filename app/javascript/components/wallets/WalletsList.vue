@@ -1,9 +1,8 @@
 <template>
   <NoRecordsFound v-if="!wallets.length" />
-  <BCard
+  <div
     v-else
-    no-body
-    class="p-2"
+    class="p-2 p-lg-0"
   >
     <GridTable
       :columns="walletColumns"
@@ -16,7 +15,7 @@
         <WalletTableRow :wallet="wallet" />
       </template>
     </GridTable>
-  </BCard>
+  </div>
 </template>
 
 <script>
@@ -29,11 +28,9 @@ import { editAction, disableAction, reenableAction } from '~/utils/GridTableUtil
 import WalletTableRow from '~/components/wallets/WalletTableRow.vue';
 import NoRecordsFound from '~/components/layout/NoRecordsFound.vue';
 import GridTable from '~/components/ui/GridTable.vue';
-import BCard from '~/components/bootstrap/BCard.vue';
 
 export default {
   components: {
-    BCard,
     GridTable,
     NoRecordsFound,
     WalletTableRow,
@@ -47,9 +44,9 @@ export default {
     const { wallets } = storeToRefs(walletStore);
 
     const walletActions = [
-      editAction(walletStore),
-      disableAction(walletStore),
-      reenableAction(walletStore),
+      editAction(walletStore, true),
+      disableAction(walletStore, true),
+      reenableAction(walletStore, true),
     ];
 
     const walletColumns = [
