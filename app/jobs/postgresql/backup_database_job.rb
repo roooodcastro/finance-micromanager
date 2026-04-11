@@ -10,10 +10,11 @@ module Postgresql
     def perform
       database_filename = Postgresql::Database.new.dump(include_globals: false)[1]
 
-      file = File.open(database_filename)
-      key  = Pathname.new(database_filename).basename.to_s
+      File.open(database_filename) do |file|
+        key  = Pathname.new(database_filename).basename.to_s
 
-      ActiveStorage::Blob.create_and_upload!(key: key, io: file, filename: key)
+        ActiveStorage::Blob.create_and_upload!(key: key, io: file, filename: key)
+      end
     rescue StandardError => e
       SystemMailer.database_backup_error(e).deliver_now
     end
