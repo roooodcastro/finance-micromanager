@@ -23,7 +23,7 @@ class SubcategoriesController < AbstractAuthenticatedController
       render json: camelize_props(
         subcategory: subcategory.as_json,
         message:     t('.error', error: subcategory.error_messages)
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class SubcategoriesController < AbstractAuthenticatedController
       render json: camelize_props(
         subcategory: @subcategory.as_json,
         message:     t('.error', name: @subcategory.name_was, error: @subcategory.error_messages)
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 

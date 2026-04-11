@@ -17,7 +17,7 @@ RSpec.describe ProfilesController do
 
     before { create(:profile_share, profile: shared_profile, user: user) }
 
-    context 'for HTML requests', :inertia do
+    context 'for HTML requests' do
       let(:format) { :html }
 
       it 'renders the index component' do
@@ -95,7 +95,7 @@ RSpec.describe ProfilesController do
     end
   end
 
-  describe 'PATCH update', :inertia do
+  describe 'PATCH update' do
     subject(:update_request) { patch :update, params: }
 
     let!(:profile) { create(:profile, user: user, name: nil) }
@@ -176,7 +176,7 @@ RSpec.describe ProfilesController do
           .to not_change { Profile.count }
           .and not_change { profile.reload.disabled_at }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response)
           .to match('message' => a_string_matching(/cannot be disabled: profile is in use/))
       end

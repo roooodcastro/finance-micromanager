@@ -26,7 +26,7 @@ RSpec.describe TransactionPredictionsController do
 
     before { index_request }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       let(:format) { :html }
 
       it 'renders the index component' do
@@ -53,7 +53,7 @@ RSpec.describe TransactionPredictionsController do
 
     before { show_request }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       let(:format) { :html }
 
       it 'renders the show component' do
@@ -71,7 +71,7 @@ RSpec.describe TransactionPredictionsController do
     end
   end
 
-  describe 'GET new', :inertia do
+  describe 'GET new' do
     subject(:new_request) { get :new }
 
     before { new_request }
@@ -81,7 +81,7 @@ RSpec.describe TransactionPredictionsController do
     end
   end
 
-  describe 'GET edit', :inertia do
+  describe 'GET edit' do
     subject(:edit_request) { get :edit, params: { id: transaction_prediction.id } }
 
     let!(:transaction_prediction) { create(:transaction_prediction, profile:) }
@@ -131,7 +131,7 @@ RSpec.describe TransactionPredictionsController do
       end
     end
 
-    context 'when the transaction_prediction cannot be created', :inertia do
+    context 'when the transaction_prediction cannot be created' do
       let(:params) do
         {
           name:       'Tesco to Groceries',
@@ -181,7 +181,7 @@ RSpec.describe TransactionPredictionsController do
       end
     end
 
-    context 'when the transaction prediction cannot be updated', :inertia do
+    context 'when the transaction prediction cannot be updated' do
       let(:params) { { name: nil } }
 
       let(:expected_flash) { 'Transaction Autofill could not be updated: Name can\'t be blank' }

@@ -15,7 +15,7 @@ class SettingsController < AbstractAuthenticatedController
       I18n.locale = current_user.locale
       render json: { message: t('.success') }
     else
-      render json: { message: t('.error') }, status: :unprocessable_entity
+      render json: { message: t('.error') }, status: :unprocessable_content
     end
   end
 

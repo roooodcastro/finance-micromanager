@@ -13,7 +13,7 @@ RSpec.describe ReconciliationsController do
   describe 'GET index' do
     let!(:reconciliation) { create(:reconciliation, profile:) }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       it 'renders the index component' do
         get :index, format: :html
 
@@ -38,7 +38,7 @@ RSpec.describe ReconciliationsController do
 
     let!(:reconciliation) { create(:reconciliation, profile:) }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       let(:request_format) { :html }
       let(:expected_props) { { reconciliation: reconciliation.as_json } }
 

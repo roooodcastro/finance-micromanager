@@ -45,7 +45,7 @@ class ReconciliationsController < AbstractAuthenticatedController
       render json: camelize_props(reconciliation: @reconciliation.as_json, message: message('.success'))
     else
       render json:   { message: message('.error', error: @reconciliation.error_messages) },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -54,7 +54,7 @@ class ReconciliationsController < AbstractAuthenticatedController
       render json: { message: message('.success') }
     else
       render json:   { message: message('.error', error: @reconciliation.error_messages) },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -72,7 +72,7 @@ class ReconciliationsController < AbstractAuthenticatedController
       render json: { message: }
     else
       render json:   { message: message('.error', error: @reconciliation.error_messages) },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -82,7 +82,7 @@ class ReconciliationsController < AbstractAuthenticatedController
       render json: { message: message('.success') }
     else
       render json:   { message: message('.error', error: @reconciliation.error_messages) },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 

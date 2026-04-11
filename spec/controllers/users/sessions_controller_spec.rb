@@ -5,7 +5,7 @@ RSpec.describe Users::SessionsController do
 
   before { request.env['devise.mapping'] = Devise.mappings[:user] }
 
-  describe 'GET new', :inertia do
+  describe 'GET new' do
     subject(:new_request) { get :new }
 
     it 'renders the new page' do

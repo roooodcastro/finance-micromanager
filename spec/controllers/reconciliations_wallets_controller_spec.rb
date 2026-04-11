@@ -76,7 +76,7 @@ RSpec.describe ReconciliationsWalletsController do
           .to not_change { ReconciliationWallet.count }
           .and not_change { reconciliation_wallet.reload.balance_amount }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq('message' => 'Wallet balance could not be updated: Wallet has already been taken')
       end
     end

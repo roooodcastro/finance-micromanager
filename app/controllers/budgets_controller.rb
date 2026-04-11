@@ -32,7 +32,7 @@ class BudgetsController < AbstractAuthenticatedController
     else
       error = budget.error_messages
       render json:   camelize_props(message: t('.error', error:)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -44,7 +44,7 @@ class BudgetsController < AbstractAuthenticatedController
     else
       error = @budget.error_messages
       render json:   camelize_props(message: t('.error', error:)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -53,7 +53,7 @@ class BudgetsController < AbstractAuthenticatedController
     Budgets::DestroyBudgetInstanceService.call(@budget)
     render json: camelize_props(message: t('.success'))
   rescue ActiveRecord::RecordInvalid
-    render json: { message: t('.error') }, status: :unprocessable_entity
+    render json: { message: t('.error') }, status: :unprocessable_content
   end
 
   def reenable
@@ -61,7 +61,7 @@ class BudgetsController < AbstractAuthenticatedController
     Budgets::CreateOrUpdateBudgetInstanceService.call(@budget)
     render json: { message: t('.success') }
   rescue ActiveRecord::RecordInvalid
-    render json: { message: t('.error') }, status: :unprocessable_entity
+    render json: { message: t('.error') }, status: :unprocessable_content
   end
 
   private

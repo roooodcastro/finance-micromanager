@@ -14,7 +14,7 @@ RSpec.describe SettingsController do
 
     before { show_request }
 
-    context 'for a HTML request', :inertia do
+    context 'for a HTML request' do
       let(:format) { :html }
 
       it 'renders the show component' do

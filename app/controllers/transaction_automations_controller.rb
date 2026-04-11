@@ -35,7 +35,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
     else
       error = transaction_automation.error_messages
       render json:   camelize_props(message: t('.error', error:)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -46,7 +46,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
     else
       error = @transaction_automation.error_messages
       render json:   camelize_props(message: t('.error', error:)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 

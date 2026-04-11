@@ -38,7 +38,7 @@ RSpec.describe Statistics::CategorySummary do
     context 'for pt-BR locale' do
       let(:locale) { 'pt-BR' }
 
-      it { is_expected.to eq 'R$4,99' }
+      it { is_expected.to eq 'R$ 4,99' }
     end
   end
 
@@ -56,7 +56,7 @@ RSpec.describe Statistics::CategorySummary do
     context 'for pt-BR locale' do
       let(:locale) { 'pt-BR' }
 
-      it { is_expected.to eq 'R$-7.125,50' }
+      it { is_expected.to eq 'R$ -7.125,50' }
     end
   end
 

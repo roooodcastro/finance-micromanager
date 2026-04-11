@@ -37,7 +37,7 @@ class TransactionsController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success'))
     else
       render json:   camelize_props(message: t('.error', error: transaction.error_messages)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -46,7 +46,7 @@ class TransactionsController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success'))
     else
       render json:   camelize_props(message: t('.error', error: @transaction.error_messages)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -73,7 +73,7 @@ class TransactionsController < AbstractAuthenticatedController
 
     render json: { message: t('.success') }
   rescue ActiveRecord::ActiveRecordError, ActiveRecord::Rollback => e
-    render json: { message: t('.error', error: e.message) }, status: :unprocessable_entity
+    render json: { message: t('.error', error: e.message) }, status: :unprocessable_content
   end
 
   private

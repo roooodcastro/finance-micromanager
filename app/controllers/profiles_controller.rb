@@ -33,7 +33,7 @@ class ProfilesController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success', name: profile.display_name), id: profile.id)
     else
       render json:   camelize_props(message: t('.error', error: profile.error_messages)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -43,7 +43,7 @@ class ProfilesController < AbstractAuthenticatedController
     else
       render json: camelize_props(
         message: t('.error', name: @profile.display_name, error: @profile.error_messages)
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
@@ -52,7 +52,7 @@ class ProfilesController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success', name: @profile.display_name))
     else
       render json:   camelize_props(message: t('.error', name: @profile.display_name, error: @profile.error_messages)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 

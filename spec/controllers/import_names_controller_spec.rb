@@ -29,7 +29,7 @@ RSpec.describe ImportNamesController do
 
     before { index_request }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       let(:format) { :html }
 
       it 'renders the index component' do

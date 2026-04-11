@@ -38,7 +38,7 @@ class CategoriesController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success', name: category.name))
     else
       render json:   camelize_props(message: t('.error', error: category.error_messages)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -49,7 +49,7 @@ class CategoriesController < AbstractAuthenticatedController
     else
       render json: camelize_props(
         message: t('.error', name: @category.name_was, error: @category.error_messages)
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
@@ -57,14 +57,14 @@ class CategoriesController < AbstractAuthenticatedController
     @category.disable!
     render json: { message: t('.success', name: @category.name) }
   rescue ActiveRecord::RecordInvalid
-    render json: { message: t('.error', name: @category.name) }, status: :unprocessable_entity
+    render json: { message: t('.error', name: @category.name) }, status: :unprocessable_content
   end
 
   def reenable
     @category.enable!
     render json: { message: t('.success', name: @category.name) }
   rescue ActiveRecord::RecordInvalid
-    render json: { message: t('.error', name: @category.name) }, status: :unprocessable_entity
+    render json: { message: t('.error', name: @category.name) }, status: :unprocessable_content
   end
 
   private
