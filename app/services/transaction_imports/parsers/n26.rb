@@ -39,11 +39,11 @@ module TransactionImports
       # Not all of the transaction block will be matched, some parts like line breaks and the "Value Date" string will
       # just be ignored, for instance.
       #
-      NAME_REGEX             = /^([\w \.,&|'"\-\(\)\[\]\{\}]+)\s{2,}/
+      NAME_REGEX             = /^([\w .,&|'"\-()\[\]{}]+)\s{2,}/
       BOOKING_DATE_REGEX     = /(\d\d\.\d\d\.\d\d\d\d)\s{2,}/
       AMOUNT_REGEX           = /([-+\d,]+)[^\n]+/
-      CATEGORY_REGEX         = /(\n+[[\w\d ,&•'"\(\)\[\]\{\}]]+)?/
-      FOREIGN_EXCHANGE_REGEX = /(\n+[[\w\d ,&|'"\(\)\[\]\{\}]]+)?/
+      CATEGORY_REGEX         = /(\n+[[\w\d ,&•'"()\[\]{}]]+)?/
+      FOREIGN_EXCHANGE_REGEX = /(\n+[[\w\d ,&|'"()\[\]{}]]+)?/
       VALUE_DATE_REGEX       = /\n+[^\n]+(\d\d.\d\d.\d\d\d\d)/
 
       ALL_REGEX_PARTS        = [

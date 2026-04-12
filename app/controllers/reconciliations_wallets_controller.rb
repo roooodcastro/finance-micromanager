@@ -13,7 +13,7 @@ class ReconciliationsWalletsController < AbstractAuthenticatedController
       render json: {}
     else
       render json:   { message: t('.error', error: @reconciliation_wallet.error_messages) },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 

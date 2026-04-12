@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/OneClassPerFile
 class String
   def to_b
     %w[true 1 yes on t].include?(downcase)
@@ -29,3 +30,4 @@ class Numeric
     self != 0
   end
 end
+# rubocop:enable Style/OneClassPerFile

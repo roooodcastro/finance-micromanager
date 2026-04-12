@@ -16,7 +16,7 @@ RSpec.describe BudgetsController, :travel_to_now do
     let!(:budget) { create(:budget, profile: profile, owner: category) }
     let!(:profile_budget) { create(:budget, profile: profile, owner: profile) }
 
-    context 'for a HTML request', :inertia do
+    context 'for a HTML request' do
       let(:format) { :html }
 
       it 'renders the index component' do
@@ -40,12 +40,12 @@ RSpec.describe BudgetsController, :travel_to_now do
     end
   end
 
-  describe 'GET show', :inertia do
+  describe 'GET show' do
     subject(:show_request) { get :show, format: format, params: { id: budget.id } }
 
     let!(:budget) { create(:budget, profile:) }
 
-    context 'for a HTML request', :inertia do
+    context 'for a HTML request' do
       let(:format) { :html }
       let(:expected_props) { CamelizeProps.call(budget: budget.as_json) }
 
@@ -120,7 +120,7 @@ RSpec.describe BudgetsController, :travel_to_now do
 
         expect { create_request }.not_to change { Budget.count }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq(
           { 'message' => 'Budget could not be set: Limit must be blank, Limit percentage can\'t be blank, ' \
                          'Limit percentage must be a value between 0 and 100' }
@@ -167,7 +167,7 @@ RSpec.describe BudgetsController, :travel_to_now do
         expect(Budgets::CreateOrUpdateBudgetInstanceService).not_to receive(:call)
         expect { create_request }.not_to change { Budget.count }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq(
           { 'message' => 'Budget could not be set: Limit must be blank, Limit percentage can\'t be blank, ' \
                          'Limit percentage must be a value between 0 and 100' }
@@ -205,7 +205,7 @@ RSpec.describe BudgetsController, :travel_to_now do
         expect(Budgets::CreateOrUpdateBudgetInstanceService).not_to receive(:call)
         expect { update_request }.not_to change { Budget.count }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq({ 'message' => 'Budget could not be updated: Limit percentage must be blank' })
       end
     end

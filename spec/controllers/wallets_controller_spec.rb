@@ -12,7 +12,7 @@ RSpec.describe WalletsController do
   describe 'GET index' do
     let!(:wallet) { create(:wallet, profile:) }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       it 'renders the index component' do
         get :index, format: :html
 
@@ -123,7 +123,7 @@ RSpec.describe WalletsController do
           .and not_change { wallet.reload.disabled_at }
           .and not_change { wallet.disabled_by }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response['message']).to be_present
       end
     end

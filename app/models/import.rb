@@ -32,8 +32,6 @@ class Import < ApplicationRecord
   end
 
   def minimum_transaction_date
-    # rubocop:disable Style/SafeNavigation
     @minimum_transaction_date ||= profile.latest_reconciliation ? profile.latest_reconciliation.date + 1.day : nil
-    # rubocop:enable Style/SafeNavigation
   end
 end

@@ -14,7 +14,7 @@ RSpec.describe CategoriesController do
 
     let!(:category) { create(:category, profile:) }
 
-    context 'for a HTML request', :inertia do
+    context 'for a HTML request' do
       let(:format) { :html }
 
       it 'renders the index component' do
@@ -35,7 +35,7 @@ RSpec.describe CategoriesController do
     end
   end
 
-  describe 'GET show', :inertia do
+  describe 'GET show' do
     subject(:show_request) { get :show, format: format, params: { id: category.id } }
 
     let!(:category) { create(:category, profile:) }
@@ -47,7 +47,7 @@ RSpec.describe CategoriesController do
         .and_return(instance_double(CategorySerializer, as_json: 'serializer_json'))
     end
 
-    context 'for a HTML request', :inertia do
+    context 'for a HTML request' do
       let(:format) { :html }
 
       it 'renders the show component' do
@@ -91,7 +91,7 @@ RSpec.describe CategoriesController do
       it 'does not create a new category' do
         expect { create_request }.not_to change { Category.count }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq({ 'message' => 'Category could not be created: Color is invalid' })
       end
     end
@@ -135,7 +135,7 @@ RSpec.describe CategoriesController do
       it 'does not update the category' do
         expect { update_request }.not_to change { Category.count }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq({ 'message' => 'Category "Test" could not be updated: Color is invalid' })
       end
     end

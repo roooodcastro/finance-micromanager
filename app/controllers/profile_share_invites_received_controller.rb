@@ -14,7 +14,7 @@ class ProfileShareInvitesReceivedController < AbstractAuthenticatedController
 
     render json: camelize_props(profile_share_invite: @invite.as_json)
   rescue ActiveRecord::ActiveRecordError => e
-    render json: { error: e.message }, status: :unprocessable_entity
+    render json: { error: e.message }, status: :unprocessable_content
   end
 
   def destroy
@@ -22,7 +22,7 @@ class ProfileShareInvitesReceivedController < AbstractAuthenticatedController
 
     render json: camelize_props(profile_share_invite: @invite.as_json)
   rescue ActiveRecord::ActiveRecordError => e
-    render json: { error: e.message }, status: :unprocessable_entity
+    render json: { error: e.message }, status: :unprocessable_content
   end
 
   private

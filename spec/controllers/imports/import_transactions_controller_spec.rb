@@ -14,8 +14,8 @@ RSpec.describe Imports::ImportTransactionsController do
 
     let(:import) { create(:import, :in_progress, profile:) }
 
-    let!(:import_transaction1) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
-    let!(:import_transaction2) { create(:import_transaction, import:).tap { |it| it.matches = [] } }
+    let!(:import_transaction1) { create(:import_transaction, import:).tap { |imp_trans| imp_trans.matches = [] } }
+    let!(:import_transaction2) { create(:import_transaction, import:).tap { |imp_trans| imp_trans.matches = [] } }
 
     before { create(:import_transaction, import: create(:import)) }
 
@@ -96,7 +96,7 @@ RSpec.describe Imports::ImportTransactionsController do
           .to not_change { TransactionImports::ImportTransaction.count }
           .and not_change { import_transaction.reload.name }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq(expected_json)
       end
     end

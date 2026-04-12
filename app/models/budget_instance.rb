@@ -37,7 +37,9 @@ class BudgetInstance < ApplicationRecord
   end
 
   def previous_instance
-    @previous_instance ||= self.class.for_current_date(start_date - 1.day).find_by(profile_id:, budget_id:)
+    return @previous_instance if defined?(@previous_instance)
+
+    @previous_instance = self.class.for_current_date(start_date - 1.day).find_by(profile_id:, budget_id:)
   end
 
   def carryover_amount_from_last_month

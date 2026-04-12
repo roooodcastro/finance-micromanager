@@ -36,7 +36,9 @@ module Budgets
     end
 
     def existing_budget_instance
-      @existing_budget_instance ||= BudgetInstance.find_by(
+      return @existing_budget_instance if defined?(@existing_budget_instance)
+
+      @existing_budget_instance = BudgetInstance.find_by(
         profile:    budget.profile,
         owner:      budget.owner,
         start_date: reference_date.beginning_of_month,

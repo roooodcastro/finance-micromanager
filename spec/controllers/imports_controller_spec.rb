@@ -27,7 +27,7 @@ RSpec.describe ImportsController do
 
     before { index_request }
 
-    context 'when the format is HTML', :inertia do
+    context 'when the format is HTML' do
       let(:format) { :html }
 
       it 'renders the index component' do
@@ -45,7 +45,7 @@ RSpec.describe ImportsController do
     end
   end
 
-  describe 'GET show', :inertia, :travel_to_now do
+  describe 'GET show', :travel_to_now do
     subject(:show_request) { get :show, params: { id: import.id } }
 
     context 'when the import is in progress' do
@@ -53,8 +53,8 @@ RSpec.describe ImportsController do
       let(:expected_props) { CamelizeProps.call(import_object: import.as_json) }
 
       before do
-        create(:import_transaction, import:).tap { |it| it.matches = [] }
-        create(:import_transaction, import:).tap { |it| it.matches = [] }
+        create(:import_transaction, import:).tap { |imp_trans| imp_trans.matches = [] }
+        create(:import_transaction, import:).tap { |imp_trans| imp_trans.matches = [] }
       end
 
       it 'renders the preview component' do

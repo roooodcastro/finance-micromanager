@@ -21,7 +21,7 @@ class WalletsController < AbstractAuthenticatedController
       render json: camelize_props(message: t('.success', name: wallet.name))
     else
       render json:   camelize_props(message: t('.error', error: wallet.error_messages)),
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -31,7 +31,7 @@ class WalletsController < AbstractAuthenticatedController
     else
       render json: camelize_props(
         message: t('.error', name: @wallet.name_was, error: @wallet.error_messages)
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
@@ -41,7 +41,7 @@ class WalletsController < AbstractAuthenticatedController
     else
       render json: camelize_props(
         message: t('.error', name: @wallet.name, error: @wallet.error_messages)
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 

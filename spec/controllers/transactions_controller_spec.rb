@@ -9,7 +9,7 @@ RSpec.describe TransactionsController do
     allow(Current).to receive_messages(user:, profile:)
   end
 
-  describe 'GET index', :inertia do
+  describe 'GET index' do
     let!(:transaction_a) { create(:transaction, profile: profile, transaction_date: 1.day.ago, created_by: user) }
     let!(:transaction_b) { create(:transaction, profile: profile, created_by: user) }
 
@@ -31,9 +31,9 @@ RSpec.describe TransactionsController do
             'spends'      => 0,
             'moneyIn'     => 20,
             'dailyTotals' => [
-              { 'date' => 2.days.ago.to_date, 'spends' => 0, 'income' => 0 },
-              { 'date' => 1.day.ago.to_date, 'spends' => 0, 'income' => 10 },
-              { 'date' => Date.current, 'spends' => 0, 'income' => 10 }
+              { 'date' => 2.days.ago.to_date.iso8601, 'spends' => 0, 'income' => 0 },
+              { 'date' => 1.day.ago.to_date.iso8601, 'spends' => 0, 'income' => 10 },
+              { 'date' => Date.current.iso8601, 'spends' => 0, 'income' => 10 }
             ]
           )
         }
@@ -63,7 +63,7 @@ RSpec.describe TransactionsController do
     end
   end
 
-  describe 'GET show', :inertia do
+  describe 'GET show' do
     subject(:show_request) { get :show, format: format, params: { id: transaction.id } }
 
     let!(:transaction) { create(:transaction, profile:) }
@@ -75,7 +75,7 @@ RSpec.describe TransactionsController do
         .and_return('serialized_json')
     end
 
-    context 'for a HTML request', :inertia do
+    context 'for a HTML request' do
       let(:format) { :html }
 
       it 'renders the show component' do
@@ -96,7 +96,7 @@ RSpec.describe TransactionsController do
     end
   end
 
-  describe 'POST create', :inertia do
+  describe 'POST create' do
     subject(:create_request) { post :create, params: }
 
     let!(:category) { create(:category, profile:) }
@@ -179,13 +179,13 @@ RSpec.describe TransactionsController do
       it 'does not create a new transaction' do
         expect { create_request }.not_to change { Transaction.count }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq(expected_json)
       end
     end
   end
 
-  describe 'PATCH update', :inertia do
+  describe 'PATCH update' do
     subject(:update_request) { patch :update, params: }
 
     let!(:transaction) do
@@ -221,7 +221,7 @@ RSpec.describe TransactionsController do
       it 'does not update the transaction' do
         expect { update_request }.to not_change { Transaction.count }.and not_change { transaction.reload.name }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq(expected_json)
       end
     end
@@ -380,7 +380,7 @@ RSpec.describe TransactionsController do
           .and not_change { transaction_b.reload.attributes }
           .and not_change { transaction_c.reload.attributes }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json_response).to eq(expected_json)
       end
     end
