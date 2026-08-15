@@ -26,7 +26,7 @@ class ProfileShareInvitesSentController < AbstractAuthenticatedController
   end
 
   def destroy
-    invite = current_user.profile_share_invites_sent.find(params[:id])
+    invite = current_user.profile_share_invites_sent.find(params.expect(:id))
     invite.cancelled!
 
     render json: camelize_props(profile_share_invite: invite.as_json)

@@ -71,7 +71,7 @@ class TransactionAutomationsController < AbstractAuthenticatedController
   private
 
   def set_transaction_automation
-    @transaction_automation = Current.profile.transaction_automations.find(params[:id])
+    @transaction_automation = Current.profile.transaction_automations.find(params.expect(:id))
   end
 
   def transaction_automation_params

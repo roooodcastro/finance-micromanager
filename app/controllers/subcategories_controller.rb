@@ -66,16 +66,16 @@ class SubcategoriesController < AbstractAuthenticatedController
 
   def subcategories_for_props
     subcategories = @category.subcategories.order(:name)
-    subcategories = subcategories.active unless params[:show_disabled].to_b
+    subcategories = subcategories.active unless params[:show_disabled].to_s.to_b
     subcategories
   end
 
   def set_category
-    @category = Current.profile.categories.find(params[:category_id])
+    @category = Current.profile.categories.find(params.expect(:category_id))
   end
 
   def set_subcategory
-    @subcategory = @category.subcategories.find(params[:id])
+    @subcategory = @category.subcategories.find(params.expect(:id))
   end
 
   def subcategory_params

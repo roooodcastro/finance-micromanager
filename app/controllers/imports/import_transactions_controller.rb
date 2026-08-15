@@ -32,11 +32,11 @@ module Imports
     private
 
     def set_import
-      @import = Current.profile.imports.find(params[:import_id])
+      @import = Current.profile.imports.find(params.expect(:import_id))
     end
 
     def set_import_transaction
-      @import_transaction = @import.import_transactions.find(params[:id])
+      @import_transaction = @import.import_transactions.find(params.expect(:id))
     end
 
     def update_params

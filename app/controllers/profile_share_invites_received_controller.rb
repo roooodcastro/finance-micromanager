@@ -28,6 +28,6 @@ class ProfileShareInvitesReceivedController < AbstractAuthenticatedController
   private
 
   def set_invite
-    @invite = current_user.profile_share_invites_received.find(params[:id])
+    @invite = current_user.profile_share_invites_received.find(params.expect(:id))
   end
 end

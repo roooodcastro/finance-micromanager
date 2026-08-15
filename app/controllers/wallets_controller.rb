@@ -5,7 +5,7 @@ class WalletsController < AbstractAuthenticatedController
 
   def index
     wallets = Current.profile.wallets.order(:name)
-    wallets = wallets.active unless params[:show_disabled].to_b
+    wallets = wallets.active unless params[:show_disabled].to_s.to_b
     props   = camelize_props(wallets: wallets.as_json)
 
     respond_to do |format|
@@ -54,7 +54,7 @@ class WalletsController < AbstractAuthenticatedController
   private
 
   def set_wallet
-    @wallet = Current.profile.wallets.find(params[:id])
+    @wallet = Current.profile.wallets.find(params.expect(:id))
   end
 
   def wallet_params

@@ -79,7 +79,7 @@ class TransactionsController < AbstractAuthenticatedController
   private
 
   def set_transaction
-    @transaction = Current.profile.transactions.find(params[:id])
+    @transaction = Current.profile.transactions.find(params.expect(:id))
   end
 
   def transaction_params

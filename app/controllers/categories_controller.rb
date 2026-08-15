@@ -70,7 +70,7 @@ class CategoriesController < AbstractAuthenticatedController
   private
 
   def set_category
-    @category = Current.profile.categories.find(params[:id])
+    @category = Current.profile.categories.find(params.expect(:id))
   end
 
   def category_params

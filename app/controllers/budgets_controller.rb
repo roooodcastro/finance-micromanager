@@ -67,7 +67,7 @@ class BudgetsController < AbstractAuthenticatedController
   private
 
   def set_budget
-    @budget = Current.profile.budgets.find(params[:id])
+    @budget = Current.profile.budgets.find(params.expect(:id))
   end
 
   def budget_params
