@@ -1,2 +1,2 @@
-web: rails server -p 3000
+web: rails s -b 0.0.0.0
 vite: bin/vite dev
