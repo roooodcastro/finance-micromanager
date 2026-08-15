@@ -77,7 +77,7 @@ class TransactionPredictionsController < AbstractAuthenticatedController
   private
 
   def set_transaction_prediction
-    @transaction_prediction = Current.profile.transaction_predictions.find(params[:id])
+    @transaction_prediction = Current.profile.transaction_predictions.find(params.expect(:id))
   end
 
   def transaction_prediction_params

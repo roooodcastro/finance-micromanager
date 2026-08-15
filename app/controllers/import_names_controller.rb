@@ -52,7 +52,7 @@ class ImportNamesController < AbstractAuthenticatedController
   private
 
   def set_import_name
-    @import_name = Current.profile.import_names.find(params[:id])
+    @import_name = Current.profile.import_names.find(params.expect(:id))
   end
 
   def import_name_params

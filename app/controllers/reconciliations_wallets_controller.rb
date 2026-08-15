@@ -24,7 +24,7 @@ class ReconciliationsWalletsController < AbstractAuthenticatedController
   end
 
   def set_reconciliation
-    @reconciliation = Current.profile.reconciliations.find(params[:reconciliation_id])
+    @reconciliation = Current.profile.reconciliations.find(params.expect(:reconciliation_id))
   end
 
   def wallet

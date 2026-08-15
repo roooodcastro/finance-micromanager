@@ -93,7 +93,7 @@ class ReconciliationsController < AbstractAuthenticatedController
   end
 
   def set_reconciliation
-    @reconciliation = Current.profile.reconciliations.find(params[:id])
+    @reconciliation = Current.profile.reconciliations.find(params.expect(:id))
   end
 
   def message(scope, options = {})

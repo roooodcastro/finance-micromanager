@@ -59,7 +59,7 @@ class ImportsController < AbstractAuthenticatedController
   private
 
   def set_import
-    @import = Current.profile.imports.includes(:profile).find(params[:id])
+    @import = Current.profile.imports.includes(:profile).find(params.expect(:id))
   end
 
   def import_params
