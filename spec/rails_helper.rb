@@ -12,19 +12,19 @@ SimpleCov.start do
   enable_coverage :branch
   primary_coverage :branch
 
-  add_filter '/spec/'
-  add_filter '/config/'
+  skip '/spec/'
+  skip '/config/'
 
   # Don't cover this, it's only going to be used as a manually ran script and never be part of the application.
-  add_filter '/app/services/transaction_imports/parsers/google_sheets.rb'
-  add_filter '/lib'
+  skip '/app/services/transaction_imports/parsers/google_sheets.rb'
+  skip '/lib'
 
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Mailers', 'app/mailers'
-  add_group 'Models', 'app/models'
-  add_group 'Queries', 'app/queries'
-  add_group 'Serializers', 'app/serializers'
-  add_group 'Services', 'app/services'
+  group 'Controllers', 'app/controllers'
+  group 'Mailers', 'app/mailers'
+  group 'Models', 'app/models'
+  group 'Queries', 'app/queries'
+  group 'Serializers', 'app/serializers'
+  group 'Services', 'app/services'
 
   formatter SimpleCov::Formatter::SimpleFormatter if ENV['CI']
 end
